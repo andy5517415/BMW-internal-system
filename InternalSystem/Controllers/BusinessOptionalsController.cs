@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using Microsoft.CodeAnalysis;
 
 namespace InternalSystem.Controllers
 {
@@ -19,6 +20,68 @@ namespace InternalSystem.Controllers
         {
             _context = context;
         }
+
+
+
+
+
+
+
+        // GET: api/BusinessOptionals/info/1
+        //[ActionName("info")]
+        [HttpGet("info/{idx}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetType(int idx)
+        {
+
+            var q = from o in _context.BusinessOptionals
+                    where o.CategoryId == idx
+                    select o;
+            return await q.ToListAsync();
+        }
+
+
+        // GET: api/BusinessOptionals/agent
+        [HttpGet("agent")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetAgent()
+        {
+            var q = from o in _context.BusinessAreas
+                    select o;
+            return await q.ToListAsync();
+        }
+
+
+        // GET: api/BusinessOptionals/order/X0220230103002
+        [HttpGet("order/{orderid}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrder(string orderid)
+        {
+            var q = from ord in _context.BusinessOrders
+                    join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
+                    join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
+                    where ord.OrderNumber == orderid
+                    select new
+                    {
+                        OrderId = ord.OrderId,
+                        OrderNumber = ord.OrderNumber,
+                        OptionalName = opl.OptionalName
+                    };
+            return await q.ToListAsync();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: api/BusinessOptionals
         [HttpGet]
