@@ -28,7 +28,7 @@ namespace InternalSystem.Controllers
                        join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
                        join POPS in this._context.ProductionOrderProcessStatuses on  PPL.OrderId equals POPS.OrderId
                        join PP in this._context.ProductionProcesses on POPS.ProcessId equals PP.ProcessId
-                       join 
+      
                        select new
                        {
                            OrderId = PPL.OrderId,

@@ -48,6 +48,7 @@ namespace InternalSystem.Models
         public byte[] Photo { get; set; }
 
         public virtual PersonnelCityList City { get; set; }
+        public virtual PersonnelPosition Position { get; set; }
         public virtual PersonnelRank Rank { get; set; }
         public virtual ICollection<BusinessOrder> BusinessOrders { get; set; }
         public virtual ICollection<MeetingReserve> MeetingReserves { get; set; }

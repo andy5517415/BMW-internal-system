@@ -35,7 +35,6 @@ namespace InternalSystem.Models
         public virtual DbSet<PersonnelAttendanceTime> PersonnelAttendanceTimes { get; set; }
         public virtual DbSet<PersonnelCityList> PersonnelCityLists { get; set; }
         public virtual DbSet<PersonnelDepartmentConnectEmployeeId> PersonnelDepartmentConnectEmployeeIds { get; set; }
-        public virtual DbSet<PersonnelDepartmentConnectPosition> PersonnelDepartmentConnectPositions { get; set; }
         public virtual DbSet<PersonnelDepartmentList> PersonnelDepartmentLists { get; set; }
         public virtual DbSet<PersonnelLeaveAuditStatus> PersonnelLeaveAuditStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveForm> PersonnelLeaveForms { get; set; }
@@ -43,6 +42,7 @@ namespace InternalSystem.Models
         public virtual DbSet<PersonnelLeaveOver> PersonnelLeaveOvers { get; set; }
         public virtual DbSet<PersonnelLeaveType> PersonnelLeaveTypes { get; set; }
         public virtual DbSet<PersonnelOvertimeForm> PersonnelOvertimeForms { get; set; }
+        public virtual DbSet<PersonnelPosition> PersonnelPositions { get; set; }
         public virtual DbSet<PersonnelProfileDetail> PersonnelProfileDetails { get; set; }
         public virtual DbSet<PersonnelRank> PersonnelRanks { get; set; }
         public virtual DbSet<ProductionArea> ProductionAreas { get; set; }
@@ -58,12 +58,14 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=10.0.104.99\\L27\\SQLEXPRESS,1433;Database=MSIT44;Integrated Security=false;User ID = wang;Password= 1234;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
+
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
@@ -131,9 +133,9 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.AreaNavigation)
+                entity.HasOne(d => d.Area)
                     .WithMany(p => p.BusinessOrders)
-                    .HasForeignKey(d => d.Area)
+                    .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BusinessOrder_BusinessArea");
 
@@ -450,8 +452,7 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<PersonnelDepartmentConnectEmployeeId>(entity =>
             {
-                entity.HasKey(e => new { e.EmployeeId, e.DepId })
-                    .HasName("PK_department連結employeeid");
+                entity.HasKey(e => new { e.EmployeeId, e.DepId });
 
                 entity.ToTable("PersonnelDepartmentConnectEmployeeId");
 
@@ -466,24 +467,6 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelProfileDetail1");
-            });
-
-            modelBuilder.Entity<PersonnelDepartmentConnectPosition>(entity =>
-            {
-                entity.HasKey(e => new { e.DepId, e.PositonId })
-                    .HasName("PK_PersonnelPurchaseConnectPosition");
-
-                entity.ToTable("PersonnelDepartmentConnectPosition");
-
-                entity.Property(e => e.PositonName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.HasOne(d => d.Dep)
-                    .WithMany(p => p.PersonnelDepartmentConnectPositions)
-                    .HasForeignKey(d => d.DepId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PersonnelDepartmentConnectPosition_PersonnelDepartmentList1");
             });
 
             modelBuilder.Entity<PersonnelDepartmentList>(entity =>
@@ -623,6 +606,19 @@ namespace InternalSystem.Models
                     .HasConstraintName("FK_Personnel加班申請表_Personnel個人資料");
             });
 
+            modelBuilder.Entity<PersonnelPosition>(entity =>
+            {
+                entity.HasKey(e => e.PositionId);
+
+                entity.ToTable("PersonnelPosition");
+
+                entity.Property(e => e.PositionId).ValueGeneratedNever();
+
+                entity.Property(e => e.PositionName)
+                    .IsRequired()
+                    .HasMaxLength(20);
+            });
+
             modelBuilder.Entity<PersonnelProfileDetail>(entity =>
             {
                 entity.HasKey(e => e.EmployeeId)
@@ -697,6 +693,12 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_個人資料_城市清單");
+
+                entity.HasOne(d => d.Position)
+                    .WithMany(p => p.PersonnelProfileDetails)
+                    .HasForeignKey(d => d.PositionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PersonnelProfileDetail_PersonnelPosition");
 
                 entity.HasOne(d => d.Rank)
                     .WithMany(p => p.PersonnelProfileDetails)

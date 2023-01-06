@@ -35,7 +35,7 @@ namespace InternalSystem
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternalSystem", Version = "v1" });
             });
             services.AddDbContext<MSIT44Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LabDbContext")));
+                options.UseSqlServer(Configuration.GetConnectionString("MSIT44DbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

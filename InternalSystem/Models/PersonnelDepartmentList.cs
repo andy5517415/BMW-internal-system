@@ -11,7 +11,6 @@ namespace InternalSystem.Models
         {
             PcApplicationRecordSearches = new HashSet<PcApplicationRecordSearch>();
             PersonnelDepartmentConnectEmployeeIds = new HashSet<PersonnelDepartmentConnectEmployeeId>();
-            PersonnelDepartmentConnectPositions = new HashSet<PersonnelDepartmentConnectPosition>();
         }
 
         public int DepId { get; set; }
@@ -19,6 +18,5 @@ namespace InternalSystem.Models
 
         public virtual ICollection<PcApplicationRecordSearch> PcApplicationRecordSearches { get; set; }
         public virtual ICollection<PersonnelDepartmentConnectEmployeeId> PersonnelDepartmentConnectEmployeeIds { get; set; }
-        public virtual ICollection<PersonnelDepartmentConnectPosition> PersonnelDepartmentConnectPositions { get; set; }
     }
 }
