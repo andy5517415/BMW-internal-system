@@ -20,6 +20,15 @@ namespace InternalSystem.Controllers
         {
             _context = context;
         }
+        // GET: api/ProductionProcessLists/process
+        [HttpGet("process")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProcess()
+        {
+            var processList = from PP in this._context.ProductionProcesses
+                              select PP;
+
+            return await processList.ToListAsync();
+        }
         // GET: api/ProductionProcessLists
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists()
@@ -28,14 +37,19 @@ namespace InternalSystem.Controllers
                        join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
                        join POPS in this._context.ProductionOrderProcessStatuses on  PPL.OrderId equals POPS.OrderId
                        join PP in this._context.ProductionProcesses on POPS.ProcessId equals PP.ProcessId
-      
+                       join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                       join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                       join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                       join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                       where BOT.OptionalId == 1
                        select new
                        {
                            OrderId = PPL.OrderId,
                            AreaId = PPL.AreaId,
                            AreaName = PA.AreaName,
                            ProcessId = POPS.ProcessId,
-                           ProcessName = PP.ProcessName
+                           ProcessName = PP.ProcessName,
+                           OptionalName = BOT.OptionalName
                            
                        };
 
