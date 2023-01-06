@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <defs>
+                    <path
+                      d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
+                      id="path-1"></path>
+                    <path
+                      d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
+                      id="path-3"></path>
+                    <path
+                      d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
+                      id="path-4"></path>
+                    <path
+                      d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z"
+                      id="path-5"></path>
+                  </defs>
+                  <g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
+                      <g id="Icon" transform="translate(27.000000, 15.000000)">
+                        <g id="Mask" transform="translate(0.000000, 8.000000)">
+                          <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                          </mask>
+                          <use fill="#696cff" xlink:href="#path-1"></use>
+                          <g id="Path-3" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-3"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
+                          </g>
+                          <g id="Path-4" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-4"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
+                          </g>
+                        </g>
+                        <g id="Triangle"
+                          transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) ">
+                          <use fill="#696cff" xlink:href="#path-5"></use>
+                          <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
+            </a>
+        
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+        
+          <div class="menu-inner-shadow"></div>
+        
+          <ul class="menu-inner py-1">
+            <!-- 首頁 -->
+            <li class="menu-item">
+              <a href="index.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">首頁</div>
+              </a>
+            </li>
+        
+            <!-- 個人資料 -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">個人資料系統</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">個人資料</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="PS_Profile.html" class="menu-link">
+                    <div data-i18n="Account">個人資料</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PS_ToDoItems.html" class="menu-link">
+                    <div data-i18n="Notifications">待辦事項</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PS_CheckInSystem.html" class="menu-link">
+                    <div data-i18n="Connections">打卡系統</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <!-- 請假/加班申請 -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">請假/加班申請</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="LV_LeaveApplication.html" class="menu-link">
+                    <div data-i18n="Account">請假申請</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="LV_ProfileLeaveSearch.html" class="menu-link">
+                    <div data-i18n="Account">請假查詢</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="LV_OvertimeSearch.html" class="menu-link">
+                    <div data-i18n="Connections">加班申請</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="LV_ProfileOvertimeSearch.html" class="menu-link">
+                    <div data-i18n="Connections">加班查詢</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="LV_AttendSearch.html" class="menu-link">
+                    <div data-i18n="Notifications">出缺勤查詢</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">人事管理系統</span>
+            </li>
+            <!-- 人事管理(人資部專用) -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">人事管理</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="HR_EmpProfileCreate.html" class="menu-link">
+                    <div data-i18n="Account">新建員工資料</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="HR_EmpProfileEdit.html" class="menu-link">
+                    <div data-i18n="Account">員工資料修改</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="HR_EmpLeaveSearch.html" class="menu-link">
+                    <div data-i18n="Account">請假資料查詢/修改</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="HR_OvertimeSearch.html" class="menu-link">
+                    <div data-i18n="Account">加班資料查詢/修改</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="HR_EmpProfileAttendSearch.html" class="menu-link">
+                    <div data-i18n="Account">員工出勤查詢</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="HR_ToDoItems_Leave.html" class="menu-link">
+                    <div data-i18n="Account">員工請假審核</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="HR_ToDoItems_Work.html" class="menu-link">
+                    <div data-i18n="Account">員工加班審核</div>
+                  </a>
+                </li>
+        
+              </ul>
+            </li>
+        
+        
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">業務與產線系統</span>
+            </li>
+                        <!--業務系統(業務專用) -->
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">業務系統</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item active">
+                  <a href="BS_CreateOrders.html" class="menu-link">
+                    <div data-i18n="Account">新建訂單</div>
+                  </a>
+                </li>
+               
+                <li class="menu-item">
+                  <a href="BS_SearchEditDeleteOrders.html" class="menu-link">
+                    <div data-i18n="Account">查詢/修改/刪除訂單</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="BS_BugSys.html" class="menu-link">
+                    <div data-i18n="Account">業務_報錯系統</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="BS_MonitorSys.html" class="menu-link">
+                    <div data-i18n="Account">業務_監控系統</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <!-- 產線系統 -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">產線管理</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="PD_ToDoItems.html" class="menu-link">
+                    <div data-i18n="Account">待辦事項</div>
+                  </a>
+                </li>
+<li class="menu-item">
+                  <a href="PD_MakeClass.html" class="menu-link">
+                    <div data-i18n="Account">產線報工</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PD_BugReportContent.html" class="menu-link">
+                    <div data-i18n="Account">建立異常單</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PD_BugSearch.html" class="menu-link">
+                    <div data-i18n="Account">異常清單查詢</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="產線_報工查詢.html" class="menu-link">
+                    <div data-i18n="Account">報工查詢</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">產線狀況監控</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div data-i18n="Account">產線狀況監控(尚未)</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div data-i18n="Account">即時異常狀況</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <!-- 採購系統 -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">採購系統</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">採購系統</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="PC_Application.html" class="menu-link">
+                    <div data-i18n="Account">採購申請表</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PC_ApplicationRecordSearch.html" class="menu-link">
+                    <div data-i18n="Account">採購紀錄查詢</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PC_ApplicationRecordDetails.html" class="menu-link">
+                    <div data-i18n="Account">採購紀錄細項</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="PC_ItemSearch.html" class="menu-link">
+                    <div data-i18n="Account">物品資料查詢</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <!-- 會議室申請 -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">會議室</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">會議室申請</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="MT_MeetReserve.html" class="menu-link">
+                    <div data-i18n="Account">預約會議室</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="MT_MeetReserveSearch.html" class="menu-link">
+                    <div data-i18n="Account">查詢租借紀錄</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="MT_MeetRecordCreate.html" class="menu-link">
+                    <div data-i18n="Account">建立會議記錄表</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="MT_MeetRecordSearch.html" class="menu-link">
+                    <div data-i18n="Account">會議記錄表查詢</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            <!-- 登入 -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">登入</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Authentications">登入與註冊</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Login.html" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">登入</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- 連線錯誤 -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">連線錯誤與維護</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Misc">連線錯誤與維護</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="pages-misc-error.html" class="menu-link">
+                    <div data-i18n="Error">404錯誤</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-misc-under-maintenance.html" class="menu-link">
+                    <div data-i18n="Under Maintenance">平台維護中</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->          
+          <nav class="container">
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+              id="layout-navbar">
+          
+              <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                <!-- 問好 -->
+                <div class="navbar-nav align-items-center fs-4">
+                  😊您好，王鴻杰!
+                </div>
+                <!-- /問好 -->
+          
+                <ul class="navbar-nav flex-row align-items-center ms-auto">
+          
+                  <!-- User -->
+                  <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                      <div class="avatar avatar-online">
+                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar avatar-online">
+                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <span class="fw-semibold d-block">John Doe</span>
+                              <small class="text-muted">Admin</small>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <i class="bx bx-user me-2"></i>
+                          <span class="align-middle">My Profile</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <i class="bx bx-cog me-2"></i>
+                          <span class="align-middle">Settings</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <span class="d-flex align-items-center align-middle">
+                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                            <span class="flex-grow-1 align-middle">Billing</span>
+                            <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="auth-login-basic.html">
+                          <i class="bx bx-power-off me-2"></i>
+                          <span class="align-middle">Log Out</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <!--/ User -->
+                </ul>
+          
+              </div>
+            </nav>
+            <!-- / Navbar -->
+          </nav>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper ">
+            <!-- Content -->
+
+            <!-- 車輛資訊 -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="card mb-4 m-4">
+                <h2 class="card-header">新建訂單</h2>
+                <h5 class="card-header">車輛資訊</h5>
+                <div class="card-body">
+                  <div class="row gx-3 gy-2 align-items-center">
+                    <div class="col-md-6">
+                      <label class="form-label fs-4" for="type">車款</label>
+                      <select id="type" class="form-select color-dropdown" v-on:change="type" required>
+                        <option disabled selected>請選擇車款</option>
+                        <optgroup label="跑車">
+                          <option value="M4">M4 Competition</option>
+                        </optgroup>
+                        <optgroup label="休旅車">
+                          <option value="X7">X7 xDrive40i</option>
+                        </optgroup>
+                        <optgroup label="電動車">
+                          <option value="iX">iX xDrive40 旗艦版</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="color">車漆顏色</label>
+                      <select id="color" class="form-select" v-on:change="color" required>
+                        <optgroup label="標準漆">
+                          <option value="white">白</option>
+                          <option value="black">黑</option>
+                        </optgroup>
+                        <optgroup label="銀粉漆">
+                          <option value="blue">墨藍</option>
+                          <option value="ironblack">鐵黑</option>
+                        </optgroup>
+                        <optgroup label="特殊漆">
+                          <option value="MANUFAKTURgray">MANUFAKTUR消光灰 (消光漆)</option>
+                          <option value="MANUFAKTURpink">MANUFAKTUR風信子紅 (銀粉漆)</option>
+                          <option value="red">designo風信子紅</option>
+                          <option value="gray">designo消光灰</option>                          
+                        </optgroup>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="colorprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="colorprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="texture">內裝材質</label>
+                      <select class="form-select placement-dropdown" id="texture">
+                        <optgroup label="ARTICO系列">
+                          <option value="ARTICOblack">ARTICO-黑</option>
+                          <option value="ARTICObrown">ARTICO-馬鞍棕/黑</option>
+                          <option value="ARTICOrice">ARTICO-米/黑</option>
+                          <option value="ARTICOgray">ARTICO-深灰/黑</option>
+                        </optgroup>
+                        <optgroup label="真皮系列">
+                          <option value="skinblack">真皮-黑</option>
+                          <option value="skingray">真皮-深灰</option>
+                          <option value="skinbrown">真皮-栗棕/黑</option>
+                          <option value="skinrice">真皮-米/黑</option>
+                        </optgroup>                        
+                      </select>
+                    </div>
+
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+
+
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="wheel">輪圈款式</label>
+                      <select class="form-select placement-dropdown" id="wheel">
+                        <option value="17">17 吋五輻雙肋式輕合金輪圈</option>
+                        <option value="18">18 吋五輻雙肋式亮黑色輕合金輪圈</option>                        
+                        <option value="19">19 吋十輻式亮灰色輕合金輪圈</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>                  
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="plaque">飾板</label>
+                      <select class="form-select placement-dropdown" id="plaque">
+                        <option value="plaqueblack">環艙霧面黑色梣木飾板</option>
+                        <option value="plaquewood">Find-wood灰色白楊木紋飾板</option>
+                        <option value="plaquealumi">環艙碳粒鋁質飾板</option>                        
+                        <option value="plaquepiano">環艙designo黑色浮紋鋼琴烤漆飾板</option>                        
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="light">頭燈款式</label>
+                      <select class="form-select placement-dropdown" id="light">
+                        <option value="single">標準型 LED 頭燈</option>
+                        <option value="dual">多光束智慧型數位頭燈</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="saddle">中央鞍座</label>
+                      <select class="form-select placement-dropdown" id="saddle">
+                        <option value="saddlepiano">中控台黑色鋼琴烤漆飾板</option>
+                        <option value="saddlebrown">中控台霧面棕色梣木飾板</option>
+                        <option value="saddleblack">中控台霧面黑色梣木飾板</option>
+                        <option value="saddlegray">中控台霧面灰色梣木飾板</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="sunroof">天窗</label>
+                      <select class="form-select placement-dropdown" id="sunroof">
+                        <option value="half">電動玻璃天窗</option>
+                        <option value="full">全景式電動玻璃天窗</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label-lg" for="media">多媒體</label>
+                      <select class="form-select placement-dropdown" id="media">
+                        <option value="mormal">11.9吋高解析度觸控螢幕</option>
+                        <option value="premium">12.3吋寬螢幕數位儀表</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="altprice" class="form-label-lg">選配價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="altprice"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="subtotal" class="form-label-lg">小計</label>
+                        <input v-model="bee.apple"
+                          type="text"
+                          class="form-control"
+                          id="subtotal"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          readonly
+                        />
+                    </div>
+                    
+                    
+                  
+
+                  </div>
+                </div>
+
+
+                <!-- 代理商 -->
+                <hr/>
+                <div class="card-body">
+                  <div class="row gx-3 gy-2 align-items-center">
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="area">代理商地區</label>
+                      <select id="area" class="form-select color-dropdown">
+                          <option value="north">北區</option>
+                          <option value="middle">中區</option>
+                          <option value="south">南區</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="agentaddress" class="form-label-lg">代理商地址</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="agentaddress"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="agentphone" class="form-label-lg">代理商電話</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="agentphone"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+
+                    <button id="btncreate" class="btn btn-outline-primary d-block">下一步，訂單建立</button>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+            
+            
+            <!-- 訂單確認 -->
+            <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
+              <div class="card mb-4 m-4">
+                <h2 class="card-header">訂單已建立!以下是您的訂單資料</h2>
+                <div class="card-body">
+                  <div class="row gx-3 gy-2 align-items-center">
+                      <div class="col-md-6">
+                        <label for="orderid" class="form-label-lg">訂單編號</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                            id="orderid"
+                            placeholder=""
+                            aria-describedby="defaultFormControlHelp"
+                            disabled
+                            value=''
+                            />
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <hr>
+                      <h5 class="card-header">車輛資訊</h5>
+                      <div class="card-body">
+                  <div class="row gx-3 gy-2 align-items-center">
+                    <div class="col-md-6">
+                      <label for="typed" class="form-label-lg">車款</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="typed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=''
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="colored" class="form-label-lg">車漆顏色</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="colored"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="textured">內裝材質</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="textured"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="wheeled">輪圈款式</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="wheeled"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>              
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="plaqued">飾板</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="plaqued"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="lighted">頭燈款式</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="lighted"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="saddleed">中央鞍座</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="saddleed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="sunroofed">天窗</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="sunroofed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="media">多媒體</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="textureed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="subtotaled" class="form-label-lg">小計</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="subtotaled"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                        />
+                    </div>
+                     
+                    
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="areaed">代理商地區</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="areaed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="agentaddress" class="form-label-lg">代理商地址</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="agentaddress"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          readonly
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="agentphone" class="form-label-lg">代理商電話</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="agentphone"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          readonly
+                          value=""
+                        />
+                    </div>
+                    
+                    <button id="btncreate" class="btn btn-outline-primary d-block">下一步</button>
+                    
+                  
+                  </div>
+              </div> 
+              
+            </div>
+            
+            
+            
+            
+
+
+
+
+
+
+            <!-- / Content -->
+
+            <!-- Footer -->
+            
+            <!-- / Footer -->
+
+            <!-- <div class="content-backdrop fade"></div> -->
+               
+                    
+          
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<!-- JS -->
+<script>
+  // 代理商地址
+  //// jQuery
+  $(function () {
+    $("#area").change(function () {
+      var address = {
+        north: "104台北市中山區濱江街337號",
+        middle: "408台中市南屯區文心路一段463號",
+        south: "813高雄市左營區博愛三路582號"
+      }
+      if ($("#area").val() == "north") {
+        $("#agentaddress").val(address.north);
+      }
+      else if ($("#area").val() == "middle") {
+        $("#agentaddress").val(address.middle);
+      }
+      else if ($("#area").val() == "south") {
+        $("#agentaddress").val(address.south);
+      }
+    })
+  })
+
+
+
+  //送出訂單
+  $("#btncreate").click(() => {
+    if ($("#type").val() == null) {
+      alert("請選擇車款!");
+      $("#type").focus();
+    }
+    else {
+      console.log('ok');
+      // $("#confirm").text('');
+
+      let str =
+        'str'
+
+          `
+      <div class="card mb-4 m-4">
+                <h2 class="card-header">訂單確認</h2>
+                <h5 class="card-header">車輛資訊</h5>
+                <div class="card-body">
+                  <div class="row gx-3 gy-2 align-items-center">
+                    <div class="col-md-6">
+                      <label for="typed" class="form-label-lg">車款</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="typed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value='${$("#type").val()}'
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="colored" class="form-label-lg">車漆顏色</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="colored"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="textured">內裝材質</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="textured"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="wheeled">輪圈款式</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="wheeled"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>              
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="plaqued">飾板</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="plaqued"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="lighted">頭燈款式</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="lighted"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="saddleed">中央鞍座</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="saddleed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="sunroofed">天窗</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="sunroofed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label-lg" for="media">多媒體</label>
+                      <input
+                          type="text"
+                          class="form-control"
+                          id="textureed"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                          value=""
+                        />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="subtotaled" class="form-label-lg">小計</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="subtotaled"
+                          placeholder=""
+                          aria-describedby="defaultFormControlHelp"
+                          disabled
+                        />
+                    </div>
+                                
+                    <button id="btncreate" class="btn btn-outline-primary d-block">下一步，訂單建立</button>
+                    
+                  
+                  </div>
+              </div>
+             
+      `;
+
+
+      $("#comfirm").append('strrrr');
+
+
+    }
+  })
+
+
+  //選配金額
+  $("select").change(function () {
+    // console.log('ok');
+
+    // let colorprice = $("#color option:selected").text()
+    //   .substring($("#color option:selected").text().indexOf('+') + 1)
+    // console.log(colorprice);
+    // // console.log(colortext);
+    // let m = $("#subtotal").val() + parseInt(colorprice)
+    // $("#subtotal").val(m);
+  })
+
+
+
+</script>
+
+
+
+
+
+<!-- Vue -->
+<script>
+  // type
+  var app = new Vue({
+    el: "#type",
+    data: {
+      typeval: {
+        "_520": "520",
+        "X7": "X7",
+        "iX": "iX",
+        "M4": "M4"
+      },
+      typetext: {
+        _520: "520i Sport222",
+        X7: "X7 xDrive40i",
+        iX: "iX xDrive40 旗艦版",
+        M4: "M4 Competition"
+      }
+    }
+    ,
+    methods: {
+      type: function () {
+        console.log('------------');
+        console.log($("#type").val());
+        if ($("#type").val() == '520i Sport222') {
+          $("#subtotal").val('2000000');
+        }
+        else if ($("#type").val() == app.typetext.X7) {
+          $("#subtotal").val('3000000');
+        }
+        else if ($("#type").val() == app.typetext.iX) {
+          $("#subtotal").val('4000000')
+        }
+        else if ($("#type").val() == app.typetext.M4) {
+          $("#subtotal").val('5000000');
+        }
+      }
+    }
+  })
+
+
+  // color
+  var app = new Vue({
+    el: "#color",
+    data: {
+    }
+    ,
+    methods: {
+      color: function () {
+        if ($("#color").val() == 'MANUFAKTURgray') {
+          $("#colorprice").val('10000');
+        }
+        else {
+          $("#colorprice").val('');
+        }
+      }
+    }
+  })
+
+</script>
+  </body>
+</html>

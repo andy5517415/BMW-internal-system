@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace InternalSystem.Models
+{
+    public partial class PersonnelOvertimeForm
+    {
+        public int StartWorkeId { get; set; }
+        public int EmployeeId { get; set; }
+        public DateTime StartDate { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public DateTime EndDate { get; set; }
+        public TimeSpan EndTime { get; set; }
+        public int TotalTime { get; set; }
+        public bool AuditStatus { get; set; }
+
+        public virtual PersonnelProfileDetail Employee { get; set; }
+    }
+}
