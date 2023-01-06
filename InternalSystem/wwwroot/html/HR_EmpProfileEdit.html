@@ -539,12 +539,12 @@
                                         <label for="EmployeeName" class="form-label-lg">員工名稱</label>
                                         <input v-model="employeeName" class="form-control" id="Employeename" />
                                     </div>
-                                    <div class="mb-3 col-md-2">
+                                    <!--<div class="mb-3 col-md-2">
                                         <label for="department" class="form-label-lg">部門</label>
-                                        <select v-model="employeelist.departmentId" id="department" class="select2 form-select">
-                                            <option v-for="item in departmentlist" :value="item.depId">{{item.depName}}</option>
+                                        <select v-model="employeelist.departmentId" v-if="departmentId" id="department" class="select2 form-select">
+                                            <option v-for="item in departmentlist" :value="item.depId"></option>
                                         </select>
-                                    </div>
+                                    </div>-->
 
                                     <div class="mt-2 ">
                                         <button type="button" v-on:click="searchbtn" class="btn btn-primary me-2 ">查詢</button>
@@ -876,20 +876,24 @@
             methods: {
                 createbtn: function () {
 
-                    axios.post("/api/PersonnelProfileDetails",
-                        this.employeelist
-                    ).then(alert('資料以新建')).catch(function (error) { alert('你媽B') })
+                    axios.put("/api/PersonnelProfileDetails" + this.employeeNumber
+                    ).then(alert('資料以修改')).catch(error => { alert('你媽B') })
                     window.location = "HR_EmpProfileCreate.html";
 
                 },
                 searchbtn: function () {
 
-                    let i = 0;
-                    axios.get('/api/PersonnelProfileDetails/ss' + this.employeeNumber)
-                        .then(response => this.employeelist = response.data[i])
-                        .catch(
-                            axios.get('/api/PersonnelProfileDetails/ss/Name' + this.employeeName)
-                                .then(response => this.employeelist = response.data[i]))
+                    axios.get('/api/PersonnelProfileDetails/Name/' + this.employeeName)
+                        .then(response => this.employeelist = response.data)
+                        .catch(error=>alert('查無此項'))
+                    //axios.get('/api/PersonnelProfileDetails/ss/' + this.employeeNumber)
+                    //    .then(response => this.employeelist = response.data)
+                    //    .catch(error=>
+                          
+                    //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
+                    //            .then(response => this.employeelist = response.data)
+                    //            .catch(alert('查無此項')))
+                        
 
                     //axios.get('https://localhost:44319/api/PersonnelProfileDetails/2')
                     //    .then(response => this.employeelist = response.data)

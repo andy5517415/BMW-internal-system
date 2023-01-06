@@ -42,7 +42,7 @@ namespace InternalSystem.Controllers
         }
 
         //api/PersonnelProfileDetails/ss/2023001
-        [HttpGet("ss{id}")]
+        [HttpGet("ss/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
         {
 
@@ -90,11 +90,11 @@ namespace InternalSystem.Controllers
                 return NotFound();
             }
 
-            return await SearchProfileDetail.ToListAsync();
+            return await SearchProfileDetail.FirstOrDefaultAsync();
         }
 
         //api/PersonnelProfileDetails/Name/name
-        [HttpGet("ss/Name{name}")]
+        [HttpGet("Name/{name}")]
         public async Task<ActionResult<dynamic>> SearchNameGetPersonnelProfileDetail(string name)
         {
 
@@ -142,7 +142,7 @@ namespace InternalSystem.Controllers
                 return NotFound();
             }
 
-            return await SearchNameProfileDetail.ToListAsync();
+            return await SearchNameProfileDetail.FirstOrDefaultAsync();
         }
         // PUT: api/PersonnelProfileDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
