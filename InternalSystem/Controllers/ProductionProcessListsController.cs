@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 
+
 namespace InternalSystem.Controllers
 {
     [Route("api/[controller]")]
@@ -19,13 +20,34 @@ namespace InternalSystem.Controllers
         {
             _context = context;
         }
+        // GET: api/ProductionProcessLists
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists()
+        {
+            var List = from PPL in this._context.ProductionProcessLists
+                       join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
+                       join POPS in this._context.ProductionOrderProcessStatuses on  PPL.OrderId equals POPS.OrderId
+                       join PP in this._context.ProductionProcesses on POPS.ProcessId equals PP.ProcessId
+                       join 
+                       select new
+                       {
+                           OrderId = PPL.OrderId,
+                           AreaId = PPL.AreaId,
+                           AreaName = PA.AreaName,
+                           ProcessId = POPS.ProcessId,
+                           ProcessName = PP.ProcessName
+                           
+                       };
+
+            return await List.ToListAsync();
+        }
 
         // GET: api/ProductionProcessLists
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
-        {
-            return await _context.ProductionProcessLists.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
+        //{
+        //    return await _context.ProductionProcessLists.ToListAsync();
+        //}
 
         // GET: api/ProductionProcessLists/5
         [HttpGet("{id}")]
