@@ -41,6 +41,109 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
+        //api/PersonnelProfileDetails/ss/2023001
+        [HttpGet("ss{id}")]
+        public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
+        {
+
+            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
+                                      where o.EmployeeNumber == id
+                                      join c in _context.PersonnelCityLists on o.CityId equals c.CityId
+                                      join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepId
+                                      join r in _context.PersonnelRanks on o.RankId equals r.RankId
+                                      select new
+                                      {
+                                          CityId = o.CityId,
+                                          CityName = c.CityName,
+                                          PositionId = o.PositionId,
+                                          PositionName = p.PositionName,
+                                          DepartmentId = o.DepartmentId,
+                                          DepartmentId2 = o.DepartmentId2,
+                                          DepName = d.DepName,
+                                          RankId = o.RankId,
+                                          Rank = r.Rank,
+                                          EmployeeName = o.EmployeeName,
+                                          EmployeeNumber = o.EmployeeNumber,
+                                          HomePhone = o.HomePhone,
+                                          Sex = o.Sex,
+                                          IsMarried = o.IsMarried,
+                                          IdentiyId = o.IdentiyId,
+                                          Email = o.Email,
+                                          Birthday = o.Birthday.ToString("yyyy-MM-dd"),
+                                          PhoneNumber = o.PhoneNumber,
+                                          Address = o.Address,
+                                          DutyStatus = o.DutyStatus,
+                                          Country = o.Country,
+                                          EmergencyNumber = o.EmergencyNumber,
+                                          EmergencyPerson = o.EmergencyPerson,
+                                          EmergencyRelation = o.EmergencyRelation,
+                                          EntryDate = o.EntryDate.ToString("yyyy-MM-dd"),
+                                          Acount = o.Acount,
+                                          Password = o.Password,
+                                          Terminationdate = o.Terminationdate
+
+                                      };
+
+            if (SearchProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await SearchProfileDetail.ToListAsync();
+        }
+
+        //api/PersonnelProfileDetails/Name/name
+        [HttpGet("ss/Name{name}")]
+        public async Task<ActionResult<dynamic>> SearchNameGetPersonnelProfileDetail(string name)
+        {
+
+            var SearchNameProfileDetail = from o in _context.PersonnelProfileDetails
+                                          where o.EmployeeName == name
+                                          join c in _context.PersonnelCityLists on o.CityId equals c.CityId
+                                          join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                          join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepId
+                                          join r in _context.PersonnelRanks on o.RankId equals r.RankId
+                                          select new
+                                          {
+                                              CityId = o.CityId,
+                                              CityName = c.CityName,
+                                              PositionId = o.PositionId,
+                                              PositionName = p.PositionName,
+                                              DepartmentId = o.DepartmentId,
+                                              DepartmentId2 = o.DepartmentId2,
+                                              DepName = d.DepName,
+                                              RankId = o.RankId,
+                                              Rank = r.Rank,
+                                              EmployeeName = o.EmployeeName,
+                                              EmployeeNumber = o.EmployeeNumber,
+                                              HomePhone = o.HomePhone,
+                                              Sex = o.Sex,
+                                              IsMarried = o.IsMarried,
+                                              IdentiyId = o.IdentiyId,
+                                              Email = o.Email,
+                                              Birthday = o.Birthday.ToString("yyyy-MM-dd"),
+                                              PhoneNumber = o.PhoneNumber,
+                                              Address = o.Address,
+                                              DutyStatus = o.DutyStatus,
+                                              Country = o.Country,
+                                              EmergencyNumber = o.EmergencyNumber,
+                                              EmergencyPerson = o.EmergencyPerson,
+                                              EmergencyRelation = o.EmergencyRelation,
+                                              EntryDate = o.EntryDate.ToString("yyyy-MM-dd"),
+                                              Acount = o.Acount,
+                                              Password = o.Password,
+                                              Terminationdate = o.Terminationdate
+
+                                          };
+
+            if (SearchNameProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await SearchNameProfileDetail.ToListAsync();
+        }
         // PUT: api/PersonnelProfileDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
