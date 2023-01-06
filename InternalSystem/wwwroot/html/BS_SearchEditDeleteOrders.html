@@ -56,12 +56,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 
-    <style>
-          /* .form-label{
-              color: black;
-        } */
-    </style>
 
 </head>
 
@@ -527,7 +524,7 @@
 
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
-                <div class="content-wrapper ">
+                <div class="content-wrapper" id="CreateEditDelete">
                     <!-- Content -->
                     <!-- 查詢訂單 -->
 
@@ -545,44 +542,25 @@
                                                class="form-control"
                                                id="orderid"
                                                placeholder="型號代碼+代理商區域+下訂日期+3碼流水號(共八碼)"
-                                               value="X0220230103002" />
+                                               value="X0220230103002"
+                                               v-model="file.orderid" />
                                     </div>
                                     <!--  -->
                                     <div class="col-md-6">
                                         <label for="type" class="form-label-lg">車款</label>
-                                        <select id="type" class="form-select color-dropdown" disabled>
-                                            <option disabled selected>請選擇車款</option>
-                                            <optgroup label="轎車">
-                                                <option value="520">520i Sport222</option>
-                                            </optgroup>
-                                            <optgroup label="休旅車">
-                                                <option value="X7">X7 xDrive40i</option>
-                                            </optgroup>
-                                            <optgroup label="電動車">
-                                                <option value="iX">iX xDrive40 旗艦版</option>
-                                            </optgroup>
-                                            <optgroup label="跑車">
-                                                <option value="M4">M4 Competition</option>
-                                            </optgroup>
-                                        </select>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="type" />
+
+
+
+
+                                        <!--<select id="type" class="form-select color-dropdown" disabled>
+                                        </select>-->
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label-lg" for="color">車漆顏色</label>
                                         <select id="color" class="form-select" disabled>
-                                            <optgroup label="標準漆">
-                                                <option value="white">白</option>
-                                                <option value="black">黑</option>
-                                            </optgroup>
-                                            <optgroup label="銀粉漆">
-                                                <option value="blue">墨藍</option>
-                                                <option value="ironblack">鐵黑</option>
-                                            </optgroup>
-                                            <optgroup label="特殊漆">
-                                                <option value="MANUFAKTURgray">MANUFAKTUR消光灰 (消光漆)</option>
-                                                <option value="MANUFAKTURpink">MANUFAKTUR風信子紅 (銀粉漆)</option>
-                                                <option value="red">designo風信子紅</option>
-                                                <option value="gray">designo消光灰</option>
-                                            </optgroup>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
@@ -597,18 +575,6 @@
                                     <div class="col-md-3">
                                         <label class="form-label-lg" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown" id="texture" disabled>
-                                            <optgroup label="ARTICO系列">
-                                                <option value="ARTICOblack">ARTICO-黑</option>
-                                                <option value="ARTICObrown">ARTICO-馬鞍棕/黑</option>
-                                                <option value="ARTICOrice">ARTICO-米/黑</option>
-                                                <option value="ARTICOgray">ARTICO-深灰/黑</option>
-                                            </optgroup>
-                                            <optgroup label="真皮系列">
-                                                <option value="skinblack">真皮-黑</option>
-                                                <option value="skingray">真皮-深灰</option>
-                                                <option value="skinbrown">真皮-栗棕/黑</option>
-                                                <option value="skinrice">真皮-米/黑</option>
-                                            </optgroup>
                                         </select>
                                     </div>
 
@@ -734,7 +700,7 @@
                                                disabled />
                                     </div>
 
-                                    <button id="btnquery" class="btn btn-outline-primary d-block">查詢</button>
+                                    <button @click="btnquery" id="btnquery" class="btn btn-outline-primary d-block">查詢</button>
                                     <button id="btnedit" class="btn btn-outline-primary d-block" disabled>修改</button>
 
                                     <button id="btndelete"
@@ -850,6 +816,62 @@
 
 
 
+    <script>
+        var CreateEditDelete = new Vue({
+            el: "#CreateEditDelete",
+            data: {
+                file: {},
+                cartype: {},
+                carcolor: {},
+                cartexture: {},
+                carwheel: {},
+                carplaque: {},
+                carlight: {},
+                carsaddle: {},
+                carsunroof: {},
+                carmedia: {},
+                agent: {}
+            },
+            methods: {
+                btnquery: function () {
+                    axios.get('/api/BusinessOptionals/order/' + this.file.orderid)
+                        .then(x => {
+                            x.data.forEach(function(idx){
+                                //console.log(idx.optionalName);
+                                this.file.optionalName = idx.optionalName;
+                                console.log(this.file.optionalName);
+                            })
+                        }
+                        )
+                }
+            },
+            mounted() {
+                axios.get('/api/BusinessOptionals/info/1')
+                    .then(x => this.cartype = x.data),
+                    axios.get('/api/BusinessOptionals/info/2')
+                        .then(x => this.carcolor = x.data),
+                    axios.get('/api/BusinessOptionals/info/3')
+                        .then(x => this.cartexture = x.data),
+                    axios.get('/api/BusinessOptionals/info/4')
+                        .then(x => this.carwheel = x.data),
+                    axios.get('/api/BusinessOptionals/info/5')
+                        .then(x => this.carplaque = x.data),
+                    axios.get('/api/BusinessOptionals/info/6')
+                        .then(x => this.carlight = x.data),
+                    axios.get('/api/BusinessOptionals/info/7')
+                        .then(x => this.carsaddle = x.data),
+                    axios.get('/api/BusinessOptionals/info/8')
+                        .then(x => this.carsunroof = x.data),
+                    axios.get('/api/BusinessOptionals/info/9')
+                        .then(x => this.carmedia = x.data),
+                    axios.get('/api/BusinessOptionals/agent')
+                        .then(x => this.agent = x.data)
+            }
+        })
+
+    </script>
+
+
 
 
 
@@ -862,20 +884,19 @@
         $(function () {
 
 
-            // let str =
-            //   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
-            $('#btnquery').click(function () {
-                // 假設訂單有八位數字(正規表示法)
-                if ($('#orderid').val().length == 8) {
-                    $('#type').val('X7');
-                    $('#btnedit').prop("disabled", false);
-                    $('#btndelete').prop("disabled", false);
-                }
-                else {
-                    alert('訂單編號有誤，請重新輸入!');
-                    $("#orderid").focus();
-                }
-            })
+            //// let str =
+            ////   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
+            //$('#btnquery').click(function () {
+            //    // 假設訂單有八位數字(正規表示法)
+            //    if ($('#orderid').val().length == 8) {
+            //        $('#btnedit').prop("disabled", false);
+            //        $('#btndelete').prop("disabled", false);
+            //    }
+            //    else {
+            //        alert('訂單編號有誤，請重新輸入!');
+            //        $("#orderid").focus();
+            //    }
+            //})
 
 
             $('#btnedit').click(function () {
@@ -888,8 +909,8 @@
                 // console.log('deleteok');
                 $('#deleteorderid').html('');
                 $('#deleteorderid').append(`
-          是否要刪除訂單? 編號 : ${$('#orderid').val()}
-          `);
+                      是否要刪除訂單? 編號 : ${$('#orderid').val()}
+                      `);
             })
 
         })

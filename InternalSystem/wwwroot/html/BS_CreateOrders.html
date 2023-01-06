@@ -530,28 +530,39 @@
                             <h5 class="card-header">車輛資訊</h5>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
-                                    <div class="col-md-6">
-                                        <label class="form-label fs-4" for="type">車款</label>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
-                                                class="form-select color-dropdown">
+                                                class="form-select color-dropdown"
+                                                v-model="apple">
                                             <option disabled>請選擇車款</option>
-                                            <option v-for="one in cartype">
+                                            <option v-for="one in cartype"
+                                                    :value="one.price">
                                                 {{one.optionalName}}
                                             </option>
                                         </select>
+                                        <!--<input type="hidden" name="" :value="cartype.optionalId" />-->
+                                        <p>{{apple}}</p>
                                     </div>
-
+                                    <div class="col-md-3">
+                                        <label for="cartypeprice" class="form-label fs-4">車款價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="cartypeprice"
+                                               disabled
+                                               v-model="cartype.price" />
+                                    </div>
 
 
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="carcolor">車漆顏色</label>
                                         <select id="carcolor"
                                                 class="form-select"
-                                                @change="colorchange">
+                                                v-model="carcolor.price">
                                             <option disabled>請選擇車漆顏色</option>
                                             <option v-for="one in carcolor"
-                                                    :value="one.optionalId">
-                                                {{one.optionalName}}{{one.price}}
+                                                    :value="one.price">
+                                                {{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -560,17 +571,20 @@
                                         <input type="text"
                                                class="form-control"
                                                id="carcolorprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               disabled
+                                               v-model="carcolor.price" />
                                     </div>
 
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown"
-                                                id="texture">
+                                                id="texture"
+                                                v-model="cartexture.price">
                                             <option disabled>請選擇內裝材質</option>
-                                            <option v-for="one in cartexture">
+                                            <option v-for="one in cartexture"
+                                                    :value="one.price">
                                                 {{one.optionalName}}
                                             </option>
                                         </select>
@@ -581,17 +595,21 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               disabled
+                                               v-model="cartexture.price" />
                                     </div>
 
 
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="wheel">輪圈款式</label>
-                                        <select class="form-select placement-dropdown" id="wheel">
+                                        <select class="form-select placement-dropdown"
+                                                id="wheel"
+                                                v-model="carwheel.price">
                                             <option disabled>請選擇輪圈款式</option>
-                                            <option v-for="one in carwheel">
+                                            <option v-for="one in carwheel"
+                                                    v-bind:value="one.price">
                                                 {{one.optionalName}}
                                             </option>
                                         </select>
@@ -601,15 +619,19 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               disabled
+                                               v-model="carwheel.price" />
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="plaque">飾板</label>
-                                        <select class="form-select placement-dropdown" id="plaque">
+                                        <select class="form-select placement-dropdown"
+                                                id="plaque"
+                                                v-model="carplaque.price">
                                             <option disabled>請選擇飾板款式</option>
-                                            <option v-for="one in carwheel">
+                                            <option v-for="one in carplaque"
+                                                    :value="one.price">
                                                 {{one.optionalName}}
                                             </option>
                                         </select>
@@ -619,9 +641,10 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               disabled
+                                               v-model="carplaque.price" />
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="light">頭燈款式</label>
@@ -637,7 +660,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -655,7 +678,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -673,7 +696,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -691,7 +714,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="altprice"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -700,9 +723,9 @@
                                         <input type="text"
                                                class="form-control"
                                                id="subtotal"
-                                               placeholder=""
                                                aria-describedby="defaultFormControlHelp"
-                                               readonly />
+                                               readonly
+                                                />
                                     </div>
 
 
@@ -718,9 +741,13 @@
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-6">
                                         <label class="form-label fs-4" for="area">代理商地區</label>
-                                        <select id="area" class="form-select color-dropdown">
+                                        <select id="area" class="form-select color-dropdown"
+                                                v-model="agentlist"
+                                                >
                                             <option disabled>請選擇代理商地區</option>
-                                            <option v-for="one in agent">
+                                            <option v-for="one in agentlist"
+                                                    :value="one"
+                                                    >
                                                 {{one.areaName}}
                                             </option>
                                         </select>
@@ -730,21 +757,23 @@
                                         <input type="text"
                                                class="form-control"
                                                id="agentaddress"
-                                               placeholder=""
                                                aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               disabled
+                                               v-model="agent.address"
+                                               />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="agentphone" class="form-label-lg">代理商電話</label>
                                         <input type="text"
                                                class="form-control"
                                                id="agentphone"
-                                               placeholder=""
                                                aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               disabled
+                                               v-model="agent.phone"
+                                               />
                                     </div>
 
-                                    <button id="btncreate" class="btn btn-outline-primary d-block">下一步，訂單建立</button>
+                                    <button @click="btncreateclick" id="btncreate" class="btn btn-outline-primary d-block">下一步，訂單建立</button>
                                 </div>
                             </div>
 
@@ -755,7 +784,7 @@
 
 
                     <!-- 訂單確認 -->
-                    <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
+                    <div v-if="seen" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
                             <h2 class="card-header">訂單已建立!以下是您的訂單資料</h2>
                             <div class="card-body">
@@ -765,7 +794,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="orderid"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled
                                                value='' />
@@ -782,7 +811,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="typed"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled
                                                value='' />
@@ -792,7 +821,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="colored"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -801,7 +830,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="textured"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -810,7 +839,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="wheeled"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -819,7 +848,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="plaqued"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -828,7 +857,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="lighted"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -837,7 +866,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="saddleed"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -846,7 +875,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="sunroofed"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -855,7 +884,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="textureed"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -864,7 +893,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="subtotaled"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -875,7 +904,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="areaed"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                disabled />
                                     </div>
@@ -884,7 +913,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="agentaddress"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                readonly />
                                     </div>
@@ -893,7 +922,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id="agentphone"
-                                               placeholder=""
+                                               
                                                aria-describedby="defaultFormControlHelp"
                                                readonly />
                                     </div>
@@ -931,81 +960,98 @@
             <!-- Overlay -->
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-        <!-- / Layout wrapper -->
-        <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
-        <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-        <script src="../assets/vendor/libs/popper/popper.js"></script>
-        <script src="../assets/vendor/js/bootstrap.js"></script>
-        <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-        <script src="../assets/vendor/js/menu.js"></script>
-        <!-- endbuild -->
-        <!-- Vendors JS -->
-        <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-        <!-- Main JS -->
-        <script src="../assets/js/main.js"></script>
-
-        <!-- Page JS -->
-        <script src="../assets/js/dashboards-analytics.js"></script>
-
-        <!-- Place this tag in your head or just before your close body tag. -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
-        <script>
-
-            var divinfo = new Vue({
-                el: "#divinfo",
-                data: {
-                    seen: false,
-                    cartype: {},
-                    carcolor: {},
-                    cartexture: {},
-                    carwheel: {},
-                    carplaque: {},
-                    carlight: {},
-                    carsaddle: {},
-                    carsunroof: {},
-                    carmedia: {},
-                    agent: {},
-                    colorselected: {}
-                },
-                methods: {
-                    btncreateclick: function () {
-                        divinfo.seen = true
-                    },
-                    colorchange: function (e) {
-                        console.log(e);
-                    }
-
-                },
-                mounted() {
-                    axios.get('/api/BusinessOptionals/info/1')
-                        .then(x => this.cartype = x.data),
-                        axios.get('/api/BusinessOptionals/info/2')
-                            .then(x => this.carcolor = x.data),
-                        axios.get('/api/BusinessOptionals/info/3')
-                            .then(x => this.cartexture = x.data),
-                        axios.get('/api/BusinessOptionals/info/4')
-                            .then(x => this.carwheel = x.data),
-                        axios.get('/api/BusinessOptionals/info/5')
-                            .then(x => this.carplaque = x.data),
-                        axios.get('/api/BusinessOptionals/info/6')
-                            .then(x => this.carlight = x.data),
-                        axios.get('/api/BusinessOptionals/info/7')
-                            .then(x => this.carsaddle = x.data),
-                        axios.get('/api/BusinessOptionals/info/8')
-                            .then(x => this.carsunroof = x.data),
-                        axios.get('/api/BusinessOptionals/info/9')
-                            .then(x => this.carmedia = x.data),
-                        axios.get('/api/BusinessOptionals/agent')
-                            .then(x => this.agent = x.data)
-                }
-            })
-
-        </script>
     </div>
+
+    <!-- / Layout wrapper -->
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+    <script>
+
+        var divinfo = new Vue({
+            el: "#divinfo",
+            data: {
+                seen: false,
+                cartype: {},
+                carcolor: {},
+                cartexture: {},
+                carwheel: {},
+                carplaque: {},
+                carlight: {},
+                carsaddle: {},
+                carsunroof: {},
+                carmedia: {},
+                agentlist: {},
+                agent: {},
+
+                apple: '請選擇車款',
+                item: ""
+
+            },
+            methods: {
+                btncreateclick: function () {
+                    divinfo.seen = true
+                }
+
+            },
+            mounted() {
+                axios.get('/api/BusinessOptionals/info/1')
+                    .then(x => this.cartype = x.data),
+                    axios.get('/api/BusinessOptionals/info/2')
+                        .then(x => this.carcolor = x.data),
+                    axios.get('/api/BusinessOptionals/info/3')
+                        .then(x => this.cartexture = x.data),
+                    axios.get('/api/BusinessOptionals/info/4')
+                        .then(x => this.carwheel = x.data),
+                    axios.get('/api/BusinessOptionals/info/5')
+                        .then(x => this.carplaque = x.data),
+                    axios.get('/api/BusinessOptionals/info/6')
+                        .then(x => this.carlight = x.data),
+                    axios.get('/api/BusinessOptionals/info/7')
+                        .then(x => this.carsaddle = x.data),
+                    axios.get('/api/BusinessOptionals/info/8')
+                        .then(x => this.carsunroof = x.data),
+                    axios.get('/api/BusinessOptionals/info/9')
+                        .then(x => this.carmedia = x.data),
+                    axios.get('/api/BusinessOptionals/agent')
+                        .then(x => this.agentlist = x.data)
+            }
+        })
+
+    </script>
+
+    <script>
+
+
+        //$(function () {
+
+
+        //    $('select').change(function () {
+        //        console.log($("subtotal").val());
+        //    })
+
+        //})
+    </script>
 </body>
 </html>

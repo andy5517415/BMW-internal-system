@@ -52,8 +52,11 @@ namespace InternalSystem.Controllers
 
         // GET: api/BusinessOptionals/order/X0220230103002
         [HttpGet("order/{orderid}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrder(string orderid)
+        public async Task<ActionResult<dynamic>> GetOrder(string orderid)
         {
+
+
+
             var q = from ord in _context.BusinessOrders
                     join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
                     join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
@@ -65,6 +68,7 @@ namespace InternalSystem.Controllers
                         OptionalName = opl.OptionalName
                     };
             return await q.ToListAsync();
+            //return await q.FirstOrDefaultAsync();
         }
 
 
