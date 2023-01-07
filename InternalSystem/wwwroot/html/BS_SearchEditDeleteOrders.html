@@ -535,17 +535,15 @@
                             <h5 class="card-header">車輛資訊</h5>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
-                                    <!--  -->
                                     <div class="col-md-6">
                                         <label for="orderid" class="form-label-lg">訂單編號</label>
                                         <input type="text"
                                                class="form-control"
                                                id="orderid"
                                                placeholder="型號代碼+代理商區域+下訂日期+3碼流水號(共八碼)"
-                                               value="X0220230103002"
-                                               v-model="file.orderid" />
+                                               />
+                                        <p>{{charcnt/200}}</p>
                                     </div>
-                                    <!--  -->
                                     <div class="col-md-6">
                                         <label for="type" class="form-label-lg">車款</label>
                                         <input type="text"
@@ -831,6 +829,11 @@
                 carsunroof: {},
                 carmedia: {},
                 agent: {}
+            },
+            computed: {
+                charcnt() {
+                    return this.length;
+                }
             },
             methods: {
                 btnquery: function () {
