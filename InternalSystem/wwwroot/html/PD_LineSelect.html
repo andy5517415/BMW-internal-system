@@ -548,16 +548,13 @@
 
                           <div class="col-11 d-md-flex justify-content-md-end">
                               <button type="button" class="btn btn-outline-dark">製程完成</button>
-                              <button type="button" class="btn btn-outline-dark mx-4">報工</button>
-                              <button type="button" class="btn btn-outline-dark ">取消</button>
+                              <a href="./PD_ReportContentSelect.html" type="button" class="btn btn-outline-dark mx-4" v-on:click="Enter(processList)">報工</a>
+                              <a href="./PD_MakeClass.html" type="button" class="btn btn-outline-dark ">取消</a>
                           </div>
                       </div>
                   </div>
-            
-            
-              </divid="app">
-            
-          </div>
+
+              </div>
           <!-- Content wrapper -->
           
         </div>
@@ -614,6 +611,11 @@
 
                 })
 
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("data",JSON.stringify(e));
+                }
             }
              
 
