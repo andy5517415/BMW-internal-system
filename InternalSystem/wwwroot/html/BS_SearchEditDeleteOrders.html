@@ -524,7 +524,7 @@
 
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
-                <div class="content-wrapper" id="CreateEditDelete">
+                <div class="content-wrapper" id="divedit">
                     <!-- Content -->
                     <!-- 查詢訂單 -->
 
@@ -536,180 +536,269 @@
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-6">
-                                        <label for="orderid" class="form-label-lg">訂單編號</label>
+                                        <label for="orderid" class="form-label fs-4">訂單編號</label>
                                         <input type="text"
                                                class="form-control"
                                                id="orderid"
                                                placeholder="型號代碼+代理商區域+下訂日期+3碼流水號(共八碼)"
-                                               />
-                                        <p>{{charcnt/200}}</p>
+                                               v-model="orderid" />
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="cartype">車款</label>
+                                        <select id="cartype"
+                                                class="form-select color-dropdown"
+                                                v-model="cartypeone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇車款</option>
+                                            <option v-for="one in cartype"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                        <!--<input type="hidden" v-model="cartypeone.OptionalId">-->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">車款價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cartypeone.price" />
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="carcolor">車漆顏色</label>
+                                        <select id="carcolor"
+                                                class="form-select"
+                                                v-model="carcolorone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇車漆顏色</option>
+                                            <option v-for="one in carcolor"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carcolorone.price" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="texture">內裝材質</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="texture"
+                                                v-model="cartextureone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇內裝材質</option>
+                                            <option v-for="one in cartexture"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cartextureone.price" />
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="wheel">輪圈款式</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="wheel"
+                                                v-model="carwheelone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇輪圈款式</option>
+                                            <option v-for="one in carwheel"
+                                                    v-bind:value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carwheelone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="plaque">飾板</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="plaque"
+                                                v-model="carplaqueone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇飾板款式</option>
+                                            <option v-for="one in carplaque"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carplaqueone.price"/>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="light">頭燈款式</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="light"
+                                                v-model="carlightone"
+                                                v-bind:disabled="isDisabled"                                                
+                                                >
+                                            <option disabled value="999">請選擇頭燈款式</option>
+                                            <option v-for="one in carplaque"
+                                                    :value="one"
+                                                    >
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carlightone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="saddle">中央鞍座</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="saddle"
+                                                v-model="carsaddleone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇中央鞍座款式</option>
+                                            <option v-for="one in carsaddle"
+                                                    :value="one"                                                    
+                                                    >
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carsaddleone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="sunroof">天窗</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="sunroof"
+                                                v-model="carsunroofone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇天窗款式</option>
+                                            <option v-for="one in carsunroof"
+                                                    :value="one"
+                                                    >
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carsunroofone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="media">多媒體</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="media"
+                                                v-model="carmediaone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇多媒體車機款式</option>
+                                            <option v-for="one in carmedia"
+                                                    :value="one"                                                    
+                                                    >
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carmediaone.price" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="type" class="form-label-lg">車款</label>
+                                        <label for="" class="form-label fs-4">小計</label>
                                         <input type="text"
                                                class="form-control"
-                                               id="type" />
-
-
-
-
-                                        <!--<select id="type" class="form-select color-dropdown" disabled>
-                                        </select>-->
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="color">車漆顏色</label>
-                                        <select id="color" class="form-select" disabled>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="colorprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="colorprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="texture">內裝材質</label>
-                                        <select class="form-select placement-dropdown" id="texture" disabled>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-
-
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="wheel">輪圈款式</label>
-                                        <select class="form-select placement-dropdown" id="wheel" disabled>
-                                            <option value="17">17 吋五輻雙肋式輕合金輪圈</option>
-                                            <option value="18">18 吋五輻雙肋式亮黑色輕合金輪圈</option>
-                                            <option value="19">19 吋十輻式亮灰色輕合金輪圈</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="plaque">飾板</label>
-                                        <select class="form-select placement-dropdown" id="plaque" disabled>
-                                            <option value="plaqueblack">環艙霧面黑色梣木飾板</option>
-                                            <option value="plaquewood">Find-wood灰色白楊木紋飾板</option>
-                                            <option value="plaquealumi">環艙碳粒鋁質飾板</option>
-                                            <option value="plaquepiano">環艙designo黑色浮紋鋼琴烤漆飾板</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="light">頭燈款式</label>
-                                        <select class="form-select placement-dropdown" id="light" disabled>
-                                            <option value="single">標準型 LED 頭燈</option>
-                                            <option value="dual">多光束智慧型數位頭燈</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="saddle">中央鞍座</label>
-                                        <select class="form-select placement-dropdown" id="saddle" disabled>
-                                            <option value="saddlepiano">中控台黑色鋼琴烤漆飾板</option>
-                                            <option value="saddlebrown">中控台霧面棕色梣木飾板</option>
-                                            <option value="saddleblack">中控台霧面黑色梣木飾板</option>
-                                            <option value="saddlegray">中控台霧面灰色梣木飾板</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="sunroof">天窗</label>
-                                        <select class="form-select placement-dropdown" id="sunroof" disabled>
-                                            <option value="half">電動玻璃天窗</option>
-                                            <option value="full">全景式電動玻璃天窗</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label-lg" for="media">多媒體</label>
-                                        <select class="form-select placement-dropdown" id="media" disabled>
-                                            <option value="mormal">11.9吋高解析度觸控螢幕</option>
-                                            <option value="premium">12.3吋寬螢幕數位儀表</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="altprice" class="form-label-lg">選配價格</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="altprice"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               readonly />
+                                               id=""
+                                               readonly
+                                               v-model="cnt" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="subtotaled" class="form-label-lg">小計</label>
+                                        <label class="form-label fs-4" for="area">代理商地區</label>
+                                        <select id="area"
+                                                class="form-select color-dropdown"
+                                                v-model="agentone"
+                                                v-bind:disabled="isDisabled"
+                                                >
+                                            <option disabled value="999">請選擇代理商地區</option>
+                                            <option v-for="one in agent"
+                                                    :value="one">
+                                                {{one.areaName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商地址</label>
                                         <input type="text"
                                                class="form-control"
-                                               id="subtotaled"
-                                               placeholder=""
-                                               aria-describedby="defaultFormControlHelp"
-                                               disabled />
+                                               id=""
+                                               readonly
+                                               v-model="agentone.address" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商電話</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.phone" />
                                     </div>
 
-                                    <button @click="btnquery" id="btnquery" class="btn btn-outline-primary d-block">查詢</button>
-                                    <button id="btnedit" class="btn btn-outline-primary d-block" disabled>修改</button>
 
-                                    <button id="btndelete"
-                                            type="button"
-                                            class="btn btn-outline-primary d-block"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modalCenter"
-                                            disabled>
-                                        刪除
-                                    </button>
-                                    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                                    <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
+                                    <button v-bind:disabled="btndisable" @click="btnedit" class="btn btn-outline-primary d-block">修改</button>
+                                    <button v-bind:disabled="btndisable" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>
+
+                                    <div v-if="dialog" class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -722,7 +811,9 @@
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <h5 id="deleteorderid"></h5>
+                                                            <h5>
+                                                                是否要刪除訂單? 編號 : 
+                                                            </h5>
                                                         </div>
                                                     </div>
 
@@ -815,60 +906,86 @@
 
 
     <script>
-        var CreateEditDelete = new Vue({
-            el: "#CreateEditDelete",
+        var divedit = new Vue({
+            el: "#divedit",
             data: {
-                file: {},
+                dialog: false,
+                isDisabled: true,
+                btndisable:true,
+                orderid: '',
+                orderidqry: {},
+
+
                 cartype: {},
+                cartypeone: 999,
                 carcolor: {},
+                carcolorone: {},
                 cartexture: {},
+                cartextureone: '請選擇內裝材質',
                 carwheel: {},
+                carwheelone: '請選擇輪圈款式',
                 carplaque: {},
+                carplaqueone: '請選擇飾板款式',
                 carlight: {},
+                carlightone: '請選擇頭燈款式',
                 carsaddle: {},
+                carsaddleone: '請選擇中央鞍座款式',
                 carsunroof: {},
+                carsunroofone: '請選擇天窗款式',
                 carmedia: {},
-                agent: {}
+                carmediaone: '請選擇多媒體車機款式',
+                agent: {},
+                agentone: '請選擇代理商地區'
             },
             computed: {
-                charcnt() {
-                    return this.length;
+                cnt() {
+                    return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
+                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
+                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
+                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
+                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                        ;
                 }
             },
             methods: {
                 btnquery: function () {
-                    axios.get('/api/BusinessOptionals/order/' + this.file.orderid)
-                        .then(x => {
-                            x.data.forEach(function(idx){
-                                //console.log(idx.optionalName);
-                                this.file.optionalName = idx.optionalName;
-                                console.log(this.file.optionalName);
+                    console.log('有');
+                    this.isDisabled = true;
+                    this.btndisable = !this.btndisable;
+                        axios.get('/api/BusinessOptionals/order/' + this.orderid)
+                            .then(function (g) {
+                                this.cartypeone = g.data[0].optionalName
+                                console.log(this.cartypeone);
                             })
-                        }
-                        )
+                            .catch((error) => console.log(error));
+                    if (this.orderid.length == 10) {
+
+                    }
+
+                },
+                btnedit: function () {
+                    this.isDisabled = false;
+                },
+                btndelete: function () {
+                    dialog: true
+                    console.log('delete');
                 }
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/info/1')
-                    .then(x => this.cartype = x.data),
-                    axios.get('/api/BusinessOptionals/info/2')
-                        .then(x => this.carcolor = x.data),
-                    axios.get('/api/BusinessOptionals/info/3')
-                        .then(x => this.cartexture = x.data),
-                    axios.get('/api/BusinessOptionals/info/4')
-                        .then(x => this.carwheel = x.data),
-                    axios.get('/api/BusinessOptionals/info/5')
-                        .then(x => this.carplaque = x.data),
-                    axios.get('/api/BusinessOptionals/info/6')
-                        .then(x => this.carlight = x.data),
-                    axios.get('/api/BusinessOptionals/info/7')
-                        .then(x => this.carsaddle = x.data),
-                    axios.get('/api/BusinessOptionals/info/8')
-                        .then(x => this.carsunroof = x.data),
-                    axios.get('/api/BusinessOptionals/info/9')
-                        .then(x => this.carmedia = x.data),
-                    axios.get('/api/BusinessOptionals/agent')
-                        .then(x => this.agent = x.data)
+                    axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),
+                    axios.get('/api/BusinessOptionals/info/2').then(g => this.carcolor = g.data),
+                    axios.get('/api/BusinessOptionals/info/3').then(g => this.cartexture = g.data),
+                    axios.get('/api/BusinessOptionals/info/4').then(g => this.carwheel = g.data),
+                    axios.get('/api/BusinessOptionals/info/5').then(g => this.carplaque = g.data),
+                    axios.get('/api/BusinessOptionals/info/6').then(g => this.carlight = g.data),
+                    axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle = g.data),
+                    axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
+                    axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
+                    axios.get('/api/BusinessOptionals/agent' ).then(g => this.agent = g.data)
             }
         })
 
@@ -901,20 +1018,6 @@
             //    }
             //})
 
-
-            $('#btnedit').click(function () {
-                // console.log('editok');
-                $(':disabled').prop("disabled", false);
-            })
-
-
-            $('#btndelete').click(function () {
-                // console.log('deleteok');
-                $('#deleteorderid').html('');
-                $('#deleteorderid').append(`
-                      是否要刪除訂單? 編號 : ${$('#orderid').val()}
-                      `);
-            })
 
         })
     </script>
