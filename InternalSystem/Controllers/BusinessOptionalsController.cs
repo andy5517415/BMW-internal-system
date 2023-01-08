@@ -55,16 +55,15 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<dynamic>> GetOrder(string orderid)
         {
 
-
-
             var q = from ord in _context.BusinessOrders
                     join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
                     join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
                     where ord.OrderNumber == orderid
                     select new
                     {
-                        OrderId = ord.OrderId,
-                        OrderNumber = ord.OrderNumber,
+                        OrderId     = ord.OrderId,
+                        OrderNumber  = ord.OrderNumber,
+                        OptionalId   = od.OptionalId,
                         OptionalName = opl.OptionalName
                     };
             return await q.ToListAsync();

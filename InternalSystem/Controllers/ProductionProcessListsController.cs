@@ -20,6 +20,25 @@ namespace InternalSystem.Controllers
         {
             _context = context;
         }
+
+        //車子型號
+        // GET: api/ProductionProcessLists/model
+        [HttpGet("model")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetModel()
+        {
+            var processList = from BO in this._context.BusinessOptionals
+                              join BC in this._context.BusinessCategories on BO.CategoryId equals BC.CategoryId
+                              where BC.CategoryId == 1
+                              select new
+                              {
+                                  OptionalId = BO.OptionalId,
+                                  OptionalName = BO.OptionalName
+                              };
+
+            return await processList.ToListAsync();
+        }
+
+        //製程單
         // GET: api/ProductionProcessLists/process
         [HttpGet("process")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetProcess()
@@ -29,28 +48,35 @@ namespace InternalSystem.Controllers
 
             return await processList.ToListAsync();
         }
+
+        //大表單
         // GET: api/ProductionProcessLists
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists()
+        [HttpGet("Processor/{id}/{carid}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists(int id , int carid)
         {
             var List = from PPL in this._context.ProductionProcessLists
                        join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
                        join POPS in this._context.ProductionOrderProcessStatuses on  PPL.OrderId equals POPS.OrderId
                        join PP in this._context.ProductionProcesses on POPS.ProcessId equals PP.ProcessId
+                       join PPSN in this._context.ProductionProcessStatusNames on POPS.StatusId equals PPSN.StatusId
                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
                        join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
                        join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
-                       where BOT.OptionalId == 1
+                       where BC.CategoryId == 1 && POPS.StatusId == 2 && POPS.ProcessId == id && BOT.OptionalId == carid
                        select new
                        {
                            OrderId = PPL.OrderId,
+                           OrderNumber = BO.OrderNumber,
                            AreaId = PPL.AreaId,
                            AreaName = PA.AreaName,
                            ProcessId = POPS.ProcessId,
                            ProcessName = PP.ProcessName,
-                           OptionalName = BOT.OptionalName
-                           
+                           StarDate = PPL.StarDate.ToString(),
+                           OptionalName = BOT.OptionalName,
+                           StatusId = POPS.StatusId,
+                           StatusName = PPSN.StatusName
+
                        };
 
             return await List.ToListAsync();

@@ -546,79 +546,87 @@
                                       data-bs-toggle="tab"
                                       data-bs-target="#navs-top-home"
                                       aria-controls="navs-top-home"
-                                      aria-selected="true">
-                                  xxx
+                                      aria-selected="true"
+                                      v-for="car in CarModel" v-if="car.optionalId == 1" >
+                                  {{car.optionalName}}
                               </button>
                           </li>
                           <li class="nav-item">
-                            <button
-                              type="button"
-                              class="nav-link"
-                              role="tab"
-                              data-bs-toggle="tab"
-                              data-bs-target="#navs-top-profile"
-                              aria-controls="navs-top-profile"
-                              aria-selected="false"
-                            >
-                              X7 xDrive40i
-                            </button>
+                              <button type="button"
+                                      class="nav-link"
+                                      role="tab"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#navs-top-profile"
+                                      aria-controls="navs-top-profile"
+                                      aria-selected="false"
+                                      v-for="car in CarModel" v-if="car.optionalId == 2">
+                                  {{car.optionalName}}
+                              </button>
                           </li>
                           <li class="nav-item">
-                            <button
-                              type="button"
-                              class="nav-link"
-                              role="tab"
-                              data-bs-toggle="tab"
-                              data-bs-target="#navs-top-messages"
-                              aria-controls="navs-top-messages"
-                              aria-selected="false"
-                            >
-                              iX xDrive40
-                            </button>
+                              <button type="button"
+                                      class="nav-link"
+                                      role="tab"
+                                      data-bs-toggle="tab"
+                                      data-bs-target="#navs-top-messages"
+                                      aria-controls="navs-top-messages"
+                                      aria-selected="false"
+                                      v-for="car in CarModel" v-if="car.optionalId == 3">
+                                  {{car.optionalName}}
+                              </button>
                           </li>
                         </ul>
 
 
-                        <div class="tab-content">
+                        <div class="tab-content" >
                           <!-- 520i Sport -->
                           <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-                            <div class="card mb-4 m-4 " v-for="process in ProcessList">
-                              <div class="row card-body" >
-                                  <label for="" class="col-3 fs-4">型號: 123</label>
-                                  <label for="" class="col-3 fs-4 ">生產: {{process.processName}}</label>
-                                        <div class="col-3 d-md-flex justify-content-md-end">
-                                          <button type="button" class="btn btn-outline-dark">進入</button>
-                                        </div>
+                              <div v-for="car in CarModel"  v-if="car.optionalId == 1">
+                                  <div class="card mb-4 m-4 " v-for="process in ProcessList">
+                                      <div class="row card-body">
+                                          <label id="carmodel"  :value="car.optionalName" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                          <label id="processname" :value="process.process" for="" class="col-3 fs-4 ">生產: {{process.processName}}</label>
+                                          <div class="col-4 d-md-flex justify-content-md-end">
+                                              <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                          </div>
+                                      </div>
+                                  </div>
                               </div>
-                            </div>
+                            
                                                         
                                                     
                           </div>
                         <!-- X7 xDrive40i -->
                         <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-                          <div class="card mb-4 m-4 ">
-                            <div class="row card-body">
-                              <label for="" class="col-3 fs-4">型號: X7 xDrive40i</label>
-                              <label for="" class="col-3 fs-4">生產: A製成</label>
-                                      <div class="col-3 d-md-flex justify-content-md-end">
-                                        <button type="button" class="btn btn-outline-dark">進入</button>
-                                  </div>
-        
+                            <div  v-for="car in CarModel" v-if="car.optionalId == 2">
+                                <div class="card mb-4 m-4 " v-for="process in ProcessList">
+                                    <div class="row card-body">
+                                        <label id="carmodel-2" for="" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                        <label for="" class="col-3 fs-4">生產: {{process.processName}}</label>
+                                        <div class="col-4 d-md-flex justify-content-md-end">
+                                            <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                          </div>                     
+                                           
                         
                         </div>
                         <!-- iX xDrive40 -->
                         <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
-                          <div class="card mb-4 m-4 ">
-                            <div class="row card-body">
-                              <label for="" class="col-3 fs-4">型號: iX xDrive40</label>
-                              <label for="" class="col-3 fs-4">生產: A製成</label>                                 
-                                      <div class="col-6 d-md-flex justify-content-md-end">
-                                        <button type="button" class="btn btn-outline-dark">進入</button>
-                                      </div>
+                            <div v-for="car in CarModel" v-if="car.optionalId == 3">
+                                <div class="card mb-4 m-4 " v-for="process in ProcessList">
+                                    <div class="row card-body">
+                                        <label id="carmodel-3" for=""  class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                        <label for="" class="col-3 fs-4">生產: {{process.processName}}</label>
+                                        <div class="col-4 d-md-flex justify-content-md-end">
+                                            <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                          
                         </div>
 
                       </div>
@@ -636,7 +644,7 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
+
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
@@ -666,25 +674,48 @@
             el: "#app",
             data: {
                 PDProcessList: {},
-                ProcessList: {}
+                ProcessList: {},
+                CarModel: {}
+            },
+            methods:{
+                Enter: function (e,f) {
+                    sessionStorage.setItem("data", JSON.stringify(e));
+                    sessionStorage.setItem("data2", JSON.stringify(f));
+
+
+                }
             }
             
         })
 
-        $.ajax({
-            type: "get",
-            url: "https://localhost:44319/api/ProductionProcessLists",
-            success: function (e) {
-                app.PDProcessList = e
-            }
-                
-        })
+        console.log(app.ProcessList)
 
+        //大表單
+        //$.ajax({
+        //    type: "get",
+        //    url: "https://localhost:44319/api/ProductionProcessLists",
+        //    success: function (e) {
+        //        app.PDProcessList = e
+        //    }
+                
+        //})
+
+        //製程單
         $.ajax({
             type: "get",
             url: "https://localhost:44319/api/ProductionProcesses",
             success: function (e) {
                 app.ProcessList = e
+            }
+
+        })
+
+        //車子型號
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcessLists/model",
+            success: function (e) {
+                app.CarModel = e
             }
 
         })

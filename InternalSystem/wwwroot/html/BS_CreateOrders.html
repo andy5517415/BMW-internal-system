@@ -535,19 +535,20 @@
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
                                                 v-model="cartypeone">
-                                            <option disabled>請選擇車款</option>
+                                            <option disabled value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
                                                 {{one.optionalName}}
                                             </option>
                                         </select>
+                                        <!--<input type="hidden" v-model="cartypeone.OptionalId">-->
                                     </div>
                                     <div class="col-md-3">
                                         <label for="" class="form-label fs-4">車款價格</label>
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="cartypeone.price" />
                                     </div>
 
@@ -557,7 +558,7 @@
                                         <select id="carcolor"
                                                 class="form-select"
                                                 v-model="carcolorone">
-                                            <option disabled>請選擇車漆顏色</option>
+                                            <option disabled value="999">請選擇車漆顏色</option>
                                             <option v-for="one in carcolor"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -569,7 +570,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carcolorone.price" />
                                     </div>
 
@@ -578,7 +579,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="texture"
                                                 v-model="cartextureone">
-                                            <option disabled>請選擇內裝材質</option>
+                                            <option disabled value="999">請選擇內裝材質</option>
                                             <option v-for="one in cartexture"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -591,7 +592,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="cartextureone.price" />
                                     </div>
 
@@ -601,7 +602,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="wheel"
                                                 v-model="carwheelone">
-                                            <option disabled>請選擇輪圈款式</option>
+                                            <option disabled value="999">請選擇輪圈款式</option>
                                             <option v-for="one in carwheel"
                                                     v-bind:value="one">
                                                 {{one.optionalName}}
@@ -613,7 +614,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carwheelone.price" />
                                     </div>
                                     <div class="col-md-3">
@@ -621,7 +622,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="plaque"
                                                 v-model="carplaqueone">
-                                            <option disabled>請選擇飾板款式</option>
+                                            <option disabled value="999">請選擇飾板款式</option>
                                             <option v-for="one in carplaque"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -633,7 +634,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carplaqueone.price" />
                                     </div>
                                     <div class="col-md-3">
@@ -641,7 +642,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="light"
                                                 v-model="carlightone">
-                                            <option disabled>請選擇頭燈款式</option>
+                                            <option disabled value="999">請選擇頭燈款式</option>
                                             <option v-for="one in carplaque"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -653,7 +654,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carlightone.price" />
                                     </div>
                                     <div class="col-md-3">
@@ -661,7 +662,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="saddle"
                                                 v-model="carsaddleone">
-                                            <option disabled>請選擇中央鞍座款式</option>
+                                            <option disabled value="999">請選擇中央鞍座款式</option>
                                             <option v-for="one in carsaddle"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -673,7 +674,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carsaddleone.price" />
                                     </div>
                                     <div class="col-md-3">
@@ -681,7 +682,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="sunroof"
                                                 v-model="carsunroofone">
-                                            <option disabled>請選擇天窗款式</option>
+                                            <option disabled value="999">請選擇天窗款式</option>
                                             <option v-for="one in carsunroof"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -693,7 +694,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carsunroofone.price" />
                                     </div>
                                     <div class="col-md-3">
@@ -701,7 +702,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="media"
                                                 v-model="carmediaone">
-                                            <option disabled>請選擇多媒體車機款式</option>
+                                            <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -713,7 +714,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="carmediaone.price" />
                                     </div>
                                     <div class="col-md-6">
@@ -742,7 +743,7 @@
                                                 class="form-select color-dropdown"
                                                 v-model="agentone"
                                                 >
-                                            <option disabled>請選擇代理商地區</option>
+                                            <option disabled value="999">請選擇代理商地區</option>
                                             <option v-for="one in agent"
                                                     :value="one">
                                                 {{one.areaName}}
@@ -754,7 +755,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="agentone.address"
                                                />
                                     </div>
@@ -763,7 +764,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""                                               
-                                               disabled
+                                               readonly
                                                v-model="agentone.phone" />
                                     </div>
 
@@ -788,7 +789,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="orderid" />
                                     </div>
                                 </div>
@@ -803,7 +804,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="cartypeone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -811,7 +812,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carcolorone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -819,7 +820,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="cartextureone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -827,7 +828,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carwheelone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -835,7 +836,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carplaqueone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -843,7 +844,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carlightone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -851,7 +852,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carsaddleone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -859,7 +860,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carsunroofone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -867,7 +868,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="carmediaone.optionalName" />
                                     </div>
                                     <div class="col-md-6">
@@ -875,7 +876,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="cnt" />
                                     </div>
 
@@ -894,7 +895,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               disabled
+                                               readonly
                                                v-model="agentone.areaName" />
                                     </div>
                                     <div class="col-md-6">
@@ -981,27 +982,28 @@
                 formfill      : true,
                 formconfirm   : false,
                 cartype       : {},
-                cartypeone    : '請選擇車款',
+                cartypeone    : 999,
                 carcolor      : {},
-                carcolorone   : '請選擇車漆顏色',
+                carcolorone   : 999,
                 cartexture    : {},
-                cartextureone : '請選擇內裝材質',
+                cartextureone : 999,
                 carwheel      : {},
-                carwheelone   : '請選擇輪圈款式',
+                carwheelone   : 999,
                 carplaque     : {},
-                carplaqueone  : '請選擇飾板款式',
+                carplaqueone  : 999,
                 carlight      : {},
-                carlightone   : '請選擇頭燈款式',
+                carlightone   : 999,
                 carsaddle     : {},
-                carsaddleone  : '請選擇中央鞍座款式',
+                carsaddleone  : 999,
                 carsunroof    : {},
-                carsunroofone : '請選擇天窗款式',
+                carsunroofone : 999,
                 carmedia      : {},
-                carmediaone   : '請選擇多媒體車機款式',
+                carmediaone   : 999,
                 agent         : {},
-                agentone      : '請選擇代理商地區',
-                orderid       : ""
-
+                agentone      : 999,
+                orderid       : "",
+                orderpost: {},
+                orderdetailpost     : {}
             },
             computed: {
                 cnt() {
@@ -1033,19 +1035,33 @@
                 },
                 btnCreateNextClick: function () {
                     console.log('next');
+                    let dt = new Date();
+                    this.orderpost = {
+                        "orderNumber"   : this.orderid,
+                        "orderdatetime" : `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}`,
+                        "AreaId"        : this.agentone.areaId,
+                        "Price"         : this.cnt,
+                        "EmployeeId"    : Math.floor(Math.random() * 10) + 1,
+                        "IsAccepted"    : false
+                    };
+
+                    axios.post('/api/BusinessOrders', this.orderpost)
+                         .then(p => console.log(p))
+                    axios.post('/api/BusinessOrders', this.orderdetailpost)
+                        .then(p => console.log(p))
                 }
             },
             mounted() {
-                    axios.get('/api/BusinessOptionals/info/1').then(x => this.cartype    = x.data),
-                    axios.get('/api/BusinessOptionals/info/2').then(x => this.carcolor   = x.data),
-                    axios.get('/api/BusinessOptionals/info/3').then(x => this.cartexture = x.data),
-                    axios.get('/api/BusinessOptionals/info/4').then(x => this.carwheel   = x.data),
-                    axios.get('/api/BusinessOptionals/info/5').then(x => this.carplaque  = x.data),
-                    axios.get('/api/BusinessOptionals/info/6').then(x => this.carlight   = x.data),
-                    axios.get('/api/BusinessOptionals/info/7').then(x => this.carsaddle  = x.data),
-                    axios.get('/api/BusinessOptionals/info/8').then(x => this.carsunroof = x.data),
-                    axios.get('/api/BusinessOptionals/info/9').then(x => this.carmedia   = x.data),
-                    axios.get('/api/BusinessOptionals/agent' ).then(x => this.agent      = x.data)
+                    axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype    = g.data),
+                    axios.get('/api/BusinessOptionals/info/2').then(g => this.carcolor   = g.data),
+                    axios.get('/api/BusinessOptionals/info/3').then(g => this.cartexture = g.data),
+                    axios.get('/api/BusinessOptionals/info/4').then(g => this.carwheel   = g.data),
+                    axios.get('/api/BusinessOptionals/info/5').then(g => this.carplaque  = g.data),
+                    axios.get('/api/BusinessOptionals/info/6').then(g => this.carlight   = g.data),
+                    axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle  = g.data),
+                    axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
+                    axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia   = g.data),
+                    axios.get('/api/BusinessOptionals/agent' ).then(g => this.agent      = g.data)
             }
         })
 
