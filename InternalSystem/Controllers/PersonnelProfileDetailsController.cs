@@ -42,7 +42,7 @@ namespace InternalSystem.Controllers
         }
 
         //api/PersonnelProfileDetails/ss/2023001
-        [HttpGet("ss/{id}")]
+        [HttpGet("userid/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
         {
 
@@ -54,21 +54,18 @@ namespace InternalSystem.Controllers
                                       join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                       select new
                                       {
-                                          CityId = o.CityId,
-                                          CityName = c.CityName,
-                                          PositionId = o.PositionId,
-                                          PositionName = p.PositionName,
-                                          DepartmentId = o.DepartmentId,
-                                          DepartmentId2 = o.DepartmentId2,
-                                          DepName = d.DepName,
-                                          RankId = o.RankId,
-                                          Rank = r.Rank,
+                                          EmployeeId = o.EmployeeId,
                                           EmployeeName = o.EmployeeName,
-                                          EmployeeNumber = o.EmployeeNumber,
-                                          HomePhone = o.HomePhone,
                                           Sex = o.Sex,
                                           IsMarried = o.IsMarried,
                                           IdentiyId = o.IdentiyId,
+                                          CityId = o.CityId,
+                                          PositionId = o.PositionId,
+                                          DepartmentId = o.DepartmentId,
+                                          DepartmentId2 = o.DepartmentId2,
+                                          RankId = o.RankId,
+                                          EmployeeNumber = o.EmployeeNumber,
+                                          HomePhone = o.HomePhone,
                                           Email = o.Email,
                                           Birthday = o.Birthday.ToString("yyyy-MM-dd"),
                                           PhoneNumber = o.PhoneNumber,
@@ -93,8 +90,8 @@ namespace InternalSystem.Controllers
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
 
-        //api/PersonnelProfileDetails/Name/name
-        [HttpGet("Name/{name}")]
+        //api/PersonnelProfileDetails/na/name
+        [HttpGet("na/{name}")]
         public async Task<ActionResult<dynamic>> SearchNameGetPersonnelProfileDetail(string name)
         {
 
@@ -106,21 +103,18 @@ namespace InternalSystem.Controllers
                                           join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                           select new
                                           {
-                                              CityId = o.CityId,
-                                              CityName = c.CityName,
-                                              PositionId = o.PositionId,
-                                              PositionName = p.PositionName,
-                                              DepartmentId = o.DepartmentId,
-                                              DepartmentId2 = o.DepartmentId2,
-                                              DepName = d.DepName,
-                                              RankId = o.RankId,
-                                              Rank = r.Rank,
+                                              EmployeeId = o.EmployeeId,
                                               EmployeeName = o.EmployeeName,
-                                              EmployeeNumber = o.EmployeeNumber,
-                                              HomePhone = o.HomePhone,
                                               Sex = o.Sex,
                                               IsMarried = o.IsMarried,
                                               IdentiyId = o.IdentiyId,
+                                              CityId = o.CityId,
+                                              PositionId = o.PositionId,
+                                              DepartmentId = o.DepartmentId,
+                                              DepartmentId2 = o.DepartmentId2,
+                                              RankId = o.RankId,
+                                              EmployeeNumber = o.EmployeeNumber,
+                                              HomePhone = o.HomePhone,
                                               Email = o.Email,
                                               Birthday = o.Birthday.ToString("yyyy-MM-dd"),
                                               PhoneNumber = o.PhoneNumber,
@@ -144,6 +138,43 @@ namespace InternalSystem.Controllers
 
             return await SearchNameProfileDetail.FirstOrDefaultAsync();
         }
+
+
+        //api/PersonnelProfileDetails/na/5
+        [HttpPut("na/{id}")]
+        public async Task<IActionResult> PutPersonnelEditProfile(int id, PersonnelProfileDetail SearchNameProfileDetail)
+        {
+
+            if (id != SearchNameProfileDetail.EmployeeId)
+            {
+                return BadRequest();
+            }
+
+
+
+
+            _context.Entry(SearchNameProfileDetail).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonnelProfileDetailExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
         // PUT: api/PersonnelProfileDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
