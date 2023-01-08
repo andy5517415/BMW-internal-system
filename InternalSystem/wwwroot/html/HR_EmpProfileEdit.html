@@ -889,7 +889,7 @@
 
                 },
                 searchbtn: function () {
-                    axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
+                    axios.get('/api/PersonnelProfileDetails/EmployeeNumber/' + this.employeeNumber)
                         .then(response => this.employeelist = response.data)
                         .catch(console.log(error))
 

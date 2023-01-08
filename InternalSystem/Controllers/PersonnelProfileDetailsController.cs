@@ -41,8 +41,57 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
+
         //api/PersonnelProfileDetails/ss/2023001
-        [HttpGet("userid/{id}")]
+        [HttpGet("uid/{id}")]
+        public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(int id)
+        {
+
+            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
+                                      where o.EmployeeId == id
+                                      join c in _context.PersonnelCityLists on o.CityId equals c.CityId
+                                      join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepId
+                                      join r in _context.PersonnelRanks on o.RankId equals r.RankId
+                                      select new
+                                      {
+                                          EmployeeId = o.EmployeeId,
+                                          EmployeeName = o.EmployeeName,
+                                          Sex = o.Sex,
+                                          IsMarried = o.IsMarried,
+                                          IdentiyId = o.IdentiyId,
+                                          CityId = o.CityId,
+                                          PositionId = o.PositionId,
+                                          DepartmentId = o.DepartmentId,
+                                          DepartmentId2 = o.DepartmentId2,
+                                          RankId = o.RankId,
+                                          EmployeeNumber = o.EmployeeNumber,
+                                          HomePhone = o.HomePhone,
+                                          Email = o.Email,
+                                          Birthday = o.Birthday.ToString("yyyy-MM-dd"),
+                                          PhoneNumber = o.PhoneNumber,
+                                          Address = o.Address,
+                                          DutyStatus = o.DutyStatus,
+                                          Country = o.Country,
+                                          EmergencyNumber = o.EmergencyNumber,
+                                          EmergencyPerson = o.EmergencyPerson,
+                                          EmergencyRelation = o.EmergencyRelation,
+                                          EntryDate = o.EntryDate.ToString("yyyy-MM-dd"),
+                                          Acount = o.Acount,
+                                          Password = o.Password,
+                                          Terminationdate = o.Terminationdate
+
+                                      };
+
+            if (SearchProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await SearchProfileDetail.FirstOrDefaultAsync();
+        }
+        //api/PersonnelProfileDetails/ss/2023001
+        [HttpGet("EmployeeNumber/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
         {
 
