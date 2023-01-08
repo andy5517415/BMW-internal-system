@@ -72,16 +72,27 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
+
+
+
         // POST: api/BusinessOrders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BusinessOrder>> PostBusinessOrder(BusinessOrder businessOrder)
+        public async Task<ActionResult<dynamic>> PostBusinessOrder(BusinessOrder businessOrder)
         {
+
+
+
             _context.BusinessOrders.Add(businessOrder);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBusinessOrder", new { id = businessOrder.OrderId }, businessOrder);
         }
+
+
+
+
 
         // DELETE: api/BusinessOrders/5
         [HttpDelete("{id}")]
