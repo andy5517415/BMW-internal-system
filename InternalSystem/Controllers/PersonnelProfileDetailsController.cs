@@ -68,7 +68,7 @@ namespace InternalSystem.Controllers
                                           EmployeeNumber = o.EmployeeNumber,
                                           HomePhone = o.HomePhone,
                                           Email = o.Email,
-                                          Birthday = o.Birthday.ToString("yyyy-MM-dd"),
+                                          Birthday = o.Birthday.ToString(),
                                           PhoneNumber = o.PhoneNumber,
                                           Address = o.Address,
                                           DutyStatus = o.DutyStatus,
@@ -76,14 +76,15 @@ namespace InternalSystem.Controllers
                                           EmergencyNumber = o.EmergencyNumber,
                                           EmergencyPerson = o.EmergencyPerson,
                                           EmergencyRelation = o.EmergencyRelation,
-                                          EntryDate = o.EntryDate.ToString("yyyy-MM-dd"),
+                                          EntryDate = o.EntryDate.ToString(),
                                           Acount = o.Acount,
                                           Password = o.Password,
-                                          Terminationdate = o.Terminationdate
+                                          Terminationdate = o.Terminationdate.ToString()
 
                                       };
+         
 
-            if (SearchProfileDetail == null)
+                if (SearchProfileDetail == null)
             {
                 return NotFound();
             }
@@ -116,7 +117,7 @@ namespace InternalSystem.Controllers
                                           EmployeeNumber = o.EmployeeNumber,
                                           HomePhone = o.HomePhone,
                                           Email = o.Email,
-                                          Birthday = o.Birthday.ToString("yyyy-MM-dd"),
+                                          Birthday = o.Birthday.ToString(),
                                           PhoneNumber = o.PhoneNumber,
                                           Address = o.Address,
                                           DutyStatus = o.DutyStatus,
@@ -124,10 +125,10 @@ namespace InternalSystem.Controllers
                                           EmergencyNumber = o.EmergencyNumber,
                                           EmergencyPerson = o.EmergencyPerson,
                                           EmergencyRelation = o.EmergencyRelation,
-                                          EntryDate = o.EntryDate.ToString("yyyy-MM-dd"),
+                                          EntryDate = o.EntryDate.ToString(),
                                           Acount = o.Acount,
                                           Password = o.Password,
-                                          Terminationdate = o.Terminationdate
+                                          Terminationdate = o.Terminationdate.ToString()
 
                                       };
 
@@ -165,7 +166,7 @@ namespace InternalSystem.Controllers
                                               EmployeeNumber = o.EmployeeNumber,
                                               HomePhone = o.HomePhone,
                                               Email = o.Email,
-                                              Birthday = o.Birthday.ToString("yyyy-MM-dd"),
+                                              Birthday = o.Birthday.ToString(),
                                               PhoneNumber = o.PhoneNumber,
                                               Address = o.Address,
                                               DutyStatus = o.DutyStatus,
@@ -173,10 +174,10 @@ namespace InternalSystem.Controllers
                                               EmergencyNumber = o.EmergencyNumber,
                                               EmergencyPerson = o.EmergencyPerson,
                                               EmergencyRelation = o.EmergencyRelation,
-                                              EntryDate = o.EntryDate.ToString("yyyy-MM-dd"),
+                                              EntryDate = o.EntryDate.ToString(),
                                               Acount = o.Acount,
                                               Password = o.Password,
-                                              Terminationdate = o.Terminationdate
+                                              Terminationdate = o.Terminationdate.ToString()
 
                                           };
 

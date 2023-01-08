@@ -808,6 +808,12 @@
 
                                             <input v-model="employeelist.entryDate" class="form-control" type="date" id="Entrydate" />
                                         </div>
+
+                                        <div class="mb-3 col-md-6">
+                                            <label for="Terminationdate" class="col-md-4 form-label">離職日</label>
+
+                                            <input v-model="employeelist.terminationdate" class="form-control" type="date" id="Terminationdate" />
+                                        </div>
                                     </div>
 
                                     <div class="alert alert-primary text-center  fs-5 fw-bold mb-4" role="alert">
@@ -922,8 +928,7 @@
         }
 
         Vue.createApp(app).mount('#app')
-        JSON.stringify(sessionStorage.setItem("data", employeelist))
-        this.aaa = JSON.parse(sessionStorage.getItem("data", employeelist))
+      
     </script>
 </body>
 </html>
