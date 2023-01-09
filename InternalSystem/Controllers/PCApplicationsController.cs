@@ -20,6 +20,31 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        // 申請表
+        // GET: api/PCApplications
+        [HttpGet("test")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetApplicationsList()
+        {
+            var i = from AP in this._context.PcApplications
+                    join SU in this._context.PcSupplierLists on AP.SupplierId equals SU.SupplierId
+                    join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
+                    join PDL in this._context.PersonnelDepartmentLists on ARS.DepId equals PDL.DepId
+                    join PDCE in this._context.PersonnelDepartmentConnectEmployeeIds on PDL.DepId equals PDCE.DepId
+                    join PPD in this._context.PersonnelProfileDetails on PDCE.EmployeeId equals PPD.EmployeeId
+                    select new
+                    {
+                        EmployeeName =  PPD.EmployeeName,
+                        DepartmentId = PPD.DepartmentId,
+                        Date = AP.Date,
+                        PurchaseId = AP.PurchaseId,
+                        Supplier = AP.Supplier,
+                        SupplierPhone = SU.SupplierPhone,
+                        Comment = AP.Comment
+                    };
+                      
+            return await i.ToListAsync();
+        }
+        
         // GET: api/PCApplications
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PcApplication>>> GetPcApplications()
