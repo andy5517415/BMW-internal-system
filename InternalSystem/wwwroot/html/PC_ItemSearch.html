@@ -543,15 +543,18 @@
                   <!-- 物品清單第一個 -->
                   <div class="row mb-5">
                       <div id="app">
-                          <div v-for="a in item" class="col-md-6 col-lg-4 mb-3">
-                              <div class="card h-80 lvrv">
-                                  <img class="card-img-top" src="{{a.image}}" alt="Card image cap" />
-                                  <div class="card-body">
-                                      <h5 class="card-title fs-4 fs-4">{{a.goods}}</h5>
-                                      <p class="card-text fs-4">
-                                          No.P{{a.productId}}<br>
-                                          單價一{{a.unit}} {{a.unitPrice}} 元。
-                                      </p>
+                          <div v-for="(a,index) in item" >
+                              <div class="col-md-6 col-lg-4 mb-3">
+                                  <div class="card h-80 lvrv">
+                                      <img class="card-img-top" src="../assets/img/PC_Photo/pen.jpg" alt="Card image cap" />
+                                      <div class="card-body">
+                                          <h5 class="card-title fs-4 fs-4">{{a.goods}}</h5>
+                                          <p class="card-text fs-4">
+                                              No.P{{a.productId}}<br>
+                                              單價一{{a.unit}} <br>
+                                              {{a.unitPrice}} 元。
+                                          </p>
+                                      </div>
                                   </div>
                               </div>
                           </div>
