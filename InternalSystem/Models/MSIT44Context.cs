@@ -64,6 +64,8 @@ namespace InternalSystem.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
+
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)

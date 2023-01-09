@@ -536,42 +536,59 @@
           <div id="app">
               <div class="card mb-3 m-4">
                   <div class="row card-body">
-                      <div class="my-2">
-                          <label for="" class="col-3 fs-5">型號: {{ProcessList.optionalName}}</label>
-                          <label for="" class="col-3 fs-5">生產: {{ProcessList.processName}}</label>
-                          <label for="" class="col-2 fs-5 ">廠區: {{ProcessList.areaName}}</label>
-                          <label for="" class="col-3 fs-5 ">訂單號碼: {{ProcessList.orderNumber}}</label>
+                      <div class="row my-2">
+                          <div class="col-3">
+                              <label for="optionalName" class="fs-5">型號: {{ProcessList.optionalName}}</label>
+                              <input id="optionalName" type="hidden" class="fs-4" v-model="ProcessList.orderId" name="optionalName" value="" />
+                          </div>
+                          <div class="col-3">
+                              <label for="processName" class="fs-5">產線: {{ProcessList.processName}}</label>
+                              <input id="processName" type="hidden" v-model="ProcessList.processId" class="fs-4" name="processName" />
+                          </div>
+                          <div class="col-3">
+                              <label for="areaName" class="fs-5">廠區: {{ProcessList.areaName}}</label>
+                              <input id="areaName" type="hidden" v-model="Context.areaId" class="fs-4" name="processName" />
+                          </div>
+                          <div class="col-3">
+                              <label for="orderNumber" class="fs-5">訂單號碼: {{ProcessList.orderNumber}}</label>
+                              <input id="orderNumber" type="hidden" v-model="ProcessList.orderNumber" class="fs-4" name="processName" />
+                          </div>
+
                       </div>
 
                       <div class="row my-2 mb-4">
-                          <label for="" class="col-3 fs-5">姓名: 王大明</label>
+                          <div class="col-3">
+                              <label for="empname" class="fs-5">姓名: </label>
+                              <input id="empname" class="fs-5" type="hidden" name="empname" v-model="emplyee.id"  />
+                          </div>
+                          
                           <label for="" class="col-3 fs-5">部門: 生產一部</label>
                           <label for="" class="col-1 fs-5">報工日期: </label>
                           <div class="col-md-3">
-                              <input class="form-control" type="date" value="" id="html5-time-input" />
+                              <input class="form-control" v-model="Context.date" type="date" value="" id="html5-time-input" />
                           </div>
                       </div>
 
-                      <label for="html5-time-input" class="col-2 fs-5 my-2">工作時間</label>
+                      <label for="html5-time-input"  class="col-2 fs-5 my-2">工作時間</label>
                       <div class="col-md-3">
-                          <input class="form-control" type="time" value="" id="html5-time-input" />
+                          <input class="form-control" v-model="Context.startTime" type="time"  id="html5-time-input" />
                       </div>
 
                       <label for="html5-time-input" class="col-1 fs-5 my-2 text-center">到</label>
                       <div class="col-md-3">
-                          <input class="form-control" type="time" min="00:00" max="23:59" value="" id="html5-time-input" />
+                          <input class="form-control" v-model="Context.endTime" type="time"  id="html5-time-input" />
                       </div>
 
                       <label for="html5-time-input" class="col-2 fs-5 my-2">共:8 hr</label>
 
                       <div class="my-2">
                           <label for="exampleFormControlTextarea1" class="form-label fs-5 my-2">內容</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" v-model="emplyee.contxt" value="" rows="8"></textarea>
                       </div>
 
                       <div class="col-form-label d-flex justify-content-end">
                           <button type="button" class="mx-2 col-1 btn btn-outline-success">編輯</button>
-                          <button type="button" class="mx-2 col-1 btn btn-outline-primary">確認</button>
+                          <button type="button" class="mx-2 col-1 btn btn-outline-primary" v-on:click ="Enter()">確認</button>
                           <button type="button" class="mx-2 col-1 btn btn-outline-secondary">取消</button>
                       </div>
 
@@ -618,9 +635,43 @@
         var app = new Vue({
             el: "#app",
             data: {
-                ProcessList: {}
+                ProcessList: {},
+                Context: {},
+                emplyee: { id: 2, empname: "王天天" ,contxt:""}
+            },
+            mounted: 
+                function() {
+                    $.ajax({
+                        type: "get",
+                        url: "https://localhost:44319/api/ProductionContexts/Contexts",
+                        success: (e)=> {
+                            this.Context = e[0];
+                        }
+                    })
+                }
+            ,
+            methods: {
+                Enter: function () {
+                    this.Context.processId = this.ProcessList.processId;
+                    this.Context.employeeId = this.emplyee.id
+                    this.Context.context = this.emplyee.contxt
+                    this.Context.orderId = this.ProcessList.orderId
+                    console.log(this.Context)
+
+                    $.ajax({
+                        type: "post",
+                        url: "https://localhost:44319/api/ProductionContexts",
+                        contentType: "application/json",
+                        data: JSON.stringify(this.Context),
+                        success: function () {
+                            window.location = "index.html"
+                        }
+                    })
+                }
             }
         })
+
+        
 
         app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
     </script>
