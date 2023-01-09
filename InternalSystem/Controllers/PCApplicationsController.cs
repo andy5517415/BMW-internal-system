@@ -26,21 +26,21 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<IEnumerable<dynamic>>> GetApplicationsList()
         {
             var i = from AP in this._context.PcApplications
-                    join SU in this._context.PcSupplierLists on AP.SupplierId equals SU.SupplierId
-                    join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
-                    join PPD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PPD.EmployeeId
-                    join PDCE in this._context.PersonnelDepartmentConnectEmployeeIds on PPD.EmployeeId equals PDCE.EmployeeId
-                    join PDL in this._context.PersonnelDepartmentLists on PDCE.DepId equals PDL.DepId
-                    select new
-                    {
-                        EmployeeName =  PPD.EmployeeName,
-                        DepartmentName = PDL.DepName,
-                        Date = AP.Date,
-                        PurchaseId = AP.PurchaseId,
-                        Supplier = AP.Supplier,
-                        SupplierPhone = SU.SupplierPhone,
-                        Comment = AP.Comment
-                    };
+                   join SU in this._context.PcSupplierLists on AP.SupplierId equals SU.SupplierId
+                   join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
+                   join PPD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PPD.EmployeeId
+                   join PDCE in this._context.PersonnelDepartmentConnectEmployeeIds on PPD.EmployeeId equals PDCE.EmployeeId
+                   join PDL in this._context.PersonnelDepartmentLists on PDCE.DepId equals PDL.DepId
+                   select new
+                   {
+                       EmployeeName =  PPD.EmployeeName,
+                       DepartmentName = PDL.DepName,
+                       Date = AP.Date,
+                       PurchaseId = AP.PurchaseId,
+                       Supplier = AP.Supplier,
+                       SupplierPhone = SU.SupplierPhone,
+                       Comment = AP.Comment
+                   };
 
             return await i.ToListAsync();
         }
