@@ -20,8 +20,9 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        //寫錯的 暫時不使用
         // GET: api/PcOrderDetails
-        [HttpGet("goodstest")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetPcOrderDetails()
         {
             var i = from OD in this._context.PcOrderDetails

@@ -526,151 +526,43 @@
 
 
               <!-- 部門查詢篩選 -->
-                <div class="container">
-                <div class="mb-5 col-md-12 fs-4">
-                  <label for="department" class="form-label fs-5">部門</label>
-                  <select id="department" class="select1 form-select fs-5">
-                    <option value="">選擇部門</option>
-                    <option value="Australia">生產部</option>
-                    <option value="Bangladesh">業務部</option>
-                    <option value="Belarus">人資部</option>
-                    <option value="Belarus">採購部</option>
-                  </select>
-                </div>
-                
-                
-              <!-- 物品清單顯示 -->
-              <!-- 物品清單第一個 -->
-              <div class="row mb-5">
-                <div class="col-md-6 col-lg-4 mb-3" id="app">
-                  <div class="card h-80 lvrv">
-                    <img class="card-img-top" src="../assets/img/PC_Photo/pencil.JPG" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">{{item}}</h5>
-                      <p class="card-text fs-4">
-                        No.P501<br> 
-                        單價一隻 20 元。
-                      </p>
-                    </div>
+              <div class="container">
+                  <div class="mb-5 col-md-12 fs-4">
+                      <label for="department" class="form-label fs-5">部門</label>
+                      <select id="department" class="select1 form-select fs-5">
+                          <option value="">選擇部門</option>
+                          <option value="Australia">生產部</option>
+                          <option value="Bangladesh">業務部</option>
+                          <option value="Belarus">人資部</option>
+                          <option value="Belarus">採購部</option>
+                      </select>
                   </div>
-                </div>
-                <!-- 物品清單第二個 -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                  <div class="card h-80 lvrv">
-                    <img class="card-img-top" src="../assets/img/PC_Photo/A4paper.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">A4紙張</h5>
-                      <p class="card-text fs-4">
-                        No.P703<br> 
-                        單價一疊(100張) 300 元。
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <!-- 物品清單第三個 -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                  <div class="card h-80 lvrv">
-                    <img class="card-img-top" src="../assets/img/PC_Photo/stapler.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">釘書機</h5>
-                      <p class="card-text fs-4">
-                        No.P706<br> 
-                        單價一隻 80 元。
-                      </p>
-                    </div>
-                  </div>
-                </div>
 
-              <!-- 物品清單顯示 -->
-              <!-- 物品清單第一個 -->
-
-                <div class="col-md-6 col-lg-4 mb-3">
-                  <div class="card h-80 lvrv">
-                    <img class="card-img-top" src="../assets/img/PC_Photo/pen.JPG" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">原子筆</h5>
-                      <p class="card-text fs-4">
-                        No.P510<br> 
-                        單價一隻 40 元。
-                      </p>
-                      <!-- <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a> -->
-                    </div>
-                  </div>
-                </div>
-                <!-- 物品清單第二個 -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                  <div class="card h-80 lvrv">
-                    <img class="card-img-top" src="../assets/img/PC_Photo/highlighter.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">螢光筆</h5>
-                      <p class="card-text fs-4">
-                        No.P511<br>
-                        單價一隻 20 元。
-                      </p>
-                      <!-- <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a> -->
-                    </div>
-                  </div>
-                </div>
-                <!-- 物品清單第三個 -->
-                <div class="col-md-6 col-lg-4 mb-3">
-                  <div class="card h-80 lvrv">
-                    <img class="card-img-top" src="../assets/img/PC_Photo/StrangePen.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">奇異筆</h5>
-                      <p class="card-text fs-4">
-                        No.P711<br>
-                        單價一隻 30 元。
-                      </p>
-                      <!-- <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a> -->
-                    </div>
-                  </div>
-                </div>
-                <!-- 範例 -->
-                  <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card h-80 lvrv">
-                      <img class="card-img-top" src="../assets/img/PC_Photo/signingpen.jpg" alt="Card image cap" />
-                      <div class="card-body">
-                        <h5 class="card-title fs-4 fs-4">簽字筆</h5>
-                        <p class="card-text fs-4">
-                          No.P520<br>
-                          單價一隻 20 元。
-                        </p>
+                  <!--v-if="a.productId == 1"-->
+                  <!-- 物品清單顯示 -->
+                  <!-- 物品清單第一個 -->
+                  <div class="row mb-5">
+                      <div id="app">
+                          <div v-for="a in item" class="col-md-6 col-lg-4 mb-3">
+                              <div class="card h-80 lvrv">
+                                  <img class="card-img-top" src="{{a.image}}" alt="Card image cap" />
+                                  <div class="card-body">
+                                      <h5 class="card-title fs-4 fs-4">{{a.goods}}</h5>
+                                      <p class="card-text fs-4">
+                                          No.P{{a.productId}}<br>
+                                          單價一{{a.unit}} {{a.unitPrice}} 元。
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
                   </div>
-                  <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card h-80 lvrv">
-                      <img class="card-img-top" src="../assets/img/PC_Photo/Whiteboardpen.jpg" alt="Card image cap" />
-                      <div class="card-body">
-                        <h5 class="card-title fs-4 fs-4">白板筆</h5>
-                        <p class="card-text fs-4">
-                          No.P521<br>
-                          單價一隻 20 元。
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card h-80 lvrv">
-                      <img class="card-img-top" src="../assets/img/PC_Photo/whiteboraderaser.jpg" alt="Card image cap" />
-                      <div class="card-body">
-                        <h5 class="card-title fs-4 fs-4">白板-板擦</h5>
-                        <p class="card-text fs-4">
-                          No.P522<br>
-                          單價一個 15 元。
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-            <!-- / Content -->
+                  <!-- / Content -->
+                  <!-- Footer -->
+                  <!-- / Footer -->
 
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
+                  <div class="content-backdrop fade"></div>
+              </div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -685,31 +577,47 @@
     <!-- Vue 傳值 -->
     <script>
 
-         var app = new Vue({
+        var app = new Vue({
             el: "#app",
             data: {
                 item: {},
-            }, mounted: function () {
-                this.item = JSON.parse(sessionStorage.getItem("data"));
-                $.ajax({
-                    type: "get",
-                    url: "https://localhost:44319/api/PcOrderDetails/goodstest/" + this.goods,
-                    success: (e) => {
-                        app.PDProcessList = e
-                        console.log(app.PDProcessList);
-                    }
-
-                })
-
-            },
-            methods: {
-                Enter: function (e) {
-                    sessionStorage.setItem("data",JSON.stringify(e));
-                }
             }
-             
+        });
 
+        $.ajax({
+            type: 'get',
+            url: "https://localhost:44319/api/PcPurchaseItemSearches/goods",
+            success: (e) => {
+                app.item = e;
+                console.log(e);
+            }
         })
+
+        //var app = new Vue({
+        //    el: "#app",
+        //    data: {
+        //        item: {},
+        //    }, mounted: function () {
+        //        this.item = JSON.parse(sessionStorage.getItem("data"));
+        //        $.ajax({
+        //            type: "get",
+        //            url: "https://localhost:44319/api/PcOrderDetails/goodstest/" + this.goods,
+        //            success: (e) => {
+        //                app.PDProcessList = e
+        //                console.log(app.PDProcessList);
+        //            }
+
+        //        })
+
+        //    },
+        //    methods: {
+        //        Enter: function (e) {
+        //            sessionStorage.setItem("data", JSON.stringify(e));
+        //        }
+        //    }
+
+
+        //})
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
