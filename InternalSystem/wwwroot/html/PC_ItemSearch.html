@@ -20,12 +20,10 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>物品資料查詢</title>
 
@@ -37,10 +35,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -54,14 +50,15 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
 
   <body>
     <!-- Layout wrapper -->
@@ -545,16 +542,15 @@
               <!-- 物品清單顯示 -->
               <!-- 物品清單第一個 -->
               <div class="row mb-5">
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 col-lg-4 mb-3" id="app">
                   <div class="card h-80 lvrv">
                     <img class="card-img-top" src="../assets/img/PC_Photo/pencil.JPG" alt="Card image cap" />
                     <div class="card-body">
-                      <h5 class="card-title fs-4 fs-4">鉛筆</h5>
+                      <h5 class="card-title fs-4 fs-4">{{item}}</h5>
                       <p class="card-text fs-4">
                         No.P501<br> 
                         單價一隻 20 元。
                       </p>
-                      <!-- <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a> -->
                     </div>
                   </div>
                 </div>
@@ -568,7 +564,6 @@
                         No.P703<br> 
                         單價一疊(100張) 300 元。
                       </p>
-                      <!-- <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a> -->
                     </div>
                   </div>
                 </div>
@@ -582,7 +577,6 @@
                         No.P706<br> 
                         單價一隻 80 元。
                       </p>
-                      <!-- <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a> -->
                     </div>
                   </div>
                 </div>
@@ -688,7 +682,35 @@
     <!-- / Layout wrapper -->
 
 
+    <!-- Vue 傳值 -->
+    <script>
 
+         var app = new Vue({
+            el: "#app",
+            data: {
+                item: {},
+            }, mounted: function () {
+                this.item = JSON.parse(sessionStorage.getItem("data"));
+                $.ajax({
+                    type: "get",
+                    url: "https://localhost:44319/api/PcOrderDetails/goodstest/" + this.goods,
+                    success: (e) => {
+                        app.PDProcessList = e
+                        console.log(app.PDProcessList);
+                    }
+
+                })
+
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("data",JSON.stringify(e));
+                }
+            }
+             
+
+        })
+    </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
