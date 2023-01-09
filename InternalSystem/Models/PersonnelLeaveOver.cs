@@ -11,7 +11,7 @@ namespace InternalSystem.Models
         public int LeaveType { get; set; }
         public int Quantity { get; set; }
         public int Used { get; set; }
-        public int Over { get; set; }
+        public int LeaveOver { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual PersonnelLeaveType LeaveTypeNavigation { get; set; }

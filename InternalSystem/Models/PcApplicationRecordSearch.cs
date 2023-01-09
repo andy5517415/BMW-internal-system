@@ -14,7 +14,7 @@ namespace InternalSystem.Models
         public int Total { get; set; }
         public bool DeliveryStatus { get; set; }
 
-        public virtual PersonnelDepartmentList Dep { get; set; }
+        public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual PcApplication PcApplication { get; set; }
     }
 }
