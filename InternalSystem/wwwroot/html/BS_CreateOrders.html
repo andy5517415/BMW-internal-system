@@ -524,7 +524,7 @@
                 <div class="content-wrapper" id="divinfo">
                     <!-- Content -->
                     <!-- 車輛資訊 -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div v-if="formfill" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
                             <h2 class="card-header">新建訂單</h2>
                             <h5 class="card-header">車輛資訊</h5>
@@ -534,30 +534,34 @@
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
-                                                v-for="one in aaa"
-                                                >
-                                            <option disabled>請選擇車款</option>
-                                            <option  v-if="one.categoryId==1" >
-                                                {{one.optionalName}}{{one.categoryId}}
+                                                v-model="cartypeone">
+                                            <option disabled value="999">請選擇車款</option>
+                                            <option v-for="one in cartype"
+                                                    :value="one">
+                                                {{one.optionalName}}
                                             </option>
                                         </select>
+                                        <!--<input type="hidden" v-model="cartypeone.OptionalId">-->
                                     </div>
                                     <div class="col-md-3">
                                         <label for="" class="form-label fs-4">車款價格</label>
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               readonly/>
+                                               readonly
+                                               v-model="cartypeone.price" />
                                     </div>
 
 
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="carcolor">車漆顏色</label>
                                         <select id="carcolor"
-                                                class="form-select">
-                                            <option disabled>請選擇車漆顏色</option>
-                                            <option>
-
+                                                class="form-select"
+                                                v-model="carcolorone">
+                                            <option disabled value="999">請選擇車漆顏色</option>
+                                            <option v-for="one in carcolor"
+                                                    :value="one">
+                                                {{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -566,8 +570,162 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               readonly/>
+                                               readonly
+                                               v-model="carcolorone.price" />
                                     </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="texture">內裝材質</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="texture"
+                                                v-model="cartextureone">
+                                            <option disabled value="999">請選擇內裝材質</option>
+                                            <option v-for="one in cartexture"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cartextureone.price" />
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="wheel">輪圈款式</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="wheel"
+                                                v-model="carwheelone">
+                                            <option disabled value="999">請選擇輪圈款式</option>
+                                            <option v-for="one in carwheel"
+                                                    v-bind:value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carwheelone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="plaque">飾板</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="plaque"
+                                                v-model="carplaqueone">
+                                            <option disabled value="999">請選擇飾板款式</option>
+                                            <option v-for="one in carplaque"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carplaqueone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="light">頭燈款式</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="light"
+                                                v-model="carlightone">
+                                            <option disabled value="999">請選擇頭燈款式</option>
+                                            <option v-for="one in carplaque"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carlightone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="saddle">中央鞍座</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="saddle"
+                                                v-model="carsaddleone">
+                                            <option disabled value="999">請選擇中央鞍座款式</option>
+                                            <option v-for="one in carsaddle"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carsaddleone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="sunroof">天窗</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="sunroof"
+                                                v-model="carsunroofone">
+                                            <option disabled value="999">請選擇天窗款式</option>
+                                            <option v-for="one in carsunroof"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carsunroofone.price" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fs-4" for="media">多媒體</label>
+                                        <select class="form-select placement-dropdown"
+                                                id="media"
+                                                v-model="carmediaone">
+                                            <option disabled value="999">請選擇多媒體車機款式</option>
+                                            <option v-for="one in carmedia"
+                                                    :value="one">
+                                                {{one.optionalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="form-label fs-4">選配價格</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carmediaone.price" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">小計</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cnt" />
+                                    </div>
+
 
 
 
@@ -579,7 +737,36 @@
                             <hr />
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
-                                    <button class="btn btn-outline-primary d-block">下一步，確認訂單</button>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="area">代理商地區</label>
+                                        <select id="area"
+                                                class="form-select color-dropdown"
+                                                v-model="agentone">
+                                            <option disabled value="999">請選擇代理商地區</option>
+                                            <option v-for="one in agent"
+                                                    :value="one">
+                                                {{one.areaName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商地址</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.address" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商電話</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.phone" />
+                                    </div>
+
+                                    <button @click="btnconfirmclick" class="btn btn-outline-primary d-block">下一步，確認訂單</button>
                                 </div>
                             </div>
 
@@ -590,11 +777,19 @@
 
 
                     <!-- 訂單確認 -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div v-if="formconfirm" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
                             <h2 class="card-header">請確認您的訂單是否正確!</h2>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">訂單編號</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="orderid" />
+                                    </div>
                                 </div>
 
                             </div>
@@ -602,6 +797,88 @@
                             <h5 class="card-header">車輛資訊</h5>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">車款</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cartypeone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">車漆顏色</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carcolorone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">內裝材質</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cartextureone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">輪圈款式</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carwheelone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">飾板</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carplaqueone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">頭燈款式</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carlightone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">中央鞍座</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carsaddleone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">天窗</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carsunroofone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">多媒體車機</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="carmediaone.optionalName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">小計</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="cnt" />
+                                    </div>
+
+
 
                                 </div>
                             </div>
@@ -611,12 +888,37 @@
 
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-4" for="">代理商地區</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.areaName" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商地址</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.address" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商電話</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.phone" />
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-outline-primary d-block">上一步，返回</button>
+                                            <button @click="btnCreatePreviousClick" class="btn btn-outline-primary d-block">上一步，返回</button>
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-outline-primary d-block">下一步，建立訂單</button>
+                                            <button @click="btnCreateNextClick" class="btn btn-outline-primary d-block">下一步，建立訂單</button>
                                         </div>
                                     </div>
 
@@ -678,16 +980,118 @@
 
             data() {
                 return {
-                    bee:'1',
-                    aaa:{ }
+                    formfill: true,
+                    formconfirm: false,
+                    cartype: {},
+                    carcolor: {},
+                    cartexture: {},
+                    carwheel: {},
+                    carplaque: {},
+                    carlight: {},
+                    carsaddle: {},
+                    carsunroof: {},
+                    carmedia: {},
+                    agent: {},
+                    cartypeone: 999,
+                    carcolorone: 999,
+                    cartextureone: 999,
+                    carwheelone: 999,
+                    carplaqueone: 999,
+                    carlightone: 999,
+                    carsaddleone: 999,
+                    carsunroofone: 999,
+                    carmediaone: 999,
+                    agentone: 999,
+                    orderid: "",
+                    orderpost: {},
+                    orderdetail: [],
+                    orderdetailpost: {}
                 }
             },
             computed: {
+                cnt() {
+                    return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
+                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
+                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
+                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
+                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                        ;
+                }
             },
             methods: {
+                btnconfirmclick() {
+                    this.formfill = !this.formfill
+                    this.formconfirm = !this.formconfirm
+                    this.orderid = ((this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5))
+                        + '0'
+                        + ((this.agentone.areaId == null) ? '4' : this.agentone.areaId)
+                        + Date.now().toString().substring(0, 10);
+                    //this.orderid = `${(this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5)}0${(this.agentone.areaId == null) ? '4' : this.agentone.areaId}${Date.now().toString().substring(0, 10)}`;
+                    this.orderdetail = [];
+                    this.orderdetail.push(this.cartypeone.optionalId);
+                    this.orderdetail.push(this.carcolorone.optionalId);
+                    this.orderdetail.push(this.cartextureone.optionalId);
+                    this.orderdetail.push(this.carwheelone.optionalId);
+                    this.orderdetail.push(this.carplaqueone.optionalId);
+                    this.orderdetail.push(this.carlightone.optionalId);
+                    this.orderdetail.push(this.carsaddleone.optionalId);
+                    this.orderdetail.push(this.carsunroofone.optionalId);
+                    this.orderdetail.push(this.carmediaone.optionalId);
+                    console.log(this.orderdetail);
+
+                },
+                btnCreatePreviousClick() {
+                    this.formfill = !this.formfill
+                    this.formconfirm = !this.formconfirm
+                },
+                btnCreateNextClick() {
+                    console.log('next');
+                    let dt = new Date();
+                    this.orderpost = {
+                        "orderNumber": this.orderid,
+                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}`,
+                        "AreaId": this.agentone.areaId,
+                        "Price": this.cnt,
+                        "EmployeeId": Math.floor(Math.random() * 10) + 1,
+                        "IsAccepted": false
+                    };
+
+                    axios.post('/api/BusinessOrders', this.orderpost)
+                        .then(p => {
+                            console.log(p);
+                            var orderidback = p.data.orderId;
+                            console.log(orderidback);
+
+                            for (var n = 0; n < 9; n++) {
+
+                                this.orderdetailpost = {
+                                    "OrderId": orderidback,
+                                    "OptionalId": this.orderdetail[n]
+                                }
+
+                                axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
+                                    .then(p => {
+                                        console.log(p);
+                                    })
+                            }
+                        });
+                }
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/').then(g=>  this.aaa = g.data )
+                axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),
+                    axios.get('/api/BusinessOptionals/info/2').then(g => this.carcolor = g.data),
+                    axios.get('/api/BusinessOptionals/info/3').then(g => this.cartexture = g.data),
+                    axios.get('/api/BusinessOptionals/info/4').then(g => this.carwheel = g.data),
+                    axios.get('/api/BusinessOptionals/info/5').then(g => this.carplaque = g.data),
+                    axios.get('/api/BusinessOptionals/info/6').then(g => this.carlight = g.data),
+                    axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle = g.data),
+                    axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
+                    axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
+                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
             }
         }).mount('#divinfo');
 
