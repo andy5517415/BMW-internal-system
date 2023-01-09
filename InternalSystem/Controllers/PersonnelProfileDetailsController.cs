@@ -82,9 +82,9 @@ namespace InternalSystem.Controllers
                                           Terminationdate = o.Terminationdate.ToString()
 
                                       };
-         
 
-                if (SearchProfileDetail == null)
+
+            if (SearchProfileDetail == null)
             {
                 return NotFound();
             }

@@ -31,7 +31,8 @@
 
     <meta name="description" content="" />
     <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <!-- axios -->
     <script crossorigin="anonymous"
@@ -540,7 +541,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xxl flex-grow-1 container-p-y" id="app">
               <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料申請</h4>
 
                 <div class="card mb-4 m-4 card-body">
@@ -694,5 +695,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      <!--Vue-->
+      const app = {
+        data() {
+          return {
+            Leavelist: {}
+          }
+        },
+
+
+      }
+    </script>
   </body>
 </html>

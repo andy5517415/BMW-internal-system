@@ -897,7 +897,7 @@
                 searchbtn: function () {
                     axios.get('/api/PersonnelProfileDetails/EmployeeNumber/' + this.employeeNumber)
                         .then(response => this.employeelist = response.data)
-                        .catch(console.log(error))
+                        .catch(err=>console.log(error))
 
                     axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
                         .then(response => this.employeelist = response.data)

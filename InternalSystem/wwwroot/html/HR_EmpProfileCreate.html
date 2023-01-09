@@ -868,7 +868,7 @@
 
                     axios.post("https://localhost:44319/api/PersonnelProfileDetails",
                         this.employeelist
-                    ).then(alert('資料以新建')).catch(function (error) { alert('你媽B') })
+                    ).then(alert('資料以新建')).catch(err => alert(err))
                     window.location = "HR_EmpProfileCreate.html";
 
                 }
