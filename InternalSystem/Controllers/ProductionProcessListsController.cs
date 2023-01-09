@@ -50,7 +50,7 @@ namespace InternalSystem.Controllers
         }
 
         //大表單
-        // GET: api/ProductionProcessLists
+        // GET: api/ProductionProcessLists/Processor/{id}/{carid}
         [HttpGet("Processor/{id}/{carid}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists(int id , int carid)
         {

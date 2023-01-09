@@ -14,7 +14,7 @@ namespace InternalSystem.Models
 
         public int OrderId { get; set; }
         public string OrderNumber { get; set; }
-        public DateTime? OrderDateTime { get; set; }
+        public DateTime OrderDateTime { get; set; }
         public int AreaId { get; set; }
         public int? Price { get; set; }
         public int EmployeeId { get; set; }

@@ -58,7 +58,7 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=10.0.104.99\\L27\\SQLEXPRESS,1433;Database=MSIT44;Integrated Security=false;User ID = wang;Password= 1234;");
             }
         }
 
@@ -304,12 +304,11 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<PcApplication>(entity =>
             {
-                entity.HasKey(e => new { e.ProductId, e.PurchaseId })
-                    .HasName("PK_PC_Application_1");
+                entity.HasKey(e => e.PurchaseId);
 
                 entity.ToTable("PC_Application");
 
-                entity.Property(e => e.ProductId).ValueGeneratedOnAdd();
+                entity.Property(e => e.PurchaseId).ValueGeneratedNever();
 
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
@@ -320,8 +319,8 @@ namespace InternalSystem.Models
                     .HasMaxLength(10);
 
                 entity.HasOne(d => d.Purchase)
-                    .WithMany(p => p.PcApplications)
-                    .HasForeignKey(d => d.PurchaseId)
+                    .WithOne(p => p.PcApplication)
+                    .HasForeignKey<PcApplication>(d => d.PurchaseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PC_Application_PC_ApplicationRecordSearch");
 
@@ -339,13 +338,15 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_ApplicationRecordSearch");
 
+                entity.Property(e => e.PurchaseId).ValueGeneratedNever();
+
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Dep)
+                entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PcApplicationRecordSearches)
-                    .HasForeignKey(d => d.DepId)
+                    .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Purchase採購紀錄查詢_Personnel部門清單");
+                    .HasConstraintName("FK_PC_ApplicationRecordSearch_PersonnelProfileDetail");
             });
 
             modelBuilder.Entity<PcOrderDetail>(entity =>
@@ -466,19 +467,20 @@ namespace InternalSystem.Models
                     .WithMany(p => p.PersonnelDepartmentConnectEmployeeIds)
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelProfileDetail1");
+                    .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelProfileDetail");
             });
 
             modelBuilder.Entity<PersonnelDepartmentList>(entity =>
             {
-                entity.HasKey(e => e.DepId)
-                    .HasName("PK_部門清單");
+                entity.HasKey(e => e.DepId);
 
                 entity.ToTable("PersonnelDepartmentList");
 
                 entity.Property(e => e.DepId).ValueGeneratedNever();
 
-                entity.Property(e => e.DepName).HasMaxLength(20);
+                entity.Property(e => e.DepName)
+                    .IsRequired()
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<PersonnelLeaveAuditStatus>(entity =>
