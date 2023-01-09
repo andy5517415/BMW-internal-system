@@ -530,11 +530,11 @@
                             <h5 class="card-header">車輛資訊</h5>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
-                                    <div class="col-md-3">
+                                    <div class ="col-md-3">
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
-                                                v-model="cartype">
+                                                v-model="cartypeone">
                                             <option disabled value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
@@ -549,7 +549,7 @@
                                                class="form-control"
                                                id=""
                                                readonly
-                                               v-model="cartype.price" />
+                                               v-model="cartypeone.price" />
                                     </div>
 
 
@@ -982,31 +982,31 @@
 
             data() {
                 return {
-                    formfill      : true,
-                    formconfirm   : false,
-                    cartype       : {},
-                    cartypeone    : 999,
-                    carcolor      : {},
-                    carcolorone   : 999,
-                    cartexture    : {},
-                    cartextureone : 999,
-                    carwheel      : {},
-                    carwheelone   : 999,
-                    carplaque     : {},
-                    carplaqueone  : 999,
-                    carlight      : {},
-                    carlightone   : 999,
-                    carsaddle     : {},
-                    carsaddleone  : 999,
-                    carsunroof    : {},
-                    carsunroofone : 999,
-                    carmedia      : {},
-                    carmediaone   : 999,
-                    agent         : {},
-                    agentone      : 999,
-                    orderid       : "",
-                    orderpost: {},
-                    orderdetailpost     : {}
+                    formfill         : true,
+                    formconfirm      : false,
+                    cartype          : {},
+                    cartypeone       : 999,
+                    carcolor         : {},
+                    carcolorone      : 999,
+                    cartexture       : {},
+                    cartextureone    : 999,
+                    carwheel         : {},
+                    carwheelone      : 999,
+                    carplaque        : {},
+                    carplaqueone     : 999,
+                    carlight         : {},
+                    carlightone      : 999,
+                    carsaddle        : {},
+                    carsaddleone     : 999,
+                    carsunroof       : {},
+                    carsunroofone    : 999,
+                    carmedia         : {},
+                    carmediaone      : 999,
+                    agent            : {},
+                    agentone         : 999,
+                    orderid          : "",
+                    orderpost        : {},
+                    orderdetailpost  : []
                 }
             },
             computed: {
@@ -1031,7 +1031,11 @@
                                     + '0'
                                     + ((this.agentone.areaId==null)?'4':this.agentone.areaId)
                                     + Date.now().toString().substring(0, 10);
-                    //this.orderid = `${(this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5)}0${(this.agentone.areaId == null) ? '4' : this.agentone.areaId}${Date.now().toString().substring(0, 10)}`;                    
+                    //this.orderid = `${(this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5)}0${(this.agentone.areaId == null) ? '4' : this.agentone.areaId}${Date.now().toString().substring(0, 10)}`;
+                    this.orderdetailpost = [];
+                    this.orderdetailpost.push(this.cartypeone.optionalId);
+                    this.orderdetailpost.push(this.carcolorone.optionalId);
+                    console.log(this.orderdetailpost);
                 },
                 btnCreatePreviousClick () {
                     this.formfill = !this.formfill
@@ -1049,8 +1053,8 @@
                         "IsAccepted"    : false
                     };
 
-                    axios.post('/api/BusinessOrders', this.orderpost)
-                         .then(p => console.log(p))
+                    //axios.post('/api/BusinessOrders', this.orderpost)
+                    //     .then(p => console.log(p))
                     //axios.post('/api/BusinessOrders', this.orderdetailpost)
                     //    .then(p => console.log(p))
                 }

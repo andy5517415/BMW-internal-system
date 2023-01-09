@@ -533,11 +533,10 @@
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
-                                                class="form-select color-dropdown"
-                                                v-for="one in aaa"
-                                                >
+                                                class="form-select color-dropdown">
                                             <option disabled>請選擇車款</option>
-                                            <option  v-if="one.categoryId==1" >
+                                            <!--v-if="one.categoryId==1"-->
+                                            <option v-for="one in aaa">
                                                 {{one.optionalName}}{{one.categoryId}}
                                             </option>
                                         </select>
@@ -547,7 +546,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               readonly/>
+                                               readonly />
                                     </div>
 
 
@@ -557,7 +556,6 @@
                                                 class="form-select">
                                             <option disabled>請選擇車漆顏色</option>
                                             <option>
-
                                             </option>
                                         </select>
                                     </div>
@@ -566,7 +564,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               readonly/>
+                                               readonly />
                                     </div>
 
 
@@ -678,8 +676,8 @@
 
             data() {
                 return {
-                    bee:'1',
-                    aaa:{ }
+                    bee: '1',
+                    aaa: {}
                 }
             },
             computed: {
@@ -687,7 +685,11 @@
             methods: {
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/').then(g=>  this.aaa = g.data )
+                axios.get('/api/BusinessOptionals/')
+                    .then(g=>{
+                            console.log(g.data);
+                            this.aaa = g.data;
+                        } )
             }
         }).mount('#divinfo');
 
