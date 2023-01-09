@@ -534,9 +534,9 @@
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown">
-                                            <option disabled>請選擇車款</option>
+                                            <option v-if="one.categoryId==1"  disabled>請選擇車款</option>
                                             <!--v-if="one.categoryId==1"-->
-                                            <option v-for="one in aaa">
+                                            <option v-for="one in aaa" :value="one.categoryId==1">
                                                 {{one.optionalName}}{{one.categoryId}}
                                             </option>
                                         </select>
