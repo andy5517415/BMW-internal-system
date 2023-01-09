@@ -7,11 +7,6 @@ namespace InternalSystem.Models
 {
     public partial class PcApplicationRecordSearch
     {
-        public PcApplicationRecordSearch()
-        {
-            PcApplications = new HashSet<PcApplication>();
-        }
-
         public int PurchaseId { get; set; }
         public int DepId { get; set; }
         public DateTime Date { get; set; }
@@ -20,6 +15,6 @@ namespace InternalSystem.Models
         public bool DeliveryStatus { get; set; }
 
         public virtual PersonnelDepartmentList Dep { get; set; }
-        public virtual ICollection<PcApplication> PcApplications { get; set; }
+        public virtual PcApplication PcApplication { get; set; }
     }
 }
