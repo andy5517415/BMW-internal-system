@@ -21,34 +21,62 @@ namespace InternalSystem.Controllers
         }
 
         //申請表
-        //GET: api/PCApplications
-       [HttpGet("test")]
+        //GET: api/PCApplications/test
+        [HttpGet("test")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetApplicationsList()
         {
             var i = from AP in this._context.PcApplications
-                   join SU in this._context.PcSupplierLists on AP.SupplierId equals SU.SupplierId
-                   join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
-                   join PPD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PPD.EmployeeId
-                   join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
-                   select new
-                   {
-                       EmployeeName =  PPD.EmployeeName,
-                       DepartmentName = PD.DepName,
-                       Date = AP.Date,
-                       PurchaseId = AP.PurchaseId,
-                       Supplier = AP.Supplier,
-                       SupplierPhone = SU.SupplierPhone,
-                       Comment = AP.Comment
-                   };
+                    join SU in this._context.PcSupplierLists on AP.SupplierId equals SU.SupplierId
+                    join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
+                    join PPD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PPD.EmployeeId
+                    join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
+                    join PS in this._context.PcPurchaseItemSearches on SU.SupplierId equals PS.SupplierId
+                    join OD in this._context.PcOrderDetails on PS.ProductId equals OD.ProductId
+                    select new
+                    {
+                        EmployeeName = PPD.EmployeeName,
+                        DepartmentName = PD.DepName,
+                        Date = AP.Date,
+                        PurchaseId = AP.PurchaseId,
+                        SupplierContact = SU.SupplierContact,
+                        SupplierContactPerson = SU.SupplierContactPerson,
+                        SupplierPhone = SU.SupplierPhone,
+                        Comment = AP.Comment
+                    };
 
             return await i.ToListAsync();
         }
 
-        // GET: api/PCApplications
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PcApplication>>> GetPcApplications()
+        // GET: api/PCApplications/goods
+        [HttpGet("goods")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchaseItemSearches()
         {
-            return await _context.PcApplications.ToListAsync();
+            var i = from PS in this._context.PcPurchaseItemSearches
+                    select new
+                    {
+                        ProductId = PS.ProductId,
+                        Goods = PS.Goods,
+                        Unit = PS.Unit,
+                        UnitPrice = PS.UnitPrice,
+                    };
+
+            return await i.ToListAsync();
+        }
+
+        // GET: api/PCApplications/supplier
+        [HttpGet("supplier")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetSupplierList()
+        {
+            var i = from SL in this._context.PcSupplierLists
+                    select new
+                    {
+                        SupplierId = SL.SupplierId,
+                        SupplierContact = SL.SupplierContact,
+                        SupplierContactPerson = SL.SupplierContactPerson,
+                        SupplierPhone = SL.SupplierPhone
+                    };
+
+            return await i.ToListAsync();
         }
 
         // GET: api/PCApplications/5
