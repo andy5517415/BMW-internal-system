@@ -11,8 +11,8 @@ namespace InternalSystem.Models
         public int ProcessId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan? StartTime { get; set; }
-        public TimeSpan? EndTime { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         public string Context { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
