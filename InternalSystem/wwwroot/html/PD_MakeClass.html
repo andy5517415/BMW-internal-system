@@ -673,7 +673,6 @@
         var app = new Vue({
             el: "#app",
             data: {
-                PDProcessList: {},
                 ProcessList: {},
                 CarModel: {}
             },
@@ -690,15 +689,6 @@
 
         console.log(app.ProcessList)
 
-        //大表單
-        //$.ajax({
-        //    type: "get",
-        //    url: "https://localhost:44319/api/ProductionProcessLists",
-        //    success: function (e) {
-        //        app.PDProcessList = e
-        //    }
-                
-        //})
 
         //製程單
         $.ajax({
@@ -715,6 +705,10 @@
             type: "get",
             url: "https://localhost:44319/api/ProductionProcessLists/model",
             success: function (e) {
+                e[0].optionalName = e[0].optionalName.slice(3);
+                e[1].optionalName = e[1].optionalName.slice(4);
+                e[2].optionalName = e[2].optionalName.slice(4,15);
+                console.log(e);
                 app.CarModel = e
             }
 

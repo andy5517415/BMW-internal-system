@@ -34,8 +34,8 @@ namespace InternalSystem.Controllers
                             EmployeeName = PPD.EmployeeName,
                             ProcessId = PC.ProcessId,
                             Date = PC.Date.ToString(),
-                            StartTime = PC.StartTime.ToString(),
-                            EndTime = PC.EndTime.ToString(),
+                            //StartTime = PC.StartTime.ToString(),
+                            //EndTime = PC.EndTime.ToString(),
                             Context = PC.Context
                         };
                        

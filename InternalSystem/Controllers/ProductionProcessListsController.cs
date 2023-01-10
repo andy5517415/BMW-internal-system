@@ -73,12 +73,13 @@ namespace InternalSystem.Controllers
                            ProcessId = POPS.ProcessId,
                            ProcessName = PP.ProcessName,
                            StarDate = PPL.StarDate.ToString(),
+                           OptionalId = BOT.OptionalId,
                            OptionalName = BOT.OptionalName,
                            StatusId = POPS.StatusId,
-                           StatusName = PPSN.StatusName
-
+                           StatusName = PPSN.StatusName,
+                           
                        };
-
+                           
             return await List.ToListAsync();
         }
 

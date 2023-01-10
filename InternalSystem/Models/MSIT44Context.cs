@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-
 #nullable disable
 
 namespace InternalSystem.Models
@@ -35,7 +34,6 @@ namespace InternalSystem.Models
         public virtual DbSet<PcSupplierList> PcSupplierLists { get; set; }
         public virtual DbSet<PersonnelAttendanceTime> PersonnelAttendanceTimes { get; set; }
         public virtual DbSet<PersonnelCityList> PersonnelCityLists { get; set; }
-        public virtual DbSet<PersonnelDepartmentConnectEmployeeId> PersonnelDepartmentConnectEmployeeIds { get; set; }
         public virtual DbSet<PersonnelDepartmentList> PersonnelDepartmentLists { get; set; }
         public virtual DbSet<PersonnelLeaveAuditStatus> PersonnelLeaveAuditStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveForm> PersonnelLeaveForms { get; set; }
@@ -450,19 +448,6 @@ namespace InternalSystem.Models
                     .HasColumnName("CityID");
 
                 entity.Property(e => e.CityName).HasMaxLength(10);
-            });
-
-            modelBuilder.Entity<PersonnelDepartmentConnectEmployeeId>(entity =>
-            {
-                entity.HasKey(e => new { e.EmployeeId, e.DepId });
-
-                entity.ToTable("PersonnelDepartmentConnectEmployeeId");
-
-                entity.HasOne(d => d.Dep)
-                    .WithMany(p => p.PersonnelDepartmentConnectEmployeeIds)
-                    .HasForeignKey(d => d.DepId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelDepartmentList");
             });
 
             modelBuilder.Entity<PersonnelDepartmentList>(entity =>
