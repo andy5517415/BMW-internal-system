@@ -39,9 +39,9 @@ namespace InternalSystem.Controllers
                                             EmployeeId = o.EmployeeId,
                                             EmployeeName = p.EmployeeName,
                                             EmergencyNumber = p.EmergencyNumber,
-                                            StartDate = o.StartDate.ToString("yyyy-MM"),
+                                            StartDate = o.StartDate.ToString("yyyy-MM-dd"),
                                             StartTime = o.StartTime,
-                                            EndDate = o.EndDate.ToString("yyyy-MM"),
+                                            EndDate = o.EndDate.ToString("yyyy-MM-dd"),
                                             EndTime = o.EndTime
 
                                         };
