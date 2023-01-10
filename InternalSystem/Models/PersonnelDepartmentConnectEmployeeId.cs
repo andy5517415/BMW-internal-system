@@ -11,6 +11,5 @@ namespace InternalSystem.Models
         public int DepId { get; set; }
 
         public virtual PersonnelDepartmentList Dep { get; set; }
-        public virtual PersonnelProfileDetail Employee { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace InternalSystem.Models
             MeetingReserves = new HashSet<MeetingReserve>();
             PcApplicationRecordSearches = new HashSet<PcApplicationRecordSearch>();
             PersonnelAttendanceTimes = new HashSet<PersonnelAttendanceTime>();
-            PersonnelDepartmentConnectEmployeeIds = new HashSet<PersonnelDepartmentConnectEmployeeId>();
             PersonnelLeaveFormEmployees = new HashSet<PersonnelLeaveForm>();
             PersonnelLeaveFormProxyNavigations = new HashSet<PersonnelLeaveForm>();
             PersonnelLeaveOvers = new HashSet<PersonnelLeaveOver>();
@@ -39,7 +38,6 @@ namespace InternalSystem.Models
         public int PositionId { get; set; }
         public int RankId { get; set; }
         public int DepartmentId { get; set; }
-        public int? DepartmentId2 { get; set; }
         public string EmployeeNumber { get; set; }
         public string Acount { get; set; }
         public string Password { get; set; }
@@ -49,13 +47,13 @@ namespace InternalSystem.Models
         public byte[] Photo { get; set; }
 
         public virtual PersonnelCityList City { get; set; }
+        public virtual PersonnelDepartmentList Department { get; set; }
         public virtual PersonnelPosition Position { get; set; }
         public virtual PersonnelRank Rank { get; set; }
         public virtual ICollection<BusinessOrder> BusinessOrders { get; set; }
         public virtual ICollection<MeetingReserve> MeetingReserves { get; set; }
         public virtual ICollection<PcApplicationRecordSearch> PcApplicationRecordSearches { get; set; }
         public virtual ICollection<PersonnelAttendanceTime> PersonnelAttendanceTimes { get; set; }
-        public virtual ICollection<PersonnelDepartmentConnectEmployeeId> PersonnelDepartmentConnectEmployeeIds { get; set; }
         public virtual ICollection<PersonnelLeaveForm> PersonnelLeaveFormEmployees { get; set; }
         public virtual ICollection<PersonnelLeaveForm> PersonnelLeaveFormProxyNavigations { get; set; }
         public virtual ICollection<PersonnelLeaveOver> PersonnelLeaveOvers { get; set; }

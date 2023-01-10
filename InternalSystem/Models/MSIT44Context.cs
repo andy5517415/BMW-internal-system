@@ -463,21 +463,15 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.DepId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelDepartmentList");
-
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.PersonnelDepartmentConnectEmployeeIds)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelProfileDetail");
             });
 
             modelBuilder.Entity<PersonnelDepartmentList>(entity =>
             {
-                entity.HasKey(e => e.DepId);
+                entity.HasKey(e => e.DepartmentId);
 
                 entity.ToTable("PersonnelDepartmentList");
 
-                entity.Property(e => e.DepId).ValueGeneratedNever();
+                entity.Property(e => e.DepartmentId).ValueGeneratedNever();
 
                 entity.Property(e => e.DepName)
                     .IsRequired()
@@ -696,6 +690,12 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_個人資料_城市清單");
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.PersonnelProfileDetails)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PersonnelProfileDetail_PersonnelDepartmentList");
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.PersonnelProfileDetails)
