@@ -873,23 +873,10 @@
 
                     
                     axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
-                        .then(a => {
-                            axios.get("https://localhost:44319/api/PersonnelProfileDetails/dep1/" + this.employeelist.employeeNumber)
-                                .then(response => this.employeefordeplist = response.data)
-                                .catch(err => console.log(err))
-                        })
-                        .catch(err => console.log(err))
-                    //,
-                    //this.deplist.employeeId = this.employeefordeplist.employeeId,
-                    //this.deplist.depId = this.employeefordeplist.departmentId
-                    console.log(this.deplist);
-                    //    //this.deplist.depId = this.employeefordeplist.departmentId2
-                    ////console.log(this.employeelist);
-                    ////console.log(this.deplist);
-                    //axios.post("https://localhost:44319/api/PersonnelDepartmentConnectEmployeeIds", this.deplist)
-                    //    .then(x => alert('LIVE'))
-                    //    .catch(err => console.log(err))
-
+                        .then(a => console.log(res)).catch(err => console.log(err))
+                        
+               
+               
                     //window.location = "HR_EmpProfileCreate.html";
 
 
@@ -906,8 +893,8 @@
                     .then(response => this.ranklist = response.data)
                 axios.get('/api/PersonnelCityLists')
                     .then(response => this.citylist = response.data)
-                axios.get('/api/PersonnelDepartmentConnectEmployeeIds/5')
-                    .then(response => this.deplist = response.data)
+                //axios.get('/api/PersonnelDepartmentConnectEmployeeIds/5')
+                //    .then(response => this.deplist = response.data)
 
             }
         }

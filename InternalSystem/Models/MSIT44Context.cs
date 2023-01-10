@@ -34,7 +34,6 @@ namespace InternalSystem.Models
         public virtual DbSet<PcSupplierList> PcSupplierLists { get; set; }
         public virtual DbSet<PersonnelAttendanceTime> PersonnelAttendanceTimes { get; set; }
         public virtual DbSet<PersonnelCityList> PersonnelCityLists { get; set; }
-        public virtual DbSet<PersonnelDepartmentConnectEmployeeId> PersonnelDepartmentConnectEmployeeIds { get; set; }
         public virtual DbSet<PersonnelDepartmentList> PersonnelDepartmentLists { get; set; }
         public virtual DbSet<PersonnelLeaveAuditStatus> PersonnelLeaveAuditStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveForm> PersonnelLeaveForms { get; set; }
@@ -53,15 +52,7 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-            }
-        }
-
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
@@ -449,19 +440,6 @@ namespace InternalSystem.Models
                     .HasColumnName("CityID");
 
                 entity.Property(e => e.CityName).HasMaxLength(10);
-            });
-
-            modelBuilder.Entity<PersonnelDepartmentConnectEmployeeId>(entity =>
-            {
-                entity.HasKey(e => new { e.EmployeeId, e.DepId });
-
-                entity.ToTable("PersonnelDepartmentConnectEmployeeId");
-
-                entity.HasOne(d => d.Dep)
-                    .WithMany(p => p.PersonnelDepartmentConnectEmployeeIds)
-                    .HasForeignKey(d => d.DepId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PersonnelDepartmentConnectEmployeeId_PersonnelDepartmentList");
             });
 
             modelBuilder.Entity<PersonnelDepartmentList>(entity =>

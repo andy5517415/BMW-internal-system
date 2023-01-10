@@ -9,14 +9,12 @@ namespace InternalSystem.Models
     {
         public PersonnelDepartmentList()
         {
-            PersonnelDepartmentConnectEmployeeIds = new HashSet<PersonnelDepartmentConnectEmployeeId>();
             PersonnelProfileDetails = new HashSet<PersonnelProfileDetail>();
         }
 
         public int DepartmentId { get; set; }
         public string DepName { get; set; }
 
-        public virtual ICollection<PersonnelDepartmentConnectEmployeeId> PersonnelDepartmentConnectEmployeeIds { get; set; }
         public virtual ICollection<PersonnelProfileDetail> PersonnelProfileDetails { get; set; }
     }
 }

@@ -42,103 +42,6 @@ namespace InternalSystem.Controllers
         }
 
 
-        //api/PersonnelProfileDetails/dep1/EmployeeNumber  用員工工號帶出員工ID
-        [HttpGet("dep1/{Number}")]
-        public async Task<ActionResult<dynamic>> SearchDepPersonnelProfileDetail(string Number)
-        {
-
-            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
-                                      where o.EmployeeNumber == Number
-                                      select new
-                                      {
-                                          EmployeeId = o.EmployeeId,
-                                          EmployeeName = o.EmployeeName,
-                                          Sex = o.Sex,
-                                          IsMarried = o.IsMarried,
-                                          IdentiyId = o.IdentiyId,
-                                          CityId = o.CityId,
-                                          PositionId = o.PositionId,
-                                          DepId = o.DepartmentId,
-                                          RankId = o.RankId,
-                                          EmployeeNumber = o.EmployeeNumber,
-                                          HomePhone = o.HomePhone,
-                                          Email = o.Email,
-                                          Birthday = o.Birthday.ToString(),
-                                          PhoneNumber = o.PhoneNumber,
-                                          Address = o.Address,
-                                          DutyStatus = o.DutyStatus,
-                                          Country = o.Country,
-                                          EmergencyNumber = o.EmergencyNumber,
-                                          EmergencyPerson = o.EmergencyPerson,
-                                          EmergencyRelation = o.EmergencyRelation,
-                                          EntryDate = o.EntryDate.ToString(),
-                                          Acount = o.Acount,
-                                          Password = o.Password,
-                                          Terminationdate = o.Terminationdate.ToString()
-
-
-                                      };
-
-
-            if (SearchProfileDetail == null)
-            {
-                return NotFound();
-            }
-
-            return await SearchProfileDetail.FirstOrDefaultAsync();
-        }
-
-
-
-        //api/PersonnelProfileDetails/dep2/EmployeeNumber  用員工工號帶出員工ID
-        [HttpGet("dep2/{Number}")]
-        public async Task<ActionResult<dynamic>> SearchDep2PersonnelProfileDetail(string Number)
-        {
-
-            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
-                                      where o.EmployeeNumber == Number
-                                      select new
-                                      {
-                                          EmployeeId = o.EmployeeId,
-                                          EmployeeName = o.EmployeeName,
-                                          Sex = o.Sex,
-                                          IsMarried = o.IsMarried,
-                                          IdentiyId = o.IdentiyId,
-                                          CityId = o.CityId,
-                                          PositionId = o.PositionId,
-                                          DepId = o.DepartmentId2,
-                                          RankId = o.RankId,
-                                          EmployeeNumber = o.EmployeeNumber,
-                                          HomePhone = o.HomePhone,
-                                          Email = o.Email,
-                                          Birthday = o.Birthday.ToString(),
-                                          PhoneNumber = o.PhoneNumber,
-                                          Address = o.Address,
-                                          DutyStatus = o.DutyStatus,
-                                          Country = o.Country,
-                                          EmergencyNumber = o.EmergencyNumber,
-                                          EmergencyPerson = o.EmergencyPerson,
-                                          EmergencyRelation = o.EmergencyRelation,
-                                          EntryDate = o.EntryDate.ToString(),
-                                          Acount = o.Acount,
-                                          Password = o.Password,
-                                          Terminationdate = o.Terminationdate.ToString()
-
-
-                                      };
-
-
-            if (SearchProfileDetail == null)
-            {
-                return NotFound();
-            }
-
-            return await SearchProfileDetail.FirstOrDefaultAsync();
-        }
-
-
-
-
         //api/PersonnelProfileDetails/ss/2023001
         [HttpGet("uid/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(int id)
@@ -148,7 +51,6 @@ namespace InternalSystem.Controllers
                                       where o.EmployeeId == id
                                       join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                       join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
-                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepId
                                       join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                       select new
                                       {
@@ -160,7 +62,6 @@ namespace InternalSystem.Controllers
                                           CityId = o.CityId,
                                           PositionId = o.PositionId,
                                           DepartmentId = o.DepartmentId,
-                                          DepartmentId2 = o.DepartmentId2,
                                           RankId = o.RankId,
                                           EmployeeNumber = o.EmployeeNumber,
                                           HomePhone = o.HomePhone,
@@ -197,7 +98,6 @@ namespace InternalSystem.Controllers
                                       where o.EmployeeNumber == id
                                       join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                       join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
-                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepId
                                       join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                       select new
                                       {
@@ -209,7 +109,6 @@ namespace InternalSystem.Controllers
                                           CityId = o.CityId,
                                           PositionId = o.PositionId,
                                           DepartmentId = o.DepartmentId,
-                                          DepartmentId2 = o.DepartmentId2,
                                           RankId = o.RankId,
                                           EmployeeNumber = o.EmployeeNumber,
                                           HomePhone = o.HomePhone,
@@ -246,7 +145,6 @@ namespace InternalSystem.Controllers
                                           where o.EmployeeName == name
                                           join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                           join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
-                                          join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepId
                                           join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                           select new
                                           {
@@ -258,7 +156,6 @@ namespace InternalSystem.Controllers
                                               CityId = o.CityId,
                                               PositionId = o.PositionId,
                                               DepartmentId = o.DepartmentId,
-                                              DepartmentId2 = o.DepartmentId2,
                                               RankId = o.RankId,
                                               EmployeeNumber = o.EmployeeNumber,
                                               HomePhone = o.HomePhone,
