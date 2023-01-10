@@ -756,22 +756,14 @@
                                         <div class="mb-4 col-md-6">
                                             <label for="department" class="form-label">部門</label>
                                             <select v-model="employeelist.departmentId" id="department" class="select1 form-select">
-                                                <option v-for="item in departmentlist" :value="item.depId">
+                                                <option v-for="item in departmentlist" :value="item.departmentId">
                                                     {{item.depName}}
                                                 </option>
 
                                             </select>
                                         </div>
 
-                                        <!-- 部門選擇2 -->
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="Position">部門2</label>
-                                            <select v-model="employeelist.departmentId2" id="Position" class="select2 form-select">
-                                                <option v-for="item in departmentlist" :value="item.depId">
-                                                    {{item.depName}}
-                                                </option>
-                                            </select>
-                                        </div>
+                                   
                                         <!--職位-->
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label" for="position">職稱</label>
