@@ -876,7 +876,7 @@
                             console.log(response.data.employeeId); // 18
 
 
-                            //將每一筆Leavelist.employeeId帶入get到的值並post
+                            //將每一筆Leavelist.employeeId帶入get到的值
                             this.Leavelist.forEach(X => {
                                 X.employeeId = response.data.employeeId;
                                 console.log(X)// {}
