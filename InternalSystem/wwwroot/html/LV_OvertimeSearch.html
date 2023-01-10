@@ -540,60 +540,71 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-            <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <<h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
-                
-              <div class="card mb-4 m-4 card-body">
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
-                    <div class="row py-3 ">
-                        <div class="mb-3 col-md-2">
-                          <label for="EmployeeName"  class="form-label-lg">員工名稱</label> 
-                          <input v-model="employee.employeename" class="form-control"  value="" id="Employeename" disabled/>
-                         </div>
-                        <div class="mb-3 col-md-2">
-                          <label for="Employeeid"  class="form-label-lg">員工編號</label>
-                          <input v-model="employee.employeeid"class="form-control"  value="" id="Employeenameid" disabled/>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-4">
-                          <label for="html5-date-input" class="form-label-lg">開始時間</label>
-                          <div class="col-md-10">
-                            <input class="form-control" type="date" value="" id="html5-date-input" />
-                            <input class="form-control" type="time" value="" id="html5-date-input" />
+              <!-- Content -->
+              <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                  <<h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
+
+                  <div class="card mb-4 m-4 card-body">
+                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                          <div class="row py-3 ">
+                              <div class="mb-3 col-md-2">
+                                  <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
+                                  <input v-model="employeelist.employeeName" class="form-control" id="Employeename" disabled />
+                              </div>
+                              <div class="mb-3 col-md-2">
+                                  <label for="EmployeeNumber" class="form-label fs-4">員工編號</label>
+                                  <input v-model="employeelist.employeeNumber" class="form-control"  id="EmployeeNumber" disabled />
+                              </div>
+                              <div class="mb-3 col-md-2" style="display:none">
+                                  <label for="Employeeid" class="form-label fs-4">員工編號</label>
+                                  <input v-model="employeelist.employeeId" class="form-control" id="Employeeid" disabled />
+                              </div>
+                              <div class="mb-3 col-md-2" style="display:none">
+                                  <label for="Status" class="form-label fs-4">員工編號</label>
+                                  <input v-model="workoverlist.auditStatus" class="form-control"  id="Status" disabled />
+                              </div>
                           </div>
-                          <div class="col-4">
-                            <label for="Endtimeforvacation" class="form-label-lg">結束日期</label>
-                            <div class="col">
-                              <input class="form-control" type="date" value="" id="Endtimeforvacation" />
-                              <input class="form-control" type="time" value="" id="html5-time-input" />
-                            </div>
-                        </div>
-                          <div class="col-4">
-                            <label class="form-label-lg" for="Rank">加班類別</label>
-                            <select id="Rank" class="select2 form-select">
-                              <option value="">平日加班</option>
-                              <option value="">假日加班 </option>
-                          
-                            </select>
+                          <div class="row">
+
+                              <label for="html5-date-input" class="form-label fs-4">開始時間</label>
+                              <div class="col-3">
+                                  <input class="form-control" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
+                              </div>
+
+                              <div class="col-3">
+                                  <input class="form-control" type="time" v-model="workoverlist.startTime" id="html5-date-input" />
+                              </div>
+                              <label for="Endtimeforvacation" class="form-label fs-4">結束時間</label>
+
+                              <div class="col-3">
+                                  <input class="form-control" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
+                              </div>
+                              <div class="col-3">
+
+                                  <input class="form-control" type="time" v-model="workoverlist.endTime"  id="html5-time-input" />
+                              </div>
+
                           </div>
-                          
-                        </div>
-                    </div>
-                 
-                       
-           
-                    <div class="mb-3 col-md-3">
-                      <!-- <input class=""  value="" id="Totaltimeforvacation" /> -->
-                       <p>一共   小時</p> 
-                    </div>
-                      <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn()">送出</button>
-                        <button type="reset" class="btn btn-outline-secondary">取消</button>
-                      </div>
-                    </form>
-                </div>
+
+
+
+
+
+
+
+
+                              <div class="mb-3 col-md-3">
+                                  <!-- <input class=""  value="" id="Totaltimeforvacation" /> -->
+                                  <p>一共   小時</p>
+                              </div>
+                              <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                  <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn">送出</button>
+                                  <button type="reset" class="btn btn-outline-secondary">取消</button>
+                              </div>
+</form>
+                  </div>
+              </div>
+          </div>
             <!-- / Content -->
 
             <!-- Footer -->
@@ -635,29 +646,52 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Vue -->
     <script>
-      const sapp = new Vue({
-        el: '#formAccountSettings',
-        data: {
-          employee: { "employeename": "王大明", "employeeid": "12345678", "starttime": "", "starttim": "" }
-          // methods: {
-          //   // okbtn: function () { }
-          // }
+        const app = {
+
+            data() {
+                return {
+                    employeelist: {},
+                    workoverlist: { /*"auditStatus": false */},//預設FALSE送出
+                    totaltime: {}
+                }
+            },
+            methods: {
+              
+                okbtn: function () {
+                    //alert('ok')
+                    //const et = parseInt(this.workoverlist.endTime)
+                    //const st = parseInt(this.workoverlist.startTime)
+                    //console.log(et);
+                    //console.log(st);
+                    //const total = et - st;
+                    //console.log(total);
+                    //this.workoverlist.totalTime = total; //時間暫停使用  確切方法出現在開
+
+                    this.workoverlist.employeeId = this.employeelist.employeeId//OK
+                    console.log(this.workoverlist)//OK
+                    //測試能否點選後狀態變TURE =>OK
+                    //this.workoverlist.auditStatus=true  
+
+                    if (confirm('是否送出資料') == true) {
+                        //this.workoverlist.forEach(x => {
+                        axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
+                            .then(a => alert('申請已送出'))
+                            .catch(err => console.log(err))
+                        //})
+                    }
+                }
+            },
+            mounted() {
+                axios.get('https://localhost:44319/api/PersonnelProfileDetails/1')
+                    .then(response => this.employeelist = response.data)
+
+                //等SESSION完開始改用此
+                //axios.get('https://localhost:44319/api/PersonnelProfileDetails/'+this.employeeId)
+                //    .then(response => this.employeelist = response.data)
+            }
         }
 
-      })
-      const app = Vue.createApp({
-
-      })
-
-      const RenderHtmlApp = {
-        data() {
-          return {
-            employee: { "employeename": "王大明", "employeeid": "12345678", "starttime": "", "starttim": "" }
-          }
-        }
-      }
-
-      Vue.createApp(RenderHtmlApp).mount('#example1')
+      Vue.createApp(app).mount('#app')
 
 
 
