@@ -643,7 +643,7 @@
                                                 id="light"
                                                 v-model="carlightone">
                                             <option disabled value="999">請選擇頭燈款式</option>
-                                            <option v-for="one in carplaque"
+                                            <option v-for="one in carlight"
                                                     :value="one">
                                                 {{one.optionalName}}
                                             </option>
@@ -1053,7 +1053,8 @@
                     let dt = new Date();
                     this.orderpost = {
                         "orderNumber": this.orderid,
-                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}`,
+                        //"orderdatetime": dt,
+                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
                         "AreaId": this.agentone.areaId,
                         "Price": this.cnt,
                         "EmployeeId": Math.floor(Math.random() * 10) + 1,
@@ -1067,12 +1068,10 @@
                             console.log(orderidback);
 
                             for (var n = 0; n < 9; n++) {
-
                                 this.orderdetailpost = {
                                     "OrderId": orderidback,
                                     "OptionalId": this.orderdetail[n]
                                 }
-
                                 axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
                                     .then(p => {
                                         console.log(p);
