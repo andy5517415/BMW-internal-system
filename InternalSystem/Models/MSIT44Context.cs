@@ -57,7 +57,11 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+<<<<<<< HEAD
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+=======
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
+>>>>>>> 3a25fbabaa8e933370885eefe01c962c73946f9d
             }
         }
 
@@ -126,7 +130,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("BusinessOrder");
 
-                entity.Property(e => e.OrderDateTime).HasColumnType("datetime");
+                entity.Property(e => e.OrderDateTime)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.OrderNumber)
                     .IsRequired()
