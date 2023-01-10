@@ -41,9 +41,26 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
+        //用工號尋找ID
+        // GET: api/PersonnelProfileDetails/Number/2023001
+        [HttpGet("idfind/Number/{Number}")]
+        public async Task<ActionResult<dynamic>> GetPersonnelId(string Number)
+        {
+            var personnelProfileDetail = from o in _context.PersonnelProfileDetails
+                                         where o.EmployeeNumber==Number
+                                         select new
+                                         {
+                                             EmployeeId = o.EmployeeId
+                                         };
 
+            if (personnelProfileDetail == null)
+            {
+                return NotFound();
+            }
 
-        
+            return await personnelProfileDetail.FirstOrDefaultAsync();
+        }
+
 
 
         //api/PersonnelProfileDetails/ss/2023001
@@ -141,6 +158,37 @@ namespace InternalSystem.Controllers
 
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
+
+
+
+        //api/PersonnelProfileDetails/ss/2023001
+        [HttpGet("EmployeeNumber/{id}")]
+        public async Task<ActionResult<dynamic>> SearchGetPersonnelLeave(string id)
+        {
+
+            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
+                                      where o.EmployeeNumber == id
+                                     join LTF in _context.PersonnelLeaveOvers on o.EmployeeId equals LTF.EmployeeId
+                                     join LT in _context.PersonnelLeaveTypes on LTF.LeaveType equals LT.LeaveTypeId
+                                      select new
+                                      {
+                                          EmployeeId = o.EmployeeId,
+                                          LeaveType = LTF.LeaveType ,
+                                          Quantity =LTF.Quantity,
+                                          Used = LTF.Used ,
+                                          LTF.LeaveOver
+
+                                      };
+
+
+            if (SearchProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await SearchProfileDetail.FirstOrDefaultAsync();
+        }
+
 
         //api/PersonnelProfileDetails/na/name
         [HttpGet("na/{name}")]
