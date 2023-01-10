@@ -20,21 +20,19 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 
-    
+
     <!-- axios -->
     <script crossorigin="anonymous"
-      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
-      src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
+            integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+            src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -43,10 +41,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -62,14 +58,15 @@
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
 
   <body>
     <!-- Layout wrapper -->
@@ -550,8 +547,8 @@
                       <div class="card text-center ">
                       <div class="row card-body">
                         <div class=" row">
-                          <label for="" class=" col-2 fs-4 ">訂單編號</label>
-                          <label for="" class=" col-2 fs-4 ">型號</label>
+                          <label for="" class=" col-3 fs-4 ">訂單編號</label>
+                          <label for="" class=" col-3 fs-4 ">型號</label>
                           <label for="" class=" col-2 fs-4 ">製程</label>
                           <label for="" class=" col-2 fs-4 ">狀態</label>
                         </div>
@@ -560,24 +557,27 @@
         
                     </div>
                   </div>
+                  
+                  <div id="app">
+                      <div class="card mb-4 m-4 " v-for="order in OrderList">
+                          <div class="card text-center ">
+                              <div class="row card-body">
+                                  <div class=" row">
+                                      <label for="" class=" col-3 fs-4 ">{{order.orderNumber}}</label>
+                                      <label for="" class=" col-3 fs-4 ">{{order.optionalName}}</label>
+                                      <label for="" class=" col-2 fs-4 "></label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.isAccepted}}</label>
+                                      <div class="col-2   d-md-flex justify-content-md-end">
+                                          <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                      </div>
+                                  </div>
 
-                  <div class="card mb-4 m-4 ">
-                    <div class="card text-center ">
-                      <div class="row card-body">
-                        <div class=" row">
-                          <label for="" class=" col-2 fs-4 ">A12345678</label>
-                          <label for="" class=" col-2 fs-4 ">520i Sport</label>
-                          <label for="" class=" col-2 fs-4 ">A製程</label>
-                          <label for="" class=" col-2 fs-4 ">待處理</label>
-                            <div class="col-4   d-md-flex justify-content-md-end">
-                              <button type="submit" class="btn btn-outline-primary 2 ">安排</button>
-                            </div>
-                        </div>
-                      
+                              </div>
+
+                          </div>
                       </div>
-      
-                    </div>
                   </div>
+                  
               <!-- </div> -->
 
             <!-- / Content -->
@@ -620,5 +620,46 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                OrderList: {}
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("order", JSON.stringify(e));
+                }
+            }
+        })
+
+        //業務訂單
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor",
+            success: function (e) {
+                for (var i = 0; i < e.length; i++) {
+                    if (e[i].optionalId == 1) {
+                        e[i].optionalName = e[i].optionalName.slice(3);
+                        e[i].isAccepted = "待處理"
+                    }
+                    if (e[i].optionalId == 2) {
+                        e[i].optionalName = e[i].optionalName.slice(4);
+                        e[i].isAccepted = "待處理"
+                    }
+                    if (e[i].optionalId == 3) {
+                        e[i].optionalName = e[i].optionalName.slice(4, 15);
+                        e[i].isAccepted = "待處理"
+                    }
+                }
+                app.OrderList = e;
+            }
+        })
+
+
+        
+    </script>
   </body>
 </html>

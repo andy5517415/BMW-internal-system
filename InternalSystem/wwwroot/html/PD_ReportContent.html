@@ -569,14 +569,14 @@
                           </div>
                       </div>
 
-                      <label for="html5-time-input"  class="col-2 fs-5 my-2">工作時間</label>
+                      <label for="startTime"  class="col-2 fs-5 my-2">工作時間</label>
                       <div class="col-md-3">
-                          <input class="form-control" v-model="Context.startTime" type="time"  id="html5-time-input" />
+                          <input class="form-control" v-model="Context.startTime" type="time"  id="startTime" />
                       </div>
 
-                      <label for="html5-time-input" class="col-1 fs-5 my-2 text-center">到</label>
+                      <label for="endTime" class="col-1 fs-5 my-2 text-center">到</label>
                       <div class="col-md-3">
-                          <input  class="form-control" v-model="Context.endTime" type="time"  id="html5-time-input" />
+                          <input  class="form-control" v-model="Context.endTime" type="time"  id="endTime" />
                       </div>
 
                       <label for="html5-time-input" class="col-2 fs-5 my-2">共:8 hr</label>
@@ -652,22 +652,22 @@
             ,
             methods: {
                 Enter: function () {
-                    this.Context.startTime = 
+
                     this.Context.processId = this.ProcessList.processId;
                     this.Context.employeeId = this.emplyee.id
                     this.Context.context = this.emplyee.contxt
                     this.Context.orderId = this.ProcessList.orderId
                     console.log(this.Context)
 
-                    //$.ajax({
-                    //    type: "post",
-                    //    url: "https://localhost:44319/api/ProductionContexts",
-                    //    contentType: "application/json",
-                    //    data: JSON.stringify(this.Context),
-                    //    success: function () {
-                    //        window.location = "index.html"
-                    //    }
-                    //})
+                    $.ajax({
+                        type: "post",
+                        url: "https://localhost:44319/api/ProductionContexts",
+                        contentType: "application/json",
+                        data: JSON.stringify(this.Context),
+                        success: function () {
+                            window.location = "index.html"
+                        }
+                    })
                 }
             }
         })
