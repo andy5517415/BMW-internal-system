@@ -42,6 +42,10 @@ namespace InternalSystem.Controllers
         }
 
 
+
+        
+
+
         //api/PersonnelProfileDetails/ss/2023001
         [HttpGet("uid/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(int id)
@@ -51,6 +55,7 @@ namespace InternalSystem.Controllers
                                       where o.EmployeeId == id
                                       join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                       join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
                                       join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                       select new
                                       {
@@ -98,6 +103,7 @@ namespace InternalSystem.Controllers
                                       where o.EmployeeNumber == id
                                       join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                       join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
                                       join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                       select new
                                       {
@@ -145,6 +151,7 @@ namespace InternalSystem.Controllers
                                           where o.EmployeeName == name
                                           join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                           join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                          join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
                                           join r in _context.PersonnelRanks on o.RankId equals r.RankId
                                           select new
                                           {

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using System.Timers;
 
 namespace InternalSystem.Controllers
 {
@@ -35,8 +34,8 @@ namespace InternalSystem.Controllers
                             EmployeeName = PPD.EmployeeName,
                             ProcessId = PC.ProcessId,
                             Date = PC.Date.ToString(),
-                            //StartTime = PC.StartTime.ToString(),
-                            //EndTime = PC.EndTime.ToString(),
+                            StartTime = PC.StartTime.ToString(),
+                            EndTime = PC.EndTime.ToString(),
                             Context = PC.Context
                         };
                        
