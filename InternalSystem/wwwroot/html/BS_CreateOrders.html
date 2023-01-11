@@ -267,7 +267,6 @@
                             <i class="menu-icon tf-icons bx bx-dock-top"></i>
                             <div data-i18n="Account Settings">產線狀況監控</div>
                         </a>
-                        </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="#" class="menu-link">
@@ -518,6 +517,16 @@
                                                readonly
                                                v-model="cartypeone.price" />
                                     </div>
+
+
+
+
+
+                                    <input id="selectAvatar" type="file" />
+                                    <img id="showimg" :src="bee"/>
+
+
+
 
 
                                     <div class="col-md-3">
@@ -943,7 +952,7 @@
 
 
 
-        Vue.createApp({
+        var vvue = Vue.createApp({
 
             data() {
                 return {
@@ -972,7 +981,8 @@
                     orderid: "",
                     orderpost: {},
                     orderdetail: [],
-                    orderdetailpost: {}
+                    orderdetailpost: {},
+                    bee: {}
                 }
             },
             computed: {
@@ -1021,11 +1031,12 @@
                     this.orderpost = {
                         "orderNumber": this.orderid,
                         //"orderdatetime": dt,
-                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
+                        //"orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
                         "AreaId": this.agentone.areaId,
                         "Price": this.cnt,
                         "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                        "IsAccepted": false
+                        "IsAccepted": false,
+                        "pic" : this.bee
                     };
 
                     axios.post('/api/BusinessOrders', this.orderpost)
@@ -1057,12 +1068,41 @@
                     axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle = g.data),
                     axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
                     axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
-                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
+                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data),
+                    axios.get('/api/BusinessOrders').then(g => { console.log(g.data); this.bee = g.data[24].pic })
             }
         }).mount('#divinfo');
 
 
+        const input = document.getElementById("selectAvatar");
 
+        const convertBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = () => {
+                    resolve(fileReader.result);
+                };
+
+                fileReader.onerror = (error) => {
+                    reject(error);
+                };
+            });
+        };
+
+        const uploadImage = async (event) => {
+            const file = event.target.files[0];
+            const base64 = await convertBase64(file);
+            console.log(base64);
+            vvue.bee = base64;
+            console.log(vvue.bee);
+        };
+
+        input.addEventListener("change", (e) => {
+            console.log('ko');
+            uploadImage(e);
+        });
     </script>
 
 
