@@ -27,6 +27,118 @@ namespace InternalSystem.Controllers
             return await _context.PersonnelLeaveOvers.ToListAsync();
         }
 
+        //找尋該員工假別1
+        // GET: api/PersonnelLeaveOvers/leave1/5
+        [HttpGet("leave1/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeaveOver(int id )
+        {
+            var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
+                                     join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
+                                     join l in _context.PersonnelLeaveTypes on pl.LeaveType equals l.LeaveTypeId
+                                     where p.EmployeeId == id && pl.LeaveType == 1
+                                     select new
+                                     {
+                                         p.EmployeeId,
+                                         pl.LeaveType,
+                                         pl.Quantity,
+                                         l.Type,
+                                         pl.LeaveOver,
+                                         pl.Used
+                                     };
+
+
+            if (personnelLeaveOver == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveOver.FirstOrDefaultAsync();
+        }
+
+        //找尋該員工假別2
+        // GET: api/PersonnelLeaveOvers/leave1/5
+        [HttpGet("leave2/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeave2Over(int id)
+        {
+            var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
+                                     join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
+                                     join l in _context.PersonnelLeaveTypes on pl.LeaveType equals l.LeaveTypeId
+                                     where p.EmployeeId == id && pl.LeaveType == 2
+                                     select new
+                                     {
+                                         p.EmployeeId,
+                                         pl.LeaveType,
+                                         pl.Quantity,
+                                         l.Type,
+                                         pl.LeaveOver,
+                                         pl.Used
+                                     };
+
+
+            if (personnelLeaveOver == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveOver.FirstOrDefaultAsync();
+        }
+
+        //找尋該員工假別1
+        // GET: api/PersonnelLeaveOvers/leave3/5
+        [HttpGet("leave3/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeave3Over(int id)
+        {
+            var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
+                                     join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
+                                     join l in _context.PersonnelLeaveTypes on pl.LeaveType equals l.LeaveTypeId
+                                     where p.EmployeeId == id && pl.LeaveType == 3
+                                     select new
+                                     {
+                                         p.EmployeeId,
+                                         pl.LeaveType,
+                                         pl.Quantity,
+                                         l.Type,
+                                         pl.LeaveOver,
+                                         pl.Used
+                                     };
+
+
+            if (personnelLeaveOver == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveOver.FirstOrDefaultAsync();
+        }
+
+        //找尋該員工假別1
+        // GET: api/PersonnelLeaveOvers/leave4/5
+        [HttpGet("leave4/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeave4Over(int id)
+        {
+            var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
+                                     join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
+                                     join l in _context.PersonnelLeaveTypes on pl.LeaveType equals l.LeaveTypeId
+                                     where p.EmployeeId == id && pl.LeaveType == 4
+                                     select new
+                                     {
+                                         p.EmployeeId,
+                                         pl.LeaveType,
+                                         pl.Quantity,
+                                         l.Type,
+                                         pl.LeaveOver,
+                                         pl.Used
+                                     };
+
+
+            if (personnelLeaveOver == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveOver.FirstOrDefaultAsync();
+        }
+
         // GET: api/PersonnelLeaveOvers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonnelLeaveOver>> GetPersonnelLeaveOver(int id)

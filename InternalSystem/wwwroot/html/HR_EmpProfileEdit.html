@@ -854,9 +854,13 @@
 
                 },
                 searchbtn: function () {
-                    axios.get('/api/PersonnelProfileDetails/EmployeeNumber/' + this.employeeNumber)
+                    axios.get('/api/PersonnelProfileDetails/Number/' + this.employeeNumber)
                         .then(response => this.employeelist = response.data)
+<<<<<<< HEAD
                         .catch(err => console.log(error))
+=======
+                        .catch(alert => alert('查無此項'))
+>>>>>>> 9f567851516cce44231a60da46b36c684b306e58
 
                     axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
                         .then(response => this.employeelist = response.data)

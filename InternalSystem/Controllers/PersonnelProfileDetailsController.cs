@@ -62,6 +62,48 @@ namespace InternalSystem.Controllers
         }
 
 
+        //找代理人
+        // GET: api/PersonnelProfileDetails/proxy/dep/rank
+        [HttpGet("proxy/{dep}/{rank}")]
+        public async Task<ActionResult<dynamic>> GetLeaveProxy(int dep , int rank)
+        {
+            var personnelProfileDetail = from o in _context.PersonnelProfileDetails
+                                         where o.DepartmentId==dep && o.RankId == rank
+                                         select new
+                                         {
+                                             EmployeeId = o.EmployeeId,
+                                             EmployeeName = o.EmployeeName
+                                         };
+
+            if (personnelProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelProfileDetail.ToListAsync();
+        }
+
+        //找主管
+        // GET: api/PersonnelProfileDetails/Manager/dep
+        [HttpGet("Manager/{dep}")]
+        public async Task<ActionResult<dynamic>> GetLeaveManager(int dep)
+        {
+            var personnelProfileDetail = from o in _context.PersonnelProfileDetails
+                                         where o.DepartmentId == dep && o.RankId ==5
+                                         select new
+                                         {
+                                             EmployeeId = o.EmployeeId,
+                                             EmployeeName = o.EmployeeName
+                                         };
+
+            if (personnelProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelProfileDetail.ToListAsync();
+        }
+
 
         //api/PersonnelProfileDetails/ss/2023001
         [HttpGet("uid/{id}")]
@@ -111,8 +153,8 @@ namespace InternalSystem.Controllers
 
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
-        //api/PersonnelProfileDetails/ss/2023001
-        [HttpGet("EmployeeNumber/{id}")]
+        //api/PersonnelProfileDetails/Number/2023001
+        [HttpGet("Number/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
         {
 
@@ -161,7 +203,7 @@ namespace InternalSystem.Controllers
 
 
 
-        //api/PersonnelProfileDetails/ss/2023001
+        //api/PersonnelProfileDetails/EmployeeNumber/2023001
         [HttpGet("EmployeeNumber/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelLeave(string id)
         {

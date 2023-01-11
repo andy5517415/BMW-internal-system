@@ -20,33 +20,29 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
     <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <!-- axios -->
     <script crossorigin="anonymous"
-      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
-      src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
+            integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+            src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -62,14 +58,13 @@
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+</head>
 
   <body>
     <!-- Layout wrapper -->
@@ -436,7 +431,7 @@
                   <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                       <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
                       </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -445,7 +440,7 @@
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                               <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
                               </div>
                             </div>
                             <div class="flex-grow-1">
@@ -503,24 +498,24 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xxl flex-grow-1 container-p-y" id="app">
                 <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料查詢</h4>
                 <div class="card mb-4 m-4 card-body">
                     <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="mb-3 row">
                             <label for="html5-month-input" class="form-label-lg">請假月份</label>
                             <div class="col-md-2">
-                              <input class="form-control" type="month" value="2021-06" id="html5-month-input" />
+                              <input class="form-control" type="month" v-model="leavesearch.month" id="html5-month-input" />
                             </div>
                           </div>
                           <div class="mt-2 ">
-                            <button type="submit" class="btn btn-outline-primary me-2 ">查詢</button>
+                            <button type="button" @click="searchbtn"  class="btn btn-outline-primary me-2 ">查詢</button>
                             <button type="reset" class="btn btn-outline-secondary">取消</button>
                           </div>
+                    </form>
                     </div>
                   
                   
-                    </form>
                        <!-- Basic Bootstrap Table -->
               <div class="card">
                 <h5 class="card-header">請假申請資料</h5>
@@ -535,22 +530,23 @@
                         <th>狀態</th>
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
+                    <tbody class="table-border-bottom-0" v-for="item in leavelist">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                        <td>20241083</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong >{{item.employeeName}}</strong></td>
+                        <td>{{item.employeeNumber}}</td>
                         <td>
-                          <span class="label-primary me-1">121212</span>
+                            <span class="label-primary me-1">{{item.startDate}}</span>
                         </td>
                         <td>
-                          <span class="label-primary me-1">121212</span>
+                            <span class="label-primary me-1">{{item.endDate}}</span>
                         </td>
                         <td>
-                         
-                            <span class="label-primary me-1">121212</span>
+
+                            <span class="label-primary me-1">{{item.auditStatus }}</span>
                         </td>
                         <td>
-                          <a href="LV_ProfileLeaveSerchPage.html"  class="btn btn-outline-primary me-2 ">檢視詳情</a>
+                            <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-2 " v-if="item.statusId==3">檢視詳情</a>
+                            <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-2 " v-if="item.statusId==5">檢視詳情</a>
                         </td>
                       </tr>
                       
@@ -601,5 +597,30 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+      <script>
+          const app = {
+              data() {
+                  return {
+                  leavesearch: {},
+                      leavelist: {}
+                  }
+              },
+              methods: {
+                  searchbtn: function () {
+                      axios.get('/api/PersonnelLeaveForms/employee/15/' + this.leavesearch.month)
+                      .then(response => this.leavelist = response.data)
+                      .catch(err => console.log(err))
+
+                  }
+              },
+              mounted() {
+                
+              }
+
+          }
+
+
+          Vue.createApp(app).mount('#app')
+      </script>
   </body>
 </html>

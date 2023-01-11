@@ -541,11 +541,12 @@
                             <span class="label-primary me-1">{{item.endDate}}<!--{{item.endTime}}--></span>
                         </td>
                         <td>
-                         
-                            <span class="label-primary me-1">{{item.auditStatus}}</span>
+
+                            <span class="label-primary me-1" v-if="item.auditStatus==false">退件</span>
+                            <span class="label-primary me-1" v-if="item.auditStatus==true">同意</span>
                         </td>
                         <td>
-                          <a href="LV_ProfileOvertimeSearchPage.html"  class="btn btn-outline-primary me-2 ">檢視詳情</a>
+                          <a href="LV_ProfileOvertimeSearchPage.html"  class="btn btn-outline-primary me-2 " v-if="item.auditStatus==false">檢視詳情</a>
                         </td>
                       </tr>
                      

@@ -553,7 +553,7 @@
                                                 <!-- 性別 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label for="Sex" class="form-label">性別</label>
-                                                    <select v-model="employeelist.sex" id="Sex" class="select1 form-select">
+                                                    <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
                                                         <option>選擇性別</option>
                                                         <option value="男性">男</option>
                                                         <option value="女性">女</option>
@@ -827,6 +827,13 @@
                 }
             },
             methods: {
+                sexleave() {
+                    if (this.employeelist.sex = "男性") {
+                        this.Leavelist[3].LeaveOver = 0;
+                        this.Leavelist[3].Quantity = 0;
+                    }
+                },
+
                 createbtn: function () {
 
                     //axios.post("https://localhost:44319/api/PersonnelProfileDetails",
