@@ -566,6 +566,7 @@
                                                   <option value="Production">生產部</option>
                                                   <option value="Sales">業務部</option>
                                                   <option value="HR">人資部</option>
+                                                  <option value="PC">採購部</option>
                                               </select>
                                           </div>
                                           <!-- 申請日期 -->
@@ -589,12 +590,12 @@
                                               </div>
                                           </div>
                                           <!-- 供應商 -->
-                                          <div class="row" v-for="a in supplier">
+                                          <div class="row">
                                               <div class="mb-3 col-md-6">
                                                   <label for="SupplierID" class="form-label">供應商名稱</label>
                                                   <select id="SupplierID" class="select1 form-select">
                                                       <option value="">選擇供應商</option>
-                                                      <option value="BMW">{{a.supplierContact}}</option>
+                                                      <option v-for="a in supplier" value="BMW">{{a.supplierContact}}</option>
                                                   </select>
                                               </div>
                                               <!-- 供應商聯絡人 -->
@@ -602,7 +603,7 @@
                                                   <label for="SupplierContact" class="form-label">供應商聯絡人</label>
                                                   <select id="SupplierContact" class="select1 form-select">
                                                       <option value="">選擇供應商聯絡人</option>
-                                                      <option value="Australia">{{a.supplierContactPerson}}</option>
+                                                      <option v-for="a in supplier" v-if="a.supplierContact == 1" value="Australia">{{a.supplierContactPerson}}</option>
                                                   </select>
                                               </div>
                                               <!-- 供應商電話 -->
@@ -610,7 +611,7 @@
                                                   <label for="SupplierPhone" class="form-label">供應商電話</label>
                                                   <select id="SupplierPhone" class="select1 form-select">
                                                       <option value="">選擇供應商電話</option>
-                                                      <option value="Australia">{{a.supplierPhone}}</option>
+                                                      <option v-for="a in supplier" value="Australia">{{a.supplierPhone}}</option>
                                                   </select>
                                               </div>
                                           </div>
@@ -628,8 +629,8 @@
                                           <div class="card" >
                                               <h5 class="card-header">採購項目</h5>
                                               <div class="card-body">
-                                                  <div class="table-responsive text-nowrap" v-for="b in product">
-                                                      <table class="table table-bordered">
+                                                  <div class="table-responsive text-nowrap" >
+                                                      <table class="table table-bordered" >
                                                           <thead>
                                                               <tr>
                                                                   <th>項次</th>
@@ -640,7 +641,7 @@
                                                                   <th>小計</th>
                                                               </tr>
                                                           </thead>
-                                                          <tbody>
+                                                          <tbody v-for="b in product">
                                                               <tr>
 
                                                                   <!-- 第一項物品 -->
