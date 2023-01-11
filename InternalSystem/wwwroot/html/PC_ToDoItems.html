@@ -20,33 +20,29 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
-
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-
-    <meta name="description" content="" />
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 
+
     <!-- axios -->
     <script crossorigin="anonymous"
-      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
-      src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
+            integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+            src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
+    <meta name="description" content="" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -62,14 +58,15 @@
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
 
   <body>
     <!-- Layout wrapper -->
@@ -209,7 +206,7 @@
               <span class="menu-header-text">人事管理系統</span>
             </li>
             <!-- 人事管理(人資部專用) -->
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">人事管理</div>
@@ -245,7 +242,7 @@
                     <div data-i18n="Account">員工請假審核</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="HR_ToDoItems_Work.html" class="menu-link">
                     <div data-i18n="Account">員工加班審核</div>
                   </a>
@@ -290,13 +287,13 @@
             </li>
         
             <!-- 產線系統 -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">產線管理</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="PD_ToDoItems.html" class="menu-link">
                     <div data-i18n="Account">待辦事項</div>
                   </a>
@@ -536,68 +533,53 @@
           </nav>
         
           <!-- / Navbar -->
-        
-          <!-- / Navbar -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-                <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班審核</h4>
-                
-    
-                <div class="card mb-4 m-4 card-body">
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        
-                        <div class="row py-3 ">
-                            <div class="mb-3 col-md-2">
-                                <label for="EmployeeName" class="form-label fs-4">員工名稱</label> <input class="form-control"  value="" id="Employeename" disabled/>
-                           </div>
-                          <div class="mb-3 col-md-2">
-                            <label for="Employeeid" class="form-label fs-4">員工編號</label><input class="form-control"  value="" id="Employeenameid" disabled/>
-                        </div>
-                        
-                        </div>
+                <h4 class="fw-bold py-4 mb-4 ms-4"> 採購待辦事項</h4>
+            
+                       <!-- Basic Bootstrap Table -->
+              <!-- <div class="card"> -->
 
-                        <div class="row ">
-                          <label for="Starttimeforvacation" class="col-4 form-label fs-4">加班開始時間</label>
-                          <label for="Endtimeforvacation" class="col-4 form-label fs-4">加班結束時間</label>
+                  <div class="card mb-4 m-4 ">
+                      <div class="card text-center ">
+                      <div class="row card-body">
+                        <div class=" row">
+                          <label for="" class=" col-3 fs-4 ">訂單編號</label>
+                          <label for="" class=" col-3 fs-4 ">申請人</label>
+                          <label for="" class=" col-2 fs-4 ">金額</label>
+                          <label for="" class=" col-2 fs-4 ">狀態</label>
                         </div>
-                        <div class="row">
-             
-                          <div class="col-md-2">
-                              
-                              <input class="form-control"  value="" id="StartDate" disabled/>
-                              
-                            </div>
-                            <div class="col-md-2">
-                              
-                              <input class="form-control"  value="" id="StartTime" disabled/>
-                              
-                            </div>
-                            <div class=" col-md-2">
-                                
-                                <input class="form-control"  value="" id="EndDate" disabled/>
-                                
-                              </div>
-                              <div class="col-md-2">
-                                
-                                <input class="form-control"  value="" id="EndTime" disabled/>
-                                
-                              </div>
-                              
-                              <div class="col-md-3">
-                                <p class=" fs-4">共 小時</p>
-                              </div>
-                        </div>
-                        <div class="my-2 d-md-flex justify-content-md-end">
-                          <button type="submit" class="btn btn-outline-primary me-2 ">同意</button>
-                          <button type="reset" class="btn btn-outline-secondary">退回</button>
-                        </div>
-                    </div>
                       
-                    </form>
-                </div>
+                      </div>
+        
+                    </div>
+                  </div>
+                  
+                  <div id="app">
+                      <div class="card mb-4 m-4 " v-for="order in OrderList">
+                          <div class="card text-center ">
+                              <div class="row card-body">
+                                  <div class=" row">
+                                      <label for="" class=" col-3 fs-4 ">{{order.orderNumber}}</label>
+                                      <label for="" class=" col-3 fs-4 ">{{order.optionalName}}</label>
+                                      <label for="" class=" col-2 fs-4 "></label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.isAccepted}}</label>
+                                      <div class="col-2   d-md-flex justify-content-md-end">
+                                          <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+                  
+              <!-- </div> -->
+
             <!-- / Content -->
 
             <!-- Footer -->
@@ -606,6 +588,7 @@
 
             <div class="content-backdrop fade"></div>
           </div>
+            
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -637,5 +620,46 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                OrderList: {}
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("order", JSON.stringify(e));
+                }
+            }
+        })
+
+        //業務訂單
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor",
+            success: function (e) {
+                for (var i = 0; i < e.length; i++) {
+                    if (e[i].optionalId == 1) {
+                        e[i].optionalName = e[i].optionalName.slice(3);
+                        e[i].isAccepted = "待處理"
+                    }
+                    if (e[i].optionalId == 2) {
+                        e[i].optionalName = e[i].optionalName.slice(4);
+                        e[i].isAccepted = "待處理"
+                    }
+                    if (e[i].optionalId == 3) {
+                        e[i].optionalName = e[i].optionalName.slice(4, 15);
+                        e[i].isAccepted = "待處理"
+                    }
+                }
+                app.OrderList = e;
+            }
+        })
+
+
+        
+    </script>
   </body>
 </html>

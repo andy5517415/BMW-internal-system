@@ -547,7 +547,7 @@
                           <div class="card mb-4 m-4 mx-4">
                               <!-- 員工名稱 -->
                               <div class="card-body">
-                                  <form id="formAccountSettings" method="POST" onsubmit="return false" >
+                                  <form id="formAccountSettings" method="POST" onsubmit="return false" />
                                       <div class="row">
                                           <div class="mb-3 col-md-6" >
                                               <label for="firstName" class="form-label">員工名稱</label>
@@ -556,62 +556,61 @@
                                                      id="firstName"
                                                      name="firstName"
                                                      value=""
+                                                     readonly
                                                      autofocus />
                                           </div>
                                           <!-- 部門選擇 -->
                                           <div class="mb-3 col-md-6">
                                               <label for="department" class="form-label">部門</label>
-                                              <select id="department" class="select1 form-select">
-                                                  <option value="">選擇部門</option>
-                                                  <option value="Production">生產部</option>
-                                                  <option value="Sales">業務部</option>
-                                                  <option value="HR">人資部</option>
-                                                  <option value="PC">採購部</option>
-                                              </select>
+                                              <input class="form-control"
+                                                     type="text"
+                                                     id="department"
+                                                     name="department"
+                                                     value=""
+                                                     readonly
+                                                     autofocus />
                                           </div>
                                           <!-- 申請日期 -->
                                           <div class="mb-3 col-md-6">
                                               <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
                                               <div class="col-md-12">
-                                                  <input class="form-control" type="date" value="" id="ApplicationDate" />
+                                                  <input readonly class="form-control" type="date" value="" id="ApplicationDate" />
                                               </div>
                                           </div>
                                           <!-- 採購單號 -->
-                                          <div class="mb-3 col-md-6">
-                                              <label class="form-label" for="PurchaseID">採購單號</label>
-                                              <div class="input-group input-group-merge">
-                                                  <span class="input-group-text"></span>
-                                                  <input class="form-control"
-                                                         type="text"
-                                                         id="PurchaseID"
-                                                         name="PurchaseID"
-                                                         value=""
-                                                         placeholder="" />
-                                              </div>
-                                          </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="PurchaseID" class="form-label">採購單號</label>
+                                                    <input class="form-control"
+                                                    type="text"
+                                                    id="PurchaseID"
+                                                    name="PurchaseID"
+                                                    value=""
+                                                    readonly
+                                                    autofocus />
+                                            </div>
                                           <!-- 供應商 -->
                                           <div class="row">
                                               <div class="mb-3 col-md-6">
                                                   <label for="SupplierID" class="form-label">供應商名稱</label>
                                                   <select id="SupplierID" class="select1 form-select">
-                                                      <option value="">選擇供應商</option>
-                                                      <option v-for="a in supplier" value="BMW">{{a.supplierContact}}</option>
+                                                      <option disabled value="999">選擇供應商</option>
+                                                      <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
                                                   </select>
                                               </div>
                                               <!-- 供應商聯絡人 -->
                                               <div class="mb-3 col-md-6">
                                                   <label for="SupplierContact" class="form-label">供應商聯絡人</label>
                                                   <select id="SupplierContact" class="select1 form-select">
-                                                      <option value="">選擇供應商聯絡人</option>
-                                                      <option v-for="a in supplier" v-if="a.supplierContact == 1" value="Australia">{{a.supplierContactPerson}}</option>
+                                                      <option disabled value="999">選擇供應商聯絡人</option>
+                                                      <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
                                                   </select>
                                               </div>
                                               <!-- 供應商電話 -->
                                               <div class="mb-3 col-md-6">
                                                   <label for="SupplierPhone" class="form-label">供應商電話</label>
                                                   <select id="SupplierPhone" class="select1 form-select">
-                                                      <option value="">選擇供應商電話</option>
-                                                      <option v-for="a in supplier" value="Australia">{{a.supplierPhone}}</option>
+                                                      <option disabled value="999">選擇供應商電話</option>
+                                                      <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
                                                   </select>
                                               </div>
                                           </div>
@@ -650,19 +649,17 @@
                                                                       <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
                                                                   </td>
                                                                   <!-- 物品名稱 -->
-                                                                  <td>{{b.goods}}</td>
+                                                                      <td>
+                                                                        {{b.goods}}
+                                                                      </td>
                                                                   <!-- 物品數量 -->
                                                                   <td>
                                                                       <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                           <div class="mb-3 col-md-6">
                                                                               <label for="數量" class="form-label"></label>
                                                                               <select onchange="myfunction()" id="number" class="select1 form-select">
-                                                                                  <option type="" value="">選擇數量</option>
+                                                                                  <option value="999">選擇數量</option>
                                                                                   <option value=1>1</option>
-                                                                                  <option value=2>2</option>
-                                                                                  <option value=3>3</option>
-                                                                                  <option value=4>4</option>
-                                                                                  <option value=5>5</option>
                                                                               </select>
                                                                           </div>
                                                                       </ul>
@@ -695,7 +692,7 @@
                                                                           </script>-->
                                                                       </div>
                                                                   </td>
-                                                              </tr>           
+                                                              </tr> 
                                                           </tbody>
                                                       </table>
                                                   </div>
@@ -771,6 +768,14 @@
             url: "https://localhost:44319/api/PCApplications/supplier",
             success: (e) => {
                 app.supplier = e;
+                console.log(e);
+            }
+        })
+
+        $.ajax({
+            type: 'post',
+            url: "",
+            success: (e) => {
                 console.log(e);
             }
         })
