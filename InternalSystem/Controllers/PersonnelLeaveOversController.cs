@@ -27,6 +27,34 @@ namespace InternalSystem.Controllers
             return await _context.PersonnelLeaveOvers.ToListAsync();
         }
 
+
+        // GET: api/PersonnelLeaveOvers/leave/5
+        [HttpGet("leave/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeaveOver(int id )
+        {
+            var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
+                                     join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
+                                     join l in _context.PersonnelLeaveTypes on pl.LeaveType equals l.LeaveTypeId
+                                     where p.EmployeeId == id && pl.LeaveType == 1
+                                     select new
+                                     {
+                                         p.EmployeeId,
+                                         pl.LeaveType,
+                                         pl.Quantity,
+                                         l.Type,
+                                         pl.LeaveOver,
+                                         pl.Used
+                                     };
+
+
+            if (personnelLeaveOver == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveOver.FirstOrDefaultAsync();
+        }
+
         // GET: api/PersonnelLeaveOvers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonnelLeaveOver>> GetPersonnelLeaveOver(int id)

@@ -111,8 +111,8 @@ namespace InternalSystem.Controllers
 
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
-        //api/PersonnelProfileDetails/ss/2023001
-        [HttpGet("EmployeeNumber/{id}")]
+        //api/PersonnelProfileDetails/Number/2023001
+        [HttpGet("Number/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
         {
 

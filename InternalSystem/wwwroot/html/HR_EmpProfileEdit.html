@@ -887,9 +887,9 @@
 
                 },
                 searchbtn: function () {
-                    axios.get('/api/PersonnelProfileDetails/EmployeeNumber/' + this.employeeNumber)
+                    axios.get('/api/PersonnelProfileDetails/Number/' + this.employeeNumber)
                         .then(response => this.employeelist = response.data)
-                        .catch(err=>console.log(error))
+                        .catch(alert => alert('查無此項'))
 
                     axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
                         .then(response => this.employeelist = response.data)
