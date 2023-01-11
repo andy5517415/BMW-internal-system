@@ -548,9 +548,10 @@
                     <div class="row">
                       <div class="col-xl-12">
                         <h6 class="text-muted">類別</h6>
-                        <div class="nav-align-top mb-4">
+                        <div id="role" class="nav-align-top mb-4">
+                          <!-- ★設權限 -->
                           <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
+                            <li v-if="normal" class="nav-item">
                               <button
                                 type="button"
                                 class="nav-link active"
@@ -563,18 +564,37 @@
                                 請假
                               </button>
                             </li>
-                            <li class="nav-item">
-                              <button
-                                type="button"
-                                class="nav-link"
-                                role="tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#navs-top-profile"
-                                aria-controls="navs-top-profile"
-                                aria-selected="false"
-                              >
-                                加班
-                              </button>
+                            <li v-if="normal" class="nav-item">
+                                <button type="button"
+                                        class="nav-link"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-profile"
+                                        aria-controls="navs-top-profile"
+                                        aria-selected="false">
+                                    加班
+                                </button>
+                            </li>
+                            <li v-if="premier"  class="nav-item">
+                                <button type="button"
+                                        class="nav-link"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#leave-check"
+                                        aria-controls="leave-check"
+                                        aria-selected="false">
+                                    請假審核
+                                </button>
+                            <li v-if="premier" class="nav-item">
+                                <button type="button"
+                                        class="nav-link"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#overtime-check"
+                                        aria-controls="overtime-check"
+                                        aria-selected="false">
+                                    加班審核
+                                </button>
                             </li>
                            
                           </ul>
@@ -675,7 +695,98 @@
                                   </table>
                                 </tbody>
                           </div>
-                     
+                          </div>
+
+                          <!--請假審核-->
+                          <div class="tab-pane fade" id="leave-check" role="tabpanel">
+                            <tbody class="table-border-bottom-0">
+                              <div class="table-responsive text-nowrap">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>待修正項目</th>
+                                      <th>員工編號</th>
+                                      <th>加班起始時間</th>
+                                      <th>加班結束時間</th>
+                                      <th>狀態</th>
+                                      <th>修改</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="table-border-bottom-0">
+                                    <tr>
+                                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
+                                      <td>20241083</td>
+                                      <td>
+                                        <span class="label-primary me-1">121212</span>
+                                      </td>
+                                      <td>
+                                        <span class="label-primary me-1">121212</span>
+                                      </td>
+                                      <td>
+                                        <span class="label-primary me-1">申請</span>
+                          
+                                      </td>
+                                      <td>
+                          
+                                        <div class="dropdown">
+                          
+                                          <div class="">
+                                            <a class="dropdown-item" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                          
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+                          
+                                </table>
+                            </tbody>
+                          </div>
+                          </div>
+
+                          <!--加班審核-->
+                          <div class="tab-pane fade" id="overtime-check" role="tabpanel">
+                            <tbody class="table-border-bottom-0">
+                              <div class="table-responsive text-nowrap">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>待修正項目</th>
+                                      <th>員工編號</th>
+                                      <th>加班起始時間</th>
+                                      <th>加班結束時間</th>
+                                      <th>狀態</th>
+                                      <th>修改</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="table-border-bottom-0">
+                                    <tr>
+                                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
+                                      <td>20241083</td>
+                                      <td>
+                                        <span class="label-primary me-1">121212</span>
+                                      </td>
+                                      <td>
+                                        <span class="label-primary me-1">121212</span>
+                                      </td>
+                                      <td>
+                                        <span class="label-primary me-1">申請</span>
+                          
+                                      </td>
+                                      <td>
+                                        <div class="dropdown">
+                          
+                                          <div class="">
+                                            <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                          
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+                          
+                                </table>
+                            </tbody>
+                          </div>
+                          </div>
   
                         </div>
 
@@ -730,5 +841,19 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+        <!--Vue-->
+        <script>
+          var login = new Vue({
+            el: '#role',
+            data: {
+              normal: true,
+              premier: true,
+            },
+            methods: {
+
+            }
+          })
+        </script>
   </body>
 </html>
