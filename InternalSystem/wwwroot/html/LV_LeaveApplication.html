@@ -461,7 +461,7 @@
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
+                                            <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -470,7 +470,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
+                                                            <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -539,40 +539,39 @@
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                                         <input class="form-control" v-model="employeelist.employeeName" id="Employeeid" disabled />
+                                        <input class="form-control" v-model="employeelist.employeeName" id="Employeeid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="paidvacation" class="form-label fs-4">可用特休</label>
-                                        <input class="form-control" value="" id="paidvacation" v-model="employeelist.Quantity" 
-                                                                                                              disabled />
+                                        <input class="form-control" id="paidvacation" v-model="annualleave.leaveOver" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="usedpaidvacation" class="form-label fs-4">已用特休</label><input class="form-control" value=""
-                                                                                                                 id="usedpaidvacation" disabled />
+                                        <label for="usedpaidvacation" class="form-label fs-4">已用特休</label>
+                                        <input class="form-control" v-model="annualleave.used" id="usedpaidvacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="form-label fs-4">已用事假</label> <input class="form-control" value=""
-                                                                                                                   id="remaindervacation" disabled />
+                                        <label for="remaindervacation" class="form-label fs-4">可用事假</label>
+                                        <input class="form-control" v-model="personalleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="form-label fs-4">剩餘事假</label> <input class="form-control" value=""
-                                                                                                                   id="remaindervacation" disabled />
+                                        <label for="remaindervacation" class="form-label fs-4">已用事假</label>
+                                        <input class="form-control" v-model="personalleave.used" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="form-label fs-4">已用病假</label> <input class="form-control" value=""
-                                                                                                                   id="remaindervacation" disabled />
+                                        <label for="remaindervacation" class="form-label fs-4">可用病假</label>
+                                        <input class="form-control" v-model="sickleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="form-label fs-4">剩餘病假</label> <input class="form-control" value=""
-                                                                                                                   id="remaindervacation" disabled />
+                                        <label for="remaindervacation" class="form-label fs-4">已用病假</label>
+                                        <input class="form-control" v-model="sickleave.used" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="form-label fs-4">已用生理假</label> <input class="form-control" value=""
-                                                                                                                    id="remaindervacation" disabled />
+                                        <label for="remaindervacation" class="form-label fs-4">已用生理假</label>
+                                        <input class="form-control" v-model="menstrualleave.used" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="form-label fs-4">剩餘生理假</label> <input class="form-control" value=""
-                                                                                                                    id="remaindervacation" disabled />
+                                        <label for="remaindervacation" class="form-label fs-4">剩餘生理假</label>
+                                        <input class="form-control" v-model="menstrualleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                 </div>
 
@@ -584,21 +583,21 @@
 
                                     <div class="col-md-2">
 
-                                        <input class="form-control" type="date" value="" id="Starttimeforvacation" />
+                                        <input class="form-control" type="date" v-model="application.startDate" id="Starttimeforvacation" />
                                     </div>
 
                                     <div class="col-md-2">
 
-                                        <input class="form-control" type="time" value="" id="html5-date-input" />
+                                        <input class="form-control" type="time" id="html5-date-input" />
 
                                     </div>
                                     <div class="col-md-2">
-                                        <input class="form-control" type="date" value="" id="Endtimeforvacation" />
+                                        <input class="form-control" type="date" v-model="application.endDate" id="Endtimeforvacation" />
                                     </div>
 
                                     <div class="col-md-2">
 
-                                        <input class="form-control" type="time" value="" id="html5-time-input" />
+                                        <input class="form-control" type="time" id="html5-time-input" />
 
                                     </div>
 
@@ -611,36 +610,39 @@
                                 <div class="row ">
                                     <div class="col-md-2">
                                         <label class="form-label fs-4" for="Rank">假別</label>
-                                        <select id="Rank" class="select2 form-select">
-                                            <option value="">選擇假別</option>
-                                            <option value="">婚/喪假</option>
-                                            <option value="">事假</option>
-                                            <option value="">病假</option>
-                                            <option value="">公假</option>
-                                            <option value="">生理假</option>
-                                            <option value="">產假</option>
+                                        <select id="Rank" class="select2 form-select" v-model="application.leaveType">
+                                            <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
+
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <label class="form-label fs-4" for="Rank">代理人</label>
-                                        <select id="Rank" class="select2 form-select">
-                                            <option value="">選擇代理人</option>
-                                            <option value="">王大壯</option>
-
+                                        <label class="form-label fs-4" for="proxy">代理人</label>
+                                        <select id="proxy" class="select2 form-select" v-model="application.proxy">
+                                            <option v-for="item in proxy":value="item.employeeId">{{item.employeeName}}</option>
                                         </select>
                                     </div>
                                 </div>
 
-
+                                <div class="col-md-2">
+                                    <label class="form-label fs-4" for="manager">審核主管</label>
+                                    <select id="manager" class="select2 form-select" v-model="application.auditManerger">
+                                        <option v-for="item in manager":value="item.employeeId">{{item.employeeName}}</option>
+                                    </select>
+                                </div>
                                 <div class="row mt-3">
                                     <div class="mb-3 col-md-12">
-                                        <label for="Vacationreason" class="form-label fs-4">請假事由</label> <textarea class="form-control" id="Vacationreason"
-                                                                                                                   rows="6" col="6"></textarea>
+                                        <label for="Vacationreason" class="form-label fs-4">請假事由</label>
+                                        <textarea class="form-control" id="Vacationreason" v-model="application.reason" rows="6" col="6"></textarea>
                                     </div>
                                 </div>
-
+                                <div class="row mt-3" style="display:none">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Vacationreason" class="form-label fs-4">請假事由</label>
+                                        <textarea class="form-control" id="Vacationreason" v-model="application.statusId" rows="6" col="6"></textarea>
+                                    </div>
+                                </div>
                                 <div class="mt-3 d-md-flex justify-content-md-end">
-                                    <button type="submit" class="btn btn-outline-primary me-3 ">送出</button>
+                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 ">送出</button>
                                     <button type="reset" class="btn btn-outline-secondary ">取消</button>
                                 </div>
                             </form>
@@ -660,7 +662,7 @@
 
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
-    
+
     <!-- / Layout wrapper -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -687,13 +689,48 @@
         const app = {
             data() {
                 return {
-                    employeelist: {}
-
+                    employeelist: {},
+                    personalleave: {},
+                    sickleave: {},
+                    annualleave: {},
+                    menstrualleave: {},
+                    proxy: {},
+                    manager: {},
+                    leavetype: {},
+                    application: {}
+                }
+            },
+            methods: {
+                okbtn: function () {
+                    alert('OK');
+                    this.application.statusId = 1;
+                    axios.post('/api/PersonnelLeaveForms', this.application)
                 }
             },
             mounted() {
-                axios.get('/api/PersonnelProfileDetails/uid/12')
-                    .then(response => this.employeelist = response.data)
+                axios.get('/api/PersonnelProfileDetails/uid/15')
+                    .then(response => {
+                        this.employeelist = response.data,
+                            this.application.employeeId = this.employeelist.employeeId
+                            axios.get('/api/PersonnelProfileDetails/proxy/'
+                                + this.employeelist.positionId +'/'+ this.employeelist.departmentId)//找代理人
+                            .then(response => this.proxy = response.data)
+                        axios.get('/api/PersonnelProfileDetails/Manager/' + this.employeelist.departmentId)//找主管
+                            .then(response => this.manager = response.data)
+                    }).catch(e => console.log(err))
+
+                axios.get('/api/PersonnelLeaveTypes')
+                    .then(response => this.leavetype = response.data)
+
+                axios.get('/api/PersonnelLeaveOvers/leave1/15')//找該員工剩餘假
+                    .then(response => this.personalleave = response.data)
+                axios.get('/api/PersonnelLeaveOvers/leave2/15')
+                    .then(response => this.sickleave = response.data)
+                axios.get('/api/PersonnelLeaveOvers/leave3/15')
+                    .then(response => this.annualleave = response.data)
+                axios.get('/api/PersonnelLeaveOvers/leave4/15')
+                    .then(response => this.menstrualleave = response.data)
+
             }
 
         }
