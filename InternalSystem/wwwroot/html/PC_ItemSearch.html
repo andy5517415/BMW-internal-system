@@ -62,8 +62,8 @@
 
   <body>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
+    <div class="layout-wrapper layout-content-navbar"/>
+      <div class="layout-container"/>
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
@@ -453,7 +453,7 @@
                   <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                       <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                       </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -462,7 +462,7 @@
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                               <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                               </div>
                             </div>
                             <div class="flex-grow-1">
@@ -543,9 +543,9 @@
                   <div class="row mb-5">
                       <div id="app">
                           <div class="row" >
-                              <div v-for="(a,index) in item"class=" col-3 col-lg-4 mb-3 ">
+                              <div v-for="a in item"class=" col-3 col-lg-4 mb-3 ">
                                   <div  class="card h-80 lvrv">
-                                      <img class="card-img-top" src="../assets/img/PC_Photo/pen.jpg" alt="Goods image" />
+                                      <img class="card-img-top" src="data:image/jpg;base64,{{a.image}}" alt="Goods image" />
                                       <div class="card-body">
                                           <h5 class="card-title fs-4 fs-4">{{a.goods}}</h5>
                                           <p class="card-text fs-4">
@@ -594,6 +594,7 @@
                 console.log(e);
             }
         })
+
 
         //var app = new Vue({
         //    el: "#app",
