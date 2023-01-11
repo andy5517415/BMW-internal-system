@@ -24,9 +24,15 @@
     <meta charset="utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <!-- vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 
-    <title>採購部門申請表</title>
 
+    <!-- axios -->
+    <script crossorigin="anonymous"
+            integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+            src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -48,6 +54,8 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
     <!-- Helpers -->
@@ -279,13 +287,13 @@
             </li>
         
             <!-- 產線系統 -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">產線管理</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="PD_ToDoItems.html" class="menu-link">
                     <div data-i18n="Account">待辦事項</div>
                   </a>
@@ -336,13 +344,13 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">採購系統</span>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">採購系統</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="PC_Application.html" class="menu-link">
                     <div data-i18n="Account">採購申請表</div>
                   </a>
@@ -529,201 +537,58 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- 頁面中間上面輸出 -->
-              <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購部門申請表</h4>
+                <h4 class="fw-bold py-4 mb-4 ms-4"> 採購待辦事項</h4>
+            
+                       <!-- Basic Bootstrap Table -->
+              <!-- <div class="card"> -->
 
-              <div class="row">
-                  <div class="col-md-12">
-                      <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                          <li class="nav-item mb-4 mx-4">
-                              <a class="nav-link active" href="#"><i class="bx bx-user me-1"></i>申請表</a>
-                          </li>
-                      </ul>
-
-                      <!--本頁內容 -->
-                      <div id="app">
-                          <div class="card mb-4 m-4 mx-4">
-                              <!-- 員工名稱 -->
-                              <div class="card-body">
-                                  <form id="formAccountSettings" method="POST" onsubmit="return false" />
-                                      <div class="row">
-                                          <div class="mb-3 col-md-6" >
-                                              <label for="firstName" class="form-label">員工名稱</label>
-                                              <input class="form-control"
-                                                     type="text"
-                                                     id="firstName"
-                                                     name="firstName"
-                                                     value=""
-                                                     readonly
-                                                     autofocus />
-                                          </div>
-                                          <!-- 部門選擇 -->
-                                          <div class="mb-3 col-md-6">
-                                              <label for="department" class="form-label">部門</label>
-                                              <input class="form-control"
-                                                     type="text"
-                                                     id="department"
-                                                     name="department"
-                                                     value=""
-                                                     readonly
-                                                     autofocus />
-                                          </div>
-                                          <!-- 申請日期 -->
-                                          <div class="mb-3 col-md-6">
-                                              <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
-                                              <div class="col-md-12">
-                                                  <input readonly class="form-control" type="date" value="" id="ApplicationDate" />
-                                              </div>
-                                          </div>
-                                          <!-- 採購單號 -->
-                                            <div class="mb-3 col-md-6">
-                                                <label for="PurchaseID" class="form-label">採購單號</label>
-                                                    <input class="form-control"
-                                                    type="text"
-                                                    id="PurchaseID"
-                                                    name="PurchaseID"
-                                                    value=""
-                                                    readonly
-                                                    autofocus />
-                                            </div>
-                                          <!-- 供應商 -->
-                                          <div class="row">
-                                              <div class="mb-3 col-md-6">
-                                                  <label for="SupplierID" class="form-label">供應商名稱</label>
-                                                  <select id="SupplierID" class="select1 form-select">
-                                                      <option disabled value="999">選擇供應商</option>
-                                                      <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
-                                                  </select>
-                                              </div>
-                                              <!-- 供應商聯絡人 -->
-                                              <div class="mb-3 col-md-6">
-                                                  <label for="SupplierContact" class="form-label">供應商聯絡人</label>
-                                                  <select id="SupplierContact" class="select1 form-select">
-                                                      <option disabled value="999">選擇供應商聯絡人</option>
-                                                      <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
-                                                  </select>
-                                              </div>
-                                              <!-- 供應商電話 -->
-                                              <div class="mb-3 col-md-6">
-                                                  <label for="SupplierPhone" class="form-label">供應商電話</label>
-                                                  <select id="SupplierPhone" class="select1 form-select">
-                                                      <option disabled value="999">選擇供應商電話</option>
-                                                      <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
-                                                  </select>
-                                              </div>
-                                          </div>
-                                          <!-- 備註 -->
-                                          <div class="mb-3 col-md-6">
-                                              <label for="Comment" class="form-label">備註</label>
-                                              <input class="form-control"
-                                                     type="text"
-                                                     id="Comment"
-                                                     name="Comment"
-                                                     value=""
-                                                     placeholder="" />
-                                          </div>
-                                          <!-- 採購清單 -->
-                                          <div class="card" >
-                                              <h5 class="card-header">採購項目</h5>
-                                              <div class="card-body">
-                                                  <div class="table-responsive text-nowrap" >
-                                                      <table class="table table-bordered" >
-                                                          <thead>
-                                                              <tr>
-                                                                  <th>項次</th>
-                                                                  <th>品名</th>
-                                                                  <th>數量</th>
-                                                                  <th>單位</th>
-                                                                  <th>單價</th>
-                                                                  <th>小計</th>
-                                                              </tr>
-                                                          </thead>
-                                                          <tbody v-for="b in product">
-                                                              <tr>
-
-                                                                  <!-- 第一項物品 -->
-                                                                  <!-- 項次 -->
-                                                                  <td>
-                                                                      <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
-                                                                  </td>
-                                                                  <!-- 物品名稱 -->
-                                                                      <td>
-                                                                        {{b.goods}}
-                                                                      </td>
-                                                                  <!-- 物品數量 -->
-                                                                  <td>
-                                                                      <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                                          <div class="mb-3 col-md-6">
-                                                                              <label for="數量" class="form-label"></label>
-                                                                              <select onchange="myfunction()" id="number" class="select1 form-select">
-                                                                                  <option value="999">選擇數量</option>
-                                                                                  <option value=1>1</option>
-                                                                              </select>
-                                                                          </div>
-                                                                      </ul>
-                                                                  </td>
-                                                                  <!-- 單位 -->
-                                                                  <td>
-                                                                      <span class="badge bg-label-primary me-1">{{b.unit}}</span>
-                                                                  </td>
-                                                                  <!-- 單價 -->
-                                                                  <td>
-                                                                      <div class="dropdown">
-                                                                          <span id="Unit_price">{{b.unitPrice}}</span>元
-                                                                      </div>
-                                                                  </td>
-                                                                  <!-- 小計 -->
-                                                                  <td>
-                                                                      <div class="dropdown">
-                                                                          <div>
-                                                                              <p id="total"> </p>
-                                                                          </div>
-                                                                          <!--<script>
-                                                                              function myfunction() {
-                                                                                  var x = parseInt(document.getElementById("number").value);
-                                                                                  var y = parseInt(document.getElementById("Unit_price").innerText);
-                                                                                  var z = x * y;
-                                                                                  // console.log(typeof x);
-                                                                                  // console.log(y);
-                                                                                  document.getElementById("total").innerHTML = z.toString() + "元"
-                                                                              }
-                                                                          </script>-->
-                                                                      </div>
-                                                                  </td>
-                                                              </tr> 
-                                                          </tbody>
-                                                      </table>
-                                                  </div>
-                                          <!-- 總價 -->
-                                          <div>
-                                              <div class="d-flex flex-row-reverse bd-highlight">
-                                                  <div class="p-2 bd-highlight">總價：</div>
-                                              </div>
-                                              <div class="table-responsive text-nowrap"></div>
-                                          </div>
-                                          <!-- 確認按鈕 -->
-                                          <div class="mt-2 d-flex flex-row-reverse bd-highlight">
-                                              <button type="reset" class="btn btn-outline-secondary ">取消</button>
-                                              <button type="submit" class="btn btn-outline-primary me-3">送出</button>
-                                          </div>
+                  <div class="card mb-4 m-4 ">
+                      <div class="card text-center ">
+                      <div class="row card-body">
+                        <div class=" row">
+                          <label for="" class=" col-3 fs-4 ">訂單編號</label>
+                          <label for="" class=" col-3 fs-4 ">申請人</label>
+                          <label for="" class=" col-2 fs-4 ">金額</label>
+                          <label for="" class=" col-2 fs-4 ">狀態</label>
+                        </div>
+                      
+                      </div>
+        
+                    </div>
+                  </div>
+                  
+                  <div id="app">
+                      <div class="card mb-4 m-4 " v-for="order in OrderList">
+                          <div class="card text-center ">
+                              <div class="row card-body">
+                                  <div class=" row">
+                                      <label for="" class=" col-3 fs-4 ">{{order.orderNumber}}</label>
+                                      <label for="" class=" col-3 fs-4 ">{{order.optionalName}}</label>
+                                      <label for="" class=" col-2 fs-4 "></label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.isAccepted}}</label>
+                                      <div class="col-2   d-md-flex justify-content-md-end">
+                                          <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
                                       </div>
+                                  </div>
+
                               </div>
+
                           </div>
                       </div>
                   </div>
-              </div>
                   
-              <!--/ Bordered Table -->
-                  
-                
+              <!-- </div> -->
+
+            <!-- / Content -->
+
             <!-- Footer -->
             
             <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
           </div>
+            
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -733,64 +598,6 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
-    <!-- Vue 傳值 -->
-    <script>
-        var app = new Vue({
-            el: "#app",
-            data: {
-                item: {},
-                product: {},
-                supplier: {},
-            }
-        });
-
-        $.ajax({
-            type: 'get',
-            url: "https://localhost:44319/api/PCApplications/test",
-            success: (e) => {
-                app.item = e;
-                console.log(e);
-            }
-        })
-
-        $.ajax({
-            type: 'get',
-            url: "https://localhost:44319/api/PCApplications/goods",
-            success: (e) => {
-                app.product = e;
-                console.log(e);
-            }
-        })
-
-        $.ajax({
-            type: 'get',
-            url: "https://localhost:44319/api/PCApplications/supplier",
-            success: (e) => {
-                app.supplier = e;
-                console.log(e);
-            }
-        })
-
-        $.ajax({
-            type: 'post',
-            url: "",
-            success: (e) => {
-                console.log(e);
-            }
-        })
-        
-
-    </script>
-
-    <!-- <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div> -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -803,15 +610,56 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/pages-account-settings-account.js"></script>
+    <script src="../assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
+    <script>
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                OrderList: {}
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("order", JSON.stringify(e));
+                }
+            }
+        })
+
+        //業務訂單
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor",
+            success: function (e) {
+                for (var i = 0; i < e.length; i++) {
+                    if (e[i].optionalId == 1) {
+                        e[i].optionalName = e[i].optionalName.slice(3);
+                        e[i].isAccepted = "待處理"
+                    }
+                    if (e[i].optionalId == 2) {
+                        e[i].optionalName = e[i].optionalName.slice(4);
+                        e[i].isAccepted = "待處理"
+                    }
+                    if (e[i].optionalId == 3) {
+                        e[i].optionalName = e[i].optionalName.slice(4, 15);
+                        e[i].isAccepted = "待處理"
+                    }
+                }
+                app.OrderList = e;
+            }
+        })
+
+
+        
+    </script>
   </body>
 </html>
