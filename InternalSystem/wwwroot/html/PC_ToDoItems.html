@@ -608,15 +608,15 @@
           for (var i = 0; i < e.length; i++) {
             if (e[i].optionalId == 1) {
               e[i].optionalName = e[i].optionalName.slice(3);
-              e[i].isAccepted = "待處理"
+              e[i].deliveryStatus = "待處理"
             }
             if (e[i].optionalId == 2) {
               e[i].optionalName = e[i].optionalName.slice(4);
-              e[i].isAccepted = "待處理"
+                e[i].deliveryStatus = "待處理"
             }
             if (e[i].optionalId == 3) {
               e[i].optionalName = e[i].optionalName.slice(4, 15);
-              e[i].isAccepted = "待處理"
+                e[i].deliveryStatus = "待處理"
             }
           }
           app.OrderList = e;

@@ -521,7 +521,7 @@
                           <div class="row" >
                               <div v-for="a in item"class=" col-3 col-lg-4 mb-3 ">
                                   <div  class="card h-80 lvrv">
-                                      <img class="card-img-top" src="data:image/jpg;base64,{{a.image}}" alt="Goods image" />
+                                      <img class="card-img-top" :src=`data:image/jpg;base64,${a.image}` alt="Goods image" />
                                       <div class="card-body">
                                           <h5 class="card-title fs-4 fs-4">{{a.goods}}</h5>
                                           <p class="card-text fs-4">
