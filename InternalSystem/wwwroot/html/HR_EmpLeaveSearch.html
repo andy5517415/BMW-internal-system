@@ -512,7 +512,7 @@
                                     <div class="mb-3 col-md-2">
                                         <label for="department" class="form-label-lg">部門</label>
                                         <select id="department" class="select2 form-select" v-model="search.departmentId">
-                                            <option>請選擇部門</option>
+                                            <option value="" disabled>請選擇部門</option>
                                             <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
 
                                         </select>
