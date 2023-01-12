@@ -69,430 +69,432 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- Menu -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-              <div class="app-brand demo">
-                <a href="index.html" class="app-brand-link">
-                  <span class="app-brand-logo demo">
-                    <img src="../assets/img/BMW_logo.png" alt="^q^" width="50px">
-                  </span>
-                  <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
-                </a>
+<!-- Menu -->
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="index.html" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <img src="../assets/img/BMW_logo.png" alt="我是Logo" width="50px">
+      </span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
+    </a>
+
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-1">
+    <!-- 首頁 -->
+    <li class="menu-item">
+      <a href="index.html" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">首頁</div>
+      </a>
+    </li>
+
+    <!-- 個人資料 -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">個人資料系統</span>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">個人資料</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="PS_Profile.html" class="menu-link">
+            <div data-i18n="Account">個人資料</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PS_ToDoItems.html" class="menu-link">
+            <div data-i18n="Notifications">待辦事項</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PS_CheckInSystem.html" class="menu-link">
+            <div data-i18n="Connections">打卡系統</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- 請假/加班申請 -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">請假/加班申請</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="LV_LeaveApplication.html" class="menu-link">
+            <div data-i18n="Account">請假申請</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="LV_ProfileLeaveSearch.html" class="menu-link">
+            <div data-i18n="Account">請假查詢</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="LV_OvertimeSearch.html" class="menu-link">
+            <div data-i18n="Connections">加班申請</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="LV_ProfileOvertimeSearch.html" class="menu-link">
+            <div data-i18n="Connections">加班查詢</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="LV_AttendSearch.html" class="menu-link">
+            <div data-i18n="Notifications">出缺勤查詢</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">人事管理系統</span>
+    </li>
+    <!-- 人事管理(人資部專用) -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">人事管理</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="HR_EmpProfileCreate.html" class="menu-link">
+            <div data-i18n="Account">新建員工資料</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="HR_EmpProfileEdit.html" class="menu-link">
+            <div data-i18n="Account">員工資料修改</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="HR_EmpLeaveSearch.html" class="menu-link">
+            <div data-i18n="Account">請假資料查詢/修改</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="HR_OvertimeSearch.html" class="menu-link">
+            <div data-i18n="Account">加班資料查詢/修改</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="HR_EmpProfileAttendSearch.html" class="menu-link">
+            <div data-i18n="Account">員工出勤查詢</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="HR_ToDoItems_Leave.html" class="menu-link">
+            <div data-i18n="Account">員工請假審核</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="HR_ToDoItems_Work.html" class="menu-link">
+            <div data-i18n="Account">員工加班審核</div>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+
+
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">業務與產線系統</span>
+    </li>
+    <!--業務系統(業務專用) -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">業務系統</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="BS_CreateOrders.html" class="menu-link">
+            <div data-i18n="Account">新建訂單</div>
+          </a>
+        </li>
+
+        <li class="menu-item">
+          <a href="BS_SearchEditDeleteOrders.html" class="menu-link">
+            <div data-i18n="Account">查詢/修改/刪除訂單</div>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+
+    <!-- 產線系統 -->
+    <li class="menu-item active open">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">產線管理</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="PD_ToDoItems.html" class="menu-link">
+            <div data-i18n="Account">待辦事項</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PD_MakeClass.html" class="menu-link">
+            <div data-i18n="Account">產線報工</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PD_BugReportCreate.html" class="menu-link">
+            <div data-i18n="Account">建立異常單</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PD_BugSearch.html" class="menu-link">
+            <div data-i18n="Account">異常清單查詢</div>
+          </a>
+        </li>
+        <li class="menu-item active">
+          <a href="PD_ReportContentSearch.html" class="menu-link">
+            <div data-i18n="Account">報工查詢</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">產線狀況監控</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="#" class="menu-link">
+            <div data-i18n="Account">產線狀況監控(尚未)</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#" class="menu-link">
+            <div data-i18n="Account">即時異常狀況</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="BS_BugSys.html" class="menu-link">
+            <div data-i18n="Account">報錯系統</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="BS_MonitorSys.html" class="menu-link">
+            <div data-i18n="Account">監控系統</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- 採購系統 -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">採購系統</span>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">採購系統</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="PC_ToDoItems.html" class="menu-link">
+            <div data-i18n="Account">採購待辦事項</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PC_Application.html" class="menu-link">
+            <div data-i18n="Account">採購申請表</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PC_ApplicationRecordSearch.html" class="menu-link">
+            <div data-i18n="Account">採購紀錄查詢</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PC_ApplicationRecordDetails.html" class="menu-link">
+            <div data-i18n="Account">採購紀錄細項</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="PC_ItemSearch.html" class="menu-link">
+            <div data-i18n="Account">物品資料查詢</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- 會議室申請 -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">會議室</span>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">會議室申請</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="MT_MeetReserve.html" class="menu-link">
+            <div data-i18n="Account">預約會議室</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="MT_MeetReserveSearch.html" class="menu-link">
+            <div data-i18n="Account">查詢租借紀錄</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="MT_MeetRecordCreate.html" class="menu-link">
+            <div data-i18n="Account">建立會議記錄表</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="MT_MeetRecordSearch.html" class="menu-link">
+            <div data-i18n="Account">會議記錄表查詢</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- 登入 -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">登入</span>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+        <div data-i18n="Authentications">登入與註冊</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="Login.html" class="menu-link" target="_blank">
+            <div data-i18n="Basic">登入</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- 連線錯誤 -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">連線錯誤與維護</span>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+        <div data-i18n="Misc">連線錯誤與維護</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="pages-misc-error.html" class="menu-link">
+            <div data-i18n="Error">404錯誤</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="pages-misc-under-maintenance.html" class="menu-link">
+            <div data-i18n="Under Maintenance">平台維護中</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>
+<!-- /Menu -->
+
+<!-- Layout container -->
+<div class="layout-page">
+  <!-- Navbar -->
+
+  <nav class="container">
+    <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+      id="layout-navbar">
+
+      <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        <!-- 問好 -->
+        <div class="navbar-nav align-items-center fs-4">
+          😊您好，王鴻杰!
+        </div>
+        <!-- /問好 -->
+
+        <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+          <!-- User -->
+          <li class="nav-item navbar-dropdown dropdown-user dropdown">
+            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+              <div class="avatar avatar-online">
+                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
               </div>
-            
-              <div class="menu-inner-shadow"></div>
-            
-              <ul class="menu-inner py-1">
-                <!-- 首頁 -->
-                <li class="menu-item">
-                  <a href="index.html" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                    <div data-i18n="Analytics">首頁</div>
-                  </a>
-                </li>
-            
-                <!-- 個人資料 -->
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">個人資料系統</span>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">個人資料</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="PS_Profile.html" class="menu-link">
-                        <div data-i18n="Account">個人資料</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PS_ToDoItems.html" class="menu-link">
-                        <div data-i18n="Notifications">待辦事項</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PS_CheckInSystem.html" class="menu-link">
-                        <div data-i18n="Connections">打卡系統</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <!-- 請假/加班申請 -->
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">請假/加班申請</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="LV_LeaveApplication.html" class="menu-link">
-                        <div data-i18n="Account">請假申請</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="LV_ProfileLeaveSearch.html" class="menu-link">
-                        <div data-i18n="Account">請假查詢</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="LV_OvertimeSearch.html" class="menu-link">
-                        <div data-i18n="Connections">加班申請</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="LV_ProfileOvertimeSearch.html" class="menu-link">
-                        <div data-i18n="Connections">加班查詢</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="LV_AttendSearch.html" class="menu-link">
-                        <div data-i18n="Notifications">出缺勤查詢</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">人事管理系統</span>
-                </li>
-                <!-- 人事管理(人資部專用) -->
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">人事管理</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="HR_EmpProfileCreate.html" class="menu-link">
-                        <div data-i18n="Account">新建員工資料</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="HR_EmpProfileEdit.html" class="menu-link">
-                        <div data-i18n="Account">員工資料修改</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="HR_EmpLeaveSearch.html" class="menu-link">
-                        <div data-i18n="Account">請假資料查詢/修改</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="HR_OvertimeSearch.html" class="menu-link">
-                        <div data-i18n="Account">加班資料查詢/修改</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="HR_EmpProfileAttendSearch.html" class="menu-link">
-                        <div data-i18n="Account">員工出勤查詢</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="HR_ToDoItems_Leave.html" class="menu-link">
-                        <div data-i18n="Account">員工請假審核</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="HR_ToDoItems_Work.html" class="menu-link">
-                        <div data-i18n="Account">員工加班審核</div>
-                      </a>
-                    </li>
-            
-                  </ul>
-                </li>
-            
-            
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">業務與產線系統</span>
-                </li>
-                <!--業務系統(業務專用) -->
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">業務系統</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="BS_CreateOrders.html" class="menu-link">
-                        <div data-i18n="Account">新建訂單</div>
-                      </a>
-                    </li>
-            
-                    <li class="menu-item">
-                      <a href="BS_SearchEditDeleteOrders.html" class="menu-link">
-                        <div data-i18n="Account">查詢/修改/刪除訂單</div>
-                      </a>
-                    </li>
-            
-                  </ul>
-                </li>
-            
-                <!-- 產線系統 -->
-                <li class="menu-item active open">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">產線管理</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="#" class="menu-link">
-                        <div data-i18n="Account">待辦事項</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PD_MakeClass.html" class="menu-link">
-                        <div data-i18n="Account">產線報工</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PD_BugReportCreate.html" class="menu-link">
-                        <div data-i18n="Account">建立異常單</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PD_BugSearch.html" class="menu-link">
-                        <div data-i18n="Account">異常清單查詢</div>
-                      </a>
-                    </li>
-                    <li class="menu-item active">
-                      <a href="PD_ReportContentSearch.html" class="menu-link">
-                        <div data-i18n="Account">報工查詢</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <!-- 產線監控 -->
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">產線狀況監控</div>
-                  </a>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="#" class="menu-link">
-                        <div data-i18n="Account">產線狀況監控(尚未)</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="#" class="menu-link">
-                        <div data-i18n="Account">即時異常狀況(尚未)</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="BS_BugSys.html" class="menu-link">
-                        <div data-i18n="Account">報錯系統</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="BS_MonitorSys.html" class="menu-link">
-                        <div data-i18n="Account">監控系統</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <!-- 採購系統 -->
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">採購系統</span>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">採購系統</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="PC_ToDoItems.html" class="menu-link">
-                        <div data-i18n="Account">採購待辦事項</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PC_Application.html" class="menu-link">
-                        <div data-i18n="Account">採購申請表</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PC_ApplicationRecordSearch.html" class="menu-link">
-                        <div data-i18n="Account">採購紀錄查詢</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                        <div data-i18n="Account">採購紀錄細項</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="PC_ItemSearch.html" class="menu-link">
-                        <div data-i18n="Account">物品資料查詢</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <!-- 會議室申請 -->
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">會議室</span>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Account Settings">會議室申請</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="MT_MeetReserve.html" class="menu-link">
-                        <div data-i18n="Account">預約會議室</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="MT_MeetReserveSearch.html" class="menu-link">
-                        <div data-i18n="Account">查詢租借紀錄</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="MT_MeetRecordCreate.html" class="menu-link">
-                        <div data-i18n="Account">建立會議記錄表</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="MT_MeetRecordSearch.html" class="menu-link">
-                        <div data-i18n="Account">會議記錄表查詢</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            
-                <!-- 登入 -->
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">登入</span>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                    <div data-i18n="Authentications">登入與註冊</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="Login.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">登入</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!-- 連線錯誤 -->
-                <li class="menu-header small text-uppercase">
-                  <span class="menu-header-text">連線錯誤與維護</span>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                    <div data-i18n="Misc">連線錯誤與維護</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="pages-misc-error.html" class="menu-link">
-                        <div data-i18n="Error">404錯誤</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-misc-under-maintenance.html" class="menu-link">
-                        <div data-i18n="Under Maintenance">平台維護中</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </aside>
-        <!-- /Menu -->
-        
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
-        
-          <nav class="container">
-            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-              id="layout-navbar">
-        
-              <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                <!-- 問好 -->
-                <div class="navbar-nav align-items-center fs-4">
-                  😊您好，王鴻杰!
-                </div>
-                <!-- /問好 -->
-        
-                <ul class="navbar-nav flex-row align-items-center ms-auto">
-        
-                  <!-- User -->
-                  <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="#">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
                       <div class="avatar avatar-online">
                         <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                       </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <span class="fw-semibold d-block">John Doe</span>
-                              <small class="text-muted">Admin</small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <i class="bx bx-user me-2"></i>
-                          <span class="align-middle">My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <i class="bx bx-cog me-2"></i>
-                          <span class="align-middle">Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <span class="d-flex align-items-center align-middle">
-                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                            <span class="flex-grow-1 align-middle">Billing</span>
-                            <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
-                          <i class="bx bx-power-off me-2"></i>
-                          <span class="align-middle">Log Out</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <!--/ User -->
-                </ul>
-        
-              </div>
-            </nav>
-            <!-- / Navbar -->
-          </nav>
-        
-          <!-- / Navbar -->
+                    </div>
+                    <div class="flex-grow-1">
+                      <span class="fw-semibold d-block">John Doe</span>
+                      <small class="text-muted">Admin</small>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <div class="dropdown-divider"></div>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <i class="bx bx-user me-2"></i>
+                  <span class="align-middle">My Profile</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <i class="bx bx-cog me-2"></i>
+                  <span class="align-middle">Settings</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <span class="d-flex align-items-center align-middle">
+                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                    <span class="flex-grow-1 align-middle">Billing</span>
+                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <div class="dropdown-divider"></div>
+              </li>
+              <li>
+                <a class="dropdown-item" href="auth-login-basic.html">
+                  <i class="bx bx-power-off me-2"></i>
+                  <span class="align-middle">Log Out</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--/ User -->
+        </ul>
+
+      </div>
+    </nav>
+    <!-- / Navbar -->
+  </nav>
+
+  <!-- / Navbar -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
