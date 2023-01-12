@@ -768,14 +768,6 @@ namespace InternalSystem.Models
                     .HasMaxLength(500);
 
 
-                entity.Property(e => e.EndTime)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.StartTime)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProductionContexts)
