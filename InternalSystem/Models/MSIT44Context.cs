@@ -37,7 +37,6 @@ namespace InternalSystem.Models
         public virtual DbSet<PersonnelDepartmentList> PersonnelDepartmentLists { get; set; }
         public virtual DbSet<PersonnelLeaveAuditStatus> PersonnelLeaveAuditStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveForm> PersonnelLeaveForms { get; set; }
-        public virtual DbSet<PersonnelLeaveFormConectStatus> PersonnelLeaveFormConectStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveOver> PersonnelLeaveOvers { get; set; }
         public virtual DbSet<PersonnelLeaveType> PersonnelLeaveTypes { get; set; }
         public virtual DbSet<PersonnelOvertimeForm> PersonnelOvertimeForms { get; set; }
@@ -56,10 +55,9 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=10.0.104.99\\L27\\SQLEXPRESS,1433;Database=MSIT44;Integrated Security=false;User ID = Lin;Password= 8564;");
             }
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -427,6 +425,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelAttendanceTime");
 
+                entity.Property(e => e.AttendTime)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.HasOne(d => d.Employee)
@@ -474,8 +477,7 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.AuditStatus)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<PersonnelLeaveForm>(entity =>
@@ -485,13 +487,29 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelLeaveForm");
 
+                entity.Property(e => e.AuditOpnion).HasMaxLength(500);
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
+
+                entity.Property(e => e.EndTime)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ManagerAuditDate).HasColumnType("date");
+
+                entity.Property(e => e.ProxyAuditDate).HasColumnType("date");
 
                 entity.Property(e => e.Reason)
                     .IsRequired()
                     .HasMaxLength(200);
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
+
+                entity.Property(e => e.StartTime)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PersonnelLeaveFormEmployees)
@@ -510,30 +528,12 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.Proxy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_請假申請表_個人資料1");
-            });
-
-            modelBuilder.Entity<PersonnelLeaveFormConectStatus>(entity =>
-            {
-                entity.HasKey(e => new { e.LeaveId, e.StatusId })
-                    .HasName("PK_Personnel請假表連結審核狀態Id");
-
-                entity.ToTable("PersonnelLeaveFormConectStatus");
-
-                entity.Property(e => e.AuditDate).HasColumnType("date");
-
-                entity.Property(e => e.AuditOpinion).HasMaxLength(100);
-
-                entity.HasOne(d => d.Leave)
-                    .WithMany(p => p.PersonnelLeaveFormConectStatuses)
-                    .HasForeignKey(d => d.LeaveId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Personnel請假表連結審核狀態Id_Personnel請假申請表");
 
                 entity.HasOne(d => d.Status)
-                    .WithMany(p => p.PersonnelLeaveFormConectStatuses)
+                    .WithMany(p => p.PersonnelLeaveForms)
                     .HasForeignKey(d => d.StatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Personnel請假表連結審核狀態Id_Personnel請假審核時間表");
+                    .HasConstraintName("FK_PersonnelLeaveForm_PersonnelLeaveAuditStatus");
             });
 
             modelBuilder.Entity<PersonnelLeaveOver>(entity =>
@@ -579,7 +579,17 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
+                entity.Property(e => e.EndTime)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.StartDate).HasColumnType("date");
+
+                entity.Property(e => e.StartTime)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PersonnelOvertimeForms)
@@ -767,7 +777,13 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(500);
 
+                entity.Property(e => e.EndTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
+                entity.Property(e => e.StartTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProductionContexts)
