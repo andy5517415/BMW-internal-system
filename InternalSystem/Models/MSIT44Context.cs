@@ -56,9 +56,10 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
             }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -766,6 +767,7 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(500);
 
+
                 entity.Property(e => e.EndTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -773,6 +775,7 @@ namespace InternalSystem.Models
                 entity.Property(e => e.StartTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
+
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProductionContexts)
