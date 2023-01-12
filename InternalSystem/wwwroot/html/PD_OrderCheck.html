@@ -434,7 +434,9 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value='' />
+                                             value=''
+                                             v-model ="item.orderNumber"
+                                             />
                                   </div>
                               </div>
 
@@ -451,7 +453,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value='' />
+                                             value='' 
+                                             v-model ="carName.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label for="colored" class="form-label-lg">車漆顏色</label>
@@ -461,7 +464,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value="" 
+                                             v-model ="carcolor.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="textured">內裝材質</label>
@@ -471,7 +475,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value="" 
+                                             />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="wheeled">輪圈款式</label>
@@ -481,7 +486,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value="" 
+                                             v-model ="carwheel.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="plaqued">飾板</label>
@@ -491,7 +497,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value=""
+                                             v-model="carsaddle.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="lighted">頭燈款式</label>
@@ -501,7 +508,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value="" 
+                                             v-model="carlight.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="saddleed">中央鞍座</label>
@@ -511,7 +519,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value="" 
+                                             v-model ="cartexture.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="sunroofed">天窗</label>
@@ -521,7 +530,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value=""
+                                             v-model ="carsunroof.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="media">多媒體</label>
@@ -655,6 +665,48 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
+<<<<<<< HEAD
+        var app = new Vue({
+            el: "#app",
+            data: {
+                item: {},
+                carName: {},
+                carcolor: {},
+                cartexture: {},
+                carwheel: {},
+                carplaque: {},
+                carlight: {},
+                carsaddle: {},
+                carsunroof: {},
+                carmedia: {}
+
+            },
+            mounted: function (e) {
+                this.item = JSON.parse(sessionStorage.getItem("order"))
+
+                $.ajax({
+                    type: "get",
+                    url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
+                    success: function (e) {
+                        app.carName = e[0]
+                        app.carcolor = e[1]
+                        app.cartexture = e[2]
+                        app.carwheel = e[3]
+                        app.carplaque = e[4]
+                        app.carlight = e[5]
+                        app.carsaddle = e[6]
+                        app.carsunroof = e[7]
+                        app.carmedia = e[8]
+                       
+                    }
+                    
+
+                })
+            }
+        })
+
+        console.log(app.item)
+=======
       var app = new Vue({
         el: "#app",
         data: {
@@ -674,6 +726,7 @@
           })
         }
       })
+>>>>>>> 50a12a42f8d98e1d0587ea8864531cbd0abc3e5b
     </script>
 
   </body>

@@ -51,6 +51,10 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b8d7905c5a839ce3cde8f9363330c01a04bd10c1
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -59,6 +63,12 @@ namespace InternalSystem.Models
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
             }
         }
+<<<<<<< HEAD
+=======
+=======
+      
+>>>>>>> 50a12a42f8d98e1d0587ea8864531cbd0abc3e5b
+>>>>>>> b8d7905c5a839ce3cde8f9363330c01a04bd10c1
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -766,6 +776,10 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(500);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b8d7905c5a839ce3cde8f9363330c01a04bd10c1
                 entity.Property(e => e.EndTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -774,6 +788,11 @@ namespace InternalSystem.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 50a12a42f8d98e1d0587ea8864531cbd0abc3e5b
+>>>>>>> b8d7905c5a839ce3cde8f9363330c01a04bd10c1
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProductionContexts)
                     .HasForeignKey(d => d.EmployeeId)

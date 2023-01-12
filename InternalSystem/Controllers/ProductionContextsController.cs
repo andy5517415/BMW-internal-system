@@ -19,6 +19,7 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        //報工內容
         //GET: api/ProductionContexts/Contexts
         [HttpGet("Contexts")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetContexts()
@@ -26,13 +27,12 @@ namespace InternalSystem.Controllers
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
                         join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
-                        join PP in this._context.ProductionProcesses on PC.ProcessId equals PP.ProcessId
+                      
                         select new
                         {
                             OrderId = PC.OrderId,
                             EmployeeId  = PC.EmployeeId,
                             EmployeeName = PPD.EmployeeName,
-                            ProcessId = PC.ProcessId,
                             Date = PC.Date.ToString(),
                             //StartTime = PC.StartTime.ToString(),
                             //EndTime = PC.EndTime.ToString(),
