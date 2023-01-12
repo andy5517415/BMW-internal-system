@@ -42,7 +42,9 @@ namespace InternalSystem.Controllers
                                             StartDate = o.StartDate.ToString("yyyy-MM-dd"),
                                             StartTime = o.StartTime,
                                             EndDate = o.EndDate.ToString("yyyy-MM-dd"),
-                                            EndTime = o.EndTime
+                                            EndTime = o.EndTime,
+                                            TotalTime =o.TotalTime,
+                                            AuditStatus =o.AuditStatus
 
                                         };
 

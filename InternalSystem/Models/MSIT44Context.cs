@@ -37,7 +37,6 @@ namespace InternalSystem.Models
         public virtual DbSet<PersonnelDepartmentList> PersonnelDepartmentLists { get; set; }
         public virtual DbSet<PersonnelLeaveAuditStatus> PersonnelLeaveAuditStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveForm> PersonnelLeaveForms { get; set; }
-        public virtual DbSet<PersonnelLeaveFormConectStatus> PersonnelLeaveFormConectStatuses { get; set; }
         public virtual DbSet<PersonnelLeaveOver> PersonnelLeaveOvers { get; set; }
         public virtual DbSet<PersonnelLeaveType> PersonnelLeaveTypes { get; set; }
         public virtual DbSet<PersonnelOvertimeForm> PersonnelOvertimeForms { get; set; }
@@ -51,6 +50,7 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
+<<<<<<< HEAD
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -59,6 +59,9 @@ namespace InternalSystem.Models
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
             }
         }
+=======
+      
+>>>>>>> 50a12a42f8d98e1d0587ea8864531cbd0abc3e5b
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -473,8 +476,7 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.AuditStatus)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<PersonnelLeaveForm>(entity =>
@@ -484,7 +486,13 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelLeaveForm");
 
+                entity.Property(e => e.AuditOpinion).HasMaxLength(200);
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
+
+                entity.Property(e => e.ManergerAuditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ProxyAuidutDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Reason)
                     .IsRequired()
@@ -509,30 +517,12 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.Proxy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_請假申請表_個人資料1");
-            });
-
-            modelBuilder.Entity<PersonnelLeaveFormConectStatus>(entity =>
-            {
-                entity.HasKey(e => new { e.LeaveId, e.StatusId })
-                    .HasName("PK_Personnel請假表連結審核狀態Id");
-
-                entity.ToTable("PersonnelLeaveFormConectStatus");
-
-                entity.Property(e => e.AuditDate).HasColumnType("date");
-
-                entity.Property(e => e.AuditOpinion).HasMaxLength(100);
-
-                entity.HasOne(d => d.Leave)
-                    .WithMany(p => p.PersonnelLeaveFormConectStatuses)
-                    .HasForeignKey(d => d.LeaveId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Personnel請假表連結審核狀態Id_Personnel請假申請表");
 
                 entity.HasOne(d => d.Status)
-                    .WithMany(p => p.PersonnelLeaveFormConectStatuses)
+                    .WithMany(p => p.PersonnelLeaveForms)
                     .HasForeignKey(d => d.StatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Personnel請假表連結審核狀態Id_Personnel請假審核時間表");
+                    .HasConstraintName("FK_PersonnelLeaveForm_PersonnelLeaveAuditStatus");
             });
 
             modelBuilder.Entity<PersonnelLeaveOver>(entity =>
@@ -766,6 +756,7 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(500);
 
+<<<<<<< HEAD
                 entity.Property(e => e.EndTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -774,6 +765,8 @@ namespace InternalSystem.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
+=======
+>>>>>>> 50a12a42f8d98e1d0587ea8864531cbd0abc3e5b
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProductionContexts)
                     .HasForeignKey(d => d.EmployeeId)

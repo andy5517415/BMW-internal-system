@@ -10,10 +10,15 @@ namespace InternalSystem.Models
         public int OrderId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime Date { get; set; }
+<<<<<<< HEAD
         public int ProcessId { get; set; }
         public int AreaId { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+=======
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+>>>>>>> 50a12a42f8d98e1d0587ea8864531cbd0abc3e5b
         public string Context { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
