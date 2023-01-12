@@ -10,9 +10,9 @@ namespace InternalSystem.Models
         public int StartWorkeId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime StartDate { get; set; }
-        public TimeSpan StartTime { get; set; }
+        public string StartTime { get; set; }
         public DateTime EndDate { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public string EndTime { get; set; }
         public int TotalTime { get; set; }
         public bool AuditStatus { get; set; }
 

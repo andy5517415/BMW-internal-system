@@ -15,6 +15,7 @@ namespace InternalSystem.Models
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Context { get; set; }
+
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual ProductionProcessList ProductionProcessList { get; set; }
     }

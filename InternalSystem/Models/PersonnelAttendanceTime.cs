@@ -10,7 +10,7 @@ namespace InternalSystem.Models
         public int AttendId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan AttendTime { get; set; }
+        public string AttendTime { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
     }
