@@ -833,9 +833,13 @@
             },
             methods: {
                 sexleave() {
-                    if (this.employeelist.sex = "男性") {
+                    if (this.employeelist.sex == "男性") {
                         this.Leavelist[3].LeaveOver = 0;
                         this.Leavelist[3].Quantity = 0;
+                    }
+                    else if (this.employeelist.sex == "女性") {
+                        this.Leavelist[3].LeaveOver = 96;
+                        this.Leavelist[3].Quantity = 96;
                     }
                 },
 
