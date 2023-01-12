@@ -561,7 +561,7 @@
 
                                     <div class="col-md-2">
 
-                                        <input class="form-control" type="time" id="html5-date-input" />
+                                        <input class="form-control" type="time" v-model="application.startTime" id="html5-date-input" />
 
                                     </div>
                                     <div class="col-md-2">
@@ -570,7 +570,7 @@
 
                                     <div class="col-md-2">
 
-                                        <input class="form-control" type="time" id="html5-time-input" />
+                                        <input class="form-control" type="time" v-model="application.endTime" id="html5-time-input" />
 
                                     </div>
 
@@ -681,7 +681,7 @@
                 }
             },
             mounted() {
-                axios.get('/api/PersonnelProfileDetails/uid/10')
+                axios.get('/api/PersonnelProfileDetails/uid/12')
                     .then(response => {
                         this.employeelist = response.data,
                             this.application.employeeId = this.employeelist.employeeId
@@ -695,13 +695,13 @@
                 axios.get('/api/PersonnelLeaveTypes')
                     .then(response => this.leavetype = response.data)
 
-                axios.get('/api/PersonnelLeaveOvers/leave1/15')//找該員工剩餘假
+                axios.get('/api/PersonnelLeaveOvers/leave1/12')//找該員工剩餘假
                     .then(response => this.personalleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave2/15')
+                axios.get('/api/PersonnelLeaveOvers/leave2/12')
                     .then(response => this.sickleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave3/15')
+                axios.get('/api/PersonnelLeaveOvers/leave3/12')
                     .then(response => this.annualleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave4/15')
+                axios.get('/api/PersonnelLeaveOvers/leave4/12')
                     .then(response => this.menstrualleave = response.data)
 
             }

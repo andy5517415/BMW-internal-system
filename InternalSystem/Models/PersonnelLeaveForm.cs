@@ -15,8 +15,8 @@ namespace InternalSystem.Models
         public string StartTime { get; set; }
         public DateTime EndDate { get; set; }
         public string EndTime { get; set; }
-        public int Proxy { get; set; }
-        public int AuditManerger { get; set; }
+        public int? Proxy { get; set; }
+        public int? AuditManerger { get; set; }
         public int TotalTime { get; set; }
         public string Reason { get; set; }
         public bool? ProxyAudit { get; set; }
