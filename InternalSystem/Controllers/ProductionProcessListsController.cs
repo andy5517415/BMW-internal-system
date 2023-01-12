@@ -21,6 +21,26 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        //確認訂單內容、發送到製程
+        // GET: api/ProductionProcessLists/ordercheak
+        [HttpGet("ordercheak")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderCheak()
+        {
+            var processList = from PPL in this._context.ProductionProcessLists
+                              select new
+                              {
+                                  OrderId = PPL.OrderId,
+                                  ProcessId = PPL.ProcessId,
+                                  AreaId = PPL.AreaId,
+                                  StarDate = PPL.StarDate.ToString(),
+                              };
+                             
+
+                              
+
+            return await processList.ToListAsync();
+        }
+
         //車子型號
         // GET: api/ProductionProcessLists/model
         [HttpGet("model")]
@@ -128,12 +148,12 @@ namespace InternalSystem.Controllers
         }
 
 
-        // GET: api/ProductionProcessLists
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
-        //{
-        //    return await _context.ProductionProcessLists.ToListAsync();
-        //}
+        //GET: api/ProductionProcessLists
+       //[HttpGet]
+       // public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
+       // {
+       //     return await _context.ProductionProcessLists.ToListAsync();
+       // }
 
         // GET: api/ProductionProcessLists/5
         [HttpGet("{id}")]

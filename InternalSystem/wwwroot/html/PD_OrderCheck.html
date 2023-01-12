@@ -648,11 +648,10 @@
 
                                   <div class="mb-3 col-6">
                                       <label for="" class="form-label-lg">廠區</label>
-                                      <select id="type" class="  form-select color-dropdown ">
+                                      <select id="type" class="  form-select color-dropdown " v-model="processesAreaList" >
                                           <option disabled selected>請選擇產區</option>
-                                          <option value="">A01</option>
-                                          <option value="">A02</option>
-                                          <option value="">A03</option>
+                                          <option v-for="Area in Areas" :value="Area.areaId">{{Area.areaName}}</option>
+
                                       </select>
                                   </div>
 
@@ -732,6 +731,9 @@
                 carsaddle: {},
                 carsunroof: {},
                 carmedia: {},
+                processes: {},
+                Areas: {},
+                processesAreaList: {}
 
 
             },
@@ -770,9 +772,30 @@
                         parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10) ;
               }
           }
-      })
+        })
 
-      console.log(app.item)
+        // 製程單
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcesses",
+            success: function (e) {
+                app.processes = e
+                //console.log(e)
+            }
+        })
+
+        // 廠區單
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionAreas",
+            success: function (e) {
+                app.Areas = e
+                //console.log(e)
+            }
+        })
+
+        //
+        console.log(app.processes)
     </script>
 
   </body>
