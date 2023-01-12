@@ -528,12 +528,12 @@
                           <div class="card text-center ">
                               <div class="row card-body">
                                   <div class=" row">
-                                      <label for="" class=" col-3 fs-4 ">{{order.orderNumber}}</label>
-                                      <label for="" class=" col-3 fs-4 ">{{order.optionalName}}</label>
-                                      <label for="" class=" col-2 fs-4 "></label>
-                                      <label for="" class=" col-2 fs-4 ">{{order.isAccepted}}</label>
+                                      <label for="" class=" col-3 fs-4 ">{{order.purchaseId}}</label>
+                                      <label for="" class=" col-3 fs-4 ">{{order.employeeName}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.total}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.deliveryStatus}}</label>
                                       <div class="col-2   d-md-flex justify-content-md-end">
-                                          <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                          <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
                                       </div>
                                   </div>
 
@@ -606,17 +606,8 @@
           url: "https://localhost:44319/api/PCApplications/todoitem",
         success: function (e) {
           for (var i = 0; i < e.length; i++) {
-            if (e[i].optionalId == 1) {
-              e[i].optionalName = e[i].optionalName.slice(3);
+              if (e[i].deliveryStatus == false) {
               e[i].deliveryStatus = "待處理"
-            }
-            if (e[i].optionalId == 2) {
-              e[i].optionalName = e[i].optionalName.slice(4);
-                e[i].deliveryStatus = "待處理"
-            }
-            if (e[i].optionalId == 3) {
-              e[i].optionalName = e[i].optionalName.slice(4, 15);
-                e[i].deliveryStatus = "待處理"
             }
           }
           app.OrderList = e;
