@@ -7,7 +7,7 @@ namespace InternalSystem.Models
 {
     public partial class PcOrderDetail
     {
-        public string OrderId { get; set; }
+        public int OrderId { get; set; }
         public int ProductId { get; set; }
         public string Goods { get; set; }
         public int Quantiy { get; set; }

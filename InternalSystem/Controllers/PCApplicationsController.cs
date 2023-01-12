@@ -73,7 +73,7 @@ namespace InternalSystem.Controllers
                     join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
                     join PIS in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PIS.ProductId
                     join OD in this._context.PcOrderDetails on AP.PurchaseId equals OD.ProductId
-                    where OD.OrderId == "1"
+                    where OD.OrderId == 1
                     select new
                     {
                         EmployeeName = PD.EmployeeName,
