@@ -509,14 +509,14 @@
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-10">
                                         <label for="ordernum" class="form-label fs-4">訂單編號</label>
+                                        <p>{{charcnt}}/13</p>
                                         <input type="text"
                                                class="form-control"
                                                id="ordernum"
                                                placeholder="型號代碼(M,X,i)+代理商區域(01北區,02中區,03南區)+時間流水號(共13碼)"
                                                v-model="ordernum"
-                                               @blur="ordernumchk"
+
                                                ref="reffocus" />
-                                        <p>{{charcnt}}/13</p>
                                     </div>
                                     <hr />
 
@@ -527,7 +527,7 @@
                                                 class="form-select color-dropdown"
                                                 v-model="cartypeone"
                                                 v-bind:disabled="isDisabled">
-                                            <option disabled value="999">請選擇車款</option>
+                                            <option disabled :value="cartypeone">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
                                                 {{one.optionalName}}
@@ -829,7 +829,9 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               readonly />
+                                               readonly
+                                               v-model="agentone.areaName"
+                                               />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="" class="form-label fs-4">代理商地址</label>
@@ -993,14 +995,12 @@
 
                     orderput: {},
                     orderdetail: [],
-                    orderdetailput: {},
+                    orderdetailput: {}
                 }
             },
             computed: {
                 cnt() {
-                    return
-                    //(this.cnt == null) ? 0 :
-                    parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
+                    return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
                         parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
                         parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
                         parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
@@ -1023,6 +1023,7 @@
                         axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
                             .then(g => {
 
+                                console.log(g.data);
                                 this.cartypeone = g.data[0];
                                 this.carcolorone = g.data[1];
                                 this.cartextureone = g.data[2];
@@ -1032,14 +1033,27 @@
                                 this.carsaddleone = g.data[6];
                                 this.carsunroofone = g.data[7];
                                 this.carmediaone = g.data[8];
-                                //this.agentone = g.data[9];
-
+                                //找到訂單流水號
                                 this.orderid = g.data[0].orderId;
-                                //console.log(g.data[0].orderId);
-                                //console.log(this.orderid);
+                                //找到代理商區域流水號
+                                var areaid = g.data[0].areaId;
+                                console.log(areaid);
+                                axios.get('/api/BusinessOrders/getagent/' + areaid)
+                                        .then(g => {
+                                            console.log(g.data);
+                                            this.agentone = g.data;
+                                            console.log(this.agentone.areaId);
+                                        })
+                                        .catch((error) => console.log(error));
+
+
+
+
 
                             })
                             .catch((error) => console.log(error));
+
+
                         this.isDisabled = true;
                         this.btndisable = false;
                     }
@@ -1064,9 +1078,9 @@
                     console.log('btnOK');
                     let dt = new Date();
                     this.orderput = {
-                        "orderId": this.orderid,
-                        "orderNumber": this.ordernum,
-                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
+                        "OrderId": this.orderid,
+                        "OrderNumber": this.ordernum,
+                        "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
                         "AreaId": this.agentone.areaId,
                         "Price": this.cnt,
                         "EmployeeId": Math.floor(Math.random() * 10) + 1,
@@ -1075,7 +1089,7 @@
 
                     console.log(this.orderput);
 
-                    axios.put('/api/BusinessOrders/getorder/', this.orderput)
+                    axios.put('api/BusinessOrders/putorder/' + this.orderid, this.orderput)
                         .then(p => {
                             console.log(p);
                             //var orderidback = p.data.orderId;
@@ -1099,13 +1113,6 @@
             btndelete() {
                 dialog: true
                 console.log('delete');
-            },
-            ordernumchk() {
-                let reg = /^09\d{8}$/;
-                //let reg = /^[A-Z][1-2]\d{8}$/;
-                if (reg.test(this.ordernum)) {
-                    console.log('legal');
-                }
             },
             mounted() {
                 axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),

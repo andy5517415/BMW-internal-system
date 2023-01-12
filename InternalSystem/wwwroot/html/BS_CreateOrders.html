@@ -509,7 +509,7 @@
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
                                                 v-model="cartypeone">
-                                            <option disabled value="999">請選擇車款</option>
+                                            <option disabled :value="cartypeone">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
                                                 {{one.optionalName}}
