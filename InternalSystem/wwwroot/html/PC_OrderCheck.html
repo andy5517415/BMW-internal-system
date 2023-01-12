@@ -502,7 +502,7 @@
             <!-- 訂單確認 -->
               <div >
                   <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
-                      <div class="card mb-4 m-4">
+                      <div class="card mb-4 m-4" >
                           <h2 class="card-header">採購訂單內容</h2>
                           <div class="card-body">
                               <div class="row gx-3 gy-2 align-items-center">
@@ -532,8 +532,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value=''
-                                             v-model="carName.optionalName" />
+                                             v-model="list.employeeName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label for="colored" class="form-label-lg">部門</label>
@@ -587,38 +586,32 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      <tr>
+                                                      <tr v-for="a in list">
                                                           <!-- 第一項物品 -->
                                                           <!-- 項次 -->
                                                           <td>
-                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A01</strong>
+                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
                                                           </td>
                                                           <!-- 物品名稱 -->
-                                                          <td>{{list.productId}}</td>
+                                                          <td>{{a.goods}}</td>
                                                           <!-- 物品數量 -->
                                                           <td>
-                                                              <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                                  <li class="mb-3 col-md-6">
-                                                                      <label for="number" class="form-label"></label>
-                                                                      <select id="number" class="select1 form-select">
-                                                                          <!-- <option value="">選擇數量</option> -->
-                                                                          <option value="A">1</option>
-                                                                      </select>
-                                                                  </li>
-                                                              </ul>
+                                                              <div>
+                                                                  <p>{{a.quantiy}}</p>
+                                                              </div>
                                                           </td>
                                                           <!-- 單位 -->
                                                           <td><span class="badge bg-label-primary me-1">隻</span></td>
                                                           <!-- 單價 -->
                                                           <td>
                                                               <div class="dropdown">
-                                                                  <p>5,000元</p>
+                                                                  <p>{{a.unitPrice}}元</p>
                                                               </div>
                                                           </td>
                                                           <!-- 小計 -->
                                                           <td>
                                                               <div class="dropdown">
-                                                                  <div>5,000元</div>
+                                                                  <div>{{a.subtotal}}元</div>
                                                               </div>
                                                           </td>
                                                       </tr>
@@ -630,7 +623,7 @@
                           <!-- 總價 -->
                           <div>
                               <div class="d-flex flex-row-reverse bd-highlight">
-                                  <div class="p-2 bd-highlight">總價99999999元</div>
+                                  <div class="p-2 bd-highlight">總價{{a.total}}元</div>
                               </div>
                               <div class="table-responsive text-nowrap"></div>
                           </div>
@@ -699,6 +692,22 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
+
+           //Vue.createApp({
+        //    data: function() {
+        //        return {
+        //            data:[]
+        //        }
+        //    },
+        //    methods: {},
+        //    mounted: function() {
+        //        axios.get('https://localhost:44319/api/PCApplications/todoitem')
+        //            .then(function(response){
+        //                console.log(response)
+        //        })
+        //    }
+        //}).mount('#app')
+
         var app = {
             data() {
                 return {
@@ -710,13 +719,12 @@
             },
             mounted() {
                 axios.get('https://localhost:44319/api/PCApplications/todoitem')
-                    .then((response) => this.list = response, data)
-                    .catch (error => console.log(error))
+                    .then(response => this.list = response.data)
             }
         }
        
-        
         Vue.createApp(app).mount('#app')
+
         //var app = new Vue({
       //  el: "#app",
       //  data: {

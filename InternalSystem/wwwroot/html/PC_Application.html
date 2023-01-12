@@ -54,8 +54,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 </head>
 
 <body>
@@ -652,12 +653,9 @@
                                                                         <!-- 物品數量 -->
                                                                         <td>
                                                                             <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                                                <div class="mb-3 col-md-6">
+                                                                                <div class="mb-3 col-md-12">
                                                                                     <label for="數量" class="form-label"></label>
-                                                                                    <select onchange="myfunction()" id="number" class="select1 form-select">
-                                                                                        <option value="999">選擇數量</option>
-                                                                                        <option value=1>1</option>
-                                                                                    </select>
+                                                                                    <input type="text" class="form-control" id="inputunit" placeholder="請輸入數量">
                                                                                 </div>
                                                                             </ul>
                                                                         </td>
@@ -729,50 +727,56 @@
                 <!-- / Layout wrapper -->
                 <!-- Vue 傳值 -->
                 <script>
-                    var app = new Vue({
-                        el: "#app",
-                        data: {
-                            item: {},
-                            product: {},
-                            supplier: {},
-                        }
-                    });
 
-                    $.ajax({
-                        type: 'get',
-                        url: "https://localhost:44319/api/PCApplications/test",
-                        success: (e) => {
-                            app.item = e;
-                            console.log(e);
-                        }
-                    })
+                    var app = {
+                        data() {
+                            return {
+                                item: {},
+                                product: {},
+                                supplier: {},
+                            }
+                        },
+                        methods: {
 
-                    $.ajax({
-                        type: 'get',
-                        url: "https://localhost:44319/api/PCApplications/goods",
-                        success: (e) => {
-                            app.product = e;
-                            console.log(e);
+                        },
+                        mounted() {
+                            axios.get('https://localhost:44319/api/PCApplications/test')
+                                .then(response => this.item = response.data)
+                            axios.get('https://localhost:44319/api/PCApplications/goods')
+                                .then(response => this.product = response.data)
+                            axios.get('https://localhost:44319/api/PCApplications/supplier')
+                                .then(response => this.supplier = response.data)
                         }
-                    })
+                    }
 
-                    $.ajax({
-                        type: 'get',
-                        url: "https://localhost:44319/api/PCApplications/supplier",
-                        success: (e) => {
-                            app.supplier = e;
-                            console.log(e);
-                        }
-                    })
+                    Vue.createApp(app).mount('#app')
 
-                    $.ajax({
-                        type: 'post',
-                        url: "",
-                        success: (e) => {
-                            console.log(e);
-                        }
-                    })
+                    //$.ajax({
+                    //    type: 'get',
+                    //    url: "https://localhost:44319/api/PCApplications/test",
+                    //    success: (e) => {
+                    //        app.item = e;
+                    //        console.log(e);
+                    //    }
+                    //})
 
+                    //$.ajax({
+                    //    type: 'get',
+                    //    url: "https://localhost:44319/api/PCApplications/goods",
+                    //    success: (e) => {
+                    //        app.product = e;
+                    //        console.log(e);
+                    //    }
+                    //})
+
+                    //$.ajax({
+                    //    type: 'get',
+                    //    url: "https://localhost:44319/api/PCApplications/supplier",
+                    //    success: (e) => {
+                    //        app.supplier = e;
+                    //        console.log(e);
+                    //    }
+                    //})
 
                 </script>
 
