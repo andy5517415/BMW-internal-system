@@ -699,24 +699,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
-        //Vue.createApp({
-        //    data: function() {
-        //        return {
-        //            data:[]
-        //        }
-        //    },
-        //    methods: {},
-        //    mounted: function() {
-        //        axios.get('https://localhost:44319/api/PCApplications/todoitem')
-        //            .then(function(response){
-        //                console.log(response)
-        //        })
-        //    }
-        //}).mount('#app')
-
-
-
-
         var app = {
             data() {
                 return {
@@ -728,13 +710,13 @@
             },
             mounted() {
                 axios.get('https://localhost:44319/api/PCApplications/todoitem')
-                    .then((response) => this.list = response.data)
+                    .then((response) => this.list = response, data)
                     .catch (error => console.log(error))
             }
         }
-
+       
+        
         Vue.createApp(app).mount('#app')
-
         //var app = new Vue({
       //  el: "#app",
       //  data: {
