@@ -30,7 +30,7 @@ namespace InternalSystem.Controllers
         //找尋該員工假別1
         // GET: api/PersonnelLeaveOvers/leave1/5
         [HttpGet("leave1/{id}")]
-        public async Task<ActionResult<dynamic>> GetLeaveOver(int id )
+        public async Task<ActionResult<dynamic>> GetLeaveOver(int id)
         {
             var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
                                      join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
@@ -83,7 +83,7 @@ namespace InternalSystem.Controllers
             return await personnelLeaveOver.FirstOrDefaultAsync();
         }
 
-        //找尋該員工假別1
+        //找尋該員工假別3
         // GET: api/PersonnelLeaveOvers/leave3/5
         [HttpGet("leave3/{id}")]
         public async Task<ActionResult<dynamic>> GetLeave3Over(int id)
@@ -111,7 +111,7 @@ namespace InternalSystem.Controllers
             return await personnelLeaveOver.FirstOrDefaultAsync();
         }
 
-        //找尋該員工假別1
+        //找尋該員工假別4
         // GET: api/PersonnelLeaveOvers/leave4/5
         [HttpGet("leave4/{id}")]
         public async Task<ActionResult<dynamic>> GetLeave4Over(int id)

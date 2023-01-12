@@ -47,7 +47,7 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<dynamic>> GetPersonnelId(string Number)
         {
             var personnelProfileDetail = from o in _context.PersonnelProfileDetails
-                                         where o.EmployeeNumber==Number
+                                         where o.EmployeeNumber == Number
                                          select new
                                          {
                                              EmployeeId = o.EmployeeId
@@ -64,11 +64,11 @@ namespace InternalSystem.Controllers
 
         //找代理人
         // GET: api/PersonnelProfileDetails/proxy/dep/rank
-        [HttpGet("proxy/{dep}/{rank}")]
-        public async Task<ActionResult<dynamic>> GetLeaveProxy(int dep , int rank)
+        [HttpGet("proxy/{dep}/{rank}/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeaveProxy(int dep, int rank, int id)
         {
             var personnelProfileDetail = from o in _context.PersonnelProfileDetails
-                                         where o.DepartmentId==dep && o.RankId == rank
+                                         where o.DepartmentId == dep && o.RankId == rank && o.EmployeeId != id
                                          select new
                                          {
                                              EmployeeId = o.EmployeeId,
@@ -85,11 +85,11 @@ namespace InternalSystem.Controllers
 
         //找主管
         // GET: api/PersonnelProfileDetails/Manager/dep
-        [HttpGet("Manager/{dep}")]
-        public async Task<ActionResult<dynamic>> GetLeaveManager(int dep)
+        [HttpGet("Manager/{dep}/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeaveManager(int dep, int id)
         {
             var personnelProfileDetail = from o in _context.PersonnelProfileDetails
-                                         where o.DepartmentId == dep && o.RankId ==5
+                                         where o.DepartmentId == dep && o.RankId == 5 && o.EmployeeId != id
                                          select new
                                          {
                                              EmployeeId = o.EmployeeId,
@@ -105,7 +105,7 @@ namespace InternalSystem.Controllers
         }
 
 
-        //api/PersonnelProfileDetails/ss/2023001
+        //api/PersonnelProfileDetails/uid/2023001
         [HttpGet("uid/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(int id)
         {
@@ -210,14 +210,14 @@ namespace InternalSystem.Controllers
 
             var SearchProfileDetail = from o in _context.PersonnelProfileDetails
                                       where o.EmployeeNumber == id
-                                     join LTF in _context.PersonnelLeaveOvers on o.EmployeeId equals LTF.EmployeeId
-                                     join LT in _context.PersonnelLeaveTypes on LTF.LeaveType equals LT.LeaveTypeId
+                                      join LTF in _context.PersonnelLeaveOvers on o.EmployeeId equals LTF.EmployeeId
+                                      join LT in _context.PersonnelLeaveTypes on LTF.LeaveType equals LT.LeaveTypeId
                                       select new
                                       {
                                           EmployeeId = o.EmployeeId,
-                                          LeaveType = LTF.LeaveType ,
-                                          Quantity =LTF.Quantity,
-                                          Used = LTF.Used ,
+                                          LeaveType = LTF.LeaveType,
+                                          Quantity = LTF.Quantity,
+                                          Used = LTF.Used,
                                           LTF.LeaveOver
 
                                       };
