@@ -594,7 +594,7 @@
                                                               <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A01</strong>
                                                           </td>
                                                           <!-- 物品名稱 -->
-                                                          <td>{{employeeName.orderId}}</td>
+                                                          <td>{{list.productId}}</td>
                                                           <!-- 物品數量 -->
                                                           <td>
                                                               <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
@@ -624,6 +624,9 @@
                                                       </tr>
                                                   </tbody>
                                               </table>
+                                          </div>
+                                      </div>
+                                  </div>
                           <!-- 總價 -->
                           <div>
                               <div class="d-flex flex-row-reverse bd-highlight">
@@ -696,10 +699,28 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
+        //Vue.createApp({
+        //    data: function() {
+        //        return {
+        //            data:[]
+        //        }
+        //    },
+        //    methods: {},
+        //    mounted: function() {
+        //        axios.get('https://localhost:44319/api/PCApplications/todoitem')
+        //            .then(function(response){
+        //                console.log(response)
+        //        })
+        //    }
+        //}).mount('#app')
+
+
+
+
         var app = {
             data() {
                 return {
-                    employeeName: {}
+                    list: {}
                 }
             },
             methods: {
@@ -707,12 +728,13 @@
             },
             mounted() {
                 axios.get('https://localhost:44319/api/PCApplications/todoitem')
-                    .then(response => this.employeeName = response,data)
+                    .then((response) => this.list = response.data)
+                    .catch (error => console.log(error))
             }
         }
-       
-        
+
         Vue.createApp(app).mount('#app')
+
         //var app = new Vue({
       //  el: "#app",
       //  data: {
