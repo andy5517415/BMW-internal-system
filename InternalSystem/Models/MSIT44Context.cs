@@ -777,6 +777,13 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(500);
 
+
+                entity.Property(e => e.EndTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+                entity.Property(e => e.StartTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
                 entity.Property(e => e.EndTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
