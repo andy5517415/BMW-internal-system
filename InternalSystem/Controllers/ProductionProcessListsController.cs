@@ -52,34 +52,33 @@ namespace InternalSystem.Controllers
         //報工的大表單
         // GET: api/ProductionProcessLists/Processor/{id}/{carid}
         [HttpGet("Processor/{id}/{carid}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists(int id , int carid)
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionProcessLists(int id, int carid)
         {
             var List = from PPL in this._context.ProductionProcessLists
                        join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
-                       join POPS in this._context.ProductionOrderProcessStatuses on  PPL.OrderId equals POPS.OrderId
-                       join PP in this._context.ProductionProcesses on POPS.ProcessId equals PP.ProcessId
-                       join PPSN in this._context.ProductionProcessStatusNames on POPS.StatusId equals PPSN.StatusId
+                       join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                       join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
                        join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
                        join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
-                       where BC.CategoryId == 1 && POPS.StatusId == 2 && POPS.ProcessId == id && BOT.OptionalId == carid
+                       where BC.CategoryId == 1 && PPSN.StatusId == 2 && PP.ProcessId == id && BOT.OptionalId == carid
                        select new
                        {
                            OrderId = PPL.OrderId,
                            OrderNumber = BO.OrderNumber,
                            AreaId = PPL.AreaId,
                            AreaName = PA.AreaName,
-                           ProcessId = POPS.ProcessId,
+                           ProcessId = PP.ProcessId,
                            ProcessName = PP.ProcessName,
                            StarDate = PPL.StarDate.ToString(),
                            OptionalId = BOT.OptionalId,
                            OptionalName = BOT.OptionalName,
-                           StatusId = POPS.StatusId,
+                           StatusId = PPL.StatusId,
                            StatusName = PPSN.StatusName,
-                           
+
                        };
-                           
+
             return await List.ToListAsync();
         }
 

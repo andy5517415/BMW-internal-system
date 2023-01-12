@@ -47,7 +47,6 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionArea> ProductionAreas { get; set; }
         public virtual DbSet<ProductionBugContext> ProductionBugContexts { get; set; }
         public virtual DbSet<ProductionContext> ProductionContexts { get; set; }
-        public virtual DbSet<ProductionOrderProcessStatus> ProductionOrderProcessStatuses { get; set; }
         public virtual DbSet<ProductionProcess> ProductionProcesses { get; set; }
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
@@ -57,11 +56,7 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-<<<<<<< HEAD
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-=======
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
->>>>>>> 3a25fbabaa8e933370885eefe01c962c73946f9d
             }
         }
 
@@ -130,11 +125,7 @@ namespace InternalSystem.Models
 
                 entity.ToTable("BusinessOrder");
 
-                entity.Property(e => e.OrderDateTime)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
+                entity.Property(e => e.OrderDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.OrderNumber)
                     .IsRequired()
@@ -286,13 +277,13 @@ namespace InternalSystem.Models
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
                     .HasForeignKey(d => d.ProcessId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Production製程與廠區監控狀態_Production製程");
+                    .HasConstraintName("FK_MonitoringProcessAreaStatus_ProductionProcess");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
                     .HasForeignKey(d => d.StatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Monitoring製程與廠區監控狀態_Monitoring監控狀態表");
+                    .HasConstraintName("FK_MonitoringProcessAreaStatus_MonitoringStatus");
             });
 
             modelBuilder.Entity<MonitoringStatus>(entity =>
@@ -731,32 +722,43 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<ProductionBugContext>(entity =>
             {
-                entity.HasKey(e => e.BugContextId);
+                entity.HasKey(e => new { e.OrderId, e.Date, e.StartTime, e.Title });
 
                 entity.ToTable("ProductionBugContext");
+
+                entity.HasIndex(e => e.OrderId, "IX_ProductionBugContext");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.StartTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Title).HasMaxLength(100);
 
                 entity.Property(e => e.Context)
                     .IsRequired()
                     .HasMaxLength(2000);
 
-                entity.Property(e => e.Date).HasColumnType("date");
+                entity.Property(e => e.EndTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.HasOne(d => d.Order)
+                entity.HasOne(d => d.ProductionProcessList)
                     .WithMany(p => p.ProductionBugContexts)
-                    .HasForeignKey(d => d.OrderId)
+                    .HasForeignKey(d => new { d.OrderId, d.ProcessId })
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductionBugContext_ProductionProcessList");
             });
 
             modelBuilder.Entity<ProductionContext>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.ProcessId, e.EmployeeId, e.Date });
+                entity.HasKey(e => new { e.OrderId, e.EmployeeId, e.Date })
+                    .HasName("PK_ProductionContext_1");
 
                 entity.ToTable("ProductionContext");
+
+                entity.HasIndex(e => e.OrderId, "IX_ProductionContext");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
@@ -765,7 +767,7 @@ namespace InternalSystem.Models
                     .HasMaxLength(500);
 
                 entity.Property(e => e.EndTime)
-                    .HasMaxLength(50)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.StartTime)
@@ -778,43 +780,11 @@ namespace InternalSystem.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Production報工內容表_Personnel個人資料");
 
-                entity.HasOne(d => d.Order)
+                entity.HasOne(d => d.ProductionProcessList)
                     .WithMany(p => p.ProductionContexts)
-                    .HasForeignKey(d => d.OrderId)
+                    .HasForeignKey(d => new { d.OrderId, d.ProcessId })
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductionContext_ProductionProcessList");
-
-                entity.HasOne(d => d.Process)
-                    .WithMany(p => p.ProductionContexts)
-                    .HasForeignKey(d => d.ProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Production報工內容表_Production製程");
-            });
-
-            modelBuilder.Entity<ProductionOrderProcessStatus>(entity =>
-            {
-                entity.HasKey(e => new { e.OrderId, e.ProcessId })
-                    .HasName("PK_訂單與製程的關係_1");
-
-                entity.ToTable("ProductionOrderProcessStatus");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.ProductionOrderProcessStatuses)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductionOrderProcessStatus_ProductionProcessList");
-
-                entity.HasOne(d => d.Process)
-                    .WithMany(p => p.ProductionOrderProcessStatuses)
-                    .HasForeignKey(d => d.ProcessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_訂單與製程的關係_Production製程");
-
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.ProductionOrderProcessStatuses)
-                    .HasForeignKey(d => d.StatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Production訂單與製程的關係_Production製程狀態名稱(監控)");
+                    .HasConstraintName("FK_ProductionContext_ProductionProcessList1");
             });
 
             modelBuilder.Entity<ProductionProcess>(entity =>
@@ -833,12 +803,12 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<ProductionProcessList>(entity =>
             {
-                entity.HasKey(e => e.OrderId)
+                entity.HasKey(e => new { e.OrderId, e.ProcessId })
                     .HasName("PK_ProductionProcessList_1");
 
                 entity.ToTable("ProductionProcessList");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
+                entity.HasIndex(e => e.OrderId, "IX_ProductionProcessList");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
@@ -847,13 +817,25 @@ namespace InternalSystem.Models
                 entity.HasOne(d => d.Area)
                     .WithMany(p => p.ProductionProcessLists)
                     .HasForeignKey(d => d.AreaId)
-                    .HasConstraintName("FK_製程列表_Production廠區");
+                    .HasConstraintName("FK_List_ProductionArea");
 
                 entity.HasOne(d => d.Order)
-                    .WithOne(p => p.ProductionProcessList)
-                    .HasForeignKey<ProductionProcessList>(d => d.OrderId)
+                    .WithMany(p => p.ProductionProcessLists)
+                    .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductionProcessList_BusinessOrder1");
+                    .HasConstraintName("FK_List_BusinessOrder");
+
+                entity.HasOne(d => d.Process)
+                    .WithMany(p => p.ProductionProcessLists)
+                    .HasForeignKey(d => d.ProcessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_List_ProductionProcess");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.ProductionProcessLists)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_List_ProductionProcessStatusName");
             });
 
             modelBuilder.Entity<ProductionProcessStatusName>(entity =>
