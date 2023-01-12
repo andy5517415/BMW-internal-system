@@ -521,27 +521,27 @@
                                     <hr />
 
                                     <!--車款  -->
-                                    <div class="col-md-3">
+                                    <div v-if="!isDisabled" class="col-md-3">
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
                                                 v-model="cartypeone"
                                                 v-bind:disabled="isDisabled">
-                                            <option disabled :value="cartypeone">請選擇車款</option>
+                                            <option disabled :value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
                                                 {{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
-                                    <!--<div v-if="isDisabled" class="col-md-3">
+                                    <div v-if="isDisabled" class="col-md-3">
                     <label for="" class="form-label fs-4">車款</label>
                     <input type="text"
                            class="form-control"
                            id=""
                            readonly
                            :value="cartypeone.optionalName" />
-                </div>-->
+                </div>
                                     <div class="col-md-3">
                                         <label for="" class="form-label fs-4">車款價格</label>
                                         <input type="text"
@@ -854,9 +854,9 @@
                                     <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
                                     <button v-bind:disabled="btndisable" @click="btnedit" class="btn btn-outline-primary d-block">修改</button>
                                     <button @click="btnOK" class="btn btn-outline-primary d-block">確定修改</button>
-                                    <button v-bind:disabled="btndisable" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>
+                                    <!--<button v-bind:disabled="btndisable" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>-->
 
-                                    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                                    <!--<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -884,7 +884,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="col-lg-4 col-md-6">
                                         <!-- <small class="text-light fw-semibold">Vertically centered</small> -->
@@ -1042,7 +1042,7 @@
                                         .then(g => {
                                             console.log(g.data);
                                             this.agentone = g.data;
-                                            console.log(this.agentone.areaId);
+                                            console.log(this.agentone);
                                         })
                                         .catch((error) => console.log(error));
 
@@ -1080,31 +1080,43 @@
                     this.orderput = {
                         "OrderId": this.orderid,
                         "OrderNumber": this.ordernum,
-                        "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
+                        "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0') }`,
                         "AreaId": this.agentone.areaId,
                         "Price": this.cnt,
                         "EmployeeId": Math.floor(Math.random() * 10) + 1,
                         "IsAccepted": false
                     };
-
                     console.log(this.orderput);
 
-                    axios.put('api/BusinessOrders/putorder/' + this.orderid, this.orderput)
+
+                    this.orderdetail = [];
+                    this.orderdetail.push(this.cartypeone.optionalId);
+                    this.orderdetail.push(this.carcolorone.optionalId);
+                    this.orderdetail.push(this.cartextureone.optionalId);
+                    this.orderdetail.push(this.carwheelone.optionalId);
+                    this.orderdetail.push(this.carplaqueone.optionalId);
+                    this.orderdetail.push(this.carlightone.optionalId);
+                    this.orderdetail.push(this.carsaddleone.optionalId);
+                    this.orderdetail.push(this.carsunroofone.optionalId);
+                    this.orderdetail.push(this.carmediaone.optionalId);
+                    console.log(this.orderdetail);
+
+
+                    axios.put('/api/BusinessOrders/putorder/' + this.orderid, this.orderput)
                         .then(p => {
                             console.log(p);
-                            //var orderidback = p.data.orderId;
-                            //console.log(orderidback);
+                            console.log('this.orderid'+this.orderid);
 
-                            //for (var n = 0; n < 9; n++) {
-                            //    this.orderdetailpost = {
-                            //        "OrderId": orderidback,
-                            //        "OptionalId": this.orderdetail[n]
-                            //    }
-                            //    axios.post('/api/BusinessOrderDetails', this.orderdetailput)
-                            //        .then(p => {
-                            //            console.log(p);
-                            //        })
-                            //}
+                            for (var n = 0; n < 9; n++) {
+                                this.orderdetailput = {
+                                    "OrderId": this.orderid,
+                                    "OptionalId": this.orderdetail[n]
+                                }
+                                axios.put('/api/BusinessOrderDetails/' + this.orderid, this.orderdetailput)
+                                    .then(p => {
+                                        console.log(p.data);
+                                    })
+                            }
                             alert('訂單修改成功!');
                         });
 
@@ -1112,6 +1124,14 @@
             },
             btndelete() {
                 dialog: true
+
+                //axios.delete('/api/BusinessOrders/' + this.orderid)
+                //    .then(p => {
+                //        console.log(p);
+                //        alert('訂單刪除成功!');
+                //    });
+
+
                 console.log('delete');
             },
             mounted() {
