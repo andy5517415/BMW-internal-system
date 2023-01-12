@@ -63,6 +63,25 @@ namespace InternalSystem.Controllers
             return await i.ToListAsync();
         }
 
+        // GET: api/PCApplications/todoitem
+        [HttpGet("todoitem")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchasetodoitem()
+        {
+            var i = from AP in this._context.PcApplications
+                    join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                    join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
+                    join PIS in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PIS.ProductId
+                    join OD in _context.PcOrderDetails on AP.PurchaseId equals OD.ProductId
+                    select new
+                    {
+                        EmployeeName = PD.EmployeeName,
+                        PurchaseId = AP.PurchaseId,
+                        Total = AP.Total,
+                        DeliveryStatus = APS.DeliveryStatus
+                    };
+
+            return await i.ToListAsync();
+        }
         // GET: api/PCApplications/supplier
         [HttpGet("supplier")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetSupplierList()
