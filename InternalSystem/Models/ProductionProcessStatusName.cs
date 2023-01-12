@@ -9,12 +9,12 @@ namespace InternalSystem.Models
     {
         public ProductionProcessStatusName()
         {
-            ProductionOrderProcessStatuses = new HashSet<ProductionOrderProcessStatus>();
+            ProductionProcessLists = new HashSet<ProductionProcessList>();
         }
 
         public int StatusId { get; set; }
         public string StatusName { get; set; }
 
-        public virtual ICollection<ProductionOrderProcessStatus> ProductionOrderProcessStatuses { get; set; }
+        public virtual ICollection<ProductionProcessList> ProductionProcessLists { get; set; }
     }
 }

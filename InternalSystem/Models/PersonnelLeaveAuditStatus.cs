@@ -9,12 +9,12 @@ namespace InternalSystem.Models
     {
         public PersonnelLeaveAuditStatus()
         {
-            PersonnelLeaveForms = new HashSet<PersonnelLeaveForm>();
+            PersonnelLeaveFormConectStatuses = new HashSet<PersonnelLeaveFormConectStatus>();
         }
 
         public int StatusId { get; set; }
         public string AuditStatus { get; set; }
 
-        public virtual ICollection<PersonnelLeaveForm> PersonnelLeaveForms { get; set; }
+        public virtual ICollection<PersonnelLeaveFormConectStatus> PersonnelLeaveFormConectStatuses { get; set; }
     }
 }
