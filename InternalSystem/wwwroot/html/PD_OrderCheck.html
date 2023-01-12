@@ -554,7 +554,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" 
+                                             value=""
+                                             v-model ="cartexture.optionalName"
                                              />
                                   </div>
                                   <div class="col-md-6">
@@ -577,7 +578,7 @@
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
                                              value=""
-                                             v-model="carsaddle.optionalName"/>
+                                             v-model="carplaque.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="lighted">頭燈款式</label>
@@ -599,7 +600,7 @@
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
                                              value="" 
-                                             v-model ="cartexture.optionalName"/>
+                                             v-model ="carsaddle.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label class="form-label-lg" for="sunroofed">天窗</label>
@@ -620,7 +621,8 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             value="" />
+                                             value="" 
+                                             v-model ="carmedia.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
                                       <label for="subtotaled" class="form-label-lg">小計</label>
@@ -629,39 +631,12 @@
                                              id="subtotaled"
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
-                                             disabled />
+                                             disabled
+                                             v-model ="carmoney"/>
                                   </div>
 
 
-                                  <div class="col-md-6">
-                                      <label class="form-label-lg" for="areaed">代理商地區</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="areaed"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             disabled />
-                                  </div>
-                                  <div class="col-md-6">
-                                      <label for="agentaddress" class="form-label-lg">代理商地址</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="agentaddress"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             readonly
-                                             value="" />
-                                  </div>
-                                  <div class="col-md-6">
-                                      <label for="agentphone" class="form-label-lg">代理商電話</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="agentphone"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             readonly
-                                             value="" />
-                                  </div>
+                                  
                                   <hr>
 
                                   <div class="mb-3 col-6">
@@ -744,43 +719,57 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
-      var app = new Vue({
-        el: "#app",
-        data: {
-          item: {},
-          carName: {},
-          carcolor: {},
-          cartexture: {},
-          carwheel: {},
-          carplaque: {},
-          carlight: {},
-          carsaddle: {},
-          carsunroof: {},
-          carmedia: {}
-
-        },
-        mounted: function (e) {
-          this.item = JSON.parse(sessionStorage.getItem("order"))
-
-          $.ajax({
-            type: "get",
-            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
-            success: function (e) {
-              app.carName = e[0]
-              app.carcolor = e[1]
-              app.cartexture = e[2]
-              app.carwheel = e[3]
-              app.carplaque = e[4]
-              app.carlight = e[5]
-              app.carsaddle = e[6]
-              app.carsunroof = e[7]
-              app.carmedia = e[8]
-
-            }
+        var app = new Vue({
+            el: "#app",
+            data: {
+                item: {},
+                carName: {},
+                carcolor: {},
+                cartexture: {},
+                carwheel: {},
+                carplaque: {},
+                carlight: {},
+                carsaddle: {},
+                carsunroof: {},
+                carmedia: {},
 
 
-          })
-        }
+            },
+            mounted: function (e) {
+                this.item = JSON.parse(sessionStorage.getItem("order"))
+
+                $.ajax({
+                    type: "get",
+                    url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
+                    success: function (e) {
+                        app.carName = e[0]
+                        app.carcolor = e[1]
+                        app.cartexture = e[2]
+                        app.carwheel = e[3]
+                        app.carplaque = e[4]
+                        app.carlight = e[5]
+                        app.carsaddle = e[6]
+                        app.carsunroof = e[7]
+                        app.carmedia = e[8]
+
+                    }
+
+
+                })
+            },
+            computed: {
+                carmoney() {
+                    return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
+                        parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
+                        parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
+                        parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
+                        parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
+                        parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
+                        parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
+                        parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
+                        parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10) ;
+              }
+          }
       })
 
       console.log(app.item)
