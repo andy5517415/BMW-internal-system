@@ -609,7 +609,7 @@
           },
           methods: {
             searchbtn: function () {
-              axios.get('/api/PersonnelLeaveForms/employee/15/' + this.leavesearch.month)
+              axios.get('/api/PersonnelLeaveForms/employee/10/' + this.leavesearch.month)
                 .then(response => this.leavelist = response.data)
                 .catch(err => console.log(err))
 

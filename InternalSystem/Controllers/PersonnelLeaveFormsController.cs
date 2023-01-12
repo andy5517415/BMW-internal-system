@@ -42,7 +42,9 @@ namespace InternalSystem.Controllers
                                          EmployeeNumber =o.EmployeeNumber,
                                          EmployeeId = pl.EmployeeId,
                                          StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+                                         StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         EndTime = pl.EndTime,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
@@ -60,6 +62,39 @@ namespace InternalSystem.Controllers
         }
 
 
+        //用部門尋找
+        // GET: api/PersonnelLeaveForms/department/5/{y}-{m}
+        [HttpGet("department/{depId}/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetDepartmentLeave(int depId, int y, int m)
+        {
+            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+                                     where o.DepartmentId == depId && pl.StartDate.Month == m && pl.StartDate.Year == y
+                                     select new
+                                     {
+                                         EmployeeName = o.EmployeeName,
+                                         EmployeeNumber = o.EmployeeNumber,
+                                         EmployeeId = pl.EmployeeId,
+                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+                                         StartTime = pl.StartTime,
+                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         EndTime = pl.EndTime,
+                                         LeaveType = pl.LeaveType,
+                                         StatusId = pl.StatusId,
+                                         AuditStatus = l.AuditStatus,
+                                         Proxy = pl.Proxy,
+                                         auditManerger = pl.AuditManerger,
+                                         Reason = pl.Reason
+                                     };
+
+            if (personnelLeaveForm == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveForm.ToListAsync();
+        }
 
         // GET: api/PersonnelLeaveForms/5
         [HttpGet("{id}")]
