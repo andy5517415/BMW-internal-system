@@ -511,12 +511,13 @@
                   <div class="card mb-4 m-4 ">
                       <div class="card text-center ">
                       <div class="row card-body">
-                        <div class=" row">
-                          <label for="" class=" col-3 fs-4 ">訂單編號</label>
-                          <label for="" class=" col-3 fs-4 ">申請人</label>
-                          <label for="" class=" col-2 fs-4 ">金額</label>
-                          <label for="" class=" col-2 fs-4 ">狀態</label>
-                        </div>
+                          <div class=" row">
+                              <label for="" class=" col-2 fs-4 ">訂單編號</label>
+                              <label for="" class=" col-2 fs-4 ">部門</label>
+                              <label for="" class=" col-2 fs-4 ">申請人</label>
+                              <label for="" class=" col-2 fs-4 ">金額</label>
+                              <label for="" class=" col-2 fs-4 ">狀態</label>
+                          </div>
                       
                       </div>
         
@@ -528,8 +529,9 @@
                           <div class="card text-center ">
                               <div class="row card-body">
                                   <div class=" row">
-                                      <label for="" class=" col-3 fs-4 ">{{order.purchaseId}}</label>
-                                      <label for="" class=" col-3 fs-4 ">{{order.employeeName}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.purchaseId}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.department}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.employeeName}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.total}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.deliveryStatus}}</label>
                                       <div class="col-2   d-md-flex justify-content-md-end">

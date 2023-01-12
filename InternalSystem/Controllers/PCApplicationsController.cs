@@ -69,15 +69,25 @@ namespace InternalSystem.Controllers
         {
             var i = from AP in this._context.PcApplications
                     join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                    join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
                     join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
                     join PIS in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PIS.ProductId
-                    join OD in _context.PcOrderDetails on AP.PurchaseId equals OD.ProductId
+                    join OD in this._context.PcOrderDetails on AP.PurchaseId equals OD.ProductId
+                    where OD.OrderId == "1"
                     select new
                     {
                         EmployeeName = PD.EmployeeName,
+                        Department = PDL.DepName,
                         PurchaseId = AP.PurchaseId,
                         Total = AP.Total,
-                        DeliveryStatus = APS.DeliveryStatus
+                        DeliveryStatus = APS.DeliveryStatus,
+                        OrderId = AP.OrderId,
+                        ProductId = OD.ProductId,
+                        Goods = OD.Goods,
+                        Quantiy = OD.Quantiy,
+                        Unit = OD.Unit,
+                        UnitPrice = OD.UnitPrice,
+                        Subtotal = OD.Subtotal
                     };
 
             return await i.ToListAsync();
