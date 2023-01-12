@@ -70,7 +70,7 @@
             <div class="app-brand demo">
                 <a href="index.html" class="app-brand-link">
                     <span class="app-brand-logo demo">
-                        <img src="../assets/img/BMW_logo.png" alt="我是Logo" width="50px">
+                        <img src="../assets/img/BMW_logo.png" alt="我是Logo">
                     </span>
                     <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
                 </a>
@@ -429,7 +429,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -438,7 +438,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="../assets/img/avatars/1.png" alt
+                                                        <img src="../assets/img/avatars/1.png"
                                                             class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
@@ -528,12 +528,8 @@
 
 
 
-
-
-                                    <input id="selectAvatar" type="file" />
-                                    <img id="showimg" :src="bee"/>
-
-
+                                    <!--<input id="selectAvatar" type="file" />
+                <img @change="fnname" id="showimg" :src="bee"/>-->
 
 
 
@@ -1039,13 +1035,16 @@
                     this.orderpost = {
                         "orderNumber": this.orderid,
                         //"orderdatetime": dt,
-                        //"orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
+                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
                         "AreaId": this.agentone.areaId,
                         "Price": this.cnt,
                         "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                        "IsAccepted": false,
-                        "pic": this.bee
+                        "IsAccepted": false
+                        //,
+                        //"pic" : this.bee
                     };
+
+                    console.log(this.orderpost);
 
                     axios.post('/api/BusinessOrders', this.orderpost)
                         .then(p => {
@@ -1063,6 +1062,7 @@
                                         console.log(p);
                                     })
                             }
+                            alert('訂單新建成功!');
                         });
                 }
             },
@@ -1076,41 +1076,42 @@
                     axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle = g.data),
                     axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
                     axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
-                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data),
-                    axios.get('/api/BusinessOrders').then(g => { console.log(g.data); this.bee = g.data[24].pic })
+                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
+                //,
+                //axios.get('/api/BusinessOrders').then(g => { console.log(g.data); this.bee = g.data[24].pic })
             }
         }).mount('#divinfo');
 
 
-        const input = document.getElementById("selectAvatar");
+            //const input = document.getElementById("selectAvatar");
 
-        const convertBase64 = (file) => {
-            return new Promise((resolve, reject) => {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
+            //const convertBase64 = (file) => {
+            //    return new Promise((resolve, reject) => {
+            //        const fileReader = new FileReader();
+            //        fileReader.readAsDataURL(file);
 
-                fileReader.onload = () => {
-                    resolve(fileReader.result);
-                };
+            //        fileReader.onload = () => {
+            //            resolve(fileReader.result);
+            //        };
 
-                fileReader.onerror = (error) => {
-                    reject(error);
-                };
-            });
-        };
+            //        fileReader.onerror = (error) => {
+            //            reject(error);
+            //        };
+            //    });
+            //};
 
-        const uploadImage = async (event) => {
-            const file = event.target.files[0];
-            const base64 = await convertBase64(file);
-            console.log(base64);
-            vvue.bee = base64;
-            console.log(vvue.bee);
-        };
+            //const uploadImage = async (event) => {
+            //    const file = event.target.files[0];
+            //    const base64 = await convertBase64(file);
+            //    console.log(base64);
+            //    vvue.bee = base64;
+            //    console.log(vvue.bee);
+            //};
 
-        input.addEventListener("change", (e) => {
-            console.log('ko');
-            uploadImage(e);
-        });
+            //input.addEventListener("change", (e) => {
+            //    console.log('ko');
+            //    uploadImage(e);
+            //});
     </script>
 
 

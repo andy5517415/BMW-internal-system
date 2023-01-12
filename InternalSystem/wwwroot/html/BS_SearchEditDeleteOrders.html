@@ -71,7 +71,7 @@
             <div class="app-brand demo">
                 <a href="index.html" class="app-brand-link">
                     <span class="app-brand-logo demo">
-                        <img src="../assets/img/BMW_logo.png" alt="我是Logo" width="50px">
+                        <img src="../assets/img/BMW_logo.png" alt="我是Logo">
                     </span>
                     <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
                 </a>
@@ -430,7 +430,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -439,7 +439,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="../assets/img/avatars/1.png" alt
+                                                        <img src="../assets/img/avatars/1.png"
                                                             class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
@@ -508,20 +508,20 @@
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-10">
-                                        <label for="orderid" class="form-label fs-4">訂單編號</label>
+                                        <label for="ordernum" class="form-label fs-4">訂單編號</label>
                                         <input type="text"
                                                class="form-control"
-                                               id="orderid"
+                                               id="ordernum"
                                                placeholder="型號代碼(M,X,i)+代理商區域(01北區,02中區,03南區)+時間流水號(共13碼)"
-                                               v-model="orderid"
-                                               @blur="orderidchk"
+                                               v-model="ordernum"
+                                               @blur="ordernumchk"
                                                ref="reffocus" />
                                         <p>{{charcnt}}/13</p>
                                     </div>
-                                    <hr/>
+                                    <hr />
 
                                     <!--車款  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
@@ -534,14 +534,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="form-label fs-4">車款</label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id=""
-                                               readonly
-                                               :value="cartypeone.optionalName" />
-                                    </div>
+                                    <!--<div v-if="isDisabled" class="col-md-3">
+                    <label for="" class="form-label fs-4">車款</label>
+                    <input type="text"
+                           class="form-control"
+                           id=""
+                           readonly
+                           :value="cartypeone.optionalName" />
+                </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="form-label fs-4">車款價格</label>
                                         <input type="text"
@@ -829,7 +829,7 @@
                                         <input type="text"
                                                class="form-control"
                                                id=""
-                                               readonly/>
+                                               readonly />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="" class="form-label fs-4">代理商地址</label>
@@ -851,6 +851,7 @@
 
                                     <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
                                     <button v-bind:disabled="btndisable" @click="btnedit" class="btn btn-outline-primary d-block">修改</button>
+                                    <button @click="btnOK" class="btn btn-outline-primary d-block">確定修改</button>
                                     <button v-bind:disabled="btndisable" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>
 
                                     <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
@@ -866,7 +867,7 @@
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <h5 id="deleteorderid">
+                                                            <h5 id="deleteordernum">
                                                                 是否要刪除訂單? 編號 :
                                                             </h5>
                                                         </div>
@@ -966,8 +967,8 @@
                     dialog: false,
                     isDisabled: true,
                     btndisable: true,
+                    ordernum: '',
                     orderid: '',
-                    orderidqry: {},
 
                     cartype: {},
                     carcolor: {},
@@ -979,23 +980,27 @@
                     carsunroof: {},
                     carmedia: {},
                     agent: {},
-                    cartypeone: 999,
-                    carcolorone: 999,
-                    cartextureone: 999,
-                    carwheelone: 999,
-                    carplaqueone: 999,
-                    carlightone: 999,
-                    carsaddleone: 999,
-                    carsunroofone: 999,
-                    carmediaone: 999,
-                    agentone: 999
+                    cartypeone: {},
+                    carcolorone: {},
+                    cartextureone: {},
+                    carwheelone: {},
+                    carplaqueone: {},
+                    carlightone: {},
+                    carsaddleone: {},
+                    carsunroofone: {},
+                    carmediaone: {},
+                    agentone: {},
+
+                    orderput: {},
+                    orderdetail: [],
+                    orderdetailput: {},
                 }
             },
             computed: {
                 cnt() {
                     return
-                    (this.cnt == null) ? 0 :
-                        parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
+                    //(this.cnt == null) ? 0 :
+                    parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
                         parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
                         parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
                         parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
@@ -1007,15 +1012,17 @@
                         ;
                 },
                 charcnt() {
-                    return (this.orderid == null) ? 0 : this.orderid.toString().length;
+                    return (this.ordernum == null) ? 0 : this.ordernum.toString().length;
                 }
             },
             methods: {
                 btnquery() {
                     let reg = /^[M,X,i]0[1-3][1-4]\d{9}$/;
-                    if (reg.test(this.orderid)) {
-                        axios.get('/api/BusinessOptionals/order/' + this.orderid)
+                    //logic = reg.test(this.ordernum)
+                    if (true) {
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
                             .then(g => {
+
                                 this.cartypeone = g.data[0];
                                 this.carcolorone = g.data[1];
                                 this.cartextureone = g.data[2];
@@ -1026,6 +1033,11 @@
                                 this.carsunroofone = g.data[7];
                                 this.carmediaone = g.data[8];
                                 //this.agentone = g.data[9];
+
+                                this.orderid = g.data[0].orderId;
+                                //console.log(g.data[0].orderId);
+                                //console.log(this.orderid);
+
                             })
                             .catch((error) => console.log(error));
                         this.isDisabled = true;
@@ -1035,30 +1047,64 @@
                         alert('訂單號碼有誤，請重新輸入!');
                         this.$refs.reffocus.focus();
                     }
-
                 },
                 btnedit() {
                     this.isDisabled = false;
-                    this.cartypeone.price = 0;
-                    this.carcolorone.price = 0;
-                    this.cartextureone.price = 0;
-                    this.carwheelone.price = 0;
-                    this.carplaqueone.price = 0;
-                    this.carlightone.price = 0;
-                    this.carsaddleone.price = 0;
-                    this.carsunroofone.price = 0;
-                    this.carmediaone.price = 0;
+                    //this.cartypeone.price = 0;
+                    //this.carcolorone.price = 0;
+                    //this.cartextureone.price = 0;
+                    //this.carwheelone.price = 0;
+                    //this.carplaqueone.price = 0;
+                    //this.carlightone.price = 0;
+                    //this.carsaddleone.price = 0;
+                    //this.carsunroofone.price = 0;
+                    //this.carmediaone.price = 0;
                 },
-                btndelete() {
-                    dialog: true
-                    console.log('delete');
-                },
-                orderidchk() {
-                    let reg = /^09\d{8}$/;
-                    //let reg = /^[A-Z][1-2]\d{8}$/;
-                    if (reg.test(this.orderid)) {
-                        console.log('legal');
-                    }
+                btnOK() {
+                    console.log('btnOK');
+                    let dt = new Date();
+                    this.orderput = {
+                        "orderId": this.orderid,
+                        "orderNumber": this.ordernum,
+                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`,
+                        "AreaId": this.agentone.areaId,
+                        "Price": this.cnt,
+                        "EmployeeId": Math.floor(Math.random() * 10) + 1,
+                        "IsAccepted": false
+                    };
+
+                    console.log(this.orderput);
+
+                    axios.put('/api/BusinessOrders/getorder/', this.orderput)
+                        .then(p => {
+                            console.log(p);
+                            //var orderidback = p.data.orderId;
+                            //console.log(orderidback);
+
+                            //for (var n = 0; n < 9; n++) {
+                            //    this.orderdetailpost = {
+                            //        "OrderId": orderidback,
+                            //        "OptionalId": this.orderdetail[n]
+                            //    }
+                            //    axios.post('/api/BusinessOrderDetails', this.orderdetailput)
+                            //        .then(p => {
+                            //            console.log(p);
+                            //        })
+                            //}
+                            alert('訂單修改成功!');
+                        });
+
+                }
+            },
+            btndelete() {
+                dialog: true
+                console.log('delete');
+            },
+            ordernumchk() {
+                let reg = /^09\d{8}$/;
+                //let reg = /^[A-Z][1-2]\d{8}$/;
+                if (reg.test(this.ordernum)) {
+                    console.log('legal');
                 }
             },
             mounted() {
@@ -1076,7 +1122,6 @@
         }).mount('#divedit');
 
     </script>
-
 
 
 

@@ -20,6 +20,43 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+
+
+
+
+
+        // GET: api/BusinessOrders/getorder/i0320230105003
+        [HttpGet("getorder/{ordernum}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrder(string ordernum)
+        {
+            var q = from ord in _context.BusinessOrders
+                    join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
+                    join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
+                    where ord.OrderNumber == ordernum
+                    select new
+                    {
+                        OrderId = ord.OrderId,
+                        OrderNumber = ord.OrderNumber,
+                        OptionalId = od.OptionalId,
+                        CategoryId = opl.CategoryId,
+                        Price = opl.Price,
+                        OptionalName = opl.OptionalName
+                    };
+            return await q.ToListAsync();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         // GET: api/BusinessOrders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessOrder>>> GetBusinessOrders()
@@ -41,6 +78,45 @@ namespace InternalSystem.Controllers
             return businessOrder;
         }
 
+
+        //自己改的
+        // PUT: api/BusinessOrders/getorder/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("getorder/{id}")]
+        public async Task<IActionResult> PutOrder(int id, BusinessOrder businessOrder)
+        {
+            if (id != businessOrder.OrderId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(businessOrder).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BusinessOrderExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
+
+
+
+
+        //原廠
         // PUT: api/BusinessOrders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -75,20 +151,29 @@ namespace InternalSystem.Controllers
 
 
 
+
+
+
+
+
+
+
+
         // POST: api/BusinessOrders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<dynamic>> PostBusinessOrder(BusinessOrder businessOrder)
+        public async Task<ActionResult<BusinessOrder>> PostBusinessOrder(BusinessOrder businessOrder)
         {
-
-
-
             _context.BusinessOrders.Add(businessOrder);
-
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBusinessOrder", new { id = businessOrder.OrderId }, businessOrder);
         }
+
+
+
+
+
 
 
 

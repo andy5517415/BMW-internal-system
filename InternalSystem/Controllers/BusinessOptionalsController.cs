@@ -50,41 +50,6 @@ namespace InternalSystem.Controllers
         }
 
 
-        // GET: api/BusinessOptionals/order/X0220230103002
-        [HttpGet("order/{ordernum}")]
-        public async Task<ActionResult<dynamic>> GetOrder(string ordernum)
-        {
-
-            var q = from ord in _context.BusinessOrders
-                    join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
-                    join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
-                    where ord.OrderNumber == ordernum
-                    select new
-                    {
-                        OptionalId   = od.OptionalId,
-                        CategoryId  = opl.CategoryId,
-                        Price       = opl.Price,
-                        OptionalName = opl.OptionalName
-                        //,
-                        //OrderId     = ord.OrderId,
-                        //OrderNumber  = ord.OrderNumber,
-                    };
-            return await q.ToListAsync();
-            //return await q.FirstOrDefaultAsync();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
