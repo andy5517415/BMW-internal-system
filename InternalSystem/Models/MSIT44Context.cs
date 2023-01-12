@@ -781,9 +781,20 @@ namespace InternalSystem.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
+<<<<<<< HEAD
                 entity.Property(e => e.StartTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
+=======
+                entity.Property(e => e.EndTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StartTime)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+>>>>>>> 5403f3658bda27ca49426269b4d474306d1ef989
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.ProductionContexts)
