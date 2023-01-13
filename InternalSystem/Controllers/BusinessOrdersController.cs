@@ -32,6 +32,7 @@ namespace InternalSystem.Controllers
             var q = from ord in _context.BusinessOrders
                     join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
                     join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
+                    join a in _context.BusinessAreas on ord.AreaId equals a.AreaId
                     where ord.OrderNumber == ordernum
                     select new
                     {
@@ -40,13 +41,24 @@ namespace InternalSystem.Controllers
                         OptionalId = od.OptionalId,
                         CategoryId = opl.CategoryId,
                         Price = opl.Price,
-                        OptionalName = opl.OptionalName
+                        OptionalName = opl.OptionalName,
+                        AreaId = ord.AreaId
                     };
             return await q.ToListAsync();
         }
 
 
 
+
+        // GET: api/BusinessOrders/getagent/1
+        [HttpGet("getagent/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> getagent(int id)
+        {
+            var q = from a in _context.BusinessAreas 
+                    where a.AreaId == id
+                    select a;
+            return await q.ToListAsync();
+        }
 
 
 
@@ -80,9 +92,9 @@ namespace InternalSystem.Controllers
 
 
         //自己改的
-        // PUT: api/BusinessOrders/getorder/5
+        // PUT: api/BusinessOrders/putorder/35
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("getorder/{id}")]
+        [HttpPut("putorder/{id}")]
         public async Task<IActionResult> PutOrder(int id, BusinessOrder businessOrder)
         {
             if (id != businessOrder.OrderId)
