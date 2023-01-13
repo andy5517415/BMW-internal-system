@@ -7,7 +7,7 @@ namespace InternalSystem.Models
 {
     public partial class PersonnelOvertimeForm
     {
-        public int StartWorkeId { get; set; }
+        public int StartWorkId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime StartDate { get; set; }
         public string StartTime { get; set; }

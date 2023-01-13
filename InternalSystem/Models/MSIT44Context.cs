@@ -26,7 +26,6 @@ namespace InternalSystem.Models
         public virtual DbSet<MeetingReserve> MeetingReserves { get; set; }
         public virtual DbSet<MeetingRoom> MeetingRooms { get; set; }
         public virtual DbSet<MonitoringProcessAreaStatus> MonitoringProcessAreaStatuses { get; set; }
-        public virtual DbSet<MonitoringStatus> MonitoringStatuses { get; set; }
         public virtual DbSet<PcApplication> PcApplications { get; set; }
         public virtual DbSet<PcApplicationRecordSearch> PcApplicationRecordSearches { get; set; }
         public virtual DbSet<PcOrderDetail> PcOrderDetails { get; set; }
@@ -55,18 +54,12 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
-                optionsBuilder.UseSqlServer("Server=10.0.104.99\\L27\\SQLEXPRESS,1433;Database=MSIT44;Integrated Security=false;User ID = wang;Password= 1234;");
-
                 optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
-
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
-
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
@@ -265,42 +258,26 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<MonitoringProcessAreaStatus>(entity =>
             {
-                entity.HasKey(e => new { e.AreaId, e.ProcessId })
+                entity.HasKey(e => new { e.AreaId, e.ProcessId, e.StatusId, e.CarType })
                     .HasName("PK_Production製程與廠區監控狀態");
 
                 entity.ToTable("MonitoringProcessAreaStatus");
+
+                entity.Property(e => e.StatusId).HasMaxLength(50);
+
+                entity.Property(e => e.CarType).HasMaxLength(50);
 
                 entity.HasOne(d => d.Area)
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Production製程與廠區監控狀態_Production廠區");
+                    .HasConstraintName("FK_MonitoringProcessAreaStatus_ProductionArea");
 
                 entity.HasOne(d => d.Process)
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
                     .HasForeignKey(d => d.ProcessId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MonitoringProcessAreaStatus_ProductionProcess");
-
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.MonitoringProcessAreaStatuses)
-                    .HasForeignKey(d => d.StatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MonitoringProcessAreaStatus_MonitoringStatus");
-            });
-
-            modelBuilder.Entity<MonitoringStatus>(entity =>
-            {
-                entity.HasKey(e => e.StatusId)
-                    .HasName("PK_Production監控狀態表");
-
-                entity.ToTable("MonitoringStatus");
-
-                entity.Property(e => e.StatusId).ValueGeneratedNever();
-
-                entity.Property(e => e.StatusName)
-                    .IsRequired()
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<PcApplication>(entity =>
@@ -573,7 +550,7 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<PersonnelOvertimeForm>(entity =>
             {
-                entity.HasKey(e => e.StartWorkeId)
+                entity.HasKey(e => e.StartWorkId)
                     .HasName("PK_加班申請表");
 
                 entity.ToTable("PersonnelOvertimeForm");

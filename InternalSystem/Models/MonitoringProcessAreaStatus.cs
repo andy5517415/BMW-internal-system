@@ -9,10 +9,10 @@ namespace InternalSystem.Models
     {
         public int AreaId { get; set; }
         public int ProcessId { get; set; }
-        public int StatusId { get; set; }
+        public string StatusId { get; set; }
+        public string CarType { get; set; }
 
         public virtual ProductionArea Area { get; set; }
         public virtual ProductionProcess Process { get; set; }
-        public virtual MonitoringStatus Status { get; set; }
     }
 }

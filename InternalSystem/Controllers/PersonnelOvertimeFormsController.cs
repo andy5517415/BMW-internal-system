@@ -70,7 +70,7 @@ namespace InternalSystem.Controllers
                                         select new
                                         {
 
-                                            ov.StartWorkeId,
+                                            ov.StartWorkId,
                                             ov.EmployeeId,
                                             EmployeeName = p.EmployeeName,
                                             EmployeeNumber = p.EmployeeNumber,
@@ -103,7 +103,7 @@ namespace InternalSystem.Controllers
                        where p.DepartmentId == dep && ov.StartDate.Year == y && ov.StartDate.Month == m
                        select new
                        {
-                           ov.StartWorkeId,
+                           ov.StartWorkId,
                            ov.EmployeeId,
                            EmployeeName = p.EmployeeName,
                            EmployeeNumber = p.EmployeeNumber,
@@ -141,7 +141,7 @@ namespace InternalSystem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPersonnelOvertimeForm(int id, PersonnelOvertimeForm personnelOvertimeForm)
         {
-            if (id != personnelOvertimeForm.StartWorkeId)
+            if (id != personnelOvertimeForm.StartWorkId)
             {
                 return BadRequest();
             }
@@ -175,7 +175,7 @@ namespace InternalSystem.Controllers
             _context.PersonnelOvertimeForms.Add(personnelOvertimeForm);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPersonnelOvertimeForm", new { id = personnelOvertimeForm.StartWorkeId }, personnelOvertimeForm);
+            return CreatedAtAction("GetPersonnelOvertimeForm", new { id = personnelOvertimeForm.StartWorkId }, personnelOvertimeForm);
         }
 
         // DELETE: api/PersonnelOvertimeForms/5
@@ -196,7 +196,7 @@ namespace InternalSystem.Controllers
 
         private bool PersonnelOvertimeFormExists(int id)
         {
-            return _context.PersonnelOvertimeForms.Any(e => e.StartWorkeId == id);
+            return _context.PersonnelOvertimeForms.Any(e => e.StartWorkId == id);
         }
     }
 }
