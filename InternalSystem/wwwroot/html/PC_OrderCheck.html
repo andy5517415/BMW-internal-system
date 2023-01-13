@@ -589,29 +589,29 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      <tr v-for="a in list" >
-                                                           <!--第一項物品--> 
-                                                           <!--項次--> 
+                                                      <tr v-for="a in list">
+                                                          <!--第一項物品-->
+                                                          <!--項次-->
                                                           <td>
-                                                              <i class="fab fa-angular fa-lg text-danger me-3" ></i> <strong>{{a.purchaseId}}</strong>
+                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
                                                           </td>
-                                                           <!--物品名稱--> 
+                                                          <!--物品名稱-->
                                                           <td>{{a.goods}}</td>
-                                                           <!--物品數量--> 
+                                                          <!--物品數量-->
                                                           <td>
                                                               <div>
                                                                   <p>{{a.quantiy}}</p>
                                                               </div>
                                                           </td>
-                                                           <!--單位--> 
+                                                          <!--單位-->
                                                           <td><span class="badge bg-label-primary me-1">隻</span></td>
-                                                           <!--單價--> 
+                                                          <!--單價-->
                                                           <td>
                                                               <div class="dropdown">
                                                                   <p>{{a.unitPrice}}元</p>
                                                               </div>
                                                           </td>
-                                                           <!--小計--> 
+                                                          <!--小計-->
                                                           <td>
                                                               <div class="dropdown">
                                                                   <div>{{a.subtotal}}元</div>
@@ -620,21 +620,22 @@
                                                       </tr>
                                                   </tbody>
                                               </table>
-                                          </div>
-                                      </div>
-                                  </div>
-                           <!--總價--> 
-                                  <div>
-                                      <div class="card-body">
-                                          <div class="row mb-3">
-                                              <label for="total" class="col-sm-1 col-form-label">總額：</label>
-                                              <div class="col-sm-1">
-                                                  <input type="text" class="form-control" id="total" v-model="myobject.total" disabled>
+                                              <!--總價-->
+                                              <div class="card-body">
+                                                  <div class="row">
+                                                      <label for="total" class="col-sm-1 col-form-label fs-4">總金額：</label>
+                                                      <div class="col-sm-1">
+                                                          <input type="text" class="form-control" id="total" v-model="myobject.total" disabled>
+                                                      </div>
+                                                      <div class="table-responsive text-nowrap"></div>
+                                                  </div>
                                               </div>
-                                              <div class="table-responsive text-nowrap"></div>
+
                                           </div>
                                       </div>
                                   </div>
+                              <div>   
+                          </div>
                   <button id="btncreate" class="btn btn-outline-primary d-block">送出</button>
               </div>
          </div>
