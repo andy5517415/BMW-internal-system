@@ -23,8 +23,6 @@ namespace InternalSystem.Controllers
 
 
 
-
-
         // GET: api/BusinessOrders/getorder/i0320230105003
         [HttpGet("getorder/{ordernum}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrder(string ordernum)
@@ -54,11 +52,18 @@ namespace InternalSystem.Controllers
         [HttpGet("getagent/{id}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> getagent(int id)
         {
-            var q = from a in _context.BusinessAreas 
+            var q = from a in _context.BusinessAreas
                     where a.AreaId == id
                     select a;
             return await q.ToListAsync();
         }
+
+
+
+
+
+
+
 
 
 
@@ -91,46 +96,6 @@ namespace InternalSystem.Controllers
         }
 
 
-
-
-
-        //自己改的
-        // PUT: api/BusinessOrders/putorder/35
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("putorder/{id}")]
-        public async Task<IActionResult> PutOrder(int id, BusinessOrder businessOrder)
-        {
-            if (id != businessOrder.OrderId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(businessOrder).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BusinessOrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-
-
-
-
-
         //原廠
         // PUT: api/BusinessOrders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -160,10 +125,10 @@ namespace InternalSystem.Controllers
                 }
             }
 
-
-
             return NoContent();
         }
+
+
 
 
 
@@ -181,6 +146,10 @@ namespace InternalSystem.Controllers
 
             return CreatedAtAction("GetBusinessOrder", new { id = businessOrder.OrderId }, businessOrder);
         }
+
+
+
+
 
 
 

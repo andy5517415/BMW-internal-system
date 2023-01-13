@@ -29,7 +29,7 @@
 
     <!-- vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -59,7 +59,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 
 
 </head>
@@ -73,7 +75,7 @@
             <div class="app-brand demo">
                 <a href="index.html" class="app-brand-link">
                     <span class="app-brand-logo demo">
-                        <img src="../assets/img/BMW_logo.png" alt="我是Logo" width="50px">
+                        <img src="../assets/img/BMW_logo.png" alt="我是Logo" style="height: 50px;">
                     </span>
                     <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
                 </a>
@@ -522,7 +524,6 @@
                                                id="ordernum"
                                                placeholder="型號代碼(M,X,i)+代理商區域(01北區,02中區,03南區)+時間流水號(共13碼)"
                                                v-model="ordernum"
-
                                                ref="reffocus" />
                                     </div>
                                     <hr />
@@ -537,18 +538,18 @@
                                             <option disabled :value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
                                     <div v-if="isDisabled" class="col-md-3">
-                    <label for="" class="form-label fs-4">車款</label>
-                    <input type="text"
-                           class="form-control"
-                           id=""
-                           readonly
-                           :value="cartypeone.optionalName" />
-                </div>
+                                        <label for="" class="form-label fs-4">車款</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               :value="cartypeone.optionalName" />
+                                    </div>
                                     <div class="col-md-3">
                                         <label for="" class="form-label fs-4">車款價格</label>
                                         <input type="text"
@@ -568,7 +569,7 @@
                                             <option disabled value="999">請選擇車漆顏色</option>
                                             <option v-for="one in carcolor"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -598,7 +599,7 @@
                                             <option disabled value="999">請選擇內裝材質</option>
                                             <option v-for="one in cartexture"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -632,7 +633,7 @@
                                             <option disabled value="999">請選擇輪圈款式</option>
                                             <option v-for="one in carwheel"
                                                     v-bind:value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -665,7 +666,7 @@
                                             <option disabled value="999">請選擇飾板款式</option>
                                             <option v-for="one in carplaque"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -695,7 +696,7 @@
                                             <option disabled value="999">請選擇頭燈款式</option>
                                             <option v-for="one in carlight"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -726,7 +727,7 @@
                                             <option disabled value="999">請選擇中央鞍座款式</option>
                                             <option v-for="one in carsaddle"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -756,7 +757,7 @@
                                             <option disabled value="999">請選擇天窗款式</option>
                                             <option v-for="one in carsunroof"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -787,7 +788,7 @@
                                             <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
                                                     :value="one">
-                                                {{one.optionalName}}
+                                                {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
@@ -837,8 +838,7 @@
                                                class="form-control"
                                                id=""
                                                readonly
-                                               v-model="agentone.areaName"
-                                               />
+                                               v-model="agentone.areaName" />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="" class="form-label fs-4">代理商地址</label>
@@ -862,36 +862,35 @@
                                     <button v-bind:disabled="btndisable" @click="btnedit" class="btn btn-outline-primary d-block">修改</button>
                                     <button @click="btnOK" class="btn btn-outline-primary d-block">確定修改</button>
                                     <!--<button v-bind:disabled="btndisable" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>-->
-
                                     <!--<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h3 class="modal-title" id="modalCenterTitle">確認刪除訂單視窗</h3>
-                                                    <button type="button"
-                                                            class="btn-close"
-                                                            data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col mb-3">
-                                                            <h5 id="deleteordernum">
-                                                                是否要刪除訂單? 編號 :
-                                                            </h5>
-                                                        </div>
-                                                    </div>
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="modalCenterTitle">確認刪除訂單視窗</h3>
+                                <button type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <h5 id="deleteordernum">
+                                            是否要刪除訂單? 編號 :
+                                        </h5>
+                                    </div>
+                                </div>
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline-primary">確定</button>
-                                                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                                                        取消
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-primary">確定</button>
+                                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
 
                                     <div class="col-lg-4 col-md-6">
                                         <!-- <small class="text-light fw-semibold">Vertically centered</small> -->
@@ -927,10 +926,13 @@
 
 
                     </div>
+
+
+
+
                     <!-- / Content -->
                     <!-- Footer -->
                     <!-- / Footer -->
-
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->
@@ -1109,7 +1111,7 @@
                     console.log(this.orderdetail);
 
 
-                    axios.put('/api/BusinessOrders/putorder/' + this.orderid, this.orderput)
+                    axios.put('/api/BusinessOrders/' + this.orderid, this.orderput)
                         .then(p => {
                             console.log(p);
                             console.log('this.orderid' + this.orderid);
@@ -1119,7 +1121,8 @@
                                     "OrderId": this.orderid,
                                     "OptionalId": this.orderdetail[n]
                                 }
-                                axios.put('/api/BusinessOrderDetails/' + this.orderid, this.orderdetailput)
+                                console.log(this.orderdetailput);
+                                axios.put('/api/BusinessOrderDetails/putdetail/' + this.orderid, this.orderdetailput)
                                     .then(p => {
                                         console.log(p.data);
                                     })
@@ -1128,18 +1131,6 @@
                         });
 
                 }
-            },
-            btndelete() {
-                dialog: true
-
-                //axios.delete('/api/BusinessOrders/' + this.orderid)
-                //    .then(p => {
-                //        console.log(p);
-                //        alert('訂單刪除成功!');
-                //    });
-
-
-                console.log('delete');
             },
             mounted() {
                 axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),
@@ -1156,7 +1147,6 @@
         }).mount('#divedit');
 
     </script>
-
 
     <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
