@@ -700,13 +700,13 @@
                                                 <!-- 員工工號 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="residence" class="form-label">員工工號</label>
-                                                    <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus />
+                                                    <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus  disabled/>
                                                 </div>
                                                 <!-- 部門選擇 -->
                                                 <div class="mb-4 col-md-6">
                                                     <label for="department" class="form-label">部門</label>
-                                                    <select v-model="employeelist.departmentId" id="department" class="select1 form-select">
-                                                        <option v-for="item in departmentlist" :value="item.departmentId">
+                                                    <select v-model="employeelist.departmentId" id="department" class="select1 form-select"disabled>
+                                                        <option v-for="item in departmentlist" :value="item.departmentId" >
                                                             {{item.depName}}
                                                         </option>
 
@@ -716,7 +716,7 @@
                                                 <!--職位-->
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="position">職稱</label>
-                                                    <select v-model="employeelist.positionId" id="position" class="select2 form-select">
+                                                    <select v-model="employeelist.positionId" id="position" class="select2 form-select" disabled>
                                                         <option v-for="item in positionlist" :value="item.positionId">
                                                             {{item.positionName}}
 
@@ -726,7 +726,7 @@
                                                 <!-- 職等 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="Rank">職等</label>
-                                                    <select v-model="employeelist.rankId" id="Rank" class="select2 form-select">
+                                                    <select v-model="employeelist.rankId" id="Rank" class="select2 form-select" disabled>
                                                         <option v-for="item in ranklist" :value="item.rankId">
                                                             {{item.rank}}
 
@@ -737,7 +737,7 @@
                                                 <!-- 在職選擇 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="Onduty" class="form-label">是否在職</label>
-                                                    <select v-model="employeelist.dutyStatus" id="Onduty" class="select2 form-select">
+                                                    <select v-model="employeelist.dutyStatus" id="Onduty" class="select2 form-select" disabled>
                                                         <option :value="true">是</option>
                                                         <option :value="false">否</option>
                                                     </select>
@@ -747,7 +747,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="Entrydate" class="col-md-4 form-label">入職日</label>
 
-                                                    <input v-model="employeelist.entryDate" class="form-control" type="date" id="Entrydate" />
+                                                    <input v-model="employeelist.entryDate" class="form-control" type="date" id="Entrydate" disabled/>
                                                 </div>
                                             </div>
 
@@ -758,7 +758,7 @@
                                                 <!--帳號設置-->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="usernumber" class="form-label-lg">帳號設定</label>
-                                                    <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus />
+                                                    <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus disabled/>
                                                 </div>
                                                 <!--密碼設置-->
                                                 <div class="mb-3 col-md-6">

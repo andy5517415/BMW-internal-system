@@ -673,7 +673,8 @@
                     proxy: {},
                     manager: {},
                     leavetype: {},
-                    application: {}
+                    application: {},
+                    employeedata: {}
                 }
             },
             methods: {
@@ -688,12 +689,13 @@
                 }
             },
             mounted() {
-                axios.get('/api/PersonnelProfileDetails/uid/12')
+                this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
                     .then(response => {
                         this.employeelist = response.data,
                             this.application.employeeId = this.employeelist.employeeId
                         axios.get('/api/PersonnelProfileDetails/proxy/'
-                            + this.employeelist.positionId + '/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)//找代理人
+                            + this.employeelist.departmentId + '/' + this.employeelist.positionId + '/' +this.employeelist.employeeId)//找代理人
                             .then(response => this.proxy = response.data)
                         axios.get('/api/PersonnelProfileDetails/Manager/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)//找主管
                             .then(response => this.manager = response.data)
@@ -702,13 +704,13 @@
                 axios.get('/api/PersonnelLeaveTypes')
                     .then(response => this.leavetype = response.data)
 
-                axios.get('/api/PersonnelLeaveOvers/leave1/12')//找該員工剩餘假
+                axios.get('/api/PersonnelLeaveOvers/leave1/' + this.employeedata)//找該員工剩餘假
                     .then(response => this.personalleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave2/12')
+                axios.get('/api/PersonnelLeaveOvers/leave2/' + this.employeedata)
                     .then(response => this.sickleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave3/12')
+                axios.get('/api/PersonnelLeaveOvers/leave3/' + this.employeedata)
                     .then(response => this.annualleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave4/12')
+                axios.get('/api/PersonnelLeaveOvers/leave4/' + this.employeedata)
                     .then(response => this.menstrualleave = response.data)
 
             }

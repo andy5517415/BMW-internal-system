@@ -64,11 +64,11 @@ namespace InternalSystem.Controllers
 
         //找代理人
         // GET: api/PersonnelProfileDetails/proxy/dep/rank
-        [HttpGet("proxy/{dep}/{rank}/{id}")]
-        public async Task<ActionResult<dynamic>> GetLeaveProxy(int dep, int rank, int id)
+        [HttpGet("proxy/{dep}/{position}/{id}")]
+        public async Task<ActionResult<dynamic>> GetLeaveProxy(int dep, int position, int id)
         {
             var personnelProfileDetail = from o in _context.PersonnelProfileDetails
-                                         where o.DepartmentId == dep && o.RankId == rank && o.EmployeeId != id
+                                         where o.DepartmentId == dep && o.PositionId==position && o.EmployeeId != id
                                          select new
                                          {
                                              EmployeeId = o.EmployeeId,
