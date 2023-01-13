@@ -415,16 +415,21 @@
     <div class="layout-page">
       <!-- Navbar -->
 
-      <nav class="container">
+      <nav class="container" id="navInf">
         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
           id="layout-navbar">
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- 問好 -->
-            <div class="navbar-nav align-items-center fs-4">
-              😊您好，王鴻杰!
-            </div>
-            <!-- /問好 -->
+                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                  😊您好
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Name}}</span>&nbsp;&nbsp;
+                📋工號：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{EmpNumber}}</span>&nbsp;&nbsp;
+                💻部門：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Dep}}</span>
+                </div>
+                <!-- /問好 -->
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -607,5 +612,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+      <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>

@@ -413,16 +413,21 @@
 <div class="layout-page">
   <!-- Navbar -->
 
-  <nav class="container">
+  <nav class="container" id="navInf">
     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
       id="layout-navbar">
 
       <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <!-- 問好 -->
-        <div class="navbar-nav align-items-center fs-4">
-          😊您好，王鴻杰!
-        </div>
-        <!-- /問好 -->
+                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                  😊您好
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Name}}</span>&nbsp;&nbsp;
+                📋工號：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{EmpNumber}}</span>&nbsp;&nbsp;
+                💻部門：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Dep}}</span>
+                </div>
+                <!-- /問好 -->
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -719,6 +724,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
+<<<<<<< HEAD
         var app = new Vue({
             el: "#app",
             data: {
@@ -772,6 +778,45 @@
 
                     }
                 })
+=======
+      var app = new Vue({
+        el: "#app",
+        data: {
+          item: {},
+          carName: {},
+          carcolor: {},
+          cartexture: {},
+          carwheel: {},
+          carplaque: {},
+          carlight: {},
+          carsaddle: {},
+          carsunroof: {},
+          carmedia: {},
+          processes: {},
+          Areas: {},
+          processesAreaList: {}
+
+
+        },
+        mounted: function (e) {
+          this.item = JSON.parse(sessionStorage.getItem("order"))
+
+          $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
+            success: function (e) {
+              app.carName = e[0]
+              app.carcolor = e[1]
+              app.cartexture = e[2]
+              app.carwheel = e[3]
+              app.carplaque = e[4]
+              app.carlight = e[5]
+              app.carsaddle = e[6]
+              app.carsunroof = e[7]
+              app.carmedia = e[8]
+
+            }
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
 
                 $.ajax({
                     type: "get",
@@ -780,6 +825,7 @@
                         app.BSO = f
                         app.BSO.isAccepted = true  
 
+<<<<<<< HEAD
                     }
                 })
             },
@@ -851,20 +897,55 @@
                 //console.log(e)
             }
         })
+=======
+          })
+        },
+        computed: {
+          carmoney() {
+            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
+              parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
+              parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
+              parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
+              parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
+              parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
+              parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
+              parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
+              parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
+          }
+        }
+      })
 
-        // 廠區單
-        $.ajax({
-            type: "get",
-            url: "https://localhost:44319/api/ProductionAreas",
-            success: function (e) {
-                app.Areas = e
-                //console.log(e)
-            }
-        })
+      // 製程單
+      $.ajax({
+        type: "get",
+        url: "https://localhost:44319/api/ProductionProcesses",
+        success: function (e) {
+          app.processes = e
+          //console.log(e)
+        }
+      })
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
 
+      // 廠區單
+      $.ajax({
+        type: "get",
+        url: "https://localhost:44319/api/ProductionAreas",
+        success: function (e) {
+          app.Areas = e
+          //console.log(e)
+        }
+      })
+
+<<<<<<< HEAD
         
 
+=======
+      //
+      console.log(app.processes)
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
     </script>
 
+      <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>

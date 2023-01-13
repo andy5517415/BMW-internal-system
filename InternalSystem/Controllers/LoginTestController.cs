@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -18,6 +19,7 @@ namespace InternalSystem.Controllers
     public class LoginTestController : ControllerBase
     {
         private readonly MSIT44Context _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public LoginTestController(MSIT44Context context) 
         {
             _context = context;
@@ -25,7 +27,8 @@ namespace InternalSystem.Controllers
 
         // api/LoginTest
         [HttpPost]
-        public string login(LoginPost value)
+        
+        public object Login(LoginPost value)
         {
             var user = (from a in _context.PersonnelProfileDetails //找員工資料表
                         where a.Acount == value.Account  //帳號
@@ -42,10 +45,14 @@ namespace InternalSystem.Controllers
                 var claims = new List<Claim>
                 {
                     //登入成功獲取使用者資訊(似乎只能為strimg)
-                    new Claim(ClaimTypes.Name, user.IdentiyId),  //ID
-                    new Claim("FullName", user.EmployeeName),  //使用者名字
+                    new Claim("EmployeeId", user.EmployeeId.ToString()),  //流水號
+                    new Claim(ClaimTypes.Name, user.Acount),  //ID工號
+                    new Claim("EmployeeName", user.EmployeeName), //使用者名字
+                    new Claim("DepartmentId", user.DepartmentId.ToString()),  //部門ID
+                    new Claim("RankId", user.RankId.ToString()),  //RankID
                     //new Claim(ClaimTypes.Role, "select")  //權限
                 };
+
                 //建構
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -53,10 +60,22 @@ namespace InternalSystem.Controllers
                 //SignIn
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return "使用者已登入";
+
+                //登入後，將使用者資訊存進去
+                LoginIfo LoginIo = new LoginIfo()
+                {
+                    state = "使用者已登入",
+                    DepartmentId = user.DepartmentId,
+                    EmployeeId = user.EmployeeId,
+                    EmployeeName = user.EmployeeName,
+                    EmployeeNumber = user.EmployeeNumber,
+                    RankId = user.RankId,
+                };
+                
+                return LoginIo;
             }
         }
-
+        
 
         //登出
         [HttpDelete]
@@ -79,5 +98,14 @@ namespace InternalSystem.Controllers
             return "沒權限啦";
         }
         */
+    }
+
+    public class LoginIfo {
+        public string state {get;set;}
+        public int EmployeeId { get; set; }
+        public string EmployeeNumber { get; set; }
+        public string EmployeeName { get; set; }
+        public int DepartmentId { get; set; }
+        public int RankId { get; set; }
     }
 }

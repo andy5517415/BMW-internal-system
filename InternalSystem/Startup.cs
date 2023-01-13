@@ -1,8 +1,11 @@
 using InternalSystem.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +31,28 @@ namespace InternalSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //使用cookie做驗證
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+            {
+                //未登入時會自動導到登入頁面
+                option.LoginPath = new PathString("/api/LoginTest/NoLogin");
+
+                /*
+                //權限被拒絕倒到登入頁面
+                option.AccessDeniedPath= new PathString("/api/LoginTest/NoAccess");
+                */
+            });
+
+            /*
+            //全部的API都需驗證(登入)才能使用功能
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter());
+            });
+            */
+
+            //注入取得使用者資訊
+            //services.AddHttpContextAccessor();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -36,6 +61,7 @@ namespace InternalSystem
             });
             services.AddDbContext<MSIT44Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MSIT44DbContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +80,11 @@ namespace InternalSystem
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //Cookie設定，順序必須要一樣
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 

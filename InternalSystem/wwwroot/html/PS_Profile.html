@@ -412,16 +412,21 @@
       <div class="layout-page">
         <!-- Navbar -->
 
-        <nav class="container">
+        <nav class="container" id="navInf">
           <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- 問好 -->
-              <div class="navbar-nav align-items-center fs-4">
-                😊您好，王鴻杰!
-              </div>
-              <!-- /問好 -->
+                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                  😊您好
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Name}}</span>&nbsp;&nbsp;
+                📋工號：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{EmpNumber}}</span>&nbsp;&nbsp;
+                💻部門：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Dep}}</span>
+                </div>
+                <!-- /問好 -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -819,61 +824,63 @@
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!--Vue-->
         <script>
-            const app = {
-                data() {
-                    return {
-                        employeelist: {},
-                        departmentlist: {},
-                        positionlist: {},
-                        ranklist: {},
-                        citylist: {},
-                        aaa: {}
-                    }
-                },
-                methods: {
-                    createbtn: function () {
+          const app = {
+            data() {
+              return {
+                employeelist: {},
+                departmentlist: {},
+                positionlist: {},
+                ranklist: {},
+                citylist: {},
+                aaa: {}
+              }
+            },
+            methods: {
+              createbtn: function () {
 
-                        axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
-                        ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
-                        //window.location = "HR_EmpProfileEdit.html";
+                axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
+                ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
+                //window.location = "HR_EmpProfileEdit.html";
 
-                    },
-                    searchbtn: function () {
-                        axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
-                            .then(response => this.employeelist = response.data)
-                            .catch(console.log(error))
+              },
+              searchbtn: function () {
+                axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
+                  .then(response => this.employeelist = response.data)
+                  .catch(console.log(error))
 
-                        axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
-                            .then(response => this.employeelist = response.data)
-                            .catch(alert => alert('查無此項'))
+                axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
+                  .then(response => this.employeelist = response.data)
+                  .catch(alert => alert('查無此項'))
 
 
-                        //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
-                        //    .then(response => this.employeelist = response.data)
-                        //    .catch(error => alert('查無此項'))
+                //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
+                //    .then(response => this.employeelist = response.data)
+                //    .catch(error => alert('查無此項'))
 
-                        //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
-                        //            .then(response => this.employeelist = response.data)
-                        //            .catch(alert('查無此項')))
-                    }
+                //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
+                //            .then(response => this.employeelist = response.data)
+                //            .catch(alert('查無此項')))
+              }
 
-                },
-                mounted() {
-                    axios.get('/api/PersonnelProfileDetails/uid/9')
-                        .then(response => this.employeelist = response.data),
-                        axios.get('/api/PersonnelDepartmentLists')
-                            .then(response => this.departmentlist = response.data),
-                        axios.get('/api/PersonnelPositions')
-                            .then(response => this.positionlist = response.data)
-                    axios.get('/api/PersonnelRanks')
-                        .then(response => this.ranklist = response.data)
-                    axios.get('/api/PersonnelCityLists')
-                        .then(response => this.citylist = response.data)
+            },
+            mounted() {
+              axios.get('/api/PersonnelProfileDetails/uid/9')
+                .then(response => this.employeelist = response.data),
+                axios.get('/api/PersonnelDepartmentLists')
+                  .then(response => this.departmentlist = response.data),
+                axios.get('/api/PersonnelPositions')
+                  .then(response => this.positionlist = response.data)
+              axios.get('/api/PersonnelRanks')
+                .then(response => this.ranklist = response.data)
+              axios.get('/api/PersonnelCityLists')
+                .then(response => this.citylist = response.data)
 
-                }
             }
+          }
 
-            Vue.createApp(app).mount('#app')
+          Vue.createApp(app).mount('#app')
         </script>
-</body>
+    <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
+  </body>
 </html>
