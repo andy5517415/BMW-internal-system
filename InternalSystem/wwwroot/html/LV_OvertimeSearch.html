@@ -602,7 +602,9 @@
                 return {
                     employeelist: {},
                     workoverlist: { /*"auditStatus": false */ },//預設FALSE送出
-                    totaltime: {}
+                    totaltime: {},
+                    employeedata: {}
+
                 }
             },
             methods: {
@@ -633,12 +635,12 @@
                 }
             },
             mounted() {
-                axios.get('https://localhost:44319/api/PersonnelProfileDetails/1')
+
+                this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata)
                     .then(response => this.employeelist = response.data)
 
-                //等SESSION完開始改用此
-                //axios.get('https://localhost:44319/api/PersonnelProfileDetails/'+this.employeeId)
-                //    .then(response => this.employeelist = response.data)
+               
             }
         }
 

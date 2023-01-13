@@ -601,12 +601,17 @@
             data() {
                 return {
                     leavesearch: {},
-                    leavelist: {}
+                    leavelist: {},
+                    employeedata: {}
+
                 }
             },
             methods: {
                 searchbtn: function () {
-                    axios.get('/api/PersonnelLeaveForms/employee/12/' + this.leavesearch.month)
+
+                    this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+
+                    axios.get('/api/PersonnelLeaveForms/employee/' + this.employeedata + '/' + this.leavesearch.month)
                         .then(response => this.leavelist = response.data)
                         .catch(err => console.log(err))
 
