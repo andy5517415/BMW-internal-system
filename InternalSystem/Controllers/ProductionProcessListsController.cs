@@ -21,6 +21,24 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        //
+        // GET: api/ProductionProcessLists/ordercheak
+        [HttpGet("orderlist")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderList()
+        {
+            var orderList = from BO in this._context.BusinessOrders
+                            select new
+                              {
+                                IsAccepted = BO.IsAccepted
+                              };
+
+
+
+
+            return await orderList.ToListAsync();
+        }
+
+
         //確認訂單內容、發送到製程
         // GET: api/ProductionProcessLists/ordercheak
         [HttpGet("ordercheak")]
@@ -149,11 +167,11 @@ namespace InternalSystem.Controllers
 
 
         //GET: api/ProductionProcessLists
-       //[HttpGet]
-       // public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
-       // {
-       //     return await _context.ProductionProcessLists.ToListAsync();
-       // }
+       [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
+        {
+            return await _context.ProductionProcessLists.ToListAsync();
+        }
 
         // GET: api/ProductionProcessLists/5
         [HttpGet("{id}")]

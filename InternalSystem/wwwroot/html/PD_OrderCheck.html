@@ -648,22 +648,23 @@
                                   <hr>
 
                                   <div class="mb-3 col-6">
-                                      <label for="" class="form-label-lg">生產</label>
-                                      <select id="type" class="  form-select color-dropdown " disabled>
-                                          <option disabled selected>A製程</option>
+                                      <label class="form-label-lg" for="processes">生產</label>
+                                      <select id="processes" class="  form-select color-dropdown " v-model="processesAreaList.processId" >
+                                          <option disabled >請選擇產線</option>
+                                          <option v-for="pro in processes" :value="pro.processId">{{pro.processName}}</option>
                                       </select>
                                   </div>
 
                                   <div class="mb-3 col-6">
-                                      <label for="" class="form-label-lg">廠區</label>
-                                      <select id="type" class="  form-select color-dropdown " v-model="processesAreaList" >
-                                          <option disabled selected>請選擇產區</option>
+                                      <label class="form-label-lg" for="Areas">廠區</label>
+                                      <select id="Areas" class="  form-select color-dropdown " v-model="processesAreaList.areaId" >
+                                          <option disabled >請選擇產區</option>
                                           <option v-for="Area in Areas" :value="Area.areaId">{{Area.areaName}}</option>
 
                                       </select>
                                   </div>
 
-                                  <button id="btncreate" class="btn btn-outline-primary d-block">送出</button>
+                                  <button id="btncreate" v-on:click="Enter()" class="btn btn-outline-primary d-block">送出</button>
 
 
                               </div>
@@ -726,6 +727,61 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
+<<<<<<< HEAD
+        var app = new Vue({
+            el: "#app",
+            data: {
+                item: {},
+                carName: {},
+                carcolor: {},
+                cartexture: {},
+                carwheel: {},
+                carplaque: {},
+                carlight: {},
+                carsaddle: {},
+                carsunroof: {},
+                carmedia: {},
+                processes: {},
+                Areas: {},
+                processesAreaList: {},
+                BSO: { isAccepted:1}
+
+            },
+            mounted: function (e) {
+                this.item = JSON.parse(sessionStorage.getItem("order"))
+                this.processesAreaList.orderId = this.item.orderId
+
+                //日期格式
+                let today = new Date()
+                let yyyy = today.getFullYear()
+                let mm = today.getMonth() + 1
+                let dd = today.getDate()
+                if (mm < 10) {
+                    mm = "0"+mm.toString()
+                }
+                if (dd < 10) {
+                    dd = "0" + dd.toString()
+                }
+
+                this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
+                this.processesAreaList.statusId = 2
+                $.ajax({
+                    type: "get",
+                    url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
+                    success: function (e) {
+                        app.carName = e[0]
+                        app.carcolor = e[1]
+                        app.cartexture = e[2]
+                        app.carwheel = e[3]
+                        app.carplaque = e[4]
+                        app.carlight = e[5]
+                        app.carsaddle = e[6]
+                        app.carsunroof = e[7]
+                        app.carmedia = e[8]
+
+                    }
+                })
+=======
       var app = new Vue({
         el: "#app",
         data: {
@@ -763,8 +819,88 @@
               app.carmedia = e[8]
 
             }
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
+
+                $.ajax({
+                    type: "get",
+                    url: "https://localhost:44319/api/BusinessOrders/" + this.item.orderId,
+                    success: function (f) {
+                        app.BSO = f
+                        app.BSO.isAccepted = true  
+
+<<<<<<< HEAD
+                    }
+                })
+            },
+            computed: {
+                carmoney() {
+                    return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
+                        parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
+                        parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
+                        parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
+                        parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
+                        parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
+                        parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
+                        parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
+                        parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10) ;
+              }
+            },
+            methods: {
+                Enter: () => {
+
+                        $.ajax({
+                            type: "post",
+                            url: "https://localhost:44319/api/ProductionProcessLists",
+                            contentType: "application/json",
+                            data: JSON.stringify(app.processesAreaList),
+                            success: function () {
+                                console.log(JSON.stringify(app.processesAreaList))
+                                alert('製程ok');
+                                window.location = "PD_ToDoItems.html"
+                            
+                            },
+                            error: function () {
+                                console.log(JSON.stringify(app.processesAreaList))
+                                alert('製程失敗')
+                            }
+
+                        })
+                    
+
+                   
+                    
+                        $.ajax({
+                            type: "put",
+                            url: "https://localhost:44319/api/BusinessOrders/" + app.item.orderId,
+                            contentType: "application/json",
+                            data: JSON.stringify(app.BSO),
+                            success: function () {
+                                console.log(JSON.stringify(app.BSO))
+                                alert('訂單ok');
+                            },
+                            error: function () {
+                                console.log(JSON.stringify(app.BSO))
+                                alert('訂單失敗')
+                            }
+                        })
 
 
+                    
+                 }
+            }
+        })
+
+        
+        // 製程單
+        $.ajax({
+            type: "get",
+            url: "https://localhost:44319/api/ProductionProcesses",
+            success: function (e) {
+                app.processes = e
+                //console.log(e)
+            }
+        })
+=======
           })
         },
         computed: {
@@ -791,6 +927,7 @@
           //console.log(e)
         }
       })
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
 
       // 廠區單
       $.ajax({
@@ -802,8 +939,13 @@
         }
       })
 
+<<<<<<< HEAD
+        
+
+=======
       //
       console.log(app.processes)
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
     </script>
 
       <!-- session -->
