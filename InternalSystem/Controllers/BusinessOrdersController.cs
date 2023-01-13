@@ -91,6 +91,9 @@ namespace InternalSystem.Controllers
         }
 
 
+
+
+
         //自己改的
         // PUT: api/BusinessOrders/putorder/35
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -168,11 +171,6 @@ namespace InternalSystem.Controllers
 
 
 
-
-
-
-
-
         // POST: api/BusinessOrders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -183,10 +181,6 @@ namespace InternalSystem.Controllers
 
             return CreatedAtAction("GetBusinessOrder", new { id = businessOrder.OrderId }, businessOrder);
         }
-
-
-
-
 
 
 
