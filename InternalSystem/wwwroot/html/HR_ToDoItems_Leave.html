@@ -423,7 +423,7 @@
         
               <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                <!-- 問好 -->
-                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                <div  class="navbar-nav align-items-center fs-4 mx-auto">
                   😊您好
                 <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
                 📋工號：
@@ -439,7 +439,7 @@
                   <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                       <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                       </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -448,7 +448,7 @@
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                               <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
                               </div>
                             </div>
                             <div class="flex-grow-1">
@@ -506,7 +506,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xxl flex-grow-1 container-p-y" id="app">
                 <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料審核</h4>
                 
     
@@ -515,31 +515,40 @@
                         
                         <div class="row py-3 ">
                             <div class="mb-3 col-md-2">
-                                <label for="EmployeeName" class="form-label fs-4">員工名稱</label> <input class="form-control"  value="" id="Employeename" disabled/>
-                           </div>
-                          <div class="mb-3 col-md-2">
-                            <label for="Employeeid" class="form-label fs-4">員工編號</label><input class="form-control"  value="" id="Employeenameid" disabled/>
-                        </div>
-                        <div class="mb-3 col-md-2">
-                          <label for="type" class="form-label fs-4">請假類別</label><input class="form-control"  value="" id="type" disabled/>
-                      </div>
-                        
-                       
-                            
+                                <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
+                                <input class="form-control" v-model="leaveproxy.employeeName" id="Employeename" disabled />
+                            </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="Employeeid" class="form-label fs-4">員工編號</label>
+                                <input class="form-control" v-model="leaveproxy.employeeNumber" id="Employeenameid" disabled />
+                            </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="type" class="form-label fs-4">請假類別</label>
+                                <input class="form-control" v-model="leaveproxy.leaveType" id="type" disabled />
+                            </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="type" class="form-label fs-4">代理人</label>
+                                <input class="form-control" v-model="proxyname.employeeName" id="type" disabled />
+                            </div>
+
+
+
                         </div>
                         <div class="row">
-                          <div class="mb-3 col-md-3">
-                        
-                            <label for="Starttimeforvacation" class="form-label fs-4">請假開始時間</label>
-                            <input class="form-control" value="" id="Starttimeforvacation" disabled />
-                        
-                          </div>
-                          <div class="mb-3 col-md-3">
-                        
-                            <label for="Endtimeforvacation" class="form-label fs-4">請假結束時間</label>
-                            <input class="form-control" value="" id="Endtimeforvacation" disabled />
-                        
-                          </div>
+                            <div class="mb-3 col-md-3">
+
+                                <label for="Starttimeforvacation" class="form-label fs-4" >請假開始時間</label>
+                                <input class="form-control" v-model="leaveproxy.startDate" id="StartDate" disabled />
+                                <input class="form-control" v-model="leaveproxy.startTime" id="StartTime" disabled />
+
+                            </div>
+                            <div class="mb-3 col-md-3">
+
+                                <label for="Endtimeforvacation" class="form-label fs-4">請假結束時間</label>
+                                <input class="form-control"  v-model="leaveproxy.endDate"  id="EndDate" disabled />
+                                <input class="form-control" v-model="leaveproxy.endTime" id="EndTime" disabled />
+
+                            </div>
                         
                           <div class="mb-3 col-md-3">
                             <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
@@ -548,8 +557,8 @@
                         </div>
                         <!-- 按鈕 -->
                         <div class="mt-2 d-md-flex justify-content-md-end">
-                          <button type="submit" class="btn btn-outline-primary me-2 ">同意</button>
-                          <button type="reset" class="btn btn-outline-secondary">退回</button>
+                          <button type="button" class="btn btn-outline-primary me-2" @click="okbtn">同意</button>
+                          <button type="button" class="btn btn-outline-secondary" @click="nobtn">不同意</button>
                         </div>
                     </div> 
                     </form>
@@ -645,5 +654,44 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
+
+
+        <!--Vue-->
+        <script>
+            const app = {
+                data() {
+                    return {
+                        leaveproxy: {},
+                        proxyname: {},
+                        total: {}
+                    }
+                },
+                methods: {
+
+                    okbtn: function () {
+                        this.leaveproxy.statusId = 2;
+                        //console.log(this.leaveproxy.statusId)   //ok
+                        if (confirm('請確認是否同意') == true) { 
+                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                .then('已送出同意')
+                        }
+
+                    }
+                },
+                mounted() {
+                    this.leaveproxy = JSON.parse(sessionStorage.getItem("proxy"));
+                    console.log(this.leaveproxy)
+                   
+                    axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.proxy)
+                        .then(response => {
+                            this.proxyname = response.data;
+                            console.log(this.proxyname)
+                        })
+                  
+                }
+            }
+
+            Vue.createApp(app).mount('#app')
+        </script>
   </body>
 </html>

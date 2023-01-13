@@ -503,262 +503,319 @@
         <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
+        <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y"  id="app">
+            <div class="container-xxl flex-grow-1 container-p-y" id="app">
                 <h4 class="fw-bold py-3 mb-4EK"><span class="text-muted fw-light">個人資料 /</span> 待辦事項</h4>
                 <div class="card mb-4 m-4 card-body">
-                  <div class="container-xxl flex-grow-1 container-p-y">
-         
-                    <div class="row">
-                      <div class="col-xl-12">
-                        <h6 class="text-muted">類別</h6>
-                        <div id="role" class="nav-align-top mb-4">
-                          <!-- ★設權限 -->
-                          <ul class="nav nav-tabs" role="tablist">
-                            <li v-if="normal" class="nav-item">
-                              <button
-                                type="button"
-                                class="nav-link active"
-                                role="tab"
-                                data-bs-toggle="tab"
-                                data-bs-target="#navs-top-home"
-                                aria-controls="navs-top-home"
-                                aria-selected="true"
-                              >
-                                請假
-                              </button>
-                            </li>
-                            <li v-if="normal" class="nav-item">
-                                <button type="button"
-                                        class="nav-link"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-profile"
-                                        aria-controls="navs-top-profile"
-                                        aria-selected="false">
-                                    加班
-                                </button>
-                            </li>
-                            <li v-if="premier"  class="nav-item">
-                                <button type="button"
-                                        class="nav-link"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#leave-check"
-                                        aria-controls="leave-check"
-                                        aria-selected="false">
-                                    請假審核
-                                </button>
-                            <li v-if="premier" class="nav-item">
-                                <button type="button"
-                                        class="nav-link"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#overtime-check"
-                                        aria-controls="overtime-check"
-                                        aria-selected="false">
-                                    加班審核
-                                </button>
-                            </li>
-                           
-                          </ul>
-  
-  
-                          <div class="tab-content">
-                            <!-- 請假 -->
-                            <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-                              <tbody class="table-border-bottom-0">
-                                <div class="table-responsive text-nowrap">
-                                  <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th>待修正項目</th>
-                                        <th>員工編號</th>
-                                        <th>請假起始時間</th>
-                                        <th>請假結束時間</th>
-                                        <th>狀態</th>
-                                        <th>修改</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody class="table-border-bottom-0">
-                                      <tr>
-                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                        <td>20241083</td>
-                                        <td>
-                                          <span class="label-primary me-1">121212</span>
-                                        </td>
-                                        <td>
-                                          <span class="label-primary me-1">121212</span>
-                                        </td>
-                                        <td>
-                                          <span class="label-primary me-1">退件</span>
-                
-                                        </td>
-                                        <td>
-                                         
-                                            <div class="dropdown">
-                                             
-                                                <div class="">
-                                                  <a class="dropdown-item" href="HR_ToDoItems_Work.html"
-                                                    ><i class="bx bx-edit-alt me-2"></i> Edit</a
-                                                  >
-                                             
-                                                </div>
-                                              </div>
-                                        </td>
-                                      </tr>
-                                     
-                                    </table>
-                                  </tbody>
+                    <div class="container-xxl flex-grow-1 container-p-y">
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <h6 class="text-muted">類別</h6>
+                                <div class="nav-align-top mb-4">
+                                    <!-- ★設權限 -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <button type="button"
+                                                    class="nav-link active"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-top-home"
+                                                    aria-controls="navs-top-home"
+                                                    aria-selected="true">
+                                                請假
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-top-profile"
+                                                    aria-controls="navs-top-profile"
+                                                    aria-selected="false">
+                                                加班
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" v-if="employeelist.positionId==7">
+                                            <button type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#leave-check"
+                                                    aria-controls="leave-check"
+                                                    aria-selected="false">
+                                                請假審核
+                                            </button>
+                                        </li>
+
+                                        <li class="nav-item" v-if="employeelist.positionId==7">
+                                            <button type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#overtime-check"
+                                                    aria-controls="overtime-check"
+                                                    aria-selected="false">
+                                                加班審核
+                                            </button>
+                                        </li>
+
+                                        <li class="nav-item" v-if="employeelist.positionId<7">
+                                            <button type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#proxy"
+                                                    aria-controls="proxy"
+                                                    aria-selected="false">
+                                                請假代理
+                                            </button>
+                                        </li>
+                                    </ul>
+
+
+                                    <div class="tab-content">
+                                        <!-- 請假 -->
+                                        <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                                            <tbody class="table-border-bottom-0">
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>待修正項目</th>
+                                                                <th>員工編號</th>
+                                                                <th>請假起始時間</th>
+                                                                <th>請假結束時間</th>
+                                                                <th>狀態</th>
+                                                                <th>修改</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="table-border-bottom-0">
+                                                            <tr>
+                                                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
+                                                                <td>20241083</td>
+                                                                <td>
+                                                                    <span class="label-primary me-1">121212</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="label-primary me-1">5566</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="label-primary me-1">退件</span>
+
+                                                                </td>
+                                                                <td>
+
+                                                                    <div class="dropdown">
+
+                                                                        <div class="">
+                                                                            <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+
+                                                    </table>
+                                            </tbody>
+                                        </div>
+
+                                    </div>
+                                    <!--加班 -->
+                                    <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
+                                        <tbody class="table-border-bottom-0">
+                                            <div class="table-responsive text-nowrap">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>待修正項目</th>
+                                                            <th>員工編號</th>
+                                                            <th>加班起始時間</th>
+                                                            <th>加班結束時間</th>
+                                                            <th>狀態</th>
+                                                            <th>修改</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-border-bottom-0">
+                                                        <tr>
+                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
+                                                            <td>20241083</td>
+                                                            <td>
+                                                                <span class="label-primary me-1">121212</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">121212</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">退件</span>
+
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="dropdown">
+
+                                                                    <div class="">
+                                                                        <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                </table>
+                                        </tbody>
+                                    </div>
                                 </div>
-                           
+
+                                <!--請假審核-->
+                                <div class="tab-pane fade" id="leave-check" role="tabpanel">
+                                    <tbody class="table-border-bottom-0">
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>待修正項目</th>
+                                                        <th>員工編號</th>
+                                                        <th>請假起始時間</th>
+                                                        <th>請假結束時間</th>
+                                                        <th>狀態</th>
+                                                        <th>修改</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    <tr>
+                                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
+                                                        <td>20241083</td>
+                                                        <td>
+                                                            <span class="label-primary me-1">121212</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="label-primary me-1">****</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="label-primary me-1">申請</span>
+
+                                                        </td>
+                                                        <td>
+
+                                                            <div class="dropdown">
+
+                                                                <div class="">
+                                                                    <a class="dropdown-item" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                            </table>
+                                    </tbody>
+                                </div>
                             </div>
-                          <!--加班 -->
-                          <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-                             <tbody class="table-border-bottom-0">
-                              <div class="table-responsive text-nowrap">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th>待修正項目</th>
-                                      <th>員工編號</th>
-                                      <th>加班起始時間</th>
-                                      <th>加班結束時間</th>
-                                      <th>狀態</th>
-                                      <th>修改</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-border-bottom-0">
-                                    <tr>
-                                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                      <td>20241083</td>
-                                      <td>
-                                        <span class="label-primary me-1">121212</span>
-                                      </td>
-                                      <td>
-                                        <span class="label-primary me-1">121212</span>
-                                      </td>
-                                      <td>
-                                        <span class="label-primary me-1">退件</span>
-              
-                                      </td>
-                                      <td>
-                                       
-                                          <div class="dropdown">
-                                           
-                                              <div class="">
-                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html"
-                                                  ><i class="bx bx-edit-alt me-2"></i> Edit</a
-                                                >
-                                           
-                                              </div>
-                                            </div>
-                                      </td>
-                                    </tr>
-                                   
-                                  </table>
+
+
+                            <!--請假代理-->
+                            <div class="tab-pane fade" id="proxy" role="tabpanel">
+                                <tbody class="table-border-bottom-0">
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>待修正項目</th>
+                                                    <th>員工編號</th>
+                                                    <th>請假起始時間</th>
+                                                    <th>請假結束時間</th>
+                                                    <th>狀態</th>
+                                                    <th>修改</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0" v-for="leave in leaveproxy">
+                                                <tr>
+                                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
+                                                        <strong>{{leave.employeeName}}</strong></td>
+                                                    <td>20241083</td>
+                                                    <td>
+                                                        <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="label-primary me-1">{{leave.endDate}} - {{leave.endTime}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="label-primary me-1">{{leave.auditStatus}}</span>
+
+                                                    </td>
+                                                    <td>
+
+                                                        <div class="dropdown">
+
+                                                            <div class="">
+                                                                <a class="dropdown-item" type="button" @click="checkbtn(leave)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                        </table>
                                 </tbody>
-                          </div>
-                          </div>
-
-                          <!--請假審核-->
-                          <div class="tab-pane fade" id="leave-check" role="tabpanel">
-                            <tbody class="table-border-bottom-0">
-                              <div class="table-responsive text-nowrap">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th>待修正項目</th>
-                                      <th>員工編號</th>
-                                      <th>加班起始時間</th>
-                                      <th>加班結束時間</th>
-                                      <th>狀態</th>
-                                      <th>修改</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-border-bottom-0">
-                                    <tr>
-                                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                      <td>20241083</td>
-                                      <td>
-                                        <span class="label-primary me-1">121212</span>
-                                      </td>
-                                      <td>
-                                        <span class="label-primary me-1">121212</span>
-                                      </td>
-                                      <td>
-                                        <span class="label-primary me-1">申請</span>
-                          
-                                      </td>
-                                      <td>
-                          
-                                        <div class="dropdown">
-                          
-                                          <div class="">
-                                            <a class="dropdown-item" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                          
-                                          </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-                          
-                                </table>
-                            </tbody>
-                          </div>
-                          </div>
-
-                          <!--加班審核-->
-                          <div class="tab-pane fade" id="overtime-check" role="tabpanel">
-                            <tbody class="table-border-bottom-0">
-                              <div class="table-responsive text-nowrap">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th>待修正項目</th>
-                                      <th>員工編號</th>
-                                      <th>加班起始時間</th>
-                                      <th>加班結束時間</th>
-                                      <th>狀態</th>
-                                      <th>修改</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-border-bottom-0">
-                                    <tr>
-                                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                      <td>20241083</td>
-                                      <td>
-                                        <span class="label-primary me-1">121212</span>
-                                      </td>
-                                      <td>
-                                        <span class="label-primary me-1">121212</span>
-                                      </td>
-                                      <td>
-                                        <span class="label-primary me-1">申請</span>
-                          
-                                      </td>
-                                      <td>
-                                        <div class="dropdown">
-                          
-                                          <div class="">
-                                            <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                          
-                                          </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-                          
-                                </table>
-                            </tbody>
-                          </div>
-                          </div>
-  
+                            </div>
                         </div>
+                            
+
+                            <!--加班審核-->
+                            <div class="tab-pane fade" id="overtime-check" role="tabpanel">
+                                <tbody class="table-border-bottom-0">
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>待修正項目</th>
+                                                    <th>員工編號</th>
+                                                    <th>加班起始時間</th>
+                                                    <th>加班結束時間</th>
+                                                    <th>狀態</th>
+                                                    <th>修改</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                                <tr>
+                                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
+                                                    <td>20241083</td>
+                                                    <td>
+                                                        <span class="label-primary me-1">121212</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="label-primary me-1">122</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="label-primary me-1">申請</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="dropdown">
+
+                                                            <div class="">
+                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                        </table>
+                                </tbody>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
             <!-- Content wrapper -->
-            
-          </div>
+
+        </div>
           <!-- / Layout page -->
         </div>
   
@@ -810,16 +867,49 @@
 
         <!--Vue-->
         <script>
-          var login = new Vue({
-            el: '#role',
-            data: {
-              normal: true,
-              premier: true,
-            },
-            methods: {
+          //var login = new Vue({
+          //  el: '#role',
+          //  data: {
+          //    normal: true,
+          //    premier: true,
+          //  },
+          //  methods: {
 
+          //  }
+          //})
+            const app = {
+                data() {
+                    return {
+                        employeelist: {},
+                        employeedata: {},
+                        dep: {},
+                        leaveproxy: {},
+                        manager: {}
+                    }
+                },
+                methods: {
+                    checkbtn: function (e) {
+                        sessionStorage.setItem("proxy",JSON.stringify(e))
+                    }
+                },
+                mounted() {
+                    this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                    axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
+                        .then(response => {
+                            this.employeelist = response.data;
+                            axios.get('/api/PersonnelLeaveForms/proxyAudit/'
+                                + this.employeelist.departmentId + '/' + this.employeelist.positionId
+                                + '/' + this.employeelist.employeeId)
+                                .then(response => this.leaveproxy = response.data)
+                        })
+                   
+                                
+                }
             }
-          })
+
+            Vue.createApp(app).mount('#app')
+
+            
         </script>
       <!-- session -->
       <script src="../assets/js/LoginSession.js"></script>
