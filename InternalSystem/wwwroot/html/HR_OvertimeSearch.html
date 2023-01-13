@@ -30,7 +30,6 @@
     <meta name="description" content="" />
     <!-- vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 
     <!-- axios -->
     <script crossorigin="anonymous"
@@ -418,19 +417,14 @@
         <div class="layout-page">
           <!-- Navbar -->
         
-          <nav class="container" id="navInf">
+          <nav class="container">
             <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
               id="layout-navbar">
         
               <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-               <!-- 問好 -->
-                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
-                  😊您好
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Name}}</span>&nbsp;&nbsp;
-                📋工號：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{EmpNumber}}</span>&nbsp;&nbsp;
-                💻部門：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Dep}}</span>
+                <!-- 問好 -->
+                <div class="navbar-nav align-items-center fs-4">
+                  😊您好，王鴻杰!
                 </div>
                 <!-- /問好 -->
         
@@ -508,27 +502,27 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料審核</h4>
+                <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
               <!-- 加班資料查詢/修改 -->
                 <div class="card m-4 card-body">
                     <form id="formAccountSettings"  method="POST" onsubmit="return false">
                     <div class="row py-3 ">
                      
                         <div class="mb-3 col-md-2">
-                          <label for="EmployeeName" class="form-label-lg">員工名稱</label> <input class="form-control"  value="" id="Employeename" v-model=""/>
+                          <label for="EmployeeName" class="form-label-lg">員工名稱</label> 
+                            <input class="form-control"   id="Employeename" v-model="employeelist.name" />
                          </div>
                         <div class="mb-3 col-md-2">
                             <label for="department" class="form-label-lg">部門</label>
-                            <select id="department" class="select2 form-select" v-model="">
+                            <select id="department" class="select2 form-select" v-model="employeelist.depId">
                               <option value="">選擇部門</option>
-                              <option value="produce">生產部</option>
-                              <option value="sales">業務部</option>
-                              <option value="personnel">人資部</option>
+                              <option v-for="item in departmentlist":value="item.departmentId">{{item.depName}}</option>
+                      
                             </select>
                           </div>
                           <div class="mb-3 col-md-2">
                             <label for="html5-month-input" class="form-label-lg">加班月份</label>
-                              <input class="form-control" type="month" value="2021-06" id="html5-month-input" v-model=""/>
+                              <input class="form-control" type="month" id="html5-month-input" v-model="employeelist.month"/>
                           </div>
                           <div class="mt-2  d-md-flex justify-content-md-end">
                             <button type="button" v-on:click="search" class="btn btn-outline-primary me-2 ">查詢</button>
@@ -552,20 +546,21 @@
                         <th>修改</th>
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0">
+                    <tbody class="table-border-bottom-0" v-for="item in overtimelist">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>員工名稱</strong></td>
-                        <td>20241083</td>
+                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>{{item.employeeName}}</strong></td>
+                        <td>{{item.employeeNumber}}</td>
                         <td>
-                          <span class="label-primary">121212</span>
+                            <span class="label-primary">{{item.startDate}} - {{item.startTime}}</span>
                         </td>
                         <td>
-                          <span class="label-primary">121212</span>
+                            <span class="label-primary">{{item.endDate}} - {{item.endTime}}</span>
                         </td>
+
                         <td>
                               
-                              <a class="item" href="人事管理_加班資料修改.html"
-                              v-on:click="edit"
+                              <a class="item" href="HR_OvertimeEdit.html"
+                              v-on:click="overedit(item)"
                                 ><i class="bx bx-edit-alt me-1"></i> 修改</a
                               >
                               <!-- <a class="item" href="javascript:void(0);"
@@ -622,9 +617,37 @@
     <!-- Vue -->
     <script>
 
+        const app = {
+            data() {
+                return {
+                    employeelist: {},
+                    overtimelist: {},
+                    departmentlist: {}
+                }
+            },
+            methods: {
+                search: function () {
+                    alert('ok')
+                    axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
+                        .then(response => this.overtimelist = response.data).catch(err => console.log(err))
+                    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
+                        .then(response => this.overtimelist = response.data).catch(err => console.log(err))
+                },
+                overedit: function (e) {
+                    sessionStorage.setItem("overdata", JSON.stringify(e))
+                }
+            },
+            mounted() {
+
+                axios.get('/api/PersonnelDepartmentLists')
+                    .then(response => this.departmentlist = response.data)
+
+            }
+
+        }
+
+        Vue.createApp(app).mount('#app')
 
     </script>
-      <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>

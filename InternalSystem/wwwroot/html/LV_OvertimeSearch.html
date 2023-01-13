@@ -26,11 +26,10 @@
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
-
     <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
     <!-- axios -->
     <script crossorigin="anonymous"
             integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
@@ -415,21 +414,16 @@
             <div class="layout-page">
                 <!-- Navbar -->
 
-                <nav class="container" id="navInf">
+                <nav class="container">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
-                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
-                  😊您好
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Name}}</span>&nbsp;&nbsp;
-                📋工號：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{EmpNumber}}</span>&nbsp;&nbsp;
-                💻部門：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Dep}}</span>
-                </div>
-                <!-- /問好 -->
+                            <div class="navbar-nav align-items-center fs-4">
+                                😊您好，王鴻杰!
+                            </div>
+                            <!-- /問好 -->
 
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -504,7 +498,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                        <h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
+                        <<h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
 
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
@@ -635,7 +629,7 @@
                         axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
                             .then(a => alert('申請已送出'))
                             .catch(err => console.log(err))
-                        window.location = "/html/LV_OvertimeSearch.html"
+                        //window.location = "/html/LV_OvertimeSearch.html"
                         //})
                     }
                 }
@@ -651,8 +645,9 @@
         }
 
         Vue.createApp(app).mount('#app')
+
+
+
     </script>
-      <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
-  </body>
+</body>
 </html>

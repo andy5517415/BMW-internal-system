@@ -21,13 +21,13 @@ namespace InternalSystem.Controllers
         }
 
         // GET: api/PersonnelOvertimeForms
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PersonnelOvertimeForm>>> GetPersonnelOvertimeForms()
-        {
-            return await _context.PersonnelOvertimeForms.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<PersonnelOvertimeForm>>> GetPersonnelOvertimeForms()
+        //{
+        //    return await _context.PersonnelOvertimeForms.ToListAsync();
+        //}
 
-        // GET: api/PersonnelOvertimeForms/5/mm
+        // GET: api/PersonnelOvertimeForms/5/mm  個人加班搜尋(use session)
         [HttpGet("{id}/{y}-{m}")]
         public async Task<ActionResult<dynamic>> GetPersonnelOvertime(int id,int y,int m)
         {
@@ -56,6 +56,71 @@ namespace InternalSystem.Controllers
             return await personnelOvertimeForm.ToListAsync();
         }
 
+
+        //用人名尋找加班資料
+        // GET: api/PersonnelOvertimeForms/
+        [HttpGet("Overtime/{name}/{y}-{m}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelOvertime(string name, int y, int m)
+        {
+
+            var personnelOvertimeForm = from ov in _context.PersonnelOvertimeForms
+                                        join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
+                                        join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                                        where p.EmployeeName == name && ov.StartDate.Year == y && ov.StartDate.Month == m
+                                        select new
+                                        {
+
+                                            ov.StartWorkeId,
+                                            ov.EmployeeId,
+                                            EmployeeName = p.EmployeeName,
+                                            EmployeeNumber = p.EmployeeNumber,
+                                            DepName = d.DepName,
+                                            StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                                            ov.StartTime,
+                                            EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                                            ov.EndTime,
+                                            ov.AuditStatus
+                                        };
+            if (personnelOvertimeForm == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelOvertimeForm.ToListAsync();
+        }
+
+
+
+        //用部門尋找加班資料
+        // GET: api/PersonnelOvertimeForms 
+        [HttpGet("DepOvertime/{dep}/{y}-{m}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelDepOvertime(int dep, int y, int m)
+        {
+
+            var overlist = from ov in _context.PersonnelOvertimeForms
+                       join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
+                       join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                       where p.DepartmentId == dep && ov.StartDate.Year == y && ov.StartDate.Month == m
+                       select new
+                       {
+                           ov.StartWorkeId,
+                           ov.EmployeeId,
+                           EmployeeName = p.EmployeeName,
+                           EmployeeNumber = p.EmployeeNumber,
+                           DepName = d.DepName,
+                           StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                           ov.StartTime,
+                           EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                           ov.EndTime,
+                           ov.AuditStatus
+                       };
+            if (overlist == null)
+            {
+                return NotFound();
+            }
+
+            return await overlist.ToListAsync();
+        }
 
         // GET: api/PersonnelOvertimeForms/5
         [HttpGet("{id}")]
