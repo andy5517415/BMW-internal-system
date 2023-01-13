@@ -412,16 +412,21 @@
         <div class="layout-page">
             <!-- Navbar -->
         
-            <nav class="container">
+            <nav class="container" id="navInf">
                 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                     id="layout-navbar">
         
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <!-- 問好 -->
-                        <div class="navbar-nav align-items-center fs-4">
-                            😊您好，王鴻杰!
-                        </div>
-                        <!-- /問好 -->
+                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                  😊您好
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Name}}</span>&nbsp;&nbsp;
+                📋工號：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{EmpNumber}}</span>&nbsp;&nbsp;
+                💻部門：
+                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{Dep}}</span>
+                </div>
+                <!-- /問好 -->
         
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
         
@@ -1039,12 +1044,12 @@
                                 var areaid = g.data[0].areaId;
                                 console.log(areaid);
                                 axios.get('/api/BusinessOrders/getagent/' + areaid)
-                                        .then(g => {
-                                            console.log(g.data);
-                                            this.agentone = g.data;
-                                            console.log(this.agentone);
-                                        })
-                                        .catch((error) => console.log(error));
+                                    .then(g => {
+                                        console.log(g.data);
+                                        this.agentone = g.data;
+                                        console.log(this.agentone);
+                                    })
+                                    .catch((error) => console.log(error));
 
 
 
@@ -1080,7 +1085,7 @@
                     this.orderput = {
                         "OrderId": this.orderid,
                         "OrderNumber": this.ordernum,
-                        "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0') }`,
+                        "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
                         "AreaId": this.agentone.areaId,
                         "Price": this.cnt,
                         "EmployeeId": Math.floor(Math.random() * 10) + 1,
@@ -1105,7 +1110,7 @@
                     axios.put('/api/BusinessOrders/putorder/' + this.orderid, this.orderput)
                         .then(p => {
                             console.log(p);
-                            console.log('this.orderid'+this.orderid);
+                            console.log('this.orderid' + this.orderid);
 
                             for (var n = 0; n < 9; n++) {
                                 this.orderdetailput = {
