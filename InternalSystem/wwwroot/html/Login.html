@@ -164,15 +164,32 @@
                     )   //驗證
                         .then((response) => {
                             console.log(response.data);
-
-                            if (response.data == "使用者已登入") {
-                                alert("登入成功");
-                                location.assign("index.html")
+                            var LoginInf = {
+                                State: response.data.state,
+                                EmpID: response.data.employeeId,
+                                Name: response.data.employeeName,
+                                EmpNumber: response.data.employeeNumber,
+                                DepID: response.data.departmentId,
+                                RankID: response.data.rankId,
                             }
-                            if (response.data != "使用者已登入") {    
+                            console.log(LoginInf);
+
+                            if (LoginInf.State == "使用者已登入") {
+                                alert("登入成功");
+                                //取得使用者資訊
+
+                                sessionStorage.setItem("EmpID", JSON.stringify(LoginInf.EmpID));
+                                sessionStorage.setItem("EmpNumber", JSON.stringify(LoginInf.EmpNumber));
+                                sessionStorage.setItem("Name", JSON.stringify(LoginInf.Name));
+                                sessionStorage.setItem("DepID", JSON.stringify(LoginInf.DepID));
+                                sessionStorage.setItem("RankID", JSON.stringify(LoginInf.RankID));
+
+                                location.assign("index.html")
+
+                            }
+                            else {
                                 alert("登入失敗，帳號密碼錯誤");
                             }
-
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
 
@@ -181,5 +198,26 @@
         })
     </script>
              
-        </body>
+
+             <!-- 
+                const app ={
+                    data(){
+                        return{
+                           logindata:{}
+                        }
+                    },
+                    methods:{
+                        btn:function(){}
+                    },
+                    mounted(){
+
+
+                    }
+                }
+
+                Vue.createApp(app).mount('#app')
+              -->
+            <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
+  </body>
 </html>

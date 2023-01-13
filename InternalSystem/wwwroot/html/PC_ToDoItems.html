@@ -605,10 +605,10 @@
       //業務訂單
       $.ajax({
         type: "get",
-          url: "https://localhost:44319/api/PCApplications/todoitem",
+        url: "https://localhost:44319/api/PCApplications/todoitem",
         success: function (e) {
           for (var i = 0; i < e.length; i++) {
-              if (e[i].deliveryStatus == false) {
+            if (e[i].deliveryStatus == false) {
               e[i].deliveryStatus = "待處理"
             }
           }
@@ -619,5 +619,7 @@
 
 
     </script>
+      <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>

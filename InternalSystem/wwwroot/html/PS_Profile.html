@@ -819,61 +819,63 @@
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!--Vue-->
         <script>
-            const app = {
-                data() {
-                    return {
-                        employeelist: {},
-                        departmentlist: {},
-                        positionlist: {},
-                        ranklist: {},
-                        citylist: {},
-                        aaa: {}
-                    }
-                },
-                methods: {
-                    createbtn: function () {
+          const app = {
+            data() {
+              return {
+                employeelist: {},
+                departmentlist: {},
+                positionlist: {},
+                ranklist: {},
+                citylist: {},
+                aaa: {}
+              }
+            },
+            methods: {
+              createbtn: function () {
 
-                        axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
-                        ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
-                        //window.location = "HR_EmpProfileEdit.html";
+                axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
+                ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
+                //window.location = "HR_EmpProfileEdit.html";
 
-                    },
-                    searchbtn: function () {
-                        axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
-                            .then(response => this.employeelist = response.data)
-                            .catch(console.log(error))
+              },
+              searchbtn: function () {
+                axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
+                  .then(response => this.employeelist = response.data)
+                  .catch(console.log(error))
 
-                        axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
-                            .then(response => this.employeelist = response.data)
-                            .catch(alert => alert('查無此項'))
+                axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
+                  .then(response => this.employeelist = response.data)
+                  .catch(alert => alert('查無此項'))
 
 
-                        //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
-                        //    .then(response => this.employeelist = response.data)
-                        //    .catch(error => alert('查無此項'))
+                //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
+                //    .then(response => this.employeelist = response.data)
+                //    .catch(error => alert('查無此項'))
 
-                        //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
-                        //            .then(response => this.employeelist = response.data)
-                        //            .catch(alert('查無此項')))
-                    }
+                //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
+                //            .then(response => this.employeelist = response.data)
+                //            .catch(alert('查無此項')))
+              }
 
-                },
-                mounted() {
-                    axios.get('/api/PersonnelProfileDetails/uid/9')
-                        .then(response => this.employeelist = response.data),
-                        axios.get('/api/PersonnelDepartmentLists')
-                            .then(response => this.departmentlist = response.data),
-                        axios.get('/api/PersonnelPositions')
-                            .then(response => this.positionlist = response.data)
-                    axios.get('/api/PersonnelRanks')
-                        .then(response => this.ranklist = response.data)
-                    axios.get('/api/PersonnelCityLists')
-                        .then(response => this.citylist = response.data)
+            },
+            mounted() {
+              axios.get('/api/PersonnelProfileDetails/uid/9')
+                .then(response => this.employeelist = response.data),
+                axios.get('/api/PersonnelDepartmentLists')
+                  .then(response => this.departmentlist = response.data),
+                axios.get('/api/PersonnelPositions')
+                  .then(response => this.positionlist = response.data)
+              axios.get('/api/PersonnelRanks')
+                .then(response => this.ranklist = response.data)
+              axios.get('/api/PersonnelCityLists')
+                .then(response => this.citylist = response.data)
 
-                }
             }
+          }
 
-            Vue.createApp(app).mount('#app')
+          Vue.createApp(app).mount('#app')
         </script>
-</body>
+    <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
+  </body>
 </html>
