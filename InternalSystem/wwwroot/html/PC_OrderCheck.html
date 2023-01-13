@@ -714,38 +714,23 @@
       //    }
       //}).mount('#app')
 
-<<<<<<< HEAD
-        var app = {
-            data() {
-                return {
-                    list: {},
-                    myobject: {}
-                }
-            },
-            methods: {
-
-            },
-            mounted() {
-                this.myobject = JSON.parse(sessionStorage.getItem('order'))
-                axios.get('https://localhost:44319/api/PCApplications/todoitemdetail/' + this.myobject.purchaseId)
-                    .then(response => this.list = response.data)
-            }
-=======
       var app = {
         data() {
           return {
-            list: {}
+            list: {},
+            myobject: {}
           }
         },
         methods: {
 
         },
         mounted() {
-          axios.get('https://localhost:44319/api/PCApplications/todoitem')
+          this.myobject = JSON.parse(sessionStorage.getItem('order'))
+          axios.get('https://localhost:44319/api/PCApplications/todoitemdetail/' + this.myobject.purchaseId)
             .then(response => this.list = response.data)
->>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
         }
       }
+
 
       Vue.createApp(app).mount('#app')
 

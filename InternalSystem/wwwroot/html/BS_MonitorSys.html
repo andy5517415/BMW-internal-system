@@ -70,17 +70,6 @@
 <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
-<<<<<<< HEAD
-        <div class="layout-container">
-            <!-- Menu -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
-                        <span class="app-brand-logo demo">
-                            <img src="../assets/img/BMW_logo.png" alt="我是Logo" width="50px">
-                        </span>
-                        <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
-=======
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -452,7 +441,6 @@
                       <div class="avatar avatar-online">
                         <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                       </div>
->>>>>>> 25168109be0ac8fbb8fb2e8578c84e1ccf99f9e0
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -1618,7 +1606,7 @@
             },
             computed: {
                 M4state() {
-                    return 0                       
+                    return 0
                 },
                 X7state() {
                     return 1
@@ -1651,40 +1639,40 @@
 <script>
 
 
-  $(function () {
+    $(function () {
 
 
-    // let str =
-    //   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
-    $('#btnquery').click(function () {
-      // 假設訂單有八位數字(正規表示法)
-      if ($('#orderid').val().length == 8) {
-        // $('#type').val('X7');
-        $('#btnedit').prop("disabled", false);
-        $('#btndelete').prop("disabled", false);
-      }
-      else {
-        alert('訂單編號有誤，請重新輸入!');
-        $("#orderid").focus();
-      }
-    })
+        // let str =
+        //   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
+        $('#btnquery').click(function () {
+            // 假設訂單有八位數字(正規表示法)
+            if ($('#orderid').val().length == 8) {
+                // $('#type').val('X7');
+                $('#btnedit').prop("disabled", false);
+                $('#btndelete').prop("disabled", false);
+            }
+            else {
+                alert('訂單編號有誤，請重新輸入!');
+                $("#orderid").focus();
+            }
+        })
 
 
-    $('#btnedit').click(function () {
-      // console.log('editok');
-      $(':disabled').prop("disabled", false);
-    })
+        $('#btnedit').click(function () {
+            // console.log('editok');
+            $(':disabled').prop("disabled", false);
+        })
 
 
-    $('#btndelete').click(function () {
-      // console.log('deleteok');
-      $('#deleteorderid').html('');
-      $('#deleteorderid').append(`
+        $('#btndelete').click(function () {
+            // console.log('deleteok');
+            $('#deleteorderid').html('');
+            $('#deleteorderid').append(`
       是否要刪除訂單? 編號 : ${$('#orderid').val()}
       `);
-    })
+        })
 
-  })
+    })
 </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

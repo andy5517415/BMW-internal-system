@@ -638,69 +638,60 @@
 
     <script>
 
-        var vvue = Vue.createApp({
+      var vvue = Vue.createApp({
 
-            data() {
-                return {
-                    a: ''
+        data() {
+          return {
+            a: ''
 
-                }
-            },
-            methods: {
+          }
+        },
+        methods: {
 
-            },
-            mounted() {
+        },
+        mounted() {
 
-            }
-        }).mount('#divmonitor');
+        }
+      }).mount('#divmonitor');
 
 
-<<<<<<< HEAD
+
+      $(function () {
+
+
+        // let str =
+        //   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
+        $('#btnquery').click(function () {
+          // 假設訂單有八位數字(正規表示法)
+          if ($('#orderid').val().length == 8) {
+            // $('#type').val('X7');
+            $('#btnedit').prop("disabled", false);
+            $('#btndelete').prop("disabled", false);
+          }
+          else {
+            alert('訂單編號有誤，請重新輸入!');
+            $("#orderid").focus();
+          }
+        })
+
+
+        $('#btnedit').click(function () {
+          // console.log('editok');
+          $(':disabled').prop("disabled", false);
+        })
+
+
+        $('#btndelete').click(function () {
+          // console.log('deleteok');
+          $('#deleteorderid').html('');
+          $('#deleteorderid').append(`
+          是否要刪除訂單? 編號 : ${$('#orderid').val()}
+          `);
+        })
+
+      })
     </script>
-=======
-
-
-
-<script>
-
-
-  $(function () {
-
-
-    // let str =
-    //   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
-    $('#btnquery').click(function () {
-      // 假設訂單有八位數字(正規表示法)
-      if ($('#orderid').val().length == 8) {
-        // $('#type').val('X7');
-        $('#btnedit').prop("disabled", false);
-        $('#btndelete').prop("disabled", false);
-      }
-      else {
-        alert('訂單編號有誤，請重新輸入!');
-        $("#orderid").focus();
-      }
-    })
-
-
-    $('#btnedit').click(function () {
-      // console.log('editok');
-      $(':disabled').prop("disabled", false);
-    })
-
-
-    $('#btndelete').click(function () {
-      // console.log('deleteok');
-      $('#deleteorderid').html('');
-      $('#deleteorderid').append(`
-      是否要刪除訂單? 編號 : ${$('#orderid').val()}
-      `);
-    })
-
-  })
-</script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
->>>>>>> 25168109be0ac8fbb8fb2e8578c84e1ccf99f9e0
   </body>
 </html>
