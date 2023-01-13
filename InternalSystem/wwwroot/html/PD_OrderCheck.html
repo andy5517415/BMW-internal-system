@@ -640,22 +640,23 @@
                                   <hr>
 
                                   <div class="mb-3 col-6">
-                                      <label for="" class="form-label-lg">生產</label>
-                                      <select id="type" class="  form-select color-dropdown " disabled>
-                                          <option disabled selected>A製程</option>
+                                      <label class="form-label-lg" for="processes">生產</label>
+                                      <select id="processes" class="  form-select color-dropdown " v-model="processesAreaList.processId" >
+                                          <option disabled >請選擇產線</option>
+                                          <option v-for="pro in processes" :value="pro.processId">{{pro.processName}}</option>
                                       </select>
                                   </div>
 
                                   <div class="mb-3 col-6">
-                                      <label for="" class="form-label-lg">廠區</label>
-                                      <select id="type" class="  form-select color-dropdown " v-model="processesAreaList" >
-                                          <option disabled selected>請選擇產區</option>
+                                      <label class="form-label-lg" for="Areas">廠區</label>
+                                      <select id="Areas" class="  form-select color-dropdown " v-model="processesAreaList.areaId" >
+                                          <option disabled >請選擇產區</option>
                                           <option v-for="Area in Areas" :value="Area.areaId">{{Area.areaName}}</option>
 
                                       </select>
                                   </div>
 
-                                  <button id="btncreate" class="btn btn-outline-primary d-block">送出</button>
+                                  <button id="btncreate" v-on:click="Enter()" class="btn btn-outline-primary d-block">送出</button>
 
 
                               </div>
@@ -733,13 +734,25 @@
                 carmedia: {},
                 processes: {},
                 Areas: {},
-                processesAreaList: {}
-
+                processesAreaList: {},
+                BSO: { isAccepted:1}
 
             },
             mounted: function (e) {
                 this.item = JSON.parse(sessionStorage.getItem("order"))
-
+                this.processesAreaList.orderId = this.item.orderId
+                let today = new Date()
+                let yyyy = today.getFullYear()
+                let mm = today.getMonth() + 1
+                let dd = today.getDate()
+                if (mm < 10) {
+                    mm = "0"+mm.toString()
+                }
+                if (dd < 10) {
+                    dd = "0" + dd.toString()
+                }
+                this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
+                this.processesAreaList.statusId = 2
                 $.ajax({
                     type: "get",
                     url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
@@ -755,8 +768,16 @@
                         app.carmedia = e[8]
 
                     }
+                })
 
+                $.ajax({
+                    type: "get",
+                    url: "https://localhost:44319/api/BusinessOrders/" + this.item.orderId,
+                    success: function (f) {
+                        app.BSO = f
+                        app.BSO.isAccepted = true  
 
+                    }
                 })
             },
             computed: {
@@ -771,9 +792,58 @@
                         parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
                         parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10) ;
               }
-          }
+            },
+            methods: {
+                Enter: () => {
+
+                    var a = 0;
+
+                        
+                    console.log(a);
+                        $.ajax({
+                            type: "post",
+                            url: "https://localhost:44319/api/ProductionProcessLists",
+                            contentType: "application/json",
+                            data: JSON.stringify(app.processesAreaList),
+                            success: function () {
+                                console.log(JSON.stringify(app.processesAreaList))
+                                a += 1;
+                                alert('製程ok');
+                            
+                            },
+                            error: function () {
+                                console.log(JSON.stringify(app.processesAreaList))
+                                alert('製程失敗')
+                            }
+
+                        })
+                    
+
+                   
+                    
+                        $.ajax({
+                            type: "put",
+                            url: "https://localhost:44319/api/BusinessOrders/" + app.item.orderId,
+                            contentType: "application/json",
+                            data: JSON.stringify(app.BSO),
+                            success: function () {
+                                console.log(JSON.stringify(app.BSO))
+                                a += 1;
+                                alert('訂單ok');
+                            },
+                            error: function () {
+                                console.log(JSON.stringify(app.BSO))
+                                alert('訂單失敗')
+                            }
+                        })
+
+
+                    
+                 }
+            }
         })
 
+        
         // 製程單
         $.ajax({
             type: "get",
@@ -794,8 +864,8 @@
             }
         })
 
-        //
-        console.log(app.processes)
+        
+
     </script>
 
   </body>
