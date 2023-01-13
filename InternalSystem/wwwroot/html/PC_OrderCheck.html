@@ -29,9 +29,6 @@
 
     <meta name="description" content="" />
 
-    <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -536,10 +533,11 @@
                                       <label for="typed" class="form-label-lg">申請人</label>
                                       <input type="text"
                                              class="form-control"
-                                             id="typed"
+                                             id="employeeName"
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
+                                             :value="employeeName"
                                              v-model="list.employeeName" />
                                   </div>
                                   <div class="col-md-6">
@@ -594,11 +592,11 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      <tr v-for="a in list">
+                                                      <tr v-for="a in list" >
                                                           <!-- 第一項物品 -->
                                                           <!-- 項次 -->
                                                           <td>
-                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
+                                                              <i class="fab fa-angular fa-lg text-danger me-3" ></i> <strong>{{a.purchaseId}}</strong>
                                                           </td>
                                                           <!-- 物品名稱 -->
                                                           <td>{{a.goods}}</td>
@@ -631,7 +629,7 @@
                           <!-- 總價 -->
                           <div>
                               <div class="d-flex flex-row-reverse bd-highlight">
-                                  <div class="p-2 bd-highlight">總價{{a.total}}元</div>
+                                  <div class="p-2 bd-highlight">總價：</div>
                               </div>
                               <div class="table-responsive text-nowrap"></div>
                           </div>
@@ -716,6 +714,23 @@
       //    }
       //}).mount('#app')
 
+<<<<<<< HEAD
+        var app = {
+            data() {
+                return {
+                    list: {},
+                    myobject: {}
+                }
+            },
+            methods: {
+
+            },
+            mounted() {
+                this.myobject = JSON.parse(sessionStorage.getItem('order'))
+                axios.get('https://localhost:44319/api/PCApplications/todoitemdetail/' + this.myobject.purchaseId)
+                    .then(response => this.list = response.data)
+            }
+=======
       var app = {
         data() {
           return {
@@ -728,49 +743,13 @@
         mounted() {
           axios.get('https://localhost:44319/api/PCApplications/todoitem')
             .then(response => this.list = response.data)
+>>>>>>> 8052f921bec5e4047849fffd376de571fe76f075
         }
       }
 
       Vue.createApp(app).mount('#app')
 
-        //var app = new Vue({
-      //  el: "#app",
-      //  data: {
-      //    item: {},
-      //    carName: {},
-      //    carcolor: {},
-      //    cartexture: {},
-      //    carwheel: {},
-      //    carplaque: {},
-      //    carlight: {},
-      //    carsaddle: {},
-      //    carsunroof: {},
-      //    carmedia: {}
 
-      //  },
-      //  mounted: function (e) {
-      //    this.item = JSON.parse(sessionStorage.getItem("order"))
-
-      //    $.ajax({
-      //      type: "get",
-      //      url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
-      //      success: function (e) {
-      //        app.carName = e[0]
-      //        app.carcolor = e[1]
-      //        app.cartexture = e[2]
-      //        app.carwheel = e[3]
-      //        app.carplaque = e[4]
-      //        app.carlight = e[5]
-      //        app.carsaddle = e[6]
-      //        app.carsunroof = e[7]
-      //        app.carmedia = e[8]
-
-      //      }
-
-
-      //    })
-      //  }
-      //})
 
     </script>
 

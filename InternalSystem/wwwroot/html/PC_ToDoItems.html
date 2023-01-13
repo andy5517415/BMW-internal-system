@@ -35,9 +35,6 @@
             src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
     <meta name="description" content="" />
 
-    <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -67,7 +64,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 
@@ -533,10 +530,10 @@
                   </div>
                   
                   <div id="app">
-                      <div class="card mb-4 m-4 " v-for="order in OrderList">
-                          <div class="card text-center ">
-                              <div class="row card-body">
-                                  <div class=" row">
+                      <div class="card mb-4 m-4" v-for="order in OrderList" >
+                          <div class="card text-center " >
+                              <div class="row card-body" >
+                                  <div class=" row" >
                                       <label for="" class=" col-2 fs-4 ">{{order.purchaseId}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.department}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.employeeName}}</label>

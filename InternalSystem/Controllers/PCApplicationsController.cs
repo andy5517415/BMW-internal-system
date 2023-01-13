@@ -63,34 +63,62 @@ namespace InternalSystem.Controllers
             return await i.ToListAsync();
         }
 
+        // 用於PC_ordercheck
+        // GET: api/PCApplications/todoitemdetail
+        [HttpGet("todoitemdetail/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchasetodoitem(int id)
+        {
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join PIS in this._context.PcPurchaseItemSearches on OD.ProductId equals PIS.ProductId
+                       where APS.DeliveryStatus == false && AP.PurchaseId == id
+
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Total = AP.Total,
+                           DeliveryStatus = APS.DeliveryStatus,
+                           OrderId = AP.OrderId,
+                           ProductId = OD.ProductId,
+                           Goods = OD.Goods,
+                           Quantiy = OD.Quantiy,
+                           Unit = OD.Unit,
+                           UnitPrice = OD.UnitPrice,
+                           Subtotal = OD.Subtotal
+                       };
+                  
+
+            return await List.ToListAsync();
+        }
+
+        // 代辦事項
+        // 用於 PC_ToDoItems
         // GET: api/PCApplications/todoitem
         [HttpGet("todoitem")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchasetodoitem()
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCApplicationTodoItem()
         {
-            var i = from AP in this._context.PcApplications
-                    join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
-                    join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                    join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
-                    join PIS in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PIS.ProductId
-                    join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
-                    select new
-                    {
-                        EmployeeName = PD.EmployeeName,
-                        Department = PDL.DepName,
-                        PurchaseId = AP.PurchaseId,
-                        Total = AP.Total,
-                        DeliveryStatus = APS.DeliveryStatus,
-                        OrderId = AP.OrderId,
-                        ProductId = OD.ProductId,
-                        Goods = OD.Goods,
-                        Quantiy = OD.Quantiy,
-                        Unit = OD.Unit,
-                        UnitPrice = OD.UnitPrice,
-                        Subtotal = OD.Subtotal
-                    };
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Total = AP.Total,
+                           DeliveryStatus = APS.DeliveryStatus,
+                       };
 
-            return await i.ToListAsync();
+
+            return await List.ToListAsync();
         }
+
         // GET: api/PCApplications/supplier
         [HttpGet("supplier")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetSupplierList()

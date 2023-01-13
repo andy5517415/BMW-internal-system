@@ -27,10 +27,6 @@
 
     <meta name="description" content="" />
 
-    <!-- vue -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -277,6 +273,14 @@
                         </ul>
                     </li>
 
+<<<<<<< HEAD
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+      <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
+  </body>
+=======
                     <!-- 產線系統 -->
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -554,7 +558,7 @@
                                     <div class="card mb-4 m-4 mx-4">
                                         <!-- 員工名稱 -->
                                         <div class="card-body">
-                                            <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                            <form id="formAccountSettings" method="POST" onsubmit="return false" />
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="firstName" class="form-label">員工名稱</label>
@@ -647,63 +651,57 @@
                                                                         <th>小計</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody v-for="b in product">
-                                                                    <tr>
+                                                                <tbody>
+                                                                    <template v-for="(b,index) in product">
+                                                                        <tr>
 
-                                                                        <!-- 第一項物品 -->
-                                                                        <!-- 項次 -->
-                                                                        <td>
-                                                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
-                                                                        </td>
-                                                                        <!-- 物品名稱 -->
-                                                                        <td>
-                                                                            {{b.goods}}
-                                                                        </td>
-                                                                        <!-- 物品數量 -->
-                                                                        <td>
-                                                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                                                <div class="mb-3 col-md-12">
-                                                                                    <label for="數量" class="form-label"></label>
-                                                                                    <input type="text" class="form-control" id="inputunit" placeholder="請輸入數量">
+                                                                            <!-- 第一項物品 -->
+                                                                            <!-- 項次 -->
+                                                                            <td>
+                                                                                <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
+                                                                            </td>
+                                                                            <!-- 物品名稱 -->
+                                                                            <td>
+                                                                                {{b.goods}}
+                                                                            </td>
+                                                                            <!-- 物品數量 -->
+                                                                            <td>
+                                                                                <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" :key="index1">
+                                                                                    <div class="mb-3 col-md-12">
+                                                                                        <label for="數量" class="form-label"></label>
+                                                                                        <input type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="goods">
+                                                                                    </div>
+                                                                                </ul>
+                                                                            </td>
+                                                                            <!-- 單位 -->
+                                                                            <td>
+                                                                                <span id="number" class="badge bg-label-primary me-1">{{b.unit}}</span>
+                                                                            </td>
+                                                                            <!-- 單價 -->
+                                                                            <td>
+                                                                                <div class="dropdown">
+                                                                                    <span id="Unit_price">
+                                                                                        {{b.unitPrice}}元
+                                                                                    </span>
                                                                                 </div>
-                                                                            </ul>
-                                                                        </td>
-                                                                        <!-- 單位 -->
-                                                                        <td>
-                                                                            <span id="number" class="badge bg-label-primary me-1">{{b.unit}}</span>
-                                                                        </td>
-                                                                        <!-- 單價 -->
-                                                                        <td>
-                                                                            <div class="dropdown">
-                                                                                <span id="Unit_price">{{b.unitPrice}}</span>元
-                                                                            </div>
-                                                                        </td>
-                                                                        <!-- 小計 -->
-                                                                        <td>
-                                                                            <div class="dropdown">
-                                                                                <div>
-                                                                                    <p id="total"> </p>
+                                                                            </td>
+                                                                            <!-- 小計 -->
+                                                                            <td>
+                                                                                <div class="dropdown">
+                                                                                    <div>
+                                                                                        <p id="total">{{goods*b.unitPrice}}元</p>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <!--<script>
-                                                                                    function myfunction() {
-                                                                                        var x = parseInt(document.getElementById("number").value);
-                                                                                        var y = parseInt(document.getElementById("Unit_price").innerText);
-                                                                                        var z = x * y;
-                                                                                        console.log(typeof x);
-                                                                                        console.log(y);
-                                                                                        document.getElementById("total").innerHTML = z.toString() + "元"
-                                                                                    }
-                                                                                </script>-->
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </template>                                                                 
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                         <!-- 總價 -->
                                                         <div>
                                                             <div class="d-flex flex-row-reverse bd-highlight">
-                                                                <div class="p-2 bd-highlight">總價：</div>
+                                                                <div class="p-2 bd-highlight">總價：元</div>
                                                             </div>
                                                             <div class="table-responsive text-nowrap"></div>
                                                         </div>
@@ -715,7 +713,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
                                         </div>
                                     </div>
                                 </div>
@@ -743,6 +740,12 @@
                                 item: {},
                                 product: {},
                                 supplier: {},
+                                goods: '',
+                            }
+                        },
+                        computed: {
+                            sum() {
+                                return parseInt((this.goods) * (this.product[0].unitPrice));
                             }
                         },
                         methods: {
@@ -815,7 +818,7 @@
 
                 <!-- Place this tag in your head or just before your close body tag. -->
                 <script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- session -->
-<script src="../assets/js/LoginSession.js"></script>
+
 </body>
+>>>>>>> d10ae1f273895618f76b0289ebd8810178372ee6
 </html>
