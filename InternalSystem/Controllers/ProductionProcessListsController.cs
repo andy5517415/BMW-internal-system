@@ -145,7 +145,7 @@ namespace InternalSystem.Controllers
         //訂單內容
         // GET: api/ProductionProcessLists/BusinessOrderProcessor
         [HttpGet("BusinessOrderProcessor/{id}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetBusinessOrder(int id)
+        public async Task<ActionResult<dynamic>> GetBusinessOrder(int id)
         {
             var List = from BO in this._context.BusinessOrders          
                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
@@ -161,6 +161,11 @@ namespace InternalSystem.Controllers
                            OptionalName = BOT.OptionalName,
                            Price = BOT.Price
                        };
+            if (List == null)
+            {
+                return "沒有資料";
+            }
+
 
             return await List.ToListAsync();
         }

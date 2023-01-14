@@ -27,7 +27,6 @@ namespace InternalSystem.Models
         public virtual DbSet<MeetingRoom> MeetingRooms { get; set; }
         public virtual DbSet<MonitoringProcessAreaStatus> MonitoringProcessAreaStatuses { get; set; }
         public virtual DbSet<PcApplication> PcApplications { get; set; }
-        public virtual DbSet<PcApplicationRecordSearch> PcApplicationRecordSearches { get; set; }
         public virtual DbSet<PcOrderDetail> PcOrderDetails { get; set; }
         public virtual DbSet<PcPurchaseItemSearch> PcPurchaseItemSearches { get; set; }
         public virtual DbSet<PcSupplierList> PcSupplierLists { get; set; }
@@ -296,35 +295,17 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(10);
 
-                entity.HasOne(d => d.Purchase)
-                    .WithOne(p => p.PcApplication)
-                    .HasForeignKey<PcApplication>(d => d.PurchaseId)
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.PcApplications)
+                    .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PC_Application_PC_ApplicationRecordSearch");
+                    .HasConstraintName("FK_PC_Application_PersonnelProfileDetail");
 
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.PcApplications)
                     .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PC_Application_PC_SupplierList");
-            });
-
-            modelBuilder.Entity<PcApplicationRecordSearch>(entity =>
-            {
-                entity.HasKey(e => e.PurchaseId)
-                    .HasName("PK_採購紀錄查詢");
-
-                entity.ToTable("PC_ApplicationRecordSearch");
-
-                entity.Property(e => e.PurchaseId).ValueGeneratedNever();
-
-                entity.Property(e => e.Date).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.PcApplicationRecordSearches)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PC_ApplicationRecordSearch_PersonnelProfileDetail");
             });
 
             modelBuilder.Entity<PcOrderDetail>(entity =>
