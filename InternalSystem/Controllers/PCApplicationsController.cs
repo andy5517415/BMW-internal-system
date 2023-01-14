@@ -22,27 +22,32 @@ namespace InternalSystem.Controllers
 
         //申請表
         //GET: api/PCApplications/applicationlist
-        [HttpGet("applicationlist")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetApplicationsList()
+        [HttpGet("applicationlist/{id}")]
+        public async Task<ActionResult<dynamic>> GetApplicationsList(int id)
         {
             var list = from AP in this._context.PcApplications
-                       join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
-                       //join SL in this._context.PcSupplierLists on AP.SupplierId equals SL.SupplierId
+                       join SL in this._context.PcSupplierLists on AP.SupplierId equals SL.SupplierId
                        //join PC in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PC.ProductId
-                       join PD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PD.EmployeeId
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       where PD.EmployeeId == id
                        select new
                        {
                            EmployeeId = PD.EmployeeId,
                            EmployeeName = PD.EmployeeName,
-                           DepName = PDL.DepName,
+                           OrderId = AP.OrderId,
+                           //DepName = PDL.DepName,
                            Date = AP.Date,
                            PurchaseId = AP.PurchaseId,
+                           SupplierId = SL.SupplierId,
                            Comment = AP.Comment,
-                           Total = AP.Total
+                           Total = AP.Total,
+                           ApplicationStatus = AP.ApplicationStatus,
+                           DeliveryStatus = AP.DeliveryStatus
+
                        };
 
-            return await list.ToListAsync();
+            return await list.FirstOrDefaultAsync();
         }
 
         // GET: api/PCApplications/goods
@@ -69,10 +74,9 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
                        join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
                        join PIS in this._context.PcPurchaseItemSearches on OD.ProductId equals PIS.ProductId
-                       where APS.DeliveryStatus == false && AP.PurchaseId == id
+                       where AP.DeliveryStatus == false && AP.PurchaseId == id
 
                        select new
                        {
@@ -80,7 +84,7 @@ namespace InternalSystem.Controllers
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
-                           DeliveryStatus = APS.DeliveryStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
                            OrderId = AP.OrderId,
                            ProductId = OD.ProductId,
                            Goods = OD.Goods,
@@ -103,14 +107,13 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       join APS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals APS.PurchaseId
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
-                           DeliveryStatus = APS.DeliveryStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
                        };
 
 
@@ -187,7 +190,7 @@ namespace InternalSystem.Controllers
             _context.PcApplications.Add(pcApplication);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPcApplication", new { id = pcApplication.OrderId }, pcApplication);
+            return CreatedAtAction("GetPcApplication", new { id = pcApplication.PurchaseId }, pcApplication);
         }
 
         // DELETE: api/PCApplications/5

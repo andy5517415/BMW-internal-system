@@ -859,6 +859,7 @@
                   console.log(this.employeedata)
                   axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
                       .then(response => this.employeelist = response.data);
+                  
                       axios.get('/api/PersonnelDepartmentLists')
                           .then(response => this.departmentlist = response.data);
                   axios.get('/api/PersonnelPositions')

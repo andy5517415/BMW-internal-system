@@ -11,7 +11,7 @@ namespace InternalSystem.Models
         {
             BusinessOrders = new HashSet<BusinessOrder>();
             MeetingReserves = new HashSet<MeetingReserve>();
-            PcApplicationRecordSearches = new HashSet<PcApplicationRecordSearch>();
+            PcApplications = new HashSet<PcApplication>();
             PersonnelAttendanceTimes = new HashSet<PersonnelAttendanceTime>();
             PersonnelLeaveFormEmployees = new HashSet<PersonnelLeaveForm>();
             PersonnelLeaveFormProxyNavigations = new HashSet<PersonnelLeaveForm>();
@@ -52,7 +52,7 @@ namespace InternalSystem.Models
         public virtual PersonnelRank Rank { get; set; }
         public virtual ICollection<BusinessOrder> BusinessOrders { get; set; }
         public virtual ICollection<MeetingReserve> MeetingReserves { get; set; }
-        public virtual ICollection<PcApplicationRecordSearch> PcApplicationRecordSearches { get; set; }
+        public virtual ICollection<PcApplication> PcApplications { get; set; }
         public virtual ICollection<PersonnelAttendanceTime> PersonnelAttendanceTimes { get; set; }
         public virtual ICollection<PersonnelLeaveForm> PersonnelLeaveFormEmployees { get; set; }
         public virtual ICollection<PersonnelLeaveForm> PersonnelLeaveFormProxyNavigations { get; set; }

@@ -549,162 +549,164 @@
                                     <div class="card mb-4 m-4 mx-4">
                                         <!-- 員工名稱 -->
                                         <div class="card-body">
-                                            <form id="formAccountSettings" method="POST" onsubmit="return false" />
-                                            <div class="row">
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">員工名稱</label>
-                                                    <input class="form-control"
-                                                           type="text"
-                                                           id="firstName"
-                                                           name="firstName"
-                                                           value=""
-                                                           readonly
-                                                           v-model=""
-                                                           autofocus />
-                                                </div>
-                                                <!-- 部門選擇 -->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="department" class="form-label">部門</label>
-                                                    <input class="form-control"
-                                                           type="text"
-                                                           id="department"
-                                                           name="department"
-                                                           value=""
-                                                           readonly
-                                                           autofocus />
-                                                </div>
-                                                <!-- 申請日期 -->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
-                                                    <div class="col-md-12">
-                                                        <input readonly class="form-control" type="date" value="" id="ApplicationDate" />
+                                            <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="firstName" class="form-label">員工名稱</label>
+                                                        <input class="form-control"
+                                                               type="text"
+                                                               id="firstName"
+                                                               name="firstName"
+                                                               value=""
+                                                               readonly
+                                                               v-model="item.employeeName"
+                                                               autofocus />
                                                     </div>
-                                                </div>
-                                                <!-- 採購單號 -->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="PurchaseID" class="form-label">採購單號</label>
-                                                    <input class="form-control"
-                                                           type="text"
-                                                           id="PurchaseID"
-                                                           name="PurchaseID"
-                                                           value=""
-                                                           readonly
-                                                           autofocus />
-                                                </div>
-                                                <!-- 供應商 -->
-                                                <!--<div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label for="SupplierID" class="form-label">供應商名稱</label>
-                                            <select id="SupplierID" class="select1 form-select">
-                                                <option disabled value="999">選擇供應商</option>
-                                                <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
-                                            </select>
-                                        </div>-->
-                                                <!-- 供應商聯絡人 -->
-                                                <!--<div class="mb-3 col-md-6">
-                                        <label for="SupplierContact" class="form-label">供應商聯絡人</label>
-                                        <select id="SupplierContact" class="select1 form-select">
-                                            <option disabled value="999">選擇供應商聯絡人</option>
-                                            <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
-                                        </select>
-                                    </div>-->
-                                                <!-- 供應商電話 -->
-                                                <!--<div class="mb-3 col-md-6">
-                                            <label for="SupplierPhone" class="form-label">供應商電話</label>
-                                            <select id="SupplierPhone" class="select1 form-select">
-                                                <option disabled value="999">選擇供應商電話</option>
-                                                <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
-                                            </select>
-                                        </div>
-                                    </div>-->
-                                                <!-- 備註 -->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="Comment" class="form-label">備註</label>
-                                                    <input class="form-control"
-                                                           type="text"
-                                                           id="Comment"
-                                                           name="Comment"
-                                                           value=""
-                                                           placeholder="" />
-                                                </div>
-                                                <!-- 採購清單 -->
-                                                <div class="card">
-                                                    <h5 class="card-header">採購項目</h5>
-                                                    <div class="card-body">
-                                                        <div class="table-responsive text-nowrap">
-                                                            <table class="table table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>項次</th>
-                                                                        <th>品名</th>
-                                                                        <th>數量</th>
-                                                                        <th>單位</th>
-                                                                        <th>單價</th>
-                                                                        <th>小計</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <template v-for="(b,index) in product">
+                                                    <!-- 部門選擇 -->
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="department" class="form-label">部門</label>
+                                                        <input class="form-control"
+                                                               type="text"
+                                                               id="department"
+                                                               name="department"
+                                                               value=""
+                                                               readonly
+                                                               v-model="item.depName"
+                                                               autofocus />
+                                                    </div>
+                                                    <!-- 申請日期 -->
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
+                                                        <div class="col-md-12">
+                                                            <input class="form-control" type="date" id="ApplicationDate" v-model="item.date" />
+                                                        </div>
+                                                    </div>
+                                                    <!-- 採購單號 -->
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="PurchaseID" class="form-label">採購單號</label>
+                                                        <input class="form-control"
+                                                               type="text"
+                                                               id="PurchaseID"
+                                                               name="PurchaseID"
+                                                               @change="chi(purchaseinput)"
+                                                               v-model="purchaseinput"
+                                                               autofocus />
+                                                    </div>
+                                                    <!-- 供應商 -->
+                                                    <!--<div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="SupplierID" class="form-label">供應商名稱</label>
+            <select id="SupplierID" class="select1 form-select">
+                <option disabled value="999">選擇供應商</option>
+                <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
+            </select>
+        </div>-->
+                                                    <!-- 供應商聯絡人 -->
+                                                    <!--<div class="mb-3 col-md-6">
+            <label for="SupplierContact" class="form-label">供應商聯絡人</label>
+            <select id="SupplierContact" class="select1 form-select">
+                <option disabled value="999">選擇供應商聯絡人</option>
+                <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
+            </select>
+        </div>-->
+                                                    <!-- 供應商電話 -->
+                                                    <!--<div class="mb-3 col-md-6">
+                <label for="SupplierPhone" class="form-label">供應商電話</label>
+                <select id="SupplierPhone" class="select1 form-select">
+                    <option disabled value="999">選擇供應商電話</option>
+                    <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
+                </select>
+            </div>
+        </div>-->
+                                                    <!-- 備註 -->
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="Comment" class="form-label">備註</label>
+                                                        <input class="form-control"
+                                                               type="text"
+                                                               id="Comment"
+                                                               name="Comment"
+                                                               v-model="item.comment"
+                                                               placeholder="" />
+                                                    </div>
+                                                    <!-- 採購清單 -->
+                                                    <div class="card">
+                                                        <h5 class="card-header">採購項目</h5>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive text-nowrap">
+                                                                <table class="table table-bordered">
+                                                                    <thead>
                                                                         <tr>
-
-                                                                            <!-- 第一項物品 -->
-                                                                            <!-- 項次 -->
-                                                                            <td>
-                                                                                <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
-                                                                            </td>
-                                                                            <!-- 物品名稱 -->
-                                                                            <td>
-                                                                                {{b.goods}}
-                                                                            </td>
-                                                                            <!-- 物品數量 -->
-                                                                            <td>
-                                                                                <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" :key="index1">
-                                                                                    <div class="mb-3 col-md-12">
-                                                                                        <label for="數量" class="form-label"></label>
-                                                                                        <input type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="goods">
-                                                                                    </div>
-                                                                                </ul>
-                                                                            </td>
-                                                                            <!-- 單位 -->
-                                                                            <td>
-                                                                                <span id="number" class="badge bg-label-primary me-1">{{b.unit}}</span>
-                                                                            </td>
-                                                                            <!-- 單價 -->
-                                                                            <td>
-                                                                                <div class="dropdown">
-                                                                                    <span id="Unit_price">
-                                                                                        {{b.unitPrice}}元
-                                                                                    </span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <!-- 小計 -->
-                                                                            <td>
-                                                                                <div class="dropdown">
-                                                                                    <div>
-                                                                                        <p id="total">{{goods*b.unitPrice}}元</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
+                                                                            <th>項次</th>
+                                                                            <th>品名</th>
+                                                                            <th>數量</th>
+                                                                            <th>單位</th>
+                                                                            <th>單價</th>
+                                                                            <th>小計</th>
                                                                         </tr>
-                                                                    </template>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <!-- 總價 -->
-                                                        <div>
-                                                            <div class="d-flex flex-row-reverse bd-highlight">
-                                                                <div class="p-2 bd-highlight">總價：元</div>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <template v-for="(b,index) in product">
+                                                                            <tr>
+
+                                                                                <!-- 第一項物品 -->
+                                                                                <!-- 項次 -->
+                                                                                <td>
+                                                                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
+                                                                                </td>
+                                                                                <!-- 物品名稱 -->
+                                                                                <td>
+                                                                                    {{b.goods}}
+                                                                                </td>
+                                                                                <!-- 物品數量 -->
+                                                                                <td>
+                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" :key="index1">
+                                                                                        <div class="mb-3 col-md-12">
+                                                                                            <label for="數量" class="form-label"></label>
+                                                                                            <input type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="goods">
+                                                                                        </div>
+                                                                                    </ul>
+                                                                                </td>
+                                                                                <!-- 單位 -->
+                                                                                <td>
+                                                                                    <span id="number" class="badge bg-label-primary me-1">{{b.unit}}</span>
+                                                                                </td>
+                                                                                <!-- 單價 -->
+                                                                                <td>
+                                                                                    <div class="dropdown">
+                                                                                        <span id="Unit_price">
+                                                                                            {{b.unitPrice}}元
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <!-- 小計 -->
+                                                                                <td>
+                                                                                    <div class="dropdown">
+                                                                                        <div>
+                                                                                            <p id="total">{{goods*b.unitPrice}}元</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </template>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
-                                                            <div class="table-responsive text-nowrap"></div>
-                                                        </div>
-                                                        <!-- 確認按鈕 -->
-                                                        <div class="mt-2 d-flex flex-row-reverse bd-highlight">
-                                                            <button type="reset" class="btn btn-outline-secondary ">取消</button>
-                                                            <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
+                                                            <!-- 總價 -->
+                                                            <div>
+                                                                <div class="d-flex flex-row-reverse bd-highlight">
+                                                                    <div class="p-2 bd-highlight">總價：元</div>
+                                                                </div>
+                                                                <div class="table-responsive text-nowrap"></div>
+                                                            </div>
+                                                            <!-- 確認按鈕 -->
+                                                            <div class="mt-2 d-flex flex-row-reverse bd-highlight">
+                                                                <button type="reset" class="btn btn-outline-secondary ">取消</button>
+                                                                <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -733,7 +735,8 @@
                                 product: {},
                                 supplier: {},
                                 goods: '',
-                                employeedata: {}
+                                employeedata: {},
+                                purchaseinput:'',
                             }
                         },
                         computed: {
@@ -744,42 +747,26 @@
                         methods: {
                             createbtn: function () {
                                 //單純本表新增
-                                axios.post("api/PCApplications/applicationlist",
-                                    this.item
-                                ).then(alert('資料已新建')).catch(err => alert(err))
+                                axios.post("https://localhost:44319/api/PCApplications/applicationlist", this.item)
+                                    .then(alert('資料已新建')).catch(err => alert(err))
                                 window.location = "PC_Application.html"; 
+                                console.log(this.item);
 
-                                //if (confirm('新增資料是否正確?') == true) {
-                                //    axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
-                                //        .then(po => axios.get("https://localhost:44319/api/PersonnelProfileDetails/idfind/Number/" + this.employeelist.employeeNumber))
-                                //        .then(response => {
-                                //            console.log(this.employeelist)
-                                //            console.log(response.data); // {employeeid:18}
-                                //            console.log(response.data.employeeId); // 18
-                                //            //將每一筆Leavelist.employeeId帶入get到的值
-                                //            this.Leavelist.forEach(X => {
-                                //                X.employeeId = response.data.employeeId;
-                                //                console.log(X)// {}
-                                //                axios.post("https://localhost:44319/api/PersonnelLeaveOvers", X)
-                                //            });
-                                //            alert('資料新建完成')
-                                //        })
-                                //        .catch(err => console.log(err))
-                                //}
-                                //window.location = "PC_Application.html";
+                            },
+                            chi: function (e) {
+                                this.item.purchaseId = parseInt(e);
                             }
                         },
                         mounted() {
                             this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
                             console.log(this.employeedata)
-                            axios.get('api/PCApplications/applicationlist/' + this.employeedata)
-                                .then(response => this.item = response.data)
-                            axios.get('api/PCApplications/applicationlist')
+                            axios.get('/api/PCApplications/applicationlist/' + this.employeedata)
                                 .then(response => this.item = response.data)
                             axios.get('https://localhost:44319/api/PCApplications/goods')
                                 .then(response => this.product = response.data)
                             axios.get('https://localhost:44319/api/PCApplications/supplier')
                                 .then(response => this.supplier = response.data)
+                            this.item.purchaseId = parseInt(this.purchaseinput);
                         }
                     }
 
