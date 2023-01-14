@@ -670,7 +670,7 @@
                                 </div>
 
                                 <!--請假審核-->
-                                <div class="tab-pane fade" id="leave-check" role="tabpanel">
+                                <div class="tab-pane fade" id="leave-check" role="tabpanel" v-for="leave in leaveproxy">
                                     <tbody class="table-border-bottom-0">
                                         <div class="table-responsive text-nowrap">
                                             <table class="table">
@@ -686,16 +686,17 @@
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
                                                     <tr>
-                                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                                        <td>20241083</td>
+                                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
+                                                            <strong>{{leave.employeeName}}</strong></td>
+                                                        <td>{{leave.employeeNumber}}</td>
                                                         <td>
-                                                            <span class="label-primary me-1">121212</span>
+                                                            <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="label-primary me-1">****</span>
+                                                            <span class="label-primary me-1">{{leave.endDate}} - {{leave.endTime}}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="label-primary me-1">申請</span>
+                                                            <span class="label-primary me-1">{{leave.auditStatus}}</span>
 
                                                         </td>
                                                         <td>
@@ -703,7 +704,8 @@
                                                             <div class="dropdown">
 
                                                                 <div class="">
-                                                                    <a class="dropdown-item" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                                                    <a class="dropdown-item" href="HR_ToDoItems_Leave.html" @click="checkbtn(leave)">
+                                                                    <i class="bx bx-edit-alt me-2"></i> Edit</a>
 
                                                                 </div>
                                                             </div>
@@ -735,7 +737,7 @@
                                                 <tr>
                                                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
                                                         <strong>{{leave.employeeName}}</strong></td>
-                                                    <td>20241083</td>
+                                                    <td>{{leave.employeeNumber}}</td>
                                                     <td>
                                                         <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
                                                     </td>
@@ -894,13 +896,21 @@
                 },
                 mounted() {
                     this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+
                     axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
                         .then(response => {
                             this.employeelist = response.data;
+                            if (this.employeelist.positionId < 7) {
                             axios.get('/api/PersonnelLeaveForms/proxyAudit/'
                                 + this.employeelist.departmentId + '/' + this.employeelist.positionId
                                 + '/' + this.employeelist.employeeId)
-                                .then(response => this.leaveproxy = response.data)
+                                    .then(response => this.leaveproxy = response.data)
+                            }
+                            if (this.employeelist.positionId == 7) {
+                                axios.get('/api/PersonnelLeaveForms/manager/'
+                                    + this.employeelist.departmentId )
+                                    .then(response => this.leaveproxy = response.data)
+                            }
                         })
                    
                                 

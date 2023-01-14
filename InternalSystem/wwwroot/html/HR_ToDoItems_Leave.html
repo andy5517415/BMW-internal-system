@@ -553,8 +553,10 @@
                                 </div>
                                 <!-- 按鈕 -->
                                 <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn">同意</button>
-                                    <button type="button" class="btn btn-outline-secondary" @click="nobtn">不同意</button>
+                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn" v-if="manager<5">同意</button>
+                                    <button type="button" class="btn btn-outline-primary me-2" v-if="manager == 5" @click="managerokbtn">同意</button>
+                                    <button type="button" class="btn btn-outline-secondary" v-if="manager<5" @click="nobtn">不同意</button>
+                                    <button type="button" class="btn btn-outline-secondary" v-if="manager == 5" @click="managernobtn">不同意</button>
                                 </div>
                         </div>
                         </form>
@@ -585,8 +587,10 @@
                                         </div>
                                         <div class="card-body text-black text-center">
                                             <span class="card-text fs-4">胖胖胖</span>
-                                            <span class="badge fs-5 bg-label-success">同意</span>
-                                            <P class="fs-5 mb-0 mt-2">2023-01-05</P>
+                                            <span class="badge fs-5 bg-label-success" v-if="leaveproxy.proxyAudit==null">待同意</span>
+                                            <span class="badge fs-5 bg-label-success" v-if="leaveproxy.proxyAudit==false">不同意</span>
+                                            <span class="badge fs-5 bg-label-success" v-if="leaveproxy.proxyAudit==true">同意</span>
+                                            <P class="fs-5 mb-0 mt-2">{{leaveproxy.proxyAuditDate}}</P>
                                         </div>
                                     </div>
                                 </div>
@@ -655,6 +659,7 @@
                     return {
                         leaveproxy: {},
                         proxyname: {},
+                        manager: {},
                         total: {}
                     }
                 },
@@ -662,6 +667,7 @@
 
                     okbtn: function () {
                         this.leaveproxy.statusId = 2;
+                        this.leaveproxy.proxyAudit = true;
                         //console.log(this.leaveproxy.statusId)   //ok
                         if (confirm('請確認是否同意') == true) {
                             axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
@@ -671,22 +677,52 @@
 
                     nobtn: function () {
                         this.leaveproxy.statusId = 3;
+                        this.leaveproxy.proxyAudit = false;
                         if (confirm('請確認是否拒絕') == true) {
                             axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
                                 .then(a => alert('已送出拒絕代理人之回復'))
                         }
+                    },
+                    managerokbtn: function () {
+                        this.leaveproxy.statusId = 4;
+                        this.leaveproxy.proxyAudit = true;
+                        if (confirm('請確認是否同意') == true) {
+                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                .then(a => alert('已送出同意'))
+                        }
+                    },
+                    managernobtn: function () {
+                        this.leaveproxy.statusId = 5;
+                        this.leaveproxy.proxyAudit = false;
+                        if (confirm('請確認是否同意') == true) {
+                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                .then(a => alert('已送出拒絕'))
+                        }
                     }
+
                 },
                 mounted() {
                     this.leaveproxy = JSON.parse(sessionStorage.getItem("proxy"));
                     console.log(this.leaveproxy)
+                    this.manager = JSON.parse(sessionStorage.getItem("RankID"))
+                    console.log(this.manager)
 
+                    if (this.manager < 5) { 
                     axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.proxy)
                         .then(response => {
                             this.proxyname = response.data;
                             console.log(this.proxyname)
                         })
+                    }
 
+                    if (this.manager == 5) {
+
+                        axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.manager)
+                            .then(response => {
+                                this.proxyname = response.data;
+                                console.log(this.proxyname)
+                            })
+                    }
                 }
             }
 
