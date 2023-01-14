@@ -35,6 +35,7 @@ namespace InternalSystem.Controllers
             var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveId equals lt.LeaveTypeId
                                      where o.EmployeeId == id && pl.StartDate.Month == m && pl.StartDate.Year == y
                                      select new
                                      {
@@ -47,6 +48,7 @@ namespace InternalSystem.Controllers
                                          EndTime = pl.EndTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
+                                         Type = lt.Type,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,

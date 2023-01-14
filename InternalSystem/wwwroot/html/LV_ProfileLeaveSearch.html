@@ -545,11 +545,10 @@
                                             </td>
                                             <td>
 
-                                                <span class="label-primary me-1">{{item.auditStatus }}</span>
+                                                <span class="label-primary me-1">{{item.auditStatus}}</span>
                                             </td>
                                             <td>
-                                                <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-2 " v-if="item.statusId==3">檢視詳情</a>
-                                                <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-2 " v-if="item.statusId==5">檢視詳情</a>
+                                                <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-2 " type="button" @click="look(item)">檢視詳情</a>
                                             </td>
                                         </tr>
 
@@ -614,7 +613,9 @@
                     axios.get('/api/PersonnelLeaveForms/employee/' + this.employeedata + '/' + this.leavesearch.month)
                         .then(response => this.leavelist = response.data)
                         .catch(err => console.log(err))
-
+                },
+                look: function (e) {
+                    sessionStorage.setItem("leave", JSON.stringify(e))
                 }
             },
             mounted() {
