@@ -20,6 +20,71 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+
+
+
+
+        //自己改的
+        // PUT: api/BusinessOrderDetails/putdetail/44/1
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("putdetail/{id}/{opl}")]
+        public async Task<IActionResult> putdetail(int id, int opl,BusinessOrderDetail businessOrderDetail)
+        {
+            if (id != businessOrderDetail.OrderId)
+            {
+                return BadRequest();
+            }
+
+
+            var q = from od in _context.BusinessOrderDetails
+                    where od.OrderId == id && od.OptionalId == opl
+                    select od;
+
+
+
+
+
+
+
+
+
+
+
+            _context.Entry(businessOrderDetail).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BusinessOrderDetailExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // GET: api/BusinessOrderDetails
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessOrderDetail>>> GetBusinessOrderDetails()

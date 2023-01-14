@@ -873,9 +873,9 @@
                 //axios.get('https://localhost:44319/api/PersonnelProfileDetails/1')
                 //    .then(response => this.employeelist = response.data),
                 axios.get('/api/PersonnelDepartmentLists')
-                    .then(response => this.departmentlist = response.data),
-                    axios.get('/api/PersonnelPositions')
-                        .then(response => this.positionlist = response.data)
+                    .then(response => this.departmentlist = response.data)
+                axios.get('/api/PersonnelPositions')
+                    .then(response => this.positionlist = response.data)
                 axios.get('/api/PersonnelRanks')
                     .then(response => this.ranklist = response.data)
                 axios.get('/api/PersonnelCityLists')

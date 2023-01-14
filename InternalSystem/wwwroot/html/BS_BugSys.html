@@ -31,7 +31,7 @@
 
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -62,8 +62,8 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 
 </head>
 
@@ -76,7 +76,7 @@
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="../assets/img/BMW_logo.png" alt="我是Logo">
+                <img src="../assets/img/BMW_logo.png" alt="我是Logo" style="height: 50px;">
               </span>
               <span class="app-brand-text demo menu-text fw-bolder ms-2">我是第四組</span>
             </a>
@@ -439,7 +439,7 @@
                   <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                       <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                       </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -448,7 +448,7 @@
                           <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                               <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                               </div>
                             </div>
                             <div class="flex-grow-1">
@@ -510,86 +510,81 @@
 
             
             
-            <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
-              <div class="card mb-4 m-4">
-                <h2 class="card-header">產線報錯系統</h2>
-                <!-- <h5 class="card-header">車輛資訊</h5> -->
-                <div class="card-body">
+              <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
+                  <div class="card mb-4 m-4">
+                      <h2 class="card-header">產線報錯系統</h2>
+                      <!-- <h5 class="card-header">車輛資訊</h5> -->
+                      <div class="card-body">
 
 
 
-            <!-- pills -->
-            
-            <div class="row justify-content-md-center">
-              <div class="col-2"></div>
-              <div class="col-8">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel4">員工通報錯誤</h5>
-                  </div>
-                  <div class="row my-5" >
-                    <div class="col-3 d-flex justify-content-evenly">
-                      <button type="button" class="btn btn-success">正常</button>
-                    </div>
-                    <div class="col-3 d-flex justify-content-evenly">
-                      <button type="button" class="btn btn-warning">待處理</button>
-                    </div>
-                    <div class="col-3 d-flex justify-content-evenly">
-                      <button type="button" class="btn btn-info">處理中</button>
-                    </div>
-                    <div class="col-3 d-flex justify-content-evenly">
-                      <button type="button" class="btn btn-danger">異常</button>
-                    </div>
-                    <br><br><br>      
-                  </div>
+                          <!-- pills -->
 
-                  <label for="exampleFormControlTextarea1" class="form-label">事件描述 : </label>
-                  <textarea
-                  class="form-control" 
-                  id="exampleFormControlTextarea1" 
-                  rows="10"
-                  >
+                          <div class="row justify-content-md-center">
+                              <div class="col-2"></div>
+                              <div class="col-8">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel4">員工通報錯誤</h5>
+                                  </div>
+                                  <div class="row my-5">
+                                      <div class="col-3 d-flex justify-content-evenly">
+                                          <button type="button" class="btn btn-success">正常</button>
+                                      </div>
+                                      <div class="col-3 d-flex justify-content-evenly">
+                                          <button type="button" class="btn btn-warning">待處理</button>
+                                      </div>
+                                      <div class="col-3 d-flex justify-content-evenly">
+                                          <button type="button" class="btn btn-info">處理中</button>
+                                      </div>
+                                      <div class="col-3 d-flex justify-content-evenly">
+                                          <button type="button" class="btn btn-danger">異常</button>
+                                      </div>
+                                      <br><br><br>
+                                  </div>
+
+                                  <label for="exampleFormControlTextarea1" class="form-label">事件描述 : </label>
+                                  <textarea class="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="10">
                 </textarea>
-                <div class="py-5 d-md-flex justify-content-md-center">
-                  <button type="button" class="btn btn-outline-primary me-3">確定</button>
-                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    取消
-                  </button>
-                </div>
-                </div>
-                <div class="col-2"></div>
-              </div>
-                                        
-              
-            <!-- /pills -->
+                                  <div class="py-5 d-md-flex justify-content-md-center">
+                                      <button type="button" class="btn btn-outline-primary me-3">確定</button>
+                                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                          取消
+                                      </button>
+                                  </div>
+                              </div>
+                              <div class="col-2"></div>
+                          </div>
 
 
-                  
+                          <!-- /pills -->
+
+
+
+                      </div>
+
+                  </div>
+
+
+
+
+
+
+
+
+
+
+                  <!-- / Content -->
+                  <!-- Footer -->
+                  <!-- / Footer -->
+                  <!-- <div class="content-backdrop fade"></div> -->
+                  <!-- 修改訂單 -->
+
+
               </div> 
-              
-            </div>
-            
-            
-            
-            
-
-
-
-
-
-
-            <!-- / Content -->
-
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
-            <!-- <div class="content-backdrop fade"></div> -->           
-
-
-            <!-- 修改訂單 -->
-  
-  
-              </div>
+    
+    
             <!-- / Content -->
 
             <!-- Footer -->
@@ -638,60 +633,26 @@
 
     <script>
 
-      var vvue = Vue.createApp({
+        var vvue = Vue.createApp({
 
-        data() {
-          return {
-            a: ''
+            data() {
+                return {
+                    a: ''
 
-          }
-        },
-        methods: {
+                }
+            },
+            methods: {
 
-        },
-        mounted() {
+            },
+            mounted() {
 
-        }
-      }).mount('#divmonitor');
-
-
-
-      $(function () {
+            }
+        }).mount('#divmonitor');
 
 
-        // let str =
-        //   `<button id="btnedit" class="btn btn-outline-primary d-block">修改</button>`;
-        $('#btnquery').click(function () {
-          // 假設訂單有八位數字(正規表示法)
-          if ($('#orderid').val().length == 8) {
-            // $('#type').val('X7');
-            $('#btnedit').prop("disabled", false);
-            $('#btndelete').prop("disabled", false);
-          }
-          else {
-            alert('訂單編號有誤，請重新輸入!');
-            $("#orderid").focus();
-          }
-        })
-
-
-        $('#btnedit').click(function () {
-          // console.log('editok');
-          $(':disabled').prop("disabled", false);
-        })
-
-
-        $('#btndelete').click(function () {
-          // console.log('deleteok');
-          $('#deleteorderid').html('');
-          $('#deleteorderid').append(`
-          是否要刪除訂單? 編號 : ${$('#orderid').val()}
-          `);
-        })
-
-      })
-    </script>
-      <!-- session -->
+    </script>  
+    
+    <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>
