@@ -272,15 +272,6 @@
                             </li>
                         </ul>
                     </li>
-
-<<<<<<< HEAD
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
-      <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
-  </body>
-=======
                     <!-- 產線系統 -->
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -458,15 +449,15 @@
 
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
-                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
-                  😊您好
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
-                📋工號：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
-                💻部門：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
-                </div>
-                <!-- /問好 -->
+                            <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                                😊您好
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                📋工號：
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                💻部門：
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
+                            </div>
+                            <!-- /問好 -->
 
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
 
@@ -568,6 +559,7 @@
                                                            name="firstName"
                                                            value=""
                                                            readonly
+                                                           v-model=""
                                                            autofocus />
                                                 </div>
                                                 <!-- 部門選擇 -->
@@ -601,30 +593,30 @@
                                                 </div>
                                                 <!-- 供應商 -->
                                                 <!--<div class="row">
-                                                    <div class="mb-3 col-md-6">
-                                                        <label for="SupplierID" class="form-label">供應商名稱</label>
-                                                        <select id="SupplierID" class="select1 form-select">
-                                                            <option disabled value="999">選擇供應商</option>
-                                                            <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
-                                                        </select>
-                                                    </div>-->
+                                        <div class="mb-3 col-md-6">
+                                            <label for="SupplierID" class="form-label">供應商名稱</label>
+                                            <select id="SupplierID" class="select1 form-select">
+                                                <option disabled value="999">選擇供應商</option>
+                                                <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
+                                            </select>
+                                        </div>-->
                                                 <!-- 供應商聯絡人 -->
                                                 <!--<div class="mb-3 col-md-6">
-                                                    <label for="SupplierContact" class="form-label">供應商聯絡人</label>
-                                                    <select id="SupplierContact" class="select1 form-select">
-                                                        <option disabled value="999">選擇供應商聯絡人</option>
-                                                        <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
-                                                    </select>
-                                                </div>-->
+                                        <label for="SupplierContact" class="form-label">供應商聯絡人</label>
+                                        <select id="SupplierContact" class="select1 form-select">
+                                            <option disabled value="999">選擇供應商聯絡人</option>
+                                            <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
+                                        </select>
+                                    </div>-->
                                                 <!-- 供應商電話 -->
                                                 <!--<div class="mb-3 col-md-6">
-                                                        <label for="SupplierPhone" class="form-label">供應商電話</label>
-                                                        <select id="SupplierPhone" class="select1 form-select">
-                                                            <option disabled value="999">選擇供應商電話</option>
-                                                            <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>-->
+                                            <label for="SupplierPhone" class="form-label">供應商電話</label>
+                                            <select id="SupplierPhone" class="select1 form-select">
+                                                <option disabled value="999">選擇供應商電話</option>
+                                                <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
+                                            </select>
+                                        </div>
+                                    </div>-->
                                                 <!-- 備註 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="Comment" class="form-label">備註</label>
@@ -694,7 +686,7 @@
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
-                                                                    </template>                                                                 
+                                                                    </template>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -708,7 +700,7 @@
                                                         <!-- 確認按鈕 -->
                                                         <div class="mt-2 d-flex flex-row-reverse bd-highlight">
                                                             <button type="reset" class="btn btn-outline-secondary ">取消</button>
-                                                            <button type="submit" class="btn btn-outline-primary me-3">送出</button>
+                                                            <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -741,6 +733,7 @@
                                 product: {},
                                 supplier: {},
                                 goods: '',
+                                employeedata: {}
                             }
                         },
                         computed: {
@@ -749,10 +742,39 @@
                             }
                         },
                         methods: {
+                            createbtn: function () {
+                                //單純本表新增
+                                axios.post("api/PCApplications/applicationlist",
+                                    this.item
+                                ).then(alert('資料已新建')).catch(err => alert(err))
+                                window.location = "PC_Application.html"; 
 
+                                //if (confirm('新增資料是否正確?') == true) {
+                                //    axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
+                                //        .then(po => axios.get("https://localhost:44319/api/PersonnelProfileDetails/idfind/Number/" + this.employeelist.employeeNumber))
+                                //        .then(response => {
+                                //            console.log(this.employeelist)
+                                //            console.log(response.data); // {employeeid:18}
+                                //            console.log(response.data.employeeId); // 18
+                                //            //將每一筆Leavelist.employeeId帶入get到的值
+                                //            this.Leavelist.forEach(X => {
+                                //                X.employeeId = response.data.employeeId;
+                                //                console.log(X)// {}
+                                //                axios.post("https://localhost:44319/api/PersonnelLeaveOvers", X)
+                                //            });
+                                //            alert('資料新建完成')
+                                //        })
+                                //        .catch(err => console.log(err))
+                                //}
+                                //window.location = "PC_Application.html";
+                            }
                         },
                         mounted() {
-                            axios.get('https://localhost:44319/api/PCApplications/test')
+                            this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                            console.log(this.employeedata)
+                            axios.get('api/PCApplications/applicationlist/' + this.employeedata)
+                                .then(response => this.item = response.data)
+                            axios.get('api/PCApplications/applicationlist')
                                 .then(response => this.item = response.data)
                             axios.get('https://localhost:44319/api/PCApplications/goods')
                                 .then(response => this.product = response.data)
@@ -763,43 +785,8 @@
 
                     Vue.createApp(app).mount('#app')
 
-                    //$.ajax({
-                    //    type: 'get',
-                    //    url: "https://localhost:44319/api/PCApplications/test",
-                    //    success: (e) => {
-                    //        app.item = e;
-                    //        console.log(e);
-                    //    }
-                    //})
-
-                    //$.ajax({
-                    //    type: 'get',
-                    //    url: "https://localhost:44319/api/PCApplications/goods",
-                    //    success: (e) => {
-                    //        app.product = e;
-                    //        console.log(e);
-                    //    }
-                    //})
-
-                    //$.ajax({
-                    //    type: 'get',
-                    //    url: "https://localhost:44319/api/PCApplications/supplier",
-                    //    success: (e) => {
-                    //        app.supplier = e;
-                    //        console.log(e);
-                    //    }
-                    //})
-
                 </script>
 
-                <!-- <div class="buy-now">
-                  <a
-                    href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-                    target="_blank"
-                    class="btn btn-danger btn-buy-now"
-                    >Upgrade to Pro</a
-                  >
-                </div> -->
                 <!-- Core JS -->
                 <!-- build:js assets/vendor/js/core.js -->
                 <script src="../assets/vendor/libs/jquery/jquery.js"></script>
@@ -819,6 +806,8 @@
                 <!-- Place this tag in your head or just before your close body tag. -->
                 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+                <!-- session -->
+                <script src="../assets/js/LoginSession.js"></script>
+
 </body>
->>>>>>> d10ae1f273895618f76b0289ebd8810178372ee6
 </html>

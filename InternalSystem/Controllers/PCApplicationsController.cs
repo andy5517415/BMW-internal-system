@@ -21,30 +21,28 @@ namespace InternalSystem.Controllers
         }
 
         //申請表
-        //GET: api/PCApplications/test
-        [HttpGet("test")]
+        //GET: api/PCApplications/applicationlist
+        [HttpGet("applicationlist")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetApplicationsList()
         {
-            var i = from AP in this._context.PcApplications
-                    join SU in this._context.PcSupplierLists on AP.SupplierId equals SU.SupplierId
-                    join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
-                    join PPD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PPD.EmployeeId
-                    join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
-                    join PS in this._context.PcPurchaseItemSearches on SU.SupplierId equals PS.SupplierId
-                    join OD in this._context.PcOrderDetails on PS.ProductId equals OD.ProductId
-                    select new
-                    {
-                        EmployeeName = PPD.EmployeeName,
-                        DepartmentName = PD.DepName,
-                        Date = AP.Date,
-                        PurchaseId = AP.PurchaseId,
-                        SupplierContact = SU.SupplierContact,
-                        SupplierContactPerson = SU.SupplierContactPerson,
-                        SupplierPhone = SU.SupplierPhone,
-                        Comment = AP.Comment
-                    };
+            var list = from AP in this._context.PcApplications
+                       join ARS in this._context.PcApplicationRecordSearches on AP.PurchaseId equals ARS.PurchaseId
+                       //join SL in this._context.PcSupplierLists on AP.SupplierId equals SL.SupplierId
+                       //join PC in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PC.ProductId
+                       join PD in this._context.PersonnelProfileDetails on ARS.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       select new
+                       {
+                           EmployeeId = PD.EmployeeId,
+                           EmployeeName = PD.EmployeeName,
+                           DepName = PDL.DepName,
+                           Date = AP.Date,
+                           PurchaseId = AP.PurchaseId,
+                           Comment = AP.Comment,
+                           Total = AP.Total
+                       };
 
-            return await i.ToListAsync();
+            return await list.ToListAsync();
         }
 
         // GET: api/PCApplications/goods
@@ -119,6 +117,7 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
+        // 供應商
         // GET: api/PCApplications/supplier
         [HttpGet("supplier")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetSupplierList()
