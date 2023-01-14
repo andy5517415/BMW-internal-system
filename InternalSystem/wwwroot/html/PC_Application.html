@@ -588,7 +588,6 @@
                                                                type="text"
                                                                id="PurchaseID"
                                                                name="PurchaseID"
-                                                               @change="changeint(autopurchaseid)"
                                                                v-model="item.purchaseId"
                                                                autofocus />
                                                     </div>
@@ -757,23 +756,21 @@
                                 console.log(typeof(this.item));
 
                             },
-                            changeint: function (e) {
-                                this.orderid = parseInt(e);
-                                console.log(typeof(orderid));
-                            }
                         },
                         mounted() {
                             this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
                             //console.log(this.employeedata)
                             axios.get('/api/PCApplications/applicationlist/' + this.employeedata)
-                                .then(response => this.item = response.data)
+                                .then(response => {
+                                    this.item = response.data;
+                                    this.autopurchaseid = Date.now().toString().substring(0, 10) + this.employeedata;
+                                    this.item.purchaseId = parseInt(this.autopurchaseid);
+                                    //console.log(this.item.purchaseId);
+                                })
                             axios.get('https://localhost:44319/api/PCApplications/goods')
                                 .then(response => this.product = response.data)
                             axios.get('https://localhost:44319/api/PCApplications/supplier')
                                 .then(response => this.supplier = response.data)
-                            this.autopurchaseid = Date.now().toString().substring(0, 10) + this.employeedata;
-                            this.item.purchaseId = parseInt(this.autopurchaseid);
-                            console.log(this.item.purchaseId);
                         }
                     }
 

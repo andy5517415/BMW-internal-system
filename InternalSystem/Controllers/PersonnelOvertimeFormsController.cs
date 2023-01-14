@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using System.Runtime.Intrinsics.Arm;
 
 namespace InternalSystem.Controllers
 {
@@ -38,7 +39,7 @@ namespace InternalSystem.Controllers
                                         {
                                             EmployeeId = o.EmployeeId,
                                             EmployeeName = p.EmployeeName,
-                                            EmergencyNumber = p.EmergencyNumber,
+                                            EmployeeNumber =p.EmployeeNumber,
                                             StartDate = o.StartDate.ToString("yyyy-MM-dd"),
                                             StartTime = o.StartTime,
                                             EndDate = o.EndDate.ToString("yyyy-MM-dd"),
@@ -121,6 +122,36 @@ namespace InternalSystem.Controllers
 
             return await overlist.ToListAsync();
         }
+
+        // GET: api/PersonnelOvertimeForms/5
+        [HttpGet("manager/over/{dep}")]
+        public async Task<ActionResult<dynamic>> ManagerGetOvertimeForm(int dep)
+        {
+            var overlist = from ov in _context.PersonnelOvertimeForms
+                           join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
+                           join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                           where p.DepartmentId == dep && ov.AuditStatus ==false
+                           select new
+                           {
+                               ov.StartWorkId,
+                               ov.EmployeeId,
+                               EmployeeName = p.EmployeeName,
+                               EmployeeNumber = p.EmployeeNumber,
+                               DepName = d.DepName,
+                               StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                               ov.StartTime,
+                               EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                               ov.EndTime,
+                               ov.AuditStatus
+                           };
+            if (overlist == null)
+            {
+                return NotFound();
+            }
+
+            return await overlist.ToListAsync();
+        }
+
 
         // GET: api/PersonnelOvertimeForms/5
         [HttpGet("{id}")]
