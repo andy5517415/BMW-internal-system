@@ -39,7 +39,7 @@ namespace InternalSystem.Controllers
                                         {
                                             EmployeeId = o.EmployeeId,
                                             EmployeeName = p.EmployeeName,
-                                            EmergencyNumber = p.EmergencyNumber,
+                                            EmployeeNumber =p.EmployeeNumber,
                                             StartDate = o.StartDate.ToString("yyyy-MM-dd"),
                                             StartTime = o.StartTime,
                                             EndDate = o.EndDate.ToString("yyyy-MM-dd"),
