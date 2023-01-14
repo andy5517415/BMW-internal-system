@@ -627,10 +627,12 @@
                     if (confirm('是否送出資料') == true) {
                         //this.workoverlist.forEach(x => {
                         axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
-                            .then(a => alert('申請已送出'))
+                            .then(a => {
+                                alert('申請已送出');
+                        window.location = "/html/PS_ToDoItems.html";
+                            })
                             .catch(err => console.log(err))
-                        //window.location = "/html/LV_OvertimeSearch.html"
-                        //})
+                     
                     }
                 }
             },

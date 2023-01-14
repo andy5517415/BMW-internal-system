@@ -591,7 +591,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2" v-if="employeelist.positionId<7">
                                         <label class="form-label fs-4" for="proxy">代理人</label>
                                         <select id="proxy" class="select2 form-select" v-model="application.proxy">
                                             <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
@@ -599,7 +599,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" v-if="employeelist.positionId<7">
                                     <label class="form-label fs-4" for="manager">審核主管</label>
                                     <select id="manager" class="select2 form-select" v-model="application.auditManerger">
                                         <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
@@ -618,7 +618,8 @@
                                     </div>
                                 </div>
                                 <div class="mt-3 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 ">送出</button>
+                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 " v-if="employeelist.positionId<7">送出</button>
+                                    <button type="button" @click="mabtn" class="btn btn-outline-primary me-3 " v-if="employeelist.positionId==7">送出</button>
                                     <button type="reset" class="btn btn-outline-secondary ">取消</button>
                                 </div>
                             </form>
@@ -682,6 +683,14 @@
                     //alert('OK');
                     if (confirm('是否送出請假資料?') == true) {
                         this.application.statusId = 1;
+                        axios.post('/api/PersonnelLeaveForms', this.application)
+                            .then(alert('申請已送出')).catch(err => console.log(err))
+                        window.location = "/html/LV_LeaveApplication.html"
+                    }
+                },
+                mabtn: function () {
+                    if (confirm('是否送出請假資料?') == true) {
+                        this.application.statusId = 6;
                         axios.post('/api/PersonnelLeaveForms', this.application)
                             .then(alert('申請已送出')).catch(err => console.log(err))
                         window.location = "/html/LV_LeaveApplication.html"

@@ -149,6 +149,7 @@ namespace InternalSystem.Controllers
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      where o.DepartmentId == depId && o.PositionId == position && pl.Proxy == Id 
                                      && pl.StatusId == 1
                                      select new
@@ -162,6 +163,7 @@ namespace InternalSystem.Controllers
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
                                          LeaveId = pl.LeaveId,
+                                         Type = lt.Type,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          pl.ProxyAudit,
@@ -190,6 +192,7 @@ namespace InternalSystem.Controllers
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      where o.DepartmentId == depId  && pl.StatusId == 2
                                      select new
                                      {
@@ -202,6 +205,7 @@ namespace InternalSystem.Controllers
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
                                          LeaveId = pl.LeaveId,
+                                         Type = lt.Type,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          pl.ProxyAudit,
