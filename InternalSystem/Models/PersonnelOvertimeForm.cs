@@ -13,7 +13,7 @@ namespace InternalSystem.Models
         public string StartTime { get; set; }
         public DateTime EndDate { get; set; }
         public string EndTime { get; set; }
-        public int TotalTime { get; set; }
+        public int? TotalTime { get; set; }
         public bool AuditStatus { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
