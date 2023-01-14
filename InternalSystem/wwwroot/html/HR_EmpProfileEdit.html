@@ -870,8 +870,6 @@
                     axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
                         .then(response => this.employeelist = response.data)
                         .catch(alert => alert('查無此項'))
-
-
                     //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
                     //    .then(response => this.employeelist = response.data)
                     //    .catch(error => alert('查無此項'))

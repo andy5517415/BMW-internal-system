@@ -41,6 +41,54 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
+        //個人資料觀看
+        // GET: api/PersonnelProfileDetails/5
+        [HttpGet("profile/{id}")]
+        public async Task<ActionResult<dynamic>> GetProfileDetail(int id)
+        {
+            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
+                                      where o.EmployeeId == id
+                                      join c in _context.PersonnelCityLists on o.CityId equals c.CityId
+                                      join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                      join r in _context.PersonnelRanks on o.RankId equals r.RankId
+                                      select new
+                                      {
+                                          EmployeeId = o.EmployeeId,
+                                          EmployeeName = o.EmployeeName,
+                                          Sex = o.Sex,
+                                          IsMarried = o.IsMarried,
+                                          IdentiyId = o.IdentiyId,
+                                          CityId = o.CityId,
+                                          PositionId = o.PositionId,
+                                          DepartmentId = o.DepartmentId,
+                                          RankId = o.RankId,
+                                          EmployeeNumber = o.EmployeeNumber,
+                                          HomePhone = o.HomePhone,
+                                          Email = o.Email,
+                                          Birthday = o.Birthday.ToString(),
+                                          PhoneNumber = o.PhoneNumber,
+                                          Address = o.Address,
+                                          DutyStatus = o.DutyStatus,
+                                          Country = o.Country,
+                                          EmergencyNumber = o.EmergencyNumber,
+                                          EmergencyPerson = o.EmergencyPerson,
+                                          EmergencyRelation = o.EmergencyRelation,
+                                          EntryDate = o.EntryDate.ToString(),
+                                          Acount = o.Acount,
+                                          Password = o.Password,
+                                          Terminationdate = o.Terminationdate.ToString()
+
+                                      };
+
+            if (SearchProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await SearchProfileDetail.FirstOrDefaultAsync();
+        }
+
         //用工號尋找ID
         // GET: api/PersonnelProfileDetails/Number/2023001
         [HttpGet("idfind/Number/{Number}")]
