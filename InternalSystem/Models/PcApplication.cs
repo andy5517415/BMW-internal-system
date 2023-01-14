@@ -7,7 +7,7 @@ namespace InternalSystem.Models
 {
     public partial class PcApplication
     {
-        public int PurchaseId { get; set; }
+        public long PurchaseId { get; set; }
         public int OrderId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime Date { get; set; }
