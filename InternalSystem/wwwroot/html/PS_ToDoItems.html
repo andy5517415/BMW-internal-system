@@ -515,19 +515,19 @@
                                 <h6 class="text-muted">類別</h6>
                                 <div class="nav-align-top mb-4">
                                     <!-- ★設權限 -->
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
+                                    <ul class="nav nav-pills mb-3 nav-fill" role="tablist" >
+                                        <li class="nav-item" v-if="employeelist.positionId<7">
                                             <button type="button"
                                                     class="nav-link active"
                                                     role="tab"
                                                     data-bs-toggle="tab"
-                                                    data-bs-target="#navs-top-home"
-                                                    aria-controls="navs-top-home"
+                                                    data-bs-target="#home"
+                                                    aria-controls="home"
                                                     aria-selected="true">
                                                 請假
                                             </button>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" v-if="employeelist.positionId<7">
                                             <button type="button"
                                                     class="nav-link"
                                                     role="tab"
@@ -543,8 +543,8 @@
                                                     class="nav-link"
                                                     role="tab"
                                                     data-bs-toggle="tab"
-                                                    data-bs-target="#leave-check"
-                                                    aria-controls="leave-check"
+                                                    data-bs-target="#auditleave"
+                                                    aria-controls="auditleave"
                                                     aria-selected="false">
                                                 請假審核
                                             </button>
@@ -555,9 +555,10 @@
                                                     class="nav-link"
                                                     role="tab"
                                                     data-bs-toggle="tab"
-                                                    data-bs-target="#overtime-check"
-                                                    aria-controls="overtime-check"
-                                                    aria-selected="false">
+                                                    data-bs-target="#auditover"
+                                                    aria-controls="auditover"
+                                                    aria-selected="false"
+                                                    id="overtime-check">
                                                 加班審核
                                             </button>
                                         </li>
@@ -578,8 +579,7 @@
 
                                     <div class="tab-content">
                                         <!-- 請假 -->
-                                        <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-                                            <tbody class="table-border-bottom-0">
+                                        <div class="tab-pane fade show " id="home" role="tabpanel"  >
                                                 <div class="table-responsive text-nowrap">
                                                     <table class="table">
                                                         <thead>
@@ -619,13 +619,11 @@
                                                             </tr>
 
                                                     </table>
-                                            </tbody>
                                         </div>
 
                                     </div>
                                     <!--加班 -->
-                                    <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-                                        <tbody class="table-border-bottom-0">
+                                    <div class="tab-pane fade " id="navs-top-profile" role="tabpanel">
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table">
                                                     <thead>
@@ -665,14 +663,13 @@
                                                         </tr>
 
                                                 </table>
-                                        </tbody>
                                     </div>
                                 </div>
 
                                 <!--請假審核-->
-                                <div class="tab-pane fade" id="leave-check" role="tabpanel" v-for="leave in leaveproxy">
-                                    <tbody class="table-border-bottom-0">
-                                        <div class="table-responsive text-nowrap">
+                                <div class="tab-pane fade " id="auditleave" role="tabpanel" 
+                                    >
+                                        <div class="table-responsive text-nowrap" >
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -684,7 +681,7 @@
                                                         <th>修改</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="table-border-bottom-0">
+                                                <tbody class="table-border-bottom-0"  v-for="leave in leaveproxy">
                                                     <tr>
                                                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
                                                             <strong>{{leave.employeeName}}</strong></td>
@@ -713,14 +710,12 @@
                                                     </tr>
 
                                             </table>
-                                    </tbody>
                                 </div>
                             </div>
 
 
                             <!--請假代理-->
-                            <div class="tab-pane fade" id="proxy" role="tabpanel">
-                                <tbody class="table-border-bottom-0">
+                            <div class="tab-pane fade " id="proxy" role="tabpanel">
                                     <div class="table-responsive text-nowrap">
                                         <table class="table">
                                             <thead>
@@ -761,14 +756,12 @@
                                                 </tr>
 
                                         </table>
-                                </tbody>
                             </div>
                         </div>
                             
 
                             <!--加班審核-->
-                            <div class="tab-pane fade" id="overtime-check" role="tabpanel">
-                                <tbody class="table-border-bottom-0">
+                            <div class="tab-pane fade " id="auditover" role="tabpanel" >
                                     <div class="table-responsive text-nowrap">
                                         <table class="table">
                                             <thead>
@@ -781,25 +774,26 @@
                                                     <th>修改</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="table-border-bottom-0">
+                                            <tbody class="table-border-bottom-0" v-for="work in wkover">
                                                 <tr>
-                                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                                    <td>20241083</td>
+                                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
+                                                        <strong>{{work.employeeName}}</strong></td>
+                                                    <td>{{work.employeeNumber}}</td>
                                                     <td>
-                                                        <span class="label-primary me-1">121212</span>
+                                                        <span class="label-primary me-1">{{work.startDate}} - {{work.startTime}} </span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary me-1">122</span>
+                                                        <span class="label-primary me-1">{{work.endDate}} -{{work.endTime}} </span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary me-1">申請</span>
+                                                        <span class="label-primary me-1" v-if="work.auditStatus==false">待審</span>
 
                                                     </td>
                                                     <td>
                                                         <div class="dropdown">
 
                                                             <div class="">
-                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button" @click="overbtn(work)"><i class="bx bx-edit-alt me-2"></i> Edit</a>
 
                                                             </div>
                                                         </div>
@@ -807,7 +801,6 @@
                                                 </tr>
 
                                         </table>
-                                </tbody>
                             </div>
                         </div>
                     </div>
@@ -886,12 +879,16 @@
                         employeedata: {},
                         dep: {},
                         leaveproxy: {},
-                        manager: {}
+                        wkover: {}
                     }
                 },
                 methods: {
                     checkbtn: function (e) {
-                        sessionStorage.setItem("proxy",JSON.stringify(e))
+                        sessionStorage.setItem("proxy", JSON.stringify(e))
+                    },
+                    overbtn: function (e) {
+                        sessionStorage.setItem("work", JSON.stringify(e))
+
                     }
                 },
                 mounted() {
@@ -910,7 +907,11 @@
                                 axios.get('/api/PersonnelLeaveForms/manager/'
                                     + this.employeelist.departmentId )
                                     .then(response => this.leaveproxy = response.data)
+                                axios.get('/api/PersonnelOvertimeForms/manager/over/'
+                                    + this.employeelist.departmentId)
+                                    .then(response => this.wkover = response.data)
                             }
+                           
                         })
                    
                                 
