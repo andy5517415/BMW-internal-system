@@ -588,8 +588,8 @@
                                                                type="text"
                                                                id="PurchaseID"
                                                                name="PurchaseID"
-                                                               @change="chi(purchaseinput)"
-                                                               v-model="purchaseinput"
+                                                               @change="changeint(autopurchaseid)"
+                                                               v-model="item.purchaseId"
                                                                autofocus />
                                                     </div>
                                                     <!-- 供應商 -->
@@ -697,7 +697,7 @@
                                                                     <div class="p-2 bd-highlight">總價：元</div>
                                                                 </div>
                                                                 <div class="table-responsive text-nowrap"></div>
-                                                            </div>
+                                                            </div>                                                                              
                                                             <!-- 確認按鈕 -->
                                                             <div class="mt-2 d-flex flex-row-reverse bd-highlight">
                                                                 <button type="reset" class="btn btn-outline-secondary ">取消</button>
@@ -736,7 +736,7 @@
                                 supplier: {},
                                 goods: '',
                                 employeedata: {},
-                                purchaseinput:'',
+                                autopurchaseid:"",
                             }
                         },
                         computed: {
@@ -745,28 +745,35 @@
                             }
                         },
                         methods: {
+                            //confirmbtn: function () {
+                            //    this.orderid = Date.now().toString().substring(0, 10);
+                            //    console.log(this.orderid);
+                            //},
                             createbtn: function () {
                                 //單純本表新增
-                                axios.post("https://localhost:44319/api/PCApplications/applicationlist", this.item)
+                                axios.post("https://localhost:44319/api/PCApplications", this.item)
                                     .then(alert('資料已新建')).catch(err => alert(err))
-                                window.location = "PC_Application.html"; 
-                                console.log(this.item);
+                                window.location = "PC_ApplicationRecordSearch.html"; 
+                                console.log(typeof(this.item));
 
                             },
-                            chi: function (e) {
-                                this.item.purchaseId = parseInt(e);
+                            changeint: function (e) {
+                                this.orderid = parseInt(e);
+                                console.log(typeof(orderid));
                             }
                         },
                         mounted() {
                             this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
-                            console.log(this.employeedata)
+                            //console.log(this.employeedata)
                             axios.get('/api/PCApplications/applicationlist/' + this.employeedata)
                                 .then(response => this.item = response.data)
                             axios.get('https://localhost:44319/api/PCApplications/goods')
                                 .then(response => this.product = response.data)
                             axios.get('https://localhost:44319/api/PCApplications/supplier')
                                 .then(response => this.supplier = response.data)
-                            this.item.purchaseId = parseInt(this.purchaseinput);
+                            this.autopurchaseid = Date.now().toString().substring(0, 10) + this.employeedata;
+                            this.item.purchaseId = parseInt(this.autopurchaseid);
+                            console.log(this.item.purchaseId);
                         }
                     }
 
