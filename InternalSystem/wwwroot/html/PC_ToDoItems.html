@@ -527,7 +527,7 @@
                               <label for="" class=" col-2 fs-4 ">部門</label>
                               <label for="" class=" col-2 fs-4 ">申請人</label>
                               <label for="" class=" col-2 fs-4 ">金額</label>
-                              <label for="" class=" col-2 fs-4 ">狀態</label>
+                              <label for="" class=" col-2 fs-4 ">審核狀態</label>
                           </div>
                       
                       </div>
@@ -544,7 +544,7 @@
                                       <label for="" class=" col-2 fs-4 ">{{order.department}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.employeeName}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.total}}</label>
-                                      <label for="" class=" col-2 fs-4 ">{{order.deliveryStatus}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.applicationStatus}}</label>
                                       <div class="col-2   d-md-flex justify-content-md-end">
                                           <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
                                       </div>
@@ -617,8 +617,8 @@
                     .then(response => {
                         this.OrderList = response.data;
                         for (var i = 0; i < this.OrderList.length; i++) {
-                            if (this.OrderList[i].deliveryStatus == false) {
-                                this.OrderList[i].deliveryStatus = "待處理"
+                            if (this.OrderList[i].applicationStatus == false) {
+                                this.OrderList[i].applicationStatus = "待處理"
                             }
                         }
                     });

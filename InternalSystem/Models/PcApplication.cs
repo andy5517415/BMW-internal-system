@@ -14,8 +14,9 @@ namespace InternalSystem.Models
         public string SupplierId { get; set; }
         public string Comment { get; set; }
         public int Total { get; set; }
-        public bool? DeliveryStatus { get; set; }
-        public bool? ApplicationStatus { get; set; }
+        public bool ApplicationStatus { get; set; }
+        public bool DeliveryStatus { get; set; }
+        public bool AcceptanceStatus { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual PcSupplierList Supplier { get; set; }

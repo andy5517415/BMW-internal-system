@@ -546,7 +546,7 @@
                                       <label for="" class=" col-2 fs-4 ">{{order.total}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.deliveryStatus}}</label>
                                       <div class="col-2   d-md-flex justify-content-md-end">
-                                          <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                          <a href="#" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">驗收</a>
                                       </div>
                                   </div>
 
@@ -613,12 +613,15 @@
                 }
             },
             mounted() {
-                axios.get("https://localhost:44319/api/PCApplications/todoitem")
+                axios.get("/api/PCApplications/acceptance")
                     .then(response => {
                         this.OrderList = response.data;
                         for (var i = 0; i < this.OrderList.length; i++) {
+                            if (this.OrderList[i].deliveryStatus == true) {
+                                this.OrderList[i].deliveryStatus = "配送完成"
+                            }
                             if (this.OrderList[i].deliveryStatus == false) {
-                                this.OrderList[i].deliveryStatus = "待處理"
+                                this.OrderList[i].deliveryStatus = "配送中"
                             }
                         }
                     });
