@@ -679,6 +679,7 @@
                 }
             },
             methods: {
+                //一般員工請假按鈕
                 okbtn: function () {
                     //alert('OK');
                     if (confirm('是否送出請假資料?') == true) {
@@ -688,6 +689,7 @@
                         window.location = "/html/LV_LeaveApplication.html"
                     }
                 },
+                //主管請假按鈕
                 mabtn: function () {
                     if (confirm('是否送出請假資料?') == true) {
                         this.application.statusId = 6;
@@ -701,8 +703,8 @@
                 this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
                 axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
                     .then(response => {
-                        this.employeelist = response.data,
-                            this.application.employeeId = this.employeelist.employeeId
+                        this.employeelist = response.data,//員工個人資料
+                            this.application.employeeId = this.employeelist.employeeId//請假申請表
                         axios.get('/api/PersonnelProfileDetails/proxy/'
                             + this.employeelist.departmentId + '/' + this.employeelist.positionId + '/' +this.employeelist.employeeId)//找代理人
                             .then(response => this.proxy = response.data)

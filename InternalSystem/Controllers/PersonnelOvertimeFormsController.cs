@@ -122,8 +122,41 @@ namespace InternalSystem.Controllers
 
             return await overlist.ToListAsync();
         }
+        //員工自身ID找尋還未檢閱資料
+        // GET: api/PersonnelOvertimeForms/NotyetAudit/{id}
+        [HttpGet("NotyetAudit/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOvertime(int id, int y, int m)
+        {
 
-        // GET: api/PersonnelOvertimeForms/5
+            var personnelOvertimeForm = from ov in _context.PersonnelOvertimeForms
+                                        join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
+                                        join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                                        where p.EmployeeId==id && ov.AuditStatus==false
+                                        select new
+                                        {
+
+                                            ov.StartWorkId,
+                                            ov.EmployeeId,
+                                            EmployeeName = p.EmployeeName,
+                                            EmployeeNumber = p.EmployeeNumber,
+                                            DepName = d.DepName,
+                                            StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                                            ov.StartTime,
+                                            EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                                            ov.EndTime,
+                                            ov.AuditStatus
+                                        };
+            if (personnelOvertimeForm == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelOvertimeForm.ToListAsync();
+        }
+
+
+        //主管GET同部門員工加班資料
+        // GET: api/PersonnelOvertimeForms/5 
         [HttpGet("manager/over/{dep}")]
         public async Task<ActionResult<dynamic>> ManagerGetOvertimeForm(int dep)
         {

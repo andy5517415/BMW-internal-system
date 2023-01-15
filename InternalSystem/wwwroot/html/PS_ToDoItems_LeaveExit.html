@@ -697,10 +697,10 @@
             const app = {
                 data() {
                     return {
+                        employeedata: {},
                         employeelist: {},
                         proxyname: {},
                         maName: {},
-                        employeedata: {},
                         proxy: {},
                         manager: {},
                         total: {},
@@ -737,20 +737,20 @@
 
                 },
                 mounted() {
-                    this.employeedata = JSON.parse(sessionStorage.getItem("RankID"))
+                    this.employeedata = JSON.parse(sessionStorage.getItem("RankID"))//獲取使用者ID
                     console.log(this.employeedata)
                     this.leaveExit = JSON.parse(sessionStorage.getItem("leavereturn"));
                     console.log(this.leaveExit)
                     axios.get('/api/PersonnelProfileDetails/' + this.leaveExit.proxy)
                         .then(response => {
                             this.proxyname = response.data;
-                            //console.log(this.proxyname)
+                            //console.log(this.proxyname)找代理人名稱
                         })
 
                     axios.get('/api/PersonnelProfileDetails/' + this.leaveExit.auditManerger)
                         .then(response => {
                             this.maName = response.data;
-                            //console.log(this.maName)
+                            //console.log(this.maName)找主管名稱
                         })
 
                     axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
