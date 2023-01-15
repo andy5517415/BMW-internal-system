@@ -201,6 +201,8 @@ namespace InternalSystem.Controllers
 
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
+
+        //人事部門尋找員工資料修改(用工號)
         //api/PersonnelProfileDetails/Number/2023001
         [HttpGet("Number/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetail(string id)
@@ -250,7 +252,7 @@ namespace InternalSystem.Controllers
         }
 
 
-
+        //測試用(尋找該員工假別 假種 目前已在假別控制器使用 此無作用)
         //api/PersonnelProfileDetails/EmployeeNumber/2023001
         [HttpGet("EmployeeNumber/{id}")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelLeave(string id)
@@ -279,7 +281,7 @@ namespace InternalSystem.Controllers
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
 
-
+        //人事部尋找個人資料修改(名稱尋找)
         //api/PersonnelProfileDetails/na/name
         [HttpGet("na/{name}")]
         public async Task<ActionResult<dynamic>> SearchNameGetPersonnelProfileDetail(string name)

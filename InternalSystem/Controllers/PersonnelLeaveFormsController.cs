@@ -229,7 +229,7 @@ namespace InternalSystem.Controllers
         }
 
 
-        //主管拿員工請假申請(代理人已同意)
+        //員工GET請假申請退件(代理人不同意or主管不同意)
         // GET: api/PersonnelLeaveForms/5
         [HttpGet("retrun/{depId}/{eid}")]
         public async Task<ActionResult<dynamic>> LeaveReturnForm(int depId,int eid)
