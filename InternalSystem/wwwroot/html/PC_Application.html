@@ -571,7 +571,7 @@
                                                                name="department"
                                                                value=""
                                                                readonly
-                                                               v-model="item.depName"
+                                                               v-model=""
                                                                autofocus />
                                                     </div>
                                                     <!-- 申請日期 -->
@@ -590,33 +590,7 @@
                                                                name="PurchaseID"
                                                                v-model="item.purchaseId"
                                                                autofocus />
-                                                    </div>
-                                                    <!-- 供應商 -->
-                                                    <!--<div class="row">
-        <div class="mb-3 col-md-6">
-            <label for="SupplierID" class="form-label">供應商名稱</label>
-            <select id="SupplierID" class="select1 form-select">
-                <option disabled value="999">選擇供應商</option>
-                <option v-for="a in supplier" :value="a">{{a.supplierContact}}</option>
-            </select>
-        </div>-->
-                                                    <!-- 供應商聯絡人 -->
-                                                    <!--<div class="mb-3 col-md-6">
-            <label for="SupplierContact" class="form-label">供應商聯絡人</label>
-            <select id="SupplierContact" class="select1 form-select">
-                <option disabled value="999">選擇供應商聯絡人</option>
-                <option v-for="a in supplier" :value="a">{{a.supplierContactPerson}}</option>
-            </select>
-        </div>-->
-                                                    <!-- 供應商電話 -->
-                                                    <!--<div class="mb-3 col-md-6">
-                <label for="SupplierPhone" class="form-label">供應商電話</label>
-                <select id="SupplierPhone" class="select1 form-select">
-                    <option disabled value="999">選擇供應商電話</option>
-                    <option v-for="a in supplier" :value="a">{{a.supplierPhone}}</option>
-                </select>
-            </div>
-        </div>-->
+                                                    </div>                                                 
                                                     <!-- 備註 -->
                                                     <div class="mb-3 col-md-6">
                                                         <label for="Comment" class="form-label">備註</label>
@@ -753,7 +727,7 @@
                                 axios.post("https://localhost:44319/api/PCApplications", this.item)
                                     .then(alert('資料已新建')).catch(err => alert(err))
                                 window.location = "PC_ApplicationRecordSearch.html"; 
-                                console.log(typeof(this.item));
+                                console.log(typeof (this.item));
 
                             },
                         },
@@ -767,9 +741,9 @@
                                     this.item.purchaseId = parseInt(this.autopurchaseid);
                                     //console.log(this.item.purchaseId);
                                 })
-                            axios.get('https://localhost:44319/api/PCApplications/goods')
+                            axios.get('/api/PCApplications/goods')
                                 .then(response => this.product = response.data)
-                            axios.get('https://localhost:44319/api/PCApplications/supplier')
+                            axios.get('/api/PCApplications/supplier')
                                 .then(response => this.supplier = response.data)
                         }
                     }

@@ -114,6 +114,8 @@ namespace InternalSystem.Controllers
                            Department = PDL.DepName,
                            Total = AP.Total,
                            DeliveryStatus = AP.DeliveryStatus,
+                           Date = AP.Date,
+                           Comment = AP.Comment
                        };
 
 
