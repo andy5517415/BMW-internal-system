@@ -737,7 +737,7 @@
 
                 },
                 mounted() {
-                    this.employeedata = JSON.parse(sessionStorage.getItem("RankID"))//獲取使用者ID
+                    this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));//獲取使用者ID
                     console.log(this.employeedata)
                     this.leaveExit = JSON.parse(sessionStorage.getItem("leavereturn"));
                     console.log(this.leaveExit)
@@ -753,7 +753,7 @@
                             //console.log(this.maName)找主管名稱
                         })
 
-                    axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
+                    axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata.EmpID)
                         .then(response => {
                             this.employeelist = response.data,
                             axios.get('/api/PersonnelProfileDetails/proxy/'
@@ -767,13 +767,13 @@
                     axios.get('/api/PersonnelLeaveTypes')
                         .then(response => this.leavetype = response.data)
 
-                    axios.get('/api/PersonnelLeaveOvers/leave1/' + this.employeedata)//找該員工剩餘假
+                    axios.get('/api/PersonnelLeaveOvers/leave1/' + this.employeedata.EmpID)//找該員工剩餘假
                         .then(response => this.personalleave = response.data)
-                    axios.get('/api/PersonnelLeaveOvers/leave2/' + this.employeedata)
+                    axios.get('/api/PersonnelLeaveOvers/leave2/' + this.employeedata.EmpID)
                         .then(response => this.sickleave = response.data)
-                    axios.get('/api/PersonnelLeaveOvers/leave3/' + this.employeedata)
+                    axios.get('/api/PersonnelLeaveOvers/leave3/' + this.employeedata.EmpID)
                         .then(response => this.annualleave = response.data)
-                    axios.get('/api/PersonnelLeaveOvers/leave4/' + this.employeedata)
+                    axios.get('/api/PersonnelLeaveOvers/leave4/' + this.employeedata.EmpID)
                         .then(response => this.menstrualleave = response.data)
                 }
             }

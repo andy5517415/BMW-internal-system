@@ -610,7 +610,7 @@
             methods: {
                 searchbtn: function () {
                     console.log(this.selectlist.month)
-                    axios.get('https://localhost:44319/api/PersonnelOvertimeForms/' + this.employeedata + '/' + this.selectlist.month)
+                    axios.get('https://localhost:44319/api/PersonnelOvertimeForms/' + this.employeedata.EmpID + '/' + this.selectlist.month)
                         .then(response => this.employeeover = response.data)
                         .catch(err => console.log(err))
                 },
@@ -619,9 +619,9 @@
                 }
             },
             mounted() {
-                this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
-                axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata)
+                axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                     .then(response => this.employeelist = response.data)
             }
 

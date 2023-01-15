@@ -558,8 +558,9 @@
                                     <p>一共   小時</p>
                                 </div>
                                 <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn" >送出</button>
-                                    <button type="reset" class="btn btn-outline-secondary me-2" >取消</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 " v-on:click="editbtn">修改送出</button>
+                                    <button type="button" @click="tobackbtn" class="btn btn-outline-secondary me-2" >取消</button>
+                                    <button type="button" class="btn btn-warning me-2" @click="todelbtn" >刪除</button>
                                 </div>
                             </form>
                         </div>
@@ -667,7 +668,9 @@
                 }
             },
             mounted() {
+
                 this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
+                this.workoverlist = JSON.parse(sessionStorage.getItem("lookOver"));
                 axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                     .then(response => this.employeelist = response.data)
 

@@ -655,7 +655,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item" href="LV_OvertimeSearch.html" type="button" @click="checkOver(notyet)"><i class="bx bx-edit-alt me-2" >
+                                                                        <a class="dropdown-item" href="LV_OvertimeEdit.html" type="button" @click="checkOver(notyet)"><i class="bx bx-edit-alt me-2" >
                                                                         </i>檢視</a>
 
                                                                     </div>
@@ -903,7 +903,7 @@
             mounted() {
                 this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
-              axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
+              axios.get('/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                 .then(response => {
                   this.employeelist = response.data;
                   console.log("this.employeelist", this.employeelist);
@@ -929,8 +929,8 @@
                       .then(response => this.leavereturn = response.data)
                   }
                   //一般員工GET還未檢閱之加班
-                  if (this.employeelist.positionId < 7) {
-                    axios.get('/api/PersonnelOvertimeForms/NotyetAudit/' + this.employeedata)
+                    if (this.employeelist.positionId < 7) {
+                        axios.get('/api/PersonnelOvertimeForms/NotyetAudit/' + this.employeelist.employeeId)
                       .then(response => this.NotyetOver = response.data)
                   }
 
