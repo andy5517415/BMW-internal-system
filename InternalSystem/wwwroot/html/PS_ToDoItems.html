@@ -901,8 +901,8 @@
               }
             },
             mounted() {
-              var LoginInf = JSON.parse(sessionStorage.getItem("LoginInf", JSON.stringify(LoginInf)));
-              this.employeedata = LoginInf.EmpID;
+                var emp = JSON.parse(sessionStorage.getItem("LoginInf"));
+                this.employeedata = emp.EmpID;
 
               axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
                 .then(response => {
