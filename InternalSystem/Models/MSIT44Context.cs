@@ -291,6 +291,10 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
+                entity.Property(e => e.Department)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
                 entity.Property(e => e.SupplierId)
                     .IsRequired()
                     .HasMaxLength(10);

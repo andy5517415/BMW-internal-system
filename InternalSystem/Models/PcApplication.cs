@@ -10,6 +10,7 @@ namespace InternalSystem.Models
         public long PurchaseId { get; set; }
         public int OrderId { get; set; }
         public int EmployeeId { get; set; }
+        public string Department { get; set; }
         public DateTime Date { get; set; }
         public string SupplierId { get; set; }
         public string Comment { get; set; }

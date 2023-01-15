@@ -36,7 +36,7 @@ namespace InternalSystem.Controllers
                            EmployeeId = PD.EmployeeId,
                            EmployeeName = PD.EmployeeName,
                            OrderId = AP.OrderId,
-                           //DepName = PDL.DepName,
+                           Department = PDL.DepName,
                            Date = AP.Date,
                            PurchaseId = AP.PurchaseId,
                            SupplierId = SL.SupplierId,
