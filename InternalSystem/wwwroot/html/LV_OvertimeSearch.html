@@ -552,8 +552,11 @@
                                     <p>一共   小時</p>
                                 </div>
                                 <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn">送出</button>
-                                    <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn" v-if="workoverlist.auditStatus==null">送出</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 " v-on:click="editbtn" v-if="workoverlist.auditStatus==false">修改送出</button>
+                                    <button type="reset" class="btn btn-outline-secondary me-2" v-if="workoverlist.auditStatus==null">取消</button>
+                                    <button type="button" @click="tobackbtn" class="btn btn-outline-secondary me-2" v-if="workoverlist.auditStatus==false">取消</button>
+                                    <button type="button" class="btn btn-warning me-2" @click="todelbtn"  v-if="workoverlist.auditStatus==false">刪除</button>
                                 </div>
                             </form>
                         </div>
@@ -634,11 +637,36 @@
                             .catch(err => console.log(err))
                      
                     }
+                },
+                editbtn: function () {
+                    if (confirm('確認修改?') == true) {
+                        axios.put('/api/PersonnelOvertimeForms/' + this.workoverlist.startWorkId, this.workoverlist)
+                            .then(a => {
+                                alert('修改完畢');
+                                window.location ="/html/PS_ToDoItems.html"
+                            })
+                    }
+                    
+                },
+                tobackbtn: function () {
+                    if (confirm('放棄本次修改?') == true) {
+                        window.location = "/html/PS_ToDoItems.html";
+                    }
+                },
+                todelbtn: function () {
+                    if (confirm('刪除本次加班資料?') == true) {
+                        axios.delete('/api/PersonnelOvertimeForms/' + this.workoverlist.startWorkId, this.workoverlist)
+                            .then(a => {
+                                alert('修改完畢');
+                                window.location = "/html/PS_ToDoItems.html"
+                            })
+                    }
                 }
             },
             mounted() {
 
                 this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                this.workoverlist = JSON.parse(sessionStorage.getItem("lookOver"));
                 axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata)
                     .then(response => this.employeelist = response.data)
 

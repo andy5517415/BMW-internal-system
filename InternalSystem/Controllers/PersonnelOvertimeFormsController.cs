@@ -140,9 +140,9 @@ namespace InternalSystem.Controllers
                                             EmployeeName = p.EmployeeName,
                                             EmployeeNumber = p.EmployeeNumber,
                                             DepName = d.DepName,
-                                            StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                                            StartDate = ov.StartDate.ToString(),
                                             ov.StartTime,
-                                            EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                                            EndDate = ov.EndDate.ToString(),
                                             ov.EndTime,
                                             ov.AuditStatus
                                         };
