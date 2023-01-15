@@ -700,8 +700,8 @@
                 }
             },
             mounted() {
-                this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
-                axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
+                this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
+                axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata.EmpID)
                     .then(response => {
                         this.employeelist = response.data,//員工個人資料
                             this.application.employeeId = this.employeelist.employeeId//請假申請表

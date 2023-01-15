@@ -515,10 +515,10 @@
                                 <h6 class="text-muted">類別</h6>
                                 <div class="nav-align-top mb-4">
                                     <!-- ★設權限 -->
-                                    <ul class="nav nav-pills mb-3 nav-fill" role="tablist" >
-                                        <li class="nav-item" v-if="employeelist.positionId<7">
+                                    <ul class="nav nav-pills mb-3 nav-fill " role="tablist" >
+                                        <li class="nav-item " v-if="employeelist.positionId<7" >
                                             <button type="button"
-                                                    class="nav-link "
+                                                    class="nav-link active"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
@@ -527,7 +527,7 @@
                                                 請假
                                             </button>
                                         </li>
-                                        <li class="nav-item" v-if="employeelist.positionId<7">
+                                        <!--<li class="nav-item" v-if="employeelist.positionId<7">
                                             <button type="button"
                                                     class="nav-link"
                                                     role="tab"
@@ -537,10 +537,10 @@
                                                     aria-selected="false">
                                                 加班
                                             </button>
-                                        </li>
+                                        </li>-->
                                         <li class="nav-item" v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="nav-link"
+                                                    class="nav-link "
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditleave"
@@ -563,7 +563,7 @@
                                             </button>
                                         </li>
 
-                                        <li class="nav-item" v-if="employeelist.positionId<7">
+                                        <!--<li class="nav-item" v-if="employeelist.positionId<7">
                                             <button type="button"
                                                     class="nav-link"
                                                     role="tab"
@@ -573,57 +573,93 @@
                                                     aria-selected="false">
                                                 請假代理
                                             </button>
-                                        </li>
+                                        </li>-->
                                     </ul>
 
 
                                     <div class="tab-content">
                                         <!-- 請假 -->
-                                        <div class="tab-pane fade show " id="home" role="tabpanel"  >
-                                                <div class="table-responsive text-nowrap">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>待修正項目</th>
-                                                                <th>員工編號</th>
-                                                                <th>請假起始時間</th>
-                                                                <th>請假結束時間</th>
-                                                                <th>狀態</th>
-                                                                <th>修改</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="table-border-bottom-0" v-for="leaveExit in leavereturn">
-                                                            <tr>
-                                                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{leaveExit.employeeName}}</strong></td>
-                                                                <td>{{leaveExit.employeeNumber}}</td>
-                                                                <td>
-                                                                    <span class="label-primary me-1">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span class="label-primary me-1">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span class="label-primary me-1">{{leaveExit.auditStatus}}</span>
+                                        <div class="tab-pane fade show active" id="home" role="tabpanel">
+                                            <div class="table-responsive text-nowrap">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>待辦項目</th>
+                                                            <th>員工名稱</th>
+                                                            <th>員工編號</th>
+                                                            <th>請假起始時間</th>
+                                                            <th>請假結束時間</th>
+                                                            <th>狀態</th>
+                                                            <th>修改</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-border-bottom-0" v-for="leaveExit in leavereturn">
+                                                        <tr>
+                                                            <td >
+                                                                <button type="button" class="btn btn-secondary" disabled>請假</button>
+                                                            </td>
+                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{leaveExit.employeeName}}</strong></td>
+                                                            <td>{{leaveExit.employeeNumber}}</td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{leaveExit.auditStatus}}</span>
 
-                                                                </td>
-                                                                <td>
+                                                            </td>
+                                                            <td>
 
-                                                                    <div class="dropdown">
+                                                                <div class="dropdown">
 
-                                                                        <div class="">
-                                                                            <a class="dropdown-item" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> 檢視</a>
+                                                                    <div class="">
+                                                                        <a class="dropdown-item" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> 檢視</a>
 
-                                                                        </div>
                                                                     </div>
-                                                                </td>
-                                                            </tr>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <tbody class="table-border-bottom-0" v-for="leave in leaveproxy">
+                                                        <tr>
+                                                            <td>
+                                                                <button type="button" class="btn btn-secondary" disabled>代理人申請</button>
+                                                            </td>
+                                                            <td>
+                                                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                                                <strong>{{leave.employeeName}}</strong>
+                                                            </td>
+                                                            <td>{{leave.employeeNumber}}</td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{leave.endDate}} - {{leave.endTime}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{leave.auditStatus}}</span>
 
-                                                    </table>
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="dropdown">
+
+                                                                    <div class="">
+                                                                        <a class="dropdown-item" type="button" @click="checkbtn(leave)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+
+                                                </table>
+                                            </div>
+                                         
                                         </div>
-
-                                    </div>
                                     <!--加班 -->
-                                    <div class="tab-pane fade " id="navs-top-profile" role="tabpanel">
+                                    <!--<div class="tab-pane fade " id="navs-top-profile" role="tabpanel">
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table">
                                                     <thead>
@@ -665,7 +701,7 @@
 
                                                 </table>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <!--請假審核-->
                                 <div class="tab-pane fade " id="auditleave" role="tabpanel" 
@@ -716,7 +752,7 @@
 
 
                             <!--請假代理-->
-                            <div class="tab-pane fade " id="proxy" role="tabpanel">
+                            <!--<div class="tab-pane fade " id="proxy" role="tabpanel">
                                     <div class="table-responsive text-nowrap">
                                         <table class="table">
                                             <thead>
@@ -758,7 +794,7 @@
 
                                         </table>
                             </div>
-                        </div>
+                        </div>-->
                             
 
                             <!--加班審核-->
@@ -794,7 +830,7 @@
                                                         <div class="dropdown">
 
                                                             <div class="">
-                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button" @click="overbtn(work)"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button" @click="overbtn(work)"><i class="bx bx-edit-alt me-2"></i> 檢閱</a>
 
                                                             </div>
                                                         </div>

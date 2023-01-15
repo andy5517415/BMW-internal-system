@@ -55,6 +55,7 @@ namespace InternalSystem.Controllers
                                          pl.ManagerAudit,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
+                                         o.PositionId,
                                          Reason = pl.Reason
                                      };
 

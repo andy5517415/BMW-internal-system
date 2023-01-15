@@ -608,9 +608,9 @@
             methods: {
                 searchbtn: function () {
 
-                    this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+                    this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
-                    axios.get('/api/PersonnelLeaveForms/employee/' + this.employeedata + '/' + this.leavesearch.month)
+                    axios.get('/api/PersonnelLeaveForms/employee/' + this.employeedata.EmpID + '/' + this.leavesearch.month)
                         .then(response => this.leavelist = response.data)
                         .catch(err => console.log(err))
                 },
