@@ -545,7 +545,8 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <label for="Endtimeforvacation" class="form-label fs-4">審核狀態</label>
-                                <strong class="form-control"  v-if="detail.auditStatus ==false" id="Totalvacation" readonly >待審核</strong>
+                                <strong class="form-control" v-if="detail.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
+                                <strong class="form-control" v-if="detail.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                             </div>
                             <div class="mb-3 col-md-3">
                                 <label for="Endtimeforvacation" class="form-label fs-4">總加班時數</label>

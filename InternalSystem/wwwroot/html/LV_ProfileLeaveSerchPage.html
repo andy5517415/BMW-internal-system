@@ -582,9 +582,9 @@
                             </div>
                             <div class="card-body text-black text-center">
                                 <span class="card-text fs-4">{{emp.employeeName}}</span>
-                                <span class="badge fs-5 bg-label-success" v-if="leavelist.statusId==1">待審核</span>
-                                <span class="badge fs-5 bg-label-success" v-if="leavelist.statusId==2">同意</span>
-                                <span class="badge fs-5 bg-label-success" v-if="leavelist.statusId==3">不同意</span>
+                                <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==null">待審核</span>
+                                <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==true">同意</span>
+                                <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==false">不同意</span>
                                 <P class="fs-5 mb-0 mt-2">2023-01-05</P>
                             </div>
                           </div>
@@ -599,9 +599,9 @@
                             </div>
                             <div class="card-body text-black text-center">
                                 <span class="card-text fs-4">{{manager.employeeName}}</span>
-                                <span class="badge bg-label-danger fs-5" v-if="leavelist.statusId==1">待審核</span>
-                                <span class="badge bg-label-danger fs-5" v-if="leavelist.statusId==4">同意</span>
-                                <span class="badge bg-label-danger fs-5" v-if="leavelist.statusId==5">同意</span>
+                                <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==null">待審核</span>
+                                <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==true">同意</span>
+                                <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==false">不同意</span>
                                 <P class="fs-5 mb-0 mt-2">2023-01-05</P>
                             </div>
                           </div>

@@ -51,6 +51,8 @@ namespace InternalSystem.Controllers
                                          Type = lt.Type,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
+                                         pl.ProxyAudit,
+                                         pl.ManagerAudit,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason
