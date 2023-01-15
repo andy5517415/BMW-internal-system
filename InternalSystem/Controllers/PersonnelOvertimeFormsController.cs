@@ -28,7 +28,9 @@ namespace InternalSystem.Controllers
         //    return await _context.PersonnelOvertimeForms.ToListAsync();
         //}
 
-        // GET: api/PersonnelOvertimeForms/5/mm  個人加班搜尋(use session)
+
+        //個人加班搜尋(use session)
+        // GET: api/PersonnelOvertimeForms/5/mm  
         [HttpGet("{id}/{y}-{m}")]
         public async Task<ActionResult<dynamic>> GetPersonnelOvertime(int id,int y,int m)
         {
@@ -122,7 +124,7 @@ namespace InternalSystem.Controllers
 
             return await overlist.ToListAsync();
         }
-        //員工自身ID找尋還未檢閱資料
+        //員工自身ID找尋還未被主管檢閱之資料
         // GET: api/PersonnelOvertimeForms/NotyetAudit/{id}
         [HttpGet("NotyetAudit/{id}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOvertime(int id, int y, int m)
