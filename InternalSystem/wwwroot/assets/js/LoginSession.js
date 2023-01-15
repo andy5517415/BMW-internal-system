@@ -1,7 +1,7 @@
-
-var EmpNumber = JSON.parse(sessionStorage.getItem("EmpNumber", JSON.stringify(EmpNumber)));
-var DepID = JSON.parse(sessionStorage.getItem("DepID", JSON.stringify(DepID)));
-var Name = JSON.parse(sessionStorage.getItem("Name", JSON.stringify(Name)));
+var LoginInf = JSON.parse(sessionStorage.getItem("LoginInf", JSON.stringify(LoginInf)));
+var EmpNumber = LoginInf.EmpNumber;
+var DepID = LoginInf.DepID;
+var Name = LoginInf.Name;
 
 switch (DepID) {
   case 1:

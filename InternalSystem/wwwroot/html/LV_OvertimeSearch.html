@@ -412,14 +412,20 @@
             <div class="layout-page">
                 <!-- Navbar -->
 
-                <nav class="container">
+                <nav class="container" id="navInf">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
-                            <div class="navbar-nav align-items-center fs-4">
-                                😊您好，王鴻杰!
+                            <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                                😊您好
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                📋工號：
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                💻部門：
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                             </div>
                             <!-- /問好 -->
 
@@ -632,10 +638,10 @@
                         axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
                             .then(a => {
                                 alert('申請已送出');
-                        window.location = "/html/PS_ToDoItems.html";
+                                window.location = "/html/PS_ToDoItems.html";
                             })
                             .catch(err => console.log(err))
-                     
+
                     }
                 },
                 editbtn: function () {
@@ -643,10 +649,10 @@
                         axios.put('/api/PersonnelOvertimeForms/' + this.workoverlist.startWorkId, this.workoverlist)
                             .then(a => {
                                 alert('修改完畢');
-                                window.location ="/html/PS_ToDoItems.html"
+                                window.location = "/html/PS_ToDoItems.html"
                             })
                     }
-                    
+
                 },
                 tobackbtn: function () {
                     if (confirm('放棄本次修改?') == true) {
@@ -670,14 +676,13 @@
                 axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata)
                     .then(response => this.employeelist = response.data)
 
-               
+
             }
         }
 
         Vue.createApp(app).mount('#app')
-
-
-
     </script>
+<!-- session -->
+<script src="../assets/js/LoginSession.js"></script>
 </body>
 </html>

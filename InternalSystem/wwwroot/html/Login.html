@@ -170,7 +170,7 @@
                                 Name: response.data.employeeName,
                                 EmpNumber: response.data.employeeNumber,
                                 DepID: response.data.departmentId,
-                                RankID: response.data.rankId,
+                                PositionId: response.data.positionId,
                             }
                             console.log(LoginInf);
 
@@ -178,14 +178,8 @@
                                 alert("登入成功");
                                 //取得使用者資訊
 
-                                sessionStorage.setItem("EmpID", JSON.stringify(LoginInf.EmpID));
-                                sessionStorage.setItem("EmpNumber", JSON.stringify(LoginInf.EmpNumber));
-                                sessionStorage.setItem("Name", JSON.stringify(LoginInf.Name));
-                                sessionStorage.setItem("DepID", JSON.stringify(LoginInf.DepID));
-                                sessionStorage.setItem("RankID", JSON.stringify(LoginInf.RankID));
-
+                                sessionStorage.setItem("LoginInf", JSON.stringify(LoginInf));
                                 location.assign("index.html")
-
                             }
                             else {
                                 alert("登入失敗，帳號密碼錯誤");

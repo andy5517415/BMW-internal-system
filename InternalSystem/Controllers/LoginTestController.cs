@@ -49,7 +49,7 @@ namespace InternalSystem.Controllers
                     new Claim(ClaimTypes.Name, user.Acount),  //ID工號
                     new Claim("EmployeeName", user.EmployeeName), //使用者名字
                     new Claim("DepartmentId", user.DepartmentId.ToString()),  //部門ID
-                    new Claim("RankId", user.RankId.ToString()),  //RankID
+                    new Claim("PositionId", user.PositionId.ToString()),  //RankID
                     //new Claim(ClaimTypes.Role, "select")  //權限
                 };
 
@@ -69,7 +69,7 @@ namespace InternalSystem.Controllers
                     EmployeeId = user.EmployeeId,
                     EmployeeName = user.EmployeeName,
                     EmployeeNumber = user.EmployeeNumber,
-                    RankId = user.RankId,
+                    PositionId = user.PositionId
                 };
                 
                 return LoginIo;
@@ -106,6 +106,6 @@ namespace InternalSystem.Controllers
         public string EmployeeNumber { get; set; }
         public string EmployeeName { get; set; }
         public int DepartmentId { get; set; }
-        public int RankId { get; set; }
+        public int PositionId { get; set; }
     }
 }

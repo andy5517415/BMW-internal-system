@@ -61,7 +61,6 @@
     <script src="../assets/js/config.js"></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 </head>
 
@@ -284,12 +283,12 @@
                                     <div data-i18n="Account">即時異常狀況</div>
                                 </a>
                             </li>
-                            <li class="menu-item active">
+                            <li class="menu-item">
                                 <a href="BS_BugSys.html" class="menu-link">
                                     <div data-i18n="Account">報錯系統</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item active">
                                 <a href="BS_MonitorSys.html" class="menu-link">
                                     <div data-i18n="Account">監控系統</div>
                                 </a>
@@ -1219,7 +1218,7 @@
             },
             computed: {
                 M4state() {
-                    return 1+1
+                    return 1 + 1
                 },
                 X7state() {
                     return 1
@@ -1235,37 +1234,37 @@
 
                 //[HttpGet("{areaid}/{processId}/{cartype}")]
                 axios.get('/api/MonitoringProcessAreaStatus/1/1/iX xDrive40 旗艦版').then(g => this.iXA01 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/1/1/M4 Competition'   ).then(g => this.M4A01 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/1/1/X7 xDrive40i'     ).then(g => this.X7A01 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/1/1/M4 Competition').then(g => this.M4A01 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/1/1/X7 xDrive40i').then(g => this.X7A01 = g.data.statusId);
                 axios.get('/api/MonitoringProcessAreaStatus/1/2/iX xDrive40 旗艦版').then(g => this.iXB01 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/1/2/M4 Competition'   ).then(g => this.M4B01 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/1/2/X7 xDrive40i'     ).then(g => this.X7B01 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/1/2/M4 Competition').then(g => this.M4B01 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/1/2/X7 xDrive40i').then(g => this.X7B01 = g.data.statusId);
                 axios.get('/api/MonitoringProcessAreaStatus/1/3/iX xDrive40 旗艦版').then(g => this.iXC01 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/1/3/M4 Competition'   ).then(g => this.M4C01 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/1/3/X7 xDrive40i'     ).then(g => this.X7C01 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/1/3/M4 Competition').then(g => this.M4C01 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/1/3/X7 xDrive40i').then(g => this.X7C01 = g.data.statusId);
 
 
 
                 axios.get('/api/MonitoringProcessAreaStatus/2/1/iX xDrive40 旗艦版').then(g => this.iXA02 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/2/1/M4 Competition'   ).then(g => this.M4A02 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/2/1/X7 xDrive40i'     ).then(g => this.X7A02 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/2/1/M4 Competition').then(g => this.M4A02 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/2/1/X7 xDrive40i').then(g => this.X7A02 = g.data.statusId);
                 axios.get('/api/MonitoringProcessAreaStatus/2/2/iX xDrive40 旗艦版').then(g => this.iXB02 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/2/2/M4 Competition'   ).then(g => this.M4B02 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/2/2/X7 xDrive40i'     ).then(g => this.X7B02 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/2/2/M4 Competition').then(g => this.M4B02 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/2/2/X7 xDrive40i').then(g => this.X7B02 = g.data.statusId);
                 axios.get('/api/MonitoringProcessAreaStatus/2/3/iX xDrive40 旗艦版').then(g => this.iXC02 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/2/3/M4 Competition'   ).then(g => this.M4C02 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/2/3/X7 xDrive40i'     ).then(g => this.X7C02 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/2/3/M4 Competition').then(g => this.M4C02 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/2/3/X7 xDrive40i').then(g => this.X7C02 = g.data.statusId);
 
 
                 axios.get('/api/MonitoringProcessAreaStatus/3/1/iX xDrive40 旗艦版').then(g => this.iXA03 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/3/1/M4 Competition'   ).then(g => this.M4A03 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/3/1/X7 xDrive40i'     ).then(g => this.X7A03 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/3/1/M4 Competition').then(g => this.M4A03 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/3/1/X7 xDrive40i').then(g => this.X7A03 = g.data.statusId);
                 axios.get('/api/MonitoringProcessAreaStatus/3/2/iX xDrive40 旗艦版').then(g => this.iXB03 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/3/2/M4 Competition'   ).then(g => this.M4B03 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/3/2/X7 xDrive40i'     ).then(g => this.X7B03 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/3/2/M4 Competition').then(g => this.M4B03 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/3/2/X7 xDrive40i').then(g => this.X7B03 = g.data.statusId);
                 axios.get('/api/MonitoringProcessAreaStatus/3/3/iX xDrive40 旗艦版').then(g => this.iXC03 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/3/3/M4 Competition'   ).then(g => this.M4C03 = g.data.statusId);
-                axios.get('/api/MonitoringProcessAreaStatus/3/3/X7 xDrive40i'     ).then(g => this.X7C03 = g.data.statusId);       
+                axios.get('/api/MonitoringProcessAreaStatus/3/3/M4 Competition').then(g => this.M4C03 = g.data.statusId);
+                axios.get('/api/MonitoringProcessAreaStatus/3/3/X7 xDrive40i').then(g => this.X7C03 = g.data.statusId);
             }
         }).mount('#divmonitor');
 
