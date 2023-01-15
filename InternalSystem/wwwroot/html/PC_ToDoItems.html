@@ -64,8 +64,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 </head>
 
   <body>
@@ -595,33 +596,30 @@
 
     <script>
 
-      var app = new Vue({
-        el: "#app",
-        data: {
-          OrderList: {}
-        },
-        methods: {
-          Enter: function (e) {
-            sessionStorage.setItem("order", JSON.stringify(e));
-          }
-        }
-      })
-
-      //業務訂單
-      $.ajax({
-        type: "get",
-        url: "https://localhost:44319/api/PCApplications/todoitem",
-        success: function (e) {
-          for (var i = 0; i < e.length; i++) {
-            if (e[i].deliveryStatus == false) {
-              e[i].deliveryStatus = "待處理"
+        const app = {
+            data() {
+                return {
+                    OrderList: {}
+                }
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("order", JSON.stringify(e));
+                }
+            },
+            mounted() {
+                axios.get("https://localhost:44319/api/PCApplications/todoitem")
+                    .then(response => {
+                        this.OrderList = response.data;
+                        for (var i = 0; i < this.OrderList.length; i++) {
+                            if (this.OrderList[i].deliveryStatus == false) {
+                                this.OrderList[i].deliveryStatus = "待處理"
+                            }
+                        }
+                    });
             }
-          }
-          app.OrderList = e;
         }
-      })
-
-
+        Vue.createApp(app).mount('#app')
 
     </script>
       <!-- session -->
