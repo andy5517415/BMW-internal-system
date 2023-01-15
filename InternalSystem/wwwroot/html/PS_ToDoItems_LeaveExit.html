@@ -512,60 +512,91 @@
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
                                         <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
-                                        <input class="form-control" v-model="leaveproxy.employeeName" id="Employeename" disabled />
+                                        <input class="form-control" id="Employeename" v-model="leaveExit.employeeName" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                                        <input class="form-control" v-model="leaveproxy.employeeNumber" id="Employeenameid" disabled />
+                                        <input class="form-control" id="Employeenameid" v-model="leaveExit.employeeNumber" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="type" class="form-label fs-4">請假類別</label>
-                                        <input class="form-control" v-model="leaveproxy.type" id="type" disabled />
+                                        <input class="form-control" id="type" v-model="leaveExit.type" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="type" class="form-label fs-4">代理人</label>
-                                        <input class="form-control" v-model="proxyname.employeeName" id="type" disabled />
+                                        <input class="form-control" id="type" v-model="proxyname.employeeName" disabled />
                                     </div>
 
 
 
                                 </div>
-                                <div class="row">
-                                    <div class="mb-3 col-md-3">
+                                <div class="row ">
+                                    <label for="StartTime"  class="col-4 form-label fs-4">開始日期</label>
+                                    <label for="EndTime" class="col-2 form-label fs-4">結束日期</label>
+                                </div>
+                                <div class="row ">
 
-                                        <label for="Starttimeforvacation" class="form-label fs-4">請假開始時間</label>
-                                        <input class="form-control" v-model="leaveproxy.startDate" id="StartDate" disabled />
-                                        <input class="form-control" v-model="leaveproxy.startTime" id="StartTime" disabled />
+                                    <div class="col-md-2">
 
-                                    </div>
-                                    <div class="mb-3 col-md-3">
-
-                                        <label for="Endtimeforvacation" class="form-label fs-4">請假結束時間</label>
-                                        <input class="form-control" v-model="leaveproxy.endDate" id="EndDate" disabled />
-                                        <input class="form-control" v-model="leaveproxy.endTime" id="EndTime" disabled />
-
+                                        <input class="form-control" type="date" id="StartTime" v-model="leaveExit.startDate" />
                                     </div>
 
-                                    <div class="mb-3 col-md-3">
-                                        <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
-                                        <input class="form-control" value="" id="Totalvacation" disabled />
+                                    <div class="col-md-2">
+
+                                        <input class="form-control" type="time" id="html5-date-input"  v-model="leaveExit.startTime"/>
+
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="form-label fs-4">請假事由</label>
-                                            <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
-                                        </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" type="date" id="Endtimeforvacation"  v-model="leaveExit.endDate"/>
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <input class="form-control" type="time" id="html5-time-input" v-model="leaveExit.endTime"/>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <p class="fs-4">共 小時</p>
+                                    </div>
+                                </div>
+
+                                <div class="row ">
+                                    <div class="col-md-2">
+                                        <label class="form-label fs-4" for="Rank">假別</label>
+                                        <select id="Rank" class="select2 form-select"  v-model="leaveExit.leaveType">
+                                            <option v-for="leave in leavetype":value="leave.leaveTypeId">{{leave.type}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label fs-4" for="proxy">代理人</label>
+                                        <select id="proxy" class="select2 form-select"  v-model="leaveExit.proxy">
+                                            <option v-for="item in proxy" :value="item.employeeId"> {{item.employeeName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" >
+                                    <label class="form-label fs-4" for="manager" v-model="leaveExit.manerger">審核主管</label>
+                                    <select id="manager" class="select2 form-select">
+                                        <option  v-for="item in manager" :value="item.employeeId" >{{item.employeeName}} </option>
+</select>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Vacationreason" class="form-label fs-4">請假事由</label>
+                                        <textarea class="form-control" id="Vacationreason" v-model="leaveExit.reason" rows="6" col="6"></textarea>
                                     </div>
                                 </div>
                                 <!-- 按鈕 -->
                                 <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn" v-if="manager<5">同意</button>
-                                    <button type="button" class="btn btn-outline-primary me-2" v-if="manager == 5" @click="managerokbtn">同意</button>
+                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn">申請</button>
 
-                                    <button type="button" class="btn btn-outline-secondary" v-if="manager<5" @click="nobtn">不同意</button>
-                                    <button type="button" class="btn btn-outline-secondary" v-if="manager == 5" @click="managernobtn">不同意</button>
+                                    <button type="button" class="btn btn-outline-secondary" @click="nobtn">刪除</button>
+
                                 </div>
-                        </div>
+</div>
                         </form>
                         <!-- 三個進度卡 -->
                         <br>
@@ -594,10 +625,10 @@
                                         </div>
                                         <div class="card-body text-black text-center">
                                             <span class="card-text fs-4">{{proxyname.employeeName}}</span>
-                                            <span class="badge fs-5 bg-label-success" v-if="leaveproxy.proxyAudit==null">待同意</span>
-                                            <span class="badge fs-5 bg-label-success" v-if="leaveproxy.proxyAudit==false">不同意</span>
-                                            <span class="badge fs-5 bg-label-success" v-if="leaveproxy.proxyAudit==true">同意</span>
-                                            <P class="fs-5 mb-0 mt-2">{{leaveproxy.proxyAuditDate}}</P>
+                                            <span class="badge fs-5 bg-label-success" v-if="leaveExit.status==1">待同意</span>
+                                            <span class="badge fs-5 bg-label-success" v-if="leaveExit.porxyAudit==false">代理人不同意</span>
+                                            <span class="badge fs-5 bg-label-success"v-if="leaveExit.porxyAudit==ture" >同意</span>
+                                            <P class="fs-5 mb-0 mt-2">{{leaveExit.proxyAuditDate}}</P>
                                         </div>
                                     </div>
                                 </div>
@@ -611,9 +642,9 @@
                                         </div>
                                         <div class="card-body text-black text-center">
                                             <span class="card-text fs-4">{{maName.employeeName}}</span>
-                                            <span class="badge bg-label-danger fs-5" v-if="leaveproxy.managerAudit==null">待同意</span>
-                                            <span class="badge bg-label-danger fs-5" v-if="leaveproxy.managerAudit==false">不同意</span>
-                                            <span class="badge bg-label-danger fs-5" v-if="leaveproxy.managerAudit==true">同意</span>
+                                            <span class="badge bg-label-danger fs-5" v-if="leaveExit.status==1">待同意</span>
+                                            <span class="badge bg-label-danger fs-5" v-if="leaveExit.managerAudit==false">不同意</span>
+                                            <span class="badge bg-label-danger fs-5" v-if="leaveExit.managerAudit==true">同意</span>
                                             <P class="fs-5 mb-0 mt-2">2023-01-05</P>
                                         </div>
                                     </div>
@@ -666,81 +697,84 @@
             const app = {
                 data() {
                     return {
-                        leaveproxy: {},
+                        employeelist: {},
                         proxyname: {},
                         maName: {},
+                        employeedata: {},
+                        proxy: {},
                         manager: {},
-                        total: {}
+                        total: {},
+                        leavetype: {},
+                        leaveExit: {}
                     }
                 },
                 methods: {
 
                     okbtn: function () {
-                        this.leaveproxy.statusId = 2;
-                        this.leaveproxy.proxyAudit = true;
+                        this.leaveExit.statusId = 1;
+                        this.leaveExit.proxyAudit = null;
                         //console.log(this.leaveproxy.statusId)   //ok
-                        if (confirm('請確認是否同意') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                        if (confirm('請確認更改申請') == true) {
+                            axios.put('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId, this.leaveExit)
                                 .then(a => {
-                                    alert('已送出同意代理人之回復');
+                                    alert('已重新提交');
                             window.location = "/html/PS_ToDoItems.html";
                                 })
                         }
                     },
 
                     nobtn: function () {
-                        this.leaveproxy.statusId = 3;
-                        this.leaveproxy.proxyAudit = false;
-                        if (confirm('請確認是否拒絕') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                        if (confirm('刪除本次請假申請?') == true) {
+                            axios.delete('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId)
                                 .then(a => {
-                                    alert('已送出拒絕代理人之回復');
+                                    alert('已刪除本次請假申請');
                             window.location = "/html/PS_ToDoItems.html";
                                 })
                         }
                     },
-                    managerokbtn: function () {
-                        this.leaveproxy.statusId = 4;
-                        this.leaveproxy.managerAudit = true;
-                        if (confirm('請確認是否同意') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                .then(a => {
-                                    alert('已送出同意');
-                            window.location = "/html/PS_ToDoItems.html";
-                                })
-                        }
-                    },
-                    managernobtn: function () {
-                        this.leaveproxy.statusId = 5;
-                        this.leaveproxy.managerAudit = false;
-                        if (confirm('請確認是否同意') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                .then(a => {
-                                    alert('已送出不同意');
-                            window.location = "/html/PS_ToDoItems.html";
-                                })
-                        }
-                    }
+               
+            
 
                 },
                 mounted() {
-                    this.leaveproxy = JSON.parse(sessionStorage.getItem("proxy"));
-                    console.log(this.leaveproxy)
-                    this.manager = JSON.parse(sessionStorage.getItem("RankID"))
-                    console.log(this.manager)
-
-                    axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.proxy)
+                    this.employeedata = JSON.parse(sessionStorage.getItem("RankID"))
+                    console.log(this.employeedata)
+                    this.leaveExit = JSON.parse(sessionStorage.getItem("leavereturn"));
+                    console.log(this.leaveExit)
+                    axios.get('/api/PersonnelProfileDetails/' + this.leaveExit.proxy)
                         .then(response => {
                             this.proxyname = response.data;
                             //console.log(this.proxyname)
                         })
 
-                    axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.auditManerger)
+                    axios.get('/api/PersonnelProfileDetails/' + this.leaveExit.auditManerger)
                         .then(response => {
                             this.maName = response.data;
-                            //console.log(this.proxyname)
+                            //console.log(this.maName)
                         })
-              
+
+                    axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
+                        .then(response => {
+                            this.employeelist = response.data,
+                            axios.get('/api/PersonnelProfileDetails/proxy/'
+                                + this.employeelist.departmentId + '/' + this.employeelist.positionId + '/' + this.employeelist.employeeId)//找代理人
+                                .then(response => this.proxy = response.data)
+                            axios.get('/api/PersonnelProfileDetails/Manager/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)//找主管
+                                .then(response => this.manager = response.data)
+                        }).catch(err => console.log(err))
+
+
+                    axios.get('/api/PersonnelLeaveTypes')
+                        .then(response => this.leavetype = response.data)
+
+                    axios.get('/api/PersonnelLeaveOvers/leave1/' + this.employeedata)//找該員工剩餘假
+                        .then(response => this.personalleave = response.data)
+                    axios.get('/api/PersonnelLeaveOvers/leave2/' + this.employeedata)
+                        .then(response => this.sickleave = response.data)
+                    axios.get('/api/PersonnelLeaveOvers/leave3/' + this.employeedata)
+                        .then(response => this.annualleave = response.data)
+                    axios.get('/api/PersonnelLeaveOvers/leave4/' + this.employeedata)
+                        .then(response => this.menstrualleave = response.data)
                 }
             }
 

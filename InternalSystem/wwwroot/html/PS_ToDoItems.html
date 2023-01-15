@@ -518,7 +518,7 @@
                                     <ul class="nav nav-pills mb-3 nav-fill" role="tablist" >
                                         <li class="nav-item" v-if="employeelist.positionId<7">
                                             <button type="button"
-                                                    class="nav-link active"
+                                                    class="nav-link "
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
@@ -592,18 +592,18 @@
                                                                 <th>修改</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody class="table-border-bottom-0">
+                                                        <tbody class="table-border-bottom-0" v-for="leaveExit in leavereturn">
                                                             <tr>
-                                                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>員工名稱</strong></td>
-                                                                <td>20241083</td>
+                                                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{leaveExit.employeeName}}</strong></td>
+                                                                <td>{{leaveExit.employeeNumber}}</td>
                                                                 <td>
-                                                                    <span class="label-primary me-1">121212</span>
+                                                                    <span class="label-primary me-1">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="label-primary me-1">5566</span>
+                                                                    <span class="label-primary me-1">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="label-primary me-1">退件</span>
+                                                                    <span class="label-primary me-1">{{leaveExit.auditStatus}}</span>
 
                                                                 </td>
                                                                 <td>
@@ -611,7 +611,7 @@
                                                                     <div class="dropdown">
 
                                                                         <div class="">
-                                                                            <a class="dropdown-item" href="HR_ToDoItems_Work.html"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                                                            <a class="dropdown-item" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> 檢視</a>
 
                                                                         </div>
                                                                     </div>
@@ -879,7 +879,8 @@
                         employeedata: {},
                         dep: {},
                         leaveproxy: {},
-                        wkover: {}
+                        wkover: {},
+                        leavereturn: {}
                     }
                 },
                 methods: {
@@ -889,6 +890,9 @@
                     overbtn: function (e) {
                         sessionStorage.setItem("work", JSON.stringify(e))
 
+                    },
+                    exitbtn: function (e) {
+                        sessionStorage.setItem("leavereturn", JSON.stringify(e))
                     }
                 },
                 mounted() {
@@ -911,7 +915,11 @@
                                     + this.employeelist.departmentId)
                                     .then(response => this.wkover = response.data)
                             }
-                           
+                            if (this.employeelist.positionId < 7) {
+                                axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
+                                    .then(response => this.leavereturn = response.data)
+                            }
+
                         })
                    
                                 
