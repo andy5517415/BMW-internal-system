@@ -873,75 +873,77 @@
 
           //  }
           //})
-            const app = {
-                data() {
-                    return {
-                        employeelist: {},
-                        employeedata: {},
-                        dep: {},
-                        leaveproxy: {},
-                        wkover: {},
-                        leavereturn: {},
-                        NotyetOver: {}
-                    }
-                },
-                methods: {
-                    checkbtn: function (e) {
-                        sessionStorage.setItem("proxy", JSON.stringify(e))
-                    },
-                    overbtn: function (e) {
-                        sessionStorage.setItem("work", JSON.stringify(e))
+          const app = {
+            data() {
+              return {
+                employeelist: {},
+                employeedata: {},
+                dep: {},
+                leaveproxy: {},
+                wkover: {},
+                leavereturn: {},
+                NotyetOver: {}
+              }
+            },
+            methods: {
+              checkbtn: function (e) {
+                sessionStorage.setItem("proxy", JSON.stringify(e))
+              },
+              overbtn: function (e) {
+                sessionStorage.setItem("work", JSON.stringify(e))
 
-                    },
-                    exitbtn: function (e) {
-                        sessionStorage.setItem("leavereturn", JSON.stringify(e))
-                    },
-                    checkOver: function (e) {
-                        sessionStorage.setItem("lookOver", JSON.stringify(e))
-                    }
-                },
-                mounted() {
-                    this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
+              },
+              exitbtn: function (e) {
+                sessionStorage.setItem("leavereturn", JSON.stringify(e))
+              },
+              checkOver: function (e) {
+                sessionStorage.setItem("lookOver", JSON.stringify(e))
+              }
+            },
+            mounted() {
+              var LoginInf = JSON.parse(sessionStorage.getItem("LoginInf", JSON.stringify(LoginInf)));
+              this.employeedata = LoginInf.EmpID;
 
-                    axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
-                        .then(response => {
-                            this.employeelist = response.data;
-                            //一般員工GET被指定為代理人
-                            if (this.employeelist.positionId < 7) {
-                            axios.get('/api/PersonnelLeaveForms/proxyAudit/'
-                                + this.employeelist.departmentId + '/' + this.employeelist.positionId
-                                + '/' + this.employeelist.employeeId)
-                                    .then(response => this.leaveproxy = response.data)
-                            }
-                            //主管GET代理人同意之請假 以及同部門員工申請加班資料
-                            if (this.employeelist.positionId == 7) {
-                                axios.get('/api/PersonnelLeaveForms/manager/'
-                                    + this.employeelist.departmentId )
-                                    .then(response => this.leaveproxy = response.data)
-                                axios.get('/api/PersonnelOvertimeForms/manager/over/'
-                                    + this.employeelist.departmentId)
-                                    .then(response => this.wkover = response.data)
-                            }
-                            //一般員工GET不同意回復之請假
-                            if (this.employeelist.positionId < 7) {
-                                axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
-                                    .then(response => this.leavereturn = response.data)
-                            }
-                            //一般員工GET還未檢閱之加班
-                            if (this.employeelist.positionId < 7) {
-                                axios.get('/api/PersonnelOvertimeForms/NotyetAudit/' + this.employeedata)
-                                    .then(response => this.NotyetOver = response.data)
-                            }
+              axios.get('/api/PersonnelProfileDetails/' + this.employeedata)
+                .then(response => {
+                  this.employeelist = response.data;
+                  console.log("this.employeelist", this.employeelist);
+                  //一般員工GET被指定為代理人
+                  if (this.employeelist.positionId < 7) {
+                    axios.get('/api/PersonnelLeaveForms/proxyAudit/'
+                      + this.employeelist.departmentId + '/' + this.employeelist.positionId
+                      + '/' + this.employeelist.employeeId)
+                      .then(response => this.leaveproxy = response.data)
+                  }
+                  //主管GET代理人同意之請假 以及同部門員工申請加班資料
+                  if (this.employeelist.positionId == 7) {
+                    axios.get('/api/PersonnelLeaveForms/manager/'
+                      + this.employeelist.departmentId)
+                      .then(response => this.leaveproxy = response.data)
+                    axios.get('/api/PersonnelOvertimeForms/manager/over/'
+                      + this.employeelist.departmentId)
+                      .then(response => this.wkover = response.data)
+                  }
+                  //一般員工GET不同意回復之請假
+                  if (this.employeelist.positionId < 7) {
+                    axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
+                      .then(response => this.leavereturn = response.data)
+                  }
+                  //一般員工GET還未檢閱之加班
+                  if (this.employeelist.positionId < 7) {
+                    axios.get('/api/PersonnelOvertimeForms/NotyetAudit/' + this.employeedata)
+                      .then(response => this.NotyetOver = response.data)
+                  }
 
-                        })
-                   
-                                
-                }
+                })
+
+
             }
+          }
 
-            Vue.createApp(app).mount('#app')
+          Vue.createApp(app).mount('#app')
 
-            
+
         </script>
       <!-- session -->
       <script src="../assets/js/LoginSession.js"></script>
