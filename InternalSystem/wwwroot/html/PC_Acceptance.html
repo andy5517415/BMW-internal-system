@@ -20,30 +20,29 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
-
-    <title>採購紀錄查詢</title>
-
-    <meta name="description" content="" />
-
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
+
+
+    <!-- axios -->
+    <script crossorigin="anonymous"
+            integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+            src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
+    <meta name="description" content="" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -56,15 +55,19 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <!-- Page CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
+    <!-- Page CSS -->
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+</head>
 
   <body>
     <!-- Layout wrapper -->
@@ -308,7 +311,7 @@
                 <div data-i18n="Account Settings">採購系統</div>
               </a>
               <ul class="menu-sub">
-                  <li class="menu-item">
+                  <li class="menu-item active">
                       <a href="PC_ToDoItems.html" class="menu-link">
                           <div data-i18n="Account">採購待辦事項</div>
                       </a>
@@ -323,7 +326,7 @@
                           <div data-i18n="Account">採購申請表</div>
                       </a>
                   </li>
-                  <li class="menu-item active">
+                  <li class="menu-item">
                       <a href="PC_ApplicationRecordSearch.html" class="menu-link">
                           <div data-i18n="Account">採購紀錄查詢</div>
                       </a>
@@ -510,123 +513,52 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- 頁面中間上面輸出 -->
-              <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購紀錄查詢</h4>
+                <h4 class="fw-bold py-4 mb-4 ms-4"> 採購驗收清單</h4>
+            
+                       <!-- Basic Bootstrap Table -->
+              <!-- <div class="card"> -->
 
-              <div class="row">
-                <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item mb-4 mx-4">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>查詢表</a>
-                    </li>
-                  </ul>
-                  <div class="card mb-4 m-4 mx-4">
-                    <!-- 員工名稱 -->
-                    <div class="card-body">
-                          <!-- 部門選擇 -->
-                          <div class="mb-3 col-md-12">
-                            <label for="department" class="form-label">部門</label>
-                            <select id="department" class="select1 form-select">
-                              <option value="">選擇部門</option>
-                              <option value="Australia">生產部</option>
-                              <option value="Bangladesh">業務部</option>
-                              <option value="Belarus">人資部</option>
-                            </select>
+                  <div class="card mb-4 m-4 ">
+                      <div class="card text-center ">
+                      <div class="row card-body">
+                          <div class=" row">
+                              <label for="" class=" col-2 fs-4 ">訂單編號</label>
+                              <label for="" class=" col-2 fs-4 ">部門</label>
+                              <label for="" class=" col-2 fs-4 ">申請人</label>
+                              <label for="" class=" col-2 fs-4 ">金額</label>
+                              <label for="" class=" col-2 fs-4 ">配送狀態</label>
                           </div>
-
-                          <!-- 起始日期 -->
-                          <div class="row">
-                            <div class="mb-3 col-md-6">
-                              <label for="ApplicationDate" class="col-md-2 col-form-label">起始日期</label>
-                              <div class="col-md-12">
-                                <input class="form-control" type="date" value="" id="ApplicationDate" />
-                              </div>
-                            </div>
-                            <!-- 結束日期 -->
-                            <div class="mb-3 col-md-6">
-                              <label for="ApplicationDate" class="col-md-2 col-form-label">結束日期</label>
-                              <div class="col-md-12">
-                                <input class="form-control" type="date" value="" id="ApplicationDate" />
-                              </div>
-                            </div>
-                          </div>
-                            <!-- 採購清單 -->
-                          <div class="card">
-                            <h5 class="card-header">採購項目</h5>
-                            <div class="card-body">
-                              <div class="table-responsive text-nowrap">
-                                <table class="table table-bordered">
-                                <thead>
-                                  <tr>
-                                    <th>查詢</th>
-                                    <th>項次</th>
-                                    <th>部門</th>
-                                    <th>申請人</th>
-                                    <th>總價</th>
-                                    <th>配送狀態</th>
-                                  </tr>
-                                </thead>
-                      <tbody>
-                        <tr>
-                          <!-- 第一項物品 -->
-                          <!-- 查詢 -->
-                          <td>
-                            <p>查看</p>
-                          </td>
-                          <!-- 項次 -->
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>D7501</strong>
-                          </td>
-                          <!-- 部門 -->
-                          <td>業務部</td>
-                          <!-- 申請人 -->
-                          <td>宋仲基</td>
-                          <!-- 總價 -->
-                          <td>
-                            <div>200,000元</div>
-                          </td>
-                          <!-- 單位 -->
-                          <td><span class="badge bg-label-primary me-1">配送中</span></td>
-                        </tr>                 
-                        <tr>
-                          <!-- 第二項物品 -->
-                          <!-- 查詢 -->
-                          <td>
-                            <p>查看</p>
-                          </td>
-                          <!-- 項次 -->
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>D7502</strong>
-                          </td>
-                          <!-- 部門 -->
-                          <td>人資部</td>
-                          <!-- 申請人 -->
-                          <td>孔劉</td>
-                          <!-- 總價 -->
-                          <td>
-                            <div>5,000元</div>
-                          </td>
-                          <!-- 單位 -->
-                          <td><span class="badge bg-label-warning me-1">已配送</span></td>
-                        </tr>                 
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <!--/ Bordered Table -->
-                        <!-- 確認按鈕 -->
-                        <!-- <div class="mt-2">
-                          <button type="submit" class="btn btn-outline-primary me-2">存檔</button>
-                          <button type="reset" class="btn btn-outline-secondary">取消</button>
-                        </div>
-                      </form>
-                    </div> -->
-                    <!-- /Account -->
+                      
+                      </div>
+        
+                    </div>
                   </div>
                   
+                  <div id="app">
+                      <div class="card mb-4 m-4" v-for="order in OrderList" >
+                          <div class="card text-center " >
+                              <div class="row card-body" >
+                                  <div class=" row" >
+                                      <label for="" class=" col-2 fs-4 ">{{order.purchaseId}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.department}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.employeeName}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.total}}</label>
+                                      <label for="" class=" col-2 fs-4 ">{{order.deliveryStatus}}</label>
+                                      <div class="col-2   d-md-flex justify-content-md-end">
+                                          <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+                  
+              <!-- </div> -->
+
+            <!-- / Content -->
 
             <!-- Footer -->
             
@@ -634,6 +566,7 @@
 
             <div class="content-backdrop fade"></div>
           </div>
+            
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -643,8 +576,6 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
-
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -657,15 +588,45 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/pages-account-settings-account.js"></script>
+    <script src="../assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+
+        const app = {
+            data() {
+                return {
+                    OrderList: {}
+                }
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("order", JSON.stringify(e));
+                }
+            },
+            mounted() {
+                axios.get("https://localhost:44319/api/PCApplications/todoitem")
+                    .then(response => {
+                        this.OrderList = response.data;
+                        for (var i = 0; i < this.OrderList.length; i++) {
+                            if (this.OrderList[i].deliveryStatus == false) {
+                                this.OrderList[i].deliveryStatus = "待處理"
+                            }
+                        }
+                    });
+            }
+        }
+        Vue.createApp(app).mount('#app')
+
+    </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
   </body>
