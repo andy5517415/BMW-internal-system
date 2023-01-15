@@ -137,7 +137,7 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<dynamic>> GetLeaveManager(int dep, int id)
         {
             var personnelProfileDetail = from o in _context.PersonnelProfileDetails
-                                         where o.DepartmentId == dep && o.RankId == 5 && o.EmployeeId != id
+                                         where o.DepartmentId == dep && o.PositionId == 7 && o.EmployeeId != id
                                          select new
                                          {
                                              EmployeeId = o.EmployeeId,
