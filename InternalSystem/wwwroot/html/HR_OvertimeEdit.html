@@ -625,7 +625,7 @@
             methods: {
                 overedit: function () {
                     alert('ok')
-                    axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkeId, this.overlist).then(ok => alert('成功'))
+                    axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkId, this.overlist).then(ok => alert('成功'))
                 }
             },
             mounted() {
