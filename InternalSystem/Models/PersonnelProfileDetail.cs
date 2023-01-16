@@ -44,7 +44,7 @@ namespace InternalSystem.Models
         public bool DutyStatus { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime? Terminationdate { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         public virtual PersonnelCityList City { get; set; }
         public virtual PersonnelDepartmentList Department { get; set; }

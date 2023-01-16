@@ -539,7 +539,7 @@
                                     員工照片
                                 </div>
                                 <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                    <img src="../assets/img/avatars/1.png"
+                                    <img :src="employeelist.photo"
                                          alt="user-avatar"
                                          class="d-block rounded"
                                          height="100"
@@ -553,7 +553,8 @@
                                                    id="upload"
                                                    class="account-file-input"
                                                    hidden
-                                                   accept="image/png, image/jpeg" />
+                                                   accept="image/png, image/jpeg" 
+                                                   />
                                         </label>
                                         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                             <i class="bx bx-reset d-block d-sm-none"></i>
@@ -845,7 +846,8 @@
         const app = {
             data() {
                 return {
-                    employeelist: {},
+                    employeelist: {
+                        "photo": "https://x.nctu.app/img/g7Fx.jpg"},
                     departmentlist: {},
                     positionlist: {},
                     ranklist: {},
