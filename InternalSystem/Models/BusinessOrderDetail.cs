@@ -7,6 +7,7 @@ namespace InternalSystem.Models
 {
     public partial class BusinessOrderDetail
     {
+        public int OdId { get; set; }
         public int OrderId { get; set; }
         public int OptionalId { get; set; }
 

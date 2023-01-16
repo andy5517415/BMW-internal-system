@@ -53,7 +53,7 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
             }
         }
 
@@ -141,7 +141,7 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<BusinessOrderDetail>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.OptionalId })
+                entity.HasKey(e => e.OdId)
                     .HasName("PK__Business__14E304336494AF1C");
 
                 entity.ToTable("BusinessOrderDetail");
@@ -257,14 +257,20 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<MonitoringProcessAreaStatus>(entity =>
             {
-                entity.HasKey(e => new { e.AreaId, e.ProcessId, e.StatusId, e.CarType })
+                entity.HasKey(e => e.MonitorId)
                     .HasName("PK_Production製程與廠區監控狀態");
 
                 entity.ToTable("MonitoringProcessAreaStatus");
 
-                entity.Property(e => e.StatusId).HasMaxLength(50);
+                entity.Property(e => e.CarType)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.CarType).HasMaxLength(50);
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Area)
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
@@ -289,7 +295,7 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
-                entity.Property(e => e.Date).HasColumnType("datetime");
+                entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.Department)
                     .IsRequired()

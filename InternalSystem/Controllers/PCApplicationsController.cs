@@ -148,6 +148,31 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
+        // 驗收專用
+        // 用於 PC_ApplicationRecordSearch
+        // GET: api/PCApplications/recordsearch
+        [HttpGet("recordsearch")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCrecordsearch()
+        {
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Date = AP.Date.ToString(),
+                           Total = AP.Total,
+                           ApplicationStatus = AP.ApplicationStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                       };
+
+
+            return await List.ToListAsync();
+        }
+
         // 供應商
         // GET: api/PCApplications/supplier
         [HttpGet("supplier")]

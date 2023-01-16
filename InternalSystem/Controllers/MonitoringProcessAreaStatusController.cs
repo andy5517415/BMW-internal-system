@@ -28,13 +28,13 @@ namespace InternalSystem.Controllers
         //自己寫的
         // GET: api/MonitoringProcessAreaStatus/1/1/iX xDrive40 旗艦版
         [HttpGet("{areaid}/{processId}/{cartype}")]
-        public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId,string cartype)
+        public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId, string cartype)
         {
             var q = from ord in _context.MonitoringProcessAreaStatuses
-                    where ord.AreaId== areaid && ord.ProcessId == processId && ord.CarType== cartype
-                    select new { statusId =ord.StatusId};
+                    where ord.AreaId == areaid && ord.ProcessId == processId && ord.CarType == cartype
+                    select new { statusId = ord.StatusId };
 
-                return await q.SingleOrDefaultAsync();
+            return await q.SingleOrDefaultAsync();
         }
 
 
