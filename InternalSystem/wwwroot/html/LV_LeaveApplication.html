@@ -618,8 +618,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-3 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 " v-if="employeelist.positionId<7">送出</button>
-                                    <button type="button" @click="mabtn" class="btn btn-outline-primary me-3 " v-if="employeelist.positionId==7">送出</button>
+                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 " >送出</button>
                                     <button type="reset" class="btn btn-outline-secondary ">取消</button>
                                 </div>
                             </form>
@@ -679,24 +678,88 @@
                 }
             },
             methods: {
-                //一般員工請假按鈕
                 okbtn: function () {
                     //alert('OK');
-                    if (confirm('是否送出請假資料?') == true) {
-                        this.application.statusId = 1;
-                        axios.post('/api/PersonnelLeaveForms', this.application)
-                            .then(alert('申請已送出')).catch(err => console.log(err))
-                        window.location = "/html/LV_LeaveApplication.html"
+                    //一般員工請假
+                    //    if (this.employeedata.PositionId < 7) {
+                    //        if (confirm('是否送出請假資料?1') == true) {
+                    //            this.application.statusId = 1;
+                    //            axios.post('/api/PersonnelLeaveForms', this.application)
+                    //                .then(alert('申請已送出')).catch(err => console.log(err))
+                    //            window.location = "/html/LV_LeaveApplication.html"
+                    //        }
+                    //    }
+
+                    ////主管請假
+                    //    if (this.employeedata.PositionId >= 7) {
+                    //        if (confirm('是否送出請假資料?2') == true) {
+                    //            this.application.statusId = 6;
+                    //            axios.post('/api/PersonnelLeaveForms', this.application)
+                    //                .then(alert('申請已送出')).catch(err => console.log(err))
+                    //            window.location = "/html/LV_LeaveApplication.html"
+                    //        }
+                    //    }
+
+
+                  
+
+                   // 判斷是否日期時間是否填入
+                    if (this.application.startDate != null && this.application.endDate != null &&
+                        this.application.startTime != null && this.application.endTime != null) {
+
+                        //日期轉數字
+                        const sy = parseInt(this.application.startDate.substring(0, 4))*525600;
+                        console.log(sy);
+                        const ey = parseInt(this.application.endDate.substring(0, 4))*525600;
+                        console.log(ey);
+                        const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
+                        //console.log(smonth);
+                        const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
+                        console.log(sd);
+                        const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
+                        //console.log(emonth);
+                        const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
+                        console.log(ed);
+
+                        //時間轉數字
+                        const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
+                        const sm = parseInt(this.application.startTime.substring(3, 5));
+                        const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
+                        const em = parseInt(this.application.endTime.substring(3, 5));
+
+                        const stotal = (sy + smonth + sd + sh + sm) ;
+                        console.log(stotal)
+                        const etotal = (ey + emonth + ed + eh + em) ;
+                        console.log(etotal)
+
+                        //判斷請假日期時間是否開始大於結束
+                        if (stotal < etotal) {
+                        //判斷請假是否跨休息時間
+                            if (sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
+                                var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
+                                //leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
+                                console.log(leavetotal);
+                                //console.log('s')
+                            }
+                            else if (sh == 720 || (eh == 780 && em == 0)) {
+                                alert('請假開始時間或結束時間不可選在休息時段!')
+                            }
+                            else {
+                                var leavetotal = (((eh + em) - (sh + sm)) / 60);
+                                console.log(leavetotal);
+
+                            }
+                        }
+                        else {
+                            alert('開始時間不可大於或等於結束時間')
+                        }
                     }
-                },
-                //主管請假按鈕
-                mabtn: function () {
-                    if (confirm('是否送出請假資料?') == true) {
-                        this.application.statusId = 6;
-                        axios.post('/api/PersonnelLeaveForms', this.application)
-                            .then(alert('申請已送出')).catch(err => console.log(err))
-                        window.location = "/html/LV_LeaveApplication.html"
-                    }
+                    else { alert('日期時間不可為空!') };
+                   /* console.log(leavetotal);*/
+                    //console.log(typeof(sh));
+                    //console.log(sm);
+                    //console.log(eh);
+                    //console.log(em);
                 }
             },
             mounted() {

@@ -31,7 +31,7 @@
 
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -59,8 +59,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 </head>
 
   <body>
@@ -568,48 +569,24 @@
     <!-- Vue 傳值 -->
     <script>
 
-      var app = new Vue({
-        el: "#app",
-        data: {
-          item: {},
+        var app = {
+            data() {
+                return {
+                    item: {},
+                }
+            },
+            methods: {
+
+            },
+            mounted() {
+                axios.get('https://localhost:44319/api/PCApplications/itemsearch')
+                    .then(response => this.item = response.data);
+            }
         }
-      });
-
-      $.ajax({
-        type: 'get',
-        url: "https://localhost:44319/api/PcPurchaseItemSearches/goods",
-        success: (e) => {
-          app.item = e;
-          console.log(e);
-        }
-      })
 
 
-        //var app = new Vue({
-        //    el: "#app",
-        //    data: {
-        //        item: {},
-        //    }, mounted: function () {
-        //        this.item = JSON.parse(sessionStorage.getItem("data"));
-        //        $.ajax({
-        //            type: "get",
-        //            url: "https://localhost:44319/api/PcOrderDetails/goodstest/" + this.goods,
-        //            success: (e) => {
-        //                app.PDProcessList = e
-        //                console.log(app.PDProcessList);
-        //            }
+        Vue.createApp(app).mount('#app')
 
-        //        })
-
-        //    },
-        //    methods: {
-        //        Enter: function (e) {
-        //            sessionStorage.setItem("data", JSON.stringify(e));
-        //        }
-        //    }
-
-
-        //})
     </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

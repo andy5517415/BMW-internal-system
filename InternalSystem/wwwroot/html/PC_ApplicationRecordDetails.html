@@ -20,12 +20,10 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>採購紀錄細項</title>
 
@@ -33,17 +31,15 @@
 
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -57,14 +53,16 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+</head>
 
   <body>
     <!-- Layout wrapper -->
@@ -508,15 +506,15 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
+          <div class="content-wrapper" id="app"/>
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xxl flex-grow-1 container-p-y"/>
               <!-- 頁面中間上面輸出 -->
               <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購紀錄細項</h4>
 
-              <div class="row">
-                <div class="col-md-12">
+              <div class="row"/>
+                <div class="col-md-12"/>
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item mb-4 mx-4">
                       <a class="nav-link active " href="javascript:void(0);"><i class="bx bx-user me-1"></i>採購紀錄</a>
@@ -525,283 +523,117 @@
                   <div class="card mb-4 m-4 mx-4">
                     <!-- 員工名稱 -->
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">員工名稱</label>
-                            <input
-                            class="form-control"
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            value="宋仲基"
-                            autofocus
-                            />
-                          </div>
-                          <!-- 部門選擇 -->
-                          <div class="mb-3 col-md-6">
-                            <label for="department" class="form-label">部門</label>
-                            <select id="department" class="select1 form-select">
-                              <!-- <option value="">選擇部門</option> -->
-                              <!-- <option value="Australia">生產部</option> -->
-                              <option value="Bangladesh">業務部</option>
-                              <!-- <option value="Belarus">人資部</option> -->
-                            </select>
-                          </div>
-                          <!-- 申請日期 -->
-                          <div class="mb-3 col-md-6">
-                            <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
-                            <div class="col-md-12">
-                              <input class="form-control" type="date" value="" id="ApplicationDate" />
-                            </div>
-                          </div>
-                          <!-- 採購單號 -->
-                          <div class="mb-3 col-md-6">
-                              <label for="PurchaseID" class="form-label">採購單號</label>
-                              <input class="form-control"
-                                     type="text"
-                                     id="PurchaseID"
-                                     name="PurchaseID"
-                                     value="SPE20230112"
-                                     autofocus />
-                          </div>
-                          <!-- 供應商 -->
-                          <div class="mb-3 col-md-6">
-                            <label for="SupplierID" class="form-label">供應商名稱</label>
-                              <select id="SupplierID" class="select1 form-select">
-                              <!-- <option value="">選擇供應商</option> -->
-                              <option value="Australia">BMW</option>
-                              <!-- <option value="Bangladesh">BENZ</option> -->
-                            </select>
-                          </div> 
-                          <!-- 供應商聯絡人 -->
-                          <div class="mb-3 col-md-6">
-                            <label for="SupplierContact" class="form-label">供應商聯絡人</label>
-                              <select id="SupplierContact" class="select1 form-select">
-                              <!-- <option value="">選擇供應商聯絡人</option> -->
-                              <option value="Australia">陳大明</option>
-                            </select>
-                          </div>
-                         <!-- 供應商電話 -->
-                         <div class="mb-3 col-md-6">
-                          <label for="SupplierPhone" class="form-label">供應商電話</label>
-                            <select id="SupplierPhone" class="select1 form-select">
-                            <!-- <option value="">選擇供應商電話</option> -->
-                            <option value="Australia">0912-456-789</option>
-                          </select>
-                        </div>
-                        <!-- 備註 -->
-                          <div class="mb-3 col-md-6">
-                            <label for="Comment" class="form-label">備註</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="Comment"
-                              name="Comment"
-                              value=""
-                              placeholder=""
-                            />
-                          </div>
-                          <!-- 採購清單 -->
-              <div class="card">
-                <h5 class="card-header">採購項目</h5>
-                <div class="card-body">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>項次</th>
-                          <th>品名</th>
-                          <th>數量</th>
-                          <th>單位</th>
-                          <th>單價</th>
-                          <th>小計</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <!-- 第一項物品 -->
-                          <!-- 項次 -->
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A01</strong>
-                          </td>
-                          <!-- 物品名稱 -->
-                          <td>保險桿</td>
-                          <!-- 物品數量 -->
-                          <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                      <form id="formAccountSettings" method="POST" onsubmit="return false"/>
+                          <div class="row">
                               <div class="mb-3 col-md-6">
-                                <label for="number" class="form-label"></label>
-                                  <select id="number" class="select1 form-select">
-                                  <!-- <option value="">選擇數量</option> -->
-                                  <option value="A">1</option>
-                                  <!-- <option value="B">2</option> -->
-                                  <!-- <option value="C">3</option> -->
-                                  <!-- <option value="D">4</option> -->
-                                  <!-- <option value="E">5</option> -->
-                                </select>
+                                  <label for="employeeName" class="form-label">員工名稱</label>
+                                  <input class="form-control"
+                                         type="text"
+                                         id="employeeName"
+                                         name="employeeName"
+                                         v-model="myobject.employeeName"
+                                         autofocus />
                               </div>
-                            </ul>
-                          </td>
-                          <!-- 單位 -->
-                          <td><span class="badge bg-label-primary me-1">隻</span></td>
-                          <!-- 單價 -->
-                          <td>
-                            <div class="dropdown">
-                              <p>5,000元</p>
-                            </div>
-                          </td>
-                          <!-- 小計 -->
-                          <td>
-                            <div class="dropdown">
-                              <div>5,000元</div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- 第二項物品 -->
-                        <tr>
-                          <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>A02</strong></td>
-                          <td>水箱罩</td>
-                          <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <!-- 部門選擇 -->
                               <div class="mb-3 col-md-6">
-                                <label for="number" class="form-label"></label>
-                                  <select id="number" class="select1 form-select">
-                                  <!-- <option value="">選擇數量</option> -->
-                                  <!-- <option value="A">1</option> -->
-                                  <option value="B">2</option>
-                                  <!-- <option value="C">3</option> -->
-                                  <!-- <option value="D">4</option> -->
-                                  <!-- <option value="E">5</option> -->
-                                </select>
+                                  <label for="department" class="form-label">部門</label>
+                                  <input class="form-control"
+                                         type="text"
+                                         id="department"
+                                         name="department"
+                                         v-model="myobject.department"
+                                         autofocus />
                               </div>
-                            </ul>
-                          </td>
-                          <td><span class="badge bg-label-success me-1">組</span></td>
-                          <!-- 單價 -->
-                          <td>
-                            <div class="dropdown">
-                              <p>4,000元</p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="dropdown">
-                              <div>8,000元</div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- 第三項物品 -->
-                        <tr>
-                          <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>A03</strong></td>
-                          <td>車柱</td>
-                          <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <!-- 申請日期 -->
                               <div class="mb-3 col-md-6">
-                                <label for="number" class="form-label"></label>
-                                  <select id="number" class="select1 form-select">
-                                  <!-- <option value="">選擇數量</option> -->
-                                  <option value="A">1</option>
-                                  <!-- <option value="B">2</option> -->
-                                  <!-- <option value="C">3</option> -->
-                                  <!-- <option value="D">4</option> -->
-                                  <!-- <option value="E">5</option> -->
-                                </select>
+                                  <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
+                                  <div class="col-md-12">
+                                      <input class="form-control" type="text" id="ApplicationDate"  v-model="myobject.date"/>
+                                  </div>
                               </div>
-                            </ul>
-                          </td>
-                          <td><span class="badge bg-label-info me-1">組</span></td>
-                          <!-- 單價 -->
-                          <td>
-                            <div class="dropdown">
-                              <p>8,000元</p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="dropdown">
-                              <div>8,000元</div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- 第四項物品 -->
-                        <tr>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>A04</strong>
-                          </td>
-                          <td>天窗</td>
-                          <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <!-- 採購單號 -->
                               <div class="mb-3 col-md-6">
-                                <label for="number" class="form-label"></label>
-                                  <select id="number" class="select1 form-select">
-                                  <!-- <option value="">選擇數量</option> -->
-                                  <option value="0">0</option>
-                                  <!-- <option value="A">1</option> -->
-                                  <!-- <option value="B">2</option> -->
-                                  <!-- <option value="C">3</option> -->
-                                  <!-- <option value="D">4</option> -->
-                                  <!-- <option value="E">5</option> -->
-                                </select>
+                                  <label for="PurchaseID" class="form-label">採購單號</label>
+                                  <input class="form-control"
+                                         type="text"
+                                         id="PurchaseID"
+                                         name="PurchaseID"
+                                         value="SPE20230112"
+                                         v-model="myobject.purchaseId"
+                                         autofocus />
                               </div>
-                              </li>
-                            </ul>
-                          </td>
-                          <td><span class="badge bg-label-warning me-1">組</span></td>
-                          <!-- 單價 -->
-                          <td>
-                            <div class="dropdown">
-                              <p>3,500元</p>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="dropdown">
-                              <div>0元</div>
+                              <!-- 備註 -->
+                              <div class="mb-3 col-md-6">
+                                  <label for="Comment" class="form-label">備註</label>
+                                  <input class="form-control"
+                                         type="text"
+                                         id="Comment"
+                                         name="Comment"
+                                         v-model="myobject.comment"
+                                         placeholder="" />
                               </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </div>
-                    </tbody>
-                  </table>
-                  <!-- 總價 -->
-                  <div>
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                      <div class="p-2 bd-highlight">總價 21,000元</div>
+                              <!-- 採購清單 -->
+                              <div class="card">
+                                  <h5 class="card-header">採購項目</h5>
+                                  <div class="card-body">
+                                      <div class="table-responsive text-nowrap">
+                                          <table class="table table-bordered">
+                                              <thead>
+                                                  <tr>
+                                                      <th>項次</th>
+                                                      <th>品名</th>
+                                                      <th>數量</th>
+                                                      <th>單位</th>
+                                                      <th>單價</th>
+                                                      <th>小計</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr v-for="a in list">
+                                                      <!-- 第一項物品 -->
+                                                      <!-- 項次 -->
+                                                      <td>
+                                                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
+                                                      </td>
+                                                      <!-- 物品名稱 -->
+                                                      <td>{{a.goods}}</td>
+                                                      <!-- 物品數量 -->
+                                                      <td>
+                                                          <div>
+                                                              <p>{{a.quantiy}}</p>
+                                                          </div>
+                                                      </td>
+                                                      <!-- 單位 -->
+                                                      <td><span class="badge bg-label-primary me-1">{{a.unit}}</span></td>
+                                                      <!-- 單價 -->
+                                                      <td>
+                                                          <div class="dropdown">
+                                                              <p>{{a.unitPrice}}元</p>
+                                                          </div>
+                                                      </td>
+                                                      <!-- 小計 -->
+                                                      <td>
+                                                          <div class="dropdown">
+                                                              <div>{{a.subtotal}}元</div>
+                                                          </div>
+                                                      </td>
+                                                  </tr>      
+                                              </tbody>
+                                          </table>
+                                                        <!-- 總價 -->
+                                                      <div>
+                                                        <div class="d-flex flex-row-reverse bd-highlight">
+                                                            <div class="p-2 bd-highlight">總價：元</div>
+                                                        </div>
+                                                        <div class="table-responsive text-nowrap"></div>
+                                                      </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                     </div>
-                    <div class="table-responsive text-nowrap"></div>
-                  </div>
-                </div>
-              </div>
-
-              <!--/ Bordered Table -->
-                        <!-- 確認按鈕
-
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-outline-primary me-2">存檔</button>
-                          <button type="reset" class="btn btn-outline-secondary">取消</button>
-                        </div>
-                      </form>
-                    </div> -->
-                    <!-- /Account -->
-                  </div>
-                  
-
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
             <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
-
-      <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
     <!-- / Layout wrapper -->
 
 
@@ -826,6 +658,29 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+        <script>
+            var app = {
+                data() {
+                    return {
+                        list: {},
+                        myobject: {}
+                    }
+                },
+                methods: {
+
+                },
+                mounted() {
+                    this.myobject = JSON.parse(sessionStorage.getItem('order'))
+                    axios.get('/api/PCApplications/recordsearchdetail/' + this.myobject.purchaseId)
+                        .then(response => this.list = response.data)
+                }
+            }
+
+
+            Vue.createApp(app).mount('#app')
+        </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
   </body>

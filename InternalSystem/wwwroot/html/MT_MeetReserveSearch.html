@@ -33,7 +33,11 @@
 
     <!-- vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    
+    <!-- axios -->
+    <script crossorigin="anonymous"
+      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+      src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -511,7 +515,7 @@
               <h4 class="fw-bold py-3 mx-4"><span class="text-muted fw-light">會議室 /</span> 查詢預約紀錄</h4>
 
               <!-- ★查詢預約紀錄 -->
-                  <div class="card m-4">
+                  <div class="card m-4" id="MeetInf">
                     <h3 class="card-header mx-auto mt-3 fw-bold " style="text-decoration: underline 4pt #666EE8;">查詢預約紀錄</h3><div class="h-50"></div>
                     <div class="card-body mb-3 col-md-12">
                       <!-- ⁥!!! -->
@@ -519,24 +523,25 @@
                       <div class="mb-3 row g-2 justify-content-around">
                         <label for="meetSearch_date" class="col-4 col-md-2 col-form-label fs-5 text-center fw-bold" >查詢日期區間</label>
                         <div class="col-4 col-md-2">
-                          <input class="form-control" type="date" value="" id="meetSearch_date1" style="height: 45px;" />
+                          <input v-model="MeetInf.StartDay" class="form-control" type="date" value="" id="meetSearch_date1" style="height: 45px;" />
                         </div>
                         <div class="col-4 col-md-2">
-                          <input class="form-control" type="date" value="" id="meetSearch_date2" style="height: 45px;" />
+                          <input v-model="MeetInf.EndDay" class="form-control" type="date" value="" id="meetSearch_date2" style="height: 45px;" />
                         </div>
                         <!-- 選擇部門 -->
                         <label for="meetDepeart_select" class="col-4 col-md-1 col-form-label fs-5 text-center fw-bold">選擇部門</label>
                         <div class="col-8 col-md-2">
-                        <select class="form-select" id="meetDepeart_select" style="height: 45px;">
+                        <select v-model="MeetInf.DepId" class="form-select" id="meetDepeart_select" style="height: 45px;">
                           <option selected>選擇部門</option>
-                          <option value="1">生產部</option>
-                          <option value="2">業務部</option>
-                          <option value="3">人資部</option>
+                          <option value="1">人資部</option>
+                          <option value="2">生產部</option>
+                          <option value="3">業務部</option>
+                          <option value="4">採購部</option>
                         </select>
                         </div>
                         <!-- ★送出按鈕 -->
                         <div class="col-12 col-md-1">
-                          <button type="submit" class="btn btn-outline-primary me-2 col-12">查詢</button>
+                          <button @click="DoMeetInf()" type="submit" class="btn btn-outline-primary me-2 col-12">查詢</button>
                         </div>
                       </div>
                     </div>
@@ -616,6 +621,42 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+    <script>
+      const MeetInf = {
+        data() {
+          return {
+            MeetInf: {
+
+            }
+          }
+        },
+        methods: {
+          // 執行登入按鈕
+          DoMeetInf: function () {
+            var self = this;
+
+            var sDay = self.MeetInf.StartDay
+            self.MeetInf.StartDay = sDay.substring(0, 4) + sDay.substring(5, 7) + sDay.substring(8, 10)
+            var eDay = self.MeetInf.EndDay
+            self.MeetInf.EndDay = eDay.substring(0, 4) + eDay.substring(5, 7) + eDay.substring(8, 10)
+
+            axios.get("https://localhost:44319/api/MeetingReserves/" + self.MeetInf.DepId + "/" + self.MeetInf.StartDay + "/" + self.MeetInf.EndDay
+            )   //驗證
+              .then((response) => {
+                alert("會議室資料")
+                console.log(response.data[0]);
+              })
+              .catch((error) => { alert('連線錯誤' + error); })
+
+          }
+        }
+      }
+
+      Vue.createApp(MeetInf).mount('#MeetInf')
+    </script>
+
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
   </body>
