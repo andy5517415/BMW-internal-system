@@ -7,12 +7,16 @@ namespace InternalSystem.Models
 {
     public partial class PcApplication
     {
+        public PcApplication()
+        {
+            PcOrderDetails = new HashSet<PcOrderDetail>();
+        }
+
         public long PurchaseId { get; set; }
         public int OrderId { get; set; }
         public int EmployeeId { get; set; }
         public string Department { get; set; }
         public DateTime Date { get; set; }
-        public string SupplierId { get; set; }
         public string Comment { get; set; }
         public int Total { get; set; }
         public bool ApplicationStatus { get; set; }
@@ -20,6 +24,6 @@ namespace InternalSystem.Models
         public bool AcceptanceStatus { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
-        public virtual PcSupplierList Supplier { get; set; }
+        public virtual ICollection<PcOrderDetail> PcOrderDetails { get; set; }
     }
 }
