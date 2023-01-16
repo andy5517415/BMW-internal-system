@@ -48,15 +48,6 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
@@ -64,7 +55,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
-                    .HasName("PK__Business__70B82048542ED421");
+                    .HasName("PK__Business__70B82048B7E9AA29");
 
                 entity.ToTable("BusinessArea");
 
@@ -84,7 +75,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessCategory>(entity =>
             {
                 entity.HasKey(e => e.CategoryId)
-                    .HasName("PK__Business__19093A0BF15A2A00");
+                    .HasName("PK__Business__19093A0B2BD5B902");
 
                 entity.ToTable("BusinessCategory");
 
@@ -98,7 +89,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessOptional>(entity =>
             {
                 entity.HasKey(e => e.OptionalId)
-                    .HasName("PK__Business__7735FFCC2B7F7340");
+                    .HasName("PK__Business__7735FFCC768EBE48");
 
                 entity.ToTable("BusinessOptional");
 
@@ -708,8 +699,6 @@ namespace InternalSystem.Models
 
                 entity.ToTable("ProductionBugContext");
 
-                entity.HasIndex(e => e.OrderId, "IX_ProductionBugContext");
-
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.StartTime)
@@ -739,8 +728,6 @@ namespace InternalSystem.Models
                     .HasName("PK_ProductionContext_1");
 
                 entity.ToTable("ProductionContext");
-
-                entity.HasIndex(e => e.OrderId, "IX_ProductionContext");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
@@ -789,8 +776,6 @@ namespace InternalSystem.Models
                     .HasName("PK_ProductionProcessList_1");
 
                 entity.ToTable("ProductionProcessList");
-
-                entity.HasIndex(e => e.OrderId, "IX_ProductionProcessList");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 

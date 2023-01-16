@@ -550,20 +550,29 @@
                                         <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
                                         <input class="form-control" value="" id="Totalvacation" disabled />
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="form-label fs-4">請假事由</label>
+                                    <div class="row mt-3" v-if="this.manager.PositionId < 7">
+                                        <div class="mb-3 col-md-12"  >
+                                            <label for="Vacationreason" class="form-label fs-4" >請假事由</label>
                                             <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
                                         </div>
                                     </div>
+                                    <div class="row mt-3" v-if="this.manager.PositionId== 7">
+                                        <div class="mb-3 col-md-6">
+                                            <label for="Vacationreason" class="form-label fs-4">請假事由</label>
+                                            <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="Vacationreason" class="form-label fs-4">請假意見</label>
+                                            <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.auditOpnion" rows="6" col="6" ></textarea>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <!-- 按鈕 -->
                                 <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn" v-if="manager<5">同意</button>
-                                    <button type="button" class="btn btn-outline-primary me-2" v-if="manager == 5" @click="managerokbtn">同意</button>
+                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn" >同意</button>
 
-                                    <button type="button" class="btn btn-outline-secondary" v-if="manager<5" @click="nobtn">不同意</button>
-                                    <button type="button" class="btn btn-outline-secondary" v-if="manager == 5" @click="managernobtn">不同意</button>
+                                    <button type="button" class="btn btn-outline-secondary"  @click="nobtn">不同意</button>
                                 </div>
                         </div>
                         </form>
@@ -676,58 +685,62 @@
                 methods: {
 
                     okbtn: function () {
-                        this.leaveproxy.statusId = 2;
-                        this.leaveproxy.proxyAudit = true;
                         //console.log(this.leaveproxy.statusId)   //ok
-                        if (confirm('請確認是否同意') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                .then(a => {
-                                    alert('已送出同意代理人之回復');
-                            window.location = "/html/PS_ToDoItems.html";
-                                })
+                        if (this.manager.PositionId < 7) {
+                            if (confirm('請確認是否同意') == true) {
+                                this.leaveproxy.statusId = 2;
+                                this.leaveproxy.proxyAudit = true;
+                                axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                    .then(a => {
+                                        alert('已送出同意代理人之回復');
+                                        window.location = "/html/PS_ToDoItems.html";
+                                    })
+                            }
+                        }
+                        if (this.manager.PositionId == 7) {
+                            if (confirm('請確認是否同意') == true) {
+                                this.leaveproxy.statusId = 4;
+                                this.leaveproxy.managerAudit = true;
+                                axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                    .then(a => {
+                                        alert('已送出同意');
+                                        window.location = "/html/PS_ToDoItems.html";
+                                    })
+                            }
                         }
                     },
 
                     nobtn: function () {
-                        this.leaveproxy.statusId = 3;
-                        this.leaveproxy.proxyAudit = false;
-                        if (confirm('請確認是否拒絕') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                .then(a => {
-                                    alert('已送出拒絕代理人之回復');
-                            window.location = "/html/PS_ToDoItems.html";
-                                })
+
+                        if (this.manager.PositionId < 7) {
+                            if (confirm('請確認是否拒絕') == true) {
+                                this.leaveproxy.statusId = 3;
+                                this.leaveproxy.proxyAudit = false;
+                                axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                    .then(a => {
+                                        alert('已送出拒絕代理人之回復');
+                                        window.location = "/html/PS_ToDoItems.html";
+                                    })
+                            }
                         }
-                    },
-                    managerokbtn: function () {
-                        this.leaveproxy.statusId = 4;
-                        this.leaveproxy.managerAudit = true;
-                        if (confirm('請確認是否同意') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                .then(a => {
-                                    alert('已送出同意');
-                            window.location = "/html/PS_ToDoItems.html";
-                                })
-                        }
-                    },
-                    managernobtn: function () {
-                        this.leaveproxy.statusId = 5;
-                        this.leaveproxy.managerAudit = false;
-                        if (confirm('請確認是否同意') == true) {
-                            axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                .then(a => {
-                                    alert('已送出不同意');
-                            window.location = "/html/PS_ToDoItems.html";
-                                })
+                        if (this.manager.PositionId == 7) {
+                            if (confirm('請確認是否不同意') == true) {
+                                this.leaveproxy.statusId = 5;
+                                this.leaveproxy.managerAudit = false;
+                                axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                    .then(a => {
+                                        alert('已送出不同意');
+                                        window.location = "/html/PS_ToDoItems.html";
+                                    })
+                            }
                         }
                     }
-
                 },
                 mounted() {
                     this.leaveproxy = JSON.parse(sessionStorage.getItem("proxy"));
                     console.log(this.leaveproxy)
-                    this.manager = JSON.parse(sessionStorage.getItem("RankID"))
-                    console.log(this.manager)
+                    this.manager = JSON.parse(sessionStorage.getItem("LoginInf"))
+                    console.log(this.manager.PositionId)
 
                     axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.proxy)
                         .then(response => {

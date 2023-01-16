@@ -341,6 +341,11 @@
                                     <div data-i18n="Account">採購待辦事項</div>
                                 </a>
                             </li>
+                            <li class="menu-item">
+                                <a href="PC_Acceptance.html" class="menu-link">
+                                    <div data-i18n="Account">採購驗收區</div>
+                                </a>
+                            </li>
                             <li class="menu-item active">
                                 <a href="PC_Application.html" class="menu-link">
                                     <div data-i18n="Account">採購申請表</div>
@@ -569,9 +574,8 @@
                                                                type="text"
                                                                id="department"
                                                                name="department"
-                                                               value=""
                                                                readonly
-                                                               v-model=""
+                                                               v-model="item.department"
                                                                autofocus />
                                                     </div>
                                                     <!-- 申請日期 -->

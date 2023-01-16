@@ -506,110 +506,115 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                <h4 class="fw-bold py-4 mb-4 ms-4">> 請假審核狀態</h4>
-                
-    
-                <div class="card mb-4 m-4 card-body">
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        
-                        <div class="row py-3 ">
-                            <div class="mb-3 col-md-2">
-                                <label for="EmployeeName" class="form-label fs-4">員工名稱</label> 
-                                <input class="form-control"  v-model="leavelist.employeeName" id="Employeename" disabled/>
-                           </div>
-                          <div class="mb-3 col-md-2">
-                            <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                              <input class="form-control"  v-model="leavelist.employeeNumber" id="Employeenameid" disabled/>
-                        </div>
-                        <div class="mb-3 col-md-2">
-                          <label for="type" class="form-label fs-4">請假類別</label>
-                            <input class="form-control"  v-model="leavelist.type" id="type" disabled/>
-                      </div>
-                        
-                       
-                            
-                        </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-3">
+              <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                  <h4 class="fw-bold py-4 mb-4 ms-4" v-if="leavelist.positionId<7">> 請假審核狀態</h4>
+                  <h4 class="fw-bold py-4 mb-4 ms-4" v-if="leavelist.positionId==7">> 請假狀態</h4>
 
-                                <label for="Starttimeforvacation" class="form-label fs-4">請假開始時間</label>
-                                <input class="form-control" v-model="leavelist.startDate" id="Starttimeforvacation" disabled />
-                                <input class="form-control" v-model="leavelist.startTime" id="Starttimeforvacation" disabled />
 
-                            </div>
-                            <div class="mb-3 col-md-3">
+                  <div class="card mb-4 m-4 card-body">
+                      <form id="formAccountSettings" method="POST" onsubmit="return false">
 
-                                <label for="Endtimeforvacation" class="form-label fs-4">請假結束時間</label>
-                                <input class="form-control" v-model="leavelist.endDate" id="Endtimeforvacation" disabled />
-                                <input class="form-control" v-model="leavelist.endTime" id="Endtimeforvacation" disabled />
+                          <div class="row py-3 ">
+                              <div class="mb-3 col-md-2">
+                                  <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
+                                  <input class="form-control" v-model="leavelist.employeeName" id="Employeename" disabled />
+                              </div>
+                              <div class="mb-3 col-md-2">
+                                  <label for="Employeeid" class="form-label fs-4">員工編號</label>
+                                  <input class="form-control" v-model="leavelist.employeeNumber" id="Employeenameid" disabled />
+                              </div>
+                              <div class="mb-3 col-md-2">
+                                  <label for="type" class="form-label fs-4">請假類別</label>
+                                  <input class="form-control" v-model="leavelist.type" id="type" disabled />
+                              </div>
 
-                            </div>
-                        
-                          <div class="mb-3 col-md-3">
-                            <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
-                            <input class="form-control" value="" id="Totalvacation" disabled />
+
+
                           </div>
-                        </div>
-                    </div>
-                    
-                    </form>
+                          <div class="row">
+                              <div class="mb-3 col-md-3">
 
-                    <!-- 三個進度卡 -->
-                    <br>
-                    <div class="rounded bg-white m-4" style="border-width:10px;border-style:dashed;border-color:#99CCFF;padding:5px;">
+                                  <label for="Starttimeforvacation" class="form-label fs-4">請假開始時間</label>
+                                  <input class="form-control" v-model="leavelist.startDate" id="Starttimeforvacation" disabled />
+                                  <input class="form-control" v-model="leavelist.startTime" id="Starttimeforvacation" disabled />
+
+                              </div>
+                              <div class="mb-3 col-md-3">
+
+                                  <label for="Endtimeforvacation" class="form-label fs-4">請假結束時間</label>
+                                  <input class="form-control" v-model="leavelist.endDate" id="Endtimeforvacation" disabled />
+                                  <input class="form-control" v-model="leavelist.endTime" id="Endtimeforvacation" disabled />
+
+                              </div>
+
+                              <div class="mb-3 col-md-3">
+                                  <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
+                                  <input class="form-control" value="" id="Totalvacation" disabled />
+                              </div>
+                              <div class="mb-3 col-md-6">
+                                  <label for="Vacationreason" class="form-label fs-4">請假意見</label>
+                                  <textarea class="form-control" id="Vacationreason" v-model="leavelist.auditOpnion" rows="6" col="6" readonly></textarea>
+                              </div>
+                          </div>
+                  </div>
+
+                  </form>
+
+                  <!-- 三個進度卡 -->
+                  <br>
+                  <div class="rounded bg-white m-4" style="border-width:10px;border-style:dashed;border-color:#99CCFF;padding:5px;" v-if="emplist.PositionId<7">
                       <div class="alert alert-primary fs-4 text-center col-3 my-4 fw-bold mx-auto">簽核狀態</div>
                       <div class="row d-flex justify-content-center p-4">
-                        <div class="col-md-2 me-2">
-                          <div class="card border border-3 border-primary lvrv " style="width: 12rem;">
-                            <div class="bg-primary m-0 ">
-                              <h4 class="card-title text-white text-center m-3">送交簽核</h4>
-                            </div>
-                            <div class="card-body text-black text-center">
-                              <span class="card-text fs-4">王鴻杰</span>
-                              <span class="badge bg-label-info fs-5">送簽</span>
-                              <P class="fs-5 mb-0 mt-2">2023-01-04</P>
-                            </div>
+                          <div class="col-md-2 me-2">
+                              <div class="card border border-3 border-primary lvrv " style="width: 12rem;">
+                                  <div class="bg-primary m-0 ">
+                                      <h4 class="card-title text-white text-center m-3">送交簽核</h4>
+                                  </div>
+                                  <div class="card-body text-black text-center">
+                                      <span class="card-text fs-4">王鴻杰</span>
+                                      <span class="badge bg-label-info fs-5">送簽</span>
+                                      <P class="fs-5 mb-0 mt-2">2023-01-04</P>
+                                  </div>
+                              </div>
                           </div>
-                        </div>
-                        <!-- 我是線 -->
-                        <div class="col-md-1 ms-4 align-self-center" style="height: .3rem;border-style:dashed"></div>
-                    
-                        <div class="col-md-2 me-4">
-                          <div class="card lvrv" style="width: 12rem;border: #99CC99 solid 3px;">
-                            <div class="m-0" style="background-color: #99CC99;">
-                              <h4 class="card-title text-white text-center m-3">代理人</h4>
-                            </div>
-                            <div class="card-body text-black text-center">
-                                <span class="card-text fs-4">{{emp.employeeName}}</span>
-                                <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==null">待審核</span>
-                                <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==true">同意</span>
-                                <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==false">不同意</span>
-                                <P class="fs-5 mb-0 mt-2">2023-01-05</P>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 我是線 -->
-                        <div class="col-md-1 ms-2 align-self-center" style="height: .3rem;border-style:dashed"></div>
-                    
-                        <div class="col-md-2">
-                          <div class="card lvrv" style="width: 13rem;border: #FF9966 solid 3px;">
-                            <div class="m-0" style="background-color: #FF9966;">
-                              <h4 class="card-title text-white text-center m-3">部門主管審核</h4>
-                            </div>
-                            <div class="card-body text-black text-center">
-                                <span class="card-text fs-4">{{manager.employeeName}}</span>
-                                <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==null">待審核</span>
-                                <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==true">同意</span>
-                                <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==false">不同意</span>
-                                <P class="fs-5 mb-0 mt-2">2023-01-05</P>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                          <!-- 我是線 -->
+                          <div class="col-md-1 ms-4 align-self-center" style="height: .3rem;border-style:dashed"></div>
 
-                </div>
+                          <div class="col-md-2 me-4">
+                              <div class="card lvrv" style="width: 12rem;border: #99CC99 solid 3px;">
+                                  <div class="m-0" style="background-color: #99CC99;">
+                                      <h4 class="card-title text-white text-center m-3">代理人</h4>
+                                  </div>
+                                  <div class="card-body text-black text-center">
+                                      <span class="card-text fs-4">{{emp.employeeName}}</span>
+                                      <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==null">待審核</span>
+                                      <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==true">同意</span>
+                                      <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==false">不同意</span>
+                                      <P class="fs-5 mb-0 mt-2">2023-01-05</P>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- 我是線 -->
+                          <div class="col-md-1 ms-2 align-self-center" style="height: .3rem;border-style:dashed"></div>
+
+                          <div class="col-md-2">
+                              <div class="card lvrv" style="width: 13rem;border: #FF9966 solid 3px;">
+                                  <div class="m-0" style="background-color: #FF9966;">
+                                      <h4 class="card-title text-white text-center m-3">部門主管審核</h4>
+                                  </div>
+                                  <div class="card-body text-black text-center">
+                                      <span class="card-text fs-4">{{manager.employeeName}}</span>
+                                      <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==null">待審核</span>
+                                      <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==true">同意</span>
+                                      <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==false">不同意</span>
+                                      <P class="fs-5 mb-0 mt-2">2023-01-05</P>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
             <!-- / Content -->
 ㄋㄋ
             <!-- Footer -->
@@ -658,19 +663,23 @@
                   return {
                       leavelist: {},
                       emp: {},
-                      manager:{}
+                      manager: {},
+                      emplist: {}
                   }
               },
               methods: {
 
               },
               mounted() {
+                  this.emplist = JSON.parse(sessionStorage.getItem("LoginInf"))
                   this.leavelist = JSON.parse(sessionStorage.getItem("leave"))
                   console.log(this.leavelist)
+                  if (this.leavelist.positionId < 7) { 
                   axios.get('/api/PersonnelProfileDetails/' + this.leavelist.proxy)
                       .then(response => this.emp = response.data)
                   axios.get('/api/PersonnelProfileDetails/' + this.leavelist.auditManerger)
-                      .then(response => this.manager = response.data)
+                          .then(response => this.manager = response.data)
+                  }
               }
           }
 

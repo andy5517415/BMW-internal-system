@@ -700,8 +700,8 @@
                 }
             },
             mounted() {
-                this.employeedata = JSON.parse(sessionStorage.getItem("EmpID"));
-                axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata)
+                this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
+                axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata.EmpID)
                     .then(response => {
                         this.employeelist = response.data,//員工個人資料
                             this.application.employeeId = this.employeelist.employeeId//請假申請表
@@ -715,13 +715,13 @@
                 axios.get('/api/PersonnelLeaveTypes')
                     .then(response => this.leavetype = response.data)
 
-                axios.get('/api/PersonnelLeaveOvers/leave1/' + this.employeedata)//找該員工剩餘假
+                axios.get('/api/PersonnelLeaveOvers/leave1/' + this.employeedata.EmpID)//找該員工剩餘假
                     .then(response => this.personalleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave2/' + this.employeedata)
+                axios.get('/api/PersonnelLeaveOvers/leave2/' + this.employeedata.EmpID)
                     .then(response => this.sickleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave3/' + this.employeedata)
+                axios.get('/api/PersonnelLeaveOvers/leave3/' + this.employeedata.EmpID)
                     .then(response => this.annualleave = response.data)
-                axios.get('/api/PersonnelLeaveOvers/leave4/' + this.employeedata)
+                axios.get('/api/PersonnelLeaveOvers/leave4/' + this.employeedata.EmpID)
                     .then(response => this.menstrualleave = response.data)
 
             }

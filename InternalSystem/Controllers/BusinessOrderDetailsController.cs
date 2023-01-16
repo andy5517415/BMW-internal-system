@@ -24,52 +24,20 @@ namespace InternalSystem.Controllers
 
 
 
-        //自己改的
-        // PUT: api/BusinessOrderDetails/putdetail/44/1
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("putdetail/{id}/{opl}")]
-        public async Task<IActionResult> putdetail(int id, int opl,BusinessOrderDetail businessOrderDetail)
+        //自己寫的
+        // GET: api/BusinessOrderDetails/25/1
+        [HttpGet("{ordid}/{oplid}")]
+        public async Task<ActionResult<dynamic>> GetOdId(int ordid, int oplid)
         {
-            if (id != businessOrderDetail.OrderId)
-            {
-                return BadRequest();
-            }
-
-
             var q = from od in _context.BusinessOrderDetails
-                    where od.OrderId == id && od.OptionalId == opl
-                    select od;
-
-
-
-
-
-
-
-
-
-
-
-            _context.Entry(businessOrderDetail).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BusinessOrderDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+                    where od.OrderId == ordid && od.OptionalId == oplid
+                    select od.OdId;
+            return await q.SingleOrDefaultAsync();
         }
+
+
+
+
 
 
 
@@ -111,7 +79,7 @@ namespace InternalSystem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBusinessOrderDetail(int id, BusinessOrderDetail businessOrderDetail)
         {
-            if (id != businessOrderDetail.OrderId)
+            if (id != businessOrderDetail.OdId)
             {
                 return BadRequest();
             }
@@ -143,23 +111,9 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<BusinessOrderDetail>> PostBusinessOrderDetail(BusinessOrderDetail businessOrderDetail)
         {
             _context.BusinessOrderDetails.Add(businessOrderDetail);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (BusinessOrderDetailExists(businessOrderDetail.OrderId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBusinessOrderDetail", new { id = businessOrderDetail.OrderId }, businessOrderDetail);
+            return CreatedAtAction("GetBusinessOrderDetail", new { id = businessOrderDetail.OdId }, businessOrderDetail);
         }
 
         // DELETE: api/BusinessOrderDetails/5
@@ -180,7 +134,7 @@ namespace InternalSystem.Controllers
 
         private bool BusinessOrderDetailExists(int id)
         {
-            return _context.BusinessOrderDetails.Any(e => e.OrderId == id);
+            return _context.BusinessOrderDetails.Any(e => e.OdId == id);
         }
     }
 }
