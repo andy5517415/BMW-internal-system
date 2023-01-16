@@ -48,21 +48,14 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
-            }
-        }
+     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
-                    .HasName("PK__Business__70B82048542ED421");
+                    .HasName("PK__Business__70B82048B7E9AA29");
 
                 entity.ToTable("BusinessArea");
 
@@ -82,7 +75,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessCategory>(entity =>
             {
                 entity.HasKey(e => e.CategoryId)
-                    .HasName("PK__Business__19093A0BF15A2A00");
+                    .HasName("PK__Business__19093A0B2BD5B902");
 
                 entity.ToTable("BusinessCategory");
 
@@ -96,7 +89,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessOptional>(entity =>
             {
                 entity.HasKey(e => e.OptionalId)
-                    .HasName("PK__Business__7735FFCC2B7F7340");
+                    .HasName("PK__Business__7735FFCC768EBE48");
 
                 entity.ToTable("BusinessOptional");
 
@@ -141,7 +134,7 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<BusinessOrderDetail>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.OptionalId })
+                entity.HasKey(e => e.OdId)
                     .HasName("PK__Business__14E304336494AF1C");
 
                 entity.ToTable("BusinessOrderDetail");
@@ -257,14 +250,20 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<MonitoringProcessAreaStatus>(entity =>
             {
-                entity.HasKey(e => new { e.AreaId, e.ProcessId, e.StatusId, e.CarType })
+                entity.HasKey(e => e.MonitorId)
                     .HasName("PK_Production製程與廠區監控狀態");
 
                 entity.ToTable("MonitoringProcessAreaStatus");
 
-                entity.Property(e => e.StatusId).HasMaxLength(50);
+                entity.Property(e => e.CarType)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.CarType).HasMaxLength(50);
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Area)
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
@@ -289,7 +288,7 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
-                entity.Property(e => e.Date).HasColumnType("datetime");
+                entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.Department)
                     .IsRequired()
@@ -700,8 +699,6 @@ namespace InternalSystem.Models
 
                 entity.ToTable("ProductionBugContext");
 
-                entity.HasIndex(e => e.OrderId, "IX_ProductionBugContext");
-
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.StartTime)
@@ -731,8 +728,6 @@ namespace InternalSystem.Models
                     .HasName("PK_ProductionContext_1");
 
                 entity.ToTable("ProductionContext");
-
-                entity.HasIndex(e => e.OrderId, "IX_ProductionContext");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
@@ -781,8 +776,6 @@ namespace InternalSystem.Models
                     .HasName("PK_ProductionProcessList_1");
 
                 entity.ToTable("ProductionProcessList");
-
-                entity.HasIndex(e => e.OrderId, "IX_ProductionProcessList");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
