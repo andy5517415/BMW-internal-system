@@ -32,18 +32,14 @@ namespace InternalSystem.Controllers
         [HttpGet("{areaid}/{processId}/{cartype}")]
         public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId, string cartype)
         {
-<<<<<<< HEAD
-            var q = from ord in _context.MonitoringProcessAreaStatuses
-                    where ord.AreaId == areaid && ord.ProcessId == processId && ord.CarType == cartype
-                    select new { statusId = ord.StatusId };
-=======
+
             var q = from m in _context.MonitoringProcessAreaStatuses
                     where m.AreaId== areaid && m.ProcessId == processId && m.CarType== cartype
                     select new { 
                         status = m.Status,
                         MonitorId = m.MonitorId
                     };
->>>>>>> 127f47f4efbf71f18cfcd3577cf26b1d63370f32
+
 
             return await q.SingleOrDefaultAsync();
         }
