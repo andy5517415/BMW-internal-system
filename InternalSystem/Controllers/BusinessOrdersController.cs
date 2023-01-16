@@ -22,7 +22,7 @@ namespace InternalSystem.Controllers
 
 
 
-
+        //自己寫的
         // GET: api/BusinessOrders/getorder/i0320230105003
         [HttpGet("getorder/{ordernum}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrder(string ordernum)
@@ -46,16 +46,46 @@ namespace InternalSystem.Controllers
         }
 
 
+        //自己寫的
+        // GET: api/BusinessOrders/getorder/i0320230105003/1
+        [HttpGet("getorder/{ordernum}/{category}")]
+        public async Task<ActionResult<dynamic>> GetOrderdetail(string ordernum, int category)
+        {
+            var q = from ord in _context.BusinessOrders
+                    join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
+                    join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
+                    join a in _context.BusinessAreas on ord.AreaId equals a.AreaId
+                    where ord.OrderNumber == ordernum && opl.CategoryId == category
+                    select new
+                    {
+                        OptionalId = od.OptionalId,
+                        CategoryId = opl.CategoryId,
+                        Price = opl.Price,
+                        OptionalName = opl.OptionalName,
+
+                        OrderId = ord.OrderId,
+                        OrderNumber = ord.OrderNumber,
+                        AreaId = ord.AreaId
+                    };
+            return await q.SingleOrDefaultAsync();
+        }
 
 
+
+
+
+
+
+
+        //自己寫的
         // GET: api/BusinessOrders/getagent/1
         [HttpGet("getagent/{id}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> getagent(int id)
+        public async Task<ActionResult<dynamic>> getagent(int id)
         {
             var q = from a in _context.BusinessAreas
                     where a.AreaId == id
                     select a;
-            return await q.ToListAsync();
+            return await q.SingleOrDefaultAsync();
         }
 
 
