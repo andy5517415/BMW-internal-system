@@ -570,17 +570,17 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      <template v-for="(item,index) in OrderList">
+                                                      <template v-for="item in OrderList">
                                                           <tr>
 
                                                               <!-- 第一項物品 -->
                                                               <!-- 查詢 -->
                                                               <td>
-                                                                  <a href="./PC_ApplicationRecordDetails.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">查看</a>
+                                                                  <a href="./PC_ApplicationRecordDetails.html" type="button" v-on:click="Enter(item)" class="btn btn-outline-primary 2">查看</a>
                                                               </td>
                                                               <!-- 訂單編號 -->
                                                               <td>
-                                                                  <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{item.purchaseId}}</strong>
+                                                                  <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{item.purchaseId}}</strong>
                                                               </td>
                                                               <!-- 日期 -->
                                                               <td>
@@ -596,13 +596,11 @@
                                                               </td>
                                                               <!-- 單位 -->
                                                               <td>
-                                                                  <span id="number" class="badge bg-label-primary me-1">{{item.total}}</span>
+                                                                  <span id="number" class="badge bg-label-primary me-1">{{item.total}}元</span>
                                                               </td>
                                                               <!-- 配送狀態 -->
                                                               <td>
-                                                                  <span class="badge bg-label-warning me-1">{{item.applicationStatus&&item.deliveryStatus&&item.acceptanceStatus}}</span>
-                                                                  <span class="badge bg-label-warning me-1">{{item.applicationStatus&&item.deliveryStatus&&item.acceptanceStatus}}</span>
-                                                                  <span class="badge bg-label-warning me-1">{{item.applicationStatus&&item.deliveryStatus&&item.acceptanceStatus}}</span>
+                                                                  <span class="badge bg-label-warning me-1">{{item.totalapp}}</span>
                                                               </td>
                                                           </tr>
                                                       </template>
@@ -646,7 +644,7 @@
                   const app = {
                       data() {
                           return {
-                              OrderList: {}
+                              OrderList: {},
                           }
                       },
                       methods: {
@@ -659,24 +657,43 @@
                               .then(response => {
                                   this.OrderList = response.data;
                                   for (var i = 0; i < this.OrderList.length; i++) {
-                                      if (this.OrderList[i].applicationStatus == false && deliveryStatus == false && acceptanceStatus == false) {
-                                          this.OrderList[i].applicationStatus = "審核中"
+                                      if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false) {
+                                          this.OrderList[i].totalapp = "審核中"
                                       }
+                                      //console.log(this.OrderList[i].total);
                                       //if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
                                       //    this.OrderList[i].applicationStatus = "審核完成"
                                       //}
-                                      if (this.OrderList[i].deliveryStatus == false && applicationStatus == true && acceptanceStatus == false) {
-                                          this.OrderList[i].deliveryStatus = "配送中"
+                                      if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false) {
+                                          this.OrderList[i].totalapp = "配送中"
                                       }
                                       //if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
                                       //    this.OrderList[i].deliveryStatus = "配送完成"
                                       //}
-                                      if (this.OrderList[i].acceptanceStatus == false && applicationStatus == true && deliveryStatus == true) {
-                                          this.OrderList[i].acceptanceStatus = "驗收中"
+                                      if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true) {
+                                          this.OrderList[i].totalapp = "驗收中"
                                       }
-                                      if (this.OrderList[i].acceptanceStatus == true && applicationStatus == true && deliveryStatus == true) {
-                                          this.OrderList[i].acceptanceStatus = "驗收完成"
+                                      if (this.OrderList[i].acceptanceStatus == true && his.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true) {
+                                          this.OrderList[i].totalapp = "驗收完成"
                                       }
+                                      //if (this.OrderList[i].applicationStatus == false && deliveryStatus == false && acceptanceStatus == false) {
+                                      //    this.OrderList[i].applicationStatus = "審核中"
+                                      //}
+                                      ////if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
+                                      ////    this.OrderList[i].applicationStatus = "審核完成"
+                                      ////}
+                                      //if (this.OrderList[i].deliveryStatus == false && applicationStatus == true && acceptanceStatus == false) {
+                                      //    this.OrderList[i].deliveryStatus = "配送中"
+                                      //}
+                                      ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
+                                      ////    this.OrderList[i].deliveryStatus = "配送完成"
+                                      ////}
+                                      //if (this.OrderList[i].acceptanceStatus == false && applicationStatus == true && deliveryStatus == true) {
+                                      //    this.OrderList[i].acceptanceStatus = "驗收中"
+                                      //}
+                                      //if (this.OrderList[i].acceptanceStatus == true && applicationStatus == true && deliveryStatus == true) {
+                                      //    this.OrderList[i].acceptanceStatus = "驗收完成"
+                                      //}
                                   }
                               });
                       }

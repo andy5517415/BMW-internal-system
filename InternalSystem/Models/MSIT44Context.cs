@@ -27,9 +27,8 @@ namespace InternalSystem.Models
         public virtual DbSet<MeetingRoom> MeetingRooms { get; set; }
         public virtual DbSet<MonitoringProcessAreaStatus> MonitoringProcessAreaStatuses { get; set; }
         public virtual DbSet<PcApplication> PcApplications { get; set; }
+        public virtual DbSet<PcGoodList> PcGoodLists { get; set; }
         public virtual DbSet<PcOrderDetail> PcOrderDetails { get; set; }
-        public virtual DbSet<PcPurchaseItemSearch> PcPurchaseItemSearches { get; set; }
-        public virtual DbSet<PcSupplierList> PcSupplierLists { get; set; }
         public virtual DbSet<PersonnelAttendanceTime> PersonnelAttendanceTimes { get; set; }
         public virtual DbSet<PersonnelCityList> PersonnelCityLists { get; set; }
         public virtual DbSet<PersonnelDepartmentList> PersonnelDepartmentLists { get; set; }
@@ -48,12 +47,21 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
-                    .HasName("PK__Business__70B82048B7E9AA29");
+                    .HasName("PK__Business__70B82048542ED421");
 
                 entity.ToTable("BusinessArea");
 
@@ -73,7 +81,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessCategory>(entity =>
             {
                 entity.HasKey(e => e.CategoryId)
-                    .HasName("PK__Business__19093A0B2BD5B902");
+                    .HasName("PK__Business__19093A0BF15A2A00");
 
                 entity.ToTable("BusinessCategory");
 
@@ -87,7 +95,7 @@ namespace InternalSystem.Models
             modelBuilder.Entity<BusinessOptional>(entity =>
             {
                 entity.HasKey(e => e.OptionalId)
-                    .HasName("PK__Business__7735FFCC768EBE48");
+                    .HasName("PK__Business__7735FFCC2B7F7340");
 
                 entity.ToTable("BusinessOptional");
 
@@ -278,11 +286,11 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<PcApplication>(entity =>
             {
-                entity.HasKey(e => e.PurchaseId);
+                entity.HasKey(e => e.OrderId);
 
                 entity.ToTable("PC_Application");
 
-                entity.Property(e => e.PurchaseId).ValueGeneratedNever();
+                entity.Property(e => e.OrderId).ValueGeneratedNever();
 
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
@@ -292,29 +300,19 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(10);
 
-                entity.Property(e => e.SupplierId)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PcApplications)
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PC_Application_PersonnelProfileDetail");
-
-                entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.PcApplications)
-                    .HasForeignKey(d => d.SupplierId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PC_Application_PC_SupplierList");
             });
 
-            modelBuilder.Entity<PcOrderDetail>(entity =>
+            modelBuilder.Entity<PcGoodList>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.ProductId })
-                    .HasName("PK_PC_");
+                entity.HasKey(e => e.ProductId)
+                    .HasName("PK_物品資料查詢");
 
-                entity.ToTable("PC_OrderDetails");
+                entity.ToTable("PC_GoodList");
 
                 entity.Property(e => e.Goods)
                     .IsRequired()
@@ -323,60 +321,35 @@ namespace InternalSystem.Models
                 entity.Property(e => e.Unit)
                     .IsRequired()
                     .HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<PcOrderDetail>(entity =>
+            {
+                entity.HasKey(e => new { e.OrderId, e.ProductId });
+
+                entity.ToTable("PC_OrderDetails");
+
+                entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Goods)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Unit)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.PcOrderDetails)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PC_OrderDetails_PC_Application");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.PcOrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PC__PC_PurchaseItemSearch");
-            });
-
-            modelBuilder.Entity<PcPurchaseItemSearch>(entity =>
-            {
-                entity.HasKey(e => e.ProductId)
-                    .HasName("PK_物品資料查詢");
-
-                entity.ToTable("PC_PurchaseItemSearch");
-
-                entity.Property(e => e.Goods)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.SupplierId)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.Unit)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.PcPurchaseItemSearches)
-                    .HasForeignKey(d => d.SupplierId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PC_PurchaseItemSearch_PC_SupplierList");
-            });
-
-            modelBuilder.Entity<PcSupplierList>(entity =>
-            {
-                entity.HasKey(e => e.SupplierId)
-                    .HasName("PK_供應商資料表");
-
-                entity.ToTable("PC_SupplierList");
-
-                entity.Property(e => e.SupplierId).HasMaxLength(10);
-
-                entity.Property(e => e.SupplierContact)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.SupplierContactPerson)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.SupplierPhone)
-                    .IsRequired()
-                    .HasMaxLength(10);
             });
 
             modelBuilder.Entity<PersonnelAttendanceTime>(entity =>
@@ -697,6 +670,8 @@ namespace InternalSystem.Models
 
                 entity.ToTable("ProductionBugContext");
 
+                entity.HasIndex(e => e.OrderId, "IX_ProductionBugContext");
+
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.StartTime)
@@ -726,6 +701,8 @@ namespace InternalSystem.Models
                     .HasName("PK_ProductionContext_1");
 
                 entity.ToTable("ProductionContext");
+
+                entity.HasIndex(e => e.OrderId, "IX_ProductionContext");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
@@ -774,6 +751,8 @@ namespace InternalSystem.Models
                     .HasName("PK_ProductionProcessList_1");
 
                 entity.ToTable("ProductionProcessList");
+
+                entity.HasIndex(e => e.OrderId, "IX_ProductionProcessList");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 

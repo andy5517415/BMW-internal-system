@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace InternalSystem.Controllers
 {
@@ -26,7 +27,6 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<dynamic>> GetApplicationsList(int id)
         {
             var list = from AP in this._context.PcApplications
-                       join SL in this._context.PcSupplierLists on AP.SupplierId equals SL.SupplierId
                        //join PC in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PC.ProductId
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
@@ -39,7 +39,6 @@ namespace InternalSystem.Controllers
                            Department = PDL.DepName,
                            Date = AP.Date,
                            PurchaseId = AP.PurchaseId,
-                           SupplierId = SL.SupplierId,
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
@@ -50,11 +49,12 @@ namespace InternalSystem.Controllers
             return await list.FirstOrDefaultAsync();
         }
 
+        // 物品
         // GET: api/PCApplications/goods
         [HttpGet("goods")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchaseItemSearches()
         {
-            var i = from PS in this._context.PcPurchaseItemSearches
+            var i = from PS in this._context.PcGoodLists
                     select new
                     {
                         ProductId = PS.ProductId,
@@ -66,35 +66,27 @@ namespace InternalSystem.Controllers
             return await i.ToListAsync();
         }
 
-        // 用於PC_ordercheck
-        // GET: api/PCApplications/todoitemdetail
-        [HttpGet("todoitemdetail/{id}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchasetodoitem(int id)
+        // 驗收專用
+        // 用於 PC_Acceptance
+        // GET: api/PCApplications/acceptance
+        [HttpGet("acceptance")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCAcceptance()
         {
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
-                       join PIS in this._context.PcPurchaseItemSearches on OD.ProductId equals PIS.ProductId
-                       where AP.DeliveryStatus == false && AP.PurchaseId == id
-
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
-                           ApplicationStatus = AP.ApplicationStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           OrderId = AP.OrderId,
-                           ProductId = OD.ProductId,
-                           Goods = OD.Goods,
-                           Quantiy = OD.Quantiy,
-                           Unit = OD.Unit,
-                           UnitPrice = OD.UnitPrice,
-                           Subtotal = OD.Subtotal
+                           Date = AP.Date,
+                           Comment = AP.Comment
                        };
-                  
+
 
             return await List.ToListAsync();
         }
@@ -123,32 +115,43 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
-        // 驗收專用
-        // 用於 PC_Acceptance
-        // GET: api/PCApplications/acceptance
-        [HttpGet("acceptance")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCAcceptance()
+        // 用於PC_ordercheck
+        // GET: api/PCApplications/todoitemdetail
+        [HttpGet("todoitemdetail/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchasetodoitem(int id)
         {
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join PIS in this._context.PcGoodLists on OD.ProductId equals PIS.ProductId
+                       where AP.DeliveryStatus == false && AP.PurchaseId == id
+
+       
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
-                           AcceptanceStatus = AP.AcceptanceStatus,
+                           ApplicationStatus = AP.ApplicationStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           Date = AP.Date,
-                           Comment = AP.Comment
+                           OrderId = AP.OrderId,
+                           ProductId = OD.ProductId,
+                           Goods = OD.Goods,
+                           Quantiy = OD.Quantiy,
+                           Unit = OD.Unit,
+                           UnitPrice = OD.UnitPrice,
+                           Subtotal = OD.Subtotal
                        };
-
+                  
 
             return await List.ToListAsync();
         }
 
-        // 驗收專用
+
+
+        // 物品查詢專用
         // 用於 PC_ApplicationRecordSearch
         // GET: api/PCApplications/recordsearch
         [HttpGet("recordsearch")]
@@ -163,6 +166,7 @@ namespace InternalSystem.Controllers
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Date = AP.Date.ToString(),
+                           Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
@@ -173,22 +177,59 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
-        // 供應商
-        // GET: api/PCApplications/supplier
-        [HttpGet("supplier")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetSupplierList()
+        // 物品查詢細項專用
+        // 用於 PC_ApplicationRecordDetails
+        // GET: api/PCApplications/recordsearchdetail
+        [HttpGet("recordsearchdetail/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCrecordsearchdetail(int id)
         {
-            var i = from SL in this._context.PcSupplierLists
-                    select new
-                    {
-                        SupplierId = SL.SupplierId,
-                        SupplierContact = SL.SupplierContact,
-                        SupplierContactPerson = SL.SupplierContactPerson,
-                        SupplierPhone = SL.SupplierPhone
-                    };
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join GL in this._context.PcGoodLists on OD.ProductId equals GL.ProductId
+                       where AP.PurchaseId == id
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Date = AP.Date.ToString(),
+                           Comment = AP.Comment,
+                           Total = AP.Total,
+                           Goods = OD.Goods,
+                           Unit = OD.Unit,
+                           Quantiy = OD.Quantiy,
+                           UnitPrice = OD.UnitPrice,
+                           Subtotal = OD.Subtotal,
 
-            return await i.ToListAsync();
+                       };
+
+
+            return await List.ToListAsync();
         }
+
+        // 物品資料查詢+圖片
+        // 用於 PC_ItemSearch
+        // GET: api/PCApplications/itemsearch
+        [HttpGet("itemsearch")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCitemsearch()
+        {
+            var List = from OL in this._context.PcGoodLists
+                       select new
+                       {
+                           ProductId = OL.ProductId,
+                           Goods = OL.Goods,
+                           Unit = OL.Unit,
+                           UnitPrice = OL.UnitPrice,
+                           Image = OL.Image
+                       };
+
+
+            return await List.ToListAsync();
+        }
+
+
 
         // GET: api/PCApplications/5
         [HttpGet("{id}")]
