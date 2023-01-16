@@ -21,10 +21,41 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        //異常清單(全部)
+        // GET: api/ProductionProcessLists/GetBugList
+        [HttpGet("GetBugList")]
+        public async Task<ActionResult<dynamic>> GetBugList()
+        {
+            var BugList = from PBC in this._context.ProductionBugContexts
+                          join PPL in this._context.ProductionProcessLists on PBC.ProcessId equals PPL.ProcessId
+                          join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
+                          join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                          join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                          join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                          where PBC.OrderId == PPL.OrderId
+                          select new
+                                {
+                                    OrderId = PBC.OrderId,
+                                    OrderNumber = BO.OrderNumber,
+                                    AreaId = PBC.AreaId,
+                                    AreaName = PA.AreaName,
+                                    ProcessId = PBC.ProcessId,
+                                    ProcessName = PP.ProcessName,
+                                    Date = PBC.Date.ToString(),
+                                    StartTime = PBC.StartTime,
+                                    EndTime = PBC.EndTime,
+                                    PBC.Title,
+                                    PBC.Context
+                                };
+
+            return await BugList.ToListAsync();
+        }
+
+
         // 異常清單建立
         // GET: api/ProductionProcessLists/bugListCreate
         [HttpGet("bugListCreate/{id}")]
-        public async Task<ActionResult<dynamic>> GetbugList(int id)
+        public async Task<ActionResult<dynamic>> GetbugCreate(int id)
         {
             var BugList = from PPL in this._context.ProductionProcessLists
                        join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
@@ -44,12 +75,7 @@ namespace InternalSystem.Controllers
                            AreaName = PA.AreaName,
                            ProcessId = PP.ProcessId,
                            ProcessName = PP.ProcessName,
-                          
-
                        };
-
-
-
 
             return await BugList.FirstOrDefaultAsync();
         }
