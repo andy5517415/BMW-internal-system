@@ -51,15 +51,14 @@ namespace InternalSystem.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-<<<<<<< HEAD
+
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-=======
+
 
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
                 optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
 
->>>>>>> 704fe9e3fa31c8d0de5a4be2f2b57639d2f15b18
             }
         }
 
