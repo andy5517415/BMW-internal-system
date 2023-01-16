@@ -14,7 +14,7 @@ switch (DepID) {
   case 3:
     Dep = "業務部";
     break;
-  case 1:
+  case 4:
     Dep = "採購部";
     break;
 
@@ -40,6 +40,13 @@ const navInf = {
         Name: Name,
         Dep: Dep
       }
+    }
+  },
+  methods: {
+    DoLogOut: function () {
+      location.assign("Login_LogOut.html")
+      alert("登出session清掉啦幹");
+      sessionStorage.clear();
     }
   }
 }
