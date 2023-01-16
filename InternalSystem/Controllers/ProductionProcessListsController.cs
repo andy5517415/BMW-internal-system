@@ -21,7 +21,40 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-        //
+        // 異常清單建立
+        // GET: api/ProductionProcessLists/bugListCreate
+        [HttpGet("bugListCreate/{id}")]
+        public async Task<ActionResult<dynamic>> GetbugList(int id)
+        {
+            var BugList = from PPL in this._context.ProductionProcessLists
+                       join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
+                       join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                       join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                       join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                       join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                       join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                       join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                       where PPL.StatusId == 2 && BC.CategoryId == 1 && PPL.OrderId == id
+                          select new
+                       {
+                           OrderId = PPL.OrderId,
+                           OrderNumber = BO.OrderNumber,
+                           OptionalName = BOT.OptionalName,
+                           AreaId = PPL.AreaId,
+                           AreaName = PA.AreaName,
+                           ProcessId = PP.ProcessId,
+                           ProcessName = PP.ProcessName,
+                          
+
+                       };
+
+
+
+
+            return await BugList.FirstOrDefaultAsync();
+        }
+
+        // 業務訂單狀態
         // GET: api/ProductionProcessLists/ordercheak
         [HttpGet("orderlist")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderList()
@@ -57,6 +90,23 @@ namespace InternalSystem.Controllers
                               
 
             return await processList.ToListAsync();
+        }
+
+        //車子訂單號碼
+        // GET: api/ProductionProcessLists/OrderNumber
+        [HttpGet("OrderNumber")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderNumber()
+        {
+            var orderNunber = from PPL in this._context.ProductionProcessLists
+                              join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                              where PPL.StatusId == 2
+                              select new
+                              {
+                                  OrderId = BO.OrderId,
+                                  OrderNumber = BO.OrderNumber
+                              };
+
+            return await orderNunber.ToListAsync();
         }
 
         //車子型號
