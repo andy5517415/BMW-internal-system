@@ -439,7 +439,7 @@
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                            <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -448,7 +448,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -518,7 +518,7 @@
                                                     class="nav-link active"
                                                     role="tab"
                                                     data-bs-toggle="tab"
-                                                    data-bs-target="#navs-top-home"
+                                                    data-bs-target="#M4"
                                                     aria-controls="M4"
                                                     aria-selected="true">
                                                 M4 Competition
@@ -530,7 +530,7 @@
                                                     class="nav-link"
                                                     role="tab"
                                                     data-bs-toggle="tab"
-                                                    data-bs-target="#navs-top-profile"
+                                                    data-bs-target="#X7"
                                                     aria-controls="X7"
                                                     aria-selected="false">
                                                 X7 xDrive40i
@@ -551,9 +551,9 @@
 
                                     <div class="tab-content">
                                         <!-- 520i Sport -->
-                                        <template v-for="process in ProcessList">
-                                            <template v-for="car in CarModel">
-                                                <div class="tab-pane fade show active" id="M4" role="tabpanel">
+                                        <div class="tab-pane fade show active" id="M4" role="tabpanel">
+                                            <template v-for="process in ProcessList">
+                                                <template v-for="car in CarModel">
                                                     <div class="card mb-4 m-4 ">
                                                         <div class="row card-body" v-if="car.optionalId == 1">
                                                             <label id="carmodel" class="col-4 fs-4">型號: {{car.optionalName}}</label>
@@ -563,41 +563,41 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </template>
                                             </template>
-                                        </template>
-
-
+                                        </div>
                                         <!--X7 xDrive40i-->
-                                        <!--<template >
-                                            <template >
-                                                <div class="tab-pane fade" >
+                                        <div class="tab-pane fade" id="X7" role="tabpanel">
+                                            <template v-for="process in ProcessList">
+                                                <template v-for="car in CarModel">
                                                     <div class="card mb-4 m-4 ">
-                                                        <div class="row card-body" >
-                                                            <label id="carmodel-2" class="col-4 fs-4">型號: 123</label>
-                                                            <label id="processname-2" for="" class="col-3 fs-4">生產: </label>
+                                                        <div class="row card-body" v-if="car.optionalId == 2">
+                                                            <label id="carmodel-2" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                                            <label id="processname-2" for="" class="col-3 fs-4">生產: {{process.processName}}</label>
                                                             <div class="col-4 d-md-flex justify-content-md-end">
                                                                 <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </template>   
-                                        </template>-->
-
+                                                </template>
+                                            </template>
+                                        </div>
                                         <!-- iX xDrive40 -->
-
-                                        <!--<div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
-                                            <div class="card mb-4 m-4 ">
-                                                <div class="row card-body" v-if="car.optionalId == 3">
-                                                    <label id="carmodel-3" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                    <label id="processname-3" class="col-3 fs-4">生產: {{process.processName}}</label>
-                                                    <div class="col-4 d-md-flex justify-content-md-end">
-                                                        <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                        <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
+                                            <template v-for="process in ProcessList">
+                                                <template v-for="car in CarModel">
+                                                    <div class="card mb-4 m-4 ">
+                                                        <div class="row card-body" v-if="car.optionalId == 3">
+                                                            <label id="carmodel-3" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                                            <label id="processname-3" class="col-3 fs-4">生產: {{process.processName}}</label>
+                                                            <div class="col-4 d-md-flex justify-content-md-end">
+                                                                <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
+                                                </template>
+                                            </template>
+                                        </div>
 
 
 
@@ -663,84 +663,55 @@
                                     this.CarModel[1].optionalName = this.CarModel[1].optionalName.slice(4);
                                     this.CarModel[2].optionalName = this.CarModel[2].optionalName.slice(4, 15);
                                 })
-
-
-
-
-                            //製程單
-                            //$.ajax({
-                            //    type: "get",
-                            //    url: "https://localhost:44319/api/ProductionProcesses",
-                            //    success: function (e) {
-                            //        console.log(e)
-                            //        this.ProcessList = e
-                            //    }
-
-                            //})
-
-                            //車子型號
-                            //$.ajax({
-                            //    type: "get",
-                            //    url: "https://localhost:44319/api/ProductionProcessLists/model",
-                            //    success: function (e) {
-                            //        e[0].optionalName = e[0].optionalName.slice(3);
-                            //        e[1].optionalName = e[1].optionalName.slice(4);
-                            //        e[2].optionalName = e[2].optionalName.slice(4, 15);
-                            //        console.log(e);
-                            //        app.CarModel = e
-                            //    }
-
-                            //})
-
                         }
                     }
                     Vue.createApp(app).mount('#app')
 
 
-                                                      //var app = new Vue({
-                                                      //  el: "#app",
-                                                      //  data: {
-                                                      //    ProcessList: {},
-                                                      //    CarModel: {}
-                                                      //  },
-                                                      //  methods: {
-                                                      //    Enter: function (e, f) {
-                                                      //      sessionStorage.setItem("data", JSON.stringify(e));
-                                                      //      sessionStorage.setItem("data2", JSON.stringify(f));
+                    //var app = new Vue({
+                    //    el: "#app",
+                    //    data: {
+                    //        ProcessList: {},
+                    //        CarModel: {}
+                    //    },
+                    //    methods: {
+                    //        Enter: function (e, f) {
+                    //            sessionStorage.setItem("data", JSON.stringify(e));
+                    //            sessionStorage.setItem("data2", JSON.stringify(f));
 
 
-                                                      //    }
-                                                      //  }
+                    //        }
+                    //    }
 
-                                                      //})
+                    //})
 
-                                                      ////console.log(app.ProcessList)
+                    ////console.log(app.ProcessList)
 
 
-                                                      //////製程單
-                                                      //$.ajax({
-                                                      //  type: "get",
-                                                      //  url: "https://localhost:44319/api/ProductionProcesses",
-                                                      //    success: function (e) {
-                                                      //      console.log(e)
-                                                      //    app.ProcessList = e
-                                                      //  }
+                    //////製程單
+                    //$.ajax({
+                    //    type: "get",
+                    //    url: "https://localhost:44319/api/ProductionProcesses",
+                    //    success: function (e) {
+                    //        console.log(e)
+                    //        app.ProcessList = e
+                    //    }
 
-                                                      //})
+                    //})
 
-                                                      ////車子型號
-                                                      //$.ajax({
-                                                      //  type: "get",
-                                                      //  url: "https://localhost:44319/api/ProductionProcessLists/model",
-                                                      //  success: function (e) {
-                                                      //    e[0].optionalName = e[0].optionalName.slice(3);
-                                                      //    e[1].optionalName = e[1].optionalName.slice(4);
-                                                      //    e[2].optionalName = e[2].optionalName.slice(4, 15);
-                                                      //    console.log(e);
-                                                      //    app.CarModel = e
-                                                      //  }
+                    ////車子型號
+                    //$.ajax({
+                    //    type: "get",
+                    //    url: "https://localhost:44319/api/ProductionProcessLists/model",
+                    //    success: function (e) {
+                    //        e[0].optionalName = e[0].optionalName.slice(3);
+                    //        e[1].optionalName = e[1].optionalName.slice(4);
+                    //        e[2].optionalName = e[2].optionalName.slice(4, 15);
+                    //        console.log(e);
+                    //        app.CarModel = e
+                    //    }
 
-                                                      //})
+                    //})
                 </script>
                 <!-- session -->
 

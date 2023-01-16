@@ -59,6 +59,8 @@ namespace InternalSystem.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
+
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
@@ -141,7 +143,7 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<BusinessOrderDetail>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.OptionalId })
+                entity.HasKey(e => e.OdId)
                     .HasName("PK__Business__14E304336494AF1C");
 
                 entity.ToTable("BusinessOrderDetail");
@@ -257,14 +259,20 @@ namespace InternalSystem.Models
 
             modelBuilder.Entity<MonitoringProcessAreaStatus>(entity =>
             {
-                entity.HasKey(e => new { e.AreaId, e.ProcessId, e.StatusId, e.CarType })
+                entity.HasKey(e => e.MonitorId)
                     .HasName("PK_Production製程與廠區監控狀態");
 
                 entity.ToTable("MonitoringProcessAreaStatus");
 
-                entity.Property(e => e.StatusId).HasMaxLength(50);
+                entity.Property(e => e.CarType)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.CarType).HasMaxLength(50);
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Area)
                     .WithMany(p => p.MonitoringProcessAreaStatuses)
@@ -289,7 +297,11 @@ namespace InternalSystem.Models
 
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
-                entity.Property(e => e.Date).HasColumnType("datetime");
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.Department)
+                    .IsRequired()
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.SupplierId)
                     .IsRequired()
