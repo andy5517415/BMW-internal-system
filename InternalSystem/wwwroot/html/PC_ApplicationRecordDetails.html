@@ -29,8 +29,7 @@
 
     <meta name="description" content="" />
 
-    <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
@@ -506,10 +505,10 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper" id="app"/>
+          <div class="content-wrapper" />
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y"/>
+            <div class="container-xxl flex-grow-1 container-p-y" id="app"/>
               <!-- 頁面中間上面輸出 -->
               <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購紀錄細項</h4>
 
@@ -558,7 +557,6 @@
                                          type="text"
                                          id="PurchaseID"
                                          name="PurchaseID"
-                                         value="SPE20230112"
                                          v-model="myobject.purchaseId"
                                          autofocus />
                               </div>
@@ -623,7 +621,7 @@
                                                         <!-- 總價 -->
                                                       <div>
                                                         <div class="d-flex flex-row-reverse bd-highlight">
-                                                            <div class="p-2 bd-highlight">總價：元</div>
+                                                            <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
                                                         </div>
                                                         <div class="table-responsive text-nowrap"></div>
                                                       </div>
@@ -640,8 +638,6 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
@@ -665,16 +661,27 @@
                 data() {
                     return {
                         list: {},
-                        myobject: {}
+                        myobject: {},
+                        totalprice: {}
                     }
                 },
-                methods: {
-
-                },
+                methods: {},
                 mounted() {
                     this.myobject = JSON.parse(sessionStorage.getItem('order'))
                     axios.get('/api/PCApplications/recordsearchdetail/' + this.myobject.purchaseId)
-                        .then(response => this.list = response.data)
+                        .then(response => {
+                            this.list = response.data;
+                            //console.log(response.data[0].subtotal);
+                            var k = 0;
+                            for (var i = 0; i < this.list.length; i++) {
+                                k += response.data[i].subtotal;
+                            }
+                            this.totalprice = k;
+                            //console.log(this.totalprice);
+                        })
+
+   
+                    
                 }
             }
 
