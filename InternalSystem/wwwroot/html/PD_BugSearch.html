@@ -508,66 +508,44 @@
           <div class="content-wrapper">
 
          <!-- 選擇生產的工作位置報工-->
-          <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="card mb-4 m-4 ">
-                <div class="card text-center ">
-                <div class="row card-body">
-                  <div class=" row">
-                    <label for="" class=" col-2 ">訂單編號</label>
-                    <label for="" class=" col-2 ">製程</label>
-                    <label for="" class=" col-2 ">廠區</label>
-                    <label for="" class=" col-1 ">工時</label>
-                    <label for="" class=" col-2 ">日期</label>
-                    <label for="" class=" col-1 ">狀態</label>
-                    
-                  </div>
-                
-                </div>
-  
-              </div>
-            </div>
-          
-              <div class="card mb-4 m-4 ">
-                <div class="card text-center ">
+              <div class="container-xxl flex-grow-1 container-p-y">
+                  <div class="card mb-4 m-4 ">
+                      <div class="card text-center ">
+                          <div class="row card-body">
+                              <div class=" row">
+                                  <label for="" class=" col-2 ">訂單編號</label>
+                                  <label for="" class=" col-2 ">製程</label>
+                                  <label for="" class=" col-2 ">廠區</label>
+                                  <label for="" class=" col-2 ">日期</label>
+                                  <label for="" class=" col-1 ">狀態</label>
 
-                  <div class="row card-body">
-                    <div class="row">
-                      <label for="" class=" col-2 ">20221018M4</label>
-                      <label for="" class=" col-2 ">B製程</label>
-                      <label for="" class=" col-2 ">A01</label>
-                      <label for="" class=" col-1 ">1小時</label>
-                      <label for="" class=" col-2 ">2022/01/01</label>
-                      <label for="" class=" col-1 ">異常</label>
-                      <div class="col-2   d-md-flex justify-content-md-end">
-                          <button type="submit" class="btn btn-outline-primary 2 ">查詢</button>
+                              </div>
+
+                          </div>
+
                       </div>
-                    </div>
-                  
                   </div>
-                </div>
-  
-              </div>
 
+                  <div id="app">
+                      <div class="card mb-4 m-4 " v-for ="List in BugList">
+                          <div class="card text-center " >
+                              <div class="row card-body" >
+                                  <div class="row">
+                                      <label for="" class=" col-2 ">{{List.orderNumber}}</label>
+                                      <label for="" class=" col-2 ">{{List.processName}}</label>
+                                      <label for="" class=" col-2 ">{{List.areaName}}</label>
+                                      <label for="" class=" col-2 ">{{List.date}}</label>
+                                      <label for="" class=" col-1 ">異常</label>
+                                      <div class="col-2   d-md-flex justify-content-md-end">
+                                          <button type="submit" class="btn btn-outline-primary 2 ">查詢</button>
+                                      </div>
+                                  </div>
 
-              <div class="card mb-4 m-4 ">
-                <div class="card text-center ">
+                              </div>
+                          </div>
 
-                  <div class="row card-body">
-                    <div class="row">
-                      <label for="" class=" col-2 ">20221019M4</label>
-                      <label for="" class=" col-2 ">B製程</label>
-                      <label for="" class=" col-2 ">A01</label>
-                      <label for="" class=" col-1 ">1小時</label>
-                      <label for="" class=" col-2 ">2022/01/01</label>
-                      <label for="" class=" col-1 ">異常</label>
-                      <div class="col-2   d-md-flex justify-content-md-end">
-                          <button type="submit" class="btn btn-outline-primary 2 ">查詢</button>
                       </div>
-                    </div>
-                  
                   </div>
-                </div>
-  
               </div>
 
               
@@ -610,11 +588,16 @@
         const app = {
             data() {
                 return {
-
+                    BugList: {}
                 }
+            },
+            mounted() {
+                axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList')
+                    .then(response => this.BugList = response.data)
             }
         }
 
+        Vue.createApp(app).mount('#app')
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

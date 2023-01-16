@@ -47,17 +47,6 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
-
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
