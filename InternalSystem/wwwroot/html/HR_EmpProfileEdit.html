@@ -553,7 +553,8 @@
                                                    id="upload"
                                                    class="account-file-input"
                                                    hidden
-                                                   accept="image/png, image/jpeg" 
+                                                   accept="image/png, image/jpeg"
+                                                   @change="uploadphoto"
                                                    />
                                         </label>
                                         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
@@ -859,9 +860,9 @@
                 createbtn: function () {
                     if (confirm('請確認修改資料是否正確') == true) {
 
-                        axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
+                        axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
                         ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
-                        window.location = "HR_EmpProfileEdit.html";
+                        //window.location = "HR_EmpProfileEdit.html";
                     }
                 },
                 searchbtn: function () {
@@ -879,6 +880,22 @@
                     //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
                     //            .then(response => this.employeelist = response.data)
                     //            .catch(alert('查無此項')))
+                },
+                uploadphoto(event) {
+                    console.log('ok')
+                    if (event.target.files && event.target.files[0]) {
+                        var file = event.target.files[0];
+                        var reader = new FileReader();
+                        let urlimage;
+                        reader.onload = (event) => {
+                            document.querySelector('#upload').src = event.target.result;
+                            this.employeelist.photo = event.target.result;
+                            console.log(this.employeelist.photo);
+                        };
+                        reader.readAsDataURL(file)
+                    }
+
+
                 }
 
             },

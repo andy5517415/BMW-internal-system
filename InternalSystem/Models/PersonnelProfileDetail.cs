@@ -45,6 +45,7 @@ namespace InternalSystem.Models
         public DateTime EntryDate { get; set; }
         public DateTime? Terminationdate { get; set; }
         public string Photo { get; set; }
+        public string Note { get; set; }
 
         public virtual PersonnelCityList City { get; set; }
         public virtual PersonnelDepartmentList Department { get; set; }
