@@ -41,6 +41,27 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
+        // GET: api/PersonnelProfileDetails/oderby/findnew
+        [HttpGet("oderby/findnew")]
+        public ActionResult ProfileDetail()
+        {
+            
+            var personnelProfileDetail = _context.PersonnelProfileDetails
+                .OrderByDescending(x => x.EmployeeNumber).Select(x => new
+                {
+                   EmployeeNumber =  Convert.ToInt64(x.EmployeeNumber)
+                }).First();
+            var newyear = System.DateTime.Now.Year;
+            var yearint = Convert.ToInt64(newyear + "001");
+            var a = personnelProfileDetail.EmployeeNumber;
+            if (newyear > a)
+            {
+                return Content(newyear.ToString());
+            }
+            var sa = newyear.ToString();
+            return Content(sa);
+        }
+
         //個人資料觀看
         // GET: api/PersonnelProfileDetails/5
         [HttpGet("profile/{id}")]
@@ -230,6 +251,7 @@ namespace InternalSystem.Controllers
                                           Email = o.Email,
                                           Birthday = o.Birthday.ToString(),
                                           PhoneNumber = o.PhoneNumber,
+                                          o.Photo,
                                           Address = o.Address,
                                           DutyStatus = o.DutyStatus,
                                           Country = o.Country,
@@ -309,6 +331,7 @@ namespace InternalSystem.Controllers
                                               Email = o.Email,
                                               Birthday = o.Birthday.ToString(),
                                               PhoneNumber = o.PhoneNumber,
+                                              o.Photo,
                                               Address = o.Address,
                                               DutyStatus = o.DutyStatus,
                                               Country = o.Country,

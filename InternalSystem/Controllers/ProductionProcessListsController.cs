@@ -32,11 +32,15 @@ namespace InternalSystem.Controllers
                           join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
                           join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
                           join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
-                          where PBC.OrderId == PPL.OrderId
+                          join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                          join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                          join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                          where PBC.OrderId == PPL.OrderId && BC.CategoryId == 1
                           select new
                                 {
                                     OrderId = PBC.OrderId,
                                     OrderNumber = BO.OrderNumber,
+                                    OptionalName = BOT.OptionalName,
                                     AreaId = PBC.AreaId,
                                     AreaName = PA.AreaName,
                                     ProcessId = PBC.ProcessId,
@@ -45,7 +49,9 @@ namespace InternalSystem.Controllers
                                     StartTime = PBC.StartTime,
                                     EndTime = PBC.EndTime,
                                     PBC.Title,
-                                    PBC.Context
+                                    PBC.Context,
+                                    PBC.Rank,
+                                    PBC.Dispose
                                 };
 
             return await BugList.ToListAsync();

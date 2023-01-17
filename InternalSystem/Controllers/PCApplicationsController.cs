@@ -27,7 +27,6 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<dynamic>> GetApplicationsList(int id)
         {
             var list = from AP in this._context.PcApplications
-                       //join PC in this._context.PcPurchaseItemSearches on AP.PurchaseId equals PC.ProductId
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
                        where PD.EmployeeId == id
@@ -43,7 +42,60 @@ namespace InternalSystem.Controllers
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
                            DeliveryStatus = AP.DeliveryStatus
+                       };
 
+            return await list.FirstOrDefaultAsync();
+        }
+
+        //申請表
+        //GET: api/PCApplications/applist
+        [HttpGet("applist")]
+        public async Task<ActionResult<dynamic>> GetApplications()
+        {
+            var list = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       select new
+                       {
+                           EmployeeId = PD.EmployeeId,
+                           EmployeeName = PD.EmployeeName,
+                           OrderId = AP.OrderId,
+                           Department = PDL.DepName,
+                           Date = AP.Date,
+                           PurchaseId = AP.PurchaseId,
+                           Comment = AP.Comment,
+                           Total = AP.Total,
+                           ApplicationStatus = AP.ApplicationStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus
+                       };
+
+            return await list.ToListAsync();
+        }
+
+        //申請表
+        // 用於PC_OrderCheck.html 送出成功拋值
+        //GET: api/PCApplications/OrderCheck
+        [HttpGet("OrderCheck/{id}")]
+        public async Task<ActionResult<dynamic>> GetOrderCheck(int id)
+        {
+            var list = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       where AP.OrderId == id
+                       select new
+                       {
+                           EmployeeId = PD.EmployeeId,
+                           EmployeeName = PD.EmployeeName,
+                           OrderId = AP.OrderId,
+                           Department = PDL.DepName,
+                           Date = AP.Date,
+                           PurchaseId = AP.PurchaseId,
+                           Comment = AP.Comment,
+                           Total = AP.Total,
+                           ApplicationStatus = AP.ApplicationStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus
                        };
 
             return await list.FirstOrDefaultAsync();
@@ -100,14 +152,17 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       orderby AP.Date descending
+                       where AP.ApplicationStatus == false
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
+                           OrderId = AP.OrderId,
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
-                           Date = AP.Date,
+                           Date = AP.Date.ToString(),
                            Comment = AP.Comment
                        };
 

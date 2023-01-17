@@ -529,12 +529,13 @@
                                                            id="upload"
                                                            class="account-file-input"
                                                            hidden
-                                                           accept="image/png, image/jpeg" />
+                                                           accept="image/png, image/jpeg" 
+                                                            @change="uploadphoto"/>
                                                 </label>
 
                                                 <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                                     <i class="bx bx-reset d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Reset</span>
+                                                    <span class="d-none d-sm-block" @click="photoreset">Reset</span>
                                                 </button>
 
                                                 <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
@@ -555,7 +556,8 @@
                                                            type="text"
                                                            id="EmployeeName"
                                                            name="EmployeeName"
-                                                           autofocus />
+                                                           autofocus
+                                                           @change="empname" />
                                                 </div>
                                                 <!-- 性別 -->
                                                 <div class="mb-3 col-md-4">
@@ -585,8 +587,10 @@
                                                                id="IdentityNumber"
                                                                name="IdentityNumber"
                                                                class="form-control"
+                                                               @change="Identit"
                                                                placeholder="" />
                                                     </div>
+                                                    <p class="form-label">{{cnt}}/10</p>
                                                 </div>
                                                 <!-- 國籍 -->
                                                 <div class="mb-3 col-md-4">
@@ -618,7 +622,8 @@
                                                            type="text"
                                                            id="email"
                                                            name="email"
-                                                           placeholder="@example.com" />
+                                                           placeholder="@example.com"
+                                                           @change="mail" />
                                                 </div>
 
                                                 <!-- 行動電話 -->
@@ -630,8 +635,10 @@
                                                                id="phoneNumber"
                                                                name="phoneNumber"
                                                                class="form-control"
-                                                               placeholder="09123456789" />
+                                                               placeholder="09-"
+                                                               @change="phoneNumber" />
                                                     </div>
+                                                    <p class="form-label">{{pnt}}/10</p>
                                                 </div>
                                                 <!--縣市-->
                                                 <div class="mb-3 col-md-6">
@@ -647,7 +654,8 @@
                                                     <input v-model="employeelist.address" class="form-control"
                                                            type="text"
                                                            id="address"
-                                                           name="address" />
+                                                           name="address"
+                                                           @change="address" />
                                                 </div>
                                                 <!-- 家用電話 -->
                                                 <div class="mb-4 col-md-6">
@@ -658,7 +666,8 @@
                                                                id="Number"
                                                                name="Number"
                                                                class="form-control"
-                                                               placeholder="" />
+                                                               placeholder=""
+                                                               @change="homenumber" />
                                                     </div>
                                                 </div>
                                                 <!-- 緊急聯絡人 -->
@@ -668,24 +677,27 @@
                                                            type="text"
                                                            id="Emergency"
                                                            name="Emergency"
-                                                           autofocus />
+                                                           autofocus
+                                                           @change="emergen" />
                                                 </div>
                                                 <!-- 緊急聯絡人關係選擇 -->
-                                                <div class="mb-4 col-md-4">
+                                                <div class="mb-4 col-md-2">
                                                     <label for="EmergencyContact" class="form-label">緊急聯絡人關係</label>
                                                     <input v-model="employeelist.emergencyRelation" class="form-control"
                                                            type="text"
                                                            id="EmergencyContact"
                                                            name="EmergencyContact"
-                                                           autofocus />
+                                                           autofocus
+                                                           @change="emergencycontact" />
                                                 </div>
                                                 <!-- 緊急聯絡人電話 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label class="form-label" for="EmergencyNumber">緊急聯絡人電話</label>
                                                     <div class="input-group input-group-merge">
                                                         <span class="input-group-text"></span>
-                                                        <input v-model="employeelist.emergencyNumber" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" />
+                                                        <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" />
                                                     </div>
+                                                    <p class="form-label">{{epnt}}/10</p>
                                                 </div>
                                             </div>
 
@@ -696,7 +708,8 @@
                                                 <!-- 員工工號 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="residence" class="form-label">員工工號</label>
-                                                    <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus />
+                                                    <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus
+                                                           @change="empnumber" />
                                                 </div>
                                                 <!-- 部門選擇 -->
                                                 <div class="mb-4 col-md-6">
@@ -754,7 +767,8 @@
                                                 <!--帳號設置-->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="usernumber" class="form-label-lg">帳號設定</label>
-                                                    <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus />
+                                                    <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus
+                                                           @change="usernum" />
                                                 </div>
                                                 <!--密碼設置-->
                                                 <div class="mb-3 col-md-6">
@@ -763,8 +777,17 @@
                                                            type="text"
                                                            id="password"
                                                            name="password"
-                                                           autofocus />
+                                                           autofocus @change="password" />
                                                 </div>
+                                            </div>
+
+                                            <!--員工備註-->
+                                            <div class="alert alert-primary text-center  fs-5 fw-bold mb-4" role="alert">
+                                                員工備註
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label for="Note" class="form-label fs-4">備註欄</label>
+                                                <textarea class="form-control" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
                                             </div>
                                             <!-- 確認按鈕 -->
                                             <div class="mt-2 py-5 d-md-flex justify-content-md-end">
@@ -818,7 +841,7 @@
         const app = {
             data() {
                 return {
-                    employeelist: {},
+                    employeelist: {"employeeNumber":"2023001"},
                     departmentlist: {},
                     positionlist: {},
                     ranklist: {},
@@ -827,10 +850,134 @@
                     { "employeeId": 1, "LeaveType": 2, "Quantity": 240, "Used": 0, "LeaveOver": 240 },
                     { "employeeId": 1, "LeaveType": 3, "Quantity": 0, "Used": 0, "LeaveOver": 0 },
                     { "employeeId": 1, "LeaveType": 4, "Quantity": 96, "Used": 0, "LeaveOver": 96 }
-                    ]
+                    ],
+                    empleavelist: { }
                 }
             },
             methods: {
+                Identit() {
+                    let reg = /^[A-Z][1,2]\d{8}$/;
+                    logic = reg.test(this.employeelist.identiyId)
+                    //console.log(logic);
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('身份證字號格式有誤');
+                        this.employeelist.identiyId = "";
+                    }
+                },
+                phoneNumber() {
+                    let phn = /^09\d{8}$/;
+                    logic = phn.test(this.employeelist.phoneNumber)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('行動電話格式有誤');
+                        this.employeelist.phoneNumber = "";
+                    }
+                },
+                emerphone() {
+                    let ephn = /^09\d{8}$/;
+                    logic = ephn.test(this.employeelist.emergencyNumber)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('行動電話格式有誤');
+                        this.employeelist.emergencyNumber = "";
+                    }
+                },
+                empname() {
+                    let empname = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = empname.test(this.employeelist.employeeName)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('名稱不可有特殊字元');
+                        this.employeelist.employeeName = "";
+                    }
+                },
+                mail() {
+                    let email = /^[a-zA-Z0-9@.]+$/;
+                    logic = email.test(this.employeelist.email)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('信箱不可有特殊字元');
+                        this.employeelist.email = "";
+                    }
+                },
+                address() {
+
+                    let address = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/;
+                    logic = address.test(this.employeelist.address)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('地址不可有特殊字元');
+                        this.employeelist.address = "";
+                    }
+                },
+                homenumber() {
+                    let homenumber = /^0[0-9]+$/;
+                    logic = homenumber.test(this.employeelist.homePhone)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('家用電話格式錯誤');
+                        this.employeelist.homePhone = "";
+                    }
+                },
+                emergen() {
+                    let emergen = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = emergen.test(this.employeelist.emergencyPerson)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('緊急聯絡人不可有特殊字元');
+                        this.employeelist.emergencyPerson = "";
+                    }
+                },
+                empnumber() {
+                    let empnumber = /^[0-9]+$/;
+                    logic = empnumber.test(this.employeelist.employeeNumber)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('工號請輸入純數字');
+                        this.employeelist.employeeNumber = "";
+                    }
+                },
+                emergencycontact() {
+                    let emergencycontact = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = emergencycontact.test(this.employeelist.emergencyRelation)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('緊急連絡人關係請請輸入英文數字，不可有特殊字元');
+                        this.employeelist.emergencyRelation = "";
+                    }
+                },
+                usernum() {
+                    let usernum = /^[0-9]+$/;
+                    logic = usernum.test(this.employeelist.acount)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('帳號請輸入純數字');
+                        this.employeelist.acount = "";
+                    }
+                },
+                password() {
+                    let password = /^[a-zA-Z0-9@.]+$/;
+                    logic = password.test(this.employeelist.password)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('密碼請輸入英文數字，部分特殊字元不可用');
+                        this.employeelist.password = "";
+                    }
+                },
+                note() {
+                    let note = /^[\u4e00-\u9fa5a-zA-Z\，。‧、]+$/;
+                    logic = note.test(this.employeelist.note)
+                    if (note.test(this.employeelist.note)) {
+                        console.log('ok');
+                    }
+                    else {
+                        alert('備註欄不可有特殊字元，逗點符號請用標準格式:如，。、');
+                        this.employeelist.note = "";
+                    }
+                },
+
+
                 sexleave() {
                     if (this.employeelist.sex == "男性") {
                         this.Leavelist[3].LeaveOver = 0;
@@ -841,6 +988,25 @@
                         this.Leavelist[3].Quantity = 96;
                     }
                 },
+                uploadphoto(event) {
+                    console.log('ok')
+                    if (event.target.files && event.target.files[0]) {
+                        var file = event.target.files[0];
+                        var reader = new FileReader();
+                        let urlimage;
+                        reader.onload = (event) => {
+                            document.querySelector('#upload').src = event.target.result;
+                            this.employeelist.photo = event.target.result;
+                            console.log(this.employeelist.photo);
+                        };
+                        reader.readAsDataURL(file)
+                    }
+
+
+                },
+                photoreset: function () {
+                    this.employeelist.photo = "";
+                },
 
                 createbtn: function () {
 
@@ -849,9 +1015,10 @@
                     //).then(alert('資料以新建')).catch(err => alert(err))
                     //window.location = "HR_EmpProfileCreate.html"; 單純本表新增
 
-                    if (confirm('新增資料是否正確?') == true) {
-                        axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
-                            .then(po => axios.get("https://localhost:44319/api/PersonnelProfileDetails/idfind/Number/" + this.employeelist.employeeNumber))
+                        if (confirm('新增資料是否正確?') == true) {
+                            axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
+                                .then(response => this.empleavelist = response)
+                            .catch(err => { if (err.response.status == 500 || err.response.status ==415) alert('請確實填寫資料') })
                             .then(response => {
                                 console.log(this.employeelist)
                                 console.log(response.data); // {employeeid:18}
@@ -864,10 +1031,44 @@
                                 });
                                 alert('資料新建完成')
                             })
-                            .catch(err => console.log(err))
+                                .catch(err => alert(err))
+                            /*  window.location = "HR_EmpProfileCreate.html";*/
                     }
-                    window.location = "HR_EmpProfileCreate.html";
+
+                    //if (confirm('新增資料是否正確?') == true) {
+                    //    axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
+                    //        .then(po => axios.get("https://localhost:44319/api/PersonnelProfileDetails/idfind/Number/" + this.employeelist.employeeNumber))
+                    //        .catch(err => { if (err.response.status == 500 || err.response.status ==415) alert('請確實填寫資料') })
+                    //        .then(response => {
+                    //            console.log(this.employeelist)
+                    //            console.log(response.data); // {employeeid:18}
+                    //            console.log(response.data.employeeId); // 18
+                    //            //將每一筆Leavelist.employeeId帶入get到的值
+                    //            this.Leavelist.forEach(X => {
+                    //                X.employeeId = response.data.employeeId;
+                    //                console.log(X)// {}
+                    //                axios.post("https://localhost:44319/api/PersonnelLeaveOvers", X)
+                    //            });
+                    //            alert('資料新建完成')
+                    //        })
+                    //        .catch(err => alert(err))
+                    //}
+                  /*  window.location = "HR_EmpProfileCreate.html";*/
+                },
+
+            },
+            computed:
+            {
+                cnt() {
+                    return (this.employeelist.identiyId == null) ? 0 : this.employeelist.identiyId.toString().length
+                },
+                pnt() {
+                    return (this.employeelist.phoneNumber == null) ? 0 : this.employeelist.phoneNumber.toString().length
+                },
+                epnt() {
+                    return (this.employeelist.emergencyNumber == null) ? 0 : this.employeelist.emergencyNumber.toString().length
                 }
+
             },
             mounted() {
                 //axios.get('https://localhost:44319/api/PersonnelProfileDetails/1')

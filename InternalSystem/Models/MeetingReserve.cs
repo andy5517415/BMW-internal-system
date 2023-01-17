@@ -17,7 +17,6 @@ namespace InternalSystem.Models
         public int MeetPlaceId { get; set; }
         public string MeetType { get; set; }
         public int DepId { get; set; }
-        public int RcorderId { get; set; }
         public DateTime Date { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

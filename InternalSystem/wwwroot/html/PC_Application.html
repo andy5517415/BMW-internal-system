@@ -562,7 +562,6 @@
                                                                type="text"
                                                                id="firstName"
                                                                name="firstName"
-                                                               value=""
                                                                readonly
                                                                v-model="item.employeeName"
                                                                autofocus />
@@ -622,7 +621,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <template v-for="(b,index) in product">
+                                                                        <template v-for="(b,key) in product">
                                                                             <tr>
 
                                                                                 <!-- 第一項物品 -->
@@ -636,10 +635,10 @@
                                                                                 </td>
                                                                                 <!-- 物品數量 -->
                                                                                 <td>
-                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" :key="index1">
+                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" >
                                                                                         <div class="mb-3 col-md-12">
                                                                                             <label for="數量" class="form-label"></label>
-                                                                                            <input type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="goods">
+                                                                                            <input @change="getprice" type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
                                                                                         </div>
                                                                                     </ul>
                                                                                 </td>
@@ -659,7 +658,7 @@
                                                                                 <td>
                                                                                     <div class="dropdown">
                                                                                         <div>
-                                                                                            <p id="total">{{goods*b.unitPrice}}元</p>
+                                                                                            <p id="total">{{bee[key]*b.unitPrice}}元</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
@@ -671,7 +670,7 @@
                                                             <!-- 總價 -->
                                                             <div>
                                                                 <div class="d-flex flex-row-reverse bd-highlight">
-                                                                    <div class="p-2 bd-highlight">總價：元</div>
+                                                                    <div class="p-2 bd-highlight">總價：{{sum}}元</div>
                                                                 </div>
                                                                 <div class="table-responsive text-nowrap"></div>
                                                             </div>                                                                              
@@ -710,16 +709,31 @@
                             return {
                                 item: {},
                                 product: {},
-                                supplier: {},
-                                goods: '',
+                                bee: [],
                                 employeedata: {},
-                                autopurchaseid:"",
+                                autopurchaseid: "",
+                                sum:0
                             }
                         },
                         computed: {
-                            sum() {
-                                return parseInt((this.goods) * (this.product[0].unitPrice));
-                            }
+                            //sum() {
+                            //    return this.product[0]
+                            //    //return this.bee * this.unitPrice;
+                                    
+                                
+                            //    //1
+                            //        //var sum = 0;
+                            //        //for (var i = 0; i < this.product.length; i++) {
+
+                            //        //    sum += parseInt(bee[i] * b.unitPrice);
+                            //        //    1
+                            //        //}
+                                 
+                                
+                               
+                           
+                            //}
+                            
                         },
                         methods: {
                             //confirmbtn: function () {
@@ -734,6 +748,18 @@
                                 console.log(typeof (this.item));
 
                             },
+                            getprice() {
+
+                                for (var i = 0; i < this.product.length; i++) {
+                                    this.sum += this.product[i].unitPrice * this.bee[i];
+                                }
+                                    //this.sum = this.product[0].unitPrice * this.bee[0]
+                                    //this.sum += this.product[1].unitPrice * this.bee[1]
+                                //for (var k = 0; k < this.product.Length; k++) {
+                                //}
+                                //this.sum += 1
+                                //console.log('getprice')
+                            }
                         },
                         mounted() {
                             this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));

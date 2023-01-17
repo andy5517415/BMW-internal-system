@@ -514,8 +514,8 @@
                           <div class="row card-body">
                               <div class=" row">
                                   <label for="" class=" col-2 ">訂單編號</label>
-                                  <label for="" class=" col-2 ">製程</label>
-                                  <label for="" class=" col-2 ">廠區</label>
+                                  <label for="" class=" col-2 ">標題</label>
+                                  <label for="" class=" col-2 ">異常等級</label>
                                   <label for="" class=" col-2 ">日期</label>
                                   <label for="" class=" col-1 ">狀態</label>
 
@@ -532,12 +532,12 @@
                               <div class="row card-body" >
                                   <div class="row">
                                       <label for="" class=" col-2 ">{{List.orderNumber}}</label>
-                                      <label for="" class=" col-2 ">{{List.processName}}</label>
-                                      <label for="" class=" col-2 ">{{List.areaName}}</label>
+                                      <label for="" class=" col-2 " style="height: 25px; line-height: 25px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; " >{{List.title}}</label>
+                                      <label for="" class=" col-2 ">{{List.rank.slice(0,2)}}</label>
                                       <label for="" class=" col-2 ">{{List.date}}</label>
                                       <label for="" class=" col-1 ">異常</label>
                                       <div class="col-2   d-md-flex justify-content-md-end">
-                                          <button type="submit" class="btn btn-outline-primary 2 ">查詢</button>
+                                          <button type="submit" class="btn btn-outline-primary 2" v-on:click="Enter(List)">查詢</button>
                                       </div>
                                   </div>
 
@@ -594,6 +594,12 @@
             mounted() {
                 axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList')
                     .then(response => this.BugList = response.data)
+            },
+            methods: {
+                Enter: function (e) {
+                    sessionStorage.setItem("bugdata", JSON.stringify(e));
+                    window.location = "PD_BugReport.html";
+                }
             }
         }
 

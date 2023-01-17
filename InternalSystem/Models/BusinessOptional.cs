@@ -16,6 +16,7 @@ namespace InternalSystem.Models
         public int CategoryId { get; set; }
         public int Price { get; set; }
         public string OptionalName { get; set; }
+        public string Photo { get; set; }
 
         public virtual BusinessCategory Category { get; set; }
         public virtual ICollection<BusinessOrderDetail> BusinessOrderDetails { get; set; }
