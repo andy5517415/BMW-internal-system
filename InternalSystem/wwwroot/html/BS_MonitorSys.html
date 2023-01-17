@@ -1268,7 +1268,7 @@
                     }
                     console.log(pid);
 
-                    axios.get('/api/MonitoringProcessAreaStatus/description/' + areaId + '/' + pid +'/iX xDrive40 旗艦版')
+                    axios.get('/api/MonitoringProcessAreaStatus/description/' + areaId + '/' + pid +'/M4 Competition')
                         .then(g => {
                                 console.log(g);
                                 this.description=g.data
@@ -1376,6 +1376,8 @@
                 //console.log(this.description);
             }
         }).mount('#divmonitor');
+
+
 
     </script>
     <!-- session -->

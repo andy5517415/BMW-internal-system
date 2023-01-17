@@ -515,10 +515,11 @@
                                 <h6 class="text-muted">類別</h6>
                                 <div class="nav-align-top mb-4">
                                     <!-- ★設權限 -->
-                                    <ul class="nav nav-pills mb-3 nav-fill " role="tablist" >
-                                        <li class="nav-item " v-if="employeelist.positionId<7" >
+                                    <ul class="nav nav-pills mb-3 nav-fill active" role="tablist" >
+                                        <li class="nav-item " v-if="employeelist.positionId<7">
+                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt!=0">{{cnt}}</span>
                                             <button type="button"
-                                                    class="nav-link "
+                                                    class="nav-link bg-label-primary"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
@@ -540,19 +541,20 @@
                                         </li>-->
                                         <li class="nav-item" v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="nav-link "
+                                                    class="nav-link bg-label-primary"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditleave"
                                                     aria-controls="auditleave"
                                                     aria-selected="false">
                                                 請假審核
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="mnt!=0">{{mnt}}</span>
                                             </button>
                                         </li>
 
                                         <li class="nav-item" v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="nav-link"
+                                                    class="nav-link bg-label-primary"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditover"
@@ -560,6 +562,8 @@
                                                     aria-selected="false"
                                                     id="overtime-check">
                                                 加班審核
+                                                <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="wnt!=0">{{wnt}}</span>
+
                                             </button>
                                         </li>
 
@@ -595,8 +599,9 @@
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="leaveExit in leavereturn">
                                                         <tr>
-                                                            <td >
+                                                            <td>
                                                                 <button type="button" class="btn btn-secondary" disabled>請假</button>
+                                                              
                                                             </td>
                                                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{leaveExit.employeeName}}</strong></td>
                                                             <td>{{leaveExit.employeeNumber}}</td>
@@ -918,7 +923,10 @@
                 leaveproxy: {},
                 wkover: {},
                 leavereturn: {},
-                NotyetOver: {}
+                  NotyetOver: {},
+                  cnt: {},
+                  mnt: {},
+                  wmt:{}
               }
             },
             methods: {
@@ -941,7 +949,8 @@
 
               axios.get('/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                 .then(response => {
-                  this.employeelist = response.data;
+                    this.employeelist = response.data;
+                   
                   console.log("this.employeelist", this.employeelist);
                   //一般員工GET被指定為代理人
                   if (this.employeelist.positionId < 7) {
@@ -954,15 +963,27 @@
                   if (this.employeelist.positionId == 7) {
                     axios.get('/api/PersonnelLeaveForms/manager/'
                       + this.employeelist.departmentId)
-                      .then(response => this.leaveproxy = response.data)
+                        .then(response => {
+                            this.leaveproxy = response.data;
+                            this.wmt = this.wkover.length
+                        })
                     axios.get('/api/PersonnelOvertimeForms/manager/over/'
                       + this.employeelist.departmentId)
-                      .then(response => this.wkover = response.data)
+                        .then(response => {
+                            this.wkover = response.data;
+                            this.mnt = this.leaveproxy.length 
+                            //console.log(this.mnt)
+                        })
+                    
                   }
                   //一般員工GET不同意回復之請假
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
-                      .then(response => this.leavereturn = response.data)
+                        .then(response => {
+                            this.leavereturn = response.data;
+                            this.cnt = this.leavereturn.length + this.leaveproxy.length;
+                            //console.log(this.cnt)
+                        })
                   }
                   //一般員工GET還未檢閱之加班
                     if (this.employeelist.positionId < 7) {

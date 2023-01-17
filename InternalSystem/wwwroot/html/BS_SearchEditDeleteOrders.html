@@ -508,7 +508,7 @@
                     <!-- 查詢訂單 -->
 
 
-                    <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
+                    <div v-if="limit.DepID==3" id="confirm" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
                             <h2 class="card-header">訂單查詢/修改/刪除</h2>
                             <h5 class="card-header">車輛資訊</h5>
@@ -531,8 +531,7 @@
                                         <label class="form-label fs-4" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
-                                                v-model="cartypeone.optionalId"
-                                                >
+                                                v-model="cartypeone.optionalId">
                                             <option disabled :value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one.optionalId">
@@ -556,14 +555,12 @@
                                                readonly
                                                v-model="cartypeone.price" />
                                     </div>-->
-
                                     <!--車漆顏色  -->
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="carcolor">車漆顏色</label>
                                         <select id="carcolor"
                                                 class="form-select"
-                                                v-model="carcolorone.optionalId"
-                                                >
+                                                v-model="carcolorone.optionalId">
                                             <option disabled value="999">請選擇車漆顏色</option>
                                             <option v-for="one in carcolor"
                                                     :value="one.optionalId">
@@ -592,8 +589,7 @@
                                         <label class="form-label fs-4" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown"
                                                 id="texture"
-                                                v-model="cartextureone.optionalId"
-                                                >
+                                                v-model="cartextureone.optionalId">
                                             <option disabled value="999">請選擇內裝材質</option>
                                             <option v-for="one in cartexture"
                                                     :value="one.optionalId">
@@ -618,14 +614,12 @@
                                                readonly
                                                v-model="cartextureone.price" />
                                     </div>-->
-
                                     <!--輪圈款式  -->
                                     <div class="col-md-3">
                                         <label class="form-label fs-4" for="wheel">輪圈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="wheel"
-                                                v-model="carwheelone.optionalId"
-                                                >
+                                                v-model="carwheelone.optionalId">
                                             <option disabled value="999">請選擇輪圈款式</option>
                                             <option v-for="one in carwheel"
                                                     v-bind:value="one.optionalId">
@@ -655,8 +649,7 @@
                                         <label class="form-label fs-4" for="plaque">飾板</label>
                                         <select class="form-select placement-dropdown"
                                                 id="plaque"
-                                                v-model="carplaqueone.optionalId"
-                                                >
+                                                v-model="carplaqueone.optionalId">
                                             <option disabled value="999">請選擇飾板款式</option>
                                             <option v-for="one in carplaque"
                                                     :value="one.optionalId">
@@ -685,8 +678,7 @@
                                         <label class="form-label fs-4" for="light">頭燈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="light"
-                                                v-model="carlightone.optionalId"
-                                                >
+                                                v-model="carlightone.optionalId">
                                             <option disabled value="999">請選擇頭燈款式</option>
                                             <option v-for="one in carlight"
                                                     :value="one.optionalId">
@@ -715,8 +707,7 @@
                                         <label class="form-label fs-4" for="saddle">中央鞍座</label>
                                         <select class="form-select placement-dropdown"
                                                 id="saddle"
-                                                v-model="carsaddleone.optionalId"
-                                                >
+                                                v-model="carsaddleone.optionalId">
                                             <option disabled value="999">請選擇中央鞍座款式</option>
                                             <option v-for="one in carsaddle"
                                                     :value="one.optionalId">
@@ -745,8 +736,7 @@
                                         <label class="form-label fs-4" for="sunroof">天窗</label>
                                         <select class="form-select placement-dropdown"
                                                 id="sunroof"
-                                                v-model="carsunroofone.optionalId"
-                                                >
+                                                v-model="carsunroofone.optionalId">
                                             <option disabled value="999">請選擇天窗款式</option>
                                             <option v-for="one in carsunroof"
                                                     :value="one.optionalId">
@@ -775,8 +765,7 @@
                                         <label class="form-label fs-4" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
-                                                v-model="carmediaone.optionalId"
-                                                >
+                                                v-model="carmediaone.optionalId">
                                             <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
                                                     :value="one.optionalId">
@@ -832,21 +821,21 @@
                                                v-model="agentone.areaName" />
                                     </div>-->
                                     <!--<div class="col-md-6">
-        <label for="" class="form-label fs-4">代理商地址</label>
-        <input type="text"
-               class="form-control"
-               id=""
-               readonly
-               v-model="agentone.address" />
-    </div>
-    <div class="col-md-6">
-        <label for="" class="form-label fs-4">代理商電話</label>
-        <input type="text"
-               class="form-control"
-               id=""
-               readonly
-               v-model="agentone.phone" />
-    </div>-->
+                                        <label for="" class="form-label fs-4">代理商地址</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.address" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="form-label fs-4">代理商電話</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id=""
+                                               readonly
+                                               v-model="agentone.phone" />
+                                    </div>-->
 
 
                                     <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
@@ -889,7 +878,7 @@
 
 
 
-
+                    <p v-if="limit.DepID!=3">非業務部不可查看</p>
                     <!-- / Content -->
                     <!-- Footer -->
                     <!-- / Footer -->
@@ -967,7 +956,8 @@
 
                     orderdetailold: '',
                     odId: '',
-                    areaId: ''
+                    areaId: '',
+                    limit: {}
                 }
             },
             computed: {
@@ -994,23 +984,22 @@
                     //logic = reg.test(this.ordernum)
                     if (true) {
                         //找到訂單流水號、代理商區域流水號
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/1').then(g =>
-                        {
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/1').then(g => {
                             this.cartypeone = g.data;
                             this.orderid = g.data.orderId;
                             this.areaId = g.data.areaId;
                             axios.get('/api/BusinessOrders/getagent/' + this.areaId).then(g => this.agentone = g.data)
                         })
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/2').then(g =>  this.carcolorone   = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/3').then(g =>  this.cartextureone = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/4').then(g =>  this.carwheelone   = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/5').then(g =>  this.carplaqueone  = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/6').then(g =>  this.carlightone   = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/7').then(g =>  this.carsaddleone  = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/8').then(g =>  this.carsunroofone = g.data )
-                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/9').then(g =>  this.carmediaone   = g.data )
-                                
-                                
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/2').then(g => this.carcolorone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/3').then(g => this.cartextureone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/4').then(g => this.carwheelone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/5').then(g => this.carplaqueone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/6').then(g => this.carlightone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/7').then(g => this.carsaddleone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/8').then(g => this.carsunroofone = g.data)
+                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/9').then(g => this.carmediaone = g.data)
+
+
 
                         //this.isDisabled = true;
                         this.btndisable = false;
@@ -1021,72 +1010,76 @@
                     }
                 },
                 btnedit() {
-                    console.log('btnOK');
-                    let dt = new Date();
-                    //組裝Order資料表
-                    this.orderput = {
-                        "OrderId": this.orderid,
-                        "OrderNumber": this.ordernum,
-                        "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                        "AreaId": this.agentone.areaId,
-                        "Price": this.cnt,
-                        "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                        "IsAccepted": false
-                    };
-                    console.log(this.orderput);
 
-                    //將新的選配放入陣列儲存
-                    this.orderdetail = [];
-                    this.orderdetail.push(this.cartypeone.optionalId);
-                    this.orderdetail.push(this.carcolorone.optionalId);
-                    this.orderdetail.push(this.cartextureone.optionalId);
-                    this.orderdetail.push(this.carwheelone.optionalId);
-                    this.orderdetail.push(this.carplaqueone.optionalId);
-                    this.orderdetail.push(this.carlightone.optionalId);
-                    this.orderdetail.push(this.carsaddleone.optionalId);
-                    this.orderdetail.push(this.carsunroofone.optionalId);
-                    this.orderdetail.push(this.carmediaone.optionalId);
-                    //console.log(this.orderdetail);
+                    if (confirm("是否要修改訂單?") == true) {
 
-                    //修改Order資料表
-                    axios.put('/api/BusinessOrders/' + this.orderid, this.orderput)
-                        .then(p => {
-                            //console.log(p);
-                            console.log('this.orderid = ' + this.orderid);
+                        console.log('btnOK');
+                        let dt = new Date();
+                        //組裝Order資料表
+                        this.orderput = {
+                            "OrderId": this.orderid,
+                            "OrderNumber": this.ordernum,
+                            "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                            "AreaId": this.agentone.areaId,
+                            "Price": this.cnt,
+                            "EmployeeId": Math.floor(Math.random() * 10) + 1,
+                            "IsAccepted": false
+                        };
+                        console.log(this.orderput);
 
-                            //迴圈9次修改OrderDetail
-                            for (let n = 0; n < 9; n++) {
-                                //找舊選配optionalId
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
-                                    .then(g => {
-                                        console.log(g.data[n].optionalId);
-                                        this.orderdetailold = g.data[n].optionalId;
-                                        //console.log(`g.data[0].OptionalId${g.data[n].OptionalId}`);
-                                        //console.log(`this.orderdetailold${this.orderdetailold}`);
+                        //將新的選配放入陣列儲存
+                        this.orderdetail = [];
+                        this.orderdetail.push(this.cartypeone.optionalId);
+                        this.orderdetail.push(this.carcolorone.optionalId);
+                        this.orderdetail.push(this.cartextureone.optionalId);
+                        this.orderdetail.push(this.carwheelone.optionalId);
+                        this.orderdetail.push(this.carplaqueone.optionalId);
+                        this.orderdetail.push(this.carlightone.optionalId);
+                        this.orderdetail.push(this.carsaddleone.optionalId);
+                        this.orderdetail.push(this.carsunroofone.optionalId);
+                        this.orderdetail.push(this.carmediaone.optionalId);
+                        //console.log(this.orderdetail);
 
-                                        //由 orderId, optionalId  找到唯一識別欄位OdId
-                                        axios.get('/api/BusinessOrderDetails/' + this.orderid + '/' + this.orderdetailold)
-                                            .then(p => {
-                                                //console.log(p.data);
-                                                this.odid = p.data;
-                                                console.log(this.odid);
-                                                //組裝OrderDetail資料表
-                                                this.orderdetailput = {
-                                                    "odId": this.odid,
-                                                    "OrderId": this.orderid,
-                                                    "OptionalId": this.orderdetail[n]
-                                                }
-                                                console.log(this.orderdetailput);
-                                                //putOrderDetail資料表
-                                                axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
-                                                    .then(p => {
-                                                        console.log(p);
-                                                    })
-                                            })
-                                    })
-                            }
-                            alert('訂單修改成功!');
-                        });
+                        //修改Order資料表
+                        axios.put('/api/BusinessOrders/' + this.orderid, this.orderput)
+                            .then(p => {
+                                //console.log(p);
+                                console.log('this.orderid = ' + this.orderid);
+
+                                //迴圈9次修改OrderDetail
+                                for (let n = 0; n < 9; n++) {
+                                    //找舊選配optionalId
+                                    axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
+                                        .then(g => {
+                                            console.log(g.data[n].optionalId);
+                                            this.orderdetailold = g.data[n].optionalId;
+                                            //console.log(`g.data[0].OptionalId${g.data[n].OptionalId}`);
+                                            //console.log(`this.orderdetailold${this.orderdetailold}`);
+
+                                            //由 orderId, optionalId  找到唯一識別欄位OdId
+                                            axios.get('/api/BusinessOrderDetails/' + this.orderid + '/' + this.orderdetailold)
+                                                .then(p => {
+                                                    //console.log(p.data);
+                                                    this.odid = p.data;
+                                                    console.log(this.odid);
+                                                    //組裝OrderDetail資料表
+                                                    this.orderdetailput = {
+                                                        "odId": this.odid,
+                                                        "OrderId": this.orderid,
+                                                        "OptionalId": this.orderdetail[n]
+                                                    }
+                                                    console.log(this.orderdetailput);
+                                                    //putOrderDetail資料表
+                                                    axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
+                                                        .then(p => {
+                                                            console.log(p);
+                                                        })
+                                                })
+                                        })
+                                }
+                                alert('訂單修改成功!');
+                            });
+                    }
                 }
             },
             mounted() {
@@ -1100,6 +1093,11 @@
                     axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
                     axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
                     axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
+
+
+
+                this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+                console.log(this.limit.DepID);
             }
         }).mount('#divedit');
 

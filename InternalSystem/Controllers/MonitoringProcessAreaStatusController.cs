@@ -30,9 +30,8 @@ namespace InternalSystem.Controllers
         //自己寫的
         // GET: api/MonitoringProcessAreaStatus/1/1/iX xDrive40 旗艦版
         [HttpGet("{areaid}/{processId}/{cartype}")]
-        public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId, string cartype)
+        public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId,string cartype)
         {
-
             var q = from m in _context.MonitoringProcessAreaStatuses
                     where m.AreaId== areaid && m.ProcessId == processId && m.CarType== cartype
                     select new { 
@@ -40,8 +39,7 @@ namespace InternalSystem.Controllers
                         MonitorId = m.MonitorId
                     };
 
-
-            return await q.SingleOrDefaultAsync();
+                return await q.SingleOrDefaultAsync();
         }
 
 

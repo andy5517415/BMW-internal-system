@@ -1,6 +1,7 @@
 ﻿using InternalSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace InternalSystem.Controllers
             return await _context.MeetingReserves.ToListAsync();
         }
 
-        // GET: api/MeetingReserves/5
+        //查預約會議室
+        // GET: api/MeetingReserves/1/20230101/20230106
         [HttpGet("{depId}/{s}/{e}")]
          public async Task<ActionResult<dynamic>> GetMeetingReserve(int depId,int s, int e)
          {
@@ -43,9 +45,19 @@ namespace InternalSystem.Controllers
             };
 
              var meetingReserve = from a in _context.MeetingReserves
-                                  where a.Date >= sday && a.Date <= eday &&
-                                  a.DepId== depId
-                                  select a;
+                                  join b in _context.MeetingRooms on a.MeetPlaceId equals b.MeetingPlaceId
+                                  join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
+                                  join d in _context.PersonnelProfileDetails on a.EmployeeId equals d.EmployeeId
+                                  join f in _context.PersonnelDepartmentLists on a.DepId equals f.DepartmentId
+                                  where a.Date >= sday && a.Date <= eday && a.DepId== depId
+                                  select new {
+                                      MeetPlace = b.MeetingRoom1,
+                                      Date = a.Date,
+                                      Dependent =f.DepName,
+                                      EmployeeName = d.EmployeeName,
+                                      StartTime = a.StartTime,
+                                      EndTime = a.EndTime,
+                                  };
 
              if (meetingReserve == null)
              {

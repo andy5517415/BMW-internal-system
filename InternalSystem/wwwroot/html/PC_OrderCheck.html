@@ -623,15 +623,12 @@
                                                       </tr>
                                                   </tbody>
                                               </table>
-                                              <!--總價-->
-                                              <div class="card-body">
-                                                  <div class="row">
-                                                      <label for="total" class="col-sm-1 col-form-label fs-4">總金額：</label>
-                                                      <div class="col-sm-1">
-                                                          <input type="text" class="form-control" id="total" v-model="myobject.total" disabled>
-                                                      </div>
-                                                      <div class="table-responsive text-nowrap"></div>
+                                              <!-- 總價 -->
+                                              <div>
+                                                  <div class="d-flex flex-row-reverse bd-highlight">
+                                                      <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
                                                   </div>
+                                                  <div class="table-responsive text-nowrap"></div>
                                               </div>
 
                                           </div>
@@ -701,7 +698,18 @@
         mounted() {
           this.myobject = JSON.parse(sessionStorage.getItem('order'))
           axios.get('https://localhost:44319/api/PCApplications/todoitemdetail/' + this.myobject.purchaseId)
-            .then(response => this.list = response.data)
+              .then(response => {
+                  this.list = response.data;
+                  //console.log(response.data[0].subtotal);
+                  var k = 0;
+                  for (var i = 0; i < this.list.length; i++) {
+                      k += response.data[i].subtotal;
+                  }
+                  //this.list.orderlist = i;
+                  this.totalprice = k;
+                  //console.log(this.totalprice);
+                  //console.log(this.list.orderlist);
+              })
         }
       }
 

@@ -523,7 +523,7 @@
 
                                     <div class="mt-2 ">
                                         <button type="button" v-on:click="searchbtn" class="btn btn-primary me-2 ">查詢</button>
-                                        <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                        <button type="reset" class="btn btn-outline-secondary" >取消</button>
                                     </div>
                                 </div>
 
@@ -539,7 +539,7 @@
                                     員工照片
                                 </div>
                                 <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                    <img src="../assets/img/avatars/1.png"
+                                    <img :src="employeelist.photo"
                                          alt="user-avatar"
                                          class="d-block rounded"
                                          height="100"
@@ -553,14 +553,16 @@
                                                    id="upload"
                                                    class="account-file-input"
                                                    hidden
-                                                   accept="image/png, image/jpeg" />
+                                                   accept="image/png, image/jpeg,image/gif"
+                                                   @change="uploadphoto"
+                                                   />
                                         </label>
                                         <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                             <i class="bx bx-reset d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block">Reset</span>
+                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
                                         </button>
 
-                                        <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                        <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 10mb</p>
                                     </div>
                                 </div>
                             </div>
@@ -578,18 +580,19 @@
                                                    type="text"
                                                    id="EmployeeName"
                                                    name="EmployeeName"
-                                                   autofocus />
+                                                   autofocus
+                                                   @change="empname" />
                                         </div>
                                         <!-- 傳遞參數ID -->
                                         <!--<div style="display: none">-->
                                         <!--style="display: none"-->
                                         <!--<label for="EmployeeId" class="form-label-lg">員工ID</label>
-                                            <input v-model="employeelist.employeeId" class="form-control" id="EmployeeId" />
-                                        </div>-->
+            <input v-model="employeelist.employeeId" class="form-control" id="EmployeeId" />
+        </div>-->
                                         <!-- 性別 -->
                                         <div class="mb-3 col-md-4">
                                             <label for="Sex" class="form-label">性別</label>
-                                            <select v-model="employeelist.sex" id="Sex" class="select1 form-select">
+                                            <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
                                                 <option>選擇性別</option>
                                                 <option value="男性">男</option>
                                                 <option value="女性">女</option>
@@ -614,8 +617,10 @@
                                                        id="IdentityNumber"
                                                        name="IdentityNumber"
                                                        class="form-control"
-                                                       placeholder="" />
+                                                       placeholder=""
+                                                       @change="Identit" />
                                             </div>
+                                            <p class="form-label">{{cnt}}/10</p>
                                         </div>
                                         <!-- 國籍 -->
                                         <div class="mb-3 col-md-4">
@@ -647,7 +652,8 @@
                                                    type="text"
                                                    id="email"
                                                    name="email"
-                                                   placeholder="@example.com" />
+                                                   placeholder="@example.com"
+                                                   @change="mail" />
                                         </div>
 
                                         <!-- 行動電話 -->
@@ -659,7 +665,8 @@
                                                        id="phoneNumber"
                                                        name="phoneNumber"
                                                        class="form-control"
-                                                       placeholder="09123456789" />
+                                                       placeholder="09123456789"
+                                                       @change="phoneNumber" />
                                             </div>
                                         </div>
                                         <!--縣市-->
@@ -676,7 +683,8 @@
                                             <input v-model="employeelist.address" class="form-control"
                                                    type="text"
                                                    id="address"
-                                                   name="address" />
+                                                   name="address"
+                                                   @change="address" />
                                         </div>
                                         <!-- 家用電話 -->
                                         <div class="mb-4 col-md-6">
@@ -687,7 +695,8 @@
                                                        id="Number"
                                                        name="Number"
                                                        class="form-control"
-                                                       placeholder="" />
+                                                       placeholder=""
+                                                       @change="homenumber" />
                                             </div>
                                         </div>
                                         <!-- 緊急聯絡人 -->
@@ -697,7 +706,8 @@
                                                    type="text"
                                                    id="Emergency"
                                                    name="Emergency"
-                                                   autofocus />
+                                                   autofocus
+                                                   @change="emergen" />
                                         </div>
                                         <!-- 緊急聯絡人關係選擇 -->
                                         <div class="mb-4 col-md-4">
@@ -706,15 +716,18 @@
                                                    type="text"
                                                    id="EmergencyContact"
                                                    name="EmergencyContact"
-                                                   autofocus />
+                                                   autofocus
+                                                   @change="emergencycontact" />
                                         </div>
                                         <!-- 緊急聯絡人電話 -->
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label" for="EmergencyNumber">緊急聯絡人電話</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
-                                                <input v-model="employeelist.emergencyNumber" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" />
+                                                <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" />
+
                                             </div>
+                                            <p class="form-label">{{epnt}}/10</p>
                                         </div>
                                     </div>
 
@@ -725,7 +738,8 @@
                                         <!-- 員工工號 -->
                                         <div class="mb-3 col-md-6">
                                             <label for="residence" class="form-label">員工工號</label>
-                                            <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus />
+                                            <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus
+                                                   @change="empnumber" />
                                         </div>
                                         <!-- 部門選擇 -->
                                         <div class="mb-4 col-md-6">
@@ -790,7 +804,8 @@
                                         <!--帳號設置-->
                                         <div class="mb-3 col-md-6">
                                             <label for="usernumber" class="form-label-lg">帳號設定</label>
-                                            <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus />
+                                            <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus
+                                                   @change="usernum" />
                                         </div>
                                         <!--密碼設置-->
                                         <div class="mb-3 col-md-6">
@@ -799,8 +814,19 @@
                                                    type="text"
                                                    id="password"
                                                    name="password"
-                                                   autofocus />
+                                                   autofocus
+                                                   @change="password" />
                                         </div>
+                                    </div>
+
+                                    <!--員工備註-->
+
+                                    <div class="alert alert-primary text-center  fs-5 fw-bold mb-4" role="alert">
+                                        員工備註
+                                    </div>
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Note" class="form-label fs-4">備註欄</label>
+                                        <textarea class="form-control" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
                                     </div>
                                     <!-- 確認按鈕 -->
                                     <div class="mt-2 py-5 d-md-flex justify-content-md-end">
@@ -845,21 +871,158 @@
         const app = {
             data() {
                 return {
-                    employeelist: {},
+                    employeelist: {
+                        "photo": "https://x.nctu.app/img/g7Fx.jpg"},
                     departmentlist: {},
                     positionlist: {},
                     ranklist: {},
                     citylist: {},
                     aaa: {}
+                    //,
+                    //Leavelist: { "LeaveType": 4, "Quantity": 96, "Used": 0, "LeaveOver": 96 }
                 }
             },
             methods: {
+                Identit() {
+                    let reg = /^[A-Z][1,2]\d{8}$/;
+                    logic = reg.test(this.employeelist.identiyId)
+                    //console.log(logic);
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('身份證字號格式有誤');
+                        this.employeelist.identiyId = "";
+                    }
+                },
+                phoneNumber() {
+                    let phn = /^09\d{8}$/;
+                    logic = phn.test(this.employeelist.phoneNumber)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('行動電話格式有誤');
+                        this.employeelist.phoneNumber = "";
+                    }
+                },
+                emerphone() {
+                    let ephn = /^09\d{8}$/;
+                    logic = ephn.test(this.employeelist.emergencyNumber)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('行動電話格式有誤');
+                        this.employeelist.emergencyNumber = "";
+                    }
+                },
+                empname() {
+                    let empname = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = empname.test(this.employeelist.employeeName)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('名稱不可有特殊字元');
+                        this.employeelist.employeeName = "";
+                    }
+                },
+                mail() {
+                    let email = /^[a-zA-Z0-9@.]+$/;
+                    logic = email.test(this.employeelist.email)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('信箱不可有特殊字元');
+                        this.employeelist.email = "";
+                    }
+                },
+                address() {
+
+                    let address = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = address.test(this.employeelist.address)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('地址不可有特殊字元');
+                        this.employeelist.address = "";
+                    }
+                },
+                homenumber() {
+                    let homenumber = /^0[0-9]+$/;
+                    logic = homenumber.test(this.employeelist.homePhone)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('家用電話格式錯誤');
+                        this.employeelist.homePhone = "";
+                    }
+                },
+                emergen() {
+                    let emergen = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = emergen.test(this.employeelist.emergencyPerson)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('緊急聯絡人不可有特殊字元');
+                        this.employeelist.emergencyPerson = "";
+                    }
+                },
+                empnumber() {
+                    let empnumber = /^[0-9]+$/;
+                    logic = empnumber.test(this.employeelist.employeeNumber)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('工號請輸入純數字');
+                        this.employeelist.employeeNumber = "";
+                    }
+                },
+                emergencycontact() {
+                    let emergencycontact = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                    logic = emergencycontact.test(this.employeelist.emergencyRelation)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('緊急連絡人關係請請輸入英文數字，不可有特殊字元');
+                        this.employeelist.emergencyRelation = "";
+                    }
+                },
+                usernum() {
+                    let usernum = /^[0-9]+$/;
+                    logic = usernum.test(this.employeelist.acount)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('帳號請輸入純數字');
+                        this.employeelist.acount = "";
+                    }
+                },
+                password() {
+                    let password = /^[a-zA-Z0-9@.]+$/;
+                    logic = password.test(this.employeelist.password)
+                    if (logic == true) { console.log('OK') }
+                    else {
+                        alert('密碼請輸入英文數字，部分特殊字元不可用');
+                        this.employeelist.password = "";
+                    }
+                },
+                note() {
+                    let note = /^[\u4e00-\u9fa5a-zA-Z\，。‧、]+$/;
+                    logic = note.test(this.employeelist.note)
+                    if (note.test(this.employeelist.note)) {
+                        console.log('ok');
+                    }
+                    else {
+                        alert('備註欄不可有特殊字元，逗點符號請用標準格式:如，。、');
+                        this.employeelist.note = "";
+                    }
+                },
+                //sexleave() {
+                //    if (this.employeelist.sex == "男性") {
+                //        this.Leavelist.LeaveOver = 0;
+                //        this.Leavelist.Quantity = 0;
+                //    }
+                //    else if (this.employeelist.sex == "女性") {
+                //        this.Leavelist.LeaveOver = 96;
+                //        this.Leavelist.Quantity = 96;
+                        
+                //    }
+                //},
+
                 createbtn: function () {
                     if (confirm('請確認修改資料是否正確') == true) {
 
-                        axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
+                        axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
                         ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
-                        window.location = "HR_EmpProfileEdit.html";
+                        //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
+                        //window.location = "HR_EmpProfileEdit.html";
                     }
                 },
                 searchbtn: function () {
@@ -877,6 +1040,38 @@
                     //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
                     //            .then(response => this.employeelist = response.data)
                     //            .catch(alert('查無此項')))
+                },
+                photoreset: function () {
+                    this.employeelist.photo = "";
+                },
+                uploadphoto(event) {
+                    console.log('ok')
+                    if (event.target.files && event.target.files[0]) {
+                        var file = event.target.files[0];
+                        var reader = new FileReader();
+                        let urlimage;
+                        reader.onload = (event) => {
+                            document.querySelector('#upload').src = event.target.result;
+                            this.employeelist.photo = event.target.result;
+                            console.log(this.employeelist.photo);
+                        };
+                        reader.readAsDataURL(file)
+                    }
+
+
+                }
+
+            },
+            computed:
+            {
+                cnt() {
+                    return (this.employeelist.identiyId == null) ? 0 : this.employeelist.identiyId.toString().length
+                },
+                pnt() {
+                    return (this.employeelist.phoneNumber == null) ? 0 : this.employeelist.phoneNumber.toString().length
+                },
+                epnt() {
+                    return (this.employeelist.emergencyNumber == null) ? 0 : this.employeelist.emergencyNumber.toString().length
                 }
 
             },
