@@ -709,7 +709,6 @@
                             return {
                                 item: {},
                                 product: {},
-                                supplier: {},
                                 bee: [],
                                 employeedata: {},
                                 autopurchaseid: "",
@@ -750,9 +749,12 @@
 
                             },
                             getprice() {
-                                
-                                    this.sum = this.product[0].unitPrice * this.bee[0]
-                                    this.sum += this.product[1].unitPrice * this.bee[1]
+
+                                for (var i = 0; i < this.product.length; i++) {
+                                    this.sum += this.product[i].unitPrice * this.bee[i];
+                                }
+                                    //this.sum = this.product[0].unitPrice * this.bee[0]
+                                    //this.sum += this.product[1].unitPrice * this.bee[1]
                                 //for (var k = 0; k < this.product.Length; k++) {
                                 //}
                                 //this.sum += 1

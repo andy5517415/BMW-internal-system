@@ -522,6 +522,68 @@
                                         <!--<div class="modal-header">
                                               <h5 class="modal-title" id="exampleModalLabel4">員工通報錯誤專區</h5>
                                           </div>-->
+<<<<<<< HEAD
+
+
+                                        <label class="form-label fs-4" for="ordid">訂單號碼</label>
+                                        <select id="ordid" class="form-select color-dropdown" v-model="selcone">
+                                            <option v-for="one in bugsysorder" :value="one">{{one.orderNumber}}</option>
+                                        </select>
+
+                                                                  
+                                        <label for="cartype" class="form-label fs-4">車款</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="cartype"
+                                               readonly
+                                               :value="selcone.optionalName"
+                                               />
+
+                                        <label for="area" class="form-label fs-4">廠區</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="area"
+                                               readonly
+                                               :value="selcone.areaId"
+                                               />
+
+                                        <label for="process" class="form-label fs-4">製程</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="process"
+                                               readonly
+                                               :value="selcone.processId"
+                                               />
+
+
+                                        <!--<label class="form-label fs-4" for="cartype">車款</label>
+                                        <select id="cartype" class="form-select color-dropdown" v-model="selectedcartype">
+                                            <option disabled value="default">請選擇車款</option>
+                                            <option value="M4 Competition">M4 Competition</option>
+                                            <option value="X7 xDrive40i">X7 xDrive40i</option>
+                                            <option value="iX xDrive40 旗艦版">iX xDrive40 旗艦版</option>
+                                        </select>
+
+                                        <label class="form-label fs-4" for="area">廠區</label>
+                                        <select id="area" class="form-select color-dropdown" v-model="selectedarea">
+                                            <option disabled value="default">請選擇廠區</option>
+                                            <option value="1">廠區1</option>
+                                            <option value="2">廠區2</option>
+                                            <option value="3">廠區3</option>
+                                        </select>
+
+                                        <label class="form-label fs-4" for="process">製程</label>
+                                        <select id="process" class="form-select color-dropdown" v-model="selectedprocess">
+                                            <option disabled value="default">請選擇製程</option>
+                                            <option value="1">製程A</option>
+                                            <option value="2">製程B</option>
+                                            <option value="3">製程C</option>
+                                        </select>-->
+                                        <br /><br />
+
+
+
+=======
 
 
 
@@ -552,6 +614,7 @@
 
 
 
+>>>>>>> 97d508a5c409cd47d7a2bcb3f64607338e5607b2
                                         <label for="exampleFormControlTextarea1" class="form-label fs-4">事件描述 : </label>
                                         <textarea class="form-control"
                                                   id="exampleFormControlTextarea1"
@@ -666,7 +729,9 @@
                     selectedarea: 'default',
                     selectedprocess: 'default',
                     putstate: {},
-                    description: ''
+                    description: '',
+                    bugsysorder: {},
+                    selcone: {}
                 }
             },
             methods: {
@@ -676,15 +741,15 @@
                     var stateName = event.target.innerText
                     console.log(stateName);
 
-                    axios.get(`/api/MonitoringProcessAreaStatus/${this.selectedarea}/${this.selectedprocess}/${this.selectedcartype}`)
+                        axios.get(`/api/MonitoringProcessAreaStatus/${this.selcone.areaId}/${this.selcone.processId}/${this.selcone.optionalName}`)
                         .then(g => {
                             console.log(g.data.monitorId)
                             var mid = g.data.monitorId;
                             this.putstate = {
                                 "monitorId": mid,
-                                "areaId": this.selectedarea,
-                                "processId": this.selectedprocess,
-                                "carType": this.selectedcartype,
+                                "areaId": this.selcone.areaId,
+                                "processId": this.selcone.processId,
+                                "carType": this.selcone.optionalName,
                                 "status": stateName,
                                 "description": this.description
 
@@ -704,7 +769,14 @@
                 }
             },
             mounted() {
-
+                axios.get('/api/MonitoringProcessAreaStatus/bugsysgetord')
+                    .then(g => {
+                        console.log(g.data)
+                        this.bugsysorder = g.data;
+                        for (var k = 0; k < g.data.length; k++) {
+                            this.bugsysorder[k].optionalName = this.bugsysorder[k].optionalName.substring(4);
+                        }
+                    })
             }
         }).mount('#divbugsys');
 

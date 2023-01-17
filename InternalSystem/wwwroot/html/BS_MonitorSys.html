@@ -513,22 +513,28 @@
                             <div class="card-body">
                                 <!-- 顏色示意表 -->
                                 <div class="row">
-                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                -
-                                            </span>
-                                            正常
-                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                -
-                                            </span>
-                                            待處理
-                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                -
-                                            </span>
-                                            處理中
-                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                -
-                                            </span>
-                                            異常
+                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                        -
+                                    </span>
+                                    正常
+                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                        -
+                                    </span>
+                                    待處理
+                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                        -
+                                    </span>
+                                    處理中
+                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                        -
+                                    </span>
+                                    異常
+                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-dark">
+                                        -
+                                    </span>
+                                    產能滿
+
+
 
                                     <div class="col-xl-1"></div>
                                     <div class="col-xl-10">
@@ -550,7 +556,7 @@
                                                         aria-controls="navs-pills-justified-home"
                                                         aria-selected="true">
                                                     <i class="">M4 Competition</i>
-                                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntm4}}</span>
+                                                    <span v-if="cntm4>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntm4}}</span>
                                                 </button>
                                             </li>
                                             <li class="nav-item">
@@ -562,7 +568,7 @@
                                                         aria-controls="navs-pills-justified-profile"
                                                         aria-selected="false">
                                                     <i class="">X7 xDrive40i</i>
-                                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntx7}}</span>
+                                                    <span v-if="cntx7>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntx7}}</span>
                                                 </button>
                                             </li>
                                             <li class="nav-item">
@@ -574,20 +580,31 @@
                                                         aria-controls="navs-pills-justified-messages"
                                                         aria-selected="false">
                                                     <i class="">iX xDrive40 旗艦版</i>
-                                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntix}}</span>
+                                                    <span v-if="cntix>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntix}}</span>
                                                 </button>
                                             </li>
                                         </ul>
 
-                                        <!--測試-->
+
+
+
+
+
+                                        <!--錯誤訊息-->
                                         <div v-if="seen">
                                             <label for="exampleFormControlTextarea1" class="form-label fs-4">事件描述 : 監控</label>
                                             <textarea class="form-control"
                                                       id="exampleFormControlTextarea1"
                                                       rows="5"
+                                                      readonly
                                                       v-model="description">
                                             </textarea>
                                         </div>
+
+
+
+
+
 
                                         <div class="tab-content" style="box-shadow: 0px 0px 0px;">
 
@@ -595,52 +612,52 @@
                                             <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A01
-                                                            <span v-if="M4A01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4A01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4A01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4A01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4A01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4A01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4A01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4A01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B01
-                                                            <span v-if="M4B01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4B01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4B01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4B01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4B01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4B01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4B01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4B01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C01
-                                                            <span v-if="M4C01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4C01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4C01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4C01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4C01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4C01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4C01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4C01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -650,52 +667,52 @@
                                                 </div>
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A02
-                                                            <span v-if="M4A02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4A02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4A02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4A02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4A02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4A02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4A02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4A02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B02
-                                                            <span v-if="M4B02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4B02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4B02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4B02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4B02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4B02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4B02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4B02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C02
-                                                            <span v-if="M4C02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4C02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4C02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4C02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4C02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4C02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4C02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4C02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -705,52 +722,52 @@
                                                 </div>
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A03
-                                                            <span v-if="M4A03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4A03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4A03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4A03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4A03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4A03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4A03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4A03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B03
-                                                            <span v-if="M4B03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4B03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4B03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4B03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4B03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4B03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4B03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4B03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="M4btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C03
-                                                            <span v-if="M4C03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="M4C03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4C03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4C03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="M4C03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4C03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="M4C03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4C03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -775,52 +792,52 @@
                                             <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A01
-                                                            <span v-if="X7A01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7A01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7A01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7A01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7A01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7A01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7A01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7A01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B01
-                                                            <span v-if="X7B01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7B01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7B01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7B01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7B01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7B01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7B01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7B01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C01
-                                                            <span v-if="X7C01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7C01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7C01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7C01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7C01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7C01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7C01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7C01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -830,52 +847,52 @@
                                                 </div>
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A02
-                                                            <span v-if="X7A02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7A02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7A02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7A02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7A02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7A02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7A02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7A02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B02
-                                                            <span v-if="X7B02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7B02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7B02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7B02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7B02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7B02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7B02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7B02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C02
-                                                            <span v-if="X7C02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7C02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7C02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7C02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7C02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7C02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7C02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7C02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -885,52 +902,52 @@
                                                 </div>
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A03
-                                                            <span v-if="X7A03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7A03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7A03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7A03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7A03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7A03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7A03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7A03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B03
-                                                            <span v-if="X7B03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7B03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7B03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7B03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7B03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7B03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7B03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7B03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="X7btnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C03
-                                                            <span v-if="X7C03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="X7C03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7C03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="X7C03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="X7C03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="X7C03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="X7C03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="X7C03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -958,52 +975,52 @@
                                             <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A01
-                                                            <span v-if="iXA01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXA01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXA01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXA01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXA01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXA01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXA01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXA01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B01
-                                                            <span v-if="iXB01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXB01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXB01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXB01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXB01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXB01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXB01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXB01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C01
-                                                            <span v-if="iXC01=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXC01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXC01=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXC01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXC01=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXC01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXC01=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXC01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -1013,52 +1030,52 @@
                                                 </div>
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A02
-                                                            <span v-if="iXA02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXA02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXA02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXA02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXA02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXA02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXA02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXA02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B02
-                                                            <span v-if="iXB02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXB02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXB02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXB02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXB02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXB02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXB02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXB02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C02
-                                                            <span v-if="iXC02=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXC02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXC02=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXC02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXC02=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXC02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXC02=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXC02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -1068,52 +1085,52 @@
                                                 </div>
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             A03
-                                                            <span v-if="iXA03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXA03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXA03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXA03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXA03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXA03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXA03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXA03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             B03
-                                                            <span v-if="iXB03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXB03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXB03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXB03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXB03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXB03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXB03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXB03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button  @click="iXbtnclick" type="button" class="btn btn-outline-secondary">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
                                                             C03
-                                                            <span v-if="iXC03=='正常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            <span v-if="iXC03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXC03=='待處理'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="iXC03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="iXC03=='處理中'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="iXC03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else="iXC03=='異常'" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="iXC03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                         </button>
@@ -1237,8 +1254,8 @@
                     cntm4: 0,
                     cntx7: 0,
 
-                    description:'',
-                    seen:false
+                    description: '',
+                    seen: false
 
                 }
             },
@@ -1246,130 +1263,90 @@
 
             },
             methods: {
-                M4btnclick(e) {
-                    //console.log(e.target.innerHTML.toString().substring(0, 4));
+                statebtnclick(e) {
+                    var cartype;
                     var areaId = e.target.innerHTML.toString().substring(3, 4);
-                    console.log(areaId);
                     var processId = e.target.innerHTML.toString().substring(1, 2);
-                    //console.log(processId);
                     var pid;
-                    switch (processId) {
-                        case 'A':
-                            pid = 1;
-                            break;
-                        case 'B':
-                            pid = 2;
-                            break;
-                        case 'C':
-                            pid = 3;
-                            break;
-                        default:
-                            console.log('沒有符合的條件');
-                    }
-                    console.log(pid);
+                    //if (e.target.innerHTML.toString().indexOf("m4") > 0) {
+                    //    cartype = 'M4 Competition';
+                    //}
+                    //else if (e.target.innerHTML.toString().indexOf("x7") > 0) {
+                    //    cartype = 'X7 xDrive40i';
+                    //}
+                    //else {
+                    //    cartype = 'iX xDrive40 旗艦版';
+                    //}
 
-                    axios.get('/api/MonitoringProcessAreaStatus/description/' + areaId + '/' + pid +'/M4 Competition')
-                        .then(g => {
+                    (e.target.innerHTML.toString().indexOf("m4") > 0) ? cartype = 'M4 Competition' : (e.target.innerHTML.toString().indexOf("x7") > 0) ? cartype = 'X7 xDrive40i' : cartype = 'iX xDrive40 旗艦版'
+                    console.log(cartype);
+                    if (e.target.innerHTML.toString().indexOf("success") > 0) {
+                        this.seen = false;
+                    }
+                    else {
+                        switch (processId) {
+                            case 'A':
+                                pid = 1;
+                                break;
+                            case 'B':
+                                pid = 2;
+                                break;
+                            case 'C':
+                                pid = 3;
+                                break;
+                            default:
+                                console.log('沒有符合的條件');
+                        }
+                        axios.get('/api/MonitoringProcessAreaStatus/description/' + areaId + '/' + pid + '/' + cartype)
+                            .then(g => {
                                 console.log(g);
-                                this.description=g.data
-                        });
-                    (e.target.innerHTML.toString().indexOf("danger") > 0) ? this.seen = true : this.seen = false;
-                },
-                X7btnclick(e) {
-                    var areaId = e.target.innerHTML.toString().substring(3, 4);
-                    var processId = e.target.innerHTML.toString().substring(1, 2);
-                    var pid;
-                    switch (processId) {
-                        case 'A':
-                            pid = 1;
-                            break;
-                        case 'B':
-                            pid = 2;
-                            break;
-                        case 'C':
-                            pid = 3;
-                            break;
-                        default:
-                            console.log('沒有符合的條件');
+                                this.description = g.data
+                                this.seen = true;
+                            });
                     }
-                    console.log(pid);
-                    axios.get('/api/MonitoringProcessAreaStatus/description/' + areaId + '/' + pid +'/X7 xDrive40i')
-                        .then(g => {
-                            console.log(g);
-                            this.description = g.data
-                        });
-                    (e.target.innerHTML.toString().indexOf("danger") > 0) ? this.seen = true : this.seen = false;
-                },
-                iXbtnclick(e) {
-                    var areaId = e.target.innerHTML.toString().substring(3, 4);
-                    var processId = e.target.innerHTML.toString().substring(1, 2);
-                    var pid;
-                    switch (processId) {
-                        case 'A':
-                            pid = 1;
-                            break;
-                        case 'B':
-                            pid = 2;
-                            break;
-                        case 'C':
-                            pid = 3;
-                            break;
-                        default:
-                            console.log('沒有符合的條件');
-                    }
-                    console.log(pid);
-                    axios.get('/api/MonitoringProcessAreaStatus/description/' + areaId + '/' + pid + '/iX xDrive40 旗艦版')
-                        .then(g => {
-                            console.log(g);
-                            this.description = g.data
-                        });
-                    (e.target.innerHTML.toString().indexOf("danger") > 0) ? this.seen = true : this.seen = false;
+                        console.log(`${processId}0${areaId}`);
+
                 },
                 btnpageclick() {
                     this.seen = false;
-                },
-                onblur() {
-                    this.seen = false;
                 }
-
-
 
 
             },
             mounted() {
                 //[HttpGet("{areaid}/{processId}/{cartype}")]
-                axios.get('/api/MonitoringProcessAreaStatus/1/1/iX xDrive40 旗艦版').then(g => {  this.iXA01 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/1/M4 Competition'   ).then(g => {  this.M4A01 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/1/X7 xDrive40i'     ).then(g => {  this.X7A01 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/2/iX xDrive40 旗艦版').then(g => {  this.iXB01 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/2/M4 Competition'   ).then(g => {  this.M4B01 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/2/X7 xDrive40i'     ).then(g => {  this.X7B01 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/3/iX xDrive40 旗艦版').then(g => {  this.iXC01 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/3/M4 Competition'   ).then(g => {  this.M4C01 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/1/3/X7 xDrive40i'     ).then(g => {  this.X7C01 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/1/iX xDrive40 旗艦版').then(g => { this.iXA01 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/1/M4 Competition').then(g => { this.M4A01 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/1/X7 xDrive40i').then(g => { this.X7A01 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/2/iX xDrive40 旗艦版').then(g => { this.iXB01 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/2/M4 Competition').then(g => { this.M4B01 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/2/X7 xDrive40i').then(g => { this.X7B01 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/3/iX xDrive40 旗艦版').then(g => { this.iXC01 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/3/M4 Competition').then(g => { this.M4C01 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/1/3/X7 xDrive40i').then(g => { this.X7C01 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
 
 
 
-                axios.get('/api/MonitoringProcessAreaStatus/2/1/iX xDrive40 旗艦版').then(g => {  this.iXA02 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/1/M4 Competition'   ).then(g => {  this.M4A02 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/1/X7 xDrive40i'     ).then(g => {  this.X7A02 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/2/iX xDrive40 旗艦版').then(g => {  this.iXB02 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/2/M4 Competition'   ).then(g => {  this.M4B02 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/2/X7 xDrive40i'     ).then(g => {  this.X7B02 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/3/iX xDrive40 旗艦版').then(g => {  this.iXC02 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/3/M4 Competition'   ).then(g => {  this.M4C02 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/2/3/X7 xDrive40i'     ).then(g => {  this.X7C02 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/1/iX xDrive40 旗艦版').then(g => { this.iXA02 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/1/M4 Competition').then(g => { this.M4A02 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/1/X7 xDrive40i').then(g => { this.X7A02 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/2/iX xDrive40 旗艦版').then(g => { this.iXB02 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/2/M4 Competition').then(g => { this.M4B02 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/2/X7 xDrive40i').then(g => { this.X7B02 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/3/iX xDrive40 旗艦版').then(g => { this.iXC02 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/3/M4 Competition').then(g => { this.M4C02 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/2/3/X7 xDrive40i').then(g => { this.X7C02 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
 
 
-                axios.get('/api/MonitoringProcessAreaStatus/3/1/iX xDrive40 旗艦版').then(g => {  this.iXA03 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/1/M4 Competition'   ).then(g => {  this.M4A03 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/1/X7 xDrive40i'     ).then(g => {  this.X7A03 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/2/iX xDrive40 旗艦版').then(g => {  this.iXB03 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/2/M4 Competition'   ).then(g => {  this.M4B03 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/2/X7 xDrive40i'     ).then(g => {  this.X7B03 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/3/iX xDrive40 旗艦版').then(g => {  this.iXC03 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/3/M4 Competition'   ).then(g => {  this.M4C03 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
-                axios.get('/api/MonitoringProcessAreaStatus/3/3/X7 xDrive40i'     ).then(g => {  this.X7C03 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });     
+                axios.get('/api/MonitoringProcessAreaStatus/3/1/iX xDrive40 旗艦版').then(g => { this.iXA03 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/1/M4 Competition').then(g => { this.M4A03 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/1/X7 xDrive40i').then(g => { this.X7A03 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/2/iX xDrive40 旗艦版').then(g => { this.iXB03 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/2/M4 Competition').then(g => { this.M4B03 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/2/X7 xDrive40i').then(g => { this.X7B03 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/3/iX xDrive40 旗艦版').then(g => { this.iXC03 = g.data.status; (g.data.status == '異常') ? this.cntix++ : this.cntix += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/3/M4 Competition').then(g => { this.M4C03 = g.data.status; (g.data.status == '異常') ? this.cntm4++ : this.cntm4 += 0 });
+                axios.get('/api/MonitoringProcessAreaStatus/3/3/X7 xDrive40i').then(g => { this.X7C03 = g.data.status; (g.data.status == '異常') ? this.cntx7++ : this.cntx7 += 0 });
 
 
                 this.description = JSON.parse(sessionStorage.getItem("sessiondesc"));
