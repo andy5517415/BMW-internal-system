@@ -13,8 +13,10 @@ namespace InternalSystem.Models
         public DateTime Date { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public string Rank { get; set; }
         public string Title { get; set; }
         public string Context { get; set; }
+        public string Dispose { get; set; }
 
         public virtual ProductionProcessList ProductionProcessList { get; set; }
     }

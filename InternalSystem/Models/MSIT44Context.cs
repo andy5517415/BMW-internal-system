@@ -51,14 +51,8 @@ namespace InternalSystem.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-
-
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
-
             }
         }
 
@@ -112,6 +106,8 @@ namespace InternalSystem.Models
                 entity.Property(e => e.OptionalName)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Photo).IsUnicode(false);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.BusinessOptionals)
@@ -605,6 +601,8 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(20);
 
+                entity.Property(e => e.Note).HasMaxLength(100);
+
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(20);
@@ -612,8 +610,6 @@ namespace InternalSystem.Models
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(20);
-
-                entity.Property(e => e.Photo).HasColumnType("image");
 
                 entity.Property(e => e.Sex)
                     .IsRequired()
@@ -692,9 +688,15 @@ namespace InternalSystem.Models
                     .IsRequired()
                     .HasMaxLength(2000);
 
+                entity.Property(e => e.Dispose).HasMaxLength(2000);
+
                 entity.Property(e => e.EndTime)
                     .HasMaxLength(10)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Rank)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.ProductionProcessList)
                     .WithMany(p => p.ProductionBugContexts)

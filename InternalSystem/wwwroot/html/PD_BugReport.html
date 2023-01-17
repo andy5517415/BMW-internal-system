@@ -513,51 +513,48 @@
 
                                     <div class="mb-3 col-6">
                                         <label for="orderNumber" class="form-label-lg">訂單號碼 </label>
-                                        <select id="type" v-model="Bugtext.orderId" @change="ted(Bugtext.orderId)" class="form-select color-dropdown ">
-                                            <option disabled selected>選擇訂單號碼</option>
-                                            <option v-for="Order in Order" :value="Order.orderId">{{Order.orderNumber}}</option>
-                                        </select>
+                                        <input class="form-control" type="text" v-model="BugList.orderNumber" id="orderNumber" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
                                         <label for="optionalName" class=" form-label-lg">型號 </label>
-                                        <input class="form-control" type="text" v-model="PressList.optionalName" id="optionalName" disabled />
+                                        <input class="form-control" type="text" v-model="BugList.optionalName" id="optionalName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
                                         <label for="processName" class="form-label-lg">生產 </label>
-                                        <input id="processName" class="form-control" type="text" v-model="PressList.processName" disabled />
+                                        <input id="processName" class="form-control" type="text" v-model="BugList.processName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
                                         <label for="areaName" class="form-label-lg">廠區 </label>
-                                        <input id="areaName" class="form-control" type="text" v-model="PressList.areaName" disabled />
+                                        <input id="areaName" class="form-control" type="text" v-model="BugList.areaName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-3">
                                         <label for="Date-input" class="col-2 fs-5">日期</label>
-                                        <input class="form-control" type="date" v-model="Bugtext.date" id="Date-input" />
+                                        <input class="form-control" type="date" v-model="BugList.date" id="Date-input" disabled />
                                     </div>
 
 
                                     <div class="mb-3 col-3">
                                         <label for="startTime" class="col-4 fs-5">開始時間</label>
-                                        <input class="form-control" type="time" v-model="Bugtext.startTime" id="startTime" />
+                                        <input class="form-control" type="time" v-model="BugList.startTime" id="startTime" disabled/>
                                     </div>
 
                                     <div class="mb-3 col-3">
                                         <label for="endTime" class="col-4 fs-5">結束時間</label>
-                                        <input class="form-control" type="time" v-model="Bugtext.endTime" id="endTime" />
+                                        <input class="form-control" type="time" v-model="BugList.endTime" id="endTime" disabled/>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="title" class="fs-5 my-2">異常標題</label>
-                                        <input class="form-control" type="text" v-model="Bugtext.title" id="title" />
+                                        <input class="form-control" type="text" v-model="BugList.title" id="title" disabled/>
                                     </div>
 
                                     <div class="col-md-2">
                                         <label for="rank" class="fs-5 my-2">異常等級</label>
-                                        <select id="rank" v-model="Bugtext.rank" class=" form-select color-dropdown ">
+                                        <select id="rank" v-model="BugList.rank" class=" form-select color-dropdown " disabled>
                                             <option disabled selected :value="999">請選擇異常等級</option>
                                             <option>A級:重大異常(停工)</option>
                                             <option>B級:生產延遲</option>
@@ -567,12 +564,12 @@
 
                                     <div class="my-2">
                                         <label for="bugtxt" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control" v-model="Bugtext.context" id="bugtxt" rows="8"></textarea>
+                                        <textarea class="form-control" v-model="BugList.context" id="bugtxt" rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="my-2">
                                         <label for="dispose" class="form-label fs-5 my-2">處理對策</label>
-                                        <textarea class="form-control" v-model="Bugtext.dispose" id="dispose" rows="8"></textarea>
+                                        <textarea class="form-control" v-model="BugList.dispose" id="dispose" rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
@@ -627,14 +624,11 @@
                 const app = {
                     data() {
                         return {
-                            Order: {},
-                            PressList: {},
-                            Bugtext: {}
+                            BugList: {}
                         }
                     },
                     mounted() {
-                        axios.get('https://localhost:44319/api/ProductionProcessLists/OrderNumber')
-                            .then(response => this.Order = response.data);
+                        this.BugList = JSON.parse(sessionStorage.getItem("bugdata"))
                     },
                     methods: {
                         ted(e) {

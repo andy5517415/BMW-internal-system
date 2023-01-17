@@ -20,14 +20,39 @@ namespace InternalSystem.Controllers
         }
 
         //報工內容
+        //GET: api/ProductionContexts/ContextsList
+        [HttpGet("ContextsList")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetContextsList()
+        {
+            var query = from PC in this._context.ProductionContexts
+                        join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
+                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
+                        join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
+                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                        orderby PC.Date descending
+                        select new
+                        {
+                            EmployeeId = PC.EmployeeId,
+                            EmployeeName = PPD.EmployeeName,
+                            EmployeeNumber = PPD.EmployeeNumber,
+                            Date = PC.Date.ToString(),
+                            PD.DepName,
+                            BO.OrderNumber                           
+                        };
+
+
+
+            return await query.ToListAsync();
+        }
+
+        //報工內容
         //GET: api/ProductionContexts/Contexts
         [HttpGet("Contexts")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetContexts()
         {
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
-                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
-                      
+                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId                      
                         select new
                         {
                             OrderId = PC.OrderId,
