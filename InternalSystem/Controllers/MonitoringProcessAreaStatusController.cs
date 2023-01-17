@@ -61,6 +61,38 @@ namespace InternalSystem.Controllers
 
 
 
+        //自己寫的
+        // GET: api/MonitoringProcessAreaStatus/bugsysgetord
+        [HttpGet("bugsysgetord")]
+        public async Task<ActionResult<dynamic>> GetBugOrder()
+        {
+            var q = from pp in _context.ProductionProcessLists
+                    join bo in _context.BusinessOrders on pp.OrderId equals bo.OrderId
+                    join bod in _context.BusinessOrderDetails on bo.OrderId equals bod.OrderId
+                    join bop in _context.BusinessOptionals on bod.OptionalId equals bop.OptionalId
+                    where pp.StatusId == 2 && bop.CategoryId == 1
+                    select new
+                    {
+                        bo.OrderNumber,
+                        pp.ProcessId,
+                        pp.AreaId,
+                        bop.OptionalName
+                    };
+
+            return await q.ToListAsync();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
