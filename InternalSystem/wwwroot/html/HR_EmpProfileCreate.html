@@ -1011,16 +1011,16 @@
                 createbtn: function () {
                     
                     
-                    axios.post("https://localhost:44319/api/PersonnelProfileDetails",
-                        this.employeelist
-                    ).then(alert('資料以新建')).catch(err => alert(err))
-                    window.location = "HR_EmpProfileCreate.html"; 單純本表新增
+                    //axios.post("https://localhost:44319/api/PersonnelProfileDetails",
+                    //    this.employeelist
+                    //).then(alert('資料以新建')).catch(err => alert(err))
+                    //window.location = "HR_EmpProfileCreate.html"; 單純本表新增
 
                         if (confirm('新增資料是否正確?') == true) {
                             axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
                                 .then(response => this.empleavelist = response)
-                            .catch(err => { if (err.response.status == 500 || err.response.status ==415) alert('請確實填寫資料') })
-                            .then(response => {
+                                .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
+                                .then(response => {
                                 console.log(this.employeelist)
                                 console.log(response.data); // {employeeid:18}
                                 console.log(response.data.employeeId); // 18
