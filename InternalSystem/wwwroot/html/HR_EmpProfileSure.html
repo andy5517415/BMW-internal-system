@@ -530,7 +530,7 @@
                                                            class="account-file-input"
                                                            hidden
                                                            accept="image/png, image/jpeg" 
-                                                            @change="uploadphoto"/>
+                                                            @change="uploadphoto"disabled/>
                                                 </label>
 
                                                 <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
@@ -557,12 +557,12 @@
                                                            id="EmployeeName"
                                                            name="EmployeeName"
                                                            autofocus
-                                                           @change="empname" />
+                                                           @change="empname" disabled/>
                                                 </div>
                                                 <!-- 性別 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label for="Sex" class="form-label">性別</label>
-                                                    <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
+                                                    <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select"disabled>
                                                         <option>選擇性別</option>
                                                         <option value="男性">男</option>
                                                         <option value="女性">女</option>
@@ -571,7 +571,7 @@
                                                 <!-- 婚姻狀態 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label for="Maritalstatus" class="form-label">婚姻狀態</label>
-                                                    <select v-model="employeelist.isMarried" id="Maritalstatus" class="select1 form-select">
+                                                    <select v-model="employeelist.isMarried" id="Maritalstatus" class="select1 form-select"disabled>
                                                         <option value="" disabled>選擇狀態</option>
                                                         <option :value="true">已婚</option>
                                                         <option :value="false">未婚</option>
@@ -587,14 +587,14 @@
                                                                name="IdentityNumber"
                                                                class="form-control"
                                                                @change="Identit"
-                                                               placeholder="" />
+                                                               placeholder="" disabled/>
                                                     </div>
                                                     <p class="form-label">{{cnt}}/10</p>
                                                 </div>
                                                 <!-- 國籍 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label class="form-label" for="Country">國籍</label>
-                                                    <select v-model="employeelist.country" id="Country" class="select2 form-select">
+                                                    <select v-model="employeelist.country" id="Country" class="select2 form-select"disabled>
                                                         <option value="" disabled>請選擇國籍</option>
                                                         <option value="台灣">台灣</option>
                                                         <option value="大陸">大陸</option>
@@ -607,7 +607,7 @@
                                                 <div class="mb-3 col-md-4">
                                                     <label for="birthday" class="col-md-2 form-label">生日</label>
                                                     <div class="col-md-12">
-                                                        <input v-model="employeelist.birthday" class="form-control" type="date" id="birthday" />
+                                                        <input v-model="employeelist.birthday" class="form-control" type="date" id="birthday" disabled/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -622,27 +622,27 @@
                                                            id="email"
                                                            name="email"
                                                            placeholder="@example.com"
-                                                           @change="mail" />
+                                                           @change="mail" disabled/>
                                                 </div>
 
                                                 <!-- 行動電話 -->
                                                 <div class="mb-4 col-md-6">
                                                     <label class="form-label" for="phoneNumber">行動電話</label>
                                                     <div class="input-group input-group-merge">
-                                                        <span class="input-group-text">TW (+886)</span>
+                                                        <!--<span class="input-group-text">TW </span>-->
                                                         <input v-model="employeelist.phoneNumber" type="text"
                                                                id="phoneNumber"
                                                                name="phoneNumber"
                                                                class="form-control"
-                                                               placeholder="09-"
-                                                               @change="phoneNumber" />
+                                                               placeholder="TW(+886)09-"
+                                                               @change="phoneNumber" disabled/>
                                                     </div>
                                                     <p class="form-label">{{pnt}}/10</p>
                                                 </div>
                                                 <!--縣市-->
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="City">城市</label>
-                                                    <select v-model="employeelist.cityId" id="City" class="select form-select">
+                                                    <select v-model="employeelist.cityId" id="City" class="select form-select"disabled>
                                                         <option v-for="item in citylist" :value="item.cityId">{{item.cityName}}</option>
 
                                                     </select>
@@ -654,19 +654,18 @@
                                                            type="text"
                                                            id="address"
                                                            name="address"
-                                                           @change="address" />
+                                                           @change="address" disabled/>
                                                 </div>
                                                 <!-- 家用電話 -->
                                                 <div class="mb-4 col-md-6">
                                                     <label class="form-label" for="Number">家用電話</label>
                                                     <div class="input-group input-group-merge">
-                                                        <span class="input-group-text"></span>
                                                         <input v-model="employeelist.homePhone" type="text"
                                                                id="Number"
                                                                name="Number"
                                                                class="form-control"
                                                                placeholder=""
-                                                               @change="homenumber" />
+                                                               @change="homenumber" disabled/>
                                                     </div>
                                                 </div>
                                                 <!-- 緊急聯絡人 -->
@@ -677,7 +676,7 @@
                                                            id="Emergency"
                                                            name="Emergency"
                                                            autofocus
-                                                           @change="emergen" />
+                                                           @change="emergen" disabled/>
                                                 </div>
                                                 <!-- 緊急聯絡人關係選擇 -->
                                                 <div class="mb-4 col-md-2">
@@ -687,14 +686,13 @@
                                                            id="EmergencyContact"
                                                            name="EmergencyContact"
                                                            autofocus
-                                                           @change="emergencycontact" />
+                                                           @change="emergencycontact"disabled />
                                                 </div>
                                                 <!-- 緊急聯絡人電話 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label class="form-label" for="EmergencyNumber">緊急聯絡人電話</label>
                                                     <div class="input-group input-group-merge">
-                                                        <span class="input-group-text"></span>
-                                                        <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" />
+                                                        <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" disabled/>
                                                     </div>
                                                     <p class="form-label">{{epnt}}/10</p>
                                                 </div>
@@ -708,13 +706,13 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="residence" class="form-label">員工工號</label>
                                                     <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus
-                                                           @change="empnumber" readonly/>
+                                                           @change="empnumber" disabled/>
                                                 </div>
                                                 <!-- 部門選擇 -->
                                                 <div class="mb-4 col-md-6">
                                                     <label for="department" class="form-label">部門</label>
-                                                    <select v-model="employeelist.departmentId" id="department" class="select1 form-select">
-                                                        <option v-for="item in departmentlist" :value="item.departmentId">
+                                                    <select v-model="employeelist.departmentId" id="department" class="select1 form-select"disabled>
+                                                        <option v-for="item in departmentlist" :value="item.departmentId" >
                                                             {{item.depName}}
                                                         </option>
 
@@ -724,8 +722,8 @@
                                                 <!--職位-->
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="position">職稱</label>
-                                                    <select v-model="employeelist.positionId" id="position" class="select2 form-select">
-                                                        <option v-for="item in positionlist" :value="item.positionId">
+                                                    <select v-model="employeelist.positionId" id="position" class="select2 form-select"disabled>
+                                                        <option v-for="item in positionlist" :value="item.positionId" >
                                                             {{item.positionName}}
 
                                                         </option>
@@ -734,8 +732,8 @@
                                                 <!-- 職等 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="Rank">職等</label>
-                                                    <select v-model="employeelist.rankId" id="Rank" class="select2 form-select">
-                                                        <option v-for="item in ranklist" :value="item.rankId">
+                                                    <select v-model="employeelist.rankId" id="Rank" class="select2 form-select"disabled>
+                                                        <option v-for="item in ranklist" :value="item.rankId" >
                                                             {{item.rank}}
 
                                                         </option>
@@ -745,7 +743,7 @@
                                                 <!-- 在職選擇 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="Onduty" class="form-label">是否在職</label>
-                                                    <select v-model="employeelist.dutyStatus" id="Onduty" class="select2 form-select">
+                                                    <select v-model="employeelist.dutyStatus" id="Onduty" class="select2 form-select" disabled>
                                                         <option :value="true">是</option>
                                                         <option :value="false">否</option>
                                                     </select>
@@ -755,7 +753,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="Entrydate" class="col-md-4 form-label">入職日</label>
 
-                                                    <input v-model="employeelist.entryDate" class="form-control" type="date" id="Entrydate" />
+                                                    <input v-model="employeelist.entryDate" class="form-control" type="date" id="Entrydate" disabled/>
                                                 </div>
                                             </div>
 
@@ -776,7 +774,7 @@
                                                            type="text"
                                                            id="password"
                                                            name="password"
-                                                           autofocus @change="password" />
+                                                           autofocus @change="password" readonly/>
                                                 </div>
                                             </div>
 
@@ -786,7 +784,7 @@
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label for="Note" class="form-label fs-4">備註欄</label>
-                                                <textarea class="form-control" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
+                                                <textarea class="form-control" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note" ></textarea>
                                             </div>
                                             <!-- 確認按鈕 -->
                                             <div class="mt-2 py-5 d-md-flex justify-content-md-end">
@@ -840,7 +838,7 @@
         const app = {
             data() {
                 return {
-                    employeelist: {"employeeNumber":""},
+                    employeelist: {"employeeNumber":"2023001"},
                     departmentlist: {},
                     positionlist: {},
                     ranklist: {},
@@ -850,8 +848,7 @@
                     { "employeeId": 1, "LeaveType": 3, "Quantity": 0, "Used": 0, "LeaveOver": 0 },
                     { "employeeId": 1, "LeaveType": 4, "Quantity": 96, "Used": 0, "LeaveOver": 96 }
                     ],
-                    empleavelist: {},
-                    empid: {"employeeId":""}
+                    empleavelist: { }
                 }
             },
             methods: {
@@ -1009,12 +1006,11 @@
                 },
 
                 createbtn: function () {
-                    
-                    
-                    axios.post("https://localhost:44319/api/PersonnelProfileDetails",
-                        this.employeelist
-                    ).then(alert('資料以新建')).catch(err => alert(err))
-                    window.location = "HR_EmpProfileCreate.html"; 單純本表新增
+
+                    //axios.post("https://localhost:44319/api/PersonnelProfileDetails",
+                    //    this.employeelist
+                    //).then(alert('資料以新建')).catch(err => alert(err))
+                    //window.location = "HR_EmpProfileCreate.html"; 單純本表新增
 
                         if (confirm('新增資料是否正確?') == true) {
                             axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
@@ -1031,7 +1027,8 @@
                                     axios.post("https://localhost:44319/api/PersonnelLeaveOvers", X)
                                 });
                                 alert('資料新建完成')
-                            }).catch(err => alert(err))
+                            })
+                                .catch(err => alert(err))
                             /*  window.location = "HR_EmpProfileCreate.html";*/
                     }
 
@@ -1067,7 +1064,6 @@
                 },
                 epnt() {
                     return (this.employeelist.emergencyNumber == null) ? 0 : this.employeelist.emergencyNumber.toString().length
-
                 }
 
             },
@@ -1084,62 +1080,6 @@
                     .then(response => this.citylist = response.data)
                 //axios.get('/api/PersonnelDepartmentConnectEmployeeIds/5')
                 //    .then(response => this.deplist = response.data)
-                var a = new Date().getFullYear().toString();
-                console.log(typeof(a))
-                var b = "001";
-                console.log(typeof (b))
-                var c = a + b;
-                console.log(c)
-
-                //給予員工工號
-                axios.get('/api/PersonnelProfileDetails/newemp/idfind')
-                    .then(response => {
-                        this.empid = response.data;
-                        console.log(this.empid.employeeId);
-                        var sempid = parseInt(this.empid.employeeId)
-                        if (response.status == 204) {
-                            this.employeelist.employeeNumber = c;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                    
-                        }
-                        else if (sempid > 1000) {
-                            sempid = sempid.toString().substr(-3)
-                            console.log(sempid)
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                        }
-                        else if (sempid < 100 && sempid > 10) {
-                            sempid = "0" + sempid.toString();
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                        }
-                        else if (sempid < 10) {
-                            sempid = "00" + sempid.toString();
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                        }
-                        else {
-                            sempid = sempid.toString();
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-                        }
-                        console.log(sempid)
-                     
-                        console.log(this.employeelist.employeeNumber)
-
-                    })
 
             }
         }

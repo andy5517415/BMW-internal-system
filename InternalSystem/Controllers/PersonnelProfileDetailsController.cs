@@ -41,26 +41,48 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
-        // GET: api/PersonnelProfileDetails/oderby/findnew
-        [HttpGet("oderby/findnew")]
-        public ActionResult ProfileDetail()
+        //// GET: api/PersonnelProfileDetails/oderby/findnew
+        //[HttpGet("oderby/findnew")]
+        //public ActionResult ProfileDetail()
+        //{
+
+        //    var personnelProfileDetail = _context.PersonnelProfileDetails
+        //        .OrderByDescending(x => x.EmployeeNumber).Select(x => new
+        //        {
+        //           EmployeeNumber =  Convert.ToInt64(x.EmployeeNumber)
+        //        }).First();
+        //    var newyear = System.DateTime.Now.Year;
+        //    var yearint = Convert.ToInt64(newyear + "001");
+        //    var a = personnelProfileDetail.EmployeeNumber;
+        //    if (newyear > a)
+        //    {
+        //        return Content(newyear.ToString());
+        //    }
+        //    var sa = newyear.ToString();
+        //    return Content(sa);
+        //}
+
+        //用工號尋找ID
+        // GET: api/PersonnelProfileDetails/newemp/idfind
+        [HttpGet("newemp/idfind")]
+        public async Task<ActionResult<dynamic>> GetId()
         {
-            
-            var personnelProfileDetail = _context.PersonnelProfileDetails
-                .OrderByDescending(x => x.EmployeeNumber).Select(x => new
-                {
-                   EmployeeNumber =  Convert.ToInt64(x.EmployeeNumber)
-                }).First();
-            var newyear = System.DateTime.Now.Year;
-            var yearint = Convert.ToInt64(newyear + "001");
-            var a = personnelProfileDetail.EmployeeNumber;
-            if (newyear > a)
+            var personnelProfileDetail = from o in _context.PersonnelProfileDetails
+                                         orderby o.EmployeeId descending
+                                         select new
+                                         {
+                                             EmployeeId = (o.EmployeeId+1).ToString(),
+                                         };
+            //    var newyear = System.DateTime.Now.Year;
+
+            if (personnelProfileDetail == null)
             {
-                return Content(newyear.ToString());
+                return NotFound();
             }
-            var sa = newyear.ToString();
-            return Content(sa);
+
+            return await personnelProfileDetail.FirstOrDefaultAsync();
         }
+
 
         //個人資料觀看
         // GET: api/PersonnelProfileDetails/5
