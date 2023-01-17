@@ -514,52 +514,52 @@
                                 <div class="row card-body">
                                     <div class="row my-2">
                                         <div class="col-3">
-                                            <label for="optionalName" class="fs-5">型號: {{ProcessList.optionalName}}</label>
-                                            <input id="optionalName" type="hidden" class="fs-4" v-model="ProcessList.orderId" name="optionalName" />
+                                            <label for="optionalName" class="fs-5">型號: {{Context.optionalName}}</label>
+                                            <input id="optionalName" type="hidden" class="fs-4"  name="optionalName" />
                                         </div>
                                         <div class="col-3">
-                                            <label for="processName" class="fs-5">產線: {{ProcessList.processName}}</label>
-                                            <input id="processName" type="hidden" v-model="ProcessList.processId" class="fs-4" name="processName" />
+                                            <label for="processName" class="fs-5">產線: {{Context.processName}}</label>
+                                            <input id="processName" type="hidden"  class="fs-4" name="processName" />
                                         </div>
                                         <div class="col-3">
-                                            <label for="areaName" class="fs-5">廠區: {{ProcessList.areaName}}</label>
-                                            <input id="areaName" type="hidden" v-model="ProcessList.areaId" class="fs-4" name="processName" />
+                                            <label for="areaName" class="fs-5">廠區: {{Context.areaName}}</label>
+                                            <input id="areaName" type="hidden"  class="fs-4" name="processName" />
                                         </div>
                                         <div class="col-3">
-                                            <label for="orderNumber" class="fs-5">訂單號碼: {{ProcessList.orderNumber}}</label>
-                                            <input id="orderNumber" type="hidden" v-model="ProcessList.orderNumber" class="fs-4" name="processName" />
+                                            <label for="orderNumber" class="fs-5">訂單號碼: {{Context.orderNumber}}</label>
+                                            <input id="orderNumber" type="hidden"  class="fs-4" name="processName" />
                                         </div>
 
                                     </div>
 
                                     <div class="row my-2 mb-4" >
                                         <div class="col-3">
-                                            <label for="empname" class="fs-5">姓名: {{employee.Name}}</label>
-                                            <input id="empname" class="fs-5" type="hidden" name="empname" v-model="employee.EmpID" />
+                                            <label for="empname" class="fs-5">姓名: {{Context.employeeName}}</label>
+                                            <input id="empname" class="fs-5" type="hidden" name="empname"  />
                                         </div>
 
-                                        <label for="" class="col-3 fs-5">部門: </label>
+                                        <label for="" class="col-3 fs-5">部門: {{Context.depName}}</label>
                                         <label for="" class="col-1 fs-5">報工日期: </label>
                                         <div class="col-md-3">
-                                            <input class="form-control" v-model="Context.date" type="date"  id="html5-time-input" />
+                                            <input class="form-control" v-model="Context.date" type="date" value="" id="html5-time-input" disabled/>
                                         </div>
                                     </div>
 
                                     <label for="startTime" class="col-2 fs-5 my-2">工作時間</label>
                                     <div class="col-md-3">
-                                        <input class="form-control" v-model="Context.startTime" type="time" id="startTime" />
+                                        <input class="form-control" v-model="Context.startTime" type="time" id="startTime" disabled/>
                                     </div>
 
                                     <label for="endTime" class="col-1 fs-5 my-2 text-center">到</label>
                                     <div class="col-md-3">
-                                        <input class="form-control" v-model="Context.endTime" type="time" id="endTime" />
+                                        <input class="form-control" v-model="Context.endTime" type="time" id="endTime" disabled/>
                                     </div>
 
                                     <label for="html5-time-input" class="col-2 fs-5 my-2">共:8 hr</label>
 
                                     <div class="my-2">
                                         <label for="exampleFormControlTextarea1" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" v-model="employee.contxt"  rows="8"></textarea>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" v-model="Context.context" value="" rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
@@ -609,26 +609,19 @@
                 const app = {
                     data() {
                         return {
-                            ProcessList: {},
-                            Context: {},
-                            employee: {}
+                            Context: {}
                         }
                     },
                     mounted() {
-                        this.ProcessList = JSON.parse(sessionStorage.getItem("data"));
-                        this.employee = JSON.parse(sessionStorage.getItem("LoginInf"))
-
+                        var item = JSON.parse(sessionStorage.getItem("data"))
+/*                        console.log(item)*/
+                        axios.get('https://localhost:44319/api/ProductionContexts/ContextsCheck/' + item.orderId + "/" + item.employeeId + "/" + item.date)
+                            .then(response => this.Context = response.data)
+                            
                     },
                     methods: {
                         Enter: function () {
-                            this.Context.processId = this.ProcessList.processId;
-                            this.Context.areaId = this.ProcessList.areaId
-                            this.Context.context = this.employee.contxt
-                            this.Context.orderId = this.ProcessList.orderId
-                            this.Context.employeeId = this.employee.EmpID
-                            console.log(this.Context)
-                            axios.post('https://localhost:44319/api/ProductionContexts', this.Context)
-                                .then(x => console.log(x))
+                            
                             window.location = 'index.html';    
                         }
                     }
