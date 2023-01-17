@@ -523,7 +523,6 @@
                                              aria-describedby="defaultFormControlHelp"
                                              v-model="myobject.purchaseId"
                                              disabled
-                                             value=""
                                              />
                                   </div>
                               </div>
@@ -592,11 +591,11 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                      <tr v-for="a in list">
+                                                      <tr v-for="(a,index) in list">
                                                           <!--第一項物品-->
                                                           <!--項次-->
                                                           <td>
-                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
+                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
                                                           </td>
                                                           <!--物品名稱-->
                                                           <td>{{a.goods}}</td>
@@ -636,7 +635,10 @@
                                   </div>
                               <div>   
                           </div>
-                  <button id="btncreate" class="btn btn-outline-primary d-block">送出</button>
+                              <div class="row">
+                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">駁回</button>
+                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
+                              </div>
               </div>
          </div>
       </div>
@@ -689,11 +691,33 @@
         data() {
           return {
             list: {},
-            myobject: {}
+            myobject: {},
+            todoitem: {},
+            aok: {}
+
           }
         },
-        methods: {
+          methods: {
+              // 按下確認按鈕，送出審核成功
+              Confirm: function () {
+                  this.todoitem.applicationStatus = true;
+                  this.todoitem.deliveryStatus = true;
+                  /*this.todoitem.total = 500;*/
+                  //console.log(this.todoitem.orderId);
+                  if (confirm("確定要送出申請嗎?") == true) {
+                  axios.put('/api/PCApplications/' + this.todoitem.orderId,this.todoitem)
+                          .then(a => console.log(a));
+                      window.location = "PC_ToDoItems.html";
+                  }
 
+              },
+
+              Cancel: function () {
+                  if (cancel("確定要駁回申請嗎?") == true) {
+                      console.log("ok");
+                  }
+              }
+                
         },
         mounted() {
           this.myobject = JSON.parse(sessionStorage.getItem('order'))
@@ -710,6 +734,11 @@
                   //console.log(this.totalprice);
                   //console.log(this.list.orderlist);
               })
+
+            //得到整張申請單狀態
+            axios.get('https://localhost:44319/api/PCApplications/OrderCheck/' + this.myobject.orderId)
+                .then(response => this.todoitem = response.data);
+            console.log(this.todoitem);
         }
       }
 
