@@ -511,27 +511,27 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xxl flex-grow-1 container-p-y" id="MeetSearch">
               <h4 class="fw-bold py-3 mx-4"><span class="text-muted fw-light">會議室 /</span> 查詢預約紀錄</h4>
 
               <!-- ★查詢預約紀錄 -->
-                  <div class="card m-4" id="MeetInf">
-                    <h3 class="card-header mx-auto mt-3 fw-bold " style="text-decoration: underline 4pt #666EE8;">查詢預約紀錄</h3><div class="h-50"></div>
+                  <div class="card m-4">
+                    <h2 class="card-header mx-auto mt-3 fw-bold " style="text-decoration: underline 4pt #666EE8;">查詢預約紀錄</h2><div class="h-50"></div>
                     <div class="card-body mb-3 col-md-12">
                       <!-- ⁥!!! -->
                       <!-- 查詢日期區間 -->
                       <div class="mb-3 row g-2 justify-content-around">
-                        <label for="meetSearch_date" class="col-4 col-md-2 col-form-label fs-5 text-center fw-bold" >查詢日期區間</label>
+                        <label for="meetSearch_date" class="col-4 col-md-2 col-form-label fs-4 text-center fw-bold" >查詢日期區間</label>
                         <div class="col-4 col-md-2">
-                          <input v-model="MeetInf.StartDay" class="form-control" type="date" value="" id="meetSearch_date1" style="height: 45px;" />
+                          <input v-model="MeetSearch.StartDay1" class="form-control InputCheck" type="date" value="" id="meetSearch_date1" style="height: 45px;" />
                         </div>
                         <div class="col-4 col-md-2">
-                          <input v-model="MeetInf.EndDay" class="form-control" type="date" value="" id="meetSearch_date2" style="height: 45px;" />
+                          <input v-model="MeetSearch.EndDay1" class="form-control" type="date" value="" id="meetSearch_date2" style="height: 45px;" />
                         </div>
                         <!-- 選擇部門 -->
-                        <label for="meetDepeart_select" class="col-4 col-md-1 col-form-label fs-5 text-center fw-bold">選擇部門</label>
+                        <label for="meetDepeart_select" class="col-4 col-md-2 col-form-label fs-4 text-center fw-bold">選擇部門</label>
                         <div class="col-8 col-md-2">
-                        <select v-model="MeetInf.DepId" class="form-select" id="meetDepeart_select" style="height: 45px;">
+                        <select v-model="MeetSearch.DepId" class="form-select" id="meetDepeart_select" style="height: 45px;">
                           <option selected>選擇部門</option>
                           <option value="1">人資部</option>
                           <option value="2">生產部</option>
@@ -541,34 +541,36 @@
                         </div>
                         <!-- ★送出按鈕 -->
                         <div class="col-12 col-md-1">
-                          <button @click="DoMeetInf()" type="submit" class="btn btn-outline-primary me-2 col-12">查詢</button>
+                          <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-2 col-12 fs-5" style="height: 45px;">查詢</button>
                         </div>
                       </div>
                     </div>
                   </div>
               <!-- ★會議室租借紀錄 -->
-              <div class="card shadow m-4 mb-0">
-                <p class="card-header fs-3 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
+              <div class="card shadow m-4 mb-0"  v-if="MeetInf.isValue">
+                <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
                 <div class="table-responsive p-5 text-nowrap">
                   <table class="table table-hover">
                     <thead>
                         <tr>
-                        <th class="fs-6">會議室</th>
-                        <th class="fs-6">日期</th>
-                        <th class="fs-6">部門</th>
-                        <th class="fs-6">租借登記職員</th>
-                        <th class="fs-6">當日租借時數</th>
+                        <th class="fs-4">會議室</th>
+                        <th class="fs-4">日期</th>
+                        <th class="fs-4">部門</th>
+                        <th class="fs-4">租借登記職員</th>
+                        <th class="fs-4">開始時間</th>
+                        <th class="fs-4">結束時間</th>
                       </tr>
                     </thead>
 
                     <tbody class="table-border-bottom-0">
                     <!-- ★一列 -->
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger" id="meetD"></i> <strong>A20</strong></td>
-                        <td>12/20</td>
-                        <td>生產部</td>
-                        <td>李文勝</td>
-                        <td><span class="badge bg-label-primary me-1">9</span></td>
+                      <tr v-for="MeetSearchInf in MeetInf">
+                        <td><span :model="MeetInf" class="badge bg-label-primary me-1 fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
+                        <td :model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
+                        <td :model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
+                        <td :model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
+                        <td :model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.startTime}}</span></td>
+                        <td :model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.endTime}}</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -576,7 +578,7 @@
               </div>
               <div class="my-5 ms-4">
               <strong>
-                <h2>設計部日期區間內總計開會x小時</h2>
+                <!-- <h2>{{MeetSearchInf.dependent}}{{MeetSearch.StartDay1}}日期區間{{MeetSearch.EndDay1}}內總計開會x小時</h2> -->
               </strong>
               </div>
                   </div>
@@ -624,37 +626,56 @@
 
 
     <script>
-      const MeetInf = {
+      const MeetSearch = {
         data() {
           return {
-            MeetInf: {
+            MeetSearch: {},
+            MeetInf: { isValue: false },
 
-            }
           }
         },
         methods: {
           // 執行登入按鈕
-          DoMeetInf: function () {
+          DoMeetSearch: function () {
             var self = this;
 
-            var sDay = self.MeetInf.StartDay
-            self.MeetInf.StartDay = sDay.substring(0, 4) + sDay.substring(5, 7) + sDay.substring(8, 10)
-            var eDay = self.MeetInf.EndDay
-            self.MeetInf.EndDay = eDay.substring(0, 4) + eDay.substring(5, 7) + eDay.substring(8, 10)
+            if (self.MeetSearch.StartDay1 == undefined || self.MeetSearch.EndDay1 == undefined || self.MeetSearch.DepId == undefined) {
+              alert("你他媽給我輸入資料")
+            }
+            else {
+              var sDay = self.MeetSearch.StartDay1
+              self.MeetSearch.StartDay2 = sDay.substring(0, 4) + sDay.substring(5, 7) + sDay.substring(8, 10)
+              var eDay = self.MeetSearch.EndDay1
+              self.MeetSearch.EndDay2 = eDay.substring(0, 4) + eDay.substring(5, 7) + eDay.substring(8, 10)
+              var allHour = 0;
 
-            axios.get("https://localhost:44319/api/MeetingReserves/" + self.MeetInf.DepId + "/" + self.MeetInf.StartDay + "/" + self.MeetInf.EndDay
-            )   //驗證
-              .then((response) => {
-                alert("會議室資料")
-                console.log(response.data[0]);
-              })
-              .catch((error) => { alert('連線錯誤' + error); })
+              axios.get("https://localhost:44319/api/MeetingReserves/" + self.MeetSearch.DepId + "/" + self.MeetSearch.StartDay2 + "/" + self.MeetSearch.EndDay2
+              )   //驗證
+                .then((response) => {
+                  if (response.data[0] != undefined) {
+                    console.log(response.data);
+                    //寫進去
+                    self.MeetInf = response.data
+                    //改個資料形式(日期與時間)
+                    for (let i = 0; i < self.MeetInf.length; i++) {
+                      self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
+                      self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(11, 16);//開始時間
+                      self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(11, 16);//結束時間
+                    }
+                    self.MeetInf.isValue = true;
+                  }
+                  else {
+                    alert("查不到資料啦");
+                  }
 
+                })
+                .catch((error) => { alert('連線錯誤' + error); })
+            }
           }
         }
       }
 
-      Vue.createApp(MeetInf).mount('#MeetInf')
+      Vue.createApp(MeetSearch).mount('#MeetSearch')
     </script>
 
       <!-- session -->
