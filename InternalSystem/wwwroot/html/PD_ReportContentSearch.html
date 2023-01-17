@@ -509,15 +509,21 @@
 
          <!-- 選擇生產的工作位置報工-->
               <div class="container-xxl flex-grow-1 container-p-y">
-                  <div class="mb-4 ">
-                      <div class="row ms-3">
-                          <label for="" class=" col-2 fs-5">員工編號</label>
-                          <label for="" class=" col-1 fs-5">姓名</label>
-                          <label for="" class=" col-2 fs-5">日期</label>
-                          <label for="" class=" col-1 fs-5">部門</label>
-                          <label for="" class=" col-2 fs-5">訂單編號</label>
+                  <div class="card mb-4 m-4 ">
+                      <div class="card text-center ">
+                          <div class="row card-body">
+                              <div class="row">
+                                  <label for="" class=" col-2 fs-5">員工編號</label>
+                                  <label for="" class=" col-1 fs-5">姓名</label>
+                                  <label for="" class=" col-2 fs-5">日期</label>
+                                  <label for="" class=" col-1 fs-5">部門</label>
+                                  <label for="" class=" col-3 fs-5">訂單編號</label>
+                              </div>
+                              
+                          </div>
                       </div>
                   </div>
+                  
 
                   <div id="app">
                       <div class="card mb-4 m-4 " v-for="contxt in contxtList">
@@ -528,9 +534,9 @@
                                       <label for="" class=" col-1 fs-5 my-2">{{contxt.employeeName}}</label>
                                       <label for="" class=" col-2 fs-5 my-2">{{contxt.date}}</label>
                                       <label for="" class=" col-1 fs-5 my-2">{{contxt.depName}}</label>
-                                      <label for="" class=" col-2 fs-5 my-2">{{contxt.orderNumber}}</label>
+                                      <label for="" class=" col-3 fs-5 my-2">{{contxt.orderNumber}}</label>
                                       <div class="col-3   d-md-flex justify-content-md-end">
-                                          <button type="submit" class="btn btn-outline-primary 2 ">查詢</button>
+                                          <button type="submit" v-on:click="Enter(contxt)" class="btn btn-outline-primary 2 ">查詢</button>
                                       </div>
                                   </div>
 
@@ -586,6 +592,13 @@
             mounted() {
                 axios.get('https://localhost:44319/api/ProductionContexts/ContextsList')
                     .then(response => this.contxtList = response.data)
+            },
+            methods: {
+                Enter: function (e) {
+                    
+                    sessionStorage.setItem("data", JSON.stringify(e))
+                    window.location = "PD_ReportContentCheak.html"
+                }
             }
         }
 

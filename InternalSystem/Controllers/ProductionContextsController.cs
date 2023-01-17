@@ -19,7 +19,7 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-        //報工內容
+        //報工內容清單
         //GET: api/ProductionContexts/ContextsList
         [HttpGet("ContextsList")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetContextsList()
@@ -35,14 +35,54 @@ namespace InternalSystem.Controllers
                             EmployeeId = PC.EmployeeId,
                             EmployeeName = PPD.EmployeeName,
                             EmployeeNumber = PPD.EmployeeNumber,
+                            OrderId = PC.OrderId,
                             Date = PC.Date.ToString(),
                             PD.DepName,
-                            BO.OrderNumber                           
+                            BO.OrderNumber
                         };
 
 
 
             return await query.ToListAsync();
+        }
+
+        //報工內容檢查/修改
+        //GET: api/ProductionContexts/ContextsCheck/25/1/2022-01-01
+        [HttpGet("ContextsCheck/{orderid}/{empid}/{date}")]
+        public async Task<ActionResult<dynamic>> GetContextsCheck(int orderid , int empid , string date)
+        {
+            var query = from PC in this._context.ProductionContexts
+                        join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
+                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
+                        join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
+                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                        join PP in this._context.ProductionProcesses on PC.ProcessId equals PP.ProcessId
+                        join PA in this._context.ProductionAreas on PC.AreaId equals PA.AreaId
+                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                        join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                        join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                        where PC.OrderId == orderid && PC.EmployeeId == empid && PC.Date.ToString() == date && BOP.CategoryId == 1
+                        select new
+                        {
+                            OrderId = PC.OrderId,
+                            EmployeeId = PC.EmployeeId,
+                            EmployeeName = PPD.EmployeeName,
+                            EmployeeNumber = PPD.EmployeeNumber,
+                            PD.DepName,
+                            ProcessName = PP.ProcessName,
+                            AreaName = PA.AreaName,
+                            Date = PC.Date.ToString(),
+                            StartTime = PC.StartTime,
+                            EndTime = PC.EndTime,
+                            Context = PC.Context,
+                            BO.OrderNumber,
+                            OptionalId = BOP.OptionalId,
+                            OptionalName = BOP.OptionalName
+                        };
+
+
+
+            return await query.FirstOrDefaultAsync();
         }
 
         //報工內容
