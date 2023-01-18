@@ -46,6 +46,7 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          Type = lt.Type,
@@ -59,7 +60,8 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          o.PositionId,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -90,13 +92,15 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -129,13 +133,17 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
+
+
                                      };
 
             if (personnelLeaveForm == null)
@@ -181,7 +189,8 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -227,7 +236,9 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
+
                                      };
 
             if (personnelLeaveForm == null)
@@ -271,7 +282,9 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
+
                                      };
 
             if (personnelLeaveForm == null)
@@ -284,25 +297,30 @@ namespace InternalSystem.Controllers
 
 
         //GET被退件之採購申請單
-        // GET: api/PersonnelLeaveForms/5
+        // GET: api/PersonnelLeaveForms/pcappcication/5
         [HttpGet("pcappcication/{id}")]
         public async Task<ActionResult<dynamic>> GetPcApplication(int id)
         {
             var personnelLeaveForm = from ap in _context.PcApplications
-                                     where ap.EmployeeId == id && ap.AcceptanceStatus == false
+                                     join pd in _context.PersonnelProfileDetails on ap.EmployeeId equals pd.EmployeeId
+                                     where ap.EmployeeId == id && ap.ApplicationRejectStatus ==false
+
                                      select new
                                      {
 
                                          ap.OrderId,
                                          ap.PurchaseId,
                                          ap.EmployeeId,
+                                         pd.EmployeeName,
+                                         pd.EmployeeNumber,
                                          ap.Department,
                                          ap.Date,
                                          ap.Comment,
                                          ap.Total,
                                          ap.AcceptanceStatus,
                                          ap.DeliveryStatus,
-                                         ap.ApplicationStatus
+                                         ap.ApplicationStatus,
+                                         ap.ApplicationRejectStatus
                                      };
 
             if (personnelLeaveForm == null)

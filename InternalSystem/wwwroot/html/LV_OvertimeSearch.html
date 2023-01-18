@@ -543,7 +543,20 @@
 
                                         <input class="form-control" type="time" v-model="workoverlist.endTime" id="html5-time-input" />
                                     </div>
-
+                                        <label for="Sex" class="form-label">加班廠區</label>
+                                    <div class="mb-3 col-md-4" >
+                                        <select v-model="workoverlist.areaId" id="area" class="select1 form-select">
+                                            <option value="請選擇廠區" disabled>請選擇廠區</option>
+                                            <option v-for="item in area":value="item.areaId">{{item.areaName}}</option>
+                                        </select>
+                                    </div>
+                                        <label for="Sex" class="form-label">加班製程</label>
+                                    <div class="mb-3 col-md-4">
+                                        <select v-model="workoverlist.propessId"  id="process" class="select1 form-select">
+                                            <option value="請選擇製程" disabled>請選擇製程</option>
+                                            <option v-for="item in process":value="item.processId">{{item.processName}}</option>
+                                        </select>
+                                    </div>
                                 </div>
 
 
@@ -609,8 +622,9 @@
                     employeelist: {},
                     workoverlist: { /*"auditStatus": false */ },//預設FALSE送出
                     totaltime: {},
-                    employeedata: {}
-
+                    employeedata: {},
+                    area: {},
+                    process: {}
                 }
             },
             methods: {
@@ -628,18 +642,80 @@
                     this.workoverlist.employeeId = this.employeelist.employeeId//OK
                     console.log(this.workoverlist)//OK
                     //測試能否點選後狀態變TURE =>OK
-                    //this.workoverlist.auditStatus=true
+                    // 判斷是否日期時間是否填入
+                    if (this.workoverlist.employeeId != null && this.workoverlist.startDate != null && this.workoverlist.startTime != null &&
+                        this.workoverlist.endDate != null && this.workoverlist.endTime != null && this.workoverlist.areaId != null &&
+                        this.workoverlist.propessId != null) {
 
-                    if (confirm('是否送出資料') == true) {
-                        //this.workoverlist.forEach(x => {
-                        axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
-                            .then(a => {
-                                alert('申請已送出');
-                                window.location = "/html/PS_ToDoItems.html";
-                            })
-                            .catch(err => console.log(err))
+                        //日期轉數字
+                        const sy = parseInt(this.workoverlist.startDate.substring(0, 4)) * 525600;
+                        console.log(sy);
+                        const ey = parseInt(this.workoverlist.endDate.substring(0, 4)) * 525600;
+                        console.log(ey);
+                        const smonth = parseInt(this.workoverlist.startDate.substring(5, 7)) * 43200;
+                        //console.log(smonth);
+                        const sd = parseInt(this.workoverlist.startDate.substring(8, 11)) * 1440;
+                        console.log(sd);
+                        const emonth = parseInt(this.workoverlist.endDate.substring(5, 7)) * 43200;
+                        //console.log(emonth);
+                        const ed = parseInt(this.workoverlist.endDate.substring(8, 11)) * 1440;
+                        console.log(ed);
 
+                        //時間轉數字
+                        const sh = parseInt(this.workoverlist.startTime.substring(0, 2)) * 60;
+                        const sm = parseInt(this.workoverlist.startTime.substring(3, 5));
+                        const eh = parseInt(this.workoverlist.endTime.substring(0, 2)) * 60;
+                        const em = parseInt(this.workoverlist.endTime.substring(3, 5));
+                        const tt = ((eh + em) - (sh + sm)) / 60;
+                        const stotal = (sy + smonth + sd + sh + sm);
+                        //console.log(stotal)
+                        const etotal = (ey + emonth + ed + eh + em);
+                        //console.log(etotal)
+                        const sdtotal = (sy + smonth + sd) / 60;
+                        const edtotal = (ey + emonth + ed) / 60
+                        console.log(sdtotal);
+                        console.log(edtotal);
+                        const dtotal = (edtotal - sdtotal) / 3;
+                        console.log(dtotal + "我是時間")
+                        //AppcationDate
+                        //判斷請假日期時間是否開始大於結束
+                        if (stotal < etotal) {
+
+
+                            //console.log(leavetotal);
+
+                            //日期格式
+                            let today = new Date()
+                            let y = today.getFullYear()
+                            let mm = today.getMonth() + 1
+                            let dd = today.getDate()
+                            if (mm < 10) {
+                                mm = "0" + mm.toString()
+                            }
+                            if (dd < 10) {
+                                dd = "0" + dd.toString()
+                            }
+                            this.workoverlist.appcationDate = `${y}-${mm}-${dd}`
+                            this.workoverlist.totalTime = tt;
+                            console.log(this.workoverlist.totalTime);
+
+                            if (confirm('是否送出資料') == true) {
+                                axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
+                                    .then(a => {
+                                        alert('申請已送出');
+                                        window.location = "/html/PS_ToDoItems.html";
+                                    })
+                                    .catch(err => console.log(err))
+                            }
+
+                        }
+                        else {
+                            alert('開始時間不可大於或等於結束時間')
+                        }
                     }
+                    else { alert('資料請填寫確實!') };
+                    //this.workoverlist.auditStatus=true
+             
                 },
                 editbtn: function () {
                     if (confirm('確認修改?') == true) {
@@ -670,7 +746,10 @@
                 this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
                 axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                     .then(response => this.employeelist = response.data)
-
+                axios.get('/api/ProductionAreas')
+                    .then(response => this.area = response.data)
+                axios.get('/api/ProductionProcesses')
+                    .then(response => this.process = response.data)
 
             }
         }

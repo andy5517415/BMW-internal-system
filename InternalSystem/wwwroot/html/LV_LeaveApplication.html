@@ -723,13 +723,27 @@
                                     console.log(sdtotal);
                                     console.log(edtotal);
                                     const dtotal = (edtotal - sdtotal)/3;
-                                    console.log(dtotal +"我是時間")
+                                    console.log(dtotal + "我是時間")
+                                    //AppcationDate
                                     //判斷請假日期時間是否開始大於結束
                                     if (stotal < etotal) {
 
                                         if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
                                             //console.log(leavetotal);
+
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.appcationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             console.log(this.application.totalTime);
                                             this.application.statusId = 1;
@@ -741,6 +755,18 @@
                                         else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 ||eh == 780 && em != 0) || eh > 780)) {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60) ;
                                             //console.log(leavetotal);
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.appcationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
                                             console.log(this.application.totalTime + "我是開始大於結束0");
@@ -750,7 +776,19 @@
 
                                         }
                                         else if (dtotal > 0 && sh > eh && eh <= 720 ) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60)+1 ;
+                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.appcationDate = `${y}-${mm}-${dd}`
                                             //console.log(leavetotal);
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
@@ -764,6 +802,18 @@
                                         else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
                                             //console.log(leavetotal);
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.appcationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
                                             console.log(this.application.totalTime);
@@ -779,6 +829,18 @@
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60);
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.appcationDate = `${y}-${mm}-${dd}`
                                             console.log(this.application.totalTime);
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -843,6 +905,18 @@
                                             if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                                 var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
                                                 //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.appcationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 console.log(this.application.totalTime);
                                                 this.application.statusId = 6;
@@ -854,6 +928,18 @@
                                             else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780)) {
                                                 var leavetotal = (((eh + em) - (sh + sm)) / 60);
                                                 //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.appcationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime + "我是開始大於結束0");
@@ -865,6 +951,18 @@
                                             else if (dtotal > 0 && sh > eh && eh <= 720) {
                                                 var leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
                                                 //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.appcationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime + "我是開始大於結束1");
@@ -877,6 +975,18 @@
                                             else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                                 var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
                                                 //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.appcationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime);
@@ -891,6 +1001,18 @@
                                             else {
                                                 var leavetotal = (((eh + em) - (sh + sm)) / 60);
                                                 this.application.totalTime = leavetotal + dtotal;
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.appcationDate = `${y}-${mm}-${dd}`
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime);
                                                 axios.post('/api/PersonnelLeaveForms', this.application)
