@@ -9,6 +9,8 @@ namespace InternalSystem.Models
     {
         public int StartWorkId { get; set; }
         public int EmployeeId { get; set; }
+        public int PropessId { get; set; }
+        public int AreaId { get; set; }
         public DateTime StartDate { get; set; }
         public string StartTime { get; set; }
         public DateTime EndDate { get; set; }

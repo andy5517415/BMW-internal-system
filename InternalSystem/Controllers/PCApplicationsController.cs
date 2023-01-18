@@ -66,8 +66,11 @@ namespace InternalSystem.Controllers
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           AcceptanceStatus = AP.AcceptanceStatus
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
                        };
 
             return await list.ToListAsync();
@@ -127,10 +130,11 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       where AP.DeliveryStatus == true
+                       where AP.DeliveryStatus == true && AP.AcceptanceStatus == false
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
+                           OrderId = AP.OrderId,
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
@@ -260,8 +264,11 @@ namespace InternalSystem.Controllers
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
-                           AcceptanceStatus = AP.AcceptanceStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            DeliveryStatus = AP.DeliveryStatus,
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
                        };
 
 

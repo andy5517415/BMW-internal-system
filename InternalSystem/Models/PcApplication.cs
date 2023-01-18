@@ -20,8 +20,11 @@ namespace InternalSystem.Models
         public string Comment { get; set; }
         public int Total { get; set; }
         public bool ApplicationStatus { get; set; }
+        public bool ApplicationRejectStatus { get; set; }
         public bool DeliveryStatus { get; set; }
+        public bool DeliveryRejectStatus { get; set; }
         public bool AcceptanceStatus { get; set; }
+        public bool AcceptanceRejectStatus { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual ICollection<PcOrderDetail> PcOrderDetails { get; set; }

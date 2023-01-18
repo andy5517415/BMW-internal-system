@@ -52,11 +52,7 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-
                 optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
-
             }
         }
 
@@ -428,6 +424,11 @@ namespace InternalSystem.Models
                     .HasName("PK_請假申請表");
 
                 entity.ToTable("PersonnelLeaveForm");
+
+                entity.Property(e => e.AppcationDate)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.AuditOpnion).HasMaxLength(500);
 

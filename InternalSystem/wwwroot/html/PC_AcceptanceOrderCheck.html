@@ -692,28 +692,25 @@
           return {
             list: {},
             myobject: {},
-            todoitem: {},
-            aok: {}
-
+            todoitem: {}
           }
         },
           methods: {
-              // 按下確認按鈕，送出審核成功
+              // 按下確認按鈕，送出驗收成功
               Confirm: function () {
-                  this.todoitem.applicationStatus = true;
-                  this.todoitem.deliveryStatus = true;
+                  this.todoitem.acceptanceStatus = true;
                   /*this.todoitem.total = 500;*/
                   //console.log(this.todoitem.orderId);
-                  if (confirm("確定要送出申請嗎?") == true) {
+                  if (confirm("確定要核准驗收嗎?") == true) {
                   axios.put('/api/PCApplications/' + this.todoitem.orderId,this.todoitem)
                           .then(a => console.log(a));
-                      window.location = "PC_ToDoItems.html";
+                      window.location = "PC_Acceptance.html";
                   }
 
               },
 
               Cancel: function () {
-                  if (cancel("確定要駁回申請嗎?") == true) {
+                  if (Cancel("確定要駁回申請嗎?") == true) {
                       console.log("ok");
                   }
               }
@@ -738,7 +735,7 @@
             //得到整張申請單狀態
             axios.get('https://localhost:44319/api/PCApplications/OrderCheck/' + this.myobject.orderId)
                 .then(response => this.todoitem = response.data);
-            console.log(this.todoitem);
+            /*console.log(this.todoitem);*/
         }
       }
 
