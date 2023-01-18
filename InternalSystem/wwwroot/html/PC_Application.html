@@ -711,7 +711,8 @@
                                 product: {},
                                 bee: [],
                                 employeedata: {},
-                                autopurchaseid: ""
+                                autopurchaseid: "",
+                                goodslist: {}
                             }
                         },
                         computed: {
@@ -719,7 +720,7 @@
                                 let sum = 0;
                                 for (let k = 0; k < this.product.length; k++) {
                                     sum += this.bee[k] == null ? 0 : this.bee[k] * this.product[k].unitPrice;
-                                    console.log(sum);
+                                    //console.log(sum);
                                 };
                                 return sum
                             }                            
@@ -736,6 +737,8 @@
                                 window.location = "PC_ApplicationRecordSearch.html"; 
                                 console.log(typeof (this.item));
 
+                                axios.post()
+
                             },
                             getprice() {
 
@@ -751,6 +754,7 @@
                             }
                         },
                         mounted() {
+                            // 接上一頁的session
                             this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
                             //console.log(this.employeedata)
                             axios.get('/api/PCApplications/applicationlist/' + this.employeedata.EmpID)
@@ -762,8 +766,6 @@
                                 })
                             axios.get('/api/PCApplications/goods')
                                 .then(response => this.product = response.data)
-                            axios.get('/api/PCApplications/supplier')
-                                .then(response => this.supplier = response.data)
                         }
                     }
 
