@@ -721,7 +721,7 @@
         },
         mounted() {
           this.myobject = JSON.parse(sessionStorage.getItem('order'))
-          axios.get('https://localhost:44319/api/PCApplications/todoitemdetail/' + this.myobject.purchaseId)
+            axios.get('https://localhost:44319/api/PCApplications/acceptanceordercheck/' + this.myobject.purchaseId)
               .then(response => {
                   this.list = response.data;
                   //console.log(response.data[0].subtotal);

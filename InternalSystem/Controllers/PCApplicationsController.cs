@@ -136,8 +136,43 @@ namespace InternalSystem.Controllers
                            Total = AP.Total,
                            AcceptanceStatus = AP.AcceptanceStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           Date = AP.Date,
+                           Date = AP.Date.ToString(),
                            Comment = AP.Comment
+                       };
+
+
+            return await List.ToListAsync();
+        }
+
+        // 驗收確認專用
+        // 用於PC_AcceptanceOrderCheck
+        // GET: api/PCApplications/acceptanceordercheck
+        [HttpGet("acceptanceordercheck/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcAcceptanceOrderCheck(int id)
+        {
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join PIS in this._context.PcGoodLists on OD.ProductId equals PIS.ProductId
+                       where AP.DeliveryStatus == true && AP.PurchaseId == id
+
+
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Total = AP.Total,
+                           ApplicationStatus = AP.ApplicationStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                           OrderId = AP.OrderId,
+                           ProductId = OD.ProductId,
+                           Goods = OD.Goods,
+                           Quantiy = OD.Quantiy,
+                           Unit = OD.Unit,
+                           UnitPrice = OD.UnitPrice,
+                           Subtotal = OD.Subtotal
                        };
 
 
