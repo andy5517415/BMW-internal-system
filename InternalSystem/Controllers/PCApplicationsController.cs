@@ -97,8 +97,11 @@ namespace InternalSystem.Controllers
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           AcceptanceStatus = AP.AcceptanceStatus
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus
                        };
 
             return await list.FirstOrDefaultAsync();
@@ -193,7 +196,7 @@ namespace InternalSystem.Controllers
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
                        orderby AP.Date descending
-                       where AP.ApplicationStatus == false
+                       where AP.ApplicationStatus == false && AP.ApplicationRejectStatus == false
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
@@ -202,6 +205,7 @@ namespace InternalSystem.Controllers
                            Department = PDL.DepName,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            Date = AP.Date.ToString(),
                            Comment = AP.Comment
                        };
