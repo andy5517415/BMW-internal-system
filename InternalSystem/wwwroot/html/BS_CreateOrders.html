@@ -542,8 +542,8 @@
 
 
 
-                                        <!--<input id="selectAvatar" type="file" />
-                                    <img @change="fnname" id="showimg" :src="bee"/>-->
+                                        <input @change="uploadphoto" type="file" />
+                                        <img :src="bee"/>
 
 
 
@@ -1094,6 +1094,21 @@
                             alert('訂單新建成功!');
                         });
                     }
+                },
+                uploadphoto(event) {
+                    console.log('ok')
+                    if (event.target.files && event.target.files[0]) {
+                        var file = event.target.files[0];
+                        var reader = new FileReader();
+                        let urlimage;
+                        reader.onload = (event) => {
+                            this.bee = event.target.result;
+                            console.log(this.bee);
+                        };
+                        reader.readAsDataURL(file)
+                    }
+
+
                 }
             },
             mounted() {
@@ -1114,36 +1129,6 @@
             }
         }).mount('#divinfo');
 
-
-                //const input = document.getElementById("selectAvatar");
-
-                //const convertBase64 = (file) => {
-                //    return new Promise((resolve, reject) => {
-                //        const fileReader = new FileReader();
-                //        fileReader.readAsDataURL(file);
-
-                //        fileReader.onload = () => {
-                //            resolve(fileReader.result);
-                //        };
-
-                //        fileReader.onerror = (error) => {
-                //            reject(error);
-                //        };
-                //    });
-                //};
-
-                //const uploadImage = async (event) => {
-                //    const file = event.target.files[0];
-                //    const base64 = await convertBase64(file);
-                //    console.log(base64);
-                //    vvue.bee = base64;
-                //    console.log(vvue.bee);
-                //};
-
-                //input.addEventListener("change", (e) => {
-                //    console.log('ko');
-                //    uploadImage(e);
-                //});
     </script>
 
 
