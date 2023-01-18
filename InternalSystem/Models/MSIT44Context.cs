@@ -519,6 +519,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelOvertimeForm");
 
+                entity.Property(e => e.AppcationDate)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.EndTime)
