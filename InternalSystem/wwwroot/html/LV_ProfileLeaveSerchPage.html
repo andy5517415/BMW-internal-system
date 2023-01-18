@@ -590,7 +590,7 @@
                                       <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==null">待審核</span>
                                       <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==true">同意</span>
                                       <span class="badge fs-5 bg-label-success" v-if="leavelist.proxyAudit==false">不同意</span>
-                                      <P class="fs-5 mb-0 mt-2">2023-01-05</P>
+                                      <P class="fs-5 mb-0 mt-2">{{leavelist.proxyAuditDate}}</P>
                                   </div>
                               </div>
                           </div>
@@ -607,7 +607,7 @@
                                       <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==null">待審核</span>
                                       <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==true">同意</span>
                                       <span class="badge bg-label-danger fs-5" v-if="leavelist.managerAudit==false">不同意</span>
-                                      <P class="fs-5 mb-0 mt-2">2023-01-05</P>
+                                      <P class="fs-5 mb-0 mt-2">{{leavelist.managerAuditDate}}</P>
                                   </div>
                               </div>
                           </div>
