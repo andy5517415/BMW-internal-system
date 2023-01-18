@@ -26,7 +26,7 @@ namespace InternalSystem.Controllers
 
 
 
-
+        //category分流
         // GET: api/BusinessOptionals/info/1
         //[ActionName("info")]
         [HttpGet("info/{idx}")]
@@ -39,7 +39,7 @@ namespace InternalSystem.Controllers
             return await q.ToListAsync();
         }
 
-
+        //取得代理商位置
         // GET: api/BusinessOptionals/agent
         [HttpGet("agent")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetAgent()
@@ -48,6 +48,13 @@ namespace InternalSystem.Controllers
                     select o;
             return await q.ToListAsync();
         }
+
+
+
+
+
+
+
 
 
 

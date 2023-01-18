@@ -522,7 +522,9 @@
                                             <label class="form-label fs-4" for="cartype">車款</label>
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
-                                                    v-model="cartypeone">
+                                                    v-model="cartypeone"
+                                                    @change="showphoto"
+                                                    >
                                                 <option disabled value="999">請選擇車款</option>
                                                 <option v-for="one in cartype"
                                                         :value="one">
@@ -542,8 +544,16 @@
 
 
 
-                                        <input @change="uploadphoto" type="file" />
-                                        <img :src="bee"/>
+                                        <input v-if="0" @change="uploadphoto" type="file" />
+                                        <img v-if="photoseen"
+                                             :src="srcphoto"
+                                             class="d-block rounded"
+                                             height=""
+                                             width="50"
+                                             alt="car"
+                                             />
+                                        <button v-if="0" @click="savephoto" type="button">送出圖片</button>
+
 
 
 
@@ -912,7 +922,76 @@
                                                 <button @click="btnCreatePreviousClick" class="btn btn-outline-primary d-block">上一步，返回</button>
                                             </div>
                                             <div class="col-6">
-                                                <button @click="btnCreateNextClick" class="btn btn-outline-primary d-block">下一步，建立訂單</button>
+                                                <!--<button @click="btnCreateNextClick" class="btn btn-outline-primary d-block">下一步，建立訂單</button>-->
+                                                <!-- ★已預約彈跳視窗鈕-->
+                                                <button type="button"
+                                                        class="btn btn-outline-primary d-block"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal">
+                                                    下一步，建立訂單
+                                                </button>
+
+                                                <!-- ★Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header mb-3">
+                                                                <!--<h5 class="modal-title" id="exampleModalLabel"
+                                                                    style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                                                    &nbspA01會議室
+                                                                </h5>-->
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <!--<hr class="col-10">-->
+                                                            </div>
+                                                            <!--<div class="modal-body text-start mt-0">
+                                                                <p>📋部門：設計部</p>
+                                                                <p>📋已預約時間：8:00-8:30</p>
+                                                                <p>📋部門登記人員：李文勝</p>
+                                                            </div>-->
+                                                            <h3 class="justify-content-center">是否確定要建立訂單?</h3>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                                <button type="button" @click="btnCreateNextClick" class="btn btn-outline-primary">確定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                                    <div class="toast-header">
+                                                        <img src="..." class="rounded me-2" alt="...">
+                                                        <strong class="me-auto">Bootstrap</strong>
+                                                        <small>11 mins ago</small>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="toast-body">
+                                                        Hello, world! This is a toast message.
+                                                    </div>
+                                                </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             </div>
                                         </div>
 
@@ -920,6 +999,18 @@
 
                                 </div>
                             </div>
+
+
+
+
+
+
+
+
+
+
+                            
+
 
 
 
@@ -1010,8 +1101,10 @@
                     orderpost: {},
                     orderdetail: [],
                     orderdetailpost: {},
-                    bee: {},
-                    limit: {}
+                    limit: {},
+                    srcphoto: {},
+                    putphoto: {},
+                    photoseen : false
                 }
             },
             computed: {
@@ -1102,13 +1195,28 @@
                         var reader = new FileReader();
                         let urlimage;
                         reader.onload = (event) => {
-                            this.bee = event.target.result;
-                            console.log(this.bee);
+                            this.srcphoto = event.target.result;
+                            console.log(this.srcphoto);
                         };
                         reader.readAsDataURL(file)
                     }
 
 
+                },
+                savephoto() {
+                    axios.get('/api/BusinessOptionals/1')
+                         .then(p => {
+                             console.log(p);
+                             this.putphoto = p.data;
+                             this.putphoto.photo = this.srcphoto
+                             console.log(this.putphoto.photo);
+                             axios.put('/api/BusinessOptionals/1', this.putphoto).then(p=>console.log(p))
+                        })
+
+                },
+                showphoto() {
+                        this.srcphoto = this.cartypeone.photo;
+                        this.photoseen = true;
                 }
             },
             mounted() {
