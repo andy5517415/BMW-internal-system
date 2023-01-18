@@ -603,8 +603,9 @@
                 return {
                     selectlist: {},
                     employeeover: {},
-                    employeedata: {}
-
+                    employeedata: {},
+                    area:{ },
+                    process: {}
                 }
             },
             methods: {
@@ -623,6 +624,9 @@
 
                 axios.get('https://localhost:44319/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                     .then(response => this.employeelist = response.data)
+                axios.get('/api/ProductionAreas')
+                    .then(response => this.process = response.data)
+
             }
 
         }
