@@ -627,7 +627,7 @@
                                             <span class="card-text fs-4">{{proxyname.employeeName}}</span>
                                             <span class="badge fs-5 bg-label-success" v-if="leaveExit.status==1">待同意</span>
                                             <span class="badge fs-5 bg-label-success" v-if="leaveExit.proxyAudit==false">代理人不同意</span>
-                                            <span class="badge fs-5 bg-label-success"v-if="leaveExit.proxyAudit==ture" >同意</span>
+                                            <span class="badge fs-5 bg-label-success" v-if="leaveExit.proxyAudit==ture" >同意</span>
                                             <P class="fs-5 mb-0 mt-2">{{leaveExit.proxyAuditDate}}</P>
                                         </div>
                                     </div>
@@ -642,10 +642,10 @@
                                         </div>
                                         <div class="card-body text-black text-center">
                                             <span class="card-text fs-4">{{maName.employeeName}}</span>
-                                            <span class="badge bg-label-danger fs-5" v-if="leaveExit.status==1">待同意</span>
+                                            <span class="badge bg-label-danger fs-5" v-if="leaveExit.managerAudit==null">待同意</span>
                                             <span class="badge bg-label-danger fs-5" v-if="leaveExit.managerAudit==false">不同意</span>
                                             <span class="badge bg-label-danger fs-5" v-if="leaveExit.managerAudit==true">同意</span>
-                                            <P class="fs-5 mb-0 mt-2">2023-01-05</P>
+                                            <P class="fs-5 mb-0 mt-2">{{leaveExit.managerAuditDate}}</P>
                                         </div>
                                     </div>
                                 </div>
