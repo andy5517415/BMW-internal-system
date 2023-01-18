@@ -636,7 +636,7 @@
                               <div>   
                           </div>
                               <div class="row">
-                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">駁回</button>
+                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>
                                     <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
                               </div>
               </div>
@@ -710,8 +710,12 @@
               },
 
               Cancel: function () {
-                  if (Cancel("確定要駁回申請嗎?") == true) {
-                      console.log("ok");
+                  this.todoitem.acceptanceRejectStatus = true;
+                  if (confirm("確定要退貨嗎?") == true) {
+                      //console.log("ok");
+                      axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
+                          .then(a => console.log(a));
+                      window.location = "PC_Acceptance.html";
                   }
               }
                 

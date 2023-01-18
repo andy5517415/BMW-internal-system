@@ -656,8 +656,8 @@
                                       if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
                                           this.OrderList[i].totalapp = "配送中"
                                       }
-                                      if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == true && this.OrderList[i].acceptanceRejectStatus == true) {
-                                          this.OrderList[i].totalapp = "退貨中"
+                                      if (this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == true) {
+                                          this.OrderList[i].totalapp = "已退貨"
                                       }
                                       ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
                                       ////    this.OrderList[i].deliveryStatus = "配送完成"
