@@ -211,6 +211,7 @@ namespace InternalSystem.Controllers
                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
                        join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
                        join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                       orderby BO.OrderDateTime descending
                        where BO.IsAccepted == false && BC.CategoryId == 1
                        select new
                        {
@@ -224,6 +225,31 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
+        // 現場主管代辦事項，製程完成回到主管代辦
+        // GET: api/ProductionProcessLists/ProcessTodo
+        [HttpGet("ProcessTodo")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProcessTodo()
+        {
+            var List = from PPL in this._context.ProductionProcessLists
+                       join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                       join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                       join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                       join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                       join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                       where PPL.StatusId == 1 && BC.CategoryId == 1
+                       select new
+                       {
+                           OrderId = PPL.OrderId,
+                           ProcessId = PP.ProcessId,
+                           ProcessName = PP.ProcessName,
+                           OrderNumber = BO.OrderNumber,
+                           OptionalId = BOT.OptionalId,
+                           OptionalName = BOT.OptionalName,
+                           StatusId = PPL.StatusId
+                       };
+
+            return await List.ToListAsync();
+        }
         //訂單內容
         // GET: api/ProductionProcessLists/BusinessOrderProcessor
         [HttpGet("BusinessOrderProcessor/{id}")]
@@ -234,7 +260,8 @@ namespace InternalSystem.Controllers
                        join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
                        join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
                        join BA in this._context.BusinessAreas on BO.AreaId equals BA.AreaId
-                       where BO.IsAccepted == false && BO.OrderId == id  
+                       where BO.IsAccepted == false && BO.OrderId == id
+                       
                        select new
                        {
                            OrderId = BO.OrderId,

@@ -645,7 +645,7 @@
                                       <label class="form-label-lg" for="processes">生產</label>
                                       <select id="processes" class="  form-select color-dropdown " v-model="processesAreaList.processId" >
                                           <option disabled >請選擇產線</option>
-                                          <option v-for="pro in processes" :value="pro.processId">{{pro.processName}}</option>
+                                          <option v-for="pro in processes" :value="pro.processId = 1" >{{pro.processName}}</option>
                                       </select>
                                   </div>
 

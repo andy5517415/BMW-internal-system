@@ -511,16 +511,16 @@
                         <div id="app">
                             <div class="card mb-4 m-4 " v-for="processList in PDProcessList">
                                 <div class="row card-body">
-                                    <label id="dd" for="" class="col-3 fs-4">型號: {{processList.optionalName}}</label>
-                                    <label for="" class="col-3 fs-4">生產: {{processList.processName}}</label>
-                                    <label for="" class="col-3 fs-4">廠區: {{processList.areaName}}</label>
-                                    <label for="" class="col-3 fs-4">訂單號碼: {{processList.orderNumber}}</label>
+                                    <label id="optionalName" for="" class="col-3 fs-4">型號: {{processList.optionalName}}</label>
+                                    <label id="processName" for="" class="col-3 fs-4">生產: {{processList.processName}}</label>
+                                    <label id="areaName" for="" class="col-3 fs-4">廠區: {{processList.areaName}}</label>
+                                    <label id="orderNumber" for="" class="col-3 fs-4">訂單號碼: {{processList.orderNumber}}</label>
                                     <div class="row">
                                         <label for="" class="col-3 fs-4 my-3">開始生產日期: {{processList.starDate}}</label>
                                     </div>
 
                                     <div class="col-11 d-md-flex justify-content-md-end">
-                                        <button type="button" class="btn btn-outline-dark">製程完成</button>
+                                        <button type="button" class="btn btn-outline-dark" v-on:click="Finish(processList)">製程完成</button>
                                         <a href="./PD_ReportContent.html" type="button" class="btn btn-outline-dark mx-4" v-on:click="Enter(processList)">報工</a>
                                         <a href="./PD_MakeClass.html" type="button" class="btn btn-outline-dark ">取消</a>
                                     </div>
@@ -569,7 +569,10 @@
                     return {
                         process: {},
                         car: {},
-                        PDProcessList: {}
+                        PDProcessList: {},
+                        Processpost: {},
+                        processput: {}
+
                     }
                 },
                 mounted() {
@@ -594,6 +597,59 @@
                 methods: {
                     Enter: function (e) {
                         sessionStorage.setItem("data", JSON.stringify(e));
+                    },
+                    Finish: function (f) {
+                        //日期格式
+                        let today = new Date()
+                        let yyyy = today.getFullYear()
+                        let mm = today.getMonth() + 1
+                        let dd = today.getDate()
+                        if (mm < 10) {
+                            mm = "0" + mm.toString()
+                        }
+                        if (dd < 10) {
+                            dd = "0" + dd.toString()
+                        }
+
+                        if (f.processId == 3) {
+                            if(confirm('確定送出?'))
+                            //put 原表狀態改成3
+                            this.processput.orderId = f.orderId
+                            this.processput.processId = f.processId
+                            this.processput.areaId = f.areaId
+                            this.processput.starDate = f.starDate
+                            this.processput.endDate = `${yyyy}-${mm}-${dd}`
+                            this.processput.statusId = 3
+                            axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processput.orderId, this.processput)
+                                .then(y => console.log(y))
+                            window.location = "PD_MakeClass.html"
+                        } else {
+                            if (confirm('確定送出?')) {
+                                //post 新建第二製程
+                                this.Processpost.orderId = f.orderId
+                                this.Processpost.processId = f.processId + 1
+                                this.Processpost.areaId = null
+                                this.Processpost.starDate = f.starDate
+                                this.Processpost.endDate = null
+                                this.Processpost.statusId = 1
+                                axios.post('https://localhost:44319/api/ProductionProcessLists', this.Processpost)
+
+
+                                //put 原表狀態改成3
+                                this.processput.orderId = f.orderId
+                                this.processput.processId = f.processId
+                                this.processput.areaId = f.areaId
+                                this.processput.starDate = f.starDate
+                                this.processput.endDate = `${yyyy}-${mm}-${dd}`
+                                this.processput.statusId = 3
+                                axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processput.orderId, this.processput)
+                                    .then(y => console.log(y))
+                            }
+                            alert('成功送出');
+                            window.location = "PD_MakeClass.html"
+                        }
+                        
+
                     }
                 }
             }
