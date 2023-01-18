@@ -658,7 +658,7 @@
                                                                                 <td>
                                                                                     <div class="dropdown">
                                                                                         <div>
-                                                                                            <p id="total">{{bee[key]*b.unitPrice}}元</p>
+                                                                                            <p id="total">{{bee[key]*b.unitPrice || 0}}元</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
@@ -711,29 +711,18 @@
                                 product: {},
                                 bee: [],
                                 employeedata: {},
-                                autopurchaseid: "",
-                                sum:0
+                                autopurchaseid: ""
                             }
                         },
                         computed: {
-                            //sum() {
-                            //    return this.product[0]
-                            //    //return this.bee * this.unitPrice;
-                                    
-                                
-                            //    //1
-                            //        //var sum = 0;
-                            //        //for (var i = 0; i < this.product.length; i++) {
-
-                            //        //    sum += parseInt(bee[i] * b.unitPrice);
-                            //        //    1
-                            //        //}
-                                 
-                                
-                               
-                           
-                            //}
-                            
+                            sum() {
+                                let sum = 0;
+                                for (let k = 0; k < this.product.length; k++) {
+                                    sum += this.bee[k] == null ? 0 : this.bee[k] * this.product[k].unitPrice;
+                                    console.log(sum);
+                                };
+                                return sum
+                            }                            
                         },
                         methods: {
                             //confirmbtn: function () {
