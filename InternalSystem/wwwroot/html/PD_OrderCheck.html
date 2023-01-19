@@ -642,11 +642,8 @@
                                   <hr>
 
                                   <div class="mb-3 col-6">
-                                      <label class="form-label-lg" for="processes">生產</label>
-                                      <select id="processes" class="  form-select color-dropdown " v-model="processesAreaList.processId" >
-                                          <option disabled >請選擇產線</option>
-                                          <option v-for="pro in processes" :value="pro.processId = 1" >{{pro.processName}}</option>
-                                      </select>
+                                      <label class="form-label-lg" for="processName">生產</label>
+                                      <input id="processName" type="text" :value="item.processName" class="form-control" name="processName" disabled/>
                                   </div>
 
                                   <div class="mb-3 col-6">
@@ -744,6 +741,7 @@
             mounted() {
                 this.item = JSON.parse(sessionStorage.getItem("order"))
                 this.processesAreaList.orderId = this.item.orderId
+                this.processesAreaList.processId = this.item.processId
 
                 //日期格式
                 let today = new Date()
@@ -759,33 +757,52 @@
                 this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
                 this.processesAreaList.statusId = 2
 
-                //業務訂單內容
-                axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/' + this.item.orderId)
-                    .then(response => {
-                        this.carName = response.data[0]
-                        this.carcolor = response.data[1]
-                        this.cartexture = response.data[2]
-                        this.carwheel = response.data[3]
-                        this.carplaque = response.data[4]
-                        this.carlight = response.data[5]
-                        this.carsaddle = response.data[6]
-                        this.carsunroof = response.data[7]
-                        this.carmedia = response.data[8]
-                    })
 
-                //整張訂單(要put使用)
-                axios.get('https://localhost:44319/api/BusinessOrders/' + this.item.orderId)
-                    .then(response => {
-                        this.BSO = response.data
-                        this.BSO.isAccepted = true
-                    })
+                if (this.item.processId != 1) {
+                    //業務訂單內容
+                    axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessorBack/' + this.item.orderId)
+                        .then(response => {
+                            this.carName = response.data[0]
+                            this.carcolor = response.data[1]
+                            this.cartexture = response.data[2]
+                            this.carwheel = response.data[3]
+                            this.carplaque = response.data[4]
+                            this.carlight = response.data[5]
+                            this.carsaddle = response.data[6]
+                            this.carsunroof = response.data[7]
+                            this.carmedia = response.data[8]
+                        })
 
-                //製程單
-                axios.get('https://localhost:44319/api/ProductionProcesses')
-                    .then(response => this.processes = response.data)
-                //廠區單
-                axios.get('https://localhost:44319/api/ProductionAreas')
-                    .then(response => this.Areas = response.data)
+                } else if (this.item.processId = 1) {
+                    //業務訂單內容
+                    axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/' + this.item.orderId)
+                        .then(response => {
+                            this.carName = response.data[0]
+                            this.carcolor = response.data[1]
+                            this.cartexture = response.data[2]
+                            this.carwheel = response.data[3]
+                            this.carplaque = response.data[4]
+                            this.carlight = response.data[5]
+                            this.carsaddle = response.data[6]
+                            this.carsunroof = response.data[7]
+                            this.carmedia = response.data[8]
+                        })
+
+                    //整張訂單(要put使用)
+                    axios.get('https://localhost:44319/api/BusinessOrders/' + this.item.orderId)
+                        .then(response => {
+                            this.BSO = response.data
+                            this.BSO.isAccepted = true
+                        })
+
+                    //製程單
+                    axios.get('https://localhost:44319/api/ProductionProcesses')
+                        .then(response => this.processes = response.data)
+                    //廠區單
+                    axios.get('https://localhost:44319/api/ProductionAreas')
+                        .then(response => this.Areas = response.data)
+                }
+               
             },
             computed: {
                 carmoney() {
@@ -805,11 +822,14 @@
                     //回傳到生產製程表
                     console.log(this.processesAreaList)
                     console.log(this.BSO)
-                    axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
-                        .then(x => console.log(x))
+                    if (confirm('確定送出?')) {
+                        axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
+                            .then(x => console.log(x))
 
-                    axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
-                        .then(x => console.log(x))
+                        axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
+                            .then(x => console.log(x))
+                    }
+                    window.location = "PD_ToDoItems.html"
 
                 }
             }

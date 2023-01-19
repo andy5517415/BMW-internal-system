@@ -511,12 +511,12 @@
                         <div id="app">
                             <div class="card mb-4 m-4 " v-for="processList in PDProcessList">
                                 <div class="row card-body">
-                                    <label id="optionalName" for="" class="col-3 fs-4">型號: {{processList.optionalName}}</label>
-                                    <label id="processName" for="" class="col-3 fs-4">生產: {{processList.processName}}</label>
-                                    <label id="areaName" for="" class="col-3 fs-4">廠區: {{processList.areaName}}</label>
-                                    <label id="orderNumber" for="" class="col-3 fs-4">訂單號碼: {{processList.orderNumber}}</label>
+                                    <label id="optionalName" for="" class="col-4 fs-4">型號: {{processList.optionalName}}</label>
+                                    <label id="orderNumber" for="" class="col-4 fs-4">訂單號碼: {{processList.orderNumber}}</label>
+                                    <label for="" class="col-4 fs-4 ">開始生產日期: {{processList.starDate}}</label>
                                     <div class="row">
-                                        <label for="" class="col-3 fs-4 my-3">開始生產日期: {{processList.starDate}}</label>
+                                        <label id="processName" for="" class="col-3 fs-4 my-3">生產: {{processList.processName}}</label>
+                                        <label id="areaName" for="" class="col-3 fs-4 my-3">廠區: {{processList.areaName}}</label>
                                     </div>
 
                                     <div class="col-11 d-md-flex justify-content-md-end">
