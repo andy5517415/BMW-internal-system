@@ -10,11 +10,9 @@ namespace InternalSystem.Models
         public int RecordSheetId { get; set; }
         public int BookMeetId { get; set; }
         public int MeetingPlaceId { get; set; }
-<<<<<<< HEAD
+
         public int DepId { get; set; }
-=======
-        public int? DepId { get; set; }
->>>>>>> 45559d3695aec3a02de0ba84ed5e6f092e1cabfb
+
         public string MeetPresident { get; set; }
         public string Rcorder { get; set; }
         public string Participater { get; set; }

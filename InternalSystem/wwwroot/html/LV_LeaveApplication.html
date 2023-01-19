@@ -724,7 +724,7 @@
                                     console.log(edtotal);
                                     const dtotal = (edtotal - sdtotal)/3;
                                     console.log(dtotal + "我是時間")
-                                    //AppcationDate
+                                    //ApplicationDate
                                     //判斷請假日期時間是否開始大於結束
                                     if (stotal < etotal) {
 
@@ -743,7 +743,7 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.appcationDate = `${y}-${mm}-${dd}`
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             console.log(this.application.totalTime);
                                             this.application.statusId = 1;
@@ -766,7 +766,7 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.appcationDate = `${y}-${mm}-${dd}`
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
                                             console.log(this.application.totalTime + "我是開始大於結束0");
@@ -788,7 +788,7 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.appcationDate = `${y}-${mm}-${dd}`
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             //console.log(leavetotal);
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
@@ -813,7 +813,7 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.appcationDate = `${y}-${mm}-${dd}`
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             this.application.statusId = 1;
                                             console.log(this.application.totalTime);
@@ -840,7 +840,7 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.appcationDate = `${y}-${mm}-${dd}`
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             console.log(this.application.totalTime);
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -916,7 +916,7 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.appcationDate = `${y}-${mm}-${dd}`
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 console.log(this.application.totalTime);
                                                 this.application.statusId = 6;
@@ -939,7 +939,7 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.appcationDate = `${y}-${mm}-${dd}`
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime + "我是開始大於結束0");
@@ -962,7 +962,7 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.appcationDate = `${y}-${mm}-${dd}`
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime + "我是開始大於結束1");
@@ -986,7 +986,7 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.appcationDate = `${y}-${mm}-${dd}`
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime);
@@ -1012,7 +1012,7 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.appcationDate = `${y}-${mm}-${dd}`
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.statusId = 6;
                                                 console.log(this.application.totalTime);
                                                 axios.post('/api/PersonnelLeaveForms', this.application)

@@ -93,7 +93,7 @@ namespace InternalSystem.Controllers
                                             ov.PropessId,
                                             pda.AreaName,
                                             pdp.ProcessName,
-                                            AppcationDate = ov.AppcationDate.ToString()
+                                            ApplicationDate = ov.ApplicationDate.ToString()
                                         };
             if (personnelOvertimeForm == null)
             {
@@ -134,7 +134,7 @@ namespace InternalSystem.Controllers
                            ov.PropessId,
                            pda.AreaName,
                            pdp.ProcessName,
-                           AppcationDate = ov.AppcationDate.ToString()
+                           ApplicationDate = ov.ApplicationDate.ToString()
 
                        };
             if (overlist == null)
@@ -174,7 +174,7 @@ namespace InternalSystem.Controllers
                                             ov.PropessId,
                                             pda.AreaName,
                                             pdp.ProcessName,
-                                            AppcationDate = ov.AppcationDate.ToString()
+                                            ApplicationDate = ov.ApplicationDate.ToString()
                                         };
             if (personnelOvertimeForm == null)
             {
@@ -213,7 +213,7 @@ namespace InternalSystem.Controllers
                                ov.PropessId,
                                pda.AreaName,
                                pdp.ProcessName,
-                               AppcationDate = ov.AppcationDate.ToString()
+                               ApplicationDate = ov.ApplicationDate.ToString()
                            };
             if (overlist == null)
             {

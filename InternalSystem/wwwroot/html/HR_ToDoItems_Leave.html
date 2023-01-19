@@ -718,6 +718,8 @@
                                 this.leaveproxy.managerAudit = true;
                                 this.leavelist.used = this.leavelist.used + this.leaveproxy.totalTime;
                                 this.leavelist.leaveOver = this.leavelist.leaveOver - this.leavelist.used;
+                                console.log(this.leavelist.used)
+                                console.log(this.leavelist.leaveOver)
                                 //日期格式
                                 let today = new Date()
                                 let y = today.getFullYear()
@@ -729,9 +731,8 @@
                                 if (dd < 10) {
                                     dd = "0" + dd.toString()
                                 }
+                                console.log(this.leaveproxy.totalTime)
                                 this.leaveproxy.managerAuditDate = `${y}-${mm}-${dd}`
-                                console.log(this.leavelist.used)
-                                console.log(this.leavelist.leaveOver)
 
                                 axios.put('/api/PersonnelLeaveForms/' + this.leaveproxy.leaveId, this.leaveproxy)
                                     .then(a => {

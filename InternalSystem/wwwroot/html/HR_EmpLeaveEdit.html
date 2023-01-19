@@ -693,7 +693,7 @@
                                     console.log(edtotal);
                                     const dtotal = (edtotal - sdtotal)/3;
                                     console.log(dtotal + "我是時間")
-                                    //AppcationDate
+                                    //ApplicationDateDate
                                     //判斷請假日期時間是否開始大於結束
                                     if (stotal < etotal) {
 
@@ -712,8 +712,8 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.leavedata.appcationDate = `${y}-${mm}-${dd}`
-                                            this.leavedata.totalTime = leavetotal + dtotal;
+                                            this.leavedata.ApplicationDateDate = `${y}-${mm}-${dd}`
+                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
                                             console.log(this.leavedata.totalTime);
                                             this.leavedata.statusId = 1;
                                             //console.log(this.leavedata.totalTime);
@@ -740,8 +740,8 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.leavedata.appcationDate = `${y}-${mm}-${dd}`
-                                            this.leavedata.totalTime = leavetotal + dtotal;
+                                            this.leavedata.ApplicationDateDate = `${y}-${mm}-${dd}`
+                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
                                             this.leavedata.statusId = 1;
                                             console.log(this.leavedata.totalTime + "我是開始大於結束0");
                                             if (confirm('請確認修改資料是否正確') == true) {
@@ -767,9 +767,9 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.leavedata.appcationDate = `${y}-${mm}-${dd}`
+                                            this.leavedata.ApplicationDateDate = `${y}-${mm}-${dd}`
                                             //console.log(leavetotal);
-                                            this.leavedata.totalTime = leavetotal + dtotal;
+                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
                                             this.leavedata.statusId = 1;
                                             console.log(this.leavedata.totalTime + "我是開始大於結束1");
                                             if (confirm('請確認修改資料是否正確') == true) {
@@ -797,8 +797,8 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.leavedata.appcationDate = `${y}-${mm}-${dd}`
-                                            this.leavedata.totalTime = leavetotal + dtotal;
+                                            this.leavedata.ApplicationDateDate = `${y}-${mm}-${dd}`
+                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
                                             this.leavedata.statusId = 1;
                                             console.log(this.leavedata.totalTime);
                                             if (confirm('請確認修改資料是否正確') == true) {
@@ -816,7 +816,7 @@
                                  
                                         else {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            this.leavedata.totalTime = leavetotal + dtotal;
+                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
                                             this.leavedata.statusId = 1;
                                             //日期格式
                                             let today = new Date()
@@ -829,7 +829,7 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.leavedata.appcationDate = `${y}-${mm}-${dd}`
+                                            this.leavedata.ApplicationDateDate = `${y}-${mm}-${dd}`
                                             console.log(this.leavedata.totalTime);
                                             if (confirm('請確認修改資料是否正確') == true) {
                                                 axios.put('/api/PersonnelLeaveForms/' + this.leavedata.leaveId, this.leavedata)

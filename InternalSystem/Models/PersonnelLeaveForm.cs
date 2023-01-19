@@ -9,11 +9,9 @@ namespace InternalSystem.Models
     {
         public int LeaveId { get; set; }
         public int EmployeeId { get; set; }
-<<<<<<< HEAD
+
         public string ApplicationDate { get; set; }
-=======
-        public string AppcationDate { get; set; }
->>>>>>> 45559d3695aec3a02de0ba84ed5e6f092e1cabfb
+
         public int StatusId { get; set; }
         public int LeaveType { get; set; }
         public DateTime StartDate { get; set; }

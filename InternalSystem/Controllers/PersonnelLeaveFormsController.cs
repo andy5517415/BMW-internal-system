@@ -61,7 +61,7 @@ namespace InternalSystem.Controllers
                                          auditManerger = pl.AuditManerger,
                                          o.PositionId,
                                          Reason = pl.Reason,
-                                         pl.AppcationDate
+                                         pl.ApplicationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -100,7 +100,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.AppcationDate
+                                         pl.ApplicationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -141,7 +141,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.AppcationDate
+                                         pl.ApplicationDate
 
 
                                      };
@@ -190,7 +190,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.AppcationDate
+                                         pl.ApplicationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -237,7 +237,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.AppcationDate
+                                         pl.ApplicationDate
 
                                      };
 
@@ -283,7 +283,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.AppcationDate
+                                         pl.ApplicationDate
 
                                      };
 
