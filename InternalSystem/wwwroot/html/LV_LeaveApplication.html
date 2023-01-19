@@ -595,6 +595,7 @@
                                         <label class="form-label fs-4" for="proxy">代理人</label>
                                         <select id="proxy" class="select2 form-select" v-model="application.proxy">
                                             <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -683,6 +684,12 @@
                     //一般員工請假
                         if (this.employeedata.PositionId < 7) {
                             if (confirm('是否送出請假資料?1') == true) {
+
+                                if (this.application.leaveType != null &&
+                                    this.application.proxy != null && this.application.auditManerger != null
+                                    && this.application.reason != null
+                                ) { 
+
                                 // 判斷是否日期時間是否填入
                                 if (this.application.startDate != null && this.application.endDate != null &&
                                     this.application.startTime != null && this.application.endTime != null) {
@@ -711,25 +718,133 @@
                                     //console.log(stotal)
                                     const etotal = (ey + emonth + ed + eh + em);
                                     //console.log(etotal)
-
+                                    const sdtotal = (sy + smonth + sd)/60;
+                                    const edtotal = (ey + emonth + ed)/60
+                                    console.log(sdtotal);
+                                    console.log(edtotal);
+                                    const dtotal = (edtotal - sdtotal)/3;
+                                    console.log(dtotal + "我是時間")
+                                    //ApplicationDate
                                     //判斷請假日期時間是否開始大於結束
                                     if (stotal < etotal) {
-                                        //判斷請假是否跨休息時間
-                                        if (sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
+
+                                        if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
-                                            //leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
                                             //console.log(leavetotal);
-                                            this.application.totalTime = leavetotal
-                                            console.log(this.application.totalTime)
-                                            //console.log('s')
+
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            this.application.totalTime = leavetotal + dtotal;
+                                            console.log(this.application.totalTime);
+                                            this.application.statusId = 1;
+                                            //console.log(this.application.totalTime);
+                                            axios.post('/api/PersonnelLeaveForms', this.application)
+                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                            window.location = "/html/LV_LeaveApplication.html"
                                         }
-                                        else if (sh == 720 || (eh == 780 && em == 0)) {
+                                        else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 ||eh == 780 && em != 0) || eh > 780)) {
+                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) ;
+                                            //console.log(leavetotal);
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            this.application.totalTime = leavetotal + dtotal;
+                                            this.application.statusId = 1;
+                                            console.log(this.application.totalTime + "我是開始大於結束0");
+                                            axios.post('/api/PersonnelLeaveForms', this.application)
+                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                            window.location = "/html/LV_LeaveApplication.html"
+
+                                        }
+                                        else if (dtotal > 0 && sh > eh && eh <= 720 ) {
+                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //console.log(leavetotal);
+                                            this.application.totalTime = leavetotal + dtotal;
+                                            this.application.statusId = 1;
+                                            console.log(this.application.totalTime + "我是開始大於結束1");
+                                            axios.post('/api/PersonnelLeaveForms', this.application)
+                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                            window.location = "/html/LV_LeaveApplication.html"
+                                        }
+                                    
+                                        //判斷請假是否跨休息時間
+                                        else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
+                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
+                                            //console.log(leavetotal);
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            this.application.totalTime = leavetotal + dtotal;
+                                            this.application.statusId = 1;
+                                            console.log(this.application.totalTime);
+                                            axios.post('/api/PersonnelLeaveForms', this.application)
+                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                            window.location = "/html/LV_LeaveApplication.html"
+                                        }
+                                        else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
                                             alert('請假開始時間或結束時間不可選在休息時段!')
                                         }
+                                 
                                         else {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            console.log(leavetotal);
-
+                                            this.application.totalTime = leavetotal + dtotal;
+                                            this.application.statusId = 1;
+                                            //日期格式
+                                            let today = new Date()
+                                            let y = today.getFullYear()
+                                            let mm = today.getMonth() + 1
+                                            let dd = today.getDate()
+                                            if (mm < 10) {
+                                                mm = "0" + mm.toString()
+                                            }
+                                            if (dd < 10) {
+                                                dd = "0" + dd.toString()
+                                            }
+                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            console.log(this.application.totalTime);
+                                            axios.post('/api/PersonnelLeaveForms', this.application)
+                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                            window.location = "/html/LV_LeaveApplication.html"
                                         }
                                     }
                                     else {
@@ -738,75 +853,182 @@
                                 }
                                 else { alert('日期時間不可為空!') };
                     //console.log(leavetotal);
-                                this.application.statusId = 1;
-                                axios.post('/api/PersonnelLeaveForms', this.application)
-                                    .then(alert('申請已送出')).catch(err => console.log(err))
-                                window.location = "/html/LV_LeaveApplication.html"
+                                }
+                               
+                            else { alert('請假項目請確實填寫') };
                             }
+
                         }
 
                     //主管請假
                         if (this.employeedata.PositionId >= 7) {
                             if (confirm('是否送出請假資料?2') == true) {
-                                // 判斷是否日期時間是否填入
-                                if (this.application.startDate != null && this.application.endDate != null &&
-                                    this.application.startTime != null && this.application.endTime != null) {
+                                if (this.application.leaveType != null 
+                                ) {
+                                    // 判斷是否日期時間是否填入
+                                    if (this.application.startDate != null && this.application.endDate != null &&
+                                        this.application.startTime != null && this.application.endTime != null) {
 
-                                    //日期轉數字
-                                    const sy = parseInt(this.application.startDate.substring(0, 4)) * 525600;
-                                    console.log(sy);
-                                    const ey = parseInt(this.application.endDate.substring(0, 4)) * 525600;
-                                    console.log(ey);
-                                    const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
-                                    //console.log(smonth);
-                                    const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
-                                    console.log(sd);
-                                    const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
-                                    //console.log(emonth);
-                                    const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
-                                    console.log(ed);
+                                        //日期轉數字
+                                        const sy = parseInt(this.application.startDate.substring(0, 4)) * 525600;
+                                        console.log(sy);
+                                        const ey = parseInt(this.application.endDate.substring(0, 4)) * 525600;
+                                        console.log(ey);
+                                        const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
+                                        //console.log(smonth);
+                                        const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
+                                        console.log(sd);
+                                        const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
+                                        //console.log(emonth);
+                                        const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
+                                        console.log(ed);
 
-                                    //時間轉數字
-                                    const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
-                                    const sm = parseInt(this.application.startTime.substring(3, 5));
-                                    const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
-                                    const em = parseInt(this.application.endTime.substring(3, 5));
+                                        //時間轉數字
+                                        const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
+                                        const sm = parseInt(this.application.startTime.substring(3, 5));
+                                        const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
+                                        const em = parseInt(this.application.endTime.substring(3, 5));
 
-                                    const stotal = (sy + smonth + sd + sh + sm);
-                                    //console.log(stotal)
-                                    const etotal = (ey + emonth + ed + eh + em);
-                                    //console.log(etotal)
+                                        const stotal = (sy + smonth + sd + sh + sm);
+                                        //console.log(stotal)
+                                        const etotal = (ey + emonth + ed + eh + em);
+                                        //console.log(etotal)
+                                        const sdtotal = (sy + smonth + sd) / 60;
+                                        const edtotal = (ey + emonth + ed) / 60
+                                        console.log(sdtotal);
+                                        console.log(edtotal);
+                                        const dtotal = (edtotal - sdtotal) / 3;
+                                        console.log(dtotal + "我是時間")
+                                        //判斷請假日期時間是否開始大於結束
+                                        if (stotal < etotal) {
 
-                                    //判斷請假日期時間是否開始大於結束
-                                    if (stotal < etotal) {
-                                        //判斷請假是否跨休息時間
-                                        if (sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
-                                            //leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
-                                            //console.log(leavetotal);
-                                            this.application.totalTime = leavetotal
-                                            console.log(this.application.totalTime)
-                                            //console.log('s')
-                                        }
-                                        else if (sh == 720 || (eh == 780 && em == 0)) {
-                                            alert('請假開始時間或結束時間不可選在休息時段!')
+                                            if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
+                                                var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
+                                                //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                this.application.totalTime = leavetotal + dtotal;
+                                                console.log(this.application.totalTime);
+                                                this.application.statusId = 6;
+                                                //console.log(this.application.totalTime);
+                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                window.location = "/html/LV_LeaveApplication.html"
+                                            }
+                                            else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780)) {
+                                                var leavetotal = (((eh + em) - (sh + sm)) / 60);
+                                                //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                this.application.totalTime = leavetotal + dtotal;
+                                                this.application.statusId = 6;
+                                                console.log(this.application.totalTime + "我是開始大於結束0");
+                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                window.location = "/html/LV_LeaveApplication.html"
+
+                                            }
+                                            else if (dtotal > 0 && sh > eh && eh <= 720) {
+                                                var leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
+                                                //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                this.application.totalTime = leavetotal + dtotal;
+                                                this.application.statusId = 6;
+                                                console.log(this.application.totalTime + "我是開始大於結束1");
+                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                window.location = "/html/LV_LeaveApplication.html"
+                                            }
+
+                                            //判斷請假是否跨休息時間
+                                            else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
+                                                var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
+                                                //console.log(leavetotal);
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                this.application.totalTime = leavetotal + dtotal;
+                                                this.application.statusId = 6;
+                                                console.log(this.application.totalTime);
+                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                window.location = "/html/LV_LeaveApplication.html"
+                                            }
+                                            else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
+                                                alert('請假開始時間或結束時間不可選在休息時段!')
+                                            }
+
+                                            else {
+                                                var leavetotal = (((eh + em) - (sh + sm)) / 60);
+                                                this.application.totalTime = leavetotal + dtotal;
+                                                //日期格式
+                                                let today = new Date()
+                                                let y = today.getFullYear()
+                                                let mm = today.getMonth() + 1
+                                                let dd = today.getDate()
+                                                if (mm < 10) {
+                                                    mm = "0" + mm.toString()
+                                                }
+                                                if (dd < 10) {
+                                                    dd = "0" + dd.toString()
+                                                }
+                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                this.application.statusId = 6;
+                                                console.log(this.application.totalTime);
+                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                window.location = "/html/LV_LeaveApplication.html"
+                                            }
                                         }
                                         else {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            console.log(leavetotal);
-
+                                            alert('開始時間不可大於或等於結束時間')
                                         }
                                     }
-                                    else {
-                                        alert('開始時間不可大於或等於結束時間')
-                                    }
+                                    else { alert('日期時間不可為空!') };
+                                    //console.log(leavetotal);
                                 }
-                                else { alert('日期時間不可為空!') };
-                    //console.log(leavetotal);
-                                this.application.statusId = 6;
-                                axios.post('/api/PersonnelLeaveForms', this.application)
-                                    .then(alert('申請已送出')).catch(err => console.log(err))
-                                window.location = "/html/LV_LeaveApplication.html"
+
+                                else { alert('請假項目請確實填寫') };
                             }
                         }
 

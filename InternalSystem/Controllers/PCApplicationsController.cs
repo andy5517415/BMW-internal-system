@@ -66,8 +66,11 @@ namespace InternalSystem.Controllers
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           AcceptanceStatus = AP.AcceptanceStatus
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
                        };
 
             return await list.ToListAsync();
@@ -94,8 +97,11 @@ namespace InternalSystem.Controllers
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           AcceptanceStatus = AP.AcceptanceStatus
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus
                        };
 
             return await list.FirstOrDefaultAsync();
@@ -127,17 +133,53 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       where AP.DeliveryStatus == true
+                       where AP.DeliveryStatus == true && AP.AcceptanceStatus == false && AP.AcceptanceRejectStatus == false
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           OrderId = AP.OrderId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Total = AP.Total,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                           Date = AP.Date.ToString(),
+                           Comment = AP.Comment
+                       };
+
+
+            return await List.ToListAsync();
+        }
+
+        // 驗收確認專用
+        // 用於PC_AcceptanceOrderCheck
+        // GET: api/PCApplications/acceptanceordercheck
+        [HttpGet("acceptanceordercheck/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcAcceptanceOrderCheck(int id)
+        {
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join PIS in this._context.PcGoodLists on OD.ProductId equals PIS.ProductId
+                       where AP.DeliveryStatus == true && AP.PurchaseId == id
+
+
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
                            EmployeeName = PD.EmployeeName,
                            Department = PDL.DepName,
                            Total = AP.Total,
-                           AcceptanceStatus = AP.AcceptanceStatus,
+                           ApplicationStatus = AP.ApplicationStatus,
                            DeliveryStatus = AP.DeliveryStatus,
-                           Date = AP.Date,
-                           Comment = AP.Comment
+                           OrderId = AP.OrderId,
+                           ProductId = OD.ProductId,
+                           Goods = OD.Goods,
+                           Quantiy = OD.Quantiy,
+                           Unit = OD.Unit,
+                           UnitPrice = OD.UnitPrice,
+                           Subtotal = OD.Subtotal
                        };
 
 
@@ -154,7 +196,7 @@ namespace InternalSystem.Controllers
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
                        orderby AP.Date descending
-                       where AP.ApplicationStatus == false
+                       where AP.ApplicationStatus == false && AP.ApplicationRejectStatus == false
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
@@ -163,6 +205,7 @@ namespace InternalSystem.Controllers
                            Department = PDL.DepName,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            Date = AP.Date.ToString(),
                            Comment = AP.Comment
                        };
@@ -225,8 +268,11 @@ namespace InternalSystem.Controllers
                            Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
-                           AcceptanceStatus = AP.AcceptanceStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
                            DeliveryStatus = AP.DeliveryStatus,
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
                        };
 
 

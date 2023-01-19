@@ -9,7 +9,9 @@ namespace InternalSystem.Models
     {
         public int LeaveId { get; set; }
         public int EmployeeId { get; set; }
+
         public string ApplicationDate { get; set; }
+
         public int StatusId { get; set; }
         public int LeaveType { get; set; }
         public DateTime StartDate { get; set; }
@@ -18,7 +20,7 @@ namespace InternalSystem.Models
         public string EndTime { get; set; }
         public int? Proxy { get; set; }
         public int? AuditManerger { get; set; }
-        public string TotalTime { get; set; }
+        public double? TotalTime { get; set; }
         public string Reason { get; set; }
         public bool? ProxyAudit { get; set; }
         public DateTime? ProxyAuditDate { get; set; }

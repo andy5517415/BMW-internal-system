@@ -526,7 +526,7 @@
                                                           data-bs-target="#newtodo"
                                                           aria-controls="newtodo"
                                                           aria-selected="true">
-                                                      新訂單
+                                                      生產中
                                                   </button>
 
                                               </li>
@@ -538,74 +538,75 @@
                                                           data-bs-target="#zz"
                                                           aria-controls="zz"
                                                           aria-selected="false">
-                                                      生產中
+                                                      新訂單
                                                   </button>
                                               </li>
 
                                           </ul>
-                                          <div class="tab-pane fade show active" id="newtodo" role="tabpanel">
-                                              <div class="card mb-4 m-4 ">
-                                                  <div class="card text-center ">
-                                                      <div class="row card-body">
-                                                          <div class=" row">
-                                                              <label for="" class=" col-3 fs-4 ">訂單編號</label>
-                                                              <label for="" class=" col-3 fs-4 ">型號</label>
-                                                              <label for="" class=" col-2 fs-4 ">製程</label>
-                                                              <label for="" class=" col-2 fs-4 ">狀態</label>
+                                          <div class="tab-content">
+                                              <div class="tab-pane fade show active" id="newtodo" role="tabpanel">
+                                                  <div class="card mb-4 m-4 ">
+                                                      <div class="card text-center ">
+                                                          <div class="row card-body">
+                                                              <div class=" row">
+                                                                  <label for="" class=" col-3 fs-4 ">訂單編號</label>
+                                                                  <label for="" class=" col-3 fs-4 ">型號</label>
+                                                                  <label for="" class=" col-2 fs-4 ">製程</label>
+                                                                  <label for="" class=" col-2 fs-4 ">狀態</label>
+                                                              </div>
                                                           </div>
                                                       </div>
                                                   </div>
-                                              </div>
 
-                                              <div class="card mb-4 m-4 " id="newtodo" v-for="(order,key) in OrderList">
-                                                  <div class="card text-center ">
-                                                      <div class="row card-body">
-                                                          <div class=" row">
-                                                              <label for="" class=" col-3 fs-4 ">{{order.orderNumber}}</label>
-                                                              <label for="" class=" col-3 fs-4 ">{{order.optionalName}}</label>
-                                                              <label for="" class=" col-2 fs-4 "></label>
-                                                              <label for="" class=" col-2 fs-4 ">{{order.isAccepted}}</label>
-                                                              <div class="col-2   d-md-flex justify-content-md-end">
-                                                                  <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                                  <div class="card mb-4 m-4 " id="newtodo" v-for="(order,key) in OrderList">
+                                                      <div class="card text-center ">
+                                                          <div class="row card-body">
+                                                              <div class=" row">
+                                                                  <label for="" class=" col-3 fs-4 ">{{order.orderNumber}}</label>
+                                                                  <label for="" class=" col-3 fs-4 ">{{order.optionalName}}</label>
+                                                                  <label for="" class=" col-2 fs-4 ">{{order.processName}}</label>
+                                                                  <label for="" class=" col-2 fs-4 ">{{order.isAccepted}}</label>
+                                                                  <div class="col-2   d-md-flex justify-content-md-end">
+                                                                      <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
+                                                                  </div>
                                                               </div>
                                                           </div>
                                                       </div>
                                                   </div>
                                               </div>
-                                          </div>                                      
-                                          <div class="tab-pane fade show active" id="zz" role="tabpanel">
-                                              <div class="card mb-4 m-4 ">
-                                                  <div class="card text-center ">
-                                                      <div class="row card-body">
-                                                          <div class=" row">
-                                                              <label for="" class=" col-3 fs-4 ">訂單編號</label>
-                                                              <label for="" class=" col-3 fs-4 ">型號</label>
-                                                              <label for="" class=" col-2 fs-4 ">製程</label>
-                                                              <label for="" class=" col-2 fs-4 ">狀態</label>
+                                              <div class="tab-pane fade " id="zz" role="tabpanel">
+                                                  <div class="card mb-4 m-4 ">
+                                                      <div class="card text-center ">
+                                                          <div class="row card-body">
+                                                              <div class=" row">
+                                                                  <label for="" class=" col-3 fs-4 ">訂單編號</label>
+                                                                  <label for="" class=" col-3 fs-4 ">型號</label>
+                                                                  <label for="" class=" col-2 fs-4 ">製程</label>
+                                                                  <label for="" class=" col-2 fs-4 ">狀態</label>
+                                                              </div>
                                                           </div>
                                                       </div>
                                                   </div>
-                                              </div>
 
-                                              <div class="card mb-4 m-4 " id="zz" v-for="(Process,key) in ProcessList">
-                                                  <div class="card text-center ">
-                                                      <div class="row card-body">
-                                                          <div class=" row">
-                                                              <label for="" class=" col-3 fs-4 ">{{Process.orderNumber}}</label>
-                                                              <label for="" class=" col-3 fs-4 ">{{Process.optionalName}}</label>
-                                                              <label for="" class=" col-2 fs-4 ">{{Process.processName}}</label>
-                                                              <label for="" class=" col-2 fs-4 ">{{Process.isAccepted}}</label>
-                                                              <div class="col-2   d-md-flex justify-content-md-end">
-                                                                  <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(Process)" class="btn btn-outline-primary 2">安排</a>
+                                                  <div class="card mb-4 m-4 " id="zz" v-for="(Process,key) in ProcessList">
+                                                      <div class="card text-center ">
+                                                          <div class="row card-body">
+                                                              <div class=" row">
+                                                                  <label for="" class=" col-3 fs-4 ">{{Process.orderNumber}}</label>
+                                                                  <label for="" class=" col-3 fs-4 ">{{Process.optionalName}}</label>
+                                                                  <label for="" class=" col-2 fs-4 "></label>
+                                                                  <label for="" class=" col-2 fs-4 ">{{Process.isAccepted}}</label>
+                                                                  <div class="col-2   d-md-flex justify-content-md-end">
+                                                                      <a href="./PD_OrderCheck.html" type="button" v-on:click="Enter(Process)" class="btn btn-outline-primary 2">安排</a>
+                                                                  </div>
                                                               </div>
                                                           </div>
                                                       </div>
                                                   </div>
                                               </div>
                                           </div>
-
                                       </div>
-                                  </div>
+                                 </div>
                                   <!-- Content wrapper -->
 
                               </div>
@@ -623,7 +624,7 @@
                           <!-- Footer -->
                           <!-- / Footer -->
 
-                          <div class="content-backdrop fade"></div>
+                          
                       </div>
 
                           <!-- Content wrapper -->
@@ -674,19 +675,25 @@
                       axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor')
                           .then(response => {
                               this.ProcessList = response.data;
-
+                              
                               for (var i = 0; i < this.ProcessList.length; i++) {
                                   if (this.ProcessList[i].optionalId == 1) {
                                       this.ProcessList[i].optionalName = this.ProcessList[i].optionalName.slice(3);
-                                      this.ProcessList[i].isAccepted = "待處理"
+                                      this.ProcessList[i].isAccepted = "待處理";
+                                      this.ProcessList[i].processId = 1;
+                                      this.ProcessList[i].processName = "A製程";
                                   }
                                   if (this.ProcessList[i].optionalId == 2) {
                                       this.ProcessList[i].optionalName = this.ProcessList[i].optionalName.slice(4);
-                                      this.ProcessList[i].isAccepted = "待處理"
+                                      this.ProcessList[i].isAccepted = "待處理";
+                                      this.ProcessList[i].processId = 1;
+                                      this.ProcessList[i].processName = "A製程";
                                   }
                                   if (this.ProcessList[i].optionalId == 3) {
                                       this.ProcessList[i].optionalName = this.ProcessList[i].optionalName.slice(4, 15);
-                                      this.ProcessList[i].isAccepted = "待處理"
+                                      this.ProcessList[i].isAccepted = "待處理";
+                                      this.ProcessList[i].processId = 1;
+                                      this.ProcessList[i].processName = "A製程";
                                   }
                               }
                           })

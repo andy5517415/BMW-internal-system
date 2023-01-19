@@ -250,8 +250,8 @@ namespace InternalSystem.Controllers
 
             return await List.ToListAsync();
         }
-        //訂單內容
-        // GET: api/ProductionProcessLists/BusinessOrderProcessor
+        //新訂單-訂單內容
+        // GET: api/ProductionProcessLists/BusinessOrderProcessor/5
         [HttpGet("BusinessOrderProcessor/{id}")]
         public async Task<ActionResult<dynamic>> GetBusinessOrder(int id)
         {
@@ -279,9 +279,38 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
+        //製程回來-訂單內容
+        // GET: api/ProductionProcessLists/BusinessOrderProcessorBack/5
+        [HttpGet("BusinessOrderProcessorBack/{id}")]
+        public async Task<ActionResult<dynamic>> GetProcessBusinessOrder(int id)
+        {
+            var List = from BO in this._context.BusinessOrders
+                       join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                       join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                       join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                       join BA in this._context.BusinessAreas on BO.AreaId equals BA.AreaId
+                       where BO.OrderId == id
+
+                       select new
+                       {
+                           OrderId = BO.OrderId,
+                           OrderNumber = BO.OrderNumber,
+                           OptionalId = BOT.OptionalId,
+                           OptionalName = BOT.OptionalName,
+                           Price = BOT.Price
+                       };
+            if (List == null)
+            {
+                return "沒有資料";
+            }
+
+
+            return await List.ToListAsync();
+        }
+
 
         //GET: api/ProductionProcessLists
-       [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductionProcessList>>> GetProductionProcessLists()
         {
             return await _context.ProductionProcessLists.ToListAsync();

@@ -27,6 +27,34 @@ namespace InternalSystem.Controllers
             return await _context.PersonnelLeaveOvers.ToListAsync();
         }
 
+        //主管審核得到該員工假別 同意時用此作PUT用
+        // GET: api/PersonnelLeaveOvers/1/5
+        [HttpGet("{lid}/{id}")]
+        public async Task<ActionResult<dynamic>> GetAgree(int lid ,int id)
+        {
+            var personnelLeaveOver = from pl in _context.PersonnelLeaveOvers
+                                     join p in _context.PersonnelProfileDetails on pl.EmployeeId equals p.EmployeeId
+                                     join l in _context.PersonnelLeaveTypes on pl.LeaveType equals l.LeaveTypeId
+                                     where p.EmployeeId == id && pl.LeaveType == lid
+                                     select new
+                                     {
+                                         p.EmployeeId,
+                                         pl.LeaveType,
+                                         pl.Quantity,
+                                         pl.LeaveOver,
+                                         pl.Used
+                                     };
+
+
+            if (personnelLeaveOver == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveOver.FirstOrDefaultAsync();
+        }
+
+
         //找尋該員工假別1
         // GET: api/PersonnelLeaveOvers/leave1/5
         [HttpGet("leave1/{id}")]
