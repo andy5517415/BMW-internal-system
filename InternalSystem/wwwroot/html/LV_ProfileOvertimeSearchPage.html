@@ -550,7 +550,15 @@
                             </div>
                             <div class="mb-3 col-md-3">
                                 <label for="Endtimeforvacation" class="form-label fs-4">總加班時數</label>
-                                <input class="form-control" value="" id="Totalvacation" disabled />
+                                <input class="form-control" v-model="detail.totalTime" id="Totalvacation" disabled />
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="Endtimeforvacation" class="form-label fs-4">加班廠區</label>
+                                <input class="form-control" v-model="detail.areaName" id="Totalvacation" disabled />
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="Endtimeforvacation" class="form-label fs-4">加班製程</label>
+                                <input class="form-control" v-model="detail.processName" id="Totalvacation" disabled />
                             </div>
                         </div>
                     </form>

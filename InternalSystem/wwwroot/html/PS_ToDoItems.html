@@ -519,13 +519,13 @@
                                         <li class="nav-item " v-if="employeelist.positionId<7">
                                             <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt!=0">{{cnt}}</span>
                                             <button type="button"
-                                                    class="nav-link bg-label-primary"
+                                                    class="nav-link bg-label-primary "
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
                                                     aria-controls="home"
                                                     aria-selected="true">
-                                                請假
+                                                個人代辦事項
                                             </button>
                                         </li>
                                         <!--<li class="nav-item" v-if="employeelist.positionId<7">
@@ -536,12 +536,12 @@
                                                     data-bs-target="#navs-top-profile"
                                                     aria-controls="navs-top-profile"
                                                     aria-selected="false">
-                                                加班
+                                                採購事項
                                             </button>
                                         </li>-->
-                                        <li class="nav-item" v-if="employeelist.positionId==7">
+                                        <li class="nav-item " v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="nav-link bg-label-primary"
+                                                    class="nav-link bg-label-primary "
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditleave"
@@ -583,7 +583,7 @@
 
                                     <div class="tab-content">
                                         <!-- 請假 -->
-                                        <div class="tab-pane fade show " id="home" role="tabpanel">
+                                        <div class="tab-pane fade show active" id="home" role="tabpanel" v-if="employeelist.positionId < 7">
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table">
                                                     <thead>
@@ -591,17 +591,15 @@
                                                             <th>待辦項目</th>
                                                             <th>員工名稱</th>
                                                             <th>員工編號</th>
-                                                            <th>請假起始時間</th>
-                                                            <th>請假結束時間</th>
+                                                            <th>員工部門</th>
                                                             <th>狀態</th>
-                                                            <th>修改</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="table-border-bottom-0" v-for="leaveExit in leavereturn">
+                                                    <tbody class="table-border-bottom-0" v-for="(leaveExit,key) in leavereturn">
                                                         <tr>
                                                             <td>
                                                                 <button type="button" class="btn btn-secondary" disabled>請假</button>
-                                                              
+
                                                             </td>
                                                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{leaveExit.employeeName}}</strong></td>
                                                             <td>{{leaveExit.employeeNumber}}</td>
@@ -626,7 +624,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    <tbody class="table-border-bottom-0" v-for="leave in leaveproxy">
+                                                    <tbody class="table-border-bottom-0" v-for="(leave,key) in leaveproxy">
                                                         <tr>
                                                             <td>
                                                                 <button type="button" class="btn btn-secondary" disabled>代理人申請</button>
@@ -657,7 +655,37 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                    <tbody class="table-border-bottom-0" v-for="(buy,key) in buyapp">
+                                                        <tr>
+                                                            <td>
+                                                                <button type="button" class="btn btn-secondary" disabled>採購</button>
+                                                            </td>
+                                                            <td>
+                                                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                                                <strong>{{buy.employeeName}}</strong>
+                                                            </td>
+                                                            <td>{{buy.employeeNumber}} </td>
+                                                            <td>
+                                                                <span class="label-primary me-1">{{buy.department}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1" v-if="buy.applicationRejectStatus ==  false">退件</span>
+                                                            </td>
+                                                            <td>
+                                                            
 
+                                                            </td>
+                                                            <td>
+
+                                                                <div class="dropdown">
+
+                                                                    <div class="">
+                                                                        <a class="dropdown-item" type="button" @click="buycheckbtn(buy)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
 
                                                 </table>
                                             </div>
@@ -715,7 +743,7 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>待修正項目</th>
+                                                        <th>待辦項目</th>
                                                         <th>員工編號</th>
                                                         <th>請假起始時間</th>
                                                         <th>請假結束時間</th>
@@ -723,7 +751,7 @@
                                                         <th>修改</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="table-border-bottom-0"  v-for="leave in leaveproxy">
+                                                <tbody class="table-border-bottom-0"  v-for="(leave,key) in leaveproxy">
                                                     <tr>
                                                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
                                                             <strong>{{leave.employeeName}}</strong></td>
@@ -808,7 +836,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>待修正項目</th>
+                                                    <th>待辦項目</th>
                                                     <th>員工編號</th>
                                                     <th>加班起始時間</th>
                                                     <th>加班結束時間</th>
@@ -816,7 +844,7 @@
                                                     <th>修改</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="table-border-bottom-0" v-for="work in wkover">
+                                            <tbody class="table-border-bottom-0" v-for="(work,key) in wkover">
                                                 <tr>
                                                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
                                                         <strong>{{work.employeeName}}</strong></td>
@@ -917,32 +945,36 @@
           const app = {
             data() {
               return {
-                employeelist: {},
-                employeedata: {},
-                dep: {},
-                leaveproxy: {},
-                wkover: {},
-                leavereturn: {},
+                  employeelist: {},
+                  employeedata: {},
+                  dep: {},
+                  leaveproxy: {},
+                  buyapp: {},
+                  wkover: {},
+                  leavereturn: {},
                   NotyetOver: {},
                   cnt: {},
                   mnt: {},
-                  wmt:{}
+                  wmt: {}
               }
             },
             methods: {
-              checkbtn: function (e) {
-                sessionStorage.setItem("proxy", JSON.stringify(e))
-              },
-              overbtn: function (e) {
-                sessionStorage.setItem("work", JSON.stringify(e))
+                checkbtn: function (e) {
+                    sessionStorage.setItem("proxy", JSON.stringify(e))
+                },
+                overbtn: function (e) {
+                    sessionStorage.setItem("work", JSON.stringify(e))
 
-              },
-              exitbtn: function (e) {
-                sessionStorage.setItem("leavereturn", JSON.stringify(e))
-              },
-              checkOver: function (e) {
-                sessionStorage.setItem("lookOver", JSON.stringify(e))
-              }
+                },
+                exitbtn: function (e) {
+                    sessionStorage.setItem("leavereturn", JSON.stringify(e))
+                },
+                checkOver: function (e) {
+                    sessionStorage.setItem("lookOver", JSON.stringify(e))
+                },
+                buycheckbtn: function (e) {
+                    sessionStorage.setItem("see", JSON.stringify(e))
+                }
             },
             mounted() {
                 this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
@@ -958,7 +990,14 @@
                       + this.employeelist.departmentId + '/' + this.employeelist.positionId
                       + '/' + this.employeelist.employeeId)
                       .then(response => this.leaveproxy = response.data)
-                  }
+                    }
+
+                  //一般員工GET被退件之採購申請
+                    if (this.employeelist.positionId < 7) {
+                        axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
+                            .then(response => this.buyapp = response.data)
+                    }
+
                   //主管GET代理人同意之請假 以及同部門員工申請加班資料
                   if (this.employeelist.positionId == 7) {
                     axios.get('/api/PersonnelLeaveForms/manager/'

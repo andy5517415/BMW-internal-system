@@ -300,7 +300,7 @@
     <li class="menu-header small text-uppercase " >
       <span class="menu-header-text">採購系統</span>
     </li>
-    <li class="menu-item active open">
+    <li class="menu-item open">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
         <div data-i18n="Account Settings">採購系統</div>
@@ -311,7 +311,7 @@
                   <div data-i18n="Account">採購待辦事項</div>
               </a>
           </li>
-          <li class="menu-item">
+          <li class="menu-item active">
               <a href="PC_Acceptance.html" class="menu-link">
                   <div data-i18n="Account">採購驗收區</div>
               </a>
@@ -324,11 +324,6 @@
           <li class="menu-item">
               <a href="PC_ApplicationRecordSearch.html" class="menu-link">
                   <div data-i18n="Account">採購紀錄查詢</div>
-              </a>
-          </li>
-          <li class="menu-item">
-              <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                  <div data-i18n="Account">採購紀錄細項</div>
               </a>
           </li>
           <li class="menu-item">
@@ -636,7 +631,7 @@
                               <div>   
                           </div>
                               <div class="row">
-                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">駁回</button>
+                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>
                                     <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
                               </div>
               </div>
@@ -692,29 +687,30 @@
           return {
             list: {},
             myobject: {},
-            todoitem: {},
-            aok: {}
-
+            todoitem: {}
           }
         },
           methods: {
-              // 按下確認按鈕，送出審核成功
+              // 按下確認按鈕，送出驗收成功
               Confirm: function () {
-                  this.todoitem.applicationStatus = true;
-                  this.todoitem.deliveryStatus = true;
+                  this.todoitem.acceptanceStatus = true;
                   /*this.todoitem.total = 500;*/
                   //console.log(this.todoitem.orderId);
-                  if (confirm("確定要送出申請嗎?") == true) {
+                  if (confirm("確定要核准驗收嗎?") == true) {
                   axios.put('/api/PCApplications/' + this.todoitem.orderId,this.todoitem)
                           .then(a => console.log(a));
-                      window.location = "PC_ToDoItems.html";
+                      window.location = "PC_Acceptance.html";
                   }
 
               },
 
               Cancel: function () {
-                  if (cancel("確定要駁回申請嗎?") == true) {
-                      console.log("ok");
+                  this.todoitem.acceptanceRejectStatus = true;
+                  if (confirm("確定要退貨嗎?") == true) {
+                      //console.log("ok");
+                      axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
+                          .then(a => console.log(a));
+                      window.location = "PC_Acceptance.html";
                   }
               }
                 
@@ -738,7 +734,7 @@
             //得到整張申請單狀態
             axios.get('https://localhost:44319/api/PCApplications/OrderCheck/' + this.myobject.orderId)
                 .then(response => this.todoitem = response.data);
-            console.log(this.todoitem);
+            /*console.log(this.todoitem);*/
         }
       }
 

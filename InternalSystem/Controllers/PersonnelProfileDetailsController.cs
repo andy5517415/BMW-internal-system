@@ -120,8 +120,8 @@ namespace InternalSystem.Controllers
                                           EntryDate = o.EntryDate.ToString(),
                                           Acount = o.Acount,
                                           Password = o.Password,
-                                          Terminationdate = o.Terminationdate.ToString()
-
+                                          Terminationdate = o.Terminationdate.ToString(),
+                                          o.Photo
                                       };
 
             if (SearchProfileDetail == null)

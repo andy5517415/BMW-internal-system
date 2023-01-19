@@ -17,7 +17,11 @@ namespace InternalSystem.Models
         public string EndTime { get; set; }
         public double? TotalTime { get; set; }
         public bool AuditStatus { get; set; }
+<<<<<<< HEAD
         public string ApplicationDate { get; set; }
+=======
+        public string AppcationDate { get; set; }
+>>>>>>> 45559d3695aec3a02de0ba84ed5e6f092e1cabfb
 
         public virtual PersonnelProfileDetail Employee { get; set; }
     }

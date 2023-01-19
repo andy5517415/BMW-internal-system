@@ -52,7 +52,11 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+<<<<<<< HEAD
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+=======
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
+>>>>>>> 45559d3695aec3a02de0ba84ed5e6f092e1cabfb
             }
         }
 
@@ -427,7 +431,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelLeaveForm");
 
+<<<<<<< HEAD
                 entity.Property(e => e.ApplicationDate)
+=======
+                entity.Property(e => e.AppcationDate)
+>>>>>>> 45559d3695aec3a02de0ba84ed5e6f092e1cabfb
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -521,7 +529,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelOvertimeForm");
 
+<<<<<<< HEAD
                 entity.Property(e => e.ApplicationDate)
+=======
+                entity.Property(e => e.AppcationDate)
+>>>>>>> 45559d3695aec3a02de0ba84ed5e6f092e1cabfb
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);

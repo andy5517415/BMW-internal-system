@@ -46,6 +46,7 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          Type = lt.Type,
@@ -54,10 +55,13 @@ namespace InternalSystem.Controllers
                                          pl.AuditOpnion,
                                          pl.ProxyAudit,
                                          pl.ManagerAudit,
+                                         ProxyAuditDate = pl.ProxyAuditDate.ToString(),
+                                         ManagerAuditDate =  pl.ManagerAuditDate.ToString(),
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          o.PositionId,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -88,13 +92,15 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -127,13 +133,17 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
+
+
                                      };
 
             if (personnelLeaveForm == null)
@@ -156,6 +166,7 @@ namespace InternalSystem.Controllers
                                      join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      where o.DepartmentId == depId && o.PositionId == position && pl.Proxy == Id 
                                      && pl.StatusId == 1
+                                     orderby pl.LeaveId descending
                                      select new
                                      {
                                          EmployeeName = o.EmployeeName,
@@ -166,6 +177,8 @@ namespace InternalSystem.Controllers
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
+                                         ProxyAuditDate = pl.ProxyAuditDate.ToString(),
+                                         ManagerAuditDate = pl.ManagerAuditDate.ToString(),
                                          LeaveId = pl.LeaveId,
                                          Type = lt.Type,
                                          LeaveType = pl.LeaveType,
@@ -176,7 +189,8 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -199,6 +213,7 @@ namespace InternalSystem.Controllers
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
                                      join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      where o.DepartmentId == depId  && pl.StatusId == 2
+                                     orderby pl.LeaveId descending
                                      select new
                                      {
                                          EmployeeName = o.EmployeeName,
@@ -208,6 +223,8 @@ namespace InternalSystem.Controllers
                                          StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
                                          StartTime = pl.StartTime,
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         ProxyAuditDate = pl.ProxyAuditDate.ToString(),
+                                         ManagerAuditDate = pl.ManagerAuditDate.ToString(),
                                          EndTime = pl.EndTime,
                                          pl.TotalTime,
                                          LeaveId = pl.LeaveId,
@@ -219,7 +236,9 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
+
                                      };
 
             if (personnelLeaveForm == null)
@@ -257,11 +276,15 @@ namespace InternalSystem.Controllers
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          pl.ProxyAudit,
+                                         ProxyAuditDate =  pl.ProxyAuditDate.ToString(),
                                          pl.ManagerAudit,
+                                         ManagerAuditDate= pl.ManagerAuditDate.ToString(),
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason
+                                         Reason = pl.Reason,
+                                         pl.AppcationDate
+
                                      };
 
             if (personnelLeaveForm == null)
@@ -272,6 +295,41 @@ namespace InternalSystem.Controllers
             return await personnelLeaveForm.ToListAsync();
         }
 
+
+        //GET被退件之採購申請單
+        // GET: api/PersonnelLeaveForms/pcappcication/5
+        [HttpGet("pcappcication/{id}")]
+        public async Task<ActionResult<dynamic>> GetPcApplication(int id)
+        {
+            var personnelLeaveForm = from ap in _context.PcApplications
+                                     join pd in _context.PersonnelProfileDetails on ap.EmployeeId equals pd.EmployeeId
+                                     where ap.EmployeeId == id && ap.ApplicationRejectStatus ==false
+
+                                     select new
+                                     {
+
+                                         ap.OrderId,
+                                         ap.PurchaseId,
+                                         ap.EmployeeId,
+                                         pd.EmployeeName,
+                                         pd.EmployeeNumber,
+                                         ap.Department,
+                                         ap.Date,
+                                         ap.Comment,
+                                         ap.Total,
+                                         ap.AcceptanceStatus,
+                                         ap.DeliveryStatus,
+                                         ap.ApplicationStatus,
+                                         ap.ApplicationRejectStatus
+                                     };
+
+            if (personnelLeaveForm == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveForm.ToListAsync();
+        }
 
         // GET: api/PersonnelLeaveForms/5
         [HttpGet("{id}")]

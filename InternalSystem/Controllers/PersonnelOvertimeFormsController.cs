@@ -37,6 +37,8 @@ namespace InternalSystem.Controllers
             var personnelOvertimeForm = from o in _context.PersonnelOvertimeForms
                                         where o.EmployeeId == id && o.StartDate.Month == m && o.StartDate.Year == y
                                         join p in _context.PersonnelProfileDetails on o.EmployeeId equals p.EmployeeId
+                                        join pda in _context.ProductionAreas on o.AreaId equals pda.AreaId
+                                        join pdp in _context.ProductionProcesses on o.PropessId equals pdp.ProcessId
                                         select new
                                         {
                                             EmployeeId = o.EmployeeId,
@@ -47,7 +49,9 @@ namespace InternalSystem.Controllers
                                             EndDate = o.EndDate.ToString("yyyy-MM-dd"),
                                             EndTime = o.EndTime,
                                             TotalTime =o.TotalTime,
-                                            AuditStatus =o.AuditStatus
+                                            AuditStatus =o.AuditStatus,
+                                            pda.AreaName,
+                                            pdp.ProcessName
 
                                         };
 
@@ -69,6 +73,8 @@ namespace InternalSystem.Controllers
             var personnelOvertimeForm = from ov in _context.PersonnelOvertimeForms
                                         join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
                                         join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                                        join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
+                                        join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
                                         where p.EmployeeName == name && ov.StartDate.Year == y && ov.StartDate.Month == m
                                         select new
                                         {
@@ -82,7 +88,12 @@ namespace InternalSystem.Controllers
                                             ov.StartTime,
                                             EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
                                             ov.EndTime,
-                                            ov.AuditStatus
+                                            ov.AuditStatus,
+                                            ov.AreaId,
+                                            ov.PropessId,
+                                            pda.AreaName,
+                                            pdp.ProcessName,
+                                            AppcationDate = ov.AppcationDate.ToString()
                                         };
             if (personnelOvertimeForm == null)
             {
@@ -103,6 +114,8 @@ namespace InternalSystem.Controllers
             var overlist = from ov in _context.PersonnelOvertimeForms
                        join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
                        join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                       join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
+                       join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
                        where p.DepartmentId == dep && ov.StartDate.Year == y && ov.StartDate.Month == m
                        select new
                        {
@@ -115,7 +128,14 @@ namespace InternalSystem.Controllers
                            ov.StartTime,
                            EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
                            ov.EndTime,
-                           ov.AuditStatus
+                           ov.TotalTime,
+                           ov.AuditStatus,
+                           ov.AreaId,
+                           ov.PropessId,
+                           pda.AreaName,
+                           pdp.ProcessName,
+                           AppcationDate = ov.AppcationDate.ToString()
+
                        };
             if (overlist == null)
             {
@@ -133,6 +153,8 @@ namespace InternalSystem.Controllers
             var personnelOvertimeForm = from ov in _context.PersonnelOvertimeForms
                                         join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
                                         join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                                        join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
+                                        join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
                                         where p.EmployeeId==id && ov.AuditStatus==false
                                         select new
                                         {
@@ -146,7 +168,13 @@ namespace InternalSystem.Controllers
                                             ov.StartTime,
                                             EndDate = ov.EndDate.ToString(),
                                             ov.EndTime,
-                                            ov.AuditStatus
+                                            ov.TotalTime,
+                                            ov.AuditStatus,
+                                            ov.AreaId,
+                                            ov.PropessId,
+                                            pda.AreaName,
+                                            pdp.ProcessName,
+                                            AppcationDate = ov.AppcationDate.ToString()
                                         };
             if (personnelOvertimeForm == null)
             {
@@ -165,6 +193,8 @@ namespace InternalSystem.Controllers
             var overlist = from ov in _context.PersonnelOvertimeForms
                            join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
                            join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                           join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
+                           join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
                            where p.DepartmentId == dep && ov.AuditStatus ==false
                            select new
                            {
@@ -177,7 +207,13 @@ namespace InternalSystem.Controllers
                                ov.StartTime,
                                EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
                                ov.EndTime,
-                               ov.AuditStatus
+                               ov.TotalTime,
+                               ov.AuditStatus,
+                               ov.AreaId,
+                               ov.PropessId,
+                               pda.AreaName,
+                               pdp.ProcessName,
+                               AppcationDate = ov.AppcationDate.ToString()
                            };
             if (overlist == null)
             {

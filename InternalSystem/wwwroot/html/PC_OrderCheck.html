@@ -327,11 +327,6 @@
               </a>
           </li>
           <li class="menu-item">
-              <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                  <div data-i18n="Account">採購紀錄細項</div>
-              </a>
-          </li>
-          <li class="menu-item">
               <a href="PC_ItemSearch.html" class="menu-link">
                   <div data-i18n="Account">物品資料查詢</div>
               </a>
@@ -713,8 +708,13 @@
               },
 
               Cancel: function () {
-                  if (cancel("確定要駁回申請嗎?") == true) {
-                      console.log("ok");
+                  this.todoitem.applicationRejectStatus = true;
+                  if (confirm("確定要駁回申請嗎?") == true) {
+                      //console.log("ok");
+                      axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
+                          .then(a => console.log(a));
+                      window.location = "PC_ToDoItems.html";
+                      
                   }
               }
                 
