@@ -65,7 +65,8 @@ namespace InternalSystem.Controllers
 
                         OrderId = ord.OrderId,
                         OrderNumber = ord.OrderNumber,
-                        AreaId = ord.AreaId
+                        AreaId = ord.AreaId,
+                        OrderDateTime = ord.OrderDateTime
                     };
             return await q.SingleOrDefaultAsync();
         }

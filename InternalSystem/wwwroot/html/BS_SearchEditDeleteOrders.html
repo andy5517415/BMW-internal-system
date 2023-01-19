@@ -957,7 +957,9 @@
                     orderdetailold: '',
                     odId: '',
                     areaId: '',
-                    limit: {}
+                    limit: {},
+                    orderdatetime: {}
+
                 }
             },
             computed: {
@@ -988,6 +990,7 @@
                             this.cartypeone = g.data;
                             this.orderid = g.data.orderId;
                             this.areaId = g.data.areaId;
+                            this.orderdatetime = g.data.orderDateTime;
                             axios.get('/api/BusinessOrders/getagent/' + this.areaId).then(g => this.agentone = g.data)
                         })
                         axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/2').then(g => this.carcolorone = g.data)
@@ -1019,7 +1022,8 @@
                         this.orderput = {
                             "OrderId": this.orderid,
                             "OrderNumber": this.ordernum,
-                            "OrderDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                            "OrderDatetime": this.orderdatetime,
+                            "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
                             "AreaId": this.agentone.areaId,
                             "Price": this.cnt,
                             "EmployeeId": Math.floor(Math.random() * 10) + 1,

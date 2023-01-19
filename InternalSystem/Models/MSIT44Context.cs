@@ -52,11 +52,7 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
-
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
-
+                optionsBuilder.UseSqlServer("Server=10.0.104.99;Database=MSIT44;Integrated Security=false;User ID = Hard;Password = 1234;");
             }
         }
 
@@ -126,6 +122,8 @@ namespace InternalSystem.Models
                     .HasName("PK__Business__C3905BCF88F045D7");
 
                 entity.ToTable("BusinessOrder");
+
+                entity.Property(e => e.EditDatetime).HasColumnType("datetime");
 
                 entity.Property(e => e.OrderDateTime).HasColumnType("datetime");
 
@@ -429,6 +427,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelLeaveForm");
 
+                entity.Property(e => e.ApplicationDate)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.AuditOpnion).HasMaxLength(500);
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
@@ -451,6 +454,10 @@ namespace InternalSystem.Models
                 entity.Property(e => e.StartTime)
                     .IsRequired()
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TotalTime)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
@@ -483,6 +490,16 @@ namespace InternalSystem.Models
                     .HasName("PK_員工可請假時數");
 
                 entity.ToTable("PersonnelLeaveOver");
+
+                entity.Property(e => e.LeaveOver)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Used)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PersonnelLeaveOvers)
@@ -518,6 +535,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelOvertimeForm");
 
+                entity.Property(e => e.ApplicationDate)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.EndTime)
@@ -530,6 +552,10 @@ namespace InternalSystem.Models
                 entity.Property(e => e.StartTime)
                     .IsRequired()
                     .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TotalTime)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
