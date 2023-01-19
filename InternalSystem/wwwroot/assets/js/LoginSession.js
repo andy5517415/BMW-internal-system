@@ -45,7 +45,6 @@ const navInf = {
   methods: {
     DoLogOut: function () {
       location.assign("Login_LogOut.html")
-      alert("登出session清掉啦幹");
       sessionStorage.clear();
     }
   }

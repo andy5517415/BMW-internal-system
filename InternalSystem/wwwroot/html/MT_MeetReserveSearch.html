@@ -33,7 +33,8 @@
     <script crossorigin="anonymous"
             integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
             src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
-
+    <!-- toasts  -->
+    <script src="../assets/js/ui-toasts.js"></script>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -508,7 +509,7 @@
 
                         <!-- ★查詢預約紀錄 -->
                         <div class="card m-4">
-                            <h2 class="card-header mx-auto mt-3 fw-bold " style="text-decoration: underline 4pt #666EE8;">查詢預約紀錄</h2><div class="h-50"></div>
+                            <h2 class=" alert alert-primary mx-auto mt-3 fw-bold">查詢預約紀錄</h2><div class="h-50"></div>
                             <div class="card-body mb-3 col-md-12">
                                 <!-- ⁥!!! -->
                                 <!-- 查詢日期區間 -->
@@ -523,9 +524,8 @@
                                     <!-- 選擇部門 -->
                                     <label for="meetDepeart_select" class="col-4 col-md-2 col-form-label fs-4 text-center fw-bold">選擇部門</label>
                                     <div class="col-8 col-md-2">
-                                        <select v-model="MeetSearch.DepId" class="form-select" id="meetDepeart_select" style="height: 45px;">
-                                            <option selected>選擇部門</option>
-                                            <option value="1">人資部</option>
+                                        <select v-model="MeetSearch.DepId" class="form-select" id="meetDepeart_select" style="height: 45px;" placeholder="選擇部門">
+                                            <option value="1">人事部</option>
                                             <option value="2">生產部</option>
                                             <option value="3">業務部</option>
                                             <option value="4">採購部</option>
@@ -632,7 +632,59 @@
         </div>
         <!-- / Layout page -->
     </div>
-
+    <!-- 吐司彈出窗 -->
+    <!-- 錯誤的 -->
+    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastErr">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ❌&nbsp;查詢失敗，請選擇日期與部門!
+        </div>
+    </div>
+    <!-- 無資料 -->
+    <div class="bs-toast toast fade show bg-secondary mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastNull">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ❓&nbsp;無資料，尚未預約!
+        </div>
+    </div>
+    <!-- 查詢成功 -->
+    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastSuc">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ✔&nbsp;查詢成功!
+        </div>
+    </div>
+    <!-- 刪除成功 -->
+    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastDel">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ✔&nbsp;刪除成功!
+        </div>
+    </div>
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
     </div>
@@ -670,13 +722,15 @@
             },
             methods: {
                 DoMeetSearch: function () {
-                    alert("ㄏ哈哈");
                     var self = this;
 
                     if (self.MeetSearch.StartDay1 == undefined || self.MeetSearch.EndDay1 == undefined || self.MeetSearch.DepId == undefined) {
-                        alert("你他媽給我輸入資料")
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                     }
                     else {
+
+
                         var sDay = self.MeetSearch.StartDay1
                         self.MeetSearch.StartDay2 = sDay.substring(0, 4) + sDay.substring(5, 7) + sDay.substring(8, 10)
                         var eDay = self.MeetSearch.EndDay1
@@ -688,6 +742,9 @@
                             .then((response) => {
                                 if (response.data[0] != undefined) {
                                     console.log(response.data);
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
                                     //寫進去
                                     self.MeetInf = response.data
                                     //改個資料形式(日期與時間)
@@ -702,7 +759,8 @@
 
                                 }
                                 else {
-                                    alert("查不到資料啦");
+                                    $("#toastNull").fadeIn("fast");
+                                    setTimeout(() => $("#toastNull").fadeOut(), 2000);
                                 }
 
                             })
@@ -713,7 +771,8 @@
                     axios.delete("https://localhost:44319/api/MeetingReserves/" + bookId
                     )
                         .then(res => {
-                            alert("我有刪除")
+                            $("#toastDel").fadeIn("fast");
+                            setTimeout(() => $("#toastDel").fadeOut(), 2000);
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
                     this.DoMeetSearch();

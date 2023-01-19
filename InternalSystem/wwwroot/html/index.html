@@ -509,21 +509,40 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-
-            <!-- / Content -->
-
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
+          
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
       </div>
+
+<!-- 吐司彈出窗 -->
+    <!-- 正確的 -->
+    <div class="bs-toast toast fade show bg-primary mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastSucess">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            🌞&nbsp;已登入！
+        </div>
+    </div>
+    
+    <!-- 錯誤的 -->
+    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastErr">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ⛔&nbsp;登入失敗！帳號密碼錯誤
+        </div>
+    </div>
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
@@ -548,10 +567,20 @@
 
     <!-- Page JS -->
     <script src="../assets/js/dashboards-analytics.js"></script>
+    <!-- toasts  -->
+    <script src="../assets/js/ui-toasts.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+    
+    <!-- 吐司彈出窗Core -->
+    <script>
+      $(document).ready(function () {
+        $("#toastSucess").fadeIn("fast");
+        setTimeout(() => $("#toastSucess").fadeOut(), 2000);
+      })
+    </script>
+    
     <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
     

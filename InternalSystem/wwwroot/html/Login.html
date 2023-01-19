@@ -122,6 +122,22 @@
       </div>
 
       <!-- / Content -->
+
+    <!-- 吐司彈出窗 -->  
+    <!-- 錯誤的 -->
+    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastErr">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ⛔&nbsp;登入失敗！帳號密碼錯誤
+        </div>
+    </div>
+
       <!-- Core JS -->
       <!-- build:js assets/vendor/js/core.js -->
       <script src="../assets/vendor/libs/jquery/jquery.js"></script>
@@ -138,6 +154,7 @@
       <!-- Page JS -->
       <!-- Place this tag in your head or just before your close body tag. -->
       <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
 
     <!--Vue-->
     <script>
@@ -175,14 +192,14 @@
                             console.log(LoginInf);
 
                             if (LoginInf.State == "使用者已登入") {
-                                alert("登入成功");
-                                //取得使用者資訊
 
+                                //取得使用者資訊
                                 sessionStorage.setItem("LoginInf", JSON.stringify(LoginInf));
                                 location.assign("index.html")
                             }
                             else {
-                                alert("登入失敗，帳號密碼錯誤");
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             }
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
