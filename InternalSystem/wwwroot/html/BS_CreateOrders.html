@@ -1208,13 +1208,13 @@
 
                 },
                 savephoto() {
-                    axios.get('/api/BusinessOptionals/27')
+                    axios.get('/api/BusinessOptionals/10')
                          .then(p => {
                              console.log(p);
                              this.putphoto = p.data;
                              this.putphoto.photo = this.srcphoto
                              console.log(this.putphoto.photo);
-                             axios.put('/api/BusinessOptionals/27', this.putphoto).then(p=>console.log(p))
+                             axios.put('/api/BusinessOptionals/10', this.putphoto).then(p=>console.log(p))
                         })
 
                 },

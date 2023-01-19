@@ -504,28 +504,106 @@
 
 
 
-                <div id="divinfo">
+                <div id="divorderall">
 
 
                     <!-- / Navbar -->
                     <!-- Content wrapper -->
-                    
+
+                    <div class="content-wrapper">
+                        <!-- Content -->
+                        <div class="container-xxl flex-grow-1 container-p-y">
+                            <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">業務系統 /</span> 訂單總覽</h4>
+                            <div class="card mb-4 m-4 card-body">
+
+                                <!--<form id="formAccountSettings" method="POST" onsubmit="return false">
+                                    <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                                        出缺勤查詢
+                                    </div>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="mb-3 col-md-2">
+                                            <label for="EmployeeName" class="form-label-lg">員工名稱</label> <input class="form-control" value="" id="Employeename" />
+                                        </div>
+                                        <div class="mb-3 col-md-2">
+                                            <label for="Employeeid" class="form-label-lg">員工編號</label><input class="form-control" value="" id="Employeenameid" />
+                                        </div>
+
+                                        <div class="mb-3 col-md-2">
+                                            <label for="department" class="form-label-lg">部門</label>
+                                            <select class="select1 form-select" value="" id="department">
+                                                <option value="">生產部</option>
+                                                <option value="">業務部</option>
+                                                <option value="">人事部</option>
+                                            </select>
+                                        </div>
 
 
+                                        <div class="mb-3 col-md-2">
+                                            <label for="html5-month-input" class="form-label-lg">查詢月份</label>
 
+                                            <input class="form-control" type="month" value="2021-06" id="html5-month-input" />
+
+                                        </div>
+                                        <div class="mt-2 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-outline-primary me-2 ">查詢</button>
+                                            <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                        </div>
+                                    </div>
+
+
+                                </form>-->
+
+
+                                <!-- Basic Bootstrap Table -->
+                                <h5 class="fw-bold">訂單資料</h5>
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <!--<th>員工名稱</th>-->
+                                                <th>訂單編號</th>
+                                                <th>下訂車款</th>
+                                                <th>建單時間</th>
+                                                <th>代理商區域</th>
+                                                <th>生產製程</th>
+                                                <th>生產狀態</th>
+                                                <th>接單狀態</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                            <tr v-for="(o,key) in order">
+                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>{{o.orderNumber}}</strong></td>
+                                                <td>{{o.optionalName}}</td>
+                                                <td>{{o.orderdatetime.substring(0,16).replace('T', ' ')}}</td>
+                                                <td>
+                                                    <span class="label-primary">{{o.area}}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="label-primary">{{o.process}}</span>
+                                                </td>
+                                                <td>{{o.processstate}}</td>
+                                                <td>
+                                                    <span class="label-primary">{{o.isAccepted==1 ? '是':'否'}}</span>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--/ Basic Bootstrap Table -->
+                            </div>
+                            <!-- / Content -->
+                            <!-- Footer -->
+                            <!-- / Footer -->
+
+                            <div class="content-backdrop fade"></div>
+                        </div>
+                        <!-- Content wrapper -->
+                    </div>
 
 
                     <!-- / Layout page -->
-
-
-
-
-
                     <!--<p v-if="limit.DepID!=3">非業務無法查看</p>-->
-
-
-
-
                     <!-- Overlay -->
                     <div class="layout-overlay layout-menu-toggle"></div>
                 </div>
@@ -566,7 +644,8 @@
 
             data() {
                 return {
-                    limit: {}
+                    limit: {},
+                    order: {}
 
                 }
             },
@@ -579,11 +658,15 @@
 
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data)
+                axios.get('/api/BusinessOrders/GetOrderAll')
+                    .then(g => {
+                        console.log(g.data);
+                        this.order = g.data
+                    });
 
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }
-        }).mount('#divinfo');
+        }).mount('#divorderall');
 
     </script>
 

@@ -95,7 +95,38 @@ namespace InternalSystem.Controllers
 
 
 
+        //自己寫的
+        // GET: api/BusinessOrders/GetOrderAll
+        [HttpGet("GetOrderAll")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAll()
+        {
+            var q = from ord in _context.BusinessOrders
+                    join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
+                    join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
+                    join a in _context.BusinessAreas on ord.AreaId equals a.AreaId
+                    join ppl in _context.ProductionProcessLists on ord.OrderId equals ppl.OrderId
+                    join pps in _context.ProductionProcessStatusNames on ppl.StatusId equals pps.StatusId
+                    join pp in _context.ProductionProcesses on ppl.ProcessId equals pp.ProcessId
+                    where opl.CategoryId == 1
+                    select new
+                    {
+                        OrderNumber = ord.OrderNumber,
+                        OptionalName = opl.OptionalName,
+                        IsAccepted = ord.IsAccepted,
+                        Area = a.AreaName,
+                        process = pp.ProcessName,
+                        processstate = pps.StatusName,
+                        orderdatetime = ord.OrderDateTime,
 
+
+
+                        OrderId = ord.OrderId,
+                        OptionalId = od.OptionalId,
+                        CategoryId = opl.CategoryId,
+                        Price = opl.Price,
+                    };
+            return await q.ToListAsync();
+        }
 
 
 

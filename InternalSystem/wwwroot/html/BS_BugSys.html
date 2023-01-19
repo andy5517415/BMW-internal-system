@@ -526,7 +526,10 @@
 
                                         <label class="form-label fs-4" for="ordid">訂單號碼</label>
                                         <select id="ordid" class="form-select color-dropdown" v-model="selcone">
-                                            <option v-for="one in bugsysorder" :value="one">{{one.orderNumber}}</option>
+                                            <option v-for="one in bugsysorder"
+                                                    :value="one">
+                                                {{one.orderNumber}} 車款 : {{one.optionalName}}
+                                            </option>
                                         </select>
 
                                                                   
