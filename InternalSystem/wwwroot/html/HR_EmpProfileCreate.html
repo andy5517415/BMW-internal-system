@@ -607,7 +607,7 @@
                                                 <div class="mb-3 col-md-4">
                                                     <label for="birthday" class="col-md-2 form-label">生日</label>
                                                     <div class="col-md-12">
-                                                        <input v-model="employeelist.birthday" class="form-control" type="date" id="birthday" />
+                                                        <input v-model="employeelist.birthday" @change="passwdset" class="form-control" type="date" id="birthday" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -621,7 +621,7 @@
                                                            type="text"
                                                            id="email"
                                                            name="email"
-                                                           placeholder="@example.com"
+                                                           placeholder="@gmail.com"
                                                            @change="mail" />
                                                 </div>
 
@@ -634,7 +634,7 @@
                                                                id="phoneNumber"
                                                                name="phoneNumber"
                                                                class="form-control"
-                                                               placeholder="09-"
+                                                               placeholder="0912345678"
                                                                @change="phoneNumber" />
                                                     </div>
                                                     <p class="form-label">{{pnt}}/10</p>
@@ -665,7 +665,7 @@
                                                                id="Number"
                                                                name="Number"
                                                                class="form-control"
-                                                               placeholder=""
+                                                               placeholder="區碼-"
                                                                @change="homenumber" />
                                                     </div>
                                                 </div>
@@ -776,7 +776,7 @@
                                                            type="text"
                                                            id="password"
                                                            name="password"
-                                                           autofocus @change="password" />
+                                                           autofocus @change="password" disabled/>
                                                 </div>
                                             </div>
 
@@ -912,7 +912,7 @@
                     }
                 },
                 homenumber() {
-                    let homenumber = /^0[0-9]+$/;
+                    let homenumber = /^0\d{1,2}-?\d{6,8}$/;
                     logic = homenumber.test(this.employeelist.homePhone)
                     if (logic == true) { console.log('OK') }
                     else {
@@ -966,7 +966,7 @@
                     }
                 },
                 note() {
-                    let note = /^[\u4e00-\u9fa5a-zA-Z\，。‧、]+$/;
+                    let note = /^[\u4e00-\u9fa5a-zA-Z\，。‧、0-9]+$/;
                     logic = note.test(this.employeelist.note)
                     if (note.test(this.employeelist.note)) {
                         console.log('ok');
@@ -988,6 +988,14 @@
                         this.Leavelist[3].Quantity = 96;
                     }
                 },
+                passwdset() {
+               
+                    let y = (parseFloat(this.employeelist.birthday.substring(0, 4)) - 1911).toString();
+                    this.employeelist.password = y +this.employeelist.birthday.substring(5, 7) + this.employeelist.birthday.substring(8, 11);
+                    console.log(this.employeelist.password);
+                  
+                },
+
                 uploadphoto(event) {
                     console.log('ok')
                     if (event.target.files && event.target.files[0]) {
