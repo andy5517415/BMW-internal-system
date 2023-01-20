@@ -898,13 +898,11 @@
                             else { alert('請假項目請確實填寫') };
                         }
 
-                    }
+                    },
                         //console.log(this.leaveproxy.statusId)   //ok
                    
                           
                         
-                    },
-
                     nobtn: function () {
                         if (confirm('刪除本次請假申請?') == true) {
                             axios.delete('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId)
@@ -914,9 +912,6 @@
                                 })
                         }
                     },
-               
-            
-
                 },
                 mounted() {
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));//獲取使用者ID
