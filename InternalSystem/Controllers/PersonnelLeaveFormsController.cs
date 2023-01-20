@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace InternalSystem.Controllers
 {
@@ -303,6 +306,7 @@ namespace InternalSystem.Controllers
         {
             var personnelLeaveForm = from ap in _context.PcApplications
                                      join pd in _context.PersonnelProfileDetails on ap.EmployeeId equals pd.EmployeeId
+                                     join pod in _context.PcOrderDetails on ap.OrderId equals pod.OrderId
                                      where ap.EmployeeId == id && ap.ApplicationRejectStatus ==false
 
                                      select new
@@ -320,7 +324,8 @@ namespace InternalSystem.Controllers
                                          ap.AcceptanceStatus,
                                          ap.DeliveryStatus,
                                          ap.ApplicationStatus,
-                                         ap.ApplicationRejectStatus
+                                         ap.ApplicationRejectStatus,
+                                         pod.ProductId
                                      };
 
             if (personnelLeaveForm == null)
@@ -329,6 +334,38 @@ namespace InternalSystem.Controllers
             }
 
             return await personnelLeaveForm.ToListAsync();
+        }
+
+        // 物品查詢細項專用
+        // 用於 PC_ApplicationRecordDetails
+        // GET: api/PersonnelLeaveForms/recordsearchdetail
+        [HttpGet("recordsearchdetail/{id}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCrecordsearchdetail(int id)
+        {
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join GL in this._context.PcGoodLists on OD.ProductId equals GL.ProductId
+                       where AP.PurchaseId == id
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           Department = PDL.DepName,
+                           Date = AP.Date.ToString(),
+                           Comment = AP.Comment,
+                           Total = AP.Total,
+                           Goods = OD.Goods,
+                           Unit = OD.Unit,
+                           Quantiy = OD.Quantiy,
+                           UnitPrice = OD.UnitPrice,
+                           Subtotal = OD.Subtotal,
+                           ProductId =  OD.ProductId
+                       };
+
+
+            return await List.ToListAsync();
         }
 
         // GET: api/PersonnelLeaveForms/5
@@ -385,6 +422,32 @@ namespace InternalSystem.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPersonnelLeaveForm", new { id = personnelLeaveForm.LeaveId }, personnelLeaveForm);
+        }
+
+   
+
+        //Delete被退件之採購申請單(父子資料同時刪除)
+        // Delete: api/PersonnelLeaveForms/buyrej/5
+        [HttpDelete("buyrej/{id}")]
+        public void GetRejectOrder(int id)
+        {
+           
+            var profile = from pod in _context.PcOrderDetails
+                          where pod.OrderId ==id
+                          select pod;
+          
+                _context.PcOrderDetails.RemoveRange(profile);
+                _context.SaveChanges();
+
+
+            var delete = (from a in _context.PcApplications
+                          where a.OrderId == id
+                          select a).SingleOrDefault();
+            if (delete != null)
+            {
+                _context.PcApplications.Remove(delete);
+                _context.SaveChanges();
+            }
         }
 
         // DELETE: api/PersonnelLeaveForms/5

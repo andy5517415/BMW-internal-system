@@ -623,6 +623,12 @@
                                             </div>
                                             <div class="table-responsive text-nowrap"></div>
                                         </div>
+                                        <!-- 按鈕 -->
+                                        <div class="mt-2 d-md-flex justify-content-md-end">
+
+                                            <button type="button" class="btn btn-outline-secondary" @click="delbtn">刪除</button>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -663,10 +669,22 @@
                                     totalprice: {}
                                 }
                             },
-                            methods: {},
+                            methods: {
+                                delbtn: function () {
+                                    if (confirm('是否刪除本次申請?') == true) {
+                                        axios.delete('/api/PersonnelLeaveForms/buyrej/' + this.myobject.orderId)
+                                            .then(response => {
+                                                //console.log(response.status);
+                                                if (response.status == 200) { alert('刪除成功') }
+                                            })
+                                            .catch(err => console.log(err))
+                                    }
+                                    
+                                }
+                            },
                             mounted() {
                                 this.myobject = JSON.parse(sessionStorage.getItem('see'))
-                                axios.get('/api/PCApplications/recordsearchdetail/' + this.myobject.purchaseId)
+                                axios.get('/api/PersonnelLeaveForms/recordsearchdetail/' + this.myobject.purchaseId)
                                     .then(response => {
                                         this.list = response.data;
                                         //console.log(response.data[0].subtotal);
