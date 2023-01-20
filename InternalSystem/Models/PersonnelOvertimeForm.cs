@@ -19,7 +19,6 @@ namespace InternalSystem.Models
         public bool AuditStatus { get; set; }
         public string ApplicationDate { get; set; }
 
-
         public virtual PersonnelProfileDetail Employee { get; set; }
     }
 }

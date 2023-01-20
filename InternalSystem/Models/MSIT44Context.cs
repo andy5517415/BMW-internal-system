@@ -47,7 +47,6 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
-       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -420,10 +419,7 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PersonnelLeaveForm");
 
-
                 entity.Property(e => e.ApplicationDate)
-
-
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -450,10 +446,6 @@ namespace InternalSystem.Models
                 entity.Property(e => e.StartTime)
                     .IsRequired()
                     .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TotalTime)
-                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
@@ -486,16 +478,6 @@ namespace InternalSystem.Models
                     .HasName("PK_員工可請假時數");
 
                 entity.ToTable("PersonnelLeaveOver");
-
-                entity.Property(e => e.LeaveOver)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Used)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PersonnelLeaveOvers)
@@ -548,10 +530,6 @@ namespace InternalSystem.Models
                 entity.Property(e => e.StartTime)
                     .IsRequired()
                     .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TotalTime)
-                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
