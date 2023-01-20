@@ -502,11 +502,24 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper ">
                     <!-- Content -->
-
-
-
-
                     <div id="divmonitor" class="container-xxl flex-grow-1 container-p-y">
+
+                        <!--吐司-->
+                        <div class="bs-toast toast fade show bg-primary mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                             aria-live="assertive" aria-atomic="true" id="toastSucess">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                🌞&nbsp;已登入！
+                            </div>
+                        </div>
+
+
+
                         <div class="card mb-4 m-4">
                             <h2 class="card-header">產線監控系統</h2>
                             <!-- <h5 class="card-header">車輛資訊</h5> -->
@@ -615,127 +628,127 @@
 
 
                                                 <!--<template >
-                                                </template>-->
-                                                    <div  class="row justify-content-md-center mb-4" style="height: 48px;">
-
-
-
-
-
-                                                        <!--<div v-for="(o,idx) in area1" class="col-sm-4 d-flex justify-content-center">
-                                                            <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
-                                                                {{o}}{{idx+1}}
-                                                                <span v-if="o=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">-</span>
-                                                                <span v-else-if="o=='待處理' " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">-</span>
-                                                                <span v-else-if="o=='處理中' " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">-</span>
-                                                                <span v-else-if="o=='異常'   " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">-</span>
-                                                                <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-dark">-</span>
-                                                            </button>
-                                                            <template v-for="b in getstatus">
-                                                                <span v-if="b.processId == idx+1 && b.areaId==1 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
-                                                            </template>
-                                                        </div>-->
-
-
-                                                        <div class="col-sm-4 d-flex justify-content-center">
-                                                            <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
-                                                                A01
-                                                                <span v-if="M4A01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4A01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4A01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4A01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                    -
-                                                                </span>
-                                                                <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                    -
-                                                                </span>
-                                                            </button>
-                                                            <template v-for="(o,key) in getstatus">
-                                                                <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            </template>
-                                                        </div>
-                                                        <div class="col-sm-4 d-flex justify-content-center">
-                                                            <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
-                                                                B01
-                                                                <span v-if="M4B01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4B01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4B01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4B01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                    -
-                                                                </span>
-                                                                <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                    -
-                                                                </span>
-                                                            </button>
-                                                            <template v-for="(o,key) in getstatus">
-                                                                <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            </template>
-                                                        </div>
-                                                        <div class="col-sm-4 d-flex justify-content-center">
-                                                            <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
-                                                                C01
-                                                                <span v-if="M4C01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4C01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4C01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                    -
-                                                                </span>
-                                                                <span v-else-if="M4C01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                    -
-                                                                </span>
-                                                                <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                    -
-                                                                </span>
-                                                            </button>
-                                                            <template v-for="(o,key) in getstatus">
-                                                                <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            </template>
-                                                        </div>
-
-
-                                                    </div>
-                                                
-
-
+                            </template>-->
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
-                                                    <!--<div v-for="(o,idx) in area2" class="col-sm-4 d-flex justify-content-center">
+
+
+
+
+
+                                                    <!--<div v-for="(o,idx) in area1" class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
-                                                            {{o}}{{`M4${o}=='正常'`}}
-                                                            <span v-if="`M4${o}=='正常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            {{o}}/{{idx+1}}/{{M4+`${o}`=='正常'}}
+                                                            <span v-if="`M4${o}`=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">-</span>-->
+                                                            <!--<span v-else-if="o=='待處理' " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">-</span>
+                                                            <span v-else-if="o=='處理中' " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">-</span>
+                                                            <span v-else-if="o=='異常'   " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">-</span>
+                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-dark">-</span>-->
+                                                        <!--</button>
+                                                        <template v-for="b in getstatus">
+                                                            <span v-if="b.processId == idx+1 && b.areaId==1 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
+                                                        </template>
+                                                    </div>-->
+
+
+                                                    <div class="col-sm-4 d-flex justify-content-center">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
+                                                            A01
+                                                            <span v-if="M4A01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="`M4${o}=='待處理'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            <span v-else-if="M4A01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="`M4${o}=='處理中'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            <span v-else-if="M4A01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
                                                                 -
                                                             </span>
-                                                            <span v-else-if="`M4${o}=='異常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            <span v-else-if="M4A01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
                                                                 -
                                                             </span>
                                                             <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="b in getstatus">
-                                                            <span v-if="b.processId == idx+1 && b.areaId==2 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
-                                                    </div>-->
+                                                    </div>
+                                                    <div class="col-sm-4 d-flex justify-content-center">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
+                                                            B01
+                                                            <span v-if="M4B01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                                -
+                                                            </span>
+                                                            <span v-else-if="M4B01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                                -
+                                                            </span>
+                                                            <span v-else-if="M4B01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                                -
+                                                            </span>
+                                                            <span v-else-if="M4B01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                                -
+                                                            </span>
+                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                                -
+                                                            </span>
+                                                        </button>
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-sm-4 d-flex justify-content-center">
+                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
+                                                            C01
+                                                            <span v-if="M4C01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                                -
+                                                            </span>
+                                                            <span v-else-if="M4C01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                                -
+                                                            </span>
+                                                            <span v-else-if="M4C01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                                -
+                                                            </span>
+                                                            <span v-else-if="M4C01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                                -
+                                                            </span>
+                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                                -
+                                                            </span>
+                                                        </button>
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+
+
+                                                </div>
+
+
+
+                                                <div class="row justify-content-md-center mb-4" style="height: 48px;">
+                                                    <!--<div v-for="(o,idx) in area2" class="col-sm-4 d-flex justify-content-center">
+                                    <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
+                                        {{o}}{{`M4${o}=='正常'`}}
+                                        <span v-if="`M4${o}=='正常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                            -
+                                        </span>
+                                        <span v-else-if="`M4${o}=='待處理'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                            -
+                                        </span>
+                                        <span v-else-if="`M4${o}=='處理中'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                            -
+                                        </span>
+                                        <span v-else-if="`M4${o}=='異常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                            -
+                                        </span>
+                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                            -
+                                        </span>
+                                    </button>
+                                    <template v-for="b in getstatus">
+                                        <span v-if="b.processId == idx+1 && b.areaId==2 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
+                                    </template>
+                                </div>-->
 
 
 
@@ -815,28 +828,28 @@
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
 
                                                     <!--<div v-for="(o,idx) in area3" class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
-                                                            {{o}}
-                                                            <span v-if="`M4${o}=='正常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="`M4${o}=='待處理'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="`M4${o}=='處理中'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="`M4${o}=='異常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                        <template v-for="b in getstatus">
-                                                            <span v-if="b.processId == idx+1 && b.areaId==1 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
-                                                        </template>
-                                                    </div>-->
+                                    <button @click="statebtnclick" type="button" class="btn btn-outline-secondary">
+                                        {{o}}
+                                        <span v-if="`M4${o}=='正常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                            -
+                                        </span>
+                                        <span v-else-if="`M4${o}=='待處理'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                            -
+                                        </span>
+                                        <span v-else-if="`M4${o}=='處理中'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                            -
+                                        </span>
+                                        <span v-else-if="`M4${o}=='異常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                            -
+                                        </span>
+                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                            -
+                                        </span>
+                                    </button>
+                                    <template v-for="b in getstatus">
+                                        <span v-if="b.processId == idx+1 && b.areaId==1 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
+                                    </template>
+                                </div>-->
 
 
                                                     <div class="col-sm-4 d-flex justify-content-center">
@@ -1468,7 +1481,7 @@
             data() {
                 return {
 
-                    area1: ['M4A01', 'M4B01', 'M4C01'],
+                    area1: ['A01', 'B01', 'C01'],
                     area2: ['A02', 'B02', 'C02'],
                     area3: ['A03', 'B03', 'C03'],
 
@@ -1508,7 +1521,9 @@
                     seen: false,
 
                     getstatus: {},
-                    ordernumshow : false
+                    ordernumshow: false,
+
+                    abnormalcnt: {}
 
                 }
             },
@@ -1611,11 +1626,45 @@
 
                 this.description = JSON.parse(sessionStorage.getItem("sessiondesc"));
                 //console.log(this.description);
+
+
+                //window.setTimeout(function () {
+                //    window.location.reload();
+                //}, 10000);
+
+
+                    var bef = 0;
+                function checkstatus() {
+                    var aft = 0;
+                    axios.get('/api/MonitoringProcessAreaStatus/').then(g => {
+                        this.abnormalcnt = g.data;
+                        //console.log(this.abnormalcnt);
+                        this.abnormalcnt.forEach(one => {
+                            (one.status == '異常') ? aft++ : ''                            
+                        });
+                        //(bef == 0 || bef>aft) ? bef = aft : ''
+                        console.log(`aft${aft}`);
+                        console.log(`bef${bef}`);
+                            if (aft!=0 && aft > bef) {
+                                $("#toastSucess").fadeIn("fast");
+                                setTimeout(() => $("#toastSucess").fadeOut(), 2000);
+                                bef = aft;
+                                console.log('有異常');
+                        }
+
+                    //console.log('check');
+                    })
+                }
+
+                setInterval(checkstatus, 5000);
+
             }
         }).mount('#divmonitor');
 
 
-
+        //$(function () {
+            
+        //});
     </script>
     <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

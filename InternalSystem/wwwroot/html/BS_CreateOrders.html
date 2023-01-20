@@ -62,7 +62,12 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
+    <style>
+        img {
+            width: 50%;
+            height: 50%;
+        }
+     </style>
 </head>
 
 <body>
@@ -514,10 +519,74 @@
                         <!-- 車輛資訊 -->
                         <div v-if="formfill" class="container-xxl flex-grow-1 container-p-y">
                             <div class="card mb-4 m-4">
+
+                                <!--  -->
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <!--<th>員工名稱</th>-->
+                                                <th>選配</th>
+                                                <th>選配價格</th>
+                                                <th>照片</th>
+                                                <th>代理商區域</th>
+                                                <th>生產製程</th>
+                                                <th>生產狀態</th>
+                                                <th>接單狀態</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                            <tr v-for="(o,key) in order">
+                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>{{o.orderNumber}}</strong></td>
+                                                <td>{{o.optionalName}}</td>
+                                                <td>{{o.orderdatetime.substring(0,16).replace('T', ' ')}}</td>
+                                                <td>
+                                                    <span class="label-primary">{{o.area}}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="label-primary">{{o.process}}</span>
+                                                </td>
+                                                <td>{{o.processstate}}</td>
+                                                <td>
+                                                    <span class="label-primary">{{o.isAccepted==1 ? '是':'否'}}</span>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <!--  -->
+
+
+
+
+
                                 <h2 class="card-header">新建訂單</h2>
                                 <h5 class="card-header">車輛資訊</h5>
+
+
                                 <div class="card-body">
                                     <div class="row gx-3 gy-2 align-items-center">
+
+
+
+
+                                        <!--<iframe width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/vhIt7buzd1s?controls=0">
+            </iframe>-->
+                                        <video width="1000" autoplay loop muted>
+                                            <source src="../assets/ENDLESS COMPETITION. THE M3 AND THE M4  BMW Taiwan.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <!--<iframe width="1000" height="800" src="//sendvid.com/embed/f60yzc1o" allowfullscreen autoplay></iframe>-->
+
+
+
+
+
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="cartype">車款</label>
                                             <select id="cartype"
@@ -531,6 +600,11 @@
                                                 </option>
                                             </select>
                                             <!--<input type="hidden" v-model="cartypeone.OptionalId">-->
+
+                                            <img v-if="photoseen.type"
+                                                 :src="srcphoto.type"
+                                                 class="d-block rounded"
+                                                 alt="car" />
                                         </div>
                                         <div class="col-md-3">
                                             <label for="" class="form-label fs-4">車款價格</label>
@@ -544,20 +618,16 @@
 
 
                                         <input v-if="true" @change="uploadphoto" type="file" />
-                                        <!--v-if="photoseen"-->
-                                        <img v-if="true"
-                                             :src="srcphoto"
-                                             class="d-block rounded"
-                                             alt="car" />
+                                        <img v-if="true" :src="uploadimg">
+
                                         <button v-if="true" @click="savephoto" type="button">送出圖片</button>
 
 
-                                        <!--<iframe width="640" height="360" src="//sendvid.com/embed/f60yzc1o" frameborder="0" allowfullscreen></iframe>-->
-                                        <!--<video width="320" height="240" controls>
-        <source src="movie.mp4" type="video/mp4">
-        <source src="movie.ogg" type="video/ogg">
-        Your browser does not support the video tag.
-    </video>-->
+
+
+
+
+
 
 
 
@@ -565,7 +635,8 @@
                                             <label class="form-label fs-4" for="carcolor">車漆顏色</label>
                                             <select id="carcolor"
                                                     class="form-select"
-                                                    v-model="carcolorone">
+                                                    v-model="carcolorone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇車漆顏色</option>
                                                 <option v-for="one in carcolor"
                                                         :value="one">
@@ -581,12 +652,19 @@
                                                    readonly
                                                    v-model="carcolorone.price" />
                                         </div>
+                                        <img v-if="photoseen.color"
+                                             :src="srcphoto.color"
+                                             class="d-block rounded"
+                                             alt="color" />
+
+
 
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="texture">內裝材質</label>
                                             <select class="form-select placement-dropdown"
                                                     id="texture"
-                                                    v-model="cartextureone">
+                                                    v-model="cartextureone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇內裝材質</option>
                                                 <option v-for="one in cartexture"
                                                         :value="one">
@@ -603,13 +681,19 @@
                                                    readonly
                                                    v-model="cartextureone.price" />
                                         </div>
+                                        <img v-if="photoseen.texture"
+                                             :src="srcphoto.texture"
+                                             class="d-block rounded"
+                                             alt="texture" />
+
 
 
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="wheel">輪圈款式</label>
                                             <select class="form-select placement-dropdown"
                                                     id="wheel"
-                                                    v-model="carwheelone">
+                                                    v-model="carwheelone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇輪圈款式</option>
                                                 <option v-for="one in carwheel"
                                                         v-bind:value="one">
@@ -625,11 +709,20 @@
                                                    readonly
                                                    v-model="carwheelone.price" />
                                         </div>
+                                        <img v-if="photoseen.wheel"
+                                             :src="srcphoto.wheel"
+                                             class="d-block rounded"
+                                             alt="wheel" />
+
+
+
+
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="plaque">飾板</label>
                                             <select class="form-select placement-dropdown"
                                                     id="plaque"
-                                                    v-model="carplaqueone">
+                                                    v-model="carplaqueone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇飾板款式</option>
                                                 <option v-for="one in carplaque"
                                                         :value="one">
@@ -645,11 +738,20 @@
                                                    readonly
                                                    v-model="carplaqueone.price" />
                                         </div>
+                                        <img v-if="photoseen.plaque"
+                                             :src="srcphoto.plaque"
+                                             class="d-block rounded"
+                                             alt="plaque" />
+
+
+
+
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="light">頭燈款式</label>
                                             <select class="form-select placement-dropdown"
                                                     id="light"
-                                                    v-model="carlightone">
+                                                    v-model="carlightone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇頭燈款式</option>
                                                 <option v-for="one in carlight"
                                                         :value="one">
@@ -665,11 +767,20 @@
                                                    readonly
                                                    v-model="carlightone.price" />
                                         </div>
+                                        <img v-if="photoseen.light"
+                                             :src="srcphoto.light"
+                                             class="d-block rounded"
+                                             alt="light" />
+
+
+
+
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="saddle">中央鞍座</label>
                                             <select class="form-select placement-dropdown"
                                                     id="saddle"
-                                                    v-model="carsaddleone">
+                                                    v-model="carsaddleone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇中央鞍座款式</option>
                                                 <option v-for="one in carsaddle"
                                                         :value="one">
@@ -685,11 +796,20 @@
                                                    readonly
                                                    v-model="carsaddleone.price" />
                                         </div>
+                                        <img v-if="photoseen.saddle"
+                                             :src="srcphoto.saddle"
+                                             class="d-block rounded"
+                                             alt="saddle" />
+
+
+
+
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="sunroof">天窗</label>
                                             <select class="form-select placement-dropdown"
                                                     id="sunroof"
-                                                    v-model="carsunroofone">
+                                                    v-model="carsunroofone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇天窗款式</option>
                                                 <option v-for="one in carsunroof"
                                                         :value="one">
@@ -705,11 +825,19 @@
                                                    readonly
                                                    v-model="carsunroofone.price" />
                                         </div>
+                                        <img v-if="photoseen.sunroof"
+                                             :src="srcphoto.sunroof"
+                                             class="d-block rounded"
+                                             alt="sunroof" />
+
+
+
                                         <div class="col-md-3">
                                             <label class="form-label fs-4" for="media">多媒體</label>
                                             <select class="form-select placement-dropdown"
                                                     id="media"
-                                                    v-model="carmediaone">
+                                                    v-model="carmediaone"
+                                                    @change="showphoto">
                                                 <option disabled value="999">請選擇多媒體車機款式</option>
                                                 <option v-for="one in carmedia"
                                                         :value="one">
@@ -725,6 +853,12 @@
                                                    readonly
                                                    v-model="carmediaone.price" />
                                         </div>
+                                        <img v-if="photoseen.media"
+                                             :src="srcphoto.media"
+                                             class="d-block rounded"
+                                             alt="media" />
+
+
                                         <div class="col-md-6">
                                             <label for="" class="form-label fs-4">小計</label>
                                             <input type="text"
@@ -963,12 +1097,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
+
+
+
+
+
+
                                                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                                                     <div class="toast-header">
                                                         <img src="..." class="rounded me-2" alt="...">
@@ -980,22 +1114,22 @@
                                                         Hello, world! This is a toast message.
                                                     </div>
                                                 </div>
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                             </div>
                                         </div>
 
@@ -1013,7 +1147,7 @@
 
 
 
-                            
+
 
 
 
@@ -1108,7 +1242,18 @@
                     limit: {},
                     srcphoto: {},
                     putphoto: {},
-                    photoseen : false
+                    photoseen: {
+                        type: false,
+                        color: false,
+                        texture: false,
+                        wheel: false,
+                        plaque: false,
+                        light: false,
+                        saddle: false,
+                        sunroof: false,
+                        media: false
+                    },
+                    uploadimg: ''
                 }
             },
             computed: {
@@ -1156,40 +1301,40 @@
                     if (confirm("是否要建立訂單?") == true) {
 
 
-                    console.log('next');
-                    let dt = new Date();
-                    this.orderpost = {
-                        "orderNumber": this.orderid,
-                        //"orderdatetime": dt,
-                        "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                        "AreaId": this.agentone.areaId,
-                        "Price": this.cnt,
-                        "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                        "IsAccepted": false
-                        //,
-                        //"pic" : this.bee
-                    };
+                        console.log('next');
+                        let dt = new Date();
+                        this.orderpost = {
+                            "orderNumber": this.orderid,
+                            //"orderdatetime": dt,
+                            "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                            "AreaId": this.agentone.areaId,
+                            "Price": this.cnt,
+                            "EmployeeId": Math.floor(Math.random() * 10) + 1,
+                            "IsAccepted": false
+                            //,
+                            //"pic" : this.bee
+                        };
 
-                    console.log(this.orderpost);
+                        console.log(this.orderpost);
 
-                    axios.post('/api/BusinessOrders', this.orderpost)
-                        .then(p => {
-                            console.log(p);
-                            var orderidback = p.data.orderId;
-                            console.log(orderidback);
+                        axios.post('/api/BusinessOrders', this.orderpost)
+                            .then(p => {
+                                console.log(p);
+                                var orderidback = p.data.orderId;
+                                console.log(orderidback);
 
-                            for (var n = 0; n < 9; n++) {
-                                this.orderdetailpost = {
-                                    "OrderId": orderidback,
-                                    "OptionalId": this.orderdetail[n]
+                                for (var n = 0; n < 9; n++) {
+                                    this.orderdetailpost = {
+                                        "OrderId": orderidback,
+                                        "OptionalId": this.orderdetail[n]
+                                    }
+                                    axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
+                                        .then(p => {
+                                            console.log(p);
+                                        })
                                 }
-                                axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
-                                    .then(p => {
-                                        console.log(p);
-                                    })
-                            }
-                            alert('訂單新建成功!');
-                        });
+                                alert('訂單新建成功!');
+                            });
                     }
                 },
                 uploadphoto(event) {
@@ -1199,8 +1344,8 @@
                         var reader = new FileReader();
                         let urlimage;
                         reader.onload = (event) => {
-                            this.srcphoto = event.target.result;
-                            console.log(this.srcphoto);
+                            this.uploadimg = event.target.result;
+                            console.log(this.uploadimg);
                         };
                         reader.readAsDataURL(file)
                     }
@@ -1208,32 +1353,68 @@
 
                 },
                 savephoto() {
-                    axios.get('/api/BusinessOptionals/10')
-                         .then(p => {
-                             console.log(p);
-                             this.putphoto = p.data;
-                             this.putphoto.photo = this.srcphoto
-                             console.log(this.putphoto.photo);
-                             axios.put('/api/BusinessOptionals/10', this.putphoto).then(p=>console.log(p))
+                    axios.get('/api/BusinessOptionals/32')
+                        .then(p => {
+                            console.log(p);
+                            this.putphoto = p.data;
+                            this.putphoto.photo = this.uploadimg
+                            console.log(this.putphoto.photo);
+                            axios.put('/api/BusinessOptionals/32', this.putphoto).then(p => console.log(p))
                         })
 
                 },
-                showphoto() {
-                        this.srcphoto = this.cartypeone.photo;
-                        this.photoseen = true;
+                showphoto(e) {
+                    console.log(e.target.innerHTML.toString());
+                    if (e.target.innerHTML.toString().indexOf("車款") > 0) {
+                        this.srcphoto.type = this.cartypeone.photo;
+                        this.photoseen.type = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("車漆") > 0) {
+                        this.srcphoto.color = this.carcolorone.photo;
+                        this.photoseen.color = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("內裝") > 0) {
+                        this.srcphoto.texture = this.cartextureone.photo;
+                        this.photoseen.texture = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("輪圈") > 0) {
+                        this.srcphoto.wheel = this.carwheelone.photo;
+                        this.photoseen.wheel = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("飾板款式") > 0) {
+                        this.srcphoto.plaque = this.carplaqueone.photo;
+                        this.photoseen.plaque = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("頭燈") > 0) {
+                        this.srcphoto.light = this.carlightone.photo;
+                        this.photoseen.light = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("鞍座") > 0) {
+                        this.srcphoto.saddle = this.carsaddleone.photo;
+                        this.photoseen.saddle = true;
+                        console.log(e.target.innerHTML.toString());
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("天窗") > 0) {
+                        this.srcphoto.sunroof = this.carsunroofone.photo;
+                        this.photoseen.sunroof = true;
+                    }
+                    else if (e.target.innerHTML.toString().indexOf("多媒體") > 0) {
+                        this.srcphoto.media = this.carmediaone.photo;
+                        this.photoseen.media = true;
+                    }
                 }
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),
-                    axios.get('/api/BusinessOptionals/info/2').then(g => this.carcolor = g.data),
-                    axios.get('/api/BusinessOptionals/info/3').then(g => this.cartexture = g.data),
-                    axios.get('/api/BusinessOptionals/info/4').then(g => this.carwheel = g.data),
-                    axios.get('/api/BusinessOptionals/info/5').then(g => this.carplaque = g.data),
-                    axios.get('/api/BusinessOptionals/info/6').then(g => this.carlight = g.data),
-                    axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle = g.data),
-                    axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
-                    axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
-                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
+                axios.get('/api/BusinessOptionals/info/1').then(g => { this.cartype = g.data }),
+                    axios.get('/api/BusinessOptionals/info/2').then(g => { this.carcolor = g.data }),
+                    axios.get('/api/BusinessOptionals/info/3').then(g => { this.cartexture = g.data }),
+                    axios.get('/api/BusinessOptionals/info/4').then(g => { this.carwheel = g.data }),
+                    axios.get('/api/BusinessOptionals/info/5').then(g => { this.carplaque = g.data }),
+                    axios.get('/api/BusinessOptionals/info/6').then(g => { this.carlight = g.data }),
+                    axios.get('/api/BusinessOptionals/info/7').then(g => { this.carsaddle = g.data }),
+                    axios.get('/api/BusinessOptionals/info/8').then(g => { this.carsunroof = g.data }),
+                    axios.get('/api/BusinessOptionals/info/9').then(g => { this.carmedia = g.data }),
+                    axios.get('/api/BusinessOptionals/agent').then(g => { this.agent = g.data })
                 //,
                 //axios.get('/api/BusinessOrders').then(g => { console.log(g.data); this.bee = g.data[24].pic })
 
@@ -1246,5 +1427,6 @@
 
     <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
+    <script src="https://unpkg.com/spacingjs" defer></script>
 </body>
 </html>
