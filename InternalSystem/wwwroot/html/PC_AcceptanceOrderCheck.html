@@ -412,232 +412,233 @@
 
 <!-- Layout container -->
 <div class="layout-page">
-  <!-- Navbar -->
+    <!-- Navbar -->
 
-  <nav class="container" id="navInf">
-    <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-      id="layout-navbar">
+    <nav class="container" id="navInf">
+        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+             id="layout-navbar">
 
-      <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- 問好 -->
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                <!-- 問好 -->
                 <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
-                  😊您好
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
-                📋工號：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
-                💻部門：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
+                    😊您好
+                    <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                    📋工號：
+                    <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                    💻部門：
+                    <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                 </div>
                 <!-- /問好 -->
 
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <ul class="navbar-nav flex-row align-items-center ms-auto">
 
-          <!-- User -->
-          <li class="nav-item navbar-dropdown dropdown-user dropdown">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <div class="avatar avatar-online">
-                <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
-              </div>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="#">
-                  <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                      <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png"  class="w-px-40 h-auto rounded-circle" />
-                      </div>
-                    </div>
-                    <div class="flex-grow-1">
-                      <span class="fw-semibold d-block">John Doe</span>
-                      <small class="text-muted">Admin</small>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  <i class="bx bx-user me-2"></i>
-                  <span class="align-middle">My Profile</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  <i class="bx bx-cog me-2"></i>
-                  <span class="align-middle">Settings</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">
-                  <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                    <span class="flex-grow-1 align-middle">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="auth-login-basic.html">
-                  <i class="bx bx-power-off me-2"></i>
-                  <span class="align-middle">Log Out</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!--/ User -->
-        </ul>
+                    <!-- User -->
+                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                            <div class="avatar avatar-online">
+                                <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                            <div class="avatar avatar-online">
+                                                <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="fw-semibold d-block">John Doe</span>
+                                            <small class="text-muted">Admin</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bx bx-user me-2"></i>
+                                    <span class="align-middle">My Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bx bx-cog me-2"></i>
+                                    <span class="align-middle">Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="d-flex align-items-center align-middle">
+                                        <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                        <span class="flex-grow-1 align-middle">Billing</span>
+                                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="auth-login-basic.html">
+                                    <i class="bx bx-power-off me-2"></i>
+                                    <span class="align-middle">Log Out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--/ User -->
+                </ul>
 
-      </div>
+            </div>
+        </nav>
+        <!-- / Navbar -->
     </nav>
+
     <!-- / Navbar -->
-  </nav>
+    <!-- 表單開始 -->
+    <div class="content-wrapper" id="app">
+        <!-- 訂單確認 -->
+        <div>
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="card mb-4 m-4">
+                    <h2 class="card-header">採購訂單內容</h2>
+                    <div class="card-body">
+                        <div class="row gx-3 gy-2 align-items-center">
+                            <div class="col-md-6">
+                                <label for="purchaseId" class="form-label-lg">訂單編號</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="purchaseId"
+                                       placeholder=""
+                                       aria-describedby="defaultFormControlHelp"
+                                       v-model="myobject.purchaseId"
+                                       disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="card-header">申請人資訊</h5>
+                    <div class="card-body">
+                        <div class="row gx-3 gy-2 align-items-center">
+                            <div class="col-md-6">
+                                <label for="employeeName" class="form-label-lg">申請人</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="employeeName"
+                                       placeholder=""
+                                       aria-describedby="defaultFormControlHelp"
+                                       disabled
+                                       v-model="myobject.employeeName" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="department" class="form-label-lg">部門</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="department"
+                                       placeholder=""
+                                       aria-describedby="defaultFormControlHelp"
+                                       disabled
+                                       v-model="myobject.department" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="applicationdate" class="form-label-lg">申請日期</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="applicationdate"
+                                       placeholder=""
+                                       aria-describedby="defaultFormControlHelp"
+                                       disabled
+                                       v-model="myobject.date" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="comment" class="form-label-lg">備註</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="comment"
+                                       placeholder=""
+                                       aria-describedby="defaultFormControlHelp"
+                                       disabled
+                                       v-model="myobject.comment" />
+                            </div>
+                            <!-- 分隔線 -->
+                            <hr>
+                            <h5>採購細項</h5>
+                            <!--採購清單-->
+                            <div class="card">
+                                <h5 class="card-header">採購項目</h5>
+                                <div class="card-body">
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>項次</th>
+                                                    <th>品名</th>
+                                                    <th>數量</th>
+                                                    <th>單位</th>
+                                                    <th>單價</th>
+                                                    <th>小計</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(a,index) in list">
+                                                    <!--第一項物品-->
+                                                    <!--項次-->
+                                                    <td>
+                                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
+                                                    </td>
+                                                    <!--物品名稱-->
+                                                    <td>{{a.goods}}</td>
+                                                    <!--物品數量-->
+                                                    <td>
+                                                        <div>
+                                                            <p>{{a.quantiy}}</p>
+                                                        </div>
+                                                    </td>
+                                                    <!--單位-->
+                                                    <td><span class="badge bg-label-primary me-1">隻</span></td>
+                                                    <!--單價-->
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <p>{{a.unitPrice}}元</p>
+                                                        </div>
+                                                    </td>
+                                                    <!--小計-->
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <div>{{a.subtotal}}元</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- 總價 -->
+                                        <div>
+                                            <div class="d-flex flex-row-reverse bd-highlight">
+                                                <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
+                                            </div>
+                                            <div class="table-responsive text-nowrap"></div>
+                                        </div>
 
-  <!-- / Navbar -->
-
-          <!-- 表單開始 -->
-          <div class="content-wrapper" id="app">
-            <!-- 訂單確認 -->
-              <div>
-                  <div class="container-xxl flex-grow-1 container-p-y" >
-                      <div class="card mb-4 m-4" >
-                          <h2 class="card-header">採購訂單內容</h2>
-                          <div class="card-body">
-                              <div class="row gx-3 gy-2 align-items-center">
-                                  <div class="col-md-6">
-                                      <label for="purchaseId" class="form-label-lg">訂單編號</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="purchaseId"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             v-model="myobject.purchaseId"
-                                             disabled
-                                             />
-                                  </div>
-                              </div>
-                          </div>
-                          <hr>
-                          <h5 class="card-header">申請人資訊</h5>
-                          <div class="card-body">
-                              <div class="row gx-3 gy-2 align-items-center">
-                                  <div class="col-md-6">
-                                      <label for="employeeName" class="form-label-lg">申請人</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="employeeName"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             disabled
-                                             v-model="myobject.employeeName" />
-                                  </div>
-                                  <div class="col-md-6">
-                                      <label for="department" class="form-label-lg">部門</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="department"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             disabled
-                                             v-model="myobject.department" />
-                                  </div>
-                                  <div class="col-md-6">
-                                      <label for="applicationdate" class="form-label-lg" >申請日期</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="applicationdate"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             disabled
-                                             v-model="myobject.date" />
-                                  </div>
-                                  <div class="col-md-6">
-                                      <label for="comment" class="form-label-lg" >備註</label>
-                                      <input type="text"
-                                             class="form-control"
-                                             id="comment"
-                                             placeholder=""
-                                             aria-describedby="defaultFormControlHelp"
-                                             disabled
-                                             v-model="myobject.comment" />
-                                  </div>
-                                  <!-- 分隔線 -->
-                                  <hr>
-                                  <h5>採購細項</h5>
-                                   <!--採購清單--> 
-                                  <div class="card" >
-                                      <h5 class="card-header">採購項目</h5>
-                                      <div class="card-body">
-                                          <div class="table-responsive text-nowrap">
-                                              <table class="table table-bordered">
-                                                  <thead>
-                                                      <tr>
-                                                          <th>項次</th>
-                                                          <th>品名</th>
-                                                          <th>數量</th>
-                                                          <th>單位</th>
-                                                          <th>單價</th>
-                                                          <th>小計</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                      <tr v-for="(a,index) in list">
-                                                          <!--第一項物品-->
-                                                          <!--項次-->
-                                                          <td>
-                                                              <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
-                                                          </td>
-                                                          <!--物品名稱-->
-                                                          <td>{{a.goods}}</td>
-                                                          <!--物品數量-->
-                                                          <td>
-                                                              <div>
-                                                                  <p>{{a.quantiy}}</p>
-                                                              </div>
-                                                          </td>
-                                                          <!--單位-->
-                                                          <td><span class="badge bg-label-primary me-1">隻</span></td>
-                                                          <!--單價-->
-                                                          <td>
-                                                              <div class="dropdown">
-                                                                  <p>{{a.unitPrice}}元</p>
-                                                              </div>
-                                                          </td>
-                                                          <!--小計-->
-                                                          <td>
-                                                              <div class="dropdown">
-                                                                  <div>{{a.subtotal}}元</div>
-                                                              </div>
-                                                          </td>
-                                                      </tr>
-                                                  </tbody>
-                                              </table>
-                                              <!-- 總價 -->
-                                              <div>
-                                                  <div class="d-flex flex-row-reverse bd-highlight">
-                                                      <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
-                                                  </div>
-                                                  <div class="table-responsive text-nowrap"></div>
-                                              </div>
-
-                                          </div>
-                                      </div>
-                                  </div>
-                              <div>   
-                          </div>
-                              <div class="row">
-                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>
-                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
-                              </div>
-              </div>
-         </div>
-      </div>
-  </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="row">
+                                <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>
+                                <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
     <!-- 表單結束 -->
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>

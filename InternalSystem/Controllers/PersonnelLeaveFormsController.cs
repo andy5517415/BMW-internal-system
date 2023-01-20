@@ -314,7 +314,7 @@ namespace InternalSystem.Controllers
                                          pd.EmployeeName,
                                          pd.EmployeeNumber,
                                          ap.Department,
-                                         ap.Date,
+                                         Date = ap.Date.ToString(),
                                          ap.Comment,
                                          ap.Total,
                                          ap.AcceptanceStatus,
