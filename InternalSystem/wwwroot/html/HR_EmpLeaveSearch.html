@@ -621,13 +621,26 @@
             methods: {
                 okbtn: function () {
                     //alert('OK');
+                    if (this.search.departmentId != null && this.search.date != null) {
+                        axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
+                            .then(response => {
+                                this.employeelist = response.data;
+                                if (this.employeelist.length == 0) { alert('部門查詢:查無此項') }
+                            })
+                            .catch(err => { console.log(err) })
 
-                    axios.get('/api/PersonnelLeaveForms/employeeName/' + this.search.employeeName + '/' + this.search.date)
-                        .then(response => this.employeelist = response.data)
-                        .catch(err => { if (err.response.status == 404) { alert('人名查詢錯誤:查無此人') } })
-                    axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
-                        .then(response => this.employeelist = response.data).catch(err => { if (err.response.status == 404) { alert('部門查詢錯誤:查無此項') } })
-                 
+                    }
+                    else if (this.search.employeeName != null && this.search.date != null) {
+                        axios.get('/api/PersonnelLeaveForms/employeeName/' + this.search.employeeName + '/' + this.search.date)
+                            .then(response => {
+                                this.employeelist = response.data;
+                                if (this.employeelist.length == 0) { alert('人名查詢:查無此項') }
+                            })
+                            .catch(err => { console.log(err) })
+                    }
+                    else {
+                        alert('查無資料')
+                    }
                 },
                 ToEditbtn: function (e) {
                     sessionStorage.setItem("leavedata", JSON.stringify(e))

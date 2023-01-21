@@ -258,34 +258,34 @@ namespace InternalSystem.Controllers
 
         // PUT: api/PersonnelOvertimeForms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutPersonnelOvertimeForm(int id, PersonnelOvertimeForm personnelOvertimeForm)
-        //{
-        //    if (id != personnelOvertimeForm.StartWorkId)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("dep/{id}")]
+        public async Task<IActionResult> PutPersonnelOvertimeForm(int id, PersonnelOvertimeForm personnelOvertimeForm)
+        {
+            if (id != personnelOvertimeForm.StartWorkId)
+            {
+                return BadRequest();
+            }
 
-        //    _context.Entry(personnelOvertimeForm).State = EntityState.Modified;
+            _context.Entry(personnelOvertimeForm).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PersonnelOvertimeFormExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonnelOvertimeFormExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         //員工加班申請
         // POST: api/PersonnelOvertimeForms
