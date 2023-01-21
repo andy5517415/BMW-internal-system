@@ -442,16 +442,57 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
+        //父子資料同時新增
         // POST: api/PersonnelProfileDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PersonnelProfileDetail>> PostPersonnelProfileDetail(PersonnelProfileDetail personnelProfileDetail)
+        public void PostPersonnelProfileDetail([FromBody] PersonnelProfileDetail personnelProfileDetail)
         {
-            _context.PersonnelProfileDetails.Add(personnelProfileDetail);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPersonnelProfileDetail", new { id = personnelProfileDetail.EmployeeId }, personnelProfileDetail);
+            PersonnelProfileDetail insert = new PersonnelProfileDetail
+            {
+                EmployeeName = personnelProfileDetail.EmployeeName,
+                Sex = personnelProfileDetail.Sex,
+                IsMarried = personnelProfileDetail.IsMarried,
+                IdentiyId = personnelProfileDetail.IdentiyId,
+                Email = personnelProfileDetail.Email,
+                Birthday = personnelProfileDetail.Birthday,
+                PhoneNumber = personnelProfileDetail.PhoneNumber,
+                CityId = personnelProfileDetail.CityId,
+                Address = personnelProfileDetail.Address,
+                HomePhone = personnelProfileDetail.HomePhone,
+                EmergencyPerson = personnelProfileDetail.EmergencyPerson,
+                EmergencyRelation = personnelProfileDetail.EmergencyRelation,
+                EmergencyNumber = personnelProfileDetail.EmergencyNumber,
+                Country = personnelProfileDetail.Country,
+                PositionId = personnelProfileDetail.PositionId,
+                RankId = personnelProfileDetail.RankId,
+                DepartmentId = personnelProfileDetail.DepartmentId,
+                EmployeeNumber = personnelProfileDetail.EmployeeNumber,
+                Acount = personnelProfileDetail.Acount,
+                Password = personnelProfileDetail.Password,
+                DutyStatus = personnelProfileDetail.DutyStatus,
+                EntryDate = personnelProfileDetail.EntryDate,
+                Terminationdate = personnelProfileDetail.Terminationdate,
+                Photo = personnelProfileDetail.Photo,
+                Note = personnelProfileDetail.Note,
+                PersonnelLeaveOvers = personnelProfileDetail.PersonnelLeaveOvers
+            };
+            _context.PersonnelProfileDetails.Add(insert);
+            _context.SaveChanges();
         }
+
+
+        //原生post
+        // POST: api/PersonnelProfileDetails
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<PersonnelProfileDetail>> PostPersonnelProfileDetail(PersonnelProfileDetail personnelProfileDetail)
+        //{
+        //    _context.PersonnelProfileDetails.Add(personnelProfileDetail);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetPersonnelProfileDetail", new { id = personnelProfileDetail.EmployeeId }, personnelProfileDetail);
+        //}
 
         // DELETE: api/PersonnelProfileDetails/5
         [HttpDelete("{id}")]

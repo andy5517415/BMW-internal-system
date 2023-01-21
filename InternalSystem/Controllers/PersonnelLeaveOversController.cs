@@ -212,30 +212,57 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
+
         // POST: api/PersonnelLeaveOvers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PersonnelLeaveOver>> PostPersonnelLeaveOver(PersonnelLeaveOver personnelLeaveOver)
+        public string PostPersonnelLeaveOver(int EmployeeId, [FromBody] PersonnelLeaveOver value)
         {
-            _context.PersonnelLeaveOvers.Add(personnelLeaveOver);
-            try
+            if (!_context.PersonnelProfileDetails.Any(a => a.EmployeeId == EmployeeId))
             {
-                await _context.SaveChangesAsync();
+                return "沒有該筆資料";
             }
-            catch (DbUpdateException)
+            PersonnelLeaveOver insert = new PersonnelLeaveOver
             {
-                if (PersonnelLeaveOverExists(personnelLeaveOver.EmployeeId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                LeaveType = value.LeaveType,
+                Quantity = value.Quantity,
+                Used = value.Used,
+                LeaveOver = value.LeaveOver,
+                EmployeeId = EmployeeId,
+            };
+            _context.PersonnelLeaveOvers.Add(insert);
+            _context.SaveChanges();
 
-            return CreatedAtAction("GetPersonnelLeaveOver", new { id = personnelLeaveOver.EmployeeId }, personnelLeaveOver);
+            return "OK";
+
+
         }
+
+
+        // POST: api/PersonnelLeaveOvers
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<PersonnelLeaveOver>> PostPersonnelLeaveOver(PersonnelLeaveOver personnelLeaveOver)
+        //{
+        //    _context.PersonnelLeaveOvers.Add(personnelLeaveOver);
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        if (PersonnelLeaveOverExists(personnelLeaveOver.EmployeeId))
+        //        {
+        //            return Conflict();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return CreatedAtAction("GetPersonnelLeaveOver", new { id = personnelLeaveOver.EmployeeId }, personnelLeaveOver);
+        //}
 
         // DELETE: api/PersonnelLeaveOvers/5
         [HttpDelete("{id}")]
