@@ -608,7 +608,6 @@
             methods: {
                 okbtn: function () {
                     if (confirm('確認審閱嗎?') == true){ 
-                        this.overlist.auditStatus = true;
                         axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkId, this.overlist).then(a => {
                             alert('已送出審閱訊息');
                         window.location = "/html/PS_ToDoItems.html";
