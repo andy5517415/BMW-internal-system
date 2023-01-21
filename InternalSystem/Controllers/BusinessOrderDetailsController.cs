@@ -64,6 +64,55 @@ namespace InternalSystem.Controllers
 
 
 
+        //自己寫的
+        // PUT: api/BusinessOrderDetails/25/3
+        [HttpPut("{ordid}/{oplid}")]
+        public async Task<ActionResult<dynamic>> PutOrderDetail(int ordid, int oplid)
+        {
+
+
+            var data = _context.BusinessOrderDetails
+                .Where(od => od.OrderId == ordid);
+
+            foreach (var item in data)
+            {
+                item.OptionalId = oplid;
+                _context.BusinessOrderDetails.Update(item);
+            }
+            await _context.SaveChangesAsync();
+
+
+            //if (id != businessOrderDetail.OdId)
+            //{
+            //    return BadRequest();
+            //}
+
+            //_context.Entry(businessOrderDetail).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!BusinessOrderDetailExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            return data.ToList();
+        }
+
+
+
+
+
+
 
 
 
