@@ -574,13 +574,13 @@
 
 
                                         <!--<iframe width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/vhIt7buzd1s?controls=0">
-            </iframe>-->
-                                        <video width="1000" autoplay loop muted>
+                                                    height="315"
+                                                    src="https://www.youtube.com/embed/vhIt7buzd1s?controls=0">
+                                            </iframe>-->
+                                        <!--<video width="1000" autoplay loop muted>
                                             <source src="../assets/ENDLESS COMPETITION. THE M3 AND THE M4  BMW Taiwan.mp4" type="video/mp4">
                                             Your browser does not support the video tag.
-                                        </video>
+                                        </video>-->
                                         <!--<iframe width="1000" height="800" src="//sendvid.com/embed/f60yzc1o" allowfullscreen autoplay></iframe>-->
 
 
@@ -601,10 +601,10 @@
                                             </select>
                                             <!--<input type="hidden" v-model="cartypeone.OptionalId">-->
 
-                                            <img v-if="photoseen.type"
+                                            <!--<img v-if="photoseen.type"
                                                  :src="srcphoto.type"
                                                  class="d-block rounded"
-                                                 alt="car" />
+                                                 alt="car" />-->
                                         </div>
                                         <div class="col-md-3">
                                             <label for="" class="form-label fs-4">車款價格</label>
@@ -617,10 +617,10 @@
 
 
 
-                                        <input v-if="true" @change="uploadphoto" type="file" />
+                                        <!--<input v-if="true" @change="uploadphoto" type="file" />
                                         <img v-if="true" :src="uploadimg">
 
-                                        <button v-if="true" @click="savephoto" type="button">送出圖片</button>
+                                        <button v-if="true" @click="savephoto" type="button">送出圖片</button>-->
 
 
 
@@ -1105,7 +1105,7 @@
 
                                                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                                                     <div class="toast-header">
-                                                        <img src="..." class="rounded me-2" alt="...">
+                                                        <!--<img src="..." class="rounded me-2" alt="...">-->
                                                         <strong class="me-auto">Bootstrap</strong>
                                                         <small>11 mins ago</small>
                                                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -1215,6 +1215,8 @@
                 return {
                     formfill: true,
                     formconfirm: false,
+                    //從資料庫過來的資料
+
                     cartype: {},
                     carcolor: {},
                     cartexture: {},
@@ -1225,6 +1227,9 @@
                     carsunroof: {},
                     carmedia: {},
                     agent: {},
+                    //記錄使用者選定的
+                    carinfoone: {},
+
                     cartypeone: 999,
                     carcolorone: 999,
                     cartextureone: 999,
@@ -1235,13 +1240,16 @@
                     carsunroofone: 999,
                     carmediaone: 999,
                     agentone: 999,
-                    orderid: "",
-                    orderpost: {},
+                    orderid: '',
+                    orderpost: {
+
+
+                    },
                     orderdetail: [],
                     orderdetailpost: {},
                     limit: {},
-                    srcphoto: {},
                     putphoto: {},
+                    srcphoto: {},
                     photoseen: {
                         type: false,
                         color: false,
@@ -1258,15 +1266,15 @@
             },
             computed: {
                 cnt() {
-                    return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
-                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
-                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
-                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
-                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
-                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
-                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
-                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
-                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                    return  parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
+                            parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                            parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                            parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
+                            parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
+                            parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
+                            parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                            parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                            parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
                         ;
                 }
             },
@@ -1274,21 +1282,20 @@
                 btnconfirmclick() {
                     this.formfill = !this.formfill
                     this.formconfirm = !this.formconfirm
-                    this.orderid = ((this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5))
+                    this.orderid = this.cartypeone.optionalName.substring(4, 5)
                         + '0'
-                        + ((this.agentone.areaId == null) ? '4' : this.agentone.areaId)
+                        + this.agentone.areaId
                         + Date.now().toString().substring(0, 10);
-                    //this.orderid = `${(this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5)}0${(this.agentone.areaId == null) ? '4' : this.agentone.areaId}${Date.now().toString().substring(0, 10)}`;
                     this.orderdetail = [];
-                    this.orderdetail.push(this.cartypeone.optionalId);
-                    this.orderdetail.push(this.carcolorone.optionalId);
-                    this.orderdetail.push(this.cartextureone.optionalId);
-                    this.orderdetail.push(this.carwheelone.optionalId);
-                    this.orderdetail.push(this.carplaqueone.optionalId);
-                    this.orderdetail.push(this.carlightone.optionalId);
-                    this.orderdetail.push(this.carsaddleone.optionalId);
-                    this.orderdetail.push(this.carsunroofone.optionalId);
-                    this.orderdetail.push(this.carmediaone.optionalId);
+                    this.orderdetail.push(this.cartypeone    .optionalId);
+                    this.orderdetail.push(this.carcolorone   .optionalId);
+                    this.orderdetail.push(this.cartextureone .optionalId);
+                    this.orderdetail.push(this.carwheelone   .optionalId);
+                    this.orderdetail.push(this.carplaqueone  .optionalId);
+                    this.orderdetail.push(this.carlightone   .optionalId);
+                    this.orderdetail.push(this.carsaddleone  .optionalId);
+                    this.orderdetail.push(this.carsunroofone .optionalId);
+                    this.orderdetail.push(this.carmediaone   .optionalId);
                     console.log(this.orderdetail);
 
                 },
@@ -1299,41 +1306,49 @@
                 btnCreateNextClick() {
 
                     if (confirm("是否要建立訂單?") == true) {
-
-
-                        console.log('next');
                         let dt = new Date();
-                        this.orderpost = {
-                            "orderNumber": this.orderid,
-                            //"orderdatetime": dt,
-                            "orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                            "AreaId": this.agentone.areaId,
-                            "Price": this.cnt,
-                            "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                            "IsAccepted": false
-                            //,
-                            //"pic" : this.bee
+                        this.orderpost.orderNumber = this.orderid;
+                        this.orderpost.AreaId = this.agentone.areaId;
+                        this.orderpost.Price = this.cnt;
+                        this.orderpost.EmployeeId = 1;
+                        this.orderpost.IsAccepted = false;
+                        this.orderpost.BusinessOrderDetails = {
+                            "OptionalId": this.orderdetail
                         };
+
+                        //this.orderpost = {
+                        //    "orderNumber": this.orderid,
+                        //    //"orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                        //    "AreaId": this.agentone.areaId,
+                        //    "Price": this.cnt,
+                        //    "EmployeeId": 1,
+                        //    "IsAccepted": false
+                        //};
 
                         console.log(this.orderpost);
 
-                        axios.post('/api/BusinessOrders', this.orderpost)
+                        axios.post('/api/BusinessOrders/withoutloop', this.orderpost)
                             .then(p => {
                                 console.log(p);
-                                var orderidback = p.data.orderId;
-                                console.log(orderidback);
+                                //var orderidback = p.data.orderId;
+                                //console.log(orderidback);
 
-                                for (var n = 0; n < 9; n++) {
-                                    this.orderdetailpost = {
-                                        "OrderId": orderidback,
-                                        "OptionalId": this.orderdetail[n]
-                                    }
-                                    axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
-                                        .then(p => {
-                                            console.log(p);
-                                        })
-                                }
-                                alert('訂單新建成功!');
+
+
+
+
+
+                                //for (var n = 0; n < 9; n++) {
+                                //    this.orderdetailpost = {
+                                //        "OrderId": orderidback,
+                                //        "OptionalId": this.orderdetail[n]
+                                //    }
+                                //    axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
+                                //        .then(p => {
+                                //            console.log(p);
+                                //        })
+                                //}
+                                //alert('訂單新建成功!');
                             });
                     }
                 },
@@ -1364,7 +1379,7 @@
 
                 },
                 showphoto(e) {
-                    console.log(e.target.innerHTML.toString());
+                    //console.log(e.target.innerHTML.toString());
                     if (e.target.innerHTML.toString().indexOf("車款") > 0) {
                         this.srcphoto.type = this.cartypeone.photo;
                         this.photoseen.type = true;
@@ -1392,7 +1407,7 @@
                     else if (e.target.innerHTML.toString().indexOf("鞍座") > 0) {
                         this.srcphoto.saddle = this.carsaddleone.photo;
                         this.photoseen.saddle = true;
-                        console.log(e.target.innerHTML.toString());
+                        //console.log(e.target.innerHTML.toString());
                     }
                     else if (e.target.innerHTML.toString().indexOf("天窗") > 0) {
                         this.srcphoto.sunroof = this.carsunroofone.photo;
@@ -1405,7 +1420,7 @@
                 }
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/info/1').then(g => { this.cartype = g.data }),
+                    axios.get('/api/BusinessOptionals/info/1').then(g => { this.cartype = g.data }),
                     axios.get('/api/BusinessOptionals/info/2').then(g => { this.carcolor = g.data }),
                     axios.get('/api/BusinessOptionals/info/3').then(g => { this.cartexture = g.data }),
                     axios.get('/api/BusinessOptionals/info/4').then(g => { this.carwheel = g.data }),
@@ -1415,8 +1430,7 @@
                     axios.get('/api/BusinessOptionals/info/8').then(g => { this.carsunroof = g.data }),
                     axios.get('/api/BusinessOptionals/info/9').then(g => { this.carmedia = g.data }),
                     axios.get('/api/BusinessOptionals/agent').then(g => { this.agent = g.data })
-                //,
-                //axios.get('/api/BusinessOrders').then(g => { console.log(g.data); this.bee = g.data[24].pic })
+
 
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }

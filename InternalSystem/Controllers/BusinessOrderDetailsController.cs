@@ -36,7 +36,28 @@ namespace InternalSystem.Controllers
         }
 
 
+        //自己寫的
+        // POST: api/BusinessOrderDetails
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public string PostOrderDetail(int OrderId , [FromBody] BusinessOrderDetail bod)
+        {
+            if (!_context.BusinessOrderDetails.Any(a => a.OrderId == OrderId))
+            {
+                return "沒有該筆資料";
+            }
 
+            BusinessOrderDetail insert = new BusinessOrderDetail
+            {
+                OrderId = bod.OrderId,
+                OptionalId = bod.OptionalId
+            };
+
+            _context.BusinessOrderDetails.Add(insert);
+            _context.SaveChanges();
+
+            return "Okay";
+        }
 
 
 

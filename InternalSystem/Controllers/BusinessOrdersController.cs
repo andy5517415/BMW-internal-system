@@ -131,13 +131,47 @@ namespace InternalSystem.Controllers
 
 
 
+        //測試沒迴圈新增
+        // POST: api/BusinessOrders/withoutloop
+        [HttpPost("withoutloop")]
+        public void PostOrder([FromBody] BusinessOrder bo)
+        {
+            BusinessOrder insert = new BusinessOrder
+            {
+                OrderNumber = bo.OrderNumber,
+                OrderDateTime = DateTime.Now,
+                AreaId = bo.AreaId,
+                Price = bo.Price,
+                EmployeeId = bo.EmployeeId,
+                IsAccepted = bo.IsAccepted,
+                BusinessOrderDetails = bo.BusinessOrderDetails
+            };
+
+            _context.BusinessOrders.Add(insert);
+            _context.SaveChanges();
+        }
 
 
 
 
 
-        // GET: api/BusinessOrders
-        [HttpGet]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // GET: api/BusinessOrders
+    [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessOrder>>> GetBusinessOrders()
         {
             return await _context.BusinessOrders.ToListAsync();
