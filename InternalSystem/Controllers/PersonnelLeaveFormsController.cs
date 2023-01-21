@@ -505,8 +505,38 @@ namespace InternalSystem.Controllers
             }
         }
 
+        //申請人更改後申請
+        // PUT: api/PersonnelLeaveForms/proxy/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("Put/{id}")]
+        public void PutLeaveApplicationForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        {
+            var application = DateTime.Now.ToString("yyyy-MM-dd");
+            var proxydate = DateTime.Now;
+            var update = (from a in _context.PersonnelLeaveForms
+                          where a.LeaveId == personnelLeaveForm.LeaveId
+                          select a).SingleOrDefault();
 
-      
+            if (update != null)
+            {
+                update.ApplicationDate = application;
+                update.StatusId = 1;
+                update.LeaveType = personnelLeaveForm.LeaveType;
+                update.StartDate = personnelLeaveForm.StartDate;
+                update.EndDate = personnelLeaveForm.EndDate;
+                update.StartTime = personnelLeaveForm.StartTime;
+                update.EndTime = personnelLeaveForm.EndTime;
+                update.Proxy = personnelLeaveForm.Proxy;
+                update.AuditManerger = personnelLeaveForm.AuditManerger;
+                update.TotalTime = personnelLeaveForm.TotalTime;
+                update.Reason = personnelLeaveForm.Reason;
+                update.ApplicationDate= application;
+                _context.SaveChanges();
+            }
+
+
+        }
+
         //// PUT: api/PersonnelLeaveForms/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
