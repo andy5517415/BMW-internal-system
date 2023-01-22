@@ -708,7 +708,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="residence" class="form-label">員工工號</label>
                                                     <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus
-                                                           @change="empnumber" readonly/>
+                                                           @change="empnumber" readonly />
                                                 </div>
                                                 <!-- 部門選擇 -->
                                                 <div class="mb-4 col-md-6">
@@ -767,7 +767,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="usernumber" class="form-label-lg">帳號設定</label>
                                                     <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus
-                                                           @change="usernum" readonly/>
+                                                           @change="usernum" readonly />
                                                 </div>
                                                 <!--密碼設置-->
                                                 <div class="mb-3 col-md-6">
@@ -776,7 +776,7 @@
                                                            type="text"
                                                            id="password"
                                                            name="password"
-                                                           autofocus @change="password" disabled/>
+                                                           autofocus @change="password" disabled />
                                                 </div>
                                             </div>
 
@@ -788,9 +788,42 @@
                                                 <label for="Note" class="form-label fs-4">備註欄</label>
                                                 <textarea class="form-control" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
                                             </div>
+                                            <!-- ★Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header mb-3">
+                                                            <h5 class="modal-title" id="exampleModalLabel"
+                                                                style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                                                &nbsp新增員工資料
+                                                            </h5>
+                                                        
+                                                        </div>
+                                                        <div class="row justify-content-center">
+                                                            <hr class="col-10">
+                                                        </div>
+                                                        <div class="modal-body text-start mt-0">
+                                                            <p>員工名稱：{{employeelist.employeeName}}</p>
+                                                            <p>員工工號：{{employeelist.employeeNumber}}</p>
+                                                            <p >確認新增資料?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close" v-on:click="createbtn">
+                                                                存檔
+                                                            </button>
+                                                            <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">關閉</button>
+                                                             <!--<button type="button" class="btn btn-outline-primary">Save changes</button>--> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!-- 確認按鈕 -->
                                             <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                                <button type="button" v-on:click="createbtn" class="btn btn-primary me-2 ">存檔</button>
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                        style="font-size: 6px;height: 30px;">
+                                                    存檔
+                                                </button>
+                                                <!--<button type="button" v-on:click="createbtn" class="btn btn-primary me-2 ">存檔</button>-->
                                                 <button type="reset" class="btn btn-outline-secondary">取消</button>
                                             </div>
                                         </form>
@@ -1094,62 +1127,14 @@
                     .then(response => this.citylist = response.data)
                 //axios.get('/api/PersonnelDepartmentConnectEmployeeIds/5')
                 //    .then(response => this.deplist = response.data)
-                var a = new Date().getFullYear().toString();
-                console.log(typeof(a))
-                var b = "001";
-                console.log(typeof (b))
-                var c = a + b;
-                console.log(c)
 
                 //給予員工工號
-                axios.get('/api/PersonnelProfileDetails/newemp/idfind')
+                axios.get('/api/PersonnelProfileDetails/makenumber')
                     .then(response => {
-                        this.empid = response.data;
-                        console.log(this.empid.employeeId);
-                        var sempid = parseInt(this.empid.employeeId)
-                        if (response.status == 204) {
-                            this.employeelist.employeeNumber = c;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                    
-                        }
-                        else if (sempid > 1000) {
-                            sempid = sempid.toString().substr(-3)
-                            console.log(sempid)
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                        }
-                        else if (sempid < 100 && sempid > 10) {
-                            sempid = "0" + sempid.toString();
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                        }
-                        else if (sempid < 10) {
-                            sempid = "00" + sempid.toString();
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-
-                        }
-                        else {
-                            sempid = sempid.toString();
-                            var newid = a + sempid;
-                            console.log(newid)
-                            this.employeelist.employeeNumber = newid;
-                            this.employeelist.acount = this.employeelist.employeeNumber;
-                        }
-                        console.log(sempid)
-                     
-                        console.log(this.employeelist.employeeNumber)
-
-                    })
+                        this.employeelist.employeeNumber = response.data;
+                        this.employeelist.acount = response.data;
+                        //console.log(this.empid);
+                    }).catch(err => console.log(err));
 
             }
         }

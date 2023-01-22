@@ -238,9 +238,27 @@ namespace InternalSystem.Controllers
             return personnelOvertimeForm;
         }
 
+        //主管審閱加班資料
         // PUT: api/PersonnelOvertimeForms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        public void PutOvertime([FromBody]PersonnelOvertimeForm personnelOvertimeForm)
+        {
+            var overaudit = DateTime.Now.ToString("yyyy-MM-dd");
+            var update = (from o in _context.PersonnelOvertimeForms
+                          where o.StartWorkId == personnelOvertimeForm.StartWorkId
+                          select o).SingleOrDefault();
+            if(update != null)
+            {
+                update.AuditStatus = true;
+                _context.SaveChanges();
+            }
+
+        }
+
+        // PUT: api/PersonnelOvertimeForms/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("dep/{id}")]
         public async Task<IActionResult> PutPersonnelOvertimeForm(int id, PersonnelOvertimeForm personnelOvertimeForm)
         {
             if (id != personnelOvertimeForm.StartWorkId)
@@ -269,16 +287,42 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
+        //員工加班申請
         // POST: api/PersonnelOvertimeForms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PersonnelOvertimeForm>> PostPersonnelOvertimeForm(PersonnelOvertimeForm personnelOvertimeForm)
+        public void PostOverTime([FromBody]PersonnelOvertimeForm personnelOvertimeForm)
         {
-            _context.PersonnelOvertimeForms.Add(personnelOvertimeForm);
-            await _context.SaveChangesAsync();
+            var application = DateTime.Now.ToString("yyyy-MM-dd");
 
-            return CreatedAtAction("GetPersonnelOvertimeForm", new { id = personnelOvertimeForm.StartWorkId }, personnelOvertimeForm);
+            PersonnelOvertimeForm insert = new PersonnelOvertimeForm
+            {
+                ApplicationDate = application,
+                EmployeeId = personnelOvertimeForm.EmployeeId,
+                PropessId = personnelOvertimeForm.PropessId,
+                AreaId = personnelOvertimeForm.AreaId,
+                StartDate = personnelOvertimeForm.StartDate,
+                StartTime = personnelOvertimeForm.StartTime,
+                EndDate = personnelOvertimeForm.EndDate,
+                EndTime = personnelOvertimeForm.EndTime,
+                TotalTime = personnelOvertimeForm.TotalTime,
+                AuditStatus = false
+            };
+            _context.PersonnelOvertimeForms.Add(insert);
+            _context.SaveChanges();
         }
+
+
+        // POST: api/PersonnelOvertimeForms
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<PersonnelOvertimeForm>> PostPersonnelOvertimeForm(PersonnelOvertimeForm personnelOvertimeForm)
+        //{
+        //    _context.PersonnelOvertimeForms.Add(personnelOvertimeForm);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetPersonnelOvertimeForm", new { id = personnelOvertimeForm.StartWorkId }, personnelOvertimeForm);
+        //}
 
         // DELETE: api/PersonnelOvertimeForms/5
         [HttpDelete("{id}")]

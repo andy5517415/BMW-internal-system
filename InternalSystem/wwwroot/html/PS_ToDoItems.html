@@ -562,7 +562,7 @@
                                                     aria-selected="false"
                                                     id="overtime-check">
                                                 加班審核
-                                                <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="wnt!=0">{{wnt}}</span>
+                                                <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="wmt!=0">{{wmt}}</span>
 
                                             </button>
                                         </li>
@@ -1005,14 +1005,15 @@
                       + this.employeelist.departmentId)
                         .then(response => {
                             this.leaveproxy = response.data;
-                            this.wmt = this.wkover.length
+                            this.mnt = this.leaveproxy.length 
+                            //console.log(this.mnt)
                         })
                     axios.get('/api/PersonnelOvertimeForms/manager/over/'
                       + this.employeelist.departmentId)
                         .then(response => {
                             this.wkover = response.data;
-                            this.mnt = this.leaveproxy.length 
-                            //console.log(this.mnt)
+                            this.wmt = this.wkover.length
+                            console.log(this.wmt)
                         })
                     
                   }

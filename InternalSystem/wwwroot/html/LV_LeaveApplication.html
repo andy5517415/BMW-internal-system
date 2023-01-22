@@ -743,10 +743,10 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
                                             console.log(this.application.totalTime);
-                                            this.application.statusId = 1;
+                                            //this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.application.statusId = 1;
                                             //console.log(this.application.totalTime);
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -766,9 +766,9 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
+                                            //this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.application.statusId = 1;
                                             console.log(this.application.totalTime + "我是開始大於結束0");
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -788,10 +788,10 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             //console.log(leavetotal);
                                             this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
+                                            //this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.application.statusId = 1;
                                             console.log(this.application.totalTime + "我是開始大於結束1");
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -813,9 +813,9 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.application.statusId = 1;
                                             this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
                                             console.log(this.application.totalTime);
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -828,19 +828,19 @@
                                         else {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60);
                                             this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.application.statusId = 1;
+                                            ////日期格式
+                                            //let today = new Date()
+                                            //let y = today.getFullYear()
+                                            //let mm = today.getMonth() + 1
+                                            //let dd = today.getDate()
+                                            //if (mm < 10) {
+                                            //    mm = "0" + mm.toString()
+                                            //}
+                                            //if (dd < 10) {
+                                            //    dd = "0" + dd.toString()
+                                            //}
+                                            //this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                             console.log(this.application.totalTime);
                                             axios.post('/api/PersonnelLeaveForms', this.application)
                                                 .then(alert('申請已送出')).catch(err => console.log(err))
@@ -916,12 +916,12 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                //this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
                                                 console.log(this.application.totalTime);
-                                                this.application.statusId = 6;
+                                                //this.application.statusId = 6;
                                                 //console.log(this.application.totalTime);
-                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
                                                     .then(alert('申請已送出')).catch(err => console.log(err))
                                                 window.location = "/html/LV_LeaveApplication.html"
                                             }
@@ -939,11 +939,11 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                //this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
-                                                this.application.statusId = 6;
+                                                //this.application.statusId = 6;
                                                 console.log(this.application.totalTime + "我是開始大於結束0");
-                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
                                                     .then(alert('申請已送出')).catch(err => console.log(err))
                                                 window.location = "/html/LV_LeaveApplication.html"
 
@@ -962,11 +962,11 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                //this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
-                                                this.application.statusId = 6;
+                                                //this.application.statusId = 6;
                                                 console.log(this.application.totalTime + "我是開始大於結束1");
-                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
                                                     .then(alert('申請已送出')).catch(err => console.log(err))
                                                 window.location = "/html/LV_LeaveApplication.html"
                                             }
@@ -986,11 +986,11 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                //this.application.ApplicationDate = `${y}-${mm}-${dd}`
                                                 this.application.totalTime = leavetotal + dtotal;
-                                                this.application.statusId = 6;
+                                                //this.application.statusId = 6;
                                                 console.log(this.application.totalTime);
-                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
                                                     .then(alert('申請已送出')).catch(err => console.log(err))
                                                 window.location = "/html/LV_LeaveApplication.html"
                                             }
@@ -1012,10 +1012,10 @@
                                                 if (dd < 10) {
                                                     dd = "0" + dd.toString()
                                                 }
-                                                this.application.ApplicationDate = `${y}-${mm}-${dd}`
-                                                this.application.statusId = 6;
+                                                //this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                                //this.application.statusId = 6;
                                                 console.log(this.application.totalTime);
-                                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
                                                     .then(alert('申請已送出')).catch(err => console.log(err))
                                                 window.location = "/html/LV_LeaveApplication.html"
                                             }

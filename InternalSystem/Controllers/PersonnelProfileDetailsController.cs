@@ -62,19 +62,45 @@ namespace InternalSystem.Controllers
         //    return Content(sa);
         //}
 
-        //用工號尋找ID
+        //生成工號
         // GET: api/PersonnelProfileDetails/newemp/idfind
-        [HttpGet("newemp/idfind")]
+        [HttpGet("makenumber")]
         public async Task<ActionResult<dynamic>> GetId()
         {
+            var date = DateTime.Now.ToString("yyyy");
             var personnelProfileDetail = from o in _context.PersonnelProfileDetails
                                          orderby o.EmployeeId descending
                                          select new
                                          {
-                                             EmployeeId = (o.EmployeeId+1).ToString(),
+                                             o.EmployeeId,
+                                             EmployeeNumber = date + (o.EmployeeId + 1).ToString()
                                          };
-            //    var newyear = System.DateTime.Now.Year;
+            foreach (var i in personnelProfileDetail)
+            {
+                if (i.EmployeeId > 1000)
+                {
+                    string end = i.EmployeeId.ToString();
+                    int endindex = end.Length - 3;
 
+                    var EmployeeNumber = date + (i.EmployeeId + 1).ToString().Substring(endindex, 3);
+                    return EmployeeNumber;
+                }
+                else if (i.EmployeeId < 100 && i.EmployeeId > 10)
+                {
+                    var EmployeeNumber = date + "0" + (i.EmployeeId + 1).ToString();
+                    return EmployeeNumber;
+                }
+                else if (i.EmployeeId < 10)
+                {
+                    var EmployeeNumber = date + "00" + (i.EmployeeId + 1).ToString();
+                    return EmployeeNumber;
+                }
+                else
+                {
+                    var EmployeeNumber = date + (i.EmployeeId + 1).ToString();
+                    return EmployeeNumber;
+                }
+            }
             if (personnelProfileDetail == null)
             {
                 return NotFound();
@@ -442,7 +468,7 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
-        //父子資料同時新增
+        //父子資料同時新增(員工+該員工假別時數)
         // POST: api/PersonnelProfileDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

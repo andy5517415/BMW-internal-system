@@ -681,16 +681,16 @@
                             if (dd < 10) {
                                 dd = "0" + dd.toString()
                             }
-                            this.overlist.appcationDate = `${y}-${mm}-${dd}`
+                            //this.overlist.appcationDate = `${y}-${mm}-${dd}`
                             this.overlist.totalTime = tt;
                             console.log(this.overlist.totalTime);
 
                             if (confirm('是否送出資料') == true) {
-                                axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkId, this.overlist)
+                                axios.put('/api/PersonnelOvertimeForms/dep/' + this.overlist.startWorkId, this.overlist)
                                     .then(ok => {
-                                        alert('成功');
-                                        window.location = "/html/HR_OvertimeSearch.html";
-                                    })
+                                        //alert('成功');
+                                        //window.location = "/html/HR_OvertimeSearch.html";
+                                    }).catch(err => console.log(err))
                            
                             }
 

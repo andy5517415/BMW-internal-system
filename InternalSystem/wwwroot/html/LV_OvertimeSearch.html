@@ -620,7 +620,7 @@
             data() {
                 return {
                     employeelist: {},
-                    workoverlist: { /*"auditStatus": false */ },//預設FALSE送出
+                    workoverlist: {  },
                     totaltime: {},
                     employeedata: {},
                     area: {},
@@ -695,12 +695,12 @@
                             if (dd < 10) {
                                 dd = "0" + dd.toString()
                             }
-                            this.workoverlist.ApplicationDateDate = `${y}-${mm}-${dd}`
+                            //this.workoverlist.ApplicationDateDate = `${y}-${mm}-${dd}`
                             this.workoverlist.totalTime = tt;
                             console.log(this.workoverlist.totalTime);
 
                             if (confirm('是否送出資料') == true) {
-                                axios.post('https://localhost:44319/api/PersonnelOvertimeForms', this.workoverlist)
+                                axios.post('/api/PersonnelOvertimeForms', this.workoverlist)
                                     .then(a => {
                                         alert('申請已送出');
                                         window.location = "/html/PS_ToDoItems.html";
@@ -715,7 +715,7 @@
                     }
                     else { alert('資料請填寫確實!') };
                     //this.workoverlist.auditStatus=true
-             
+
                 },
                 editbtn: function () {
                     if (confirm('確認修改?') == true) {

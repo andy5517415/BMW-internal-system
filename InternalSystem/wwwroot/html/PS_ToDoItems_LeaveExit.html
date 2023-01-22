@@ -715,34 +715,34 @@
                         this.leaveExit.proxyAudit = null;
                         if (confirm('是否送出請假資料?1') == true) {
 
-                            if (this.application.leaveType != null &&
-                                this.application.proxy != null && this.application.auditManerger != null
-                                && this.application.reason != null
+                            if (this.leaveExit.leaveType != null &&
+                                this.leaveExit.proxy != null && this.leaveExit.auditManerger != null
+                                && this.leaveExit.reason != null
                             ) {
 
                                 // 判斷是否日期時間是否填入
-                                if (this.application.startDate != null && this.application.endDate != null &&
-                                    this.application.startTime != null && this.application.endTime != null) {
+                                if (this.leaveExit.startDate != null && this.leaveExit.endDate != null &&
+                                    this.leaveExit.startTime != null && this.leaveExit.endTime != null) {
 
                                     //日期轉數字
-                                    const sy = parseInt(this.application.startDate.substring(0, 4)) * 525600;
+                                    const sy = parseInt(this.leaveExit.startDate.substring(0, 4)) * 525600;
                                     console.log(sy);
-                                    const ey = parseInt(this.application.endDate.substring(0, 4)) * 525600;
+                                    const ey = parseInt(this.leaveExit.endDate.substring(0, 4)) * 525600;
                                     console.log(ey);
-                                    const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
+                                    const smonth = parseInt(this.leaveExit.startDate.substring(5, 7)) * 43200;
                                     //console.log(smonth);
-                                    const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
+                                    const sd = parseInt(this.leaveExit.startDate.substring(8, 11)) * 1440;
                                     console.log(sd);
-                                    const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
+                                    const emonth = parseInt(this.leaveExit.endDate.substring(5, 7)) * 43200;
                                     //console.log(emonth);
-                                    const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
+                                    const ed = parseInt(this.leaveExit.endDate.substring(8, 11)) * 1440;
                                     console.log(ed);
 
                                     //時間轉數字
-                                    const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
-                                    const sm = parseInt(this.application.startTime.substring(3, 5));
-                                    const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
-                                    const em = parseInt(this.application.endTime.substring(3, 5));
+                                    const sh = parseInt(this.leaveExit.startTime.substring(0, 2)) * 60;
+                                    const sm = parseInt(this.leaveExit.startTime.substring(3, 5));
+                                    const eh = parseInt(this.leaveExit.endTime.substring(0, 2)) * 60;
+                                    const em = parseInt(this.leaveExit.endTime.substring(3, 5));
 
                                     const stotal = (sy + smonth + sd + sh + sm);
                                     //console.log(stotal)
@@ -754,7 +754,7 @@
                                     console.log(edtotal);
                                     const dtotal = (edtotal - sdtotal) / 3;
                                     console.log(dtotal + "我是時間")
-                                    //ApplicationDate
+                                    //leaveExitDate
                                     //判斷請假日期時間是否開始大於結束
                                     if (stotal < etotal) {
 
@@ -773,12 +773,12 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
-                                            this.application.totalTime = leavetotal + dtotal;
-                                            console.log(this.application.totalTime);
-                                            this.application.statusId = 1;
-                                            //console.log(this.application.totalTime);
-                                            axios.put('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId, this.leaveExit)
+                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
+                                            this.leaveExit.totalTime = leavetotal + dtotal;
+                                            console.log(this.leaveExit.totalTime);
+                                            //this.leaveExit.statusId = 1;
+                                            //console.log(this.leaveExit.totalTime);
+                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                                 .then(a => {
                                                     alert('已重新提交');
                                                     window.location = "/html/PS_ToDoItems.html";
@@ -798,11 +798,11 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
-                                            this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
-                                            console.log(this.application.totalTime + "我是開始大於結束0");
-                                            axios.put('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId, this.leaveExit)
+                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
+                                            this.leaveExit.totalTime = leavetotal + dtotal;
+                                            //this.leaveExit.statusId = 1;
+                                            console.log(this.leaveExit.totalTime + "我是開始大於結束0");
+                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                                 .then(a => {
                                                     alert('已重新提交');
                                                     window.location = "/html/PS_ToDoItems.html";
@@ -822,12 +822,12 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
+                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
                                             //console.log(leavetotal);
-                                            this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
-                                            console.log(this.application.totalTime + "我是開始大於結束1");
-                                            axios.put('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId, this.leaveExit)
+                                            this.leaveExit.totalTime = leavetotal + dtotal;
+                                            //this.leaveExit.statusId = 1;
+                                            console.log(this.leaveExit.totalTime + "我是開始大於結束1");
+                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                                 .then(a => {
                                                     alert('已重新提交');
                                                     window.location = "/html/PS_ToDoItems.html";
@@ -849,11 +849,11 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
-                                            this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
-                                            console.log(this.application.totalTime);
-                                            axios.put('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId, this.leaveExit)
+                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
+                                            this.leaveExit.totalTime = leavetotal + dtotal;
+                                            //this.leaveExit.statusId = 1;
+                                            console.log(this.leaveExit.totalTime);
+                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                                 .then(a => {
                                                     alert('已重新提交');
                                                     window.location = "/html/PS_ToDoItems.html";
@@ -865,8 +865,8 @@
 
                                         else {
                                             var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            this.application.totalTime = leavetotal + dtotal;
-                                            this.application.statusId = 1;
+                                            this.leaveExit.totalTime = leavetotal + dtotal;
+                                            //this.leaveExit.statusId = 1;
                                             //日期格式
                                             let today = new Date()
                                             let y = today.getFullYear()
@@ -878,9 +878,9 @@
                                             if (dd < 10) {
                                                 dd = "0" + dd.toString()
                                             }
-                                            this.application.ApplicationDate = `${y}-${mm}-${dd}`
-                                            console.log(this.application.totalTime);
-                                            axios.put('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId, this.leaveExit)
+                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
+                                            //console.log(this.leaveExit.totalTime);
+                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                                 .then(a => {
                                                     alert('已重新提交');
                                                     window.location = "/html/PS_ToDoItems.html";
