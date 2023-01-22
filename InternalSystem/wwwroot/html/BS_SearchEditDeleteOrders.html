@@ -955,7 +955,7 @@
 
                     orderput: {},
                     orderdetail: [],
-                    orderdetailput: {},
+                    //orderdetailput: {},
 
                     orderdetailold: '',
                     odId: '',
@@ -967,15 +967,15 @@
             },
             computed: {
                 cnt() {
-                    return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
-                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
-                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
-                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
-                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
-                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
-                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
-                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
-                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                    return parseInt((this.cartypeone.price    == null) ? 0 : this.cartypeone.price   , 10) +
+                           parseInt((this.carcolorone.price   == null) ? 0 : this.carcolorone.price  , 10) +
+                           parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                           parseInt((this.carwheelone.price   == null) ? 0 : this.carwheelone.price  , 10) +
+                           parseInt((this.carplaqueone.price  == null) ? 0 : this.carplaqueone.price , 10) +
+                           parseInt((this.carlightone.price   == null) ? 0 : this.carlightone.price  , 10) +
+                           parseInt((this.carsaddleone.price  == null) ? 0 : this.carsaddleone.price , 10) +
+                           parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                           parseInt((this.carmediaone.price   == null) ? 0 : this.carmediaone.price  , 10)
                         ;
                 },
                 charcnt() {
@@ -1005,8 +1005,6 @@
                         axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/8').then(g => this.carsunroofone = g.data)
                         axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/9').then(g => this.carmediaone = g.data)
 
-
-
                         //this.isDisabled = true;
                         this.btndisable = false;
                     }
@@ -1022,33 +1020,39 @@
                         //console.log('btnedit');
                         let dt = new Date();
                         //組裝Order資料表
-                        this.orderput = {
-                            "OrderId": this.orderid,
-                            "OrderNumber": this.ordernum,
-                            "OrderDatetime": this.orderdatetime,
-                            "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                            "AreaId": this.agentone.areaId,
-                            "Price": this.cnt,
-                            "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                            "IsAccepted": false
-                        };
+                        this.orderput.OrderId = this.orderid;
+                        this.orderput.orderNumber = this.ordenum;
+                        this.orderput.AreaId = this.agentone.areaId;
+                        this.orderput.Price = this.cnt;
+                        this.orderput.EmployeeId = 5;
+                        this.orderput.IsAccepted = false;
+                        //this.orderput = {
+                        //    "OrderId": this.orderid,
+                        //    "OrderNumber": this.ordernum,
+                        //    "OrderDatetime": this.orderdatetime,
+                        //    "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                        //    "AreaId": this.agentone.areaId,
+                        //    "Price": this.cnt,
+                        //    "EmployeeId": Math.floor(Math.random() * 10) + 1,
+                        //    "IsAccepted": false
+                        //};
                         console.log(this.orderput);
 
                         //將新的選配放入陣列儲存
                         this.orderdetail = [];
-                        this.orderdetail.push(this.cartypeone.optionalId);
-                        this.orderdetail.push(this.carcolorone.optionalId);
-                        this.orderdetail.push(this.cartextureone.optionalId);
-                        this.orderdetail.push(this.carwheelone.optionalId);
-                        this.orderdetail.push(this.carplaqueone.optionalId);
-                        this.orderdetail.push(this.carlightone.optionalId);
-                        this.orderdetail.push(this.carsaddleone.optionalId);
-                        this.orderdetail.push(this.carsunroofone.optionalId);
-                        this.orderdetail.push(this.carmediaone.optionalId);
+                        this.orderdetail.push(this.cartypeone    .optionalId);
+                        this.orderdetail.push(this.carcolorone   .optionalId);
+                        this.orderdetail.push(this.cartextureone .optionalId);
+                        this.orderdetail.push(this.carwheelone   .optionalId);
+                        this.orderdetail.push(this.carplaqueone  .optionalId);
+                        this.orderdetail.push(this.carlightone   .optionalId);
+                        this.orderdetail.push(this.carsaddleone  .optionalId);
+                        this.orderdetail.push(this.carsunroofone .optionalId);
+                        this.orderdetail.push(this.carmediaone   .optionalId);
                         //console.log(this.orderdetail);
 
                         //修改Order資料表
-                        axios.put('/api/BusinessOrders/' + this.orderid, this.orderput)
+                        axios.put('/api/BusinessOrders/withoutloop' , this.orderput)
                             .then(p => {
                                 //console.log(p);
                                 console.log('this.orderid = ' + this.orderid);
@@ -1096,16 +1100,11 @@
                                 /*console.log(d);*/
                                 alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
                             })
-                        
-
                     }
-
                 }
-
-
             },
             mounted() {
-                axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),
+                    axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),
                     axios.get('/api/BusinessOptionals/info/2').then(g => this.carcolor = g.data),
                     axios.get('/api/BusinessOptionals/info/3').then(g => this.cartexture = g.data),
                     axios.get('/api/BusinessOptionals/info/4').then(g => this.carwheel = g.data),
@@ -1114,7 +1113,7 @@
                     axios.get('/api/BusinessOptionals/info/7').then(g => this.carsaddle = g.data),
                     axios.get('/api/BusinessOptionals/info/8').then(g => this.carsunroof = g.data),
                     axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
-                    axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
+                    axios.get('/api/BusinessOptionals/agent' ).then(g => this.agent = g.data)
 
 
 

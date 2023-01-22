@@ -36,9 +36,8 @@ namespace InternalSystem.Controllers
         }
 
 
-        //自己寫的
+        //沒迴圈新增orderdetail小表
         // POST: api/BusinessOrderDetails
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public string PostOrderDetail(int OrderId , [FromBody] BusinessOrderDetail bod)
         {
@@ -56,7 +55,7 @@ namespace InternalSystem.Controllers
             _context.BusinessOrderDetails.Add(insert);
             _context.SaveChanges();
 
-            return "Okay";
+            return "orderdetail小表新增成功";
         }
 
 
@@ -64,7 +63,36 @@ namespace InternalSystem.Controllers
 
 
 
-        //自己寫的
+        //沒迴圈修改orderdetail小表
+        // PUT: api/BusinessOrderDetails
+        [HttpPut]
+        public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)
+        {
+            if (!_context.BusinessOrderDetails.Any(a => a.OrderId == OrderId))
+            {
+                return "沒有該筆資料";
+            }
+
+            BusinessOrderDetail update = new BusinessOrderDetail
+            {
+                OrderId = bodput.OrderId,
+                OptionalId = bodput.OptionalId
+            };
+
+            _context.BusinessOrderDetails.Update(update);
+            _context.SaveChanges();
+
+            return "orderdetail小表修改成功";
+        }
+
+
+
+
+
+
+
+
+        //網路做法，foreach
         // PUT: api/BusinessOrderDetails/25/3
         [HttpPut("{ordid}/{oplid}")]
         public async Task<ActionResult<dynamic>> PutOrderDetail(int ordid, int oplid)
