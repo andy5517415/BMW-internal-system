@@ -63,7 +63,7 @@ namespace InternalSystem.Controllers
         //}
 
         //生成工號
-        // GET: api/PersonnelProfileDetails/newemp/idfind
+        // GET: api/PersonnelProfileDetails/makenumber
         [HttpGet("makenumber")]
         public async Task<ActionResult<dynamic>> GetId()
         {

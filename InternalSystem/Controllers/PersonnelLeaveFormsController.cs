@@ -33,7 +33,7 @@ namespace InternalSystem.Controllers
 
         //用員工ID尋找(Session帶入員工ID) 個人查詢
         // GET: api/PersonnelLeaveForms/employee/5/{y}-{m}
-        [HttpGet("employee/{id}/{y}-{m}")]
+        [HttpGet("profile/{id}/{y}-{m}")]
         public async Task<ActionResult<dynamic>> GetPersonnelLeave(int id, int y, int m)
         {
             var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
@@ -53,17 +53,10 @@ namespace InternalSystem.Controllers
                                          pl.TotalTime,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
-                                         Type = lt.Type,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
-                                         pl.AuditOpnion,
-                                         pl.ProxyAudit,
-                                         pl.ManagerAudit,
-                                         ProxyAuditDate = pl.ProxyAuditDate.ToString(),
-                                         ManagerAuditDate = pl.ManagerAuditDate.ToString(),
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
-                                         o.PositionId,
                                          Reason = pl.Reason,
                                          pl.ApplicationDate
                                      };
@@ -122,6 +115,7 @@ namespace InternalSystem.Controllers
         [HttpGet("department/{depId}/{y}-{m}")]
         public async Task<ActionResult<dynamic>> GetDepartmentLeave(int depId, int y, int m)
         {
+
             var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
@@ -609,7 +603,78 @@ namespace InternalSystem.Controllers
         [HttpPost]
         public void PostPersonnalLeaveForm([FromBody]PersonnelLeaveForm personnelLeaveForm) 
         {
-            var application = DateTime.Now.ToString("yyyy-MM-dd");
+            //日期轉數字
+            var syear = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
+            var smonth = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
+            var sday = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(6,2)) * 1440;
+            var eyear = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
+            var emonth = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
+            var eday = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(6, 2)) * 1440;
+            var sh =  Convert.ToInt32(personnelLeaveForm.StartTime.Substring(0, 2)) * 60;
+            var sm =  Convert.ToInt32(personnelLeaveForm.StartTime.Substring(3, 2));
+            var eh =  Convert.ToInt32(personnelLeaveForm.EndTime.Substring(0, 2)) * 60;
+            var em = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(3, 2));
+
+            int dtotal = 0;
+            int sdtotal = 0;
+            int edtotal = 0;
+            if (syear < eyear)
+            {
+                sdtotal =  ((syear+563040) - (syear +smonth + sday))/60;
+                edtotal = ((eyear + emonth + eday) -(eyear + 44640) ) / 60;
+                dtotal = (edtotal + sdtotal) / 3 +8;
+                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && eh <= 720)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
+                }
+                //判斷請假是否跨休息時間
+                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+            }
+            else
+            {
+                sdtotal = (syear + smonth + sday) / 60;
+                edtotal = (eyear + emonth + eday) / 60;
+                dtotal = (edtotal - sdtotal) / 3;
+                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && eh <= 720)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
+                }
+                //判斷請假是否跨休息時間
+                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+            }
+           
+        
+        var application = DateTime.Now.ToString("yyyy-MM-dd");
 
             PersonnelLeaveForm insert = new PersonnelLeaveForm
             {
@@ -637,6 +702,76 @@ namespace InternalSystem.Controllers
         public void PostManagerLeaveForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
             var application = DateTime.Now.ToString("yyyy-MM-dd");
+
+            //日期轉數字
+            var syear = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
+            var smonth = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
+            var sday = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(6, 2)) * 1440;
+            var eyear = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
+            var emonth = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
+            var eday = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(6, 2)) * 1440;
+            var sh = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(0, 2)) * 60;
+            var sm = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(3, 2));
+            var eh = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(0, 2)) * 60;
+            var em = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(3, 2));
+
+            int dtotal = 0;
+            int sdtotal = 0;
+            int edtotal = 0;
+            if (syear < eyear)
+            {
+                sdtotal = ((syear + 563040) - (syear + smonth + sday)) / 60;
+                edtotal = ((eyear + emonth + eday) - (eyear + 44640)) / 60;
+                dtotal = (edtotal + sdtotal) / 3 + 8;
+                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && eh <= 720)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
+                }
+                //判斷請假是否跨休息時間
+                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+            }
+            else
+            {
+                sdtotal = (syear + smonth + sday) / 60;
+                edtotal = (eyear + emonth + eday) / 60;
+                dtotal = (edtotal - sdtotal) / 3;
+                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+                else if (dtotal > 0 && sh > eh && eh <= 720)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
+                }
+                //判斷請假是否跨休息時間
+                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                }
+                else
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                }
+            }
 
             PersonnelLeaveForm insert = new PersonnelLeaveForm
             {

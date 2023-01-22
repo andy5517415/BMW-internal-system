@@ -538,7 +538,7 @@
                                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{item.employeeName}}</strong></td>
                                             <td>{{item.employeeNumber}}</td>
                                             <td>
-                                                <span class="label-primary me-1">{{item.startDate}} - {{item.endTime}}</span>
+                                                <span class="label-primary me-1">{{item.startDate}} - {{item.startTime}}</span>
                                             </td>
                                             <td>
                                                 <span class="label-primary me-1">{{item.endDate}} - {{item.endTime}}</span>
@@ -610,7 +610,7 @@
 
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
-                    axios.get('/api/PersonnelLeaveForms/employee/' + this.employeedata.EmpID + '/' + this.leavesearch.month)
+                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month)
                         .then(response => this.leavelist = response.data)
                         .catch(err => console.log(err))
                 },
