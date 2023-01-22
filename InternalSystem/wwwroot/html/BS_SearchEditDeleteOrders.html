@@ -840,7 +840,9 @@
 
                                     <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
                                     <button :disabled="btndisable" @click="btnedit" class="btn btn-outline-primary d-block">修改</button>
-
+                                    <button :disabled="btndisable" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>
+                                    
+                                    
                                     <div class="col-lg-4 col-md-6">
 
                                         <div class="mt-3">
@@ -939,6 +941,7 @@
                     carsunroof: {},
                     carmedia: {},
                     agent: {},
+
                     cartypeone: {},
                     carcolorone: {},
                     cartextureone: {},
@@ -1016,7 +1019,7 @@
 
                     if (confirm("是否要修改訂單?") == true) {
 
-                        console.log('btnOK');
+                        //console.log('btnedit');
                         let dt = new Date();
                         //組裝Order資料表
                         this.orderput = {
@@ -1084,7 +1087,22 @@
                                 alert('訂單修改成功!');
                             });
                     }
+                },
+                btndelete() {
+                    if (confirm(`是否要刪除訂單? 編號 : ${this.ordernum}`) == true) {
+                        //console.log('btndelete');
+                        axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
+                            .then(d => {
+                                /*console.log(d);*/
+                                alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
+                            })
+                        
+
+                    }
+
                 }
+
+
             },
             mounted() {
                 axios.get('/api/BusinessOptionals/info/1').then(g => this.cartype = g.data),

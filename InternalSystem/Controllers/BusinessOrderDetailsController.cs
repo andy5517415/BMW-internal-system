@@ -112,6 +112,32 @@ namespace InternalSystem.Controllers
 
 
 
+        //Delete訂單(父子資料同時刪除)
+        // Delete: api/BusinessOrderDetails/order/X021674138417
+        [HttpDelete("order/{ordernum}")]
+        public void DeleteOrder(string ordernum)
+        {
+
+            var detail = from bod in _context.BusinessOrderDetails
+                          join bo in _context.BusinessOrders on bod.OrderId equals bo.OrderId
+                          where bo.OrderNumber == ordernum
+                          select bod;
+
+            _context.BusinessOrderDetails.RemoveRange(detail.ToList());
+            _context.SaveChanges();
+
+
+            var ord = (from bo in _context.BusinessOrders
+                          where bo.OrderNumber == ordernum
+                          select bo).SingleOrDefault();
+            if (ord != null)
+            {
+                _context.BusinessOrders.Remove(ord);
+                _context.SaveChanges();
+            }
+        }
+
+
 
 
 

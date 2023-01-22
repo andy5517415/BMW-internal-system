@@ -601,10 +601,10 @@
                                             </select>
                                             <!--<input type="hidden" v-model="cartypeone.OptionalId">-->
 
-                                            <!--<img v-if="photoseen.type"
+                                            <img v-if="photoseen.type"
                                                  :src="srcphoto.type"
                                                  class="d-block rounded"
-                                                 alt="car" />-->
+                                                 alt="car" />
                                         </div>
                                         <div class="col-md-3">
                                             <label for="" class="form-label fs-4">車款價格</label>
@@ -1242,11 +1242,9 @@
                     agentone: 999,
                     orderid: '',
                     orderpost: {
-
-
+                        businessOrderDetails:[]
                     },
                     orderdetail: [],
-                    orderdetailpost: {},
                     limit: {},
                     putphoto: {},
                     srcphoto: {},
@@ -1266,15 +1264,15 @@
             },
             computed: {
                 cnt() {
-                    return  parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
-                            parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                    return  parseInt((this.cartypeone.price    == null) ? 0 : this.cartypeone.price, 10) +
+                            parseInt((this.carcolorone.price   == null) ? 0 : this.carcolorone.price, 10) +
                             parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
-                            parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
-                            parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
-                            parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
-                            parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                            parseInt((this.carwheelone.price   == null) ? 0 : this.carwheelone.price, 10) +
+                            parseInt((this.carplaqueone.price  == null) ? 0 : this.carplaqueone.price, 10) +
+                            parseInt((this.carlightone.price   == null) ? 0 : this.carlightone.price, 10) +
+                            parseInt((this.carsaddleone.price  == null) ? 0 : this.carsaddleone.price, 10) +
                             parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
-                            parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                            parseInt((this.carmediaone.price   == null) ? 0 : this.carmediaone.price, 10)
                         ;
                 }
             },
@@ -1309,48 +1307,15 @@
                         this.orderpost.orderNumber = this.orderid;
                         this.orderpost.AreaId = this.agentone.areaId;
                         this.orderpost.Price = this.cnt;
-                        this.orderpost.EmployeeId = 1;
+                        this.orderpost.EmployeeId = 5;
                         this.orderpost.IsAccepted = false;
-                        this.orderdetail.forEach((x, idx) => {
-                            //console.log(idx);
-                            this.orderpost.businessOrderDetails.push({ optionalId: x });
-                        });
-
-
-                        //let dt = new Date();
-                        //this.orderpost = {
-                        //    "orderNumber": this.orderid,
-                        //    //"orderdatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                        //    "AreaId": this.agentone.areaId,
-                        //    "Price": this.cnt,
-                        //    "EmployeeId": 1,
-                        //    "IsAccepted": false
-                        //};
+                        this.orderdetail.forEach(x => this.orderpost.businessOrderDetails.push({ 'optionalId': x }));
 
                         console.log(this.orderpost);
-
                         axios.post('/api/BusinessOrders/withoutloop', this.orderpost)
                             .then(p => {
                                 console.log(p);
-                                //var orderidback = p.data.orderId;
-                                //console.log(orderidback);
-
-
-
-
-
-
-                                //for (var n = 0; n < 9; n++) {
-                                //    this.orderdetailpost = {
-                                //        "OrderId": orderidback,
-                                //        "OptionalId": this.orderdetail[n]
-                                //    }
-                                //    axios.post('/api/BusinessOrderDetails', this.orderdetailpost)
-                                //        .then(p => {
-                                //            console.log(p);
-                                //        })
-                                //}
-                                //alert('訂單新建成功!');
+                                alert('訂單新建成功!');                        
                             });
                     }
                 },
