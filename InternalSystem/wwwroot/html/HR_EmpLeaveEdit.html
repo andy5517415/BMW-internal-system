@@ -555,7 +555,10 @@
                                         <label for="EndTime" class="form-label-lg fs-5" style="visibility: hidden;">結束時間</label>
                                         <input class="form-control" v-model="leavedata.endTime" id="EndTime" disabled />
                                     </div>
-
+                                    <div class="mb-3 col-2">
+                                        <label for="AuditStatus" class="form-label-lg fs-5">審核狀態</label>
+                                        <input class="form-control"  v-model="leavedata.auditStatus" id="Endtimeforvacation" disabled />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -654,202 +657,24 @@
             },
             methods: {
                 leaveedit: function () {
-                             if (this.leavedata.leaveType != null &&
-                                    this.leavedata.proxy != null && this.leavedata.auditManerger != null
-                                    && this.leavedata.reason != null
-                                ) { 
+                    if (this.leavedata.leaveType != null &&
+                        this.leavedata.proxy != null && this.leavedata.auditManerger != null
+                        && this.leavedata.reason != null
+                    ) {
 
-                                // 判斷是否日期時間是否填入
-                                if (this.leavedata.startDate != null && this.leavedata.endDate != null &&
-                                    this.leavedata.startTime != null && this.leavedata.endTime != null) {
-
-                                    //日期轉數字
-                                    const sy = parseInt(this.leavedata.startDate.substring(0, 4)) * 525600;
-                                    console.log(sy);
-                                    const ey = parseInt(this.leavedata.endDate.substring(0, 4)) * 525600;
-                                    console.log(ey);
-                                    const smonth = parseInt(this.leavedata.startDate.substring(5, 7)) * 43200;
-                                    //console.log(smonth);
-                                    const sd = parseInt(this.leavedata.startDate.substring(8, 11)) * 1440;
-                                    console.log(sd);
-                                    const emonth = parseInt(this.leavedata.endDate.substring(5, 7)) * 43200;
-                                    //console.log(emonth);
-                                    const ed = parseInt(this.leavedata.endDate.substring(8, 11)) * 1440;
-                                    console.log(ed);
-
-                                    //時間轉數字
-                                    const sh = parseInt(this.leavedata.startTime.substring(0, 2)) * 60;
-                                    const sm = parseInt(this.leavedata.startTime.substring(3, 5));
-                                    const eh = parseInt(this.leavedata.endTime.substring(0, 2)) * 60;
-                                    const em = parseInt(this.leavedata.endTime.substring(3, 5));
-
-                                    const stotal = (sy + smonth + sd + sh + sm);
-                                    //console.log(stotal)
-                                    const etotal = (ey + emonth + ed + eh + em);
-                                    //console.log(etotal)
-                                    const sdtotal = (sy + smonth + sd)/60;
-                                    const edtotal = (ey + emonth + ed)/60
-                                    console.log(sdtotal);
-                                    console.log(edtotal);
-                                    const dtotal = (edtotal - sdtotal)/3;
-                                    console.log(dtotal + "我是時間")
-                                    //applicationDate
-                                    //判斷請假日期時間是否開始大於結束
-                                    if (stotal < etotal) {
-
-                                        if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
-                                            //console.log(leavetotal);
-
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leavedata.applicationDate = `${y}-${mm}-${dd}`
-                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
-                                            console.log(this.leavedata.totalTime);
-                                            //this.leavedata.statusId = 1;
-                                            //console.log(this.leavedata.totalTime);
-                                            if (confirm('請確認修改資料是否正確') == true) {
-                                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
-                                                    .then(ok => {
-                                                        alert('資料修改完成');
-                                                        window.location = "/html/HR_EmpLeaveSearch.html";
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }
-                                        }
-                                        else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 ||eh == 780 && em != 0) || eh > 780)) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) ;
-                                            //console.log(leavetotal);
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leavedata.applicationDate = `${y}-${mm}-${dd}`
-                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
-                                            //this.leavedata.statusId = 1;
-                                            console.log(this.leavedata.totalTime + "我是開始大於結束0");
-                                            if (confirm('請確認修改資料是否正確') == true) {
-                                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
-                                                    .then(ok => {
-                                                        alert('資料修改完成');
-                                                        window.location = "/html/HR_EmpLeaveSearch.html";
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }
-
-                                        }
-                                        else if (dtotal > 0 && sh > eh && eh <= 720 ) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leavedata.applicationDate = `${y}-${mm}-${dd}`
-                                            //console.log(leavetotal);
-                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
-                                            //this.leavedata.statusId = 1;
-                                            console.log(this.leavedata.totalTime + "我是開始大於結束1");
-                                            if (confirm('請確認修改資料是否正確') == true) {
-                                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
-                                                    .then(ok => {
-                                                        alert('資料修改完成');
-                                                        window.location = "/html/HR_EmpLeaveSearch.html";
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }
-                                        }
-                                    
-                                        //判斷請假是否跨休息時間
-                                        else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
-                                            //console.log(leavetotal);
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leavedata.applicationDate = `${y}-${mm}-${dd}`
-                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
-                                            //this.leavedata.statusId = 1;
-                                            console.log(this.leavedata.totalTime);
-                                            if (confirm('請確認修改資料是否正確') == true) {
-                                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
-                                                    .then(ok => {
-                                                        alert('資料修改完成');
-                                                        window.location = "/html/HR_EmpLeaveSearch.html";
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }
-                                        }
-                                        else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
-                                            alert('請假開始時間或結束時間不可選在休息時段!')
-                                        }
-                                 
-                                        else {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            this.leavedata.totalTime = (leavetotal + dtotal).toString();
-                                            //this.leavedata.statusId = 1;
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leavedata.applicationDate = `${y}-${mm}-${dd}`
-                                            console.log(this.leavedata.totalTime);
-                                            if (confirm('請確認修改資料是否正確') == true) {
-                                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
-                                                    .then(ok => {
-                                                        alert('資料修改完成');
-                                                        window.location = "/html/HR_EmpLeaveSearch.html";
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        alert('開始時間不可大於或等於結束時間')
-                                    }
-                                }
-                                else { alert('日期時間不可為空!') };
-                    //console.log(leavetotal);
-                                }
-                
-                    // console.log(this.leavedata)
+                        // 判斷是否日期時間是否填入
+                        if (this.leavedata.startDate != null && this.leavedata.endDate != null &&
+                            this.leavedata.startTime != null && this.leavedata.endTime != null) {
+                            if (confirm('請確認修改資料是否正確') == true) {
+                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
+                                    .then(response => {
+                                        alert(response.data);
+                                        //window.location = "/html/HR_EmpLeaveSearch.html";
+                                    })
+                                    .catch(err => console.log(err))
+                            }
+                        }
+                    }
                 }
             },
             mounted() {

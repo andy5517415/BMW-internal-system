@@ -72,8 +72,8 @@ namespace InternalSystem.Controllers
                                          orderby o.EmployeeId descending
                                          select new
                                          {
-                                             o.EmployeeId,
-                                             EmployeeNumber = date + (o.EmployeeId + 1).ToString()
+                                             EmployeeNumber = date + (o.EmployeeId + 1).ToString(),
+                                             o.EmployeeId
                                          };
             foreach (var i in personnelProfileDetail)
             {
@@ -82,22 +82,22 @@ namespace InternalSystem.Controllers
                     string end = i.EmployeeId.ToString();
                     int endindex = end.Length - 3;
 
-                    var EmployeeNumber = date + (i.EmployeeId + 1).ToString().Substring(endindex, 3);
+                    string EmployeeNumber = date + (i.EmployeeId + 1).ToString().Substring(endindex, 3);
                     return EmployeeNumber;
                 }
                 else if (i.EmployeeId < 100 && i.EmployeeId > 10)
                 {
-                    var EmployeeNumber = date + "0" + (i.EmployeeId + 1).ToString();
+                    string EmployeeNumber = date + "0" + (i.EmployeeId + 1).ToString();
                     return EmployeeNumber;
                 }
                 else if (i.EmployeeId < 10)
                 {
-                    var EmployeeNumber = date + "00" + (i.EmployeeId + 1).ToString();
+                    string EmployeeNumber = date + "00" + (i.EmployeeId + 1).ToString();
                     return EmployeeNumber;
                 }
                 else
                 {
-                    var EmployeeNumber = date + (i.EmployeeId + 1).ToString();
+                    string EmployeeNumber = date + (i.EmployeeId + 1).ToString();
                     return EmployeeNumber;
                 }
             }
@@ -472,7 +472,7 @@ namespace InternalSystem.Controllers
         // POST: api/PersonnelProfileDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostPersonnelProfileDetail([FromBody] PersonnelProfileDetail personnelProfileDetail)
+        public ActionResult PostPersonnelProfileDetail([FromBody] PersonnelProfileDetail personnelProfileDetail)
         {
             PersonnelProfileDetail insert = new PersonnelProfileDetail
             {
@@ -505,6 +505,7 @@ namespace InternalSystem.Controllers
             };
             _context.PersonnelProfileDetails.Add(insert);
             _context.SaveChanges();
+            return Content("新增完成");
         }
 
 

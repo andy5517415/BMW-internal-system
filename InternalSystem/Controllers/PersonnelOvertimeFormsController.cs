@@ -291,25 +291,41 @@ namespace InternalSystem.Controllers
         // POST: api/PersonnelOvertimeForms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostOverTime([FromBody]PersonnelOvertimeForm personnelOvertimeForm)
+        public ActionResult PostOverTime([FromBody]PersonnelOvertimeForm personnelOvertimeForm)
         {
             var application = DateTime.Now.ToString("yyyy-MM-dd");
+            //日期差異判斷
+            TimeSpan ts = personnelOvertimeForm.EndDate.Subtract(personnelOvertimeForm.StartDate);
+            TimeSpan hm = Convert.ToDateTime(personnelOvertimeForm.EndTime).Subtract(Convert.ToDateTime(personnelOvertimeForm.StartTime));
+            double dayCount = ts.TotalDays;
+            double hourCount = ts.TotalHours;
+            double dayTohour = dayCount * 8;
+            double hoursCountMinutes = hm.TotalMinutes;
+            double hoursCount = hm.TotalHours;
 
-            PersonnelOvertimeForm insert = new PersonnelOvertimeForm
+            if (dayCount == 0 && hoursCountMinutes > 0)
             {
-                ApplicationDate = application,
-                EmployeeId = personnelOvertimeForm.EmployeeId,
-                PropessId = personnelOvertimeForm.PropessId,
-                AreaId = personnelOvertimeForm.AreaId,
-                StartDate = personnelOvertimeForm.StartDate,
-                StartTime = personnelOvertimeForm.StartTime,
-                EndDate = personnelOvertimeForm.EndDate,
-                EndTime = personnelOvertimeForm.EndTime,
-                TotalTime = personnelOvertimeForm.TotalTime,
-                AuditStatus = false
-            };
-            _context.PersonnelOvertimeForms.Add(insert);
-            _context.SaveChanges();
+                PersonnelOvertimeForm insert = new PersonnelOvertimeForm
+                {
+                    ApplicationDate = application,
+                    EmployeeId = personnelOvertimeForm.EmployeeId,
+                    PropessId = personnelOvertimeForm.PropessId,
+                    AreaId = personnelOvertimeForm.AreaId,
+                    StartDate = personnelOvertimeForm.StartDate,
+                    StartTime = personnelOvertimeForm.StartTime,
+                    EndDate = personnelOvertimeForm.EndDate,
+                    EndTime = personnelOvertimeForm.EndTime,
+                    TotalTime = hoursCount,
+                    AuditStatus = false
+                };
+                _context.PersonnelOvertimeForms.Add(insert);
+                _context.SaveChanges();
+                return Content("申請成功");
+            }
+            else
+            {
+                return Content("申請時間有誤");
+            }
         }
 
 

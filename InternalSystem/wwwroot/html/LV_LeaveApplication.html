@@ -682,257 +682,43 @@
                 okbtn: function () {
                     //alert('OK');
                     //一般員工請假
-                        if (this.employeedata.PositionId < 7) {
-                            if (confirm('是否送出請假資料?1') == true) {
+                    if (this.employeedata.PositionId < 7) {
+                        if (confirm('是否送出請假資料?1') == true) {
 
-                                if (this.application.leaveType != null &&
-                                    this.application.proxy != null && this.application.auditManerger != null
-                                    && this.application.reason != null
-                                ) { 
-
+                            if (this.application.leaveType != null &&
+                                this.application.proxy != null && this.application.auditManerger != null
+                                && this.application.reason != null
+                            ) {
                                 // 判斷是否日期時間是否填入
                                 if (this.application.startDate != null && this.application.endDate != null &&
                                     this.application.startTime != null && this.application.endTime != null) {
-
-                                    //日期轉數字
-                                    const sy = parseInt(this.application.startDate.substring(0, 4)) * 525600;
-                                    console.log(sy);
-                                    const ey = parseInt(this.application.endDate.substring(0, 4)) * 525600;
-                                    console.log(ey);
-                                    const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
-                                    //console.log(smonth);
-                                    const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
-                                    console.log(sd);
-                                    const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
-                                    //console.log(emonth);
-                                    const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
-                                    console.log(ed);
-
-                                    //時間轉數字
-                                    const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
-                                    const sm = parseInt(this.application.startTime.substring(3, 5));
-                                    const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
-                                    const em = parseInt(this.application.endTime.substring(3, 5));
-
-                                    const stotal = (sy + smonth + sd + sh + sm);
-                                    //console.log(stotal)
-                                    const etotal = (ey + emonth + ed + eh + em);
-                                    //console.log(etotal)
-                                    const sdtotal = (sy + smonth + sd)/60;
-                                    const edtotal = (ey + emonth + ed)/60
-                                    console.log(sdtotal);
-                                    console.log(edtotal);
-                                    const dtotal = (edtotal - sdtotal)/3;
-                                    console.log(dtotal + "我是時間")
-                                    //ApplicationDate
-                                    //判斷請假日期時間是否開始大於結束
-                                    if (stotal < etotal) {
-
-                                        if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                    
-                                            axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(response => {
-                                                    console.log(response.data)
-                                                    alert(response.data)
-                                                }).catch(err => alert(err))
-                                            //window.location = "/html/LV_LeaveApplication.html"
-                                        }
-                                        else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 ||eh == 780 && em != 0) || eh > 780)) {
-                                  
-                                            axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(response => {
-                                                    console.log(response.data)
-                                                    alert(response.data)
-                                                }).catch(err => alert(err))
-                                            //window.location = "/html/LV_LeaveApplication.html"
-
-                                        }
-                                        else if (dtotal > 0 && sh > eh && eh <= 720 ) {
-                      
-                                            axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(response => {
-                                                    console.log(response.data)
-                                                    alert(response.data)
-                                                }).catch(err => alert(err))
-                                            //window.location = "/html/LV_LeaveApplication.html"
-                                        }
-                                    
-                                        //判斷請假是否跨休息時間
-                                        else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                             
-                                            axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(response => {
-                                                    console.log(response.data)
-                                                    alert(response.data)
-                                                }).catch(err => alert(err))
-                                            //window.location = "/html/LV_LeaveApplication.html"
-                                        }
-                                        else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
-                                            alert('請假開始時間或結束時間不可選在休息時段!')
-                                        }
-                                 
-                                        else {
-                         
-                                            axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(response => {
-                                                    console.log(response.data)
-                                                    alert(response.data)
-                                                }).catch(err => alert(err))
-                                            //window.location = "/html/LV_LeaveApplication.html"
-                                        }
-                                    }
-                                    else {
-                                        alert('開始時間不可大於或等於結束時間')
-                                    }
+                                    axios.post('/api/PersonnelLeaveForms', this.application)
+                                        .then(response => {
+                                            console.log(response.data)
+                                            alert(response.data)
+                                        }).catch(err => alert(err))
                                 }
-                                else { alert('日期時間不可為空!') };
-                    //console.log(leavetotal);
-                                }
-                               
-                            else { alert('請假項目請確實填寫') };
                             }
-
                         }
+                    }
 
                     //主管請假
-                        if (this.employeedata.PositionId >= 7) {
-                            if (confirm('是否送出請假資料?2') == true) {
-                                if (this.application.leaveType != null 
-                                ) {
-                                    // 判斷是否日期時間是否填入
-                                    if (this.application.startDate != null && this.application.endDate != null &&
-                                        this.application.startTime != null && this.application.endTime != null) {
-
-                                        //日期轉數字
-                                        const sy = parseInt(this.application.startDate.substring(0, 4)) * 525600;
-                                        console.log(sy);
-                                        const ey = parseInt(this.application.endDate.substring(0, 4)) * 525600;
-                                        console.log(ey);
-                                        const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
-                                        //console.log(smonth);
-                                        const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
-                                        console.log(sd);
-                                        const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
-                                        //console.log(emonth);
-                                        const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
-                                        console.log(ed);
-
-                                        //時間轉數字
-                                        const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
-                                        const sm = parseInt(this.application.startTime.substring(3, 5));
-                                        const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
-                                        const em = parseInt(this.application.endTime.substring(3, 5));
-
-                                        const stotal = (sy + smonth + sd + sh + sm);
-                                        //console.log(stotal)
-                                        const etotal = (ey + emonth + ed + eh + em);
-                                        //console.log(etotal)
-                                        const sdtotal = (sy + smonth + sd) / 60;
-                                        const edtotal = (ey + emonth + ed) / 60
-                                        console.log(sdtotal);
-                                        console.log(edtotal);
-                                        const dtotal = (edtotal - sdtotal) / 3;
-                                        console.log(dtotal + "我是時間")
-                                        //判斷請假日期時間是否開始大於結束
-                                        if (stotal < etotal) {
-
-                                            if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                       
-                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(response => {
-                                                        console.log(response.data)
-                                                        alert(response.data)
-                                                    }).catch(err => alert(err))
-                                                //window.location = "/html/LV_LeaveApplication.html"
-                                            }
-                                            else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780)) {
-                                          
-                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(response => {
-                                                        console.log(response.data)
-                                                        alert(response.data)
-                                                    }).catch(err => alert(err))
-                                                //window.location = "/html/LV_LeaveApplication.html"
-
-                                            }
-                                            else if (dtotal > 0 && sh > eh && eh <= 720) {
-                                         
-                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(response => {
-                                                        console.log(response.data)
-                                                        alert(response.data)
-                                                    }).catch(err => alert(err))
-                                                //window.location = "/html/LV_LeaveApplication.html"
-                                            }
-
-                                            //判斷請假是否跨休息時間
-                                            else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                         
-                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(response => {
-                                                        console.log(response.data)
-                                                        alert(response.data)
-                                                    }).catch(err => alert(err))
-                                                //window.location = "/html/LV_LeaveApplication.html"
-                                            }
-                                            else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
-                                                alert('請假開始時間或結束時間不可選在休息時段!')
-                                            }
-
-                                            else {
-                                  
-                                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(response => {
-                                                        console.log(response.data)
-                                                        alert(response.data)
-                                                    }).catch(err => alert(err))
-                                                //window.location = "/html/LV_LeaveApplication.html"
-                                            }
-                                        }
-                                        else {
-                                            alert('開始時間不可大於或等於結束時間')
-                                        }
-                                    }
-                                    else { alert('日期時間不可為空!') };
-                                    //console.log(leavetotal);
+                    if (this.employeedata.PositionId >= 7) {
+                        if (confirm('是否送出請假資料?2') == true) {
+                            if (this.application.leaveType != null) {
+                                // 判斷是否日期時間是否填入
+                                if (this.application.startDate != null && this.application.endDate != null &&
+                                    this.application.startTime != null && this.application.endTime != null) {
+                                    axios.post('/api/PersonnelLeaveForms/manager', this.application)
+                                        .then(response => {
+                                            console.log(response.data)
+                                            alert(response.data)
+                                        }).catch(err => alert(err))
+                                    //window.location = "/html/LV_LeaveApplication.html"
                                 }
-
-                                else { alert('請假項目請確實填寫') };
                             }
                         }
-
-                    ////日期轉數字
-                    //const sy = parseInt(this.application.startDate.substring(0, 4)) * 525600;
-                    ////console.log(sy);
-                    //const ey = parseInt(this.application.endDate.substring(0, 4)) * 525600;
-                    ////console.log(ey);
-                    //const smonth = parseInt(this.application.startDate.substring(5, 7)) * 43200;
-                    ////console.log(smonth);
-                    //const sd = parseInt(this.application.startDate.substring(8, 11)) * 1440;
-                    ////console.log(sd);
-                    //const emonth = parseInt(this.application.endDate.substring(5, 7)) * 43200;
-                    ////console.log(emonth);
-                    //const ed = parseInt(this.application.endDate.substring(8, 11)) * 1440;
-                    ////console.log(ed);
-
-                    ////時間轉數字
-                    //const sh = parseInt(this.application.startTime.substring(0, 2)) * 60;
-                    ////console.log(sh);
-                    //const sm = parseInt(this.application.startTime.substring(3, 5));
-                    ////console.log(sm);
-                    //const eh = parseInt(this.application.endTime.substring(0, 2)) * 60;
-                    ////console.log(eh);
-                    //const em = parseInt(this.application.endTime.substring(3, 5));
-                    ////console.log(em);
-
-                    //const stotal = (sy + smonth + sd + sh + sm);
-                    //console.log(stotal)
-                    //const etotal = (ey + emonth + ed + eh + em);
-                    //console.log(etotal)
-                  
-
-              
-                
+                    }
                 }
             },
             mounted() {

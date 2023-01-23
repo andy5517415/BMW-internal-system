@@ -342,11 +342,11 @@ namespace InternalSystem.Controllers
         [HttpGet("recordsearchdetail/{id}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetPCrecordsearchdetail(int id)
         {
-            var List = from AP in this._context.PcApplications
-                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
-                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
-                       join GL in this._context.PcGoodLists on OD.ProductId equals GL.ProductId
+            var List = from AP in _context.PcApplications
+                       join PD in _context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in _context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       join OD in _context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join GL in _context.PcGoodLists on OD.ProductId equals GL.ProductId
                        where AP.PurchaseId == id
                        select new
                        {
@@ -423,49 +423,57 @@ namespace InternalSystem.Controllers
         // PUT: api/PersonnelLeaveForms/proxy/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("proxy/{id}")]
-        public void PutLeaveProxyForm([FromBody]PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult PutLeaveProxyForm([FromBody]PersonnelLeaveForm personnelLeaveForm)
         {
             var proxydate = DateTime.Now;
             var update = (from a in _context.PersonnelLeaveForms
                           where a.LeaveId== personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if(update != null)
+            if(update != null && update.StatusId ==1)
             {
                 update.StatusId = 2;
                 update.ProxyAudit = true;
                 update.ProxyAuditDate = proxydate;
                 _context.SaveChanges();
+                return Content("已送出同意");
+            }
+            else
+            {
+                return Content("假表狀態異常，請聯絡人事修改重新送出");
             }
 
-            
         }
 
         //代理人拒絕
         // PUT: api/PersonnelLeaveForms/proxy/refuse/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("proxy/refuse/{id}")]
-        public void PutLeaveProxyRefuseForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult PutLeaveProxyRefuseForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
             var proxydate = DateTime.Now;
             var update = (from a in _context.PersonnelLeaveForms
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if (update != null)
+            if (update != null && update.StatusId == 1)
             {
                 update.StatusId = 3;
                 update.ProxyAudit = false;
                 update.ProxyAuditDate = proxydate;
                 _context.SaveChanges();
+                return Content("已送出同意");
             }
-
+            else
+            {
+                return Content("假表狀態異常，請聯絡人事修改重新送出");
+            }
         }
 
         //主管同意
         // PUT: api/PersonnelLeaveForms/manager/5
         [HttpPut("manager/auditleave")]
-        public void PutLeaveManagerForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult PutLeaveManagerForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
             var leave = (from lo in _context.PersonnelLeaveOvers
                          where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
@@ -478,7 +486,7 @@ namespace InternalSystem.Controllers
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if (update != null && leave != null)
+            if (update != null && leave != null && update.StatusId == 2)
             {
                 update.StatusId = 4;
                 update.ManagerAudit = true;
@@ -487,13 +495,18 @@ namespace InternalSystem.Controllers
                 leave.LeaveOver = (double)(leave.LeaveOver - update.TotalTime);
                 leave.Used= (double)(leave.Used + update.TotalTime);
                 _context.SaveChanges();
+                return Content("已送出同意");
+            }
+            else
+            {
+                return Content("假表狀態異常，請聯絡人事修改重新送出");
             }
         }
 
         //主管不同意
         // PUT: api/PersonnelLeaveForms/manager/refuse/5
         [HttpPut("manager/Refuse/{id}")]
-        public void PutLeaveManagerRefuseForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult PutLeaveManagerRefuseForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
             var managerdate = DateTime.Now;
 
@@ -501,13 +514,18 @@ namespace InternalSystem.Controllers
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if (update != null)
+            if (update != null && update.StatusId == 2)
             {
                 update.StatusId = 5;
                 update.ManagerAudit = false;
                 update.ManagerAuditDate = managerdate;
                 update.AuditOpnion = personnelLeaveForm.AuditOpnion;
                 _context.SaveChanges();
+                return Content("已送出不同意");
+            }
+            else
+            {
+                return Content("假表狀態異常，請聯絡人事修改重新送出");
             }
         }
 
@@ -515,7 +533,7 @@ namespace InternalSystem.Controllers
         // PUT: api/PersonnelLeaveForms/proxy/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("Put/{id}")]
-        public void PutLeaveApplicationForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult PutLeaveApplicationForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
             var application = DateTime.Now.ToString("yyyy-MM-dd");
             var proxydate = DateTime.Now;
@@ -523,21 +541,77 @@ namespace InternalSystem.Controllers
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if (update != null)
+
+            //判斷該員工是否有剩餘假可使用
+            var leave = (from lo in _context.PersonnelLeaveOvers
+                         where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
+                         select lo
+                         ).FirstOrDefault();
+            //時間全為轉分鐘
+            var sh = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(0, 2)) * 60;
+            var sm = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(3, 2));
+            var eh = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(0, 2)) * 60;
+            var em = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(3, 2));
+            //日期差異判斷
+            TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
+            TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            double dayCount = ts.TotalDays;
+            double hourCount = ts.TotalHours;
+            double dayTohour = dayCount * 8;
+            double hoursCount = hm.TotalMinutes;
+
+            if (dayTohour > 0 || (dayTohour == 0 && hoursCount > 0))
             {
-                update.ApplicationDate = application;
-                update.StatusId = 1;
-                update.LeaveType = personnelLeaveForm.LeaveType;
-                update.StartDate = personnelLeaveForm.StartDate;
-                update.EndDate = personnelLeaveForm.EndDate;
-                update.StartTime = personnelLeaveForm.StartTime;
-                update.EndTime = personnelLeaveForm.EndTime;
-                update.Proxy = personnelLeaveForm.Proxy;
-                update.AuditManerger = personnelLeaveForm.AuditManerger;
-                update.TotalTime = personnelLeaveForm.TotalTime;
-                update.Reason = personnelLeaveForm.Reason;
-                _context.SaveChanges();
+                if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                }
+                else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                }
+                else if (dayTohour > 0 && sh > eh && eh <= 720)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
+                }
+                //判斷請假是否跨休息時間
+                else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                }
+                else
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                }
             }
+            else
+            {
+                return Content("請假時段錯誤!");
+            }
+            if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+            {
+                if (update != null)
+                {
+                    update.ApplicationDate = application;
+                    update.StatusId = 1;
+                    update.LeaveType = personnelLeaveForm.LeaveType;
+                    update.StartDate = personnelLeaveForm.StartDate;
+                    update.EndDate = personnelLeaveForm.EndDate;
+                    update.StartTime = personnelLeaveForm.StartTime;
+                    update.EndTime = personnelLeaveForm.EndTime;
+                    update.Proxy = personnelLeaveForm.Proxy;
+                    update.AuditManerger = personnelLeaveForm.AuditManerger;
+                    update.TotalTime = personnelLeaveForm.TotalTime;
+                    update.Reason = personnelLeaveForm.Reason;
+                    _context.SaveChanges();
+                }
+                    return Content("已重新提交申請");
+            }
+            else
+            {
+                return Content("請假時數不足");
+            }
+
 
 
         }
@@ -546,9 +620,9 @@ namespace InternalSystem.Controllers
         // PUT: api/PersonnelLeaveForms/proxy/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("PutDep/{id}")]
-        public void DepPutLeaveApplicationForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult DepPutLeaveApplicationForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
-            //判斷該員工是否有剩餘價可使用
+            //判斷該員工是否有剩餘假可使用
             var leave = (from lo in _context.PersonnelLeaveOvers
                          where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
                          select lo
@@ -558,28 +632,88 @@ namespace InternalSystem.Controllers
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if (update != null)
+        
+            //時間全為轉分鐘
+            var sh = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(0, 2)) * 60;
+            var sm = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(3, 2));
+            var eh = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(0, 2)) * 60;
+            var em = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(3, 2));
+            //日期差異判斷
+            TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
+            TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            double dayCount = ts.TotalDays;
+            double hourCount = ts.TotalHours;
+            double dayTohour = dayCount * 8;
+            double hoursCount = hm.TotalMinutes;
+
+            var application = DateTime.Now.ToString("yyyy-MM-dd");
+
+            if (dayTohour > 0 || (dayTohour == 0 && hoursCount > 0))
             {
-                update.ApplicationDate = personnelLeaveForm.ApplicationDate;
-                update.StatusId = 1;
-                update.LeaveType = personnelLeaveForm.LeaveType;
-                update.StartDate = personnelLeaveForm.StartDate;
-                update.EndDate = personnelLeaveForm.EndDate;
-                update.StartTime = personnelLeaveForm.StartTime;
-                update.EndTime = personnelLeaveForm.EndTime;
-                update.Proxy = personnelLeaveForm.Proxy;
-                update.AuditManerger = personnelLeaveForm.AuditManerger;
-                update.TotalTime = personnelLeaveForm.TotalTime;
-                update.ManagerAudit = null;
-                update.ProxyAudit = null;
-                update.ManagerAuditDate = null;
-                update.ProxyAuditDate = null;
-
-
-
-
-                _context.SaveChanges();
+                if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                }
+                else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                }
+                else if (dayTohour > 0 && sh > eh && eh <= 720)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
+                }
+                //判斷請假是否跨休息時間
+                else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                }
+                else
+                {
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                }
             }
+            else
+            {
+                return Content("請假時段錯誤!");
+            }
+
+
+            if (update.StatusId < 5)
+            {
+                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                {
+                    if (update != null)
+                    {
+                        update.ApplicationDate = personnelLeaveForm.ApplicationDate;
+                        update.StatusId = 1;
+                        update.LeaveType = personnelLeaveForm.LeaveType;
+                        update.StartDate = personnelLeaveForm.StartDate;
+                        update.EndDate = personnelLeaveForm.EndDate;
+                        update.StartTime = personnelLeaveForm.StartTime;
+                        update.EndTime = personnelLeaveForm.EndTime;
+                        update.Proxy = personnelLeaveForm.Proxy;
+                        update.AuditManerger = personnelLeaveForm.AuditManerger;
+                        update.TotalTime = personnelLeaveForm.TotalTime;
+                        update.ManagerAudit = null;
+                        update.ProxyAudit = null;
+                        update.ManagerAuditDate = null;
+                        update.ProxyAuditDate = null;
+                        _context.SaveChanges();
+                    }
+                    return Content("修改成功");
+                }
+                else
+                {
+                    return Content("剩餘時數不足");
+                }
+            }
+            else
+            {
+                return Content("主管已審核同意之請假無法進行更改!");
+            }
+
+
+
 
 
         }
@@ -622,83 +756,58 @@ namespace InternalSystem.Controllers
         public  ActionResult PostPersonnalLeaveForm([FromBody]PersonnelLeaveForm personnelLeaveForm) 
         {
 
-            //判斷該員工是否有剩餘價可使用
+            //判斷該員工是否有剩餘假可使用
             var leave = (from lo in _context.PersonnelLeaveOvers
                          where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
                          select lo
                          ).FirstOrDefault();
-            //日期轉數字
-            var syear = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
-            var smonth = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
-            var sday = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(6,2)) * 1440;
-            var eyear = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
-            var emonth = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
-            var eday = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(6, 2)) * 1440;
+            //時間全為轉分鐘
             var sh =  Convert.ToInt32(personnelLeaveForm.StartTime.Substring(0, 2)) * 60;
             var sm =  Convert.ToInt32(personnelLeaveForm.StartTime.Substring(3, 2));
             var eh =  Convert.ToInt32(personnelLeaveForm.EndTime.Substring(0, 2)) * 60;
             var em = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(3, 2));
+            //日期差異判斷
+            TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
+            TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            double dayCount = ts.TotalDays;
+            double hourCount = ts.TotalHours;
+            double dayTohour = dayCount * 8;
+            double hoursCount = hm.TotalMinutes;
 
-            int dtotal = 0;
-            int sdtotal = 0;
-            int edtotal = 0;
-            if (syear < eyear)
+            var application = DateTime.Now.ToString("yyyy-MM-dd");
+
+            if (dayTohour > 0 || (dayTohour == 0 && hoursCount >0))
             {
-                sdtotal =  ((syear+563040) - (syear +smonth + sday))/60;
-                edtotal = ((eyear + emonth + eday) -(eyear + 44640) ) / 60;
-                dtotal = (edtotal + sdtotal) / 3 +8;
-                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
                 }
-                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
                 }
-                else if (dtotal > 0 && sh > eh && eh <= 720)
+                else if (dayTohour > 0 && sh > eh && eh <= 720)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
                 }
                 //判斷請假是否跨休息時間
-                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
                 }
                 else
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
                 }
             }
             else
             {
-                sdtotal = (syear + smonth + sday) / 60;
-                edtotal = (eyear + emonth + eday) / 60;
-                dtotal = (edtotal - sdtotal) / 3;
-                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
-                }
-                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
-                }
-                else if (dtotal > 0 && sh > eh && eh <= 720)
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
-                }
-                //判斷請假是否跨休息時間
-                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
-                }
-                else
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
-                }
+                return Content("請假時段錯誤!");
             }
-           
-        
-        var application = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+
+
 
             if (leave.LeaveOver >= personnelLeaveForm.TotalTime) {
                 PersonnelLeaveForm insert = new PersonnelLeaveForm
@@ -733,82 +842,57 @@ namespace InternalSystem.Controllers
         public ActionResult PostManagerLeaveForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
 
-            //判斷該員工是否有剩餘價可使用
+            //判斷該員工是否有剩餘假可使用
             var leave = (from lo in _context.PersonnelLeaveOvers
                          where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
                          select lo
                          ).FirstOrDefault();
             var application = DateTime.Now.ToString("yyyy-MM-dd");
 
-            //日期轉數字
-            var syear = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
-            var smonth = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
-            var sday = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(6, 2)) * 1440;
-            var eyear = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
-            var emonth = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
-            var eday = Convert.ToInt32(personnelLeaveForm.EndDate.ToString("yyyyMMdd").Substring(6, 2)) * 1440;
+            //時間轉為分鐘
+          
             var sh = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(0, 2)) * 60;
             var sm = Convert.ToInt32(personnelLeaveForm.StartTime.Substring(3, 2));
             var eh = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(0, 2)) * 60;
             var em = Convert.ToInt32(personnelLeaveForm.EndTime.Substring(3, 2));
+            //日期差距判斷
+            TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
+            TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            double dayCount = ts.TotalDays;
+            double hourCount = ts.TotalHours;
+            double dayTohour = dayCount * 8;
+            double hoursCount = hm.TotalMinutes;
 
-            int dtotal = 0;
-            int sdtotal = 0;
-            int edtotal = 0;
-            if (syear < eyear)
+            if (dayTohour > 0 || (dayTohour == 0 && hoursCount > 0))
             {
-                sdtotal = ((syear + 563040) - (syear + smonth + sday)) / 60;
-                edtotal = ((eyear + emonth + eday) - (eyear + 44640)) / 60;
-                dtotal = (edtotal + sdtotal) / 3 + 8;
-                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
                 }
-                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
+                else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
                 }
-                else if (dtotal > 0 && sh > eh && eh <= 720)
+                else if (dayTohour > 0 && sh > eh && eh <= 720)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
                 }
                 //判斷請假是否跨休息時間
-                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
+                else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
                 }
                 else
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
                 }
             }
             else
             {
-                sdtotal = (syear + smonth + sday) / 60;
-                edtotal = (eyear + emonth + eday) / 60;
-                dtotal = (edtotal - sdtotal) / 3;
-                if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
-                }
-                else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
-                }
-                else if (dtotal > 0 && sh > eh && eh <= 720)
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dtotal;
-                }
-                //判斷請假是否跨休息時間
-                else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dtotal;
-                }
-                else
-                {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
-                }
+                return Content("請假時段錯誤!");
             }
+
+
             if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
             {
                 PersonnelLeaveForm insert = new PersonnelLeaveForm

@@ -1059,7 +1059,7 @@
                     //window.location = "HR_EmpProfileCreate.html"; 單純本表新增
 
                         if (confirm('新增資料是否正確?') == true) {
-                            axios.post("https://localhost:44319/api/PersonnelProfileDetails", this.employeelist)
+                            axios.post("https://localhost:44319/api/PersonnelProfileDetails/", this.employeelist)
                                 .then(response => { if (response.status == 200) { alert('資料新增完成') } })
                                 .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
                             //    .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
@@ -1131,8 +1131,10 @@
                 //給予員工工號
                 axios.get('/api/PersonnelProfileDetails/makenumber')
                     .then(response => {
-                        this.employeelist.employeeNumber = response.data;
-                        this.employeelist.acount = response.data;
+                        this.employeelist.employeeNumber = response.data.toString();
+                        this.employeelist.acount = response.data.toString();
+                        //console.log(typeof (this.employeelist.employeeNumber));
+                        //console.log(response.data);
                         //console.log(this.empid);
                     }).catch(err => console.log(err));
 

@@ -577,7 +577,8 @@
                   data() {
                       return {
                           empNumber: {},
-                          employeedata: {}
+                          employeedata: {},
+                          empid: {}
                       }
 
                   },
@@ -588,14 +589,14 @@
                               .then(response => {
                                   this.employeedata.employeeId = response.data.employeeId;
                                   //console.log(this.employeedata.employeeId)
-                                  axios.put('/api/PersonnelAttendanceTimes', this.employeedata)
-                                      .then(a => alert('打卡成功')).catch(err => console.log(err))
+                                  axios.post('/api/PersonnelAttendanceTimes/' + this.empid.EmpID, this.employeedata)
+                                      .then(response => alert(response.data)).catch(err => console.log(err))
                               })
                               .catch(err => console.log(err))
                       }
                   },
                   mounted() {
-
+                      this.empid = JSON.parse(sessionStorage.getItem("LoginInf"))
                   }
               }
 
