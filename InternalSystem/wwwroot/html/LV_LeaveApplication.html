@@ -731,20 +731,29 @@
                                         if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                     
                                             axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                                .then(response => {
+                                                    console.log(response.data)
+                                                    alert(response.data)
+                                                }).catch(err => alert(err))
                                             //window.location = "/html/LV_LeaveApplication.html"
                                         }
                                         else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 ||eh == 780 && em != 0) || eh > 780)) {
                                   
                                             axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                                .then(response => {
+                                                    console.log(response.data)
+                                                    alert(response.data)
+                                                }).catch(err => alert(err))
                                             //window.location = "/html/LV_LeaveApplication.html"
 
                                         }
                                         else if (dtotal > 0 && sh > eh && eh <= 720 ) {
                       
                                             axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                                .then(response => {
+                                                    console.log(response.data)
+                                                    alert(response.data)
+                                                }).catch(err => alert(err))
                                             //window.location = "/html/LV_LeaveApplication.html"
                                         }
                                     
@@ -752,7 +761,10 @@
                                         else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                              
                                             axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                                .then(response => {
+                                                    console.log(response.data)
+                                                    alert(response.data)
+                                                }).catch(err => alert(err))
                                             //window.location = "/html/LV_LeaveApplication.html"
                                         }
                                         else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
@@ -762,7 +774,10 @@
                                         else {
                          
                                             axios.post('/api/PersonnelLeaveForms', this.application)
-                                                .then(alert('申請已送出')).catch(err => console.log(err))
+                                                .then(response => {
+                                                    console.log(response.data)
+                                                    alert(response.data)
+                                                }).catch(err => alert(err))
                                             //window.location = "/html/LV_LeaveApplication.html"
                                         }
                                     }
@@ -824,20 +839,29 @@
                                             if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                        
                                                 axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                    .then(response => {
+                                                        console.log(response.data)
+                                                        alert(response.data)
+                                                    }).catch(err => alert(err))
                                                 //window.location = "/html/LV_LeaveApplication.html"
                                             }
                                             else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780)) {
                                           
                                                 axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                    .then(response => {
+                                                        console.log(response.data)
+                                                        alert(response.data)
+                                                    }).catch(err => alert(err))
                                                 //window.location = "/html/LV_LeaveApplication.html"
 
                                             }
                                             else if (dtotal > 0 && sh > eh && eh <= 720) {
                                          
                                                 axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                    .then(response => {
+                                                        console.log(response.data)
+                                                        alert(response.data)
+                                                    }).catch(err => alert(err))
                                                 //window.location = "/html/LV_LeaveApplication.html"
                                             }
 
@@ -845,7 +869,10 @@
                                             else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
                                          
                                                 axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                    .then(response => {
+                                                        console.log(response.data)
+                                                        alert(response.data)
+                                                    }).catch(err => alert(err))
                                                 //window.location = "/html/LV_LeaveApplication.html"
                                             }
                                             else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
@@ -855,7 +882,10 @@
                                             else {
                                   
                                                 axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                                    .then(alert('申請已送出')).catch(err => console.log(err))
+                                                    .then(response => {
+                                                        console.log(response.data)
+                                                        alert(response.data)
+                                                    }).catch(err => alert(err))
                                                 //window.location = "/html/LV_LeaveApplication.html"
                                             }
                                         }

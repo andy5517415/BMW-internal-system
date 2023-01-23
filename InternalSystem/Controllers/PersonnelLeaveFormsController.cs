@@ -459,21 +459,28 @@ namespace InternalSystem.Controllers
 
         //主管同意
         // PUT: api/PersonnelLeaveForms/manager/5
-        [HttpPut("manager/auditleave/{id}")]
+        [HttpPut("manager/auditleave")]
         public void PutLeaveManagerForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
+            var leave = (from lo in _context.PersonnelLeaveOvers
+                         where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
+                         select lo
+                         ).FirstOrDefault();
+
             var managerdate = DateTime.Now;
 
             var update = (from a in _context.PersonnelLeaveForms
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
 
-            if (update != null)
+            if (update != null && leave != null)
             {
                 update.StatusId = 4;
                 update.ManagerAudit = true;
                 update.ManagerAuditDate = managerdate;
                 update.AuditOpnion = personnelLeaveForm.AuditOpnion;
+                leave.LeaveOver = (double)(leave.LeaveOver - update.TotalTime);
+                leave.Used= (double)(leave.Used + update.TotalTime);
                 _context.SaveChanges();
             }
         }
@@ -601,8 +608,14 @@ namespace InternalSystem.Controllers
         // POST: api/PersonnelLeaveForms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public void PostPersonnalLeaveForm([FromBody]PersonnelLeaveForm personnelLeaveForm) 
+        public  ActionResult PostPersonnalLeaveForm([FromBody]PersonnelLeaveForm personnelLeaveForm) 
         {
+
+            //判斷該員工是否有剩餘價可使用
+            var leave = (from lo in _context.PersonnelLeaveOvers
+                         where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
+                         select lo
+                         ).FirstOrDefault();
             //日期轉數字
             var syear = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(3, 1)) * 525600;
             var smonth = Convert.ToInt32(personnelLeaveForm.StartDate.ToString("yyyyMMdd").Substring(4, 2)) * 43200;
@@ -676,31 +689,44 @@ namespace InternalSystem.Controllers
         
         var application = DateTime.Now.ToString("yyyy-MM-dd");
 
-            PersonnelLeaveForm insert = new PersonnelLeaveForm
-            {
-                EmployeeId = personnelLeaveForm.EmployeeId,
-                ApplicationDate = application,
-                StatusId = 1,
-                LeaveType = personnelLeaveForm.LeaveType,
-                StartDate = personnelLeaveForm.StartDate,
-                EndDate = personnelLeaveForm.EndDate,
-                StartTime = personnelLeaveForm.StartTime,
-                EndTime = personnelLeaveForm.EndTime,
-                Proxy = personnelLeaveForm.Proxy,
-                AuditManerger = personnelLeaveForm.AuditManerger,
-                TotalTime = personnelLeaveForm.TotalTime,
-                Reason = personnelLeaveForm.Reason,
+            if (leave.LeaveOver >= personnelLeaveForm.TotalTime) {
+                PersonnelLeaveForm insert = new PersonnelLeaveForm
+                {
+                    EmployeeId = personnelLeaveForm.EmployeeId,
+                    ApplicationDate = application,
+                    StatusId = 1,
+                    LeaveType = personnelLeaveForm.LeaveType,
+                    StartDate = personnelLeaveForm.StartDate,
+                    EndDate = personnelLeaveForm.EndDate,
+                    StartTime = personnelLeaveForm.StartTime,
+                    EndTime = personnelLeaveForm.EndTime,
+                    Proxy = personnelLeaveForm.Proxy,
+                    AuditManerger = personnelLeaveForm.AuditManerger,
+                    TotalTime = personnelLeaveForm.TotalTime,
+                    Reason = personnelLeaveForm.Reason,
 
-            };
+                };
             _context.PersonnelLeaveForms.Add(insert);
             _context.SaveChanges();
+                return Content("申請成功");
+            }
+            else
+            {
+                return Content("剩餘時數不足");
+            }
         }
 
         //主管申請請假
         // POST: api/PersonnelLeaveForms/manager
         [HttpPost("manager")]
-        public void PostManagerLeaveForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
+        public ActionResult PostManagerLeaveForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
+
+            //判斷該員工是否有剩餘價可使用
+            var leave = (from lo in _context.PersonnelLeaveOvers
+                         where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
+                         select lo
+                         ).FirstOrDefault();
             var application = DateTime.Now.ToString("yyyy-MM-dd");
 
             //日期轉數字
@@ -772,23 +798,36 @@ namespace InternalSystem.Controllers
                     personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dtotal;
                 }
             }
-
-            PersonnelLeaveForm insert = new PersonnelLeaveForm
+            if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
             {
-                EmployeeId = personnelLeaveForm.EmployeeId,
-                ApplicationDate = application,
-                StatusId = 6,
-                LeaveType = personnelLeaveForm.LeaveType,
-                StartDate = personnelLeaveForm.StartDate,
-                EndDate = personnelLeaveForm.EndDate,
-                StartTime = personnelLeaveForm.StartTime,
-                EndTime = personnelLeaveForm.EndTime,
-                TotalTime = personnelLeaveForm.TotalTime,
-                Reason = personnelLeaveForm.Reason
+                PersonnelLeaveForm insert = new PersonnelLeaveForm
+                {
+                    EmployeeId = personnelLeaveForm.EmployeeId,
+                    ApplicationDate = application,
+                    StatusId = 6,
+                    LeaveType = personnelLeaveForm.LeaveType,
+                    StartDate = personnelLeaveForm.StartDate,
+                    EndDate = personnelLeaveForm.EndDate,
+                    StartTime = personnelLeaveForm.StartTime,
+                    EndTime = personnelLeaveForm.EndTime,
+                    TotalTime = personnelLeaveForm.TotalTime,
+                    Reason = personnelLeaveForm.Reason
 
-            };
-            _context.PersonnelLeaveForms.Add(insert);
-            _context.SaveChanges();
+                };
+                _context.PersonnelLeaveForms.Add(insert);
+                _context.SaveChanges();
+                if (leave != null)
+                {
+
+                    leave.LeaveOver = (double)(leave.LeaveOver - personnelLeaveForm.TotalTime);
+                    leave.Used = (double)(leave.Used + personnelLeaveForm.TotalTime);
+                    _context.SaveChanges();
+                }
+                return Content("申請成功");
+            }
+            else
+            { return Content("時數不足"); }
+
         }
         //public async Task<ActionResult<PersonnelLeaveForm>> PostPersonnelLeaveForm(PersonnelLeaveForm personnelLeaveForm)
         //{
