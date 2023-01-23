@@ -549,7 +549,7 @@
 
                               <div class="mb-3 col-md-3">
                                   <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
-                                  <input class="form-control" value="" id="Totalvacation" disabled />
+                                  <input class="form-control" v-model="leavelist.totalTime" id="Totalvacation" disabled />
                               </div>
                               <div class="mb-3 col-md-6">
                                   <label for="Vacationreason" class="form-label fs-4">請假意見</label>
@@ -674,9 +674,10 @@
                   this.emplist = JSON.parse(sessionStorage.getItem("LoginInf"))
                   this.leavelist = JSON.parse(sessionStorage.getItem("leave"))
                   console.log(this.leavelist)
-                  if (this.leavelist.positionId < 7) { 
+                  if (this.emplist.PositionId < 7) { 
                   axios.get('/api/PersonnelProfileDetails/' + this.leavelist.proxy)
-                      .then(response => this.emp = response.data)
+                          .then(response => this.emp = response.data)
+                      console.log(this.emp)
                   axios.get('/api/PersonnelProfileDetails/' + this.leavelist.auditManerger)
                           .then(response => this.manager = response.data)
                   }

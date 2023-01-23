@@ -216,14 +216,17 @@ namespace InternalSystem.Controllers
         // POST: api/PersonnelLeaveOvers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public string PostPersonnelLeaveOver(int EmployeeId, [FromBody] PersonnelLeaveOver value)
+        public string PostPersonnelLeaveOver(int EmployeeId,[FromBody] PersonnelLeaveOver value)
         {
             if (!_context.PersonnelProfileDetails.Any(a => a.EmployeeId == EmployeeId))
             {
                 return "沒有該筆資料";
             }
-            PersonnelLeaveOver insert = new PersonnelLeaveOver
+       
+    
+        PersonnelLeaveOver insert = new PersonnelLeaveOver
             {
+
                 LeaveType = value.LeaveType,
                 Quantity = value.Quantity,
                 Used = value.Used,

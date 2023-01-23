@@ -32,15 +32,16 @@ namespace InternalSystem.Controllers
         }
 
         //用員工ID尋找(Session帶入員工ID) 個人查詢
-        // GET: api/PersonnelLeaveForms/employee/5/{y}-{m}
+        // GET: api/PersonnelLeaveForms/profile/5/{y}-{m}
         [HttpGet("profile/{id}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetPersonnelLeave(int id, int y, int m)
+        public async Task<ActionResult<dynamic>> GetPersonnelLeave(int id ,int y , int m)
         {
-            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+            
+             var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
-                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveId equals lt.LeaveTypeId
-                                     where o.EmployeeId == id && pl.StartDate.Month == m && pl.StartDate.Year == y
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
+                                     where o.EmployeeId == id && pl.StartDate.Year == y && pl.StartDate.Month == m
                                      select new
                                      {
                                          EmployeeName = o.EmployeeName,
@@ -55,6 +56,10 @@ namespace InternalSystem.Controllers
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
+                                         ProxyAuditDate =  pl.ProxyAuditDate.ToString(),
+                                         pl.ProxyAudit,
+                                         pl.ManagerAudit,
+                                         ManagerAuditDate = pl.ManagerAuditDate.ToString(),
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
@@ -543,6 +548,12 @@ namespace InternalSystem.Controllers
         [HttpPut("PutDep/{id}")]
         public void DepPutLeaveApplicationForm([FromBody] PersonnelLeaveForm personnelLeaveForm)
         {
+            //判斷該員工是否有剩餘價可使用
+            var leave = (from lo in _context.PersonnelLeaveOvers
+                         where lo.EmployeeId == personnelLeaveForm.EmployeeId && lo.LeaveType == personnelLeaveForm.LeaveType
+                         select lo
+                         ).FirstOrDefault();
+
             var update = (from a in _context.PersonnelLeaveForms
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
