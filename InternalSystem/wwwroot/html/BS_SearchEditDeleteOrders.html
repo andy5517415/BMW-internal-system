@@ -955,7 +955,7 @@
 
                     orderput: {},
                     orderdetail: [],
-                    //orderdetailput: {},
+                    orderdetailput: {},
 
                     orderdetailold: '',
                     odId: '',
@@ -1020,22 +1020,23 @@
                         //console.log('btnedit');
                         let dt = new Date();
                         //組裝Order資料表
-                        this.orderput.OrderId = this.orderid;
-                        this.orderput.orderNumber = this.ordenum;
-                        this.orderput.AreaId = this.agentone.areaId;
-                        this.orderput.Price = this.cnt;
-                        this.orderput.EmployeeId = 5;
-                        this.orderput.IsAccepted = false;
-                        //this.orderput = {
-                        //    "OrderId": this.orderid,
-                        //    "OrderNumber": this.ordernum,
-                        //    "OrderDatetime": this.orderdatetime,
-                        //    "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                        //    "AreaId": this.agentone.areaId,
-                        //    "Price": this.cnt,
-                        //    "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                        //    "IsAccepted": false
-                        //};
+                        //this.orderput.OrderId = this.orderid;
+                        //this.orderput.orderNumber = this.ordernum;
+                        //this.orderput.OrderDatetime=this.orderdatetime,
+                        //this.orderput.AreaId = this.agentone.areaId;
+                        //this.orderput.Price = this.cnt;
+                        //this.orderput.EmployeeId = 5;
+                        //this.orderput.IsAccepted = false;
+                        this.orderput = {
+                            "OrderId": this.orderid,
+                            "OrderNumber": this.ordernum,
+                            "OrderDatetime": this.orderdatetime,
+                            "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                            "AreaId": this.agentone.areaId,
+                            "Price": this.cnt,
+                            "EmployeeId": 5,
+                            "IsAccepted": false
+                        };
                         console.log(this.orderput);
 
                         //將新的選配放入陣列儲存
@@ -1049,10 +1050,10 @@
                         this.orderdetail.push(this.carsaddleone  .optionalId);
                         this.orderdetail.push(this.carsunroofone .optionalId);
                         this.orderdetail.push(this.carmediaone   .optionalId);
-                        //console.log(this.orderdetail);
+                        console.log(this.orderdetail);
 
                         //修改Order資料表
-                        axios.put('/api/BusinessOrders/withoutloop' , this.orderput)
+                        axios.put('/api/BusinessOrders/' + this.orderid, this.orderput)
                             .then(p => {
                                 //console.log(p);
                                 console.log('this.orderid = ' + this.orderid);
