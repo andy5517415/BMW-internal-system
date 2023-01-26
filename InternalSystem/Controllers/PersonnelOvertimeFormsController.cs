@@ -29,6 +29,34 @@ namespace InternalSystem.Controllers
         //}
 
 
+        //個人加班訂單區域搜尋(use session)
+        // GET: api/PersonnelOvertimeForms/productProcessList
+        [HttpGet("productProcessList")]
+        public async Task<ActionResult<dynamic>> GetOverTimeOrder()
+        {
+
+            var personnelOvertimeForm = from pl in _context.ProductionProcessLists
+                                        join b in _context.BusinessOrders on pl.OrderId equals b.OrderId
+                                        join a in _context.ProductionAreas on pl.AreaId equals a.AreaId
+                                        join pc in _context.ProductionProcesses on pl.ProcessId equals pc.ProcessId
+                                        where pl != null && pl.StatusId != 3
+                                        select new {
+                                            b.OrderNumber,
+                                            pl.OrderId,
+                                            pl.AreaId,
+                                            pl.ProcessId,
+                                            a.AreaName,
+                                            pc.ProcessName
+                                        };
+            if (personnelOvertimeForm == null)
+            {
+                return Content("目前無未完成之訂單");
+            }
+            return await personnelOvertimeForm.ToListAsync();
+
+        }
+
+
         //個人加班搜尋(use session)
         // GET: api/PersonnelOvertimeForms/5/mm  
         [HttpGet("{id}/{y}-{m}")]
@@ -242,7 +270,7 @@ namespace InternalSystem.Controllers
         // PUT: api/PersonnelOvertimeForms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void PutOvertime([FromBody]PersonnelOvertimeForm personnelOvertimeForm)
+        public ActionResult PutOvertime([FromBody]PersonnelOvertimeForm personnelOvertimeForm)
         {
             var overaudit = DateTime.Now.ToString("yyyy-MM-dd");
             var update = (from o in _context.PersonnelOvertimeForms
@@ -253,38 +281,74 @@ namespace InternalSystem.Controllers
                 update.AuditStatus = true;
                 _context.SaveChanges();
             }
-
+            return Content("檢閱完成");
         }
 
+
+        //人事部門修改資料
         // PUT: api/PersonnelOvertimeForms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("dep/{id}")]
-        public async Task<IActionResult> PutPersonnelOvertimeForm(int id, PersonnelOvertimeForm personnelOvertimeForm)
+        public ActionResult  PutPersonnelOvertimeForm(int id,[FromBody]PersonnelOvertimeForm personnelOvertimeForm)
         {
-            if (id != personnelOvertimeForm.StartWorkId)
+
+            var update = (from ot in _context.PersonnelOvertimeForms
+                          where ot.StartWorkId == personnelOvertimeForm.StartWorkId
+                          select ot).FirstOrDefault();
+            var application = DateTime.Now.ToString("yyyy-MM-dd");
+            //日期差異判斷
+            TimeSpan ts = personnelOvertimeForm.EndDate.Subtract(personnelOvertimeForm.StartDate);
+            TimeSpan hm = Convert.ToDateTime(personnelOvertimeForm.EndTime).Subtract(Convert.ToDateTime(personnelOvertimeForm.StartTime));
+            double dayCount = ts.TotalDays;
+            double tshourCount = ts.TotalHours;
+            double dayTohour = dayCount * 8;
+            double hoursCountMinutes = hm.TotalMinutes;
+            double hoursCount = hm.TotalHours;
+
+            if (update.StartWorkId != personnelOvertimeForm.StartWorkId)
             {
-                return BadRequest();
+                return Content("加班人員資料有誤!");
             }
 
-            _context.Entry(personnelOvertimeForm).State = EntityState.Modified;
-
-            try
+            if (dayCount == 0 && hoursCountMinutes > 0 && update != null)
             {
-                await _context.SaveChangesAsync();
+
+                update.ApplicationDate = application;
+                update.EmployeeId = personnelOvertimeForm.EmployeeId;
+                update.PropessId = personnelOvertimeForm.PropessId;
+                update.AreaId = personnelOvertimeForm.AreaId;
+                update.StartDate = personnelOvertimeForm.StartDate;
+                update.StartTime = personnelOvertimeForm.StartTime;
+                update.EndDate = personnelOvertimeForm.EndDate;
+                update.EndTime = personnelOvertimeForm.EndTime;
+                update.TotalTime = hoursCount;
+                ; update.AuditStatus = false;
+                _context.SaveChanges();
+
+                return Content("修改成功");
             }
-            catch (DbUpdateConcurrencyException)
+            else if (dayCount > 0 && update != null)
             {
-                if (!PersonnelOvertimeFormExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                
+                    update.ApplicationDate = application;
+                update.EmployeeId = personnelOvertimeForm.EmployeeId;
+                update.PropessId = personnelOvertimeForm.PropessId;
+                update.AreaId = personnelOvertimeForm.AreaId;
+                update.StartDate = personnelOvertimeForm.StartDate;
+                update.StartTime = personnelOvertimeForm.StartTime;
+                update.EndDate = personnelOvertimeForm.EndDate;
+                update.EndTime = personnelOvertimeForm.EndTime;
+                update.TotalTime = tshourCount + hoursCount;
+                update.AuditStatus = false;
+
+                _context.SaveChanges();
+                return Content("修改成功");
             }
 
-            return NoContent();
+            else
+            {
+                return Content("修改時間有誤");
+            }
         }
 
         //員工加班申請
@@ -298,7 +362,7 @@ namespace InternalSystem.Controllers
             TimeSpan ts = personnelOvertimeForm.EndDate.Subtract(personnelOvertimeForm.StartDate);
             TimeSpan hm = Convert.ToDateTime(personnelOvertimeForm.EndTime).Subtract(Convert.ToDateTime(personnelOvertimeForm.StartTime));
             double dayCount = ts.TotalDays;
-            double hourCount = ts.TotalHours;
+            double tshourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCountMinutes = hm.TotalMinutes;
             double hoursCount = hm.TotalHours;
@@ -322,6 +386,26 @@ namespace InternalSystem.Controllers
                 _context.SaveChanges();
                 return Content("申請成功");
             }
+            else if(dayCount > 0  )
+                {
+                PersonnelOvertimeForm insert = new PersonnelOvertimeForm
+                {
+                    ApplicationDate = application,
+                    EmployeeId = personnelOvertimeForm.EmployeeId,
+                    PropessId = personnelOvertimeForm.PropessId,
+                    AreaId = personnelOvertimeForm.AreaId,
+                    StartDate = personnelOvertimeForm.StartDate,
+                    StartTime = personnelOvertimeForm.StartTime,
+                    EndDate = personnelOvertimeForm.EndDate,
+                    EndTime = personnelOvertimeForm.EndTime,
+                    TotalTime = tshourCount + hoursCount,
+                    AuditStatus = false
+                };
+                _context.PersonnelOvertimeForms.Add(insert);
+                _context.SaveChanges();
+                return Content("申請成功");
+            }
+
             else
             {
                 return Content("申請時間有誤");
