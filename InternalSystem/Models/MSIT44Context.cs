@@ -47,6 +47,14 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -288,8 +296,6 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_Application");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
-
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
                 entity.Property(e => e.Date).HasColumnType("date");
@@ -326,8 +332,6 @@ namespace InternalSystem.Models
                 entity.HasKey(e => new { e.OrderId, e.ProductId });
 
                 entity.ToTable("PC_OrderDetails");
-
-                entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Goods)
                     .IsRequired()

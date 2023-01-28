@@ -593,7 +593,7 @@
                                                                name="PurchaseID"
                                                                v-model="item.purchaseId"
                                                                autofocus />
-                                                    </div>                                                 
+                                                    </div>
                                                     <!-- 備註 -->
                                                     <div class="mb-3 col-md-6">
                                                         <label for="Comment" class="form-label">備註</label>
@@ -632,10 +632,11 @@
                                                                                 <!-- 物品名稱 -->
                                                                                 <td>
                                                                                     {{b.goods}}
+                                                                                    <input type="text" class="form-control" id="inputunit123" placeholder="請輸入數量">
                                                                                 </td>
                                                                                 <!-- 物品數量 -->
                                                                                 <td>
-                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" >
+                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                                         <div class="mb-3 col-md-12">
                                                                                             <label for="數量" class="form-label"></label>
                                                                                             <input @change="getprice" type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
@@ -673,7 +674,7 @@
                                                                     <div class="p-2 bd-highlight">總價：{{sum}}元</div>
                                                                 </div>
                                                                 <div class="table-responsive text-nowrap"></div>
-                                                            </div>                                                                              
+                                                            </div>
                                                             <!-- 確認按鈕 -->
                                                             <div class="mt-2 d-flex flex-row-reverse bd-highlight">
                                                                 <button type="reset" class="btn btn-outline-secondary ">取消</button>
@@ -712,7 +713,8 @@
                                 bee: [],
                                 employeedata: {},
                                 autopurchaseid: "",
-                                goodslist: {}
+                                goodslist: {},
+                                PcOrderDetails: []
                             }
                         },
                         computed: {
@@ -723,7 +725,7 @@
                                     //console.log(sum);
                                 };
                                 return sum
-                            }                            
+                            }
                         },
                         methods: {
                             //confirmbtn: function () {
@@ -732,21 +734,33 @@
                             //},
                             createbtn: function () {
                                 //單純本表新增
-                                axios.post("https://localhost:44319/api/PCApplications", this.item)
-                                    .then(alert('資料已新建')).catch(err => alert(err))
-                                window.location = "PC_ApplicationRecordSearch.html"; 
-                                console.log(typeof (this.item));
-
-                                axios.post()
+                                axios.post("https://localhost:44319/api/PCApplications/", this.item)
+                                    .then(response => {
+                                        alert('資料已新建');
+                                        console.log(response.data);
+                                    }).catch(err => alert(err))
+                                //window.location = "PC_ApplicationRecordSearch.html";
+                                //console.log(typeof (this.item));
 
                             },
                             getprice() {
 
                                 for (var i = 0; i < this.product.length; i++) {
                                     this.sum += this.product[i].unitPrice * this.bee[i];
+                                    this.item.PcOrderDetails[i].quantiy = parseInt(this.bee[i]);
+
+                                    this.item.PcOrderDetails[i].subtotal = this.item.PcOrderDetails[i].quantiy * this.product[i].unitPrice;
+                                    //if (this.item.PcOrderDetails[i].quantiy == NaN) {
+                                    //    this.item.PcOrderDetails[i].quantiy = 0;
+                                    //    this.item.PcOrderDetails[i].subtotal = 0;
+                                    //}
                                 }
-                                    //this.sum = this.product[0].unitPrice * this.bee[0]
-                                    //this.sum += this.product[1].unitPrice * this.bee[1]
+
+
+                                //console.log(this.product.goods);
+                                //this.pcOrderDetail.goods = this.product.goods;
+                                //this.sum = this.product[0].unitPrice * this.bee[0]
+                                //this.sum += this.product[1].unitPrice * this.bee[1]
                                 //for (var k = 0; k < this.product.Length; k++) {
                                 //}
                                 //this.sum += 1
@@ -765,7 +779,21 @@
                                     //console.log(this.item.purchaseId);
                                 })
                             axios.get('/api/PCApplications/goods')
-                                .then(response => this.product = response.data)
+                                .then(response => {
+                                    this.product = response.data;
+                                    //console.log(this.product);
+
+                                    for (var i = 0; i < this.product.length; i++) {
+                                        this.PcOrderDetails[i] = this.product[i];
+                                        //this.PcOrderDetails[i].quantiy = 0;
+                                        //this.PcOrderDetails[i].subtotal = 0;
+                                        this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
+                                        this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
+                                        
+                                    };
+                                    this.item.PcOrderDetails = this.PcOrderDetails;
+                                    //console.log(this.item);
+                                })
                         }
                     }
 
