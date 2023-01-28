@@ -543,19 +543,22 @@
 
                                         <input class="form-control" type="time" v-model="workoverlist.endTime" id="html5-time-input" />
                                     </div>
-                                        <label for="Sex" class="form-label">加班廠區</label>
-                                    <div class="mb-3 col-md-4" >
-                                        <select v-model="workoverlist.areaId" id="area" class="select1 form-select">
-                                            <option value="請選擇廠區" disabled>請選擇廠區</option>
-                                            <option v-for="item in area":value="item.areaId">{{item.areaName}}</option>
+                                    <label for="orderNumber" class="form-label">加班訂單/製程/廠區</label>
+                                    <div class="mb-3 col-md-4">
+                                        <select v-model="product.orderId" @change="overReason(product.orderId)"  id="orderNumber" class="select1 form-select">
+                                            <option value="請選擇訂單" disabled>請選擇訂單</option>
+                                            <option v-for="item in product" :value="item.areaId">{{item.orderNumber}}</option>
                                         </select>
                                     </div>
-                                        <label for="Sex" class="form-label">加班製程</label>
+                                    <label for="area" class="form-label">加班廠區</label>
                                     <div class="mb-3 col-md-4">
-                                        <select v-model="workoverlist.propessId"  id="process" class="select1 form-select">
-                                            <option value="請選擇製程" disabled>請選擇製程</option>
-                                            <option v-for="item in process":value="item.processId">{{item.processName}}</option>
-                                        </select>
+
+                                        <input class="form-control" v-model="overprocess.areaName"id="area" disabled/>
+                                    </div>
+                                    <label for="process" class="form-label">加班製程</label>
+                                    <div class="mb-3 col-md-4">
+
+                                        <input class="form-control" v-model="overprocess.processName" id="process" disabled />
                                     </div>
                                 </div>
 
@@ -568,7 +571,7 @@
 
                                 <div class="mb-3 col-md-3">
                                     <!-- <input class=""  value="" id="Totaltimeforvacation" /> -->
-                                    <p>一共   小時</p>
+                                    <!--<p>一共   小時</p>-->
                                 </div>
                                 <div class="mt-2 py-5 d-md-flex justify-content-md-end">
                                     <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn" >送出</button>
@@ -624,13 +627,15 @@
                     totaltime: {},
                     employeedata: {},
                     area: {},
-                    process: {}
+                    process: {},
+                    product: {},
+                    overprocess: {}
                 }
             },
             methods: {
 
                 okbtn: function () {
-              
+
 
                     this.workoverlist.employeeId = this.employeelist.employeeId//OK
                     console.log(this.workoverlist)//OK
@@ -651,8 +656,22 @@
                     else {
                         alert('資料請確實填寫')
                     }
-                    
 
+
+                },
+                overReason: function (e)
+                {
+                    axios.get('/api/ProductionProcesses/' + e)
+                        .then(response => {
+                            this.overprocess.processName = response.data.processName;
+                            this.workoverlist.propessId = response.data.processId;
+                            //console.log(response.data)
+                        })
+                    axios.get('/api/ProductionAreas/' +  e)
+                        .then(response => {
+                            this.overprocess.areaName = response.data.areaName;
+                            this.workoverlist.areaId = response.data.areaId;
+                        })
                 },
                 editbtn: function () {
                     if (confirm('確認修改?') == true) {
@@ -687,7 +706,8 @@
                     .then(response => this.area = response.data)
                 axios.get('/api/ProductionProcesses')
                     .then(response => this.process = response.data)
-
+                axios.get('/api/PersonnelOvertimeForms/productProcessList')
+                    .then(response => this.product = response.data)
             }
         }
 

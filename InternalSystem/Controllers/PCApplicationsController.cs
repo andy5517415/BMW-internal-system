@@ -124,6 +124,24 @@ namespace InternalSystem.Controllers
             return await i.ToListAsync();
         }
 
+        //// 申請表物品
+        //// GET: api/PCApplications/apgoods
+        //[HttpGet("apgoods")]
+        //public async Task<ActionResult<IEnumerable<dynamic>>> GetPcapgoods()
+        //{
+        //    var i = from PS in this._context.PcGoodLists
+        //            select new
+        //            {
+        //                ProductId = PS.ProductId,
+        //                Goods = PS.Goods,
+        //                Unit = PS.Unit,
+        //                UnitPrice = PS.UnitPrice,
+        //                PS.sub
+        //            };
+
+        //    return await i.ToListAsync();
+        //}
+
         // 驗收專用
         // 用於 PC_Acceptance
         // GET: api/PCApplications/acceptance
@@ -226,7 +244,7 @@ namespace InternalSystem.Controllers
                        join PIS in this._context.PcGoodLists on OD.ProductId equals PIS.ProductId
                        where AP.DeliveryStatus == false && AP.PurchaseId == id
 
-       
+
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
@@ -243,7 +261,7 @@ namespace InternalSystem.Controllers
                            UnitPrice = OD.UnitPrice,
                            Subtotal = OD.Subtotal
                        };
-                  
+
 
             return await List.ToListAsync();
         }
@@ -378,16 +396,61 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
+        //// POST: api/PCApplications
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<PcApplication>> PostPcApplication(PcApplication pcApplication)
+        //{
+        //    _context.PcApplications.Add(pcApplication);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetPcApplication", new { id = pcApplication.PurchaseId }, pcApplication);
+        //}
+
         // POST: api/PCApplications
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PcApplication>> PostPcApplication(PcApplication pcApplication)
+        public ActionResult PostPcApplication([FromBody] PcApplication pcApplication)
         {
-            _context.PcApplications.Add(pcApplication);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPcApplication", new { id = pcApplication.PurchaseId }, pcApplication);
+            PcApplication insert = new PcApplication {
+                PurchaseId = pcApplication.PurchaseId,
+                EmployeeId = pcApplication.EmployeeId,
+                Department = pcApplication.Department,
+                Date = pcApplication.Date,
+                Comment = pcApplication.Comment,
+                Total = pcApplication.Total,
+                ApplicationStatus = pcApplication.ApplicationStatus,
+                ApplicationRejectStatus = pcApplication.ApplicationRejectStatus,
+                DeliveryStatus = pcApplication.DeliveryStatus,
+                DeliveryRejectStatus = pcApplication.DeliveryRejectStatus,
+                AcceptanceStatus = pcApplication.AcceptanceStatus,
+                AcceptanceRejectStatus = pcApplication.AcceptanceRejectStatus,
+                PcOrderDetails = pcApplication.PcOrderDetails
+            };
+            _context.PcApplications.Add(insert);
+            _context.SaveChanges();
+            return Content("ok");
         }
+
+        //// POST: api/PCApplications
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost("PcOrderDetail")]
+        //public ActionResult PostPcApplicationGoods(int OrderId,[FromBody] PcOrderDetail pcOrderDetail)
+        //{
+        //    PcOrderDetail insert = new PcOrderDetail
+        //    {
+        //        OrderId = OrderId,
+        //        ProductId = pcOrderDetail.ProductId,
+        //        Goods = pcOrderDetail.Goods,
+        //        Quantiy = pcOrderDetail.Quantiy,
+        //        Unit = pcOrderDetail.Unit,
+        //        UnitPrice = pcOrderDetail.UnitPrice,
+        //        Subtotal = pcOrderDetail.Subtotal
+        //    };
+        //    _context.PcOrderDetails.Add(insert);
+        //    _context.SaveChanges();
+        //    return Content("ok");
+        //}
 
         // DELETE: api/PCApplications/5
         [HttpDelete("{id}")]

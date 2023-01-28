@@ -306,7 +306,6 @@ namespace InternalSystem.Controllers
         {
             var personnelLeaveForm = from ap in _context.PcApplications
                                      join pd in _context.PersonnelProfileDetails on ap.EmployeeId equals pd.EmployeeId
-                                     join pod in _context.PcOrderDetails on ap.OrderId equals pod.OrderId
                                      where ap.EmployeeId == id && ap.ApplicationRejectStatus == false
 
                                      select new
@@ -325,7 +324,7 @@ namespace InternalSystem.Controllers
                                          ap.DeliveryStatus,
                                          ap.ApplicationStatus,
                                          ap.ApplicationRejectStatus,
-                                         pod.ProductId
+                                         
                                      };
 
             if (personnelLeaveForm == null)
@@ -937,7 +936,7 @@ namespace InternalSystem.Controllers
         //Delete被退件之採購申請單(父子資料同時刪除)
         // Delete: api/PersonnelLeaveForms/buyrej/5
         [HttpDelete("buyrej/{id}")]
-        public void GetRejectOrder(int id)
+        public ActionResult GetRejectOrder(int id)
         {
            
             var profile = from pod in _context.PcOrderDetails
@@ -955,6 +954,11 @@ namespace InternalSystem.Controllers
             {
                 _context.PcApplications.Remove(delete);
                 _context.SaveChanges();
+            return Content("已刪除資料");
+            }
+
+            else {
+                return Content("伺服器出現問題，請稍後再試");
             }
         }
 

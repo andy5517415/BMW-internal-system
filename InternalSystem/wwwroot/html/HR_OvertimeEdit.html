@@ -633,71 +633,14 @@
                         this.overlist.endDate != null && this.overlist.endTime != null && this.overlist.areaId != null &&
                         this.overlist.propessId != null) {
 
-                        //日期轉數字
-                        const sy = parseInt(this.overlist.startDate.substring(0, 4)) * 525600;
-                        console.log(sy);
-                        const ey = parseInt(this.overlist.endDate.substring(0, 4)) * 525600;
-                        console.log(ey);
-                        const smonth = parseInt(this.overlist.startDate.substring(5, 7)) * 43200;
-                        //console.log(smonth);
-                        const sd = parseInt(this.overlist.startDate.substring(8, 11)) * 1440;
-                        console.log(sd);
-                        const emonth = parseInt(this.overlist.endDate.substring(5, 7)) * 43200;
-                        //console.log(emonth);
-                        const ed = parseInt(this.overlist.endDate.substring(8, 11)) * 1440;
-                        console.log(ed);
-
-                        //時間轉數字
-                        const sh = parseInt(this.overlist.startTime.substring(0, 2)) * 60;
-                        const sm = parseInt(this.overlist.startTime.substring(3, 5));
-                        const eh = parseInt(this.overlist.endTime.substring(0, 2)) * 60;
-                        const em = parseInt(this.overlist.endTime.substring(3, 5));
-                        const tt = ((eh + em) - (sh + sm)) / 60;
-                        const stotal = (sy + smonth + sd + sh + sm);
-                        //console.log(stotal)
-                        const etotal = (ey + emonth + ed + eh + em);
-                        //console.log(etotal)
-                        const sdtotal = (sy + smonth + sd) / 60;
-                        const edtotal = (ey + emonth + ed) / 60
-                        console.log(sdtotal);
-                        console.log(edtotal);
-                        const dtotal = (edtotal - sdtotal) / 3;
-                        console.log(dtotal + "我是時間")
-                        //AppcationDate
-                        //判斷請假日期時間是否開始大於結束
-                        if (stotal < etotal) {
-
-
-                            //console.log(leavetotal);
-
-                            //日期格式
-                            let today = new Date()
-                            let y = today.getFullYear()
-                            let mm = today.getMonth() + 1
-                            let dd = today.getDate()
-                            if (mm < 10) {
-                                mm = "0" + mm.toString()
-                            }
-                            if (dd < 10) {
-                                dd = "0" + dd.toString()
-                            }
-                            //this.overlist.appcationDate = `${y}-${mm}-${dd}`
-                            this.overlist.totalTime = tt;
-                            console.log(this.overlist.totalTime);
-
                             if (confirm('是否送出資料') == true) {
                                 axios.put('/api/PersonnelOvertimeForms/dep/' + this.overlist.startWorkId, this.overlist)
-                                    .then(ok => {
-                                        //alert('成功');
-                                        //window.location = "/html/HR_OvertimeSearch.html";
+                                    .then(response => {
+                                        alert(response.data)
+                                        window.location = "/html/hr_overtimesearch.html";
                                     }).catch(err => console.log(err))
                            
                             }
-
-                        }
-                        else {
-                            alert('開始時間不可大於或等於結束時間')
-                        }
                     }
                     else { alert('資料請填寫確實!') };
                     //alert('ok')
