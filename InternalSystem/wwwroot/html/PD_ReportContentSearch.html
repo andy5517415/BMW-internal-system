@@ -510,6 +510,33 @@
          <!-- 選擇生產的工作位置報工-->
               <div class="container-xxl flex-grow-1 container-p-y">
                   <div class="card mb-4 m-4 ">
+                      <div class="row card-body ">
+                          <div class="mb-3 mb-3 col-md-2">
+                              <label for="EmployeeNumber" class="form-label-lg">員工編號</label>
+                              <input class="form-control" id="EmployeeNumber" />
+                          </div>
+                          <div class="mb-3 col-md-2">
+                              <label for="EmployeeName" class="form-label-lg">員工姓名</label>
+                              <input class="form-control" id="Employeename" />
+                          </div>
+                          <div class="mb-3 col-md-2">
+                              <label for="EmployeeName" class="form-label-lg">開始日期</label>
+                              <input class="form-control" type="date" id="Employeename" />
+                          </div>
+                          <div class="mb-3 col-md-2">
+                              <label for="EmployeeName" class="form-label-lg">結束日期</label>
+                              <input class="form-control" type="date" id="Employeename" />
+                          </div>
+
+                          <div class=" mb-4 col-md-2 my-4">
+                              <button type="button" v-on:click="searchbtn" class="btn btn-primary me-2 ">查詢</button>
+                              <button type="reset" class="btn btn-outline-secondary">取消</button>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="card mb-4 m-4 ">
                       <div class="card text-center ">
                           <div class="row card-body">
                               <div class="row">
@@ -519,11 +546,11 @@
                                   <label for="" class=" col-1 fs-5">部門</label>
                                   <label for="" class=" col-3 fs-5">訂單編號</label>
                               </div>
-                              
+
                           </div>
                       </div>
                   </div>
-                  
+
 
                   <div id="app">
                       <div class="card mb-4 m-4 " v-for="contxt in contxtList">
@@ -545,7 +572,7 @@
 
                       </div>
                   </div>
-                  
+
               </div>
 
           <!-- Content wrapper -->

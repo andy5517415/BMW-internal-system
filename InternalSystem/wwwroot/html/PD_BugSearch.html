@@ -505,51 +505,78 @@
   <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
+  <div class="content-wrapper">
 
-         <!-- 選擇生產的工作位置報工-->
-              <div class="container-xxl flex-grow-1 container-p-y">
-                  <div class="card mb-4 m-4 ">
-                      <div class="card text-center ">
-                          <div class="row card-body">
-                              <div class=" row">
-                                  <label for="" class=" col-2 ">訂單編號</label>
-                                  <label for="" class=" col-2 ">標題</label>
-                                  <label for="" class=" col-2 ">異常等級</label>
-                                  <label for="" class=" col-2 ">日期</label>
-                                  <label for="" class=" col-1 ">狀態</label>
+      <!-- 選擇生產的工作位置報工-->
 
-                              </div>
-
-                          </div>
-
-                      </div>
+      <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="card mb-4 m-4 ">
+              <div class="row card-body ">
+                  <div class="mb-3 mb-3 col-md-2">
+                      <label for="EmployeeNumber" class="form-label-lg">訂單編號</label>
+                      <input class="form-control" id="EmployeeNumber" />
+                  </div>
+                  <div class="mb-3 col-md-2">
+                      <label for="EmployeeName" class="form-label-lg">類型</label>
+                      <input class="form-control" id="Employeename" />
+                  </div>
+                  <div class="mb-3 col-md-2">
+                      <label for="EmployeeName" class="form-label-lg">開始日期</label>
+                      <input class="form-control" type="date" id="Employeename" />
+                  </div>
+                  <div class="mb-3 col-md-2">
+                      <label for="EmployeeName" class="form-label-lg">結束日期</label>
+                      <input class="form-control" type="date" id="Employeename" />
                   </div>
 
-                  <div id="app">
-                      <div class="card mb-4 m-4 " v-for ="List in BugList">
-                          <div class="card text-center " >
-                              <div class="row card-body" >
-                                  <div class="row">
-                                      <label for="" class=" col-2 ">{{List.orderNumber}}</label>
-                                      <label for="" class=" col-2 " style="height: 25px; line-height: 25px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; " >{{List.title}}</label>
-                                      <label for="" class=" col-2 ">{{List.rank.slice(0,2)}}</label>
-                                      <label for="" class=" col-2 ">{{List.date}}</label>
-                                      <label for="" class=" col-1 ">異常</label>
-                                      <div class="col-2   d-md-flex justify-content-md-end">
-                                          <button type="submit" class="btn btn-outline-primary 2" v-on:click="Enter(List)">查詢</button>
-                                      </div>
-                                  </div>
-
-                              </div>
-                          </div>
-
-                      </div>
+                  <div class=" mb-4 col-md-2 my-4">
+                      <button type="button" v-on:click="searchbtn" class="btn btn-primary me-2 ">查詢</button>
+                      <button type="reset" class="btn btn-outline-secondary">取消</button>
                   </div>
               </div>
-
-              
           </div>
+
+          <div class="card mb-4 m-4 ">
+              <div class="card text-center ">
+                  <div class="row card-body">
+                      <div class=" row">
+                          <label for="" class=" col-2 ">訂單編號</label>
+                          <label for="" class=" col-2 ">標題</label>
+                          <label for="" class=" col-2 ">異常等級</label>
+                          <label for="" class=" col-2 ">日期</label>
+                          <label for="" class=" col-1 ">狀態</label>
+
+                      </div>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div id="app">
+              <div class="card mb-4 m-4 " v-for="List in BugList">
+                  <div class="card text-center ">
+                      <div class="row card-body">
+                          <div class="row">
+                              <label for="" class=" col-2 ">{{List.orderNumber}}</label>
+                              <label for="" class=" col-2 " style="height: 25px; line-height: 25px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; ">{{List.title}}</label>
+                              <label for="" class=" col-2 ">{{List.rank.slice(0,2)}}</label>
+                              <label for="" class=" col-2 ">{{List.date}}</label>
+                              <label for="" class=" col-1 ">異常</label>
+                              <div class="col-2   d-md-flex justify-content-md-end">
+                                  <button type="submit" class="btn btn-outline-primary 2" v-on:click="Enter(List)">查詢</button>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+
+
+  </div>
 
           <!-- Content wrapper -->
           
