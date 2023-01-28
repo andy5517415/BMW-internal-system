@@ -28,29 +28,65 @@ namespace InternalSystem.Controllers
             return await _context.MeetingRecords.ToListAsync();
         }
 
-        // GET: api/MeetingRecords/1(部門編號)
+        //先查成功預約的會議室
+        // GET: api/MeetingRecords/1
         [HttpGet("{depId}")]
         public async Task<ActionResult<dynamic>> GetMeetingRecords(int depId)
+        {
+
+            var meetingReserve = from a in _context.MeetingReserves
+                                 join b in _context.MeetingRooms on a.MeetPlaceId equals b.MeetingPlaceId
+                                 join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
+                                 join d in _context.PersonnelProfileDetails on a.EmployeeId equals d.EmployeeId
+                                 where a.DepId == depId
+                                 select new
+                                 {
+                                     BookId = a.BookMeetId,
+                                     MeetPlace = b.MeetingRoom1,
+                                     Date = a.Date,
+                                     Dependent = c.DepName,
+                                     EmployeeName = d.EmployeeName,
+                                     StartTime = a.StartTime,
+                                     EndTime = a.EndTime,
+                                     MeetType = a.MeetType,
+                                 };
+
+            if (meetingReserve == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                //return testover;
+                return await meetingReserve.ToListAsync();
+            }
+
+        }
+
+
+        //最終紀錄的終結果
+        // GET: api/MeetingRecords/1(紀錄表編號)/1(會議編號)
+        [HttpGet("{1}/{BkId}")]
+        public async Task<ActionResult<dynamic>> GetMeetingRecords(int RcId , int BkId)
         {
             var meetingRecords = from a in _context.MeetingRecords
                                  join b in _context.MeetingRooms on a.MeetingPlaceId equals b.MeetingPlaceId
                                  join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
-                                 where a.DepId == depId
+                                 where a.BookMeetId == BkId
                                  select new
                                  {
                                     recordSheetId=a.RecordSheetId,
-                                    bookMeetId=a.BookMeetId,
+                                    bookId=a.BookMeetId,
                                     meetingPlaceId=b.MeetingPlaceId,
                                     meetPresident=a.MeetPresident,
-                                    rcorder=a.Rcorder,
+                                    recorder=a.Rcorder,
                                     participater=a.Participater,
                                     shouldAttend=a.ShouldAttend,
                                     attend=a.Attend,
                                     noAttend=a.NoAttend,
                                     noAttendPerson=a.NoAttendPerson,
-                                    principal=a.Principal,
-                                    date=   a.Date,
-                                    item=a.Item,                            
+                                    Principal  = a.Principal,
+                                    date =   a.Date,                    
                                     agenda=a.Agenda,
                                     record=a.Record,
                                     meetingPlace=b.MeetingRoom1,
