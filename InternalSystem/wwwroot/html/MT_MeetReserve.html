@@ -33,6 +33,10 @@
 
     <!-- vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- axios -->
+    <script crossorigin="anonymous"
+      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+      src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -506,7 +510,7 @@
 
           <!-- Content wrapper -->
           <!-- Content wrapper -->
-          <div class="content-wrapper">
+          <div class="content-wrapper" id="MeetReserve">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 預約會議室</h4>
@@ -523,7 +527,7 @@
                     <label for="meetWeek_select"
                       class="col-4 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇周別</label>
                     <div class="col-8 col-md-3">
-                      <input class="form-control" type="week" value="" id="meetWeek_select" style="height: 45px;" />
+                      <input v-model="MeetRsInfo.week" class="form-control" type="week" value="" id="meetWeek_select" style="height: 45px;" />
                     </div>
           
           
@@ -531,35 +535,43 @@
                     <label for="meetPlace_select"
                       class="col-5 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇會議室</label>
                     <div class="col-7 col-md-5">
-                      <select class="form-select" id="meetPlace_select" aria-label="Default select example" style="height: 45px;">
-                        <option selected>選擇會議室</option>
-                        <option option value="1">A01（50人）</option>
-                        <option option value="1">A02（20人）</option>
-                        <option option value="1">A03（10人）</option>
+                      <select v-model="MeetRsInfo.meetPlace" class="form-select" id="meetPlace_select" aria-label="Default select example" style="height: 45px;">
+                        <option value="" disabled>選擇會議室</option>
+                        <option option value="1">A01橘子好吃會議室（50人）</option>
+                        <option option value="2">A02鳳梨好吃會議室（20人）</option>
+                        <option option value="3">A03芭樂好吃會議室（10人）</option>
                       </select>
                     </div>
           
-                    <!-- ★預約時間 -->
-                    <label for="meetTime_select"
-                      class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇時間區段</label>
-                    <!-- 區段1 -->
-                    <div class="col-12 col-md-5">
-                      <input class="form-control" type="datetime-local" value="" id="meetTime_select" style="height: 45px;" />
-                    </div>
-                    <!-- 區段2 -->
-                    <div class="col-12 col-md-5">
-                      <input class="form-control" type="datetime-local" value="" id="meetTime_select" style="height: 45px;" />
-                    </div>
+                    
                   </div>
                   <div class="mt-4 row justify-content-center">
-                    <button type="submit" class="col-11 col-md-1 btn btn-outline-primary me-2">確定</button>
+                    <button type="submit" class="col-11 col-md-2 btn btn-outline-primary me-2" @click="MeetReserve">查看可預約時段</button>
                   </div>
                 </div>
               </div>
-            </div>
+
             <!-- ★預約表格 -->
-            <div class="card shadow mx-5 mt-0 mb-5 mb-0">
-              <p class="fw-bold card-header fs-3 mx-auto mt-3" style="text-decoration: underline 4pt #666EE8;">查看可預約時段</p>
+            <div class="card m-4">
+            <div class="card-body mb-3 col-md-12">
+              <p class="fw-bold card-header fs-3 text-center mt-3" style="text-decoration: underline 4pt #666EE8;">查看可預約時段</p>
+              <p>沒出現的即為可預約!</p>
+              <div class="my-3 row g-2 justify-content-around">
+                <!-- ★預約時間 -->
+                <label for="meetTime_select"
+                  class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇時間區段</label>
+                <!-- 區段1 -->
+                <div class="col-12 col-md-5">
+                  <input v-model="MeetRsInfo.startTime" class="form-control" type="datetime-local" value="" id="meetTime_select"
+                    style="height: 45px;" />
+                </div>
+                <!-- 區段2 -->
+                <div class="col-12 col-md-5">
+                  <input v-model="MeetRsInfo.endTime" class="form-control" type="datetime-local" value="" id="meetTime_select"
+                    style="height: 45px;" />
+                </div>
+              </div>
+
               <div class="table-responsive p-5 text-nowrap">
                 <table class="table table-hover">
                   <thead>
@@ -572,7 +584,7 @@
                       <th class="fs-6">星期五(12/30)</th>
                     </tr>
                   </thead>
-          
+              
                   <tbody class="table-border-bottom-0">
                     <!-- ★一列 -->
                     <tr>
@@ -589,14 +601,14 @@
                       <td>
                         <span class="badge bg-label-success me-1 fs-6">可預約</span>
                       </td>
-          
+              
                       <td>
                         <!-- ★已預約彈跳視窗鈕-->
                         <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
                           style="font-size: 6px;height: 30px;">
                           已被預約
                         </button>
-          
+              
                         <!-- ★Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                           aria-hidden="true">
@@ -604,7 +616,8 @@
                             <div class="modal-content">
                               <div class="modal-header mb-3">
                                 <h5 class="modal-title" id="exampleModalLabel"
-                                  style="border-left: 8pt solid #666EE8;border-radius: 2px;">&nbspA01會議室</h5>
+                                  style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                  &nbspA01會議室</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="row justify-content-center">
@@ -622,74 +635,68 @@
                             </div>
                           </div>
                         </div>
+                      </td>
+                    </tr>
+              
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger "></i> <strong>☕ 17:30－18:00</strong></td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <!-- ★已預約彈跳視窗鈕-->
+                        <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                          style="font-size: 6px;height: 30px;">
+                          已被預約
+                        </button>
+              
+                        <!-- ★Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header mb-3">
+                                <h5 class="modal-title" id="exampleModalLabel"
+                                  style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                  &nbspA01會議室</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="row justify-content-center">
+                                <hr class="col-10">
+                              </div>
+                              <div class="modal-body text-start mt-0">
+                                <p>📋部門：設計部</p>
+                                <p>📋已預約時間：8:00-8:30</p>
+                                <p>📋部門登記人員：李文勝</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                  </tbody>
+                </table>
               </div>
-              </td>
-              </tr>
-          
-              <tr>
-                <td><i class="fab fa-angular fa-lg text-danger "></i> <strong>☕ 17:30－18:00</strong></td>
-                <td>
-                  <span class="badge bg-label-success me-1 fs-6">可預約</span>
-                </td>
-                <td>
-                  <span class="badge bg-label-success me-1 fs-6">可預約</span>
-                </td>
-                <td>
-                  <span class="badge bg-label-success me-1 fs-6">可預約</span>
-                </td>
-                <td>
-                  <span class="badge bg-label-success me-1 fs-6">可預約</span>
-                </td>
-                <td>
-                  <!-- ★已預約彈跳視窗鈕-->
-                  <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    style="font-size: 6px;height: 30px;">
-                    已被預約
-                  </button>
-          
-                  <!-- ★Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header mb-3">
-                          <h5 class="modal-title" id="exampleModalLabel"
-                            style="border-left: 8pt solid #666EE8;border-radius: 2px;">
-                            &nbspA01會議室</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="row justify-content-center">
-                          <hr class="col-10">
-                        </div>
-                        <div class="modal-body text-start mt-0">
-                          <p>📋部門：設計部</p>
-                          <p>📋已預約時間：8:00-8:30</p>
-                          <p>📋部門登記人員：李文勝</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                          <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-            </td>
-            </tbody>
-            </table>
-          
             <!-- ★送出按鈕 -->
-            <div class="mt-4 row justify-content-center g-2">
+            <div class="m-5 row justify-content-center g-2">
               <button type="submit" class="col-10 col-md-2 btn btn-outline-primary me-2">預約會議室</button>
               <button type="submit" class="col-10 col-md-2 btn btn-outline-secondary me-2">取消重選</button>
             </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
           <!-- / Content -->
-
+</div>
+</div>
             <!-- Footer -->
             
             <!-- / Footer -->
@@ -727,6 +734,32 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+        <script>
+          const MeetReserve = {
+            data() {
+              return {
+                MeetRsInfo: {},
+              }
+            },
+            methods: {
+              MeetReserve: function (bookId) {
+                axios.post("https://localhost:44319/api/MeetingReserves/" + bookId
+                )
+                  .then(res => {
+                    $("#toastDel").fadeIn("fast");
+                    setTimeout(() => $("#toastDel").fadeOut(), 2000);
+                  })
+                  .catch((error) => { alert('連線錯誤' + error); })
+                this.DoMeetSearch();
+              },
+
+            }
+          }
+
+          Vue.createApp(MeetReserve).mount('#MeetReserve')
+        </script>
+
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
   </body>

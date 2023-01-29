@@ -353,7 +353,7 @@
                             </li>
                             <li class="menu-item">
                                 <a href="MT_MeetReserveSearch.html" class="menu-link">
-                                    <div data-i18n="Account">查詢租借紀錄</div>
+                                    <div data-i18n="Account">查詢租借紀錄/建立會議記錄表</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -519,10 +519,8 @@
                                     <label for="meetDepeart_select" class="col-6 col-md-1 col-form-label fs-5 text-center fw-bold">選擇部門</label>
                                     <div class="col-6 col-md-2">
                                         <select  v-model="MeetSearch.DepId" class="form-select" id="meetDepeart_select" aria-label="Default select example" style="height: 45px;">
-                                            <option value="1">人事部</option>
-                                            <option value="2">生產部</option>
-                                            <option value="3">業務部</option>
-                                            <option value="4">採購部</option>
+                                            <option value="" disabled>選擇部門</option>
+                                            <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-2">
@@ -533,7 +531,7 @@
                         </div>
 
                         <!-- ★會議室租借紀錄 -->
-                        <div class="card m-4 mb-0" >
+                        <div class="card m-4 mb-0" v-if="MeetInf.isValue" >
                             <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
                             <div class="table-responsive p-5 text-nowrap">
                                 <table class="table table-hover">
@@ -552,19 +550,19 @@
                                     <tbody class="table-border-bottom-0">
                                         <!-- ★一列 -->
                                         <tr v-for="(MeetSearchInf,index) in MeetInf">
-                                            <td><span :model="MeetInf"
+                                            <td><span v-model="MeetInf"
                                                     class="badge bg-label-primary me-1 fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
-                                            <td :model="MeetInf"><span
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
+                                            <td v-model="MeetInf"><span
                                                     class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.startTime}}</span></td>
-                                            <td :model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.endTime}}</span>
+                                            <td v-model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.endTime}}</span>
                                             </td>
                         
                                             <!-- 取消按鈕 -->
-                                            <td :model="MeetInf">
+                                            <td v-model="MeetInf">
                                                 <button v-if="MeetInf.isValue" @click="DoSearchRecord(index)" type="button" class="btn btn-primary p-1 fs-6"
                                                     data-bs-toggle="modal" style="font-size: 6px;height: 30px;">
                                                     查看會議記錄
@@ -741,6 +739,7 @@
         const MeetSearchInf = {
             data() {
                 return {
+                    Dep: {},
                     MeetSearch: {},
                     MeetInf: {
                         isValue: false,
@@ -783,16 +782,6 @@
                         .catch((error) => { alert('連線錯誤' + error); })
 
                 },
-                Del: function (bookId) {
-                    axios.delete("https://localhost:44319/api/MeetingReserves/" + bookId
-                    )
-                        .then(res => {
-                            $("#toastDel").fadeIn("fast");
-                            setTimeout(() => $("#toastDel").fadeOut(), 2000);
-                        })
-                        .catch((error) => { alert('連線錯誤' + error); })
-                    this.DoMeetSearch();
-                },
                 DoSearchRecord: function (index) {
                     var self = this;
                     self.MeetInf.isRecord = true;
@@ -813,6 +802,9 @@
 
                 }
 
+            },
+            mounted() {
+                axios.get('/api/PersonnelDepartmentLists').then(res => { this.Dep = res.data })
             }
         }
 
