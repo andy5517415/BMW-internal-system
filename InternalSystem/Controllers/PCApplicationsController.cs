@@ -33,15 +33,15 @@ namespace InternalSystem.Controllers
                        select new
                        {
                            EmployeeId = PD.EmployeeId,
-                           EmployeeName = PD.EmployeeName,
-                           OrderId = AP.OrderId,
                            Department = PDL.DepName,
-                           Date = AP.Date,
                            PurchaseId = AP.PurchaseId,
-                           Comment = AP.Comment,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
-                           DeliveryStatus = AP.DeliveryStatus
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
                        };
 
             return await list.FirstOrDefaultAsync();
