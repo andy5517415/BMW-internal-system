@@ -509,9 +509,9 @@
                     <div class="card-body">
                         <div class="row gx-3 gy-2 align-items-center">
                             <div class="col-md-6">
-                                <label for="purchaseId" class="form-label-lg">訂單編號</label>
+                                <label for="purchaseId" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control fs-5"
                                        id="purchaseId"
                                        placeholder=""
                                        aria-describedby="defaultFormControlHelp"
@@ -525,9 +525,9 @@
                     <div class="card-body">
                         <div class="row gx-3 gy-2 align-items-center">
                             <div class="col-md-6">
-                                <label for="employeeName" class="form-label-lg">申請人</label>
+                                <label for="employeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請人</label>
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control fs-5"
                                        id="employeeName"
                                        placeholder=""
                                        aria-describedby="defaultFormControlHelp"
@@ -535,9 +535,9 @@
                                        v-model="myobject.employeeName" />
                             </div>
                             <div class="col-md-6">
-                                <label for="department" class="form-label-lg">部門</label>
+                                <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control fs-5"
                                        id="department"
                                        placeholder=""
                                        aria-describedby="defaultFormControlHelp"
@@ -545,9 +545,9 @@
                                        v-model="myobject.department" />
                             </div>
                             <div class="col-md-6">
-                                <label for="applicationdate" class="form-label-lg">申請日期</label>
+                                <label for="applicationdate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請日期</label>
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control fs-5"
                                        id="applicationdate"
                                        placeholder=""
                                        aria-describedby="defaultFormControlHelp"
@@ -555,9 +555,9 @@
                                        v-model="myobject.date" />
                             </div>
                             <div class="col-md-6">
-                                <label for="comment" class="form-label-lg">備註</label>
+                                <label for="comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註</label>
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control fs-5"
                                        id="comment"
                                        placeholder=""
                                        aria-describedby="defaultFormControlHelp"
@@ -691,51 +691,51 @@
             todoitem: {}
           }
         },
-          methods: {
-              // 按下確認按鈕，送出驗收成功
-              Confirm: function () {
-                  this.todoitem.acceptanceStatus = true;
-                  /*this.todoitem.total = 500;*/
-                  //console.log(this.todoitem.orderId);
-                  if (confirm("確定要核准驗收嗎?") == true) {
-                  axios.put('/api/PCApplications/' + this.todoitem.orderId,this.todoitem)
-                          .then(a => console.log(a));
-                      window.location = "PC_Acceptance.html";
-                  }
+        methods: {
+          // 按下確認按鈕，送出驗收成功
+          Confirm: function () {
+            this.todoitem.acceptanceStatus = true;
+            /*this.todoitem.total = 500;*/
+            //console.log(this.todoitem.orderId);
+            if (confirm("確定要核准驗收嗎?") == true) {
+              axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
+                .then(a => console.log(a));
+              window.location = "PC_Acceptance.html";
+            }
 
-              },
+          },
 
-              Cancel: function () {
-                  this.todoitem.acceptanceRejectStatus = true;
-                  if (confirm("確定要退貨嗎?") == true) {
-                      //console.log("ok");
-                      axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
-                          .then(a => console.log(a));
-                      window.location = "PC_Acceptance.html";
-                  }
-              }
-                
+          Cancel: function () {
+            this.todoitem.acceptanceRejectStatus = true;
+            if (confirm("確定要退貨嗎?") == true) {
+              //console.log("ok");
+              axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
+                .then(a => console.log(a));
+              window.location = "PC_Acceptance.html";
+            }
+          }
+
         },
         mounted() {
           this.myobject = JSON.parse(sessionStorage.getItem('order'))
-            axios.get('https://localhost:44319/api/PCApplications/acceptanceordercheck/' + this.myobject.purchaseId)
-              .then(response => {
-                  this.list = response.data;
-                  //console.log(response.data[0].subtotal);
-                  var k = 0;
-                  for (var i = 0; i < this.list.length; i++) {
-                      k += response.data[i].subtotal;
-                  }
-                  //this.list.orderlist = i;
-                  this.totalprice = k;
-                  //console.log(this.totalprice);
-                  //console.log(this.list.orderlist);
-              })
+          axios.get('https://localhost:44319/api/PCApplications/acceptanceordercheck/' + this.myobject.purchaseId)
+            .then(response => {
+              this.list = response.data;
+              //console.log(response.data[0].subtotal);
+              var k = 0;
+              for (var i = 0; i < this.list.length; i++) {
+                k += response.data[i].subtotal;
+              }
+              //this.list.orderlist = i;
+              this.totalprice = k;
+              //console.log(this.totalprice);
+              //console.log(this.list.orderlist);
+            })
 
-            //得到整張申請單狀態
-            axios.get('https://localhost:44319/api/PCApplications/OrderCheck/' + this.myobject.orderId)
-                .then(response => this.todoitem = response.data);
-            /*console.log(this.todoitem);*/
+          //得到整張申請單狀態
+          axios.get('https://localhost:44319/api/PCApplications/OrderCheck/' + this.myobject.orderId)
+            .then(response => this.todoitem = response.data);
+          /*console.log(this.todoitem);*/
         }
       }
 

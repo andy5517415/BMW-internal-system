@@ -557,8 +557,8 @@
                                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                                 <div class="row">
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="firstName" class="form-label">員工名稱</label>
-                                                        <input class="form-control"
+                                                        <label for="firstName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                                        <input class="form-control fs-5"
                                                                type="text"
                                                                id="firstName"
                                                                name="firstName"
@@ -568,8 +568,8 @@
                                                     </div>
                                                     <!-- 部門選擇 -->
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="department" class="form-label">部門</label>
-                                                        <input class="form-control"
+                                                        <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                                        <input class="form-control fs-5"
                                                                type="text"
                                                                id="department"
                                                                name="department"
@@ -581,23 +581,23 @@
                                                     <div class="mb-3 col-md-6">
                                                         <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
                                                         <div class="col-md-12">
-                                                            <input class="form-control" type="date" id="ApplicationDate" v-model="item.date" />
+                                                            <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="item.date" />
                                                         </div>
                                                     </div>
                                                     <!-- 採購單號 -->
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="PurchaseID" class="form-label">採購單號</label>
-                                                        <input class="form-control"
+                                                        <label for="PurchaseID" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">採購單號</label>
+                                                        <input class="form-control fs-5"
                                                                type="text"
                                                                id="PurchaseID"
                                                                name="PurchaseID"
                                                                v-model="item.purchaseId"
                                                                autofocus />
-                                                    </div>                                                 
+                                                    </div>
                                                     <!-- 備註 -->
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="Comment" class="form-label">備註</label>
-                                                        <input class="form-control"
+                                                        <label for="Comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註</label>
+                                                        <input class="form-control fs-5"
                                                                type="text"
                                                                id="Comment"
                                                                name="Comment"
@@ -632,13 +632,14 @@
                                                                                 <!-- 物品名稱 -->
                                                                                 <td>
                                                                                     {{b.goods}}
+                                                                                    <input type="text" class="form-control fs-5" id="inputunit123" placeholder="請輸入數量">
                                                                                 </td>
                                                                                 <!-- 物品數量 -->
                                                                                 <td>
-                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" >
+                                                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                                         <div class="mb-3 col-md-12">
-                                                                                            <label for="數量" class="form-label"></label>
-                                                                                            <input @change="getprice" type="text" class="form-control" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
+                                                                                            <label for="數量" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
+                                                                                            <input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
                                                                                         </div>
                                                                                     </ul>
                                                                                 </td>
@@ -673,10 +674,10 @@
                                                                     <div class="p-2 bd-highlight">總價：{{sum}}元</div>
                                                                 </div>
                                                                 <div class="table-responsive text-nowrap"></div>
-                                                            </div>                                                                              
+                                                            </div>
                                                             <!-- 確認按鈕 -->
                                                             <div class="mt-2 d-flex flex-row-reverse bd-highlight">
-                                                                <button type="reset" class="btn btn-outline-secondary ">取消</button>
+                                                                <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 ">取消</button>
                                                                 <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
                                                             </div>
                                                         </div>
@@ -712,7 +713,8 @@
                                 bee: [],
                                 employeedata: {},
                                 autopurchaseid: "",
-                                goodslist: {}
+                                goodslist: {},
+                                PcOrderDetails: []
                             }
                         },
                         computed: {
@@ -723,7 +725,7 @@
                                     //console.log(sum);
                                 };
                                 return sum
-                            }                            
+                            }
                         },
                         methods: {
                             //confirmbtn: function () {
@@ -732,21 +734,33 @@
                             //},
                             createbtn: function () {
                                 //單純本表新增
-                                axios.post("https://localhost:44319/api/PCApplications", this.item)
-                                    .then(alert('資料已新建')).catch(err => alert(err))
-                                window.location = "PC_ApplicationRecordSearch.html"; 
-                                console.log(typeof (this.item));
-
-                                axios.post()
+                                axios.post("https://localhost:44319/api/PCApplications/", this.item)
+                                    .then(response => {
+                                        alert('資料已新建');
+                                        console.log(response.data);
+                                    }).catch(err => alert(err))
+                                //window.location = "PC_ApplicationRecordSearch.html";
+                                //console.log(typeof (this.item));
 
                             },
                             getprice() {
 
                                 for (var i = 0; i < this.product.length; i++) {
                                     this.sum += this.product[i].unitPrice * this.bee[i];
+                                    this.item.PcOrderDetails[i].quantiy = parseInt(this.bee[i]);
+
+                                    this.item.PcOrderDetails[i].subtotal = this.item.PcOrderDetails[i].quantiy * this.product[i].unitPrice;
+                                    //if (this.item.PcOrderDetails[i].quantiy == NaN) {
+                                    //    this.item.PcOrderDetails[i].quantiy = 0;
+                                    //    this.item.PcOrderDetails[i].subtotal = 0;
+                                    //}
                                 }
-                                    //this.sum = this.product[0].unitPrice * this.bee[0]
-                                    //this.sum += this.product[1].unitPrice * this.bee[1]
+
+
+                                //console.log(this.product.goods);
+                                //this.pcOrderDetail.goods = this.product.goods;
+                                //this.sum = this.product[0].unitPrice * this.bee[0]
+                                //this.sum += this.product[1].unitPrice * this.bee[1]
                                 //for (var k = 0; k < this.product.Length; k++) {
                                 //}
                                 //this.sum += 1
@@ -765,7 +779,21 @@
                                     //console.log(this.item.purchaseId);
                                 })
                             axios.get('/api/PCApplications/goods')
-                                .then(response => this.product = response.data)
+                                .then(response => {
+                                    this.product = response.data;
+                                    //console.log(this.product);
+
+                                    for (var i = 0; i < this.product.length; i++) {
+                                        this.PcOrderDetails[i] = this.product[i];
+                                        //this.PcOrderDetails[i].quantiy = 0;
+                                        //this.PcOrderDetails[i].subtotal = 0;
+                                        this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
+                                        this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
+
+                                    };
+                                    this.item.PcOrderDetails = this.PcOrderDetails;
+                                    //console.log(this.item);
+                                })
                         }
                     }
 

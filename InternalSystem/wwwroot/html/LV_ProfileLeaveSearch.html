@@ -505,50 +505,50 @@
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料查詢</h4>
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="mb-3 row">
-                                    <label for="html5-month-input" class="form-label-lg">請假月份</label>
+                                <div class="my-4 d-flex justify-content-center">
+                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假月份</label>
                                     <div class="col-md-2">
-                                        <input class="form-control" type="month" v-model="leavesearch.month" id="html5-month-input" />
+                                        <input class="form-control fs-5" type="month" v-model="leavesearch.month" id="html5-month-input" />
                                     </div>
                                 </div>
-                                <div class="mt-2 ">
-                                    <button type="button" @click="searchbtn" class="btn btn-outline-primary me-2 ">查詢</button>
-                                    <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                <div class="mt-5 mb-3 d-flex justify-content-center">
+                                    <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
+                                    <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">重選</button>
                                 </div>
                             </form>
                         </div>
 
 
                         <!-- Basic Bootstrap Table -->
-                        <div class="card">
-                            <h5 class="card-header">請假申請資料</h5>
+                        <div class="card mx-4">
+                            <h5 class="alert alert-primary mx-auto my-5 fw-bold fs-2">請假申請資料</h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>員工名稱</th>
-                                            <th>員工編號</th>
-                                            <th>請假起始時間</th>
-                                            <th>請假結束時間</th>
-                                            <th>狀態</th>
+                                            <th class="fs-4 fw-blod">員工名稱</th>
+                                            <th class="fs-4 fw-blod">員工編號</th>
+                                            <th class="fs-4 fw-blod">請假起始時間</th>
+                                            <th class="fs-4 fw-blod">請假結束時間</th>
+                                            <th class="fs-4 fw-blod">狀態</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0" v-for="item in leavelist">
                                         <tr>
-                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{item.employeeName}}</strong></td>
-                                            <td>{{item.employeeNumber}}</td>
+                                            <td><strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td>
+                                            <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
                                             <td>
-                                                <span class="label-primary me-1">{{item.startDate}} - {{item.startTime}}</span>
+                                                <span class="fs-5 fw-bold">{{item.startDate}} - {{item.startTime}}</span>
                                             </td>
                                             <td>
-                                                <span class="label-primary me-1">{{item.endDate}} - {{item.endTime}}</span>
+                                                <span class="fs-5 fw-bold">{{item.endDate}} - {{item.endTime}}</span>
                                             </td>
                                             <td>
 
-                                                <span class="label-primary me-1">{{item.auditStatus}}</span>
+                                                <span class="fs-5 fw-bold">{{item.auditStatus}}</span>
                                             </td>
                                             <td>
-                                                <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-2 " type="button" @click="look(item)">檢視詳情</a>
+                                                <a href="LV_ProfileLeaveSerchPage.html" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " type="button" @click="look(item)">檢視詳情</a>
                                             </td>
                                         </tr>
 

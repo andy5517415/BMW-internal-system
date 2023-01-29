@@ -29,6 +29,10 @@
 
     <!-- vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- axios -->
+    <script crossorigin="anonymous"
+        integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+        src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
@@ -349,7 +353,7 @@
                             </li>
                             <li class="menu-item">
                                 <a href="MT_MeetReserveSearch.html" class="menu-link">
-                                    <div data-i18n="Account">查詢租借紀錄</div>
+                                    <div data-i18n="Account">查詢租借紀錄/建立會議記錄表</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -514,23 +518,21 @@
                                     <!-- 選擇部門 -->
                                     <label for="meetDepeart_select" class="col-6 col-md-1 col-form-label fs-5 text-center fw-bold">選擇部門</label>
                                     <div class="col-6 col-md-2">
-                                        <select class="form-select" id="meetDepeart_select" aria-label="Default select example" style="height: 45px;">
-                                            <option selected>選擇部門</option>
-                                            <option value="1">生產部</option>
-                                            <option value="2">業務部</option>
-                                            <option value="3">人資部</option>
+                                        <select  v-model="MeetSearch.DepId" class="form-select" id="meetDepeart_select" aria-label="Default select example" style="height: 45px;">
+                                            <option value="" disabled>選擇部門</option>
+                                            <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-2">
-                                        <button @click="DoMeetRSearch" type="submit" class="btn btn-outline-primary me-2 border-3" style="height: 45px;">確定</button>
+                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3" style="height: 45px;">確定</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 列出有的紀錄 -->
-                        <div class="card shadow m-4 mb-0" v-if="MeetInf.isValue">
-                            <h3 class="card-header mx-auto mt-3 fw-bold " style="text-decoration: underline 4pt #666EE8;">會議紀錄表</h3>
+                        <!-- ★會議室租借紀錄 -->
+                        <div class="card m-4 mb-0" v-if="MeetInf.isValue" >
+                            <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
                             <div class="table-responsive p-5 text-nowrap">
                                 <table class="table table-hover">
                                     <thead>
@@ -538,68 +540,33 @@
                                             <th class="fs-4">會議室</th>
                                             <th class="fs-4">日期</th>
                                             <th class="fs-4">部門</th>
+                                            <th class="fs-4">會議類型</th>
                                             <th class="fs-4">租借登記職員</th>
                                             <th class="fs-4">開始時間</th>
                                             <th class="fs-4">結束時間</th>
-                                            <th class="fs-4">結束時間</th>
                                         </tr>
                                     </thead>
-
+                        
                                     <tbody class="table-border-bottom-0">
                                         <!-- ★一列 -->
-                                        <tr v-for="MeetSearchInf in MeetInf">
-                                            <td><span :model="MeetInf" class="badge bg-label-primary me-1 fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span>
+                                        <tr v-for="(MeetSearchInf,index) in MeetInf">
+                                            <td><span v-model="MeetInf"
+                                                    class="badge bg-label-primary me-1 fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
+                                            <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
+                                            <td v-model="MeetInf"><span
+                                                    class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.startTime}}</span></td>
+                                            <td v-model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.endTime}}</span>
                                             </td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
-                                            <td :model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
-                                            <td :model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.startTime}}</span></td>
-                                            <td :model="MeetInf"><span class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.endTime}}</span></td>
-                                            
+                        
                                             <!-- 取消按鈕 -->
-                                            <td :model="MeetInf">
-                                                <button :data-bs-target="MeetSearchInf.ModalTarget" type="button" class="btn btn-danger p-1" data-bs-toggle="modal"
-                                                        style="font-size: 6px;height: 30px;">
-                                                    取消預約
+                                            <td v-model="MeetInf">
+                                                <button v-if="MeetInf.isValue" @click="DoSearchRecord(index)" type="button" class="btn btn-primary p-1 fs-6"
+                                                    data-bs-toggle="modal" style="font-size: 6px;height: 30px;">
+                                                    查看會議記錄
                                                 </button>
-
-                                                <!-- ★Modal -->
-                                                <div :id="MeetSearchInf.ModalId" class="modal fade" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content" style="border: 7px solid #8B92F1;">
-                                                            <div class="modal-header mb-3">
-                                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel"
-                                                                   style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                                    &nbsp預約資訊
-                                                                </p>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="row justify-content-center mb-0">
-                                                                <hr class="col-10">
-                                                            </div>
-                                                            <div class="modal-body text-start mt-0">
-                                                                <p class="fs-5">📋會議室：{{MeetSearchInf.meetPlace}}</p>
-                                                                <p class="fs-5">✨會議類型：{{MeetSearchInf.meetType}}</p>
-                                                                <p class="fs-5">👨‍🔧租借登記職員：{{MeetSearchInf.employeeName}}</p>
-                                                                <p class="fs-5">📆預約日期：{{MeetSearchInf.date}}</p>
-                                                                <p class="fs-5">🕒預約時間：{{MeetSearchInf.startTime}}-{{MeetSearchInf.endTime}}</p>
-
-                                                                <br>
-                                                                <div class="alert alert-danger fs-4 fw-bold col-6 mx-auto text-center">
-                                                                    確定要取消預約嗎?
-                                                                </div>
-                                                                <p class="fs-6 text-center">⚠️注意，取消後只能再重新預約!</p>
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-primary border-3" data-bs-dismiss="modal">確定</button>
-                                                                <button type="button" class="btn btn-outline-secondary border-3" data-bs-dismiss="modal">返回</button>
-                                                                <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -607,66 +574,77 @@
                             </div>
                         </div>
 
-                        <div class="my-5 ms-4">
+                        <div class="card shadow m-4 mb-0" v-for="MR in MeetRcInf" >
                             <!-- 會議出勤狀況 -->
-                            <div class="card shadow m-4 mb-0">
                                 <p class="fs-3 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議出勤狀況</p>
                                 <div class="card-body row justify-content-center">
                                     <div class="col-6 col-md-3 my-2 ms-1">
                                         <label for="meetRc_president" class="form-label fs-5">會議主席</label>
-                                        <input type="text" class="form-control" id="meetRc_president" placeholder="" />
+                                        <input :value="MR.meetPresident" type="text" class="form-control fs-5" id="meetRc_president" placeholder="" disabled />
                                     </div>
                                     <div class="col-6 col-md-3 my-2">
                                         <label for="meetRc_recorder" class="form-label fs-5">會議記錄人員</label>
-                                        <input type="text" class="form-control" id="meetRc_recorder" placeholder="" />
+                                        <input  :value="MR.recorder" type="text" class="form-control fs-5" id="meetRc_recorder" placeholder="" disabled/>
                                     </div>
                                     <div class="col-6 col-md-5 my-2">
                                         <label for="meetRc_member" class="form-label fs-5">與會者</label>
-                                        <textarea class="form-control" id="meetRc_member" rows="1"></textarea>
+                                        <textarea  :value="MR.participater" class="form-control fs-5" id="meetRc_member" rows="1" disabled></textarea>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2 ms-1">
                                         <label for="meetRc_shouldAttend" class="form-label fs-5">應出席人數</label>
-                                        <input type="number" class="form-control" id="meetRc_shouldAttend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
+                                        <input  :value="MR.shouldAttend" type="number" class="form-control fs-5" id="meetRc_shouldAttend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2">
                                         <label for="meetRc_Attend" class="form-label fs-5">實到人數</label>
-                                        <input type="number" class="form-control" id="meetRc_Attend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
+                                        <input  :value="MR.attend" type="number" class="form-control fs-5" id="meetRc_Attend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2">
                                         <label for="meetRc_absentCount" class="form-label fs-5">缺席人數</label>
-                                        <input type="number" class="form-control" id="meetRc_absentCount" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
+                                        <input  :value="MR.noAttend" type="number" class="form-control fs-5" id="meetRc_absentCount" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
                                     </div>
 
                                     <div class="col-6 col-md-5 my-2">
                                         <label for="meetRc_absent" class="form-label fs-5">缺席人員</label>
-                                        <input type="text" class="form-control" id="meetRc_absent" />
+                                        <input  :value="MR.noAttendPerson" type="text" class="form-control fs-5" id="meetRc_absent" disabled/>
                                     </div>
+                                </div>
+                                <!-- 後續行動 -->
+                                <p class="fs-3 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 後續行動</p>
+                                <div class="card-body row justify-content-center">
+
+                                    <label for="meetRc_absent" class="form-label fs-5">負責人/事項/截止日</label>
+                                    <div class="col-11 mx-5">
+                                        <textarea  :value="MR.principal" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
+                                    </div>
+                                
+                                    
+                                    <hr class="col-11 mx-auto mt-3">
                                 </div>
                                 <!-- 議程 -->
                                 <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 議程</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
-                                        <textarea class="form-control" id="meetRc_member" rows="5"></textarea>
+                                        <textarea  :value="MR.agenda" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 </div>
                                 <!-- 會議記錄 -->
                                 <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議記錄</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
-                                        <textarea class="form-control" id="meetRc_member" rows="5"></textarea>
+                                        <textarea  :value="MR.record" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 </div>
                                 <!-- 送出按鈕 -->
                                 <div class="my-5 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-outline-primary me-2">儲存</button>
+                                    <button type="submit" class="btn btn-outline-info me-2">編輯</button>
+                                    <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">完全儲存</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <!-- / Content -->
                 <!-- Footer -->
                 <!-- / Footer -->
@@ -677,7 +655,61 @@
         </div>
         <!-- / Layout page -->
     </div>
-
+    <!-- 吐司彈出窗 -->
+    <!-- toasts  -->
+    <script src="../assets/js/ui-toasts.js"></script>
+    <!-- 錯誤的 -->
+    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastErr">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ❌&nbsp;查詢失敗，請選擇日期與部門!
+        </div>
+    </div>
+    <!-- 無資料 -->
+    <div class="bs-toast toast fade show bg-secondary mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastNull">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ❓&nbsp;無資料，尚未預約!
+        </div>
+    </div>
+    <!-- 查詢成功 -->
+    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastSuc">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ✔&nbsp;查詢成功!
+        </div>
+    </div>
+    <!-- 刪除成功 -->
+    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+        aria-live="assertive" aria-atomic="true" id="toastDel">
+        <div class="toast-header">
+            <i class="bx bx bxs-bell bx-tada me-2"></i>
+            <div class="me-auto fw-bold fs-3">通知</div>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body fs-4 fw-bold">
+            ✔&nbsp;刪除成功!
+        </div>
+    </div>
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
     </div>
@@ -704,26 +736,33 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-        const MeetSearch = {
+        const MeetSearchInf = {
             data() {
                 return {
+                    Dep: {},
                     MeetSearch: {},
-                    MeetInf: { isValue: false, },
+                    MeetInf: {
+                        isValue: false,
+                        isRecord: false
+                    },
+                    MeetRcInf: {},
 
                 }
             },
             methods: {
-                // 執行登入按鈕
-                DoMeetRSearch: function () {
+                DoMeetSearch: function () {
                     var self = this;
-
-                    axios.get("https://localhost:44319/api/MeetingReserves/" + self.MeetSearch.DepId + "/" + self.MeetSearch.StartDay2 + "/" + self.MeetSearch.EndDay2
+                    axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetSearch.DepId
                     )   //驗證
                         .then((response) => {
                             if (response.data[0] != undefined) {
                                 console.log(response.data);
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
                                 //寫進去
                                 self.MeetInf = response.data
+                                self.MeetInf.isValue = true;
                                 //改個資料形式(日期與時間)
                                 for (let i = 0; i < self.MeetInf.length; i++) {
                                     self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
@@ -732,20 +771,44 @@
                                     self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
                                     self.MeetInf[i].ModalId = "cancelModal" + [i]
                                 }
-                                self.MeetInf.isValue = true;
 
                             }
                             else {
-                                alert("查不到資料啦");
+                                $("#toastNull").fadeIn("fast");
+                                setTimeout(() => $("#toastNull").fadeOut(), 2000);
                             }
 
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
+
+                },
+                DoSearchRecord: function (index) {
+                    var self = this;
+                    self.MeetInf.isRecord = true;
+                    axios.get("https://localhost:44319/api/MeetingRecords/1/" + self.MeetInf[index].bookId
+                    )
+                        .then(res => {
+                            console.log(res.data);
+                            //寫進去
+                            self.MeetRcInf = res.data;
+                            //改個資料形式(日期與時間)
+                            for (let i = 0; i < self.MeetRcInf.length; i++) {
+                                if (self.MeetRcInf[i].noAttendPerson == null) {
+                                    self.MeetRcInf[i].noAttendPerson = "無";
+                                }
+                            }
+                        })
+                        .catch((error) => { alert('連線錯誤' + error); })
+
                 }
+
+            },
+            mounted() {
+                axios.get('/api/PersonnelDepartmentLists').then(res => { this.Dep = res.data })
             }
         }
 
-        Vue.createApp(MeetSearch).mount('#MeetSearch')
+        Vue.createApp(MeetSearchInf).mount('#MeetSearch')
     </script>
 
     <!-- session -->

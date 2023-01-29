@@ -2158,7 +2158,7 @@ progress {
   color: #566a7f;
 }
 
-.col-form-label-lg {
+.col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold {
   padding-top: calc(0.75rem + 1px);
   padding-bottom: calc(0.75rem + 1px);
   font-size: 1rem;
@@ -7611,7 +7611,7 @@ button:focus {
   letter-spacing: inherit;
 }
 
-.form-label-lg {
+.badge rounded-pill bg-primary fs-4 mb-1 fw-bold {
   font-size: 1rem;
 }
 

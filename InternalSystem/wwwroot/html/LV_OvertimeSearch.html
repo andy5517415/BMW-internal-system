@@ -502,78 +502,68 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                        <<h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
+                        <h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
 
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="row py-3 ">
+                                <div class="row my-4 mx-4">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
-                                        <input v-model="employeelist.employeeName" class="form-control" id="Employeename" disabled />
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <input v-model="employeelist.employeeName" class="form-control fs-5" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeNumber" class="form-label fs-4">員工編號</label>
-                                        <input v-model="employeelist.employeeNumber" class="form-control" id="EmployeeNumber" disabled />
+                                        <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <input v-model="employeelist.employeeNumber" class="form-control fs-5" id="EmployeeNumber" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
-                                        <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                                        <input v-model="employeelist.employeeId" class="form-control" id="Employeeid" disabled />
+                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <input v-model="employeelist.employeeId" class="form-control fs-5" id="Employeeid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
-                                        <label for="Status" class="form-label fs-4">員工編號</label>
-                                        <input v-model="workoverlist.auditStatus" class="form-control" id="Status" disabled />
+                                        <label for="Status" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <input v-model="workoverlist.auditStatus" class="form-control fs-5" id="Status" disabled />
                                     </div>
                                 </div>
-                                <div class="row">
 
-                                    <label for="html5-date-input" class="form-label fs-4">開始時間</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
-                                    </div>
+                                <div class="row mx-4 mb-4">
+                                    <div class="mb-3 col-md-3">
+                                        <label for="html5-date-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始時間</label>
+                                        <input class="mb-4 form-control fs-5" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
 
-                                    <div class="col-3">
-                                        <input class="form-control" type="time" v-model="workoverlist.startTime" id="html5-date-input" />
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束時間</label>
+                                        <input class="form-control fs-5" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
                                     </div>
-                                    <label for="Endtimeforvacation" class="form-label fs-4">結束時間</label>
+                                    <div class="mb-3 col-md-3">
+                                        <div style="height: 43px;"></div>
+                                        <input class="mb-4 form-control fs-5" type="time" v-model="workoverlist.startTime" id="html5-date-input" />
+                                        <div style="height: 43px;"></div>
+                                        <input class="form-control fs-5" type="time" v-model="workoverlist.endTime" id="html5-time-input" />
+                                    </div>
+                                </div>
 
-                                    <div class="col-3">
-                                        <input class="form-control" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
-                                    </div>
-                                    <div class="col-3">
-
-                                        <input class="form-control" type="time" v-model="workoverlist.endTime" id="html5-time-input" />
-                                    </div>
-                                        <label for="Sex" class="form-label">加班廠區</label>
-                                    <div class="mb-3 col-md-4" >
-                                        <select v-model="workoverlist.areaId" id="area" class="select1 form-select">
-                                            <option value="請選擇廠區" disabled>請選擇廠區</option>
-                                            <option v-for="item in area":value="item.areaId">{{item.areaName}}</option>
+                                <div class="row mb-4 mx-4">
+                                    <div class="mb-3 col-md-3">
+                                        <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班訂單/製程/廠區</label>
+                                        <select v-model="product.orderId" @change="overReason(product.orderId)" id="orderNumber" class="select1 form-select">
+                                            <option value="請選擇訂單" disabled>請選擇訂單</option>
+                                            <option v-for="item in product" :value="item.areaId">{{item.orderNumber}}</option>
                                         </select>
                                     </div>
-                                        <label for="Sex" class="form-label">加班製程</label>
-                                    <div class="mb-3 col-md-4">
-                                        <select v-model="workoverlist.propessId"  id="process" class="select1 form-select">
-                                            <option value="請選擇製程" disabled>請選擇製程</option>
-                                            <option v-for="item in process":value="item.processId">{{item.processName}}</option>
-                                        </select>
+                                    
+                                    <div class="mb-3 col-md-3">
+                                        <label for="area" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班廠區</label>
+                                        <input class="form-control fs-5" v-model="overprocess.areaName" id="area" disabled />
                                     </div>
-                                </div>
-
-
-
-
-
-
-
-
-                                <div class="mb-3 col-md-3">
-                                    <!-- <input class=""  value="" id="Totaltimeforvacation" /> -->
-                                    <p>一共   小時</p>
-                                </div>
-                                <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2 " v-on:click="okbtn" >送出</button>
-                                    <button type="reset" class="btn btn-outline-secondary me-2" >取消</button>
-                                </div>
+                                    
+                                    <div class="mb-3 col-md-3">
+                                        <label for="process" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班製程</label>
+                                        <input class="form-control fs-5" v-model="overprocess.processName" id="process" disabled />
+                                    </div>
+                                    <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                        <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " v-on:click="okbtn">送出</button>
+                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2">取消</button>
+                                    </div>
+                                </div>                             
                             </form>
                         </div>
                     </div>
@@ -620,17 +610,19 @@
             data() {
                 return {
                     employeelist: {},
-                    workoverlist: {  },
+                    workoverlist: {},
                     totaltime: {},
                     employeedata: {},
                     area: {},
-                    process: {}
+                    process: {},
+                    product: {},
+                    overprocess: {}
                 }
             },
             methods: {
 
                 okbtn: function () {
-              
+
 
                     this.workoverlist.employeeId = this.employeelist.employeeId//OK
                     console.log(this.workoverlist)//OK
@@ -651,8 +643,21 @@
                     else {
                         alert('資料請確實填寫')
                     }
-                    
 
+
+                },
+                overReason: function (e) {
+                    axios.get('/api/ProductionProcesses/' + e)
+                        .then(response => {
+                            this.overprocess.processName = response.data.processName;
+                            this.workoverlist.propessId = response.data.processId;
+                            //console.log(response.data)
+                        })
+                    axios.get('/api/ProductionAreas/' + e)
+                        .then(response => {
+                            this.overprocess.areaName = response.data.areaName;
+                            this.workoverlist.areaId = response.data.areaId;
+                        })
                 },
                 editbtn: function () {
                     if (confirm('確認修改?') == true) {
@@ -687,7 +692,8 @@
                     .then(response => this.area = response.data)
                 axios.get('/api/ProductionProcesses')
                     .then(response => this.process = response.data)
-
+                axios.get('/api/PersonnelOvertimeForms/productProcessList')
+                    .then(response => this.product = response.data)
             }
         }
 

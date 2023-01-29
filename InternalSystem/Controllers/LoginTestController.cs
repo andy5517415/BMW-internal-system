@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace InternalSystem.Controllers
 {
@@ -28,51 +29,31 @@ namespace InternalSystem.Controllers
         // api/LoginTest
         [HttpPost]
         
-        public object Login(LoginPost value)
+        public async Task<ActionResult<dynamic>> Login(LoginPost value)
         {
-            var user = (from a in _context.PersonnelProfileDetails //找員工資料表
-                        where a.Acount == value.Account  //帳號
-                        && a.Password == value.Password  //密碼
-                        select a).SingleOrDefault();  //帳號唯一值
+            var user = from a in _context.PersonnelProfileDetails //找員工資料表
+                       join b in _context.PersonnelDepartmentLists on a.DepartmentId equals b.DepartmentId
+                       where a.Acount == value.Account  //帳號
+                       && a.Password == value.Password  //密碼
+                       select new
+                       {
+                           state = "使用者已登入",
+                           DepartmentId = a.DepartmentId,
+                           EmployeeId = a.EmployeeId,
+                           EmployeeName = a.EmployeeName,
+                           EmployeeNumber = a.EmployeeNumber,
+                           PositionId = a.PositionId,
+                           Depment = b.DepName
+                       };
 
             //這邊不null判斷了，直接報錯
             if (user == null)
             {
-                return "帳號密碼錯誤";
+                return NotFound();
             }
             else
-            { //寫驗證
-                var claims = new List<Claim>
-                {
-                    //登入成功獲取使用者資訊(似乎只能為strimg)
-                    new Claim("EmployeeId", user.EmployeeId.ToString()),  //流水號
-                    new Claim(ClaimTypes.Name, user.Acount),  //ID工號
-                    new Claim("EmployeeName", user.EmployeeName), //使用者名字
-                    new Claim("DepartmentId", user.DepartmentId.ToString()),  //部門ID
-                    new Claim("PositionId", user.PositionId.ToString()),  //RankID
-                    //new Claim(ClaimTypes.Role, "select")  //權限
-                };
-
-                //建構
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                //跟他說要用cookie驗證，若執行到這一行，表示使用者已登入
-                //SignIn
-                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-
-                //登入後，將使用者資訊存進去
-                LoginIfo LoginIo = new LoginIfo()
-                {
-                    state = "使用者已登入",
-                    DepartmentId = user.DepartmentId,
-                    EmployeeId = user.EmployeeId,
-                    EmployeeName = user.EmployeeName,
-                    EmployeeNumber = user.EmployeeNumber,
-                    PositionId = user.PositionId
-                };
-                
-                return LoginIo;
+            {
+                return await user.ToListAsync();
             }
         }
         
@@ -107,5 +88,6 @@ namespace InternalSystem.Controllers
         public string EmployeeName { get; set; }
         public int DepartmentId { get; set; }
         public int PositionId { get; set; }
+        public string Department { get; set; }
     }
 }

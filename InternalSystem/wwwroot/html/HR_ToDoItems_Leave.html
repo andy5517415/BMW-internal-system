@@ -511,20 +511,20 @@
 
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
-                                        <input class="form-control" v-model="leaveproxy.employeeName" id="Employeename" disabled />
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <input class="form-control fs-5" v-model="leaveproxy.employeeName" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                                        <input class="form-control" v-model="leaveproxy.employeeNumber" id="Employeenameid" disabled />
+                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <input class="form-control fs-5" v-model="leaveproxy.employeeNumber" id="Employeenameid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="type" class="form-label fs-4">請假類別</label>
-                                        <input class="form-control" v-model="leaveproxy.type" id="type" disabled />
+                                        <label for="type" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假類別</label>
+                                        <input class="form-control fs-5" v-model="leaveproxy.type" id="type" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="type" class="form-label fs-4">代理人</label>
-                                        <input class="form-control" v-model="proxyname.employeeName" id="type" disabled />
+                                        <label for="type" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理人</label>
+                                        <input class="form-control fs-5" v-model="proxyname.employeeName" id="type" disabled />
                                     </div>
 
 
@@ -533,46 +533,46 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Starttimeforvacation" class="form-label fs-4">請假開始時間</label>
-                                        <input class="form-control" v-model="leaveproxy.startDate" id="StartDate" disabled />
-                                        <input class="form-control" v-model="leaveproxy.startTime" id="StartTime" disabled />
+                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假開始時間</label>
+                                        <input class="form-control fs-5 mb-2" v-model="leaveproxy.startDate" id="StartDate" disabled />
+                                        <input class="form-control fs-5" v-model="leaveproxy.startTime" id="StartTime" disabled />
 
                                     </div>
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Endtimeforvacation" class="form-label fs-4">請假結束時間</label>
-                                        <input class="form-control" v-model="leaveproxy.endDate" id="EndDate" disabled />
-                                        <input class="form-control" v-model="leaveproxy.endTime" id="EndTime" disabled />
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假結束時間</label>
+                                        <input class="form-control fs-5 mb-2" v-model="leaveproxy.endDate" id="EndDate" disabled />
+                                        <input class="form-control fs-5" v-model="leaveproxy.endTime" id="EndTime" disabled />
 
                                     </div>
 
                                     <div class="mb-3 col-md-3">
-                                        <label for="Endtimeforvacation" class="form-label fs-4">總請假時數</label>
-                                        <input class="form-control" v-model="leaveproxy.totalTime"id="Totalvacation" disabled />
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">總請假時數</label>
+                                        <input class="form-control fs-5" v-model="leaveproxy.totalTime"id="Totalvacation" disabled />
                                     </div>
                                     <div class="row mt-3" v-if="this.manager.PositionId < 7">
                                         <div class="mb-3 col-md-12"  >
-                                            <label for="Vacationreason" class="form-label fs-4" >請假事由</label>
-                                            <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" >請假事由</label>
+                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
                                         </div>
                                     </div>
                                     <div class="row mt-3" v-if="this.manager.PositionId== 7">
                                         <div class="mb-3 col-md-6">
-                                            <label for="Vacationreason" class="form-label fs-4">請假事由</label>
-                                            <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="Vacationreason" class="form-label fs-4">請假意見</label>
-                                            <textarea class="form-control" id="Vacationreason" v-model="leaveproxy.auditOpnion" rows="6" col="6" ></textarea>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假意見</label>
+                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.auditOpnion" rows="6" col="6" ></textarea>
                                         </div>
                                     </div>
 
                                 </div>
                                 <!-- 按鈕 -->
                                 <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2" @click="okbtn" >同意</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" @click="okbtn" >同意</button>
 
-                                    <button type="button" class="btn btn-outline-secondary"  @click="nobtn">不同意</button>
+                                    <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3 fs-4 fw-bold"  @click="nobtn">不同意</button>
                                 </div>
                         </div>
                         </form>
@@ -736,12 +736,12 @@
 
                                 axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
                                     .then(response => {
-                                        console.log(response) 
+                                        console.log(response)
                                         //axios.put('/api/PersonnelLeaveOvers/' + this.leaveproxy.employeeId ,this.leavelist)
                                         //    .then(b => {
                                         //        alert('已送出同意');
                                         //        window.location = "/html/PS_ToDoItems.html";
-                                            //})
+                                        //})
                                     })
                                     .catch(err => { console.log(err) })
                             }
@@ -798,7 +798,7 @@
                             this.maName = response.data;
                             //console.log(this.proxyname)
                         })
-              
+
                 }
             }
 

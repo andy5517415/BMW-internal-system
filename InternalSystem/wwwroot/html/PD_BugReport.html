@@ -512,44 +512,44 @@
                                 <div class="row card-body">
 
                                     <div class="mb-3 col-6">
-                                        <label for="orderNumber" class="form-label-lg">訂單號碼 </label>
-                                        <input class="form-control" type="text" v-model="BugList.orderNumber" id="orderNumber" disabled />
+                                        <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單號碼 </label>
+                                        <input class="form-control fs-5" type="text" v-model="BugList.orderNumber" id="orderNumber" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="optionalName" class=" form-label-lg">型號 </label>
-                                        <input class="form-control" type="text" v-model="BugList.optionalName" id="optionalName" disabled />
+                                        <label for="optionalName" class=" badge rounded-pill bg-primary fs-4 mb-1 fw-bold">型號 </label>
+                                        <input class="form-control fs-5" type="text" v-model="BugList.optionalName" id="optionalName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="processName" class="form-label-lg">生產 </label>
-                                        <input id="processName" class="form-control" type="text" v-model="BugList.processName" disabled />
+                                        <label for="processName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">生產 </label>
+                                        <input id="processName" class="form-control fs-5" type="text" v-model="BugList.processName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="areaName" class="form-label-lg">廠區 </label>
-                                        <input id="areaName" class="form-control" type="text" v-model="BugList.areaName" disabled />
+                                        <label for="areaName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">廠區 </label>
+                                        <input id="areaName" class="form-control fs-5" type="text" v-model="BugList.areaName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-3">
                                         <label for="Date-input" class="col-2 fs-5">日期</label>
-                                        <input class="form-control" type="date" v-model="BugList.date" id="Date-input" disabled />
+                                        <input class="form-control fs-5" type="date" v-model="BugList.date" id="Date-input" disabled />
                                     </div>
 
 
                                     <div class="mb-3 col-3">
                                         <label for="startTime" class="col-4 fs-5">開始時間</label>
-                                        <input class="form-control" type="time" v-model="BugList.startTime" id="startTime" disabled/>
+                                        <input class="form-control fs-5" type="time" v-model="BugList.startTime" id="startTime" disabled/>
                                     </div>
 
                                     <div class="mb-3 col-3">
                                         <label for="endTime" class="col-4 fs-5">結束時間</label>
-                                        <input class="form-control" type="time" v-model="BugList.endTime" id="endTime" disabled/>
+                                        <input class="form-control fs-5" type="time" v-model="BugList.endTime" id="endTime" disabled/>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="title" class="fs-5 my-2">異常標題</label>
-                                        <input class="form-control" type="text" v-model="BugList.title" id="title" disabled/>
+                                        <input class="form-control fs-5" type="text" v-model="BugList.title" id="title" disabled/>
                                     </div>
 
                                     <div class="col-md-2">
@@ -564,17 +564,17 @@
 
                                     <div class="my-2">
                                         <label for="bugtxt" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control" v-model="BugList.context" id="bugtxt" rows="8" disabled></textarea>
+                                        <textarea class="form-control fs-5" v-model="BugList.context" id="bugtxt" rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="my-2">
                                         <label for="dispose" class="form-label fs-5 my-2">處理對策</label>
-                                        <textarea class="form-control" v-model="BugList.dispose" id="dispose" rows="8" disabled></textarea>
+                                        <textarea class="form-control fs-5" v-model="BugList.dispose" id="dispose" rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary">確認</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary">取消</button>
+                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
 
 
@@ -632,10 +632,10 @@
                     },
                     methods: {
                         ted(e) {
-                                 axios.get('https://localhost:44319/api/ProductionProcessLists/bugListCreate/' + e)
-                                     .then(response => this.PressList = response.data);
+                            axios.get('https://localhost:44319/api/ProductionProcessLists/bugListCreate/' + e)
+                                .then(response => this.PressList = response.data);
                         },
-                        Enter: function() {
+                        Enter: function () {
                             this.Bugtext.processId = this.PressList.processId
                             this.Bugtext.areaId = this.PressList.areaId
                             console.log(this.Bugtext)

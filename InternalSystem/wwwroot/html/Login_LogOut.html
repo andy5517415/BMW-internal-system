@@ -87,18 +87,18 @@
 
                           <form id="loginform" class="mb-3" method="POST" onsubmit="return false">
                               <div class="mb-3">
-                                  <label for="email" class="form-label">請輸入帳號</label>
-                                  <input v-model="form.UserID" type="text" class="form-control" id="email" name="email-username" placeholder="請輸入帳號" autofocus />
+                                  <label for="email" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請輸入帳號</label>
+                                  <input v-model="form.UserID" type="text" class="form-control fs-5" id="email" name="email-username" placeholder="請輸入帳號" autofocus />
                               </div>
                               <div class="mb-3 form-password-toggle">
                                   <div class="d-flex justify-content-between">
-                                      <label class="form-label" for="password">密碼</label>
+                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="password">密碼</label>
                                       <a href="#">
                                           <small>忘記密碼?</small>
                                       </a>
                                   </div>
                                   <div class="input-group input-group-merge">
-                                      <input v-model="form.UserPwd" type="password" id="password" class="form-control" name="password"
+                                      <input v-model="form.UserPwd" type="password" id="password" class="form-control fs-5" name="password"
                                              placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                              aria-describedby="password" />
                                       <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
@@ -203,30 +203,28 @@
                     )   //驗證
                         .then((response) => {
                             console.log(response.data);
+                            var data = response.data[0]
                             var LoginInf = {
-                                State: response.data.state,
-                                EmpID: response.data.employeeId,
-                                Name: response.data.employeeName,
-                                EmpNumber: response.data.employeeNumber,
-                                DepID: response.data.departmentId,
-                                PositionId: response.data.positionId,
+                                State: data.state,
+                                EmpID: data.employeeId,
+                                Name: data.employeeName,
+                                EmpNumber: data.employeeNumber,
+                                DepID: data.departmentId,
+                                PositionId: data.positionId,
+                                Depment: data.depment,
                             }
                             console.log(LoginInf);
 
                             if (LoginInf.State == "使用者已登入") {
-                                $("#toastSucess").fadeIn("fast");
-                                setTimeout(() => $("#toastSucess").fadeOut(), 2000);
-
                                 //取得使用者資訊
                                 sessionStorage.setItem("LoginInf", JSON.stringify(LoginInf));
                                 location.assign("index.html")
                             }
-                            else {
-                                $("#toastDel").fadeIn("fast");
-                                setTimeout(() => $("#toastDel").fadeOut(), 2000);
-                            }
                         })
-                        .catch((error) => { alert('連線錯誤' + error); })
+                        .catch((error) => {
+                            $("#toastErr").fadeIn("fast");
+                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                        })
 
                 }
             }

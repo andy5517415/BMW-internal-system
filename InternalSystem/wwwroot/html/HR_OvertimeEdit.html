@@ -507,34 +507,34 @@
                             </div>
                             <div class="row py-3 ">
                                 <div class="mb-3 col-md-2">
-                                    <label for="EmployeeName" class="form-label-lg">員工名稱</label>
-                                    <input class="form-control"v-model="overlist.employeeName" id="Employeename" disabled />
+                                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                    <input class="form-control fs-5"v-model="overlist.employeeName" id="Employeename" disabled />
                                 </div>
                                 <div class="mb-3 col-md-2">
-                                    <label for="Employeeid" class="form-label-lg">員工編號</label>
-                                    <input class="form-control" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
-                                    <label for="department" class="form-label-lg">加班廠區</label>
-                                    <input class="form-control" v-model="overlist.areaName" id="department" disabled />
+                                    <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                    <input class="form-control fs-5" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
+                                    <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班廠區</label>
+                                    <input class="form-control fs-5" v-model="overlist.areaName" id="department" disabled />
                                 </div>
 
                                 <div class="mb-3 col-md-2">
-                                    <label for="department" class="form-label-lg">部門</label>
-                                    <input class="form-control" v-model="overlist.depName" id="department" disabled />
-                                    <label for="department" class="form-label-lg">加班製程</label>
-                                    <input class="form-control" v-model="overlist.processName" id="department" disabled />
+                                    <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                    <input class="form-control fs-5" v-model="overlist.depName" id="department" disabled />
+                                    <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班製程</label>
+                                    <input class="form-control fs-5" v-model="overlist.processName" id="department" disabled />
                                 </div>
 
                                 <div class="mb-3 col-md-3">
 
-                                    <label for="StartDate" class="form-label-lg">加班開始時間</label>
-                                    <input class="form-control" v-model="overlist.startDate" id="Starttimeforvacation" disabled />
-                                    <input class="form-control" v-model="overlist.startTime" id="Starttimeforvacation" disabled />
+                                    <label for="StartDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班開始時間</label>
+                                    <input class="form-control fs-5" v-model="overlist.startDate" id="Starttimeforvacation" disabled />
+                                    <input class="form-control fs-5" v-model="overlist.startTime" id="Starttimeforvacation" disabled />
                                 </div>
                                 <div class="mb-3 col-md-3">
 
-                                    <label for="EndDate" class="form-label-lg">加班結束時間</label>
-                                    <input class="form-control" v-model="overlist.endDate" id="Endtimeforvacation" disabled />
-                                    <input class="form-control" v-model="overlist.endTime" id="Endtimeforvacation" disabled />
+                                    <label for="EndDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班結束時間</label>
+                                    <input class="form-control fs-5" v-model="overlist.endDate" id="Endtimeforvacation" disabled />
+                                    <input class="form-control fs-5" v-model="overlist.endTime" id="Endtimeforvacation" disabled />
 
                                 </div>
                             </div>
@@ -547,34 +547,34 @@
                                 <div class="row">
                                     <div class="row col-10 justify-content-center mx-5">
                                         <div class="mb-3 col-md-5">
-                                            <label for="StartTime" class="col-md-5 col-form-label-lg fs-5">加班開始時間</label>
-                                            <input class="form-control" type="date"v-model="overlist.startDate" id="StartDate" />
+                                            <label for="StartTime" class="col-md-5 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5">加班開始時間</label>
+                                            <input class="form-control fs-5" type="date"v-model="overlist.startDate" id="StartDate" />
                                         </div>
 
                                         <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control" type="time" v-model="overlist.startTime"  id="EndTime" />
+                                            <input class="form-control fs-5" type="time" v-model="overlist.startTime"  id="EndTime" />
                                         </div>
                                     </div>
 
                                     <div class="row col-10 justify-content-center mx-5">
                                         <div class="mb-3 col-md-5">
-                                            <label for="EndTime" class="col-md-5 col-form-label-lg fs-5">加班結束時間</label>
-                                            <input class="form-control" type="date" v-model="overlist.endDate" id="Endtimeforvacation" />
+                                            <label for="EndTime" class="col-md-5 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5">加班結束時間</label>
+                                            <input class="form-control fs-5" type="date" v-model="overlist.endDate" id="Endtimeforvacation" />
                                         </div>
 
                                         <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control" type="time" v-model="overlist.endTime"  id="Endtimeforvacation" />
+                                            <input class="form-control fs-5" type="time" v-model="overlist.endTime"  id="Endtimeforvacation" />
                                         </div>
                                     </div>
                                     <div class="col-md-3 mx-auto my-4">
-                                        <label for="Endtimeforvacation" class="col-md-5 col-form-label-lg fs-5">總加班時間</label>
-                                        <input class="form-control" v-model="overlist.totalTime" id="Totalvacation" disabled />
+                                        <label for="Endtimeforvacation" class="col-md-5 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5">總加班時間</label>
+                                        <input class="form-control fs-5" v-model="overlist.totalTime" id="Totalvacation" disabled />
                                     </div>
 
                                 </div>
                                 <div class="my-4 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="overedit" class="btn btn-outline-primary me-2 ">修改</button>
-                                    <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                    <button type="button" @click="overedit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">修改</button>
+                                    <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                 </div>
                         </div>
 
@@ -633,70 +633,13 @@
                         this.overlist.endDate != null && this.overlist.endTime != null && this.overlist.areaId != null &&
                         this.overlist.propessId != null) {
 
-                        //日期轉數字
-                        const sy = parseInt(this.overlist.startDate.substring(0, 4)) * 525600;
-                        console.log(sy);
-                        const ey = parseInt(this.overlist.endDate.substring(0, 4)) * 525600;
-                        console.log(ey);
-                        const smonth = parseInt(this.overlist.startDate.substring(5, 7)) * 43200;
-                        //console.log(smonth);
-                        const sd = parseInt(this.overlist.startDate.substring(8, 11)) * 1440;
-                        console.log(sd);
-                        const emonth = parseInt(this.overlist.endDate.substring(5, 7)) * 43200;
-                        //console.log(emonth);
-                        const ed = parseInt(this.overlist.endDate.substring(8, 11)) * 1440;
-                        console.log(ed);
+                        if (confirm('是否送出資料') == true) {
+                            axios.put('/api/PersonnelOvertimeForms/dep/' + this.overlist.startWorkId, this.overlist)
+                                .then(response => {
+                                    alert(response.data)
+                                    window.location = "/html/hr_overtimesearch.html";
+                                }).catch(err => console.log(err))
 
-                        //時間轉數字
-                        const sh = parseInt(this.overlist.startTime.substring(0, 2)) * 60;
-                        const sm = parseInt(this.overlist.startTime.substring(3, 5));
-                        const eh = parseInt(this.overlist.endTime.substring(0, 2)) * 60;
-                        const em = parseInt(this.overlist.endTime.substring(3, 5));
-                        const tt = ((eh + em) - (sh + sm)) / 60;
-                        const stotal = (sy + smonth + sd + sh + sm);
-                        //console.log(stotal)
-                        const etotal = (ey + emonth + ed + eh + em);
-                        //console.log(etotal)
-                        const sdtotal = (sy + smonth + sd) / 60;
-                        const edtotal = (ey + emonth + ed) / 60
-                        console.log(sdtotal);
-                        console.log(edtotal);
-                        const dtotal = (edtotal - sdtotal) / 3;
-                        console.log(dtotal + "我是時間")
-                        //AppcationDate
-                        //判斷請假日期時間是否開始大於結束
-                        if (stotal < etotal) {
-
-
-                            //console.log(leavetotal);
-
-                            //日期格式
-                            let today = new Date()
-                            let y = today.getFullYear()
-                            let mm = today.getMonth() + 1
-                            let dd = today.getDate()
-                            if (mm < 10) {
-                                mm = "0" + mm.toString()
-                            }
-                            if (dd < 10) {
-                                dd = "0" + dd.toString()
-                            }
-                            //this.overlist.appcationDate = `${y}-${mm}-${dd}`
-                            this.overlist.totalTime = tt;
-                            console.log(this.overlist.totalTime);
-
-                            if (confirm('是否送出資料') == true) {
-                                axios.put('/api/PersonnelOvertimeForms/dep/' + this.overlist.startWorkId, this.overlist)
-                                    .then(ok => {
-                                        //alert('成功');
-                                        //window.location = "/html/HR_OvertimeSearch.html";
-                                    }).catch(err => console.log(err))
-                           
-                            }
-
-                        }
-                        else {
-                            alert('開始時間不可大於或等於結束時間')
                         }
                     }
                     else { alert('資料請填寫確實!') };

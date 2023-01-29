@@ -513,21 +513,21 @@
                           <div class="card mb-4 m-4 card-body">
 
                               <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                  <div class="row py-3 ">
+                                  <div class="row py-3">
 
                                       <div class="mb-3 col-md-3">
-                                          <label for="Employeeid" class="form-label-lg fs-5">員工編號</label>
-                                          <input class="form-control" v-model="empNumber.employeeNumber" id="Employeenameid" />
+                                          <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                          <input class="form-control fs-5" v-model="empNumber.employeeNumber" id="Employeenameid" />
                                       </div>
 
 
 
 
-
-                                      <div class="mt-2 ">
-                                          <button type="button" class="btn btn-outline-primary me-2" @click="attendence">打卡</button>
-
-                                      </div>
+                                      <div class="col-md-3 ">
+                                        <br>
+                                        <div style="height: 8px;"></div>
+                                          <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" @click="attendence">打卡</button>
+                                            
                                   </div>
 
 
@@ -573,36 +573,36 @@
           <script src="../assets/js/LoginSession.js"></script>
           <!-- Vue -->
           <script>
-              const app = {
-                  data() {
-                      return {
-                          empNumber: {},
-                          employeedata: {},
-                          empid: {}
-                      }
+            const app = {
+                data() {
+                    return {
+                        empNumber: {},
+                        employeedata: {},
+                        empid: {}
+                    }
 
-                  },
-                  methods: {
-                      attendence: function () {
-                          //alert(this.empNumber.employeeNumber)
-                          axios.get('/api/PersonnelProfileDetails/Number/' + this.empNumber.employeeNumber)
-                              .then(response => {
-                                  this.employeedata.employeeId = response.data.employeeId;
-                                  //console.log(this.employeedata.employeeId)
-                                  axios.post('/api/PersonnelAttendanceTimes/' + this.empid.EmpID, this.employeedata)
-                                      .then(response => alert(response.data)).catch(err => console.log(err))
-                              })
-                              .catch(err => console.log(err))
-                      }
-                  },
-                  mounted() {
-                      this.empid = JSON.parse(sessionStorage.getItem("LoginInf"))
-                  }
-              }
+                },
+                methods: {
+                    attendence: function () {
+                        //alert(this.empNumber.employeeNumber)
+                        axios.get('/api/PersonnelProfileDetails/Number/' + this.empNumber.employeeNumber)
+                            .then(response => {
+                                this.employeedata.employeeId = response.data.employeeId;
+                                //console.log(this.employeedata.employeeId)
+                                axios.post('/api/PersonnelAttendanceTimes/' + this.empid.EmpID, this.employeedata)
+                                    .then(response => alert(response.data)).catch(err => console.log(err))
+                            })
+                            .catch(err => console.log(err))
+                    }
+                },
+                mounted() {
+                    this.empid = JSON.parse(sessionStorage.getItem("LoginInf"))
+                }
+            }
 
 
-              Vue.createApp(app).mount('#app')
-          </script>
+            Vue.createApp(app).mount('#app')
+        </script>
 
 </body>
 </html>

@@ -509,11 +509,11 @@
                     <div class="row py-3 ">
                      
                         <div class="mb-3 col-md-2">
-                          <label for="EmployeeName" class="form-label-lg">員工名稱</label> 
-                            <input class="form-control"   id="Employeename" v-model="employeelist.name" />
+                          <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label> 
+                            <input class="form-control fs-5"   id="Employeename" v-model="employeelist.name" />
                          </div>
                         <div class="mb-3 col-md-2">
-                            <label for="department" class="form-label-lg">部門</label>
+                            <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                             <select id="department" class="select2 form-select" v-model="employeelist.depId">
                               <option value="">選擇部門</option>
                               <option v-for="item in departmentlist":value="item.departmentId">{{item.depName}}</option>
@@ -521,12 +521,12 @@
                             </select>
                           </div>
                           <div class="mb-3 col-md-2">
-                            <label for="html5-month-input" class="form-label-lg">加班月份</label>
-                              <input class="form-control" type="month" id="html5-month-input" v-model="employeelist.month"/>
+                            <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班月份</label>
+                              <input class="form-control fs-5" type="month" id="html5-month-input" v-model="employeelist.month"/>
                           </div>
                           <div class="mt-2  d-md-flex justify-content-md-end">
-                            <button type="button" v-on:click="search" class="btn btn-outline-primary me-2 ">查詢</button>
-                            <button type="reset" class="btn btn-outline-secondary">取消</button>
+                            <button type="button" v-on:click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
+                            <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                           </div>
                     </div>
                   
@@ -539,17 +539,17 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>員工名稱</th>
-                        <th>員工編號</th>
-                        <th>加班起始時間</th>
-                        <th>加班結束時間</th>
+                        <th class="fs-4 fw-blod">員工名稱</th>
+                        <th class="fs-4 fw-blod">員工編號</th>
+                        <th class="fs-4 fw-blod">加班起始時間</th>
+                        <th class="fs-4 fw-blod">加班結束時間</th>
                         <th>修改</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0" v-for="item in overtimelist">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>{{item.employeeName}}</strong></td>
-                        <td>{{item.employeeNumber}}</td>
+                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
+                        <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
                         <td>
                             <span class="label-primary">{{item.startDate}} - {{item.startTime}}</span>
                         </td>
@@ -617,52 +617,52 @@
     <!-- Vue -->
     <script>
 
-        const app = {
-            data() {
-                return {
-                    employeelist: {},
-                    overtimelist: {},
-                    departmentlist: {}
-                }
-            },
-            methods: {
-                search: function () {
-                    //alert('ok')
-                    if (this.employeelist.depId != null && this.employeelist.month != null) {
-                        axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
-                            .then(response => {
-                                this.overtimelist = response.data;
-                                if (this.overtimelist.length == 0) { alert('查無資料') };
-                            })
-                            .catch(err => console.log(err))
-                    }
-                    else if (this.employeelist.name != null && this.employeelist.month != null) {
-                        axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
-                            .then(response => {
-                                this.overtimelist = response.data;
-                                if (this.overtimelist.length == 0) { alert('查無資料') };
-                            })
-                            .catch(err => console.log(err))
-                    }
-                    else {
-                        alert('查無項目')
-                    }
-                   
-                },
-                overedit: function (e) {
-                    sessionStorage.setItem("overdata", JSON.stringify(e))
-                }
-            },
-            mounted() {
-
-                axios.get('/api/PersonnelDepartmentLists')
-                    .then(response => this.departmentlist = response.data)
-
+      const app = {
+        data() {
+          return {
+            employeelist: {},
+            overtimelist: {},
+            departmentlist: {}
+          }
+        },
+        methods: {
+          search: function () {
+            //alert('ok')
+            if (this.employeelist.depId != null && this.employeelist.month != null) {
+              axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
+                .then(response => {
+                  this.overtimelist = response.data;
+                  if (this.overtimelist.length == 0) { alert('查無資料') };
+                })
+                .catch(err => console.log(err))
             }
+            else if (this.employeelist.name != null && this.employeelist.month != null) {
+              axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
+                .then(response => {
+                  this.overtimelist = response.data;
+                  if (this.overtimelist.length == 0) { alert('查無資料') };
+                })
+                .catch(err => console.log(err))
+            }
+            else {
+              alert('查無項目')
+            }
+
+          },
+          overedit: function (e) {
+            sessionStorage.setItem("overdata", JSON.stringify(e))
+          }
+        },
+        mounted() {
+
+          axios.get('/api/PersonnelDepartmentLists')
+            .then(response => this.departmentlist = response.data)
 
         }
 
-        Vue.createApp(app).mount('#app')
+      }
+
+      Vue.createApp(app).mount('#app')
 
     </script>
   </body>
