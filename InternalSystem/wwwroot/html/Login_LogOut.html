@@ -216,17 +216,15 @@
                             console.log(LoginInf);
 
                             if (LoginInf.State == "使用者已登入") {
-
                                 //取得使用者資訊
                                 sessionStorage.setItem("LoginInf", JSON.stringify(LoginInf));
                                 location.assign("index.html")
                             }
-                            else {
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                            }
                         })
-                        .catch((error) => { alert('連線錯誤' + error); })
+                        .catch((error) => {
+                            $("#toastErr").fadeIn("fast");
+                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                        })
 
                 }
             }
