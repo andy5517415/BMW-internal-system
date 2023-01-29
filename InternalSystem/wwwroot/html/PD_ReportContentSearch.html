@@ -512,25 +512,25 @@
                   <div class="card mb-4 m-4 ">
                       <div class="row card-body ">
                           <div class="mb-3 mb-3 col-md-2">
-                              <label for="EmployeeNumber" class="form-label-lg">員工編號</label>
-                              <input class="form-control" id="EmployeeNumber" />
+                              <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                              <input class="form-control fs-5" id="EmployeeNumber" />
                           </div>
                           <div class="mb-3 col-md-2">
-                              <label for="EmployeeName" class="form-label-lg">員工姓名</label>
-                              <input class="form-control" id="Employeename" />
+                              <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工姓名</label>
+                              <input class="form-control fs-5" id="Employeename" />
                           </div>
                           <div class="mb-3 col-md-2">
-                              <label for="EmployeeName" class="form-label-lg">開始日期</label>
-                              <input class="form-control" type="date" id="Employeename" />
+                              <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
+                              <input class="form-control fs-5" type="date" id="Employeename" />
                           </div>
                           <div class="mb-3 col-md-2">
-                              <label for="EmployeeName" class="form-label-lg">結束日期</label>
-                              <input class="form-control" type="date" id="Employeename" />
+                              <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束日期</label>
+                              <input class="form-control fs-5" type="date" id="Employeename" />
                           </div>
 
                           <div class=" mb-4 col-md-2 my-4">
                               <button type="button" v-on:click="searchbtn" class="btn btn-primary me-2 ">查詢</button>
-                              <button type="reset" class="btn btn-outline-secondary">取消</button>
+                              <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                           </div>
                       </div>
                   </div>
@@ -610,26 +610,26 @@
 
     <script>
 
-        const app = {
-            data() {
-                return {
-                    contxtList: {}
-                }
-            },
-            mounted() {
-                axios.get('https://localhost:44319/api/ProductionContexts/ContextsList')
-                    .then(response => this.contxtList = response.data)
-            },
-            methods: {
-                Enter: function (e) {
-                    
-                    sessionStorage.setItem("data", JSON.stringify(e))
-                    window.location = "PD_ReportContentCheak.html"
-                }
-            }
-        }
+      const app = {
+        data() {
+          return {
+            contxtList: {}
+          }
+        },
+        mounted() {
+          axios.get('https://localhost:44319/api/ProductionContexts/ContextsList')
+            .then(response => this.contxtList = response.data)
+        },
+        methods: {
+          Enter: function (e) {
 
-        Vue.createApp(app).mount('#app')
+            sessionStorage.setItem("data", JSON.stringify(e))
+            window.location = "PD_ReportContentCheak.html"
+          }
+        }
+      }
+
+      Vue.createApp(app).mount('#app')
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

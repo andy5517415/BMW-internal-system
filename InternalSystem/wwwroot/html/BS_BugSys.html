@@ -524,7 +524,7 @@
                                           </div>-->
 
 
-                                        <label class="form-label fs-4" for="ordid">訂單號碼</label>
+                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
                                         <select id="ordid" class="form-select color-dropdown" v-model="selcone">
                                             <option v-for="one in bugsysorder"
                                                     :value="one">
@@ -533,32 +533,32 @@
                                         </select>
 
                                                                   
-                                        <label for="cartype" class="form-label fs-4">車款</label>
+                                        <label for="cartype" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款</label>
                                         <input type="text"
-                                               class="form-control"
+                                               class="form-control fs-5"
                                                id="cartype"
                                                readonly
                                                :value="selcone.optionalName"
                                                />
 
-                                        <label for="area" class="form-label fs-4">廠區</label>
+                                        <label for="area" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">廠區</label>
                                         <input type="text"
-                                               class="form-control"
+                                               class="form-control fs-5"
                                                id="area"
                                                readonly
                                                :value="selcone.areaId"
                                                />
 
-                                        <label for="process" class="form-label fs-4">製程</label>
+                                        <label for="process" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">製程</label>
                                         <input type="text"
-                                               class="form-control"
+                                               class="form-control fs-5"
                                                id="process"
                                                readonly
                                                :value="selcone.processId"
                                                />
 
 
-                                        <!--<label class="form-label fs-4" for="cartype">車款</label>
+                                        <!--<label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
                                         <select id="cartype" class="form-select color-dropdown" v-model="selectedcartype">
                                             <option disabled value="default">請選擇車款</option>
                                             <option value="M4 Competition">M4 Competition</option>
@@ -566,7 +566,7 @@
                                             <option value="iX xDrive40 旗艦版">iX xDrive40 旗艦版</option>
                                         </select>
 
-                                        <label class="form-label fs-4" for="area">廠區</label>
+                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="area">廠區</label>
                                         <select id="area" class="form-select color-dropdown" v-model="selectedarea">
                                             <option disabled value="default">請選擇廠區</option>
                                             <option value="1">廠區1</option>
@@ -574,7 +574,7 @@
                                             <option value="3">廠區3</option>
                                         </select>
 
-                                        <label class="form-label fs-4" for="process">製程</label>
+                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="process">製程</label>
                                         <select id="process" class="form-select color-dropdown" v-model="selectedprocess">
                                             <option disabled value="default">請選擇製程</option>
                                             <option value="1">製程A</option>
@@ -585,8 +585,8 @@
 
 
 
-                                        <label for="exampleFormControlTextarea1" class="form-label fs-4">事件描述 : </label>
-                                        <textarea class="form-control"
+                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">事件描述 : </label>
+                                        <textarea class="form-control fs-5"
                                                   id="exampleFormControlTextarea1"
                                                   rows="10"
                                                   v-model="description">
@@ -594,7 +594,7 @@
 
 
                                         <br /><br />
-                                        <p class="form-label fs-4">選擇下方按鈕送出</p>
+                                        <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選擇下方按鈕送出</p>
                                         <div class="row my-5">
                                             <div class="col-3 d-flex justify-content-evenly">
                                                 <button @click="btnstate" type="button" class="btn btn-success">正常</button>
@@ -613,7 +613,7 @@
 
                                         <!--<div class="py-5 d-md-flex justify-content-md-center">
                                               <button type="button" class="btn btn-outline-primary me-3">確定</button>
-                                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                                              <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3" data-bs-dismiss="modal">取消</button>
                                           </div>-->
                                     </div>
                                     <div class="col-2"></div>
@@ -708,31 +708,31 @@
                 btnstate(event) {
                     if (confirm("是否要送出訊息?") == true) {
 
-                    var stateName = event.target.innerText
-                    console.log(stateName);
+                        var stateName = event.target.innerText
+                        console.log(stateName);
 
                         axios.get(`/api/MonitoringProcessAreaStatus/${this.selcone.areaId}/${this.selcone.processId}/${this.selcone.optionalName}`)
-                        .then(g => {
-                            console.log(g.data.monitorId)
-                            var mid = g.data.monitorId;
-                            this.putstate = {
-                                "monitorId": mid,
-                                "areaId": this.selcone.areaId,
-                                "processId": this.selcone.processId,
-                                "carType": this.selcone.optionalName,
-                                "status": stateName,
-                                "description": this.description
+                            .then(g => {
+                                console.log(g.data.monitorId)
+                                var mid = g.data.monitorId;
+                                this.putstate = {
+                                    "monitorId": mid,
+                                    "areaId": this.selcone.areaId,
+                                    "processId": this.selcone.processId,
+                                    "carType": this.selcone.optionalName,
+                                    "status": stateName,
+                                    "description": this.description
 
-                            }
-                            console.log(this.putstate);
-                            axios.put('/api/MonitoringProcessAreaStatus/' + mid, this.putstate)
-                                .then(g => {
-                                    console.log(g)
-                                    alert('狀態已更新!');
+                                }
+                                console.log(this.putstate);
+                                axios.put('/api/MonitoringProcessAreaStatus/' + mid, this.putstate)
+                                    .then(g => {
+                                        console.log(g)
+                                        alert('狀態已更新!');
 
-                                    sessionStorage.setItem("sessiondesc", JSON.stringify(this.description));
-                                })
-                        })
+                                        sessionStorage.setItem("sessiondesc", JSON.stringify(this.description));
+                                    })
+                            })
 
 
                     }

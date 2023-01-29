@@ -520,7 +520,7 @@
                               <div class="card-body">
                                   <!-- 部門選擇 -->
                                   <div class="mb-3 col-md-12">
-                                      <label for="department" class="form-label">部門</label>
+                                      <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                       <select id="department" class="select1 form-select">
                                           <option value="">選擇部門</option>
                                           <option value="Australia">生產部</option>
@@ -534,14 +534,14 @@
                                       <div class="mb-3 col-md-6">
                                           <label for="ApplicationDate" class="col-md-2 col-form-label">起始日期</label>
                                           <div class="col-md-12">
-                                              <input class="form-control" type="date" value="" id="ApplicationDate" />
+                                              <input class="form-control fs-5" type="date" value="" id="ApplicationDate" />
                                           </div>
                                       </div>
                                       <!-- 結束日期 -->
                                       <div class="mb-3 col-md-6">
                                           <label for="ApplicationDate" class="col-md-2 col-form-label">結束日期</label>
                                           <div class="col-md-12">
-                                              <input class="form-control" type="date" value="" id="ApplicationDate" />
+                                              <input class="form-control fs-5" type="date" value="" id="ApplicationDate" />
                                           </div>
                                       </div>
                                   </div>
@@ -622,72 +622,72 @@
               <!-- Vue傳值 -->
               <script>
 
-                  const app = {
-                      data() {
-                          return {
-                              OrderList: {},
+                const app = {
+                  data() {
+                    return {
+                      OrderList: {},
+                    }
+                  },
+                  methods: {
+                    Enter: function (e) {
+                      sessionStorage.setItem("order", JSON.stringify(e));
+                    }
+                  },
+                  mounted() {
+                    axios.get("/api/PCApplications/recordsearch")
+                      .then(response => {
+                        this.OrderList = response.data;
+                        for (var i = 0; i < this.OrderList.length; i++) {
+                          if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                            this.OrderList[i].totalapp = "審核中";
                           }
-                      },
-                      methods: {
-                          Enter: function (e) {
-                              sessionStorage.setItem("order", JSON.stringify(e));
+                          //console.log(this.OrderList[i].totalapp);
+                          if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == true && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                            this.OrderList[i].totalapp = "駁回申請";
                           }
-                      },
-                      mounted() {
-                          axios.get("/api/PCApplications/recordsearch")
-                              .then(response => {
-                                  this.OrderList = response.data;
-                                  for (var i = 0; i < this.OrderList.length; i++) {
-                                      if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                                          this.OrderList[i].totalapp = "審核中";
-                                      }
-                                      //console.log(this.OrderList[i].totalapp);
-                                      if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == true && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                                          this.OrderList[i].totalapp = "駁回申請";
-                                      }
-                                      //if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
-                                      //    this.OrderList[i].applicationStatus = "審核完成"
-                                      //}
-                                      if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                                          this.OrderList[i].totalapp = "配送中"
-                                      }
-                                      if (this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == true) {
-                                          this.OrderList[i].totalapp = "已退貨"
-                                      }
-                                      ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
-                                      ////    this.OrderList[i].deliveryStatus = "配送完成"
-                                      ////}
-                                      if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                                          this.OrderList[i].totalapp = "驗收中"
-                                      }
-                                      if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                                          this.OrderList[i].totalapp = "驗收完成"
-                                      }
-                                      //if (this.OrderList[i].applicationStatus == false && deliveryStatus == false && acceptanceStatus == false) {
-                                      //    this.OrderList[i].applicationStatus = "審核中"
-                                      //}
-                                      ////if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
-                                      ////    this.OrderList[i].applicationStatus = "審核完成"
-                                      ////}
-                                      //if (this.OrderList[i].deliveryStatus == false && applicationStatus == true && acceptanceStatus == false) {
-                                      //    this.OrderList[i].deliveryStatus = "配送中"
-                                      //}
-                                      ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
-                                      ////    this.OrderList[i].deliveryStatus = "配送完成"
-                                      ////}
-                                      //if (this.OrderList[i].acceptanceStatus == false && applicationStatus == true && deliveryStatus == true) {
-                                      //    this.OrderList[i].acceptanceStatus = "驗收中"
-                                      //}
-                                      //if (this.OrderList[i].acceptanceStatus == true && applicationStatus == true && deliveryStatus == true) {
-                                      //    this.OrderList[i].acceptanceStatus = "驗收完成"
-                                      //}
-                                  }
-                              });
-                      }
+                          //if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
+                          //    this.OrderList[i].applicationStatus = "審核完成"
+                          //}
+                          if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                            this.OrderList[i].totalapp = "配送中"
+                          }
+                          if (this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == true) {
+                            this.OrderList[i].totalapp = "已退貨"
+                          }
+                          ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
+                          ////    this.OrderList[i].deliveryStatus = "配送完成"
+                          ////}
+                          if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                            this.OrderList[i].totalapp = "驗收中"
+                          }
+                          if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                            this.OrderList[i].totalapp = "驗收完成"
+                          }
+                          //if (this.OrderList[i].applicationStatus == false && deliveryStatus == false && acceptanceStatus == false) {
+                          //    this.OrderList[i].applicationStatus = "審核中"
+                          //}
+                          ////if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
+                          ////    this.OrderList[i].applicationStatus = "審核完成"
+                          ////}
+                          //if (this.OrderList[i].deliveryStatus == false && applicationStatus == true && acceptanceStatus == false) {
+                          //    this.OrderList[i].deliveryStatus = "配送中"
+                          //}
+                          ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
+                          ////    this.OrderList[i].deliveryStatus = "配送完成"
+                          ////}
+                          //if (this.OrderList[i].acceptanceStatus == false && applicationStatus == true && deliveryStatus == true) {
+                          //    this.OrderList[i].acceptanceStatus = "驗收中"
+                          //}
+                          //if (this.OrderList[i].acceptanceStatus == true && applicationStatus == true && deliveryStatus == true) {
+                          //    this.OrderList[i].acceptanceStatus = "驗收完成"
+                          //}
+                        }
+                      });
                   }
-                  Vue.createApp(app).mount('#app')
+                }
+                Vue.createApp(app).mount('#app')
 
-                  
+
 
               </script>
 

@@ -508,20 +508,20 @@
 
                         <!-- ★查詢預約紀錄 -->
                         <div class="card m-4">
-                            <h2 class=" alert alert-primary mx-auto mt-3 fw-bold">查詢預約紀錄</h2><div class="h-50"></div>
+                            <h2 class=" alert alert-primary mx-auto my-4 fw-bold fs-2">查詢預約紀錄</h2><div class="h-50"></div>
                             <div class="card-body mb-3 col-md-12">
                                 <!-- ⁥!!! -->
                                 <!-- 查詢日期區間 -->
                                 <div class="mb-3 row g-2 justify-content-around">
-                                    <label for="meetSearch_date" class="col-4 col-md-2 col-form-label fs-4 text-center fw-bold">查詢日期區間</label>
+                                    <label for="meetSearch_date" class="col-4 col-md-2 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold text-center fw-bold">查詢日期區間</label>
                                     <div class="col-4 col-md-2">
                                         <input v-model="MeetSearch.StartDay1" class="form-control InputCheck" type="date" value="" id="meetSearch_date1" style="height: 45px;" />
                                     </div>
                                     <div class="col-4 col-md-2">
-                                        <input v-model="MeetSearch.EndDay1" class="form-control" type="date" value="" id="meetSearch_date2" style="height: 45px;" />
+                                        <input v-model="MeetSearch.EndDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date2" style="height: 45px;" />
                                     </div>
                                     <!-- 選擇部門 -->
-                                    <label for="meetDepeart_select" class="col-4 col-md-2 col-form-label fs-4 text-center fw-bold">選擇部門</label>
+                                    <label for="meetDepeart_select" class="col-4 col-md-2 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold text-center fw-bold">選擇部門</label>
                                     <div class="col-8 col-md-2">
                                         <select v-model="MeetSearch.DepId"  class="form-select" id="meetDepeart_select" style="height: 45px;">
                                             <option value="" disabled>選擇部門</option>
@@ -530,7 +530,7 @@
                                     </div>
                                     <!-- ★送出按鈕 -->
                                     <div class="col-12 col-md-1">
-                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-2 col-12 fs-5" style="height: 45px;">查詢</button>
+                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 col-12 fs-5" style="height: 45px;">查詢</button>
                                     </div>
                                 </div>
                             </div>
@@ -600,7 +600,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button @click="Del(MeetSearchInf.bookId)" type="button" class="btn btn-outline-primary border-3" data-bs-dismiss="modal">確定</button>
-                                                                <button type="button" class="btn btn-outline-secondary border-3" data-bs-dismiss="modal">返回</button>
+                                                                <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
                                                                 <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
                                                             </div>
                                                         </div>
@@ -629,39 +629,39 @@
                             <div class="card-body row justify-content-center">
                                 <div class="col-6 col-md-3 my-2 ms-1">
                                     <label for="meetRc_president" class="form-label fs-5">會議主席</label>
-                                    <input v-model="MeetRcCInf.meetPresident" type="text" class="form-control" id="meetRc_president"
+                                    <input v-model="MeetRcCInf.meetPresident" type="text" class="form-control fs-5" id="meetRc_president"
                                         placeholder="" />
                                 </div>
                                 <div class="col-6 col-md-3 my-2">
                                     <label for="meetRc_recorder" class="form-label fs-5">會議記錄人員</label>
-                                    <input v-model="MeetRcCInf.recorder" type="text" class="form-control" id="meetRc_recorder" placeholder="" />
+                                    <input v-model="MeetRcCInf.recorder" type="text" class="form-control fs-5" id="meetRc_recorder" placeholder="" />
                                 </div>
                                 <div class="col-6 col-md-5 my-2">
                                     <label for="meetRc_member" class="form-label fs-5">與會者</label>
-                                    <textarea v-model="MeetRcCInf.participater" class="form-control" id="meetRc_member" rows="1"></textarea>
+                                    <textarea v-model="MeetRcCInf.participater" class="form-control fs-5" id="meetRc_member" rows="1"></textarea>
                                 </div>
                         
                                 <div class="col-6 col-md-2 my-2 ms-1">
                                     <label for="meetRc_shouldAttend" class="form-label fs-5">應出席人數</label>
-                                    <input v-model="MeetRcCInf.shouldAttend" type="number" class="form-control" id="meetRc_shouldAttend"
+                                    <input v-model="MeetRcCInf.shouldAttend" type="number" class="form-control fs-5" id="meetRc_shouldAttend"
                                         oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
                                 </div>
                         
                                 <div class="col-6 col-md-2 my-2">
                                     <label for="meetRc_Attend" class="form-label fs-5">實到人數</label>
-                                    <input v-model="MeetRcCInf.attend" type="number" class="form-control" id="meetRc_Attend"
+                                    <input v-model="MeetRcCInf.attend" type="number" class="form-control fs-5" id="meetRc_Attend"
                                         oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
                                 </div>
                         
                                 <div class="col-6 col-md-2 my-2">
                                     <label for="meetRc_absentCount" class="form-label fs-5">缺席人數</label>
-                                    <input v-model="MeetRcCInf.noAttend" type="number" class="form-control" id="meetRc_absentCount"
+                                    <input v-model="MeetRcCInf.noAttend" type="number" class="form-control fs-5" id="meetRc_absentCount"
                                         oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
                                 </div>
                         
                                 <div class="col-6 col-md-5 my-2">
                                     <label for="meetRc_absent" class="form-label fs-5">缺席人員</label>
-                                    <input v-model="MeetRcCInf.noAttendPerson" type="text" class="form-control" id="meetRc_absent" />
+                                    <input v-model="MeetRcCInf.noAttendPerson" type="text" class="form-control fs-5" id="meetRc_absent" />
                                 </div>
                             </div>
                             <!-- 後續行動 -->
@@ -670,26 +670,26 @@
                         
                                 <label for="meetRc_absent" class="form-label fs-5">負責人/事項/截止日</label>
                                 <div class="col-11 mx-5">
-                                    <textarea v-model="MeetRcCInf.principal" class="form-control" id="meetRc_member" rows="5"></textarea>
+                                    <textarea v-model="MeetRcCInf.principal" class="form-control fs-5" id="meetRc_member" rows="5"></textarea>
                                 </div>
                             </div>
                             <!-- 議程 -->
                             <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 議程</p>
                             <div class="card-body row">
                                 <div class="col-11 mx-5">
-                                    <textarea v-model="MeetRcCInf.agenda" class="form-control" id="meetRc_member" rows="5"></textarea>
+                                    <textarea v-model="MeetRcCInf.agenda" class="form-control fs-5" id="meetRc_member" rows="5"></textarea>
                                 </div>
                             </div>
                             <!-- 會議記錄 -->
                             <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議記錄</p>
                             <div class="card-body row">
                                 <div class="col-11 mx-5">
-                                    <textarea v-model="MeetRcCInf.record" class="form-control" id="meetRc_member" rows="5"></textarea>
+                                    <textarea v-model="MeetRcCInf.record" class="form-control fs-5" id="meetRc_member" rows="5"></textarea>
                                 </div>
                             </div>
                             <!-- 送出按鈕 -->
                             <div class="my-5 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-outline-primary me-2" @click="Save">儲存</button>
+                                <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="Save">儲存</button>
                             </div>
                         </div>
                         </div>

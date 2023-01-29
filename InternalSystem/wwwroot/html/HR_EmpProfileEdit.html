@@ -507,15 +507,15 @@
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeNumber" class="form-label-lg">員工編號</label>
-                                        <input v-model="employeeNumber" class="form-control" id="EmployeeNumber" />
+                                        <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <input v-model="employeeNumber" class="form-control fs-5" id="EmployeeNumber" />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="form-label-lg">員工名稱</label>
-                                        <input v-model="employeeName" class="form-control" id="Employeename" />
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <input v-model="employeeName" class="form-control fs-5" id="Employeename" />
                                     </div>
                                     <!--<div class="mb-3 col-md-2">
-                                        <label for="department" class="form-label-lg">部門</label>
+                                        <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                         <select v-model="employeelist.departmentId" v-if="departmentId" id="department" class="select2 form-select">
                                             <option v-for="item in departmentlist" :value="item.depId"></option>
                                         </select>
@@ -523,7 +523,7 @@
 
                                     <div class="mt-2 ">
                                         <button type="button" v-on:click="searchbtn" class="btn btn-primary me-2 ">查詢</button>
-                                        <button type="reset" class="btn btn-outline-secondary" >取消</button>
+                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3" >取消</button>
                                     </div>
                                 </div>
 
@@ -557,7 +557,7 @@
                                                    @change="uploadphoto"
                                                    />
                                         </label>
-                                        <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
                                             <i class="bx bx-reset d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block" @click="photoreset">Reset</span>
                                         </button>
@@ -575,8 +575,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="mb-4 col-md-4">
-                                            <label for="EmployeeName" class="form-label">員工名稱</label>
-                                            <input v-model="employeelist.employeeName" class="form-control"
+                                            <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                            <input v-model="employeelist.employeeName" class="form-control fs-5"
                                                    type="text"
                                                    id="EmployeeName"
                                                    name="EmployeeName"
@@ -586,12 +586,12 @@
                                         <!-- 傳遞參數ID -->
                                         <!--<div style="display: none">-->
                                         <!--style="display: none"-->
-                                        <!--<label for="EmployeeId" class="form-label-lg">員工ID</label>
-            <input v-model="employeelist.employeeId" class="form-control" id="EmployeeId" />
+                                        <!--<label for="EmployeeId" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工ID</label>
+            <input v-model="employeelist.employeeId" class="form-control fs-5" id="EmployeeId" />
         </div>-->
                                         <!-- 性別 -->
                                         <div class="mb-3 col-md-4">
-                                            <label for="Sex" class="form-label">性別</label>
+                                            <label for="Sex" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">性別</label>
                                             <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
                                                 <option>選擇性別</option>
                                                 <option value="男性">男</option>
@@ -600,7 +600,7 @@
                                         </div>
                                         <!-- 婚姻狀態 -->
                                         <div class="mb-3 col-md-4">
-                                            <label for="Maritalstatus" class="form-label">婚姻狀態</label>
+                                            <label for="Maritalstatus" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">婚姻狀態</label>
                                             <select v-model="employeelist.isMarried" id="Maritalstatus" class="select1 form-select">
                                                 <option value="" disabled>選擇狀態</option>
                                                 <option :value="true">已婚</option>
@@ -610,21 +610,21 @@
                                         </div>
                                         <!-- 身分證字號 -->
                                         <div class="mb-3 col-md-4">
-                                            <label class="form-label" for="IdentityNumber">身分證字號</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
                                                 <input v-model="employeelist.identiyId" type="text"
                                                        id="IdentityNumber"
                                                        name="IdentityNumber"
-                                                       class="form-control"
+                                                       class="form-control fs-5"
                                                        placeholder=""
                                                        @change="Identit" />
                                             </div>
-                                            <p class="form-label">{{cnt}}/10</p>
+                                            <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">{{cnt}}/10</p>
                                         </div>
                                         <!-- 國籍 -->
                                         <div class="mb-3 col-md-4">
-                                            <label class="form-label" for="Country">國籍</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Country">國籍</label>
                                             <select v-model="employeelist.country" id="Country" class="select2 form-select">
                                                 <option value="">Select</option>
                                                 <option value="台灣">台灣</option>
@@ -638,7 +638,7 @@
                                         <div class="mb-3 col-md-4">
                                             <label for="birthday" class="col-md-2 form-label">生日</label>
                                             <div class="col-md-12">
-                                                <input v-model="employeelist.birthday" class="form-control" type="date" id="birthday" />
+                                                <input v-model="employeelist.birthday" class="form-control fs-5" type="date" id="birthday" />
                                             </div>
                                         </div>
                                     </div>
@@ -647,8 +647,8 @@
 
                                         <!-- 電子信箱 -->
                                         <div class="mb-4 col-md-6">
-                                            <label for="email" class="form-label">E-mail</label>
-                                            <input v-model="employeelist.email" class="form-control"
+                                            <label for="email" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">E-mail</label>
+                                            <input v-model="employeelist.email" class="form-control fs-5"
                                                    type="text"
                                                    id="email"
                                                    name="email"
@@ -658,20 +658,20 @@
 
                                         <!-- 行動電話 -->
                                         <div class="mb-4 col-md-6">
-                                            <label class="form-label" for="phoneNumber">行動電話</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="phoneNumber">行動電話</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text">TW (+886)</span>
                                                 <input v-model="employeelist.phoneNumber" type="text"
                                                        id="phoneNumber"
                                                        name="phoneNumber"
-                                                       class="form-control"
+                                                       class="form-control fs-5"
                                                        placeholder="09123456789"
                                                        @change="phoneNumber" />
                                             </div>
                                         </div>
                                         <!--縣市-->
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="City">城市</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="City">城市</label>
                                             <select v-model="employeelist.cityId" id="City" class="select form-select">
                                                 <option v-for="item in citylist" :value="item.cityId">{{item.cityName}}</option>
 
@@ -679,8 +679,8 @@
                                         </div>
                                         <!-- 地址 -->
                                         <div class="mb-4 col-md-6">
-                                            <label for="address" class="form-label">地址</label>
-                                            <input v-model="employeelist.address" class="form-control"
+                                            <label for="address" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">地址</label>
+                                            <input v-model="employeelist.address" class="form-control fs-5"
                                                    type="text"
                                                    id="address"
                                                    name="address"
@@ -688,21 +688,21 @@
                                         </div>
                                         <!-- 家用電話 -->
                                         <div class="mb-4 col-md-6">
-                                            <label class="form-label" for="Number">家用電話</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Number">家用電話</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
                                                 <input v-model="employeelist.homePhone" type="text"
                                                        id="Number"
                                                        name="Number"
-                                                       class="form-control"
+                                                       class="form-control fs-5"
                                                        placeholder=""
                                                        @change="homenumber" />
                                             </div>
                                         </div>
                                         <!-- 緊急聯絡人 -->
                                         <div class="mb-4 col-md-4">
-                                            <label for="Emergency" class="form-label">緊急聯絡人</label>
-                                            <input v-model="employeelist.emergencyPerson" class="form-control"
+                                            <label for="Emergency" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">緊急聯絡人</label>
+                                            <input v-model="employeelist.emergencyPerson" class="form-control fs-5"
                                                    type="text"
                                                    id="Emergency"
                                                    name="Emergency"
@@ -711,8 +711,8 @@
                                         </div>
                                         <!-- 緊急聯絡人關係選擇 -->
                                         <div class="mb-4 col-md-4">
-                                            <label for="EmergencyContact" class="form-label">緊急聯絡人關係</label>
-                                            <input v-model="employeelist.emergencyRelation" class="form-control"
+                                            <label for="EmergencyContact" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">緊急聯絡人關係</label>
+                                            <input v-model="employeelist.emergencyRelation" class="form-control fs-5"
                                                    type="text"
                                                    id="EmergencyContact"
                                                    name="EmergencyContact"
@@ -721,13 +721,13 @@
                                         </div>
                                         <!-- 緊急聯絡人電話 -->
                                         <div class="mb-3 col-md-4">
-                                            <label class="form-label" for="EmergencyNumber">緊急聯絡人電話</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="EmergencyNumber">緊急聯絡人電話</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
-                                                <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control" placeholder="" />
+                                                <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control fs-5" placeholder="" />
 
                                             </div>
-                                            <p class="form-label">{{epnt}}/10</p>
+                                            <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">{{epnt}}/10</p>
                                         </div>
                                     </div>
 
@@ -737,13 +737,13 @@
                                     <div class="row">
                                         <!-- 員工工號 -->
                                         <div class="mb-3 col-md-6">
-                                            <label for="residence" class="form-label">員工工號</label>
-                                            <input v-model="employeelist.employeeNumber" class="form-control" type="text" id="residence" name="residence" autofocus
+                                            <label for="residence" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工工號</label>
+                                            <input v-model="employeelist.employeeNumber" class="form-control fs-5" type="text" id="residence" name="residence" autofocus
                                                    @change="empnumber" />
                                         </div>
                                         <!-- 部門選擇 -->
                                         <div class="mb-4 col-md-6">
-                                            <label for="department" class="form-label">部門</label>
+                                            <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                             <select v-model="employeelist.departmentId" id="department" class="select1 form-select">
                                                 <option v-for="item in departmentlist" :value="item.departmentId">
                                                     {{item.depName}}
@@ -755,7 +755,7 @@
 
                                         <!--職位-->
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="position">職稱</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="position">職稱</label>
                                             <select v-model="employeelist.positionId" id="position" class="select2 form-select">
                                                 <option v-for="item in positionlist" :value="item.positionId">
                                                     {{item.positionName}}
@@ -765,7 +765,7 @@
                                         </div>
                                         <!-- 職等 -->
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="Rank">職等</label>
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Rank">職等</label>
                                             <select v-model="employeelist.rankId" id="Rank" class="select2 form-select">
                                                 <option v-for="item in ranklist" :value="item.rankId">
                                                     {{item.rank}}
@@ -776,7 +776,7 @@
 
                                         <!-- 在職選擇 -->
                                         <div class="mb-3 col-md-6">
-                                            <label for="Onduty" class="form-label">是否在職</label>
+                                            <label for="Onduty" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">是否在職</label>
                                             <select v-model="employeelist.dutyStatus" id="Onduty" class="select2 form-select">
                                                 <option :value="true">是</option>
                                                 <option :value="false">否</option>
@@ -787,13 +787,13 @@
                                         <div class="mb-3 col-md-6">
                                             <label for="Entrydate" class="col-md-4 form-label">入職日</label>
 
-                                            <input v-model="employeelist.entryDate" class="form-control" type="date" id="Entrydate" />
+                                            <input v-model="employeelist.entryDate" class="form-control fs-5" type="date" id="Entrydate" />
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <label for="Terminationdate" class="col-md-4 form-label">離職日</label>
 
-                                            <input v-model="employeelist.terminationdate" class="form-control" type="date" id="Terminationdate" />
+                                            <input v-model="employeelist.terminationdate" class="form-control fs-5" type="date" id="Terminationdate" />
                                         </div>
                                     </div>
 
@@ -803,14 +803,14 @@
                                     <div class="row">
                                         <!--帳號設置-->
                                         <div class="mb-3 col-md-6">
-                                            <label for="usernumber" class="form-label-lg">帳號設定</label>
-                                            <input v-model="employeelist.acount" class="form-control" type="text" id="usernumber" name="usernumber" autofocus
+                                            <label for="usernumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">帳號設定</label>
+                                            <input v-model="employeelist.acount" class="form-control fs-5" type="text" id="usernumber" name="usernumber" autofocus
                                                    @change="usernum" />
                                         </div>
                                         <!--密碼設置-->
                                         <div class="mb-3 col-md-6">
-                                            <label for="password" class="form-label-lg">密碼設定</label>
-                                            <input v-model="employeelist.password" class="form-control"
+                                            <label for="password" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">密碼設定</label>
+                                            <input v-model="employeelist.password" class="form-control fs-5"
                                                    type="text"
                                                    id="password"
                                                    name="password"
@@ -825,13 +825,13 @@
                                         員工備註
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <label for="Note" class="form-label fs-4">備註欄</label>
-                                        <textarea class="form-control" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
+                                        <label for="Note" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註欄</label>
+                                        <textarea class="form-control fs-5" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
                                     </div>
                                     <!-- 確認按鈕 -->
                                     <div class="mt-2 py-5 d-md-flex justify-content-md-end">
                                         <button type="button" v-on:click="createbtn" class="btn btn-primary me-2 ">存檔</button>
-                                        <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
                                 </form>
                             </div>
@@ -872,7 +872,8 @@
             data() {
                 return {
                     employeelist: {
-                        "photo": "https://x.nctu.app/img/g7Fx.jpg"},
+                        "photo": "https://x.nctu.app/img/g7Fx.jpg"
+                    },
                     departmentlist: {},
                     positionlist: {},
                     ranklist: {},
@@ -1012,7 +1013,7 @@
                 //    else if (this.employeelist.sex == "女性") {
                 //        this.Leavelist.LeaveOver = 96;
                 //        this.Leavelist.Quantity = 96;
-                        
+
                 //    }
                 //},
 

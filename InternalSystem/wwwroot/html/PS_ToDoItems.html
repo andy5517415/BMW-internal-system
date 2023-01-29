@@ -512,20 +512,19 @@
 
                         <div class="row">
                             <div class="col-xl-12">
-                                <h6 class="text-muted">類別</h6>
                                 <div class="nav-align-top mb-4">
                                     <!-- ★設權限 -->
                                     <ul class="nav nav-pills mb-3 nav-fill active" role="tablist" >
                                         <li class="nav-item " v-if="employeelist.positionId<7">
                                             <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt!=0">{{cnt}}</span>
                                             <button type="button"
-                                                    class="nav-link bg-label-primary "
+                                                    class="btn-outline-primary fw-bold border-3"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
                                                     aria-controls="home"
                                                     aria-selected="true">
-                                                個人代辦事項
+                                                個人待辦事項
                                             </button>
                                         </li>
                                         <!--<li class="nav-item" v-if="employeelist.positionId<7">
@@ -541,7 +540,7 @@
                                         </li>-->
                                         <li class="nav-item " v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="nav-link bg-label-primary "
+                                                    class="btn-outline-primary fw-bold border-3"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditleave"
@@ -554,7 +553,7 @@
 
                                         <li class="nav-item" v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="nav-link bg-label-primary"
+                                                    class="btn-outline-primary fw-bold border-3"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditover"
@@ -588,29 +587,29 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>待辦項目</th>
-                                                            <th>員工名稱</th>
-                                                            <th>員工編號</th>
-                                                            <th>員工部門</th>
-                                                            <th>狀態</th>
+                                                            <th class="fs-4 fw-bold">待辦項目</th>
+                                                            <th class="fs-4 fw-bold">員工名稱</th>
+                                                            <th class="fs-4 fw-bold">員工編號</th>
+                                                            <th class="fs-4 fw-bold">員工部門</th>
+                                                            <th class="fs-4 fw-bold">狀態</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="(leaveExit,key) in leavereturn">
                                                         <tr>
                                                             <td>
-                                                                <button type="button" class="btn btn-secondary" disabled>請假</button>
+                                                                <button type="button" class="btn btn-secondary fs-5 fw-bold" disabled>請假</button>
 
                                                             </td>
-                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{leaveExit.employeeName}}</strong></td>
+                                                            <td><i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i> <strong class="fs-5">{{leaveExit.employeeName}}</strong></td>
                                                             <td>{{leaveExit.employeeNumber}}</td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{leaveExit.auditStatus}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{leaveExit.auditStatus}}</span>
 
                                                             </td>
                                                             <td>
@@ -618,7 +617,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> 檢視</a>
+                                                                        <a class="dropdown-item fs-5" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> 檢視</a>
 
                                                                     </div>
                                                                 </div>
@@ -627,21 +626,21 @@
                                                     <tbody class="table-border-bottom-0" v-for="(leave,key) in leaveproxy">
                                                         <tr>
                                                             <td>
-                                                                <button type="button" class="btn btn-secondary" disabled>代理人申請</button>
+                                                                <button type="button" class="btn btn-secondary fs-5 fw-bold" disabled>代理人申請</button>
                                                             </td>
                                                             <td>
-                                                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                                                <strong>{{leave.employeeName}}</strong>
+                                                                <i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i>
+                                                                <strong class="fs-5">{{leave.employeeName}}</strong>
                                                             </td>
                                                             <td>{{leave.employeeNumber}}</td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{leave.startDate}} - {{leave.startTime}}</span>
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{leave.endDate}} - {{leave.endTime}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{leave.endDate}} - {{leave.endTime}}</span>
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{leave.auditStatus}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{leave.auditStatus}}</span>
 
                                                             </td>
                                                             <td>
@@ -649,7 +648,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item" type="button" @click="checkbtn(leave)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+                                                                        <a class="dropdown-item fs-5" type="button" @click="checkbtn(leave)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
 
                                                                     </div>
                                                                 </div>
@@ -658,19 +657,19 @@
                                                         <!--採購退件-->
                                                     <tbody class="table-border-bottom-0" v-for="(buy,key) in buyapp">
                                                         <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-secondary" disabled>採購</button>
+                                                            <td >
+                                                                <button type="button" class="btn btn-secondary fs-5 fw-bold" disabled>採購</button>
                                                             </td>
                                                             <td>
-                                                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                                                <strong>{{buy.employeeName}}</strong>
+                                                                <i class="fab fa-angular fa-lg text-danger me-3 fs-5">1</i>
+                                                                <strong class="fs-5" class="fs-5">{{buy.employeeName}}</strong>
                                                             </td>
                                                             <td>{{buy.employeeNumber}} </td>
                                                             <td>
-                                                                <span class="label-primary me-1">{{buy.department}}</span>
+                                                                <span class="label-primary me-1 fs-5">{{buy.department}}</span>
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1" v-if="buy.applicationRejectStatus ==  false">退件</span>
+                                                                <span class="label-primary me-1 fs-5" v-if="buy.applicationRejectStatus ==  false">退件</span>
                                                             </td>
                                                             <td>
                                                             
@@ -681,7 +680,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item" type="button" @click="buycheckbtn(buy)" href="PS_ApplicationRejectDetails.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+                                                                        <a class="dropdown-item fs-5" type="button" @click="buycheckbtn(buy)" href="PS_ApplicationRejectDetails.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
 
                                                                     </div>
                                                                 </div>
@@ -699,16 +698,16 @@
                                                     <thead>
                                                         <tr>
                                                             <th>待修正項目</th>
-                                                            <th>員工編號</th>
-                                                            <th>加班起始時間</th>
-                                                            <th>加班結束時間</th>
-                                                            <th>狀態</th>
+                                                            <th class="fs-4 fw-blod">員工編號</th>
+                                                            <th class="fs-4 fw-blod">加班起始時間</th>
+                                                            <th class="fs-4 fw-blod">加班結束時間</th>
+                                                            <th class="fs-4 fw-blod">狀態</th>
                                                             <th>修改</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="notyet in NotyetOver">
                                                         <tr>
-                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{notyet.employeeName}}</strong></td>
+                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong class="fs-5">{{notyet.employeeName}}</strong></td>
                                                             <td>{{notyet.employeeNumber}}</td>
                                                             <td>
                                                                 <span class="label-primary me-1">{{notyet.startDate}} - {{notyet.startTime}}</span>
@@ -744,27 +743,27 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>待辦項目</th>
-                                                        <th>員工編號</th>
-                                                        <th>請假起始時間</th>
-                                                        <th>請假結束時間</th>
-                                                        <th>狀態</th>
-                                                        <th>修改</th>
+                                                        <th class="fs-4 fw-bold">待辦項目</th>
+                                                        <th class="fs-4 fw-bold">員工編號</th>
+                                                        <th class="fs-4 fw-bold">請假起始時間</th>
+                                                        <th class="fs-4 fw-bold">請假結束時間</th>
+                                                        <th class="fs-4 fw-bold">狀態</th>
+                                                        <th class="fs-4 fw-bold">修改</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0"  v-for="(leave,key) in leaveproxy">
                                                     <tr>
-                                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
-                                                            <strong>{{leave.employeeName}}</strong></td>
+                                                        <td><i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i> 
+                                                            <strong class="fs-5">{{leave.employeeName}}</strong></td>
                                                         <td>{{leave.employeeNumber}}</td>
                                                         <td>
-                                                            <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
+                                                            <span class="label-primary me-1 fs-5">{{leave.startDate}} - {{leave.startTime}}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="label-primary me-1">{{leave.endDate}} - {{leave.endTime}}</span>
+                                                            <span class="label-primary me-1 fs-5">{{leave.endDate}} - {{leave.endTime}}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="label-primary me-1">{{leave.auditStatus}}</span>
+                                                            <span class="label-primary me-1 fs-5">{{leave.auditStatus}}</span>
 
                                                         </td>
                                                         <td>
@@ -792,17 +791,17 @@
                                             <thead>
                                                 <tr>
                                                     <th>待修正項目</th>
-                                                    <th>員工編號</th>
-                                                    <th>請假起始時間</th>
-                                                    <th>請假結束時間</th>
-                                                    <th>狀態</th>
+                                                    <th class="fs-4 fw-blod">員工編號</th>
+                                                    <th class="fs-4 fw-blod">請假起始時間</th>
+                                                    <th class="fs-4 fw-blod">請假結束時間</th>
+                                                    <th class="fs-4 fw-blod">狀態</th>
                                                     <th>修改</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0" v-for="leave in leaveproxy">
                                                 <tr>
                                                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
-                                                        <strong>{{leave.employeeName}}</strong></td>
+                                                        <strong class="fs-5">{{leave.employeeName}}</strong></td>
                                                     <td>{{leave.employeeNumber}}</td>
                                                     <td>
                                                         <span class="label-primary me-1">{{leave.startDate}} - {{leave.startTime}}</span>
@@ -837,27 +836,27 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>待辦項目</th>
-                                                    <th>員工編號</th>
-                                                    <th>加班起始時間</th>
-                                                    <th>加班結束時間</th>
-                                                    <th>狀態</th>
+                                                    <th class="fs-4 fw-bold">待辦項目</th>
+                                                    <th class="fs-4 fw-bold">員工編號</th>
+                                                    <th class="fs-4 fw-bold">加班起始時間</th>
+                                                    <th class="fs-4 fw-bold">加班結束時間</th>
+                                                    <th class="fs-4 fw-bold">狀態</th>
                                                     <th>修改</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0" v-for="(work,key) in wkover">
                                                 <tr>
-                                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 
-                                                        <strong>{{work.employeeName}}</strong></td>
+                                                    <td><i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i> 
+                                                        <strong class="fs-5">{{work.employeeName}}</strong></td>
                                                     <td>{{work.employeeNumber}}</td>
                                                     <td>
-                                                        <span class="label-primary me-1">{{work.startDate}} - {{work.startTime}} </span>
+                                                        <span class="label-primary me-1 fs-5">{{work.startDate}} - {{work.startTime}} </span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary me-1">{{work.endDate}} -{{work.endTime}} </span>
+                                                        <span class="label-primary me-1 fs-5">{{work.endDate}} -{{work.endTime}} </span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary me-1" v-if="work.auditStatus==false">待審</span>
+                                                        <span class="label-primary me-1 fs-5" v-if="work.auditStatus==false">待審</span>
 
                                                     </td>
                                                     <td>
@@ -946,44 +945,44 @@
           const app = {
             data() {
               return {
-                  employeelist: {},
-                  employeedata: {},
-                  dep: {},
-                  leaveproxy: {},
-                  buyapp: {},
-                  wkover: {},
-                  leavereturn: {},
-                  NotyetOver: {},
-                  cnt: {},
-                  mnt: {},
-                  wmt: {}
+                employeelist: {},
+                employeedata: {},
+                dep: {},
+                leaveproxy: {},
+                buyapp: {},
+                wkover: {},
+                leavereturn: {},
+                NotyetOver: {},
+                cnt: {},
+                mnt: {},
+                wmt: {}
               }
             },
             methods: {
-                checkbtn: function (e) {
-                    sessionStorage.setItem("proxy", JSON.stringify(e))
-                },
-                overbtn: function (e) {
-                    sessionStorage.setItem("work", JSON.stringify(e))
+              checkbtn: function (e) {
+                sessionStorage.setItem("proxy", JSON.stringify(e))
+              },
+              overbtn: function (e) {
+                sessionStorage.setItem("work", JSON.stringify(e))
 
-                },
-                exitbtn: function (e) {
-                    sessionStorage.setItem("leavereturn", JSON.stringify(e))
-                },
-                checkOver: function (e) {
-                    sessionStorage.setItem("lookOver", JSON.stringify(e))
-                },
-                buycheckbtn: function (e) {
-                    sessionStorage.setItem("see", JSON.stringify(e))
-                }
+              },
+              exitbtn: function (e) {
+                sessionStorage.setItem("leavereturn", JSON.stringify(e))
+              },
+              checkOver: function (e) {
+                sessionStorage.setItem("lookOver", JSON.stringify(e))
+              },
+              buycheckbtn: function (e) {
+                sessionStorage.setItem("see", JSON.stringify(e))
+              }
             },
             mounted() {
-                this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
+              this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
               axios.get('/api/PersonnelProfileDetails/' + this.employeedata.EmpID)
                 .then(response => {
-                    this.employeelist = response.data;
-                   
+                  this.employeelist = response.data;
+
                   console.log("this.employeelist", this.employeelist);
                   //一般員工GET被指定為代理人
                   if (this.employeelist.positionId < 7) {
@@ -991,44 +990,44 @@
                       + this.employeelist.departmentId + '/' + this.employeelist.positionId
                       + '/' + this.employeelist.employeeId)
                       .then(response => this.leaveproxy = response.data)
-                    }
+                  }
 
                   //一般員工GET被退件之採購申請
-                    if (this.employeelist.positionId < 7) {
-                        axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
-                            .then(response => this.buyapp = response.data)
-                    }
+                  if (this.employeelist.positionId < 7) {
+                    axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
+                      .then(response => this.buyapp = response.data)
+                  }
 
                   //主管GET代理人同意之請假 以及同部門員工申請加班資料
                   if (this.employeelist.positionId == 7) {
                     axios.get('/api/PersonnelLeaveForms/manager/'
                       + this.employeelist.departmentId)
-                        .then(response => {
-                            this.leaveproxy = response.data;
-                            this.mnt = this.leaveproxy.length 
-                            //console.log(this.mnt)
-                        })
+                      .then(response => {
+                        this.leaveproxy = response.data;
+                        this.mnt = this.leaveproxy.length
+                        //console.log(this.mnt)
+                      })
                     axios.get('/api/PersonnelOvertimeForms/manager/over/'
                       + this.employeelist.departmentId)
-                        .then(response => {
-                            this.wkover = response.data;
-                            this.wmt = this.wkover.length
-                            console.log(this.wmt)
-                        })
-                    
+                      .then(response => {
+                        this.wkover = response.data;
+                        this.wmt = this.wkover.length
+                        console.log(this.wmt)
+                      })
+
                   }
                   //一般員工GET不同意回復之請假
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
-                        .then(response => {
-                            this.leavereturn = response.data;
-                            this.cnt = this.leavereturn.length + this.leaveproxy.length;
-                            //console.log(this.cnt)
-                        })
+                      .then(response => {
+                        this.leavereturn = response.data;
+                        this.cnt = this.leavereturn.length + this.leaveproxy.length;
+                        //console.log(this.cnt)
+                      })
                   }
                   //一般員工GET還未檢閱之加班
-                    if (this.employeelist.positionId < 7) {
-                        axios.get('/api/PersonnelOvertimeForms/NotyetAudit/' + this.employeelist.employeeId)
+                  if (this.employeelist.positionId < 7) {
+                    axios.get('/api/PersonnelOvertimeForms/NotyetAudit/' + this.employeelist.employeeId)
                       .then(response => this.NotyetOver = response.data)
                   }
 

@@ -524,7 +524,7 @@
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-2">
-                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-2 border-3" style="height: 45px;">確定</button>
+                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3" style="height: 45px;">確定</button>
                                     </div>
                                 </div>
                             </div>
@@ -580,35 +580,35 @@
                                 <div class="card-body row justify-content-center">
                                     <div class="col-6 col-md-3 my-2 ms-1">
                                         <label for="meetRc_president" class="form-label fs-5">會議主席</label>
-                                        <input :value="MR.meetPresident" type="text" class="form-control" id="meetRc_president" placeholder="" disabled />
+                                        <input :value="MR.meetPresident" type="text" class="form-control fs-5" id="meetRc_president" placeholder="" disabled />
                                     </div>
                                     <div class="col-6 col-md-3 my-2">
                                         <label for="meetRc_recorder" class="form-label fs-5">會議記錄人員</label>
-                                        <input  :value="MR.recorder" type="text" class="form-control" id="meetRc_recorder" placeholder="" disabled/>
+                                        <input  :value="MR.recorder" type="text" class="form-control fs-5" id="meetRc_recorder" placeholder="" disabled/>
                                     </div>
                                     <div class="col-6 col-md-5 my-2">
                                         <label for="meetRc_member" class="form-label fs-5">與會者</label>
-                                        <textarea  :value="MR.participater" class="form-control" id="meetRc_member" rows="1" disabled></textarea>
+                                        <textarea  :value="MR.participater" class="form-control fs-5" id="meetRc_member" rows="1" disabled></textarea>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2 ms-1">
                                         <label for="meetRc_shouldAttend" class="form-label fs-5">應出席人數</label>
-                                        <input  :value="MR.shouldAttend" type="number" class="form-control" id="meetRc_shouldAttend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
+                                        <input  :value="MR.shouldAttend" type="number" class="form-control fs-5" id="meetRc_shouldAttend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2">
                                         <label for="meetRc_Attend" class="form-label fs-5">實到人數</label>
-                                        <input  :value="MR.attend" type="number" class="form-control" id="meetRc_Attend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
+                                        <input  :value="MR.attend" type="number" class="form-control fs-5" id="meetRc_Attend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2">
                                         <label for="meetRc_absentCount" class="form-label fs-5">缺席人數</label>
-                                        <input  :value="MR.noAttend" type="number" class="form-control" id="meetRc_absentCount" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
+                                        <input  :value="MR.noAttend" type="number" class="form-control fs-5" id="meetRc_absentCount" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" disabled/>
                                     </div>
 
                                     <div class="col-6 col-md-5 my-2">
                                         <label for="meetRc_absent" class="form-label fs-5">缺席人員</label>
-                                        <input  :value="MR.noAttendPerson" type="text" class="form-control" id="meetRc_absent" disabled/>
+                                        <input  :value="MR.noAttendPerson" type="text" class="form-control fs-5" id="meetRc_absent" disabled/>
                                     </div>
                                 </div>
                                 <!-- 後續行動 -->
@@ -617,7 +617,7 @@
 
                                     <label for="meetRc_absent" class="form-label fs-5">負責人/事項/截止日</label>
                                     <div class="col-11 mx-5">
-                                        <textarea  :value="MR.principal" class="form-control" id="meetRc_member" rows="5" disabled></textarea>
+                                        <textarea  :value="MR.principal" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 
                                     
@@ -627,20 +627,20 @@
                                 <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 議程</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
-                                        <textarea  :value="MR.agenda" class="form-control" id="meetRc_member" rows="5" disabled></textarea>
+                                        <textarea  :value="MR.agenda" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 </div>
                                 <!-- 會議記錄 -->
                                 <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議記錄</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
-                                        <textarea  :value="MR.record" class="form-control" id="meetRc_member" rows="5" disabled></textarea>
+                                        <textarea  :value="MR.record" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 </div>
                                 <!-- 送出按鈕 -->
                                 <div class="my-5 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-outline-info me-2">編輯</button>
-                                    <button type="submit" class="btn btn-outline-primary me-2">完全儲存</button>
+                                    <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">完全儲存</button>
                                 </div>
                             </div>
                         </div>

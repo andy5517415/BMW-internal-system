@@ -511,11 +511,11 @@
                                 <div class="row mt-4 justify-content-center">
 
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="form-label-lg">員工名稱</label>
-                                        <input class="form-control" v-model="search.employeeName" id="Employeename" />
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <input class="form-control fs-5" v-model="search.employeeName" id="Employeename" />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="department" class="form-label-lg">部門</label>
+                                        <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                         <select id="department" class="select2 form-select" v-model="search.departmentId">
                                             <option value="" disabled>請選擇部門</option>
                                             <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
@@ -523,12 +523,12 @@
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="html5-month-input" class="form-label-lg">請假年、月份</label>
-                                        <input class="form-control" type="month" v-model="search.date" id="html5-month-input" />
+                                        <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假年、月份</label>
+                                        <input class="form-control fs-5" type="month" v-model="search.date" id="html5-month-input" />
                                     </div>
                                     <div class="mt-2  d-md-flex justify-content-md-end">
-                                        <button type="button" @click="okbtn" class="btn btn-outline-primary me-2 ">查詢</button>
-                                        <button type="reset" class="btn btn-outline-secondary">取消</button>
+                                        <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
+                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
                                 </div>
 
@@ -540,17 +540,17 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>員工名稱</th>
-                                            <th>員工編號</th>
-                                            <th>請假起始時間</th>
-                                            <th>請假結束時間</th>
+                                            <th class="fs-4 fw-blod">員工名稱</th>
+                                            <th class="fs-4 fw-blod">員工編號</th>
+                                            <th class="fs-4 fw-blod">請假起始時間</th>
+                                            <th class="fs-4 fw-blod">請假結束時間</th>
                                             <th>修改</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0" v-for="item in employeelist">
                                         <tr>
-                                            <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>{{item.employeeName}}</strong></td>
-                                            <td>{{item.employeeNumber}}</td>
+                                            <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
+                                            <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
                                             <td>
                                                 <span class="label-primary me-1">{{item.startDate}}-{{item.startTime}}</span>
                                             </td>

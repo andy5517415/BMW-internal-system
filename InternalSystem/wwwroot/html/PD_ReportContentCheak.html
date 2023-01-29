@@ -541,31 +541,31 @@
                                         <label for="" class="col-3 fs-5">部門: {{Context.depName}}</label>
                                         <label for="" class="col-1 fs-5">報工日期: </label>
                                         <div class="col-md-3">
-                                            <input class="form-control" v-model="Context.date" type="date" value="" id="html5-time-input" disabled/>
+                                            <input class="form-control fs-5" v-model="Context.date" type="date" value="" id="html5-time-input" disabled/>
                                         </div>
                                     </div>
 
                                     <label for="startTime" class="col-2 fs-5 my-2">工作時間</label>
                                     <div class="col-md-3">
-                                        <input class="form-control" v-model="Context.startTime" type="time" id="startTime" disabled/>
+                                        <input class="form-control fs-5" v-model="Context.startTime" type="time" id="startTime" disabled/>
                                     </div>
 
                                     <label for="endTime" class="col-1 fs-5 my-2 text-center">到</label>
                                     <div class="col-md-3">
-                                        <input class="form-control" v-model="Context.endTime" type="time" id="endTime" disabled/>
+                                        <input class="form-control fs-5" v-model="Context.endTime" type="time" id="endTime" disabled/>
                                     </div>
 
                                     <label for="html5-time-input" class="col-2 fs-5 my-2">共:8 hr</label>
 
                                     <div class="my-2">
                                         <label for="exampleFormControlTextarea1" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" v-model="Context.context" value="" rows="8" disabled></textarea>
+                                        <textarea class="form-control fs-5" id="exampleFormControlTextarea1" v-model="Context.context" value="" rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button type="button" class="mx-2 col-1 btn btn-outline-success">編輯</button>
                                         <button type="button" class="mx-2 col-1 btn btn-outline-primary" v-on:click="Enter()">確認</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary">取消</button>
+                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
 
                                 </div>
@@ -614,15 +614,15 @@
                     },
                     mounted() {
                         var item = JSON.parse(sessionStorage.getItem("data"))
-/*                        console.log(item)*/
+                        /*                        console.log(item)*/
                         axios.get('https://localhost:44319/api/ProductionContexts/ContextsCheck/' + item.orderId + "/" + item.employeeId + "/" + item.date)
                             .then(response => this.Context = response.data)
-                            
+
                     },
                     methods: {
                         Enter: function () {
-                            
-                            window.location = 'index.html';    
+
+                            window.location = 'index.html';
                         }
                     }
                 }

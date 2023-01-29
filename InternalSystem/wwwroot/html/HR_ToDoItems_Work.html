@@ -513,40 +513,40 @@
 
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="form-label fs-4">員工名稱</label>
-                                        <input class="form-control" v-model="overlist.employeeName" id="Employeename" disabled />
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <input class="form-control fs-5" v-model="overlist.employeeName" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                                        <input class="form-control" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
+                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <input class="form-control fs-5" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
                                     </div>
 
                                 </div>
 
                                 <div class="row ">
-                                    <label for="Starttimeforvacation" class="col-4 form-label fs-4">加班開始時間</label>
-                                    <label for="Endtimeforvacation" class="col-4 form-label fs-4">加班結束時間</label>
+                                    <label for="Starttimeforvacation" class="col-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班開始時間</label>
+                                    <label for="Endtimeforvacation" class="col-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班結束時間</label>
                                 </div>
                                 <div class="row">
 
                                     <div class="col-md-2">
 
-                                        <input class="form-control" v-model="overlist.startDate"  id="StartDate" disabled />
+                                        <input class="form-control fs-5" v-model="overlist.startDate"  id="StartDate" disabled />
 
                                     </div>
                                     <div class="col-md-2">
 
-                                        <input class="form-control" v-model="overlist.startTime"  id="StartTime" disabled />
+                                        <input class="form-control fs-5" v-model="overlist.startTime"  id="StartTime" disabled />
 
                                     </div>
                                     <div class=" col-md-2">
 
-                                        <input class="form-control" v-model="overlist.endDate"  id="EndDate" disabled />
+                                        <input class="form-control fs-5" v-model="overlist.endDate"  id="EndDate" disabled />
 
                                     </div>
                                     <div class="col-md-2">
 
-                                        <input class="form-control" v-model="overlist.endTime"  id="EndTime" disabled />
+                                        <input class="form-control fs-5" v-model="overlist.endTime"  id="EndTime" disabled />
 
                                     </div>
 
@@ -555,7 +555,7 @@
                                     </div>
                                 </div>
                                 <div class="my-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-2 " @click="okbtn">審閱</button>
+                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
                                 </div>
                         </div>
 
@@ -607,10 +607,10 @@
             },
             methods: {
                 okbtn: function () {
-                    if (confirm('確認審閱嗎?') == true){ 
+                    if (confirm('確認審閱嗎?') == true) {
                         axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkId, this.overlist).then(a => {
                             alert('已送出審閱訊息');
-                        window.location = "/html/PS_ToDoItems.html";
+                            window.location = "/html/PS_ToDoItems.html";
                         })
 
                     }

@@ -524,7 +524,7 @@
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-2">
-                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-2 border-3" style="height: 45px;">確定</button>
+                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3" style="height: 45px;">確定</button>
                                     </div>
                                 </div>
                             </div>
@@ -580,35 +580,35 @@
                                 <div class="card-body row justify-content-center">
                                     <div class="col-6 col-md-3 my-2 ms-1">
                                         <label for="meetRc_president" class="form-label fs-5">會議主席</label>
-                                        <input v-model="MeetRcCInf.meetPresident"  type="text" class="form-control" id="meetRc_president" placeholder=""  />
+                                        <input v-model="MeetRcCInf.meetPresident"  type="text" class="form-control fs-5" id="meetRc_president" placeholder=""  />
                                     </div>
                                     <div class="col-6 col-md-3 my-2">
                                         <label for="meetRc_recorder" class="form-label fs-5">會議記錄人員</label>
-                                        <input v-model="MeetRcCInf.recorder"  type="text" class="form-control" id="meetRc_recorder" placeholder="" />
+                                        <input v-model="MeetRcCInf.recorder"  type="text" class="form-control fs-5" id="meetRc_recorder" placeholder="" />
                                     </div>
                                     <div class="col-6 col-md-5 my-2">
                                         <label for="meetRc_member" class="form-label fs-5">與會者</label>
-                                        <textarea v-model="MeetRcCInf.participater"  class="form-control" id="meetRc_member" rows="1" ></textarea>
+                                        <textarea v-model="MeetRcCInf.participater"  class="form-control fs-5" id="meetRc_member" rows="1" ></textarea>
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2 ms-1">
                                         <label for="meetRc_shouldAttend" class="form-label fs-5">應出席人數</label>
-                                        <input v-model="MeetRcCInf.shouldAttend"  type="number" class="form-control" id="meetRc_shouldAttend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
+                                        <input v-model="MeetRcCInf.shouldAttend"  type="number" class="form-control fs-5" id="meetRc_shouldAttend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2">
                                         <label for="meetRc_Attend" class="form-label fs-5">實到人數</label>
-                                        <input v-model="MeetRcCInf.attend"  type="number" class="form-control" id="meetRc_Attend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
+                                        <input v-model="MeetRcCInf.attend"  type="number" class="form-control fs-5" id="meetRc_Attend" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
                                     </div>
 
                                     <div class="col-6 col-md-2 my-2">
                                         <label for="meetRc_absentCount" class="form-label fs-5">缺席人數</label>
-                                        <input v-model="MeetRcCInf.noAttend"  type="number" class="form-control" id="meetRc_absentCount" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
+                                        <input v-model="MeetRcCInf.noAttend"  type="number" class="form-control fs-5" id="meetRc_absentCount" oninput="value=value.replace(/[^\d]/g,'')" min="1" max="10" />
                                     </div>
 
                                     <div class="col-6 col-md-5 my-2">
                                         <label for="meetRc_absent" class="form-label fs-5">缺席人員</label>
-                                        <input v-model="MeetRcCInf.noAttendPerson"  type="text" class="form-control" id="meetRc_absent" />
+                                        <input v-model="MeetRcCInf.noAttendPerson"  type="text" class="form-control fs-5" id="meetRc_absent" />
                                     </div>
                                 </div>
                                 <!-- 後續行動 -->
@@ -617,26 +617,26 @@
 
                                     <label for="meetRc_absent" class="form-label fs-5">負責人/事項/截止日</label>
                                     <div class="col-11 mx-5">
-                                        <textarea v-model="MeetRcCInf.principal"  class="form-control" id="meetRc_member" rows="5" ></textarea>
+                                        <textarea v-model="MeetRcCInf.principal"  class="form-control fs-5" id="meetRc_member" rows="5" ></textarea>
                                     </div>
                                 </div>
                                 <!-- 議程 -->
                                 <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 議程</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
-                                        <textarea v-model="MeetRcCInf.agenda"  class="form-control" id="meetRc_member" rows="5" ></textarea>
+                                        <textarea v-model="MeetRcCInf.agenda"  class="form-control fs-5" id="meetRc_member" rows="5" ></textarea>
                                     </div>
                                 </div>
                                 <!-- 會議記錄 -->
                                 <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議記錄</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
-                                        <textarea v-model="MeetRcCInf.record"  class="form-control" id="meetRc_member" rows="5" ></textarea>
+                                        <textarea v-model="MeetRcCInf.record"  class="form-control fs-5" id="meetRc_member" rows="5" ></textarea>
                                     </div>
                                 </div>
                                 <!-- 送出按鈕 -->
                                 <div class="my-5 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-outline-primary me-2">儲存</button>
+                                    <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">儲存</button>
                                 </div>
                             </div>
                         </div>
@@ -732,71 +732,71 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-      const MeetSearchInf = {
-        data() {
-          return {
-            Dep: {},
-            MeetSearch: {},
-            MeetInf: {
-              isValue: false,
-              isRecord: false
+        const MeetSearchInf = {
+            data() {
+                return {
+                    Dep: {},
+                    MeetSearch: {},
+                    MeetInf: {
+                        isValue: false,
+                        isRecord: false
+                    },
+                    MeetRcCInf: {},
+
+                }
             },
-            MeetRcCInf: {},
+            methods: {
+                DoMeetSearch: function () {
+                    var self = this;
+                    axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetSearch.DepId
+                    )   //驗證
+                        .then((response) => {
+                            if (response.data[0] != undefined) {
+                                console.log(response.data);
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-          }
-        },
-        methods: {
-          DoMeetSearch: function () {
-            var self = this;
-            axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetSearch.DepId
-            )   //驗證
-              .then((response) => {
-                if (response.data[0] != undefined) {
-                  console.log(response.data);
-                  $("#toastSuc").fadeIn("fast");
-                  setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                //寫進去
+                                self.MeetInf = response.data
+                                self.MeetInf.isValue = true;
+                                //改個資料形式(日期與時間)
+                                for (let i = 0; i < self.MeetInf.length; i++) {
+                                    self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
+                                    self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(11, 16);//開始時間
+                                    self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(11, 16);//結束時間
+                                    self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
+                                    self.MeetInf[i].ModalId = "cancelModal" + [i]
+                                }
 
-                  //寫進去
-                  self.MeetInf = response.data
-                  self.MeetInf.isValue = true;
-                  //改個資料形式(日期與時間)
-                  for (let i = 0; i < self.MeetInf.length; i++) {
-                    self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                    self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(11, 16);//開始時間
-                    self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(11, 16);//結束時間
-                    self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
-                    self.MeetInf[i].ModalId = "cancelModal" + [i]
-                  }
+                            }
+                            else {
+                                $("#toastNull").fadeIn("fast");
+                                setTimeout(() => $("#toastNull").fadeOut(), 2000);
+                            }
+
+                        })
+                        .catch((error) => { alert('連線錯誤' + error); })
+
+                },
+                DoSearchRecord: function (index) {
+                    var self = this;
+                    self.MeetInf.isRecord = true;
+                    axios.get("https://localhost:44319/api/MeetingRecords/1/" + self.MeetInf[index].bookId
+                    )
+                        .then(res => {
+
+                        })
+                        .catch((error) => { alert('連線錯誤' + error); })
 
                 }
-                else {
-                  $("#toastNull").fadeIn("fast");
-                  setTimeout(() => $("#toastNull").fadeOut(), 2000);
-                }
 
-              })
-              .catch((error) => { alert('連線錯誤' + error); })
-
-          },
-          DoSearchRecord: function (index) {
-            var self = this;
-            self.MeetInf.isRecord = true;
-            axios.get("https://localhost:44319/api/MeetingRecords/1/" + self.MeetInf[index].bookId
-            )
-              .then(res => {
-
-              })
-              .catch((error) => { alert('連線錯誤' + error); })
-
-          }
-
-        },
-        mounted() {
-          axios.get('/api/PersonnelDepartmentLists').then(res => { this.Dep = res.data })
+            },
+            mounted() {
+                axios.get('/api/PersonnelDepartmentLists').then(res => { this.Dep = res.data })
+            }
         }
-      }
 
-      Vue.createApp(MeetSearchInf).mount('#MeetSearch')
+        Vue.createApp(MeetSearchInf).mount('#MeetSearch')
     </script>
 
     <!-- session -->

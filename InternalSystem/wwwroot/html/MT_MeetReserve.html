@@ -527,7 +527,7 @@
                     <label for="meetWeek_select"
                       class="col-4 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇周別</label>
                     <div class="col-8 col-md-3">
-                      <input v-model="MeetRsInfo.week" class="form-control" type="week" value="" id="meetWeek_select" style="height: 45px;" />
+                      <input v-model="MeetRsInfo.week" class="form-control fs-5" type="week" value="" id="meetWeek_select" style="height: 45px;" />
                     </div>
           
           
@@ -546,7 +546,7 @@
                     
                   </div>
                   <div class="mt-4 row justify-content-center">
-                    <button type="submit" class="col-11 col-md-2 btn btn-outline-primary me-2" @click="MeetReserve">查看可預約時段</button>
+                    <button type="submit" class="col-11 col-md-2 btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="MeetReserve">查看可預約時段</button>
                   </div>
                 </div>
               </div>
@@ -562,12 +562,12 @@
                   class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇時間區段</label>
                 <!-- 區段1 -->
                 <div class="col-12 col-md-5">
-                  <input v-model="MeetRsInfo.startTime" class="form-control" type="datetime-local" value="" id="meetTime_select"
+                  <input v-model="MeetRsInfo.startTime" class="form-control fs-5" type="datetime-local" value="" id="meetTime_select"
                     style="height: 45px;" />
                 </div>
                 <!-- 區段2 -->
                 <div class="col-12 col-md-5">
-                  <input v-model="MeetRsInfo.endTime" class="form-control" type="datetime-local" value="" id="meetTime_select"
+                  <input v-model="MeetRsInfo.endTime" class="form-control fs-5" type="datetime-local" value="" id="meetTime_select"
                     style="height: 45px;" />
                 </div>
               </div>
@@ -691,8 +691,8 @@
               </div>
             <!-- ★送出按鈕 -->
             <div class="m-5 row justify-content-center g-2">
-              <button type="submit" class="col-10 col-md-2 btn btn-outline-primary me-2">預約會議室</button>
-              <button type="submit" class="col-10 col-md-2 btn btn-outline-secondary me-2">取消重選</button>
+              <button type="submit" class="col-10 col-md-2 btn btn-outline-primary me-3 fs-4 fw-bold border-3">預約會議室</button>
+              <button type="submit" class="col-10 col-md-2 btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2">取消重選</button>
             </div>
           <!-- / Content -->
 </div>

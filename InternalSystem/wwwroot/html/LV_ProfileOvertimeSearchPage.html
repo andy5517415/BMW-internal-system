@@ -515,12 +515,12 @@
                         
                         <div class="row py-3 ">
                             <div class="mb-3 col-md-2">
-                                <label for="EmployeeName" class="form-label fs-4">員工名稱</label> 
-                                <input class="form-control"  v-model="detail.employeeName" id="Employeename" disabled/>
+                                <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label> 
+                                <input class="form-control fs-5"  v-model="detail.employeeName" id="Employeename" disabled/>
                            </div>
                           <div class="mb-3 col-md-2">
-                            <label for="Employeeid" class="form-label fs-4">員工編號</label>
-                              <input class="form-control" v-model="detail.employeeNumber" id="Employeenameid" disabled/>
+                            <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                              <input class="form-control fs-5" v-model="detail.employeeNumber" id="Employeenameid" disabled/>
                         </div>
                     
                     
@@ -531,34 +531,34 @@
                         <div class="row">
                             <div class="mb-3 col-md-3">
 
-                                <label for="Starttimeforvacation" class="form-label fs-4">加班開始時間</label>
-                                <input class="form-control" v-model="detail.startDate" id="Starttimeforvacation" disabled />
-                                <input class="form-control" v-model="detail.startTime" id="Starttimeforvacation" disabled />
+                                <label for="Starttimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班開始時間</label>
+                                <input class="form-control fs-5" v-model="detail.startDate" id="Starttimeforvacation" disabled />
+                                <input class="form-control fs-5" v-model="detail.startTime" id="Starttimeforvacation" disabled />
 
                             </div>
                             <div class="mb-3 col-md-3">
 
-                                <label for="Endtimeforvacation" class="form-label fs-4">加班結束時間</label>
-                                <input class="form-control" v-model="detail.endDate" id="Endtimeforvacation" disabled />
-                                <input class="form-control" v-model="detail.endTime" id="Endtimeforvacation" disabled />
+                                <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班結束時間</label>
+                                <input class="form-control fs-5" v-model="detail.endDate" id="Endtimeforvacation" disabled />
+                                <input class="form-control fs-5" v-model="detail.endTime" id="Endtimeforvacation" disabled />
 
                             </div>
                             <div class="mb-3 col-md-3">
-                                <label for="Endtimeforvacation" class="form-label fs-4">審核狀態</label>
-                                <strong class="form-control" v-if="detail.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
-                                <strong class="form-control" v-if="detail.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
+                                <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">審核狀態</label>
+                                <strong class="form-control fs-5" v-if="detail.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
+                                <strong class="form-control fs-5" v-if="detail.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                             </div>
                             <div class="mb-3 col-md-3">
-                                <label for="Endtimeforvacation" class="form-label fs-4">總加班時數</label>
-                                <input class="form-control" v-model="detail.totalTime" id="Totalvacation" disabled />
+                                <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">總加班時數</label>
+                                <input class="form-control fs-5" v-model="detail.totalTime" id="Totalvacation" disabled />
                             </div>
                             <div class="mb-3 col-md-3">
-                                <label for="Endtimeforvacation" class="form-label fs-4">加班廠區</label>
-                                <input class="form-control" v-model="detail.areaName" id="Totalvacation" disabled />
+                                <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班廠區</label>
+                                <input class="form-control fs-5" v-model="detail.areaName" id="Totalvacation" disabled />
                             </div>
                             <div class="mb-3 col-md-3">
-                                <label for="Endtimeforvacation" class="form-label fs-4">加班製程</label>
-                                <input class="form-control" v-model="detail.processName" id="Totalvacation" disabled />
+                                <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班製程</label>
+                                <input class="form-control fs-5" v-model="detail.processName" id="Totalvacation" disabled />
                             </div>
                         </div>
                     </form>
@@ -608,19 +608,19 @@
     <script src="../assets/js/LoginSession.js"></script>
       <!--Vue-->
       <script>
-          const app = {
-              data() {
-                  return {
-                      detail: {}
-                  }
-              },
-              methods: {},
-              mounted() {
-                  this.detail = JSON.parse(sessionStorage.getItem("overdata"))
-              }
+        const app = {
+          data() {
+            return {
+              detail: {}
+            }
+          },
+          methods: {},
+          mounted() {
+            this.detail = JSON.parse(sessionStorage.getItem("overdata"))
           }
+        }
 
-          Vue.createApp(app).mount('#app')
+        Vue.createApp(app).mount('#app')
       </script>
 
   </body>
