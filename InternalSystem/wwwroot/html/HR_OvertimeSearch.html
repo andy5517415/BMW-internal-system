@@ -628,25 +628,34 @@
         methods: {
           search: function () {
             //alert('ok')
-            if (this.employeelist.depId != null && this.employeelist.month != null) {
-              axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
-                .then(response => {
-                  this.overtimelist = response.data;
-                  if (this.overtimelist.length == 0) { alert('查無資料') };
-                })
-                .catch(err => console.log(err))
-            }
-            else if (this.employeelist.name != null && this.employeelist.month != null) {
-              axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
-                .then(response => {
-                  this.overtimelist = response.data;
-                  if (this.overtimelist.length == 0) { alert('查無資料') };
-                })
-                .catch(err => console.log(err))
-            }
-            else {
-              alert('查無項目')
-            }
+                if (this.employeelist.depId != null && this.employeelist.month != null) {
+                    axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.depId + '/' + this.employeelist.name + '/' + this.employeelist.month)
+                        .then(response => {
+                            this.overtimelist = response.data;
+                            if (this.overtimelist.length == 0) { alert('查無資料') };
+                        })
+                        .catch(err => console.log(err))
+                }
+
+                else if (this.employeelist.depId != null && this.employeelist.month != null) {
+                    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
+                        .then(response => {
+                            this.overtimelist = response.data;
+                            if (this.overtimelist.length == 0) { alert('查無資料') };
+                        })
+                        .catch(err => console.log(err))
+                }
+                else if (this.employeelist.name != null && this.employeelist.month != null) {
+                    axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
+                        .then(response => {
+                            this.overtimelist = response.data;
+                            if (this.overtimelist.length == 0) { alert('查無資料') };
+                        })
+                        .catch(err => console.log(err))
+                }
+                else {
+                    alert('查無項目')
+                }
 
           },
           overedit: function (e) {

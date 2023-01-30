@@ -556,8 +556,12 @@
                                         <input class="form-control fs-5" v-model="leavedata.endTime" id="EndTime" disabled />
                                     </div>
                                     <div class="mb-3 col-2">
+                                        <label for="leaveType" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5">假別</label>
+                                        <input class="form-control fs-5"   v-model="leavedata.type" id="leaveType" disabled />
+                                    </div>
+                                    <div class="mb-3 col-2">
                                         <label for="AuditStatus" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5">審核狀態</label>
-                                        <input class="form-control fs-5"  v-model="leavedata.auditStatus" id="Endtimeforvacation" disabled />
+                                        <input class="form-control fs-5" v-model="leavedata.auditStatus" id="AuditStatus" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -592,6 +596,12 @@
                                     <div class="col-md-3 mx-auto my-4">
                                         <label for="Endtimeforvacation" class="col-md-5 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5">總請假時間</label>
                                         <input class="form-control fs-5" v-model="leavedata.totalTime" id="Totalvacation" disabled />
+                                    </div>
+                                    <div class="col-md-3 mx-auto my-4">
+                                        <label class="col-md-5 col-badge rounded-pill bg-primary fs-4 mb-1 fw-bold fs-5"for="Rank">假別</label>
+                                        <select id="Rank" v-model="leavedata.leaveType"  class="select2 form-select">
+                                            <option v-for="item in leavetype":value="item.leaveTypeId">{{item.type}}</option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -653,6 +663,7 @@
                     leaveOver2: {},
                     leaveOver3: {},
                     leaveOver4: {},
+                    leavetype: {}
                 }
             },
             methods: {
@@ -687,6 +698,8 @@
                     .then(response => this.leaveOver3 = response.data).catch(err => console.log(err))//特休
                 axios.get('/api/PersonnelLeaveOvers/leave4/' + this.leavedata.employeeId)
                     .then(response => this.leaveOver4 = response.data).catch(err => console.log(err))//生理
+                axios.get('/api/PersonnelLeaveTypes')
+                    .then(response => this.leavetype = response.data)
             }
         }
 
