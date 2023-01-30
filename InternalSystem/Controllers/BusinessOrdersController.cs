@@ -40,7 +40,8 @@ namespace InternalSystem.Controllers
                         CategoryId = opl.CategoryId,
                         Price = opl.Price,
                         OptionalName = opl.OptionalName,
-                        AreaId = ord.AreaId
+                        AreaId = ord.AreaId,
+                        isAccepted = ord.IsAccepted
                     };
             return await q.ToListAsync();
         }
@@ -160,7 +161,7 @@ namespace InternalSystem.Controllers
 
 
 
-        ////沒迴圈修改order大表
+        ////沒迴圈修改order大表(目前未成功)
         //// PUT: api/BusinessOrders/withoutloop
         //[HttpPut("withoutloop")]
         //public string PutOrder([FromBody] BusinessOrder boput)

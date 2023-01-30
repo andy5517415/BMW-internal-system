@@ -625,31 +625,7 @@
                                             <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
 
 
-
-
-                                                <!--<template >
-                            </template>-->
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
-
-
-
-
-
-                                                    <!--<div v-for="(o,idx) in area1" class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
-                                                            {{o}}/{{idx+1}}/{{M4+`${o}`=='正常'}}
-                                                            <span v-if="`M4${o}`=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">-</span>-->
-                                                            <!--<span v-else-if="o=='待處理' " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">-</span>
-                                                            <span v-else-if="o=='處理中' " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">-</span>
-                                                            <span v-else-if="o=='異常'   " data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">-</span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-dark">-</span>-->
-                                                        <!--</button>
-                                                        <template v-for="b in getstatus">
-                                                            <span v-if="b.processId == idx+1 && b.areaId==1 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
-                                                        </template>
-                                                    </div>-->
-
-
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
                                                             A01
@@ -669,10 +645,8 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
+
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
                                                             B01
@@ -692,10 +666,8 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
+
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
                                                             C01
@@ -715,43 +687,29 @@
                                                                 -
                                                             </span>
                                                         </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
                                                     </div>
-
-
                                                 </div>
 
 
-
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
-                                                    <!--<div v-for="(o,idx) in area2" class="col-sm-4 d-flex justify-content-center">
-                                    <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
-                                        {{o}}{{`M4${o}=='正常'`}}
-                                        <span v-if="`M4${o}=='正常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                            -
-                                        </span>
-                                        <span v-else-if="`M4${o}=='待處理'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                            -
-                                        </span>
-                                        <span v-else-if="`M4${o}=='處理中'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                            -
-                                        </span>
-                                        <span v-else-if="`M4${o}=='異常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                            -
-                                        </span>
-                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                            -
-                                        </span>
-                                    </button>
-                                    <template v-for="b in getstatus">
-                                        <span v-if="b.processId == idx+1 && b.areaId==2 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
-                                    </template>
-                                </div>-->
-
-
-
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
                                                             A02
@@ -771,9 +729,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -794,9 +749,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -817,41 +769,28 @@
                                                                 -
                                                             </span>
                                                         </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
                                                     </div>
-
-
                                                 </div>
 
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
-
-                                                    <!--<div v-for="(o,idx) in area3" class="col-sm-4 d-flex justify-content-center">
-                                    <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
-                                        {{o}}
-                                        <span v-if="`M4${o}=='正常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                            -
-                                        </span>
-                                        <span v-else-if="`M4${o}=='待處理'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                            -
-                                        </span>
-                                        <span v-else-if="`M4${o}=='處理中'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                            -
-                                        </span>
-                                        <span v-else-if="`M4${o}=='異常'`" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                            -
-                                        </span>
-                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                            -
-                                        </span>
-                                    </button>
-                                    <template v-for="b in getstatus">
-                                        <span v-if="b.processId == idx+1 && b.areaId==1 && b.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{b.orderNumber}}</span>
-                                    </template>
-                                </div>-->
-
-
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
                                                             A03
@@ -871,9 +810,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -894,9 +830,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -917,21 +850,27 @@
                                                                 -
                                                             </span>
                                                         </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
                                                     </div>
-
-
                                                 </div>
                                             </div>
-
-
-
-
-
-
-
 
 
 
@@ -959,9 +898,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -982,9 +918,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1005,13 +938,32 @@
                                                                 -
                                                             </span>
                                                         </button>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
                                                     </div>
-
-
                                                 </div>
+
+
+
+
+
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1032,9 +984,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1055,9 +1004,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1078,13 +1024,29 @@
                                                                 -
                                                             </span>
                                                         </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
                                                     </div>
-
-
                                                 </div>
+
+
+
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1105,9 +1067,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1128,9 +1087,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1151,13 +1107,29 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
 
 
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
 
@@ -1196,9 +1168,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1219,9 +1188,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1242,13 +1208,27 @@
                                                                 -
                                                             </span>
                                                         </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
                                                         </template>
                                                     </div>
-
-
                                                 </div>
+
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1269,9 +1249,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1292,9 +1269,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1315,13 +1289,29 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
 
 
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row justify-content-md-center mb-4" style="height: 48px;">
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1342,9 +1332,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1365,9 +1352,6 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
                                                     <div class="col-sm-4 d-flex justify-content-center">
                                                         <button @click="statebtnclick" type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">
@@ -1388,13 +1372,29 @@
                                                                 -
                                                             </span>
                                                         </button>
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
                                                     </div>
 
 
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <template v-for="(o,key) in getstatus">
+                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        </template>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
 
