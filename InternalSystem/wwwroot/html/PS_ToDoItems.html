@@ -995,7 +995,10 @@
                   //一般員工GET被退件之採購申請
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
-                      .then(response => this.buyapp = response.data)
+                        .then(response => {
+                            this.buyapp = response.data;
+                            this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                        })
                   }
 
                   //主管GET代理人同意之請假 以及同部門員工申請加班資料
@@ -1020,8 +1023,8 @@
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
                       .then(response => {
-                        this.leavereturn = response.data;
-                        this.cnt = this.leavereturn.length + this.leaveproxy.length;
+                          this.leavereturn = response.data;
+                          this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                         //console.log(this.cnt)
                       })
                   }

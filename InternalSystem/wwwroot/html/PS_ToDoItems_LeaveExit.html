@@ -709,8 +709,6 @@
                 methods: {
 
                     okbtn: function () {
-                        this.leaveExit.statusId = 1;
-                        this.leaveExit.proxyAudit = null;
                         if (confirm('是否送出請假資料?1') == true) {
 
                             if (this.leaveExit.leaveType != null &&
@@ -721,181 +719,15 @@
                                 // 判斷是否日期時間是否填入
                                 if (this.leaveExit.startDate != null && this.leaveExit.endDate != null &&
                                     this.leaveExit.startTime != null && this.leaveExit.endTime != null) {
-
-                                    //日期轉數字
-                                    const sy = parseInt(this.leaveExit.startDate.substring(0, 4)) * 525600;
-                                    console.log(sy);
-                                    const ey = parseInt(this.leaveExit.endDate.substring(0, 4)) * 525600;
-                                    console.log(ey);
-                                    const smonth = parseInt(this.leaveExit.startDate.substring(5, 7)) * 43200;
-                                    //console.log(smonth);
-                                    const sd = parseInt(this.leaveExit.startDate.substring(8, 11)) * 1440;
-                                    console.log(sd);
-                                    const emonth = parseInt(this.leaveExit.endDate.substring(5, 7)) * 43200;
-                                    //console.log(emonth);
-                                    const ed = parseInt(this.leaveExit.endDate.substring(8, 11)) * 1440;
-                                    console.log(ed);
-
-                                    //時間轉數字
-                                    const sh = parseInt(this.leaveExit.startTime.substring(0, 2)) * 60;
-                                    const sm = parseInt(this.leaveExit.startTime.substring(3, 5));
-                                    const eh = parseInt(this.leaveExit.endTime.substring(0, 2)) * 60;
-                                    const em = parseInt(this.leaveExit.endTime.substring(3, 5));
-
-                                    const stotal = (sy + smonth + sd + sh + sm);
-                                    //console.log(stotal)
-                                    const etotal = (ey + emonth + ed + eh + em);
-                                    //console.log(etotal)
-                                    const sdtotal = (sy + smonth + sd) / 60;
-                                    const edtotal = (ey + emonth + ed) / 60
-                                    console.log(sdtotal);
-                                    console.log(edtotal);
-                                    const dtotal = (edtotal - sdtotal) / 3;
-                                    console.log(dtotal + "我是時間")
-                                    //leaveExitDate
-                                    //判斷請假日期時間是否開始大於結束
-                                    if (stotal < etotal) {
-
-                                        if (dtotal > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
-                                            //console.log(leavetotal);
-
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
-                                            this.leaveExit.totalTime = leavetotal + dtotal;
-                                            console.log(this.leaveExit.totalTime);
-                                            //this.leaveExit.statusId = 1;
-                                            //console.log(this.leaveExit.totalTime);
-                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
-                                                .then(a => {
-                                                    alert('已重新提交');
-                                                    window.location = "/html/PS_ToDoItems.html";
-                                                })
-                                        }
-                                        else if (dtotal > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780)) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            //console.log(leavetotal);
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
-                                            this.leaveExit.totalTime = leavetotal + dtotal;
-                                            //this.leaveExit.statusId = 1;
-                                            console.log(this.leaveExit.totalTime + "我是開始大於結束0");
-                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
-                                                .then(a => {
-                                                    alert('已重新提交');
-                                                    window.location = "/html/PS_ToDoItems.html";
-                                                })
-
-                                        }
-                                        else if (dtotal > 0 && sh > eh && eh <= 720) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) + 1;
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
-                                            //console.log(leavetotal);
-                                            this.leaveExit.totalTime = leavetotal + dtotal;
-                                            //this.leaveExit.statusId = 1;
-                                            console.log(this.leaveExit.totalTime + "我是開始大於結束1");
-                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
-                                                .then(a => {
-                                                    alert('已重新提交');
-                                                    window.location = "/html/PS_ToDoItems.html";
-                                                })
-                                        }
-
-                                        //判斷請假是否跨休息時間
-                                        else if (dtotal == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780) {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60) - 1;
-                                            //console.log(leavetotal);
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
-                                            this.leaveExit.totalTime = leavetotal + dtotal;
-                                            //this.leaveExit.statusId = 1;
-                                            console.log(this.leaveExit.totalTime);
-                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
-                                                .then(a => {
-                                                    alert('已重新提交');
-                                                    window.location = "/html/PS_ToDoItems.html";
-                                                })
-                                        }
-                                        else if (sh == 720 || (eh == 780 && em == 0) || (eh == 720 && em != 0)) {
-                                            alert('請假開始時間或結束時間不可選在休息時段!')
-                                        }
-
-                                        else {
-                                            var leavetotal = (((eh + em) - (sh + sm)) / 60);
-                                            this.leaveExit.totalTime = leavetotal + dtotal;
-                                            //this.leaveExit.statusId = 1;
-                                            //日期格式
-                                            let today = new Date()
-                                            let y = today.getFullYear()
-                                            let mm = today.getMonth() + 1
-                                            let dd = today.getDate()
-                                            if (mm < 10) {
-                                                mm = "0" + mm.toString()
-                                            }
-                                            if (dd < 10) {
-                                                dd = "0" + dd.toString()
-                                            }
-                                            //this.leaveExit.leaveExitDate = `${y}-${mm}-${dd}`
-                                            //console.log(this.leaveExit.totalTime);
-                                            axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
-                                                .then(a => {
-                                                    alert('已重新提交');
-                                                    window.location = "/html/PS_ToDoItems.html";
-                                                })
-                                        }
-                                    }
-                                    else {
-                                        alert('開始時間不可大於或等於結束時間')
-                                    }
+                                    axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
+                                        .then(response => {
+                                            alert(response.data);
+                                            window.location = "/html/PS_ToDoItems.html";
+                                        })
                                 }
-                                else { alert('日期時間不可為空!') };
-                                //console.log(leavetotal);
+                                else { alert('請假項目請確實填寫') };
                             }
-
-                            else { alert('請假項目請確實填寫') };
                         }
-
                     },
                     //console.log(this.leaveproxy.statusId)   //ok
 
@@ -904,8 +736,8 @@
                     nobtn: function () {
                         if (confirm('刪除本次請假申請?') == true) {
                             axios.delete('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId)
-                                .then(a => {
-                                    alert('已刪除本次請假申請');
+                                .then(response => {
+                                    alert(response.data);
                                     window.location = "/html/PS_ToDoItems.html";
                                 })
                         }

@@ -765,10 +765,10 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
-                                                v-model="carmediaone.optionalId">
+                                                v-model="carmediaone">
                                             <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
-                                                    :value="one.optionalId">
+                                                    :value="one">
                                                 {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
@@ -968,14 +968,14 @@
             computed: {
                 cnt() {
                     return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
-                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
-                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
-                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
-                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
-                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
-                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
-                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
-                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                           parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                           parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                           parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
+                           parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
+                           parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
+                           parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                           parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                           parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
                         ;
                 },
                 charcnt() {
