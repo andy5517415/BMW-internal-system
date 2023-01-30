@@ -63,78 +63,78 @@ namespace InternalSystem.Controllers
 
 
 
-        //沒迴圈修改orderdetail小表
-        // PUT: api/BusinessOrderDetails
-        [HttpPut]
-        public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)
-        {
-            if (!_context.BusinessOrderDetails.Any(a => a.OrderId == OrderId))
-            {
-                return "沒有該筆資料";
-            }
+        ////沒迴圈修改orderdetail小表
+        //// PUT: api/BusinessOrderDetails
+        //[HttpPut]
+        //public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)
+        //{
+        //    if (!_context.BusinessOrderDetails.Any(a => a.OrderId == OrderId))
+        //    {
+        //        return "沒有該筆資料";
+        //    }
 
-            BusinessOrderDetail update = new BusinessOrderDetail
-            {
-                OrderId = bodput.OrderId,
-                OptionalId = bodput.OptionalId
-            };
+        //    BusinessOrderDetail update = new BusinessOrderDetail
+        //    {
+        //        OrderId = bodput.OrderId,
+        //        OptionalId = bodput.OptionalId
+        //    };
 
-            _context.BusinessOrderDetails.Update(update);
-            _context.SaveChanges();
+        //    _context.BusinessOrderDetails.Update(update);
+        //    _context.SaveChanges();
 
-            return "orderdetail小表修改成功";
-        }
-
-
+        //    return "orderdetail小表修改成功";
+        //}
 
 
 
 
 
 
-        //網路做法，foreach
-        // PUT: api/BusinessOrderDetails/25/3
-        [HttpPut("{ordid}/{oplid}")]
-        public async Task<ActionResult<dynamic>> PutOrderDetail(int ordid, int oplid)
-        {
 
 
-            var data = _context.BusinessOrderDetails
-                .Where(od => od.OrderId == ordid);
-
-            foreach (var item in data)
-            {
-                item.OptionalId = oplid;
-                _context.BusinessOrderDetails.Update(item);
-            }
-            await _context.SaveChangesAsync();
+        ////網路做法，foreach
+        //// PUT: api/BusinessOrderDetails/25/3
+        //[HttpPut("{ordid}/{oplid}")]
+        //public async Task<ActionResult<dynamic>> PutOrderDetail(int ordid, int oplid)
+        //{
 
 
-            //if (id != businessOrderDetail.OdId)
-            //{
-            //    return BadRequest();
-            //}
+        //    var data = _context.BusinessOrderDetails
+        //        .Where(od => od.OrderId == ordid);
 
-            //_context.Entry(businessOrderDetail).State = EntityState.Modified;
+        //    foreach (var item in data)
+        //    {
+        //        item.OptionalId = oplid;
+        //        _context.BusinessOrderDetails.Update(item);
+        //    }
+        //    await _context.SaveChangesAsync();
 
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!BusinessOrderDetailExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
 
-            return data.ToList();
-        }
+        //    //if (id != businessOrderDetail.OdId)
+        //    //{
+        //    //    return BadRequest();
+        //    //}
+
+        //    //_context.Entry(businessOrderDetail).State = EntityState.Modified;
+
+        //    //try
+        //    //{
+        //    //    await _context.SaveChangesAsync();
+        //    //}
+        //    //catch (DbUpdateConcurrencyException)
+        //    //{
+        //    //    if (!BusinessOrderDetailExists(id))
+        //    //    {
+        //    //        return NotFound();
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        throw;
+        //    //    }
+        //    //}
+
+        //    return data.ToList();
+        //}
 
 
 

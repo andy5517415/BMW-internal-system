@@ -1335,13 +1335,13 @@
 
                 },
                 savephoto() {
-                    axios.get('/api/BusinessOptionals/32')
+                    axios.get('/api/BusinessOptionals/19')
                         .then(p => {
                             console.log(p);
                             this.putphoto = p.data;
                             this.putphoto.photo = this.uploadimg
                             console.log(this.putphoto.photo);
-                            axios.put('/api/BusinessOptionals/32', this.putphoto).then(p => console.log(p))
+                            axios.put('/api/BusinessOptionals/19', this.putphoto).then(p => console.log(p))
                         })
 
                 },

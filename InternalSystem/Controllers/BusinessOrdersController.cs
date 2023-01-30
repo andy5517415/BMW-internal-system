@@ -160,28 +160,28 @@ namespace InternalSystem.Controllers
 
 
 
-        //沒迴圈修改order大表
-        // PUT: api/BusinessOrders/withoutloop
-        [HttpPut("withoutloop")]
-        public string PutOrder([FromBody] BusinessOrder boput)
-        {
-            BusinessOrder update = new BusinessOrder
-            {
-                OrderId=boput.OrderId,
-                OrderNumber = boput.OrderNumber,
-                OrderDateTime = boput.OrderDateTime,
-                EditDatetime = DateTime.Now,
-                AreaId = boput.AreaId,
-                Price = boput.Price,
-                EmployeeId = 5,
-                IsAccepted = false,
-                BusinessOrderDetails = boput.BusinessOrderDetails
-            };
+        ////沒迴圈修改order大表
+        //// PUT: api/BusinessOrders/withoutloop
+        //[HttpPut("withoutloop")]
+        //public string PutOrder([FromBody] BusinessOrder boput)
+        //{
+        //    BusinessOrder update = new BusinessOrder
+        //    {
+        //        OrderId=boput.OrderId,
+        //        OrderNumber = boput.OrderNumber,
+        //        OrderDateTime = boput.OrderDateTime,
+        //        EditDatetime = DateTime.Now,
+        //        AreaId = boput.AreaId,
+        //        Price = boput.Price,
+        //        EmployeeId = 5,
+        //        IsAccepted = false,
+        //        BusinessOrderDetails = boput.BusinessOrderDetails
+        //    };
 
-            _context.BusinessOrders.Update(update);
-            _context.SaveChanges();
-            return "Order大表修改成功";
-        }
+        //    _context.BusinessOrders.Update(update);
+        //    _context.SaveChanges();
+        //    return "Order大表修改成功";
+        //}
 
 
 
