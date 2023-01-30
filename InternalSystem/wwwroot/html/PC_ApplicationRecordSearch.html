@@ -631,7 +631,8 @@
                 const app = {
                   data() {
                     return {
-                      OrderList: {},
+                        OrderList: {},
+                        departmentlist: {}
                     }
                   },
                     methods: {
@@ -639,7 +640,7 @@
                       sessionStorage.setItem("order", JSON.stringify(e));
                       },
                     okbtn: function () {
-                          //alert('OK');
+                          /*alert('OK');*/
                           if (this.search.departmentId != null && this.search.date != null) {
                               axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
                                   .then(response => {
@@ -653,7 +654,7 @@
                               axios.get('/api/PersonnelLeaveForms/employeeName/' + this.search.employeeName + '/' + this.search.date)
                                   .then(response => {
                                       this.employeelist = response.data;
-                                      if (this.employeelist.length == 0) { alert('人名查詢:查無此項') }
+                                      if (this.employeelist.length == 0) { alert('時間查詢:查無此項') }
                                   })
                                   .catch(err => { console.log(err) })
                           }
@@ -662,7 +663,10 @@
                           }
                     }
                   },
-                  mounted() {
+                    mounted() {
+                    axios.get('/api/PersonnelDepartmentLists')
+                            .then(response => this.departmentlist = response.data)
+
                     axios.get("/api/PCApplications/recordsearch")
                       .then(response => {
                         this.OrderList = response.data;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace InternalSystem.Controllers
 {
@@ -365,6 +366,54 @@ namespace InternalSystem.Controllers
                            DepartmentnName = DL.DepName,
                            Date = AP.Date.ToString("yyyy-MM-dd")
                        };
+
+            return await list.ToListAsync();
+        }
+
+        //用部門尋找 採購細項查詢
+        // GET: api/PCApplications/department/5
+        [HttpGet("department/{depId}")]
+        public async Task<ActionResult<dynamic>> GetDepartmentLeave(int depId)
+        {
+
+            var list = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       where PDL.DepartmentId == depId
+                       select new
+                       {
+                           DepName = PDL.DepName,
+                       };
+
+
+            if (list == null)
+            {
+                return NotFound();
+            }
+
+            return await list.ToListAsync();
+        }
+
+        //用日期尋找 採購細項查詢
+        // GET: api/PCApplications/department/{y}-{m}
+        [HttpGet("department/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetDateLeave(int depId)
+        {
+
+            var list = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       where PDL.DepartmentId == depId
+                       select new
+                       {
+                           DepName = PDL.DepName,
+                       };
+
+
+            if (list == null)
+            {
+                return NotFound();
+            }
 
             return await list.ToListAsync();
         }
