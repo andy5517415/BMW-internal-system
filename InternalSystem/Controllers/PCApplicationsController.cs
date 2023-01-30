@@ -350,7 +350,24 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
+        //採購清單查詢用
+        //GET: api/PCApplications/department
+        [HttpGet("department/{depId}")]
+        public async Task<ActionResult<dynamic>> GetDepartment(int depid)
+        {
+            var list = from PD in this._context.PersonnelProfileDetails
+                       join DL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals DL.DepartmentId
+                       join AP in this._context.PcApplications on PD.EmployeeId equals AP.EmployeeId
+                       where DL.DepartmentId == depid
+                       select new
+                       {
+                           DepartmentId = DL.DepartmentId,
+                           DepartmentnName = DL.DepName,
+                           Date = AP.Date.ToString("yyyy-MM-dd")
+                       };
 
+            return await list.ToListAsync();
+        }
 
         // GET: api/PCApplications/5
         [HttpGet("{id}")]
