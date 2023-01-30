@@ -277,6 +277,7 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       orderby AP.Date
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
