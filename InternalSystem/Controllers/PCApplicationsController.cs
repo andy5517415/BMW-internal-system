@@ -397,16 +397,17 @@ namespace InternalSystem.Controllers
         //用日期尋找 採購細項查詢
         // GET: api/PCApplications/department/{y}-{m}
         [HttpGet("department/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetDateLeave(int depId)
+        public async Task<ActionResult<dynamic>> GetDateLeave(int y, int m)
         {
 
             var list = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       where PDL.DepartmentId == depId
+                       where AP.Date.Year == y && AP.Date.Month == m
                        select new
                        {
-                           DepName = PDL.DepName,
+                           Year = AP.Date.Year,
+                           Month = AP.Date.Month,
                        };
 
 
