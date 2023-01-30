@@ -515,7 +515,7 @@
                                   <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>查詢表</a>
                               </li>
                           </ul>
-                          <div class="card mb-4 m-4 mx-4">
+                          <div class="card mb-4 m-4 mx-4" id="app">
                               <!-- 員工名稱 -->
                               <div class="card-body">
                                   <!-- 部門選擇 -->
@@ -523,9 +523,10 @@
                                       <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                       <select id="department" class="select1 form-select">
                                           <option value="">選擇部門</option>
-                                          <option value="Australia">生產部</option>
-                                          <option value="Bangladesh">業務部</option>
-                                          <option value="Belarus">人資部</option>
+                                          <option value="A">生產部</option>
+                                          <option value="B">業務部</option>
+                                          <option value="C">人資部</option>
+                                          <option value="D">採購部</option>
                                       </select>
                                   </div>
 
@@ -551,7 +552,6 @@
                                       <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                   </div>
                               </div>
-                          </div>
                                   <!-- 採購清單 -->
                                   <div class="card" id="app">
                                       <h5 class="card-header">採購項目</h5>
@@ -609,6 +609,7 @@
                                           </div>
                                       </div>
                                   </div>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -633,9 +634,32 @@
                       OrderList: {},
                     }
                   },
-                  methods: {
+                    methods: {
                     Enter: function (e) {
                       sessionStorage.setItem("order", JSON.stringify(e));
+                      },
+                    okbtn: function () {
+                          //alert('OK');
+                          if (this.search.departmentId != null && this.search.date != null) {
+                              axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
+                                  .then(response => {
+                                      this.employeelist = response.data;
+                                      if (this.employeelist.length == 0) { alert('部門查詢:查無此項') }
+                                  })
+                                  .catch(err => { console.log(err) })
+
+                          }
+                          else if (this.search.employeeName != null && this.search.date != null) {
+                              axios.get('/api/PersonnelLeaveForms/employeeName/' + this.search.employeeName + '/' + this.search.date)
+                                  .then(response => {
+                                      this.employeelist = response.data;
+                                      if (this.employeelist.length == 0) { alert('人名查詢:查無此項') }
+                                  })
+                                  .catch(err => { console.log(err) })
+                          }
+                          else {
+                              alert('查無資料')
+                          }
                     }
                   },
                   mounted() {
