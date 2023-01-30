@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 using System.Timers;
+using System;
 
 namespace InternalSystem.Controllers
 {
@@ -22,14 +23,19 @@ namespace InternalSystem.Controllers
         //報工內容清單
         //GET: api/ProductionContexts/ContextsList
         [HttpGet("ContextsList")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetContextsList()
+        public async Task<ActionResult<dynamic>> GetContextsList(string empNumber , string empName , string starDate  )
         {
+            //TimeSpan TS = Convert.ToDateTime(productionContext.Date).Subtract(Convert.ToDateTime(starDate));
+            //double dd = TS.TotalDays;
+            //TimeSpan ES = Convert.ToDateTime(endDate).Subtract(Convert.ToDateTime(productionContext.Date));
+            //double ff = ES.TotalDays;
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
                         join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
                         join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
                         join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
                         orderby PC.Date descending
+                        //where dd >= 0 && ff <=0
                         select new
                         {
                             EmployeeId = PC.EmployeeId,
@@ -40,6 +46,21 @@ namespace InternalSystem.Controllers
                             PD.DepName,
                             BO.OrderNumber
                         };
+           
+            if (!string.IsNullOrEmpty(empNumber))
+            {
+                query = query.Where(a => a.EmployeeNumber.Contains(empNumber));
+            }
+            if (!string.IsNullOrEmpty(empName))
+            {
+                query = query.Where(a => a.EmployeeName.Contains(empName));
+            }
+            if (!string.IsNullOrEmpty(starDate))
+            {
+                query = query.Where(a => a.Date.Contains(starDate));
+            }
+            
+
 
 
 
