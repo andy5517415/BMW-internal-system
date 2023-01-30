@@ -546,7 +546,7 @@ namespace InternalSystem.Controllers
                 EmployeeNumber = personnelProfileDetail.EmployeeNumber,
                 Acount = personnelProfileDetail.Acount,
                 Password = personnelProfileDetail.Password,
-                DutyStatus = personnelProfileDetail.DutyStatus,
+                DutyStatus = true,
                 EntryDate = personnelProfileDetail.EntryDate,
                 Terminationdate = personnelProfileDetail.Terminationdate,
                 Photo = personnelProfileDetail.Photo,

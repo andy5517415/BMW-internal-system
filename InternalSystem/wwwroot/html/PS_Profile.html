@@ -512,33 +512,33 @@
                                     <div class="card-body">
                                       <p class="fs-2 mb-5 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工照片</p>
 
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4 mx-5">
-                                            <img :src="employeelist.photo"
-                                                 alt="user-avatar"
-                                                 class="d-block rounded"
-                                                 height="100"
-                                                 width="100"
-                                                 id="uploadedAvatar" 
-                                                 />
-                                            <div class="button-wrapper">
-                                                <button for="upload" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 mb-4 border-3" tabindex="0">
-                                                    <span class="d-none d-sm-block">上傳大頭照</span>
-                                                    <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file"
-                                                           id="upload"
-                                                           class="account-file-input"
-                                                           hidden
-                                                           accept="image/png, image/jpeg"
-                                                           />
-                                                </button>
-                                                <button type="button" class="border-3 btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4 fs-4 fw-bold">
-                                                    <i class="bx bx-reset d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Reset</span>
-                                                </button>
+                                      <div class="d-flex align-items-start align-items-sm-center gap-4 mx-5">
+                                          <img :src="employeelist.photo"
+                                               alt="user-avatar"
+                                               class="d-block rounded"
+                                               height="100"
+                                               width="100"
+                                               id="uploadedAvatar" />
+                                          <div class="button-wrapper">
+                                              <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                  <span class="d-none d-sm-block">上傳大頭照</span>
+                                                  <i class="bx bx-upload d-block d-sm-none"></i>
+                                                  <input type="file"
+                                                         id="upload"
+                                                         class="account-file-input"
+                                                         hidden
+                                                         accept="image/png, image/jpeg"
+                                                         @change="uploadphoto" />
+                                              </label>
 
-                                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                                            </div>
-                                        </div>
+                                              <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                                  <i class="bx bx-reset d-block d-sm-none"></i>
+                                                  <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                              </button>
+
+                                              <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                          </div>
+                                      </div>
                                     </div>
                                     <hr class="my-0 col-11 mx-auto" />
                                     <!-- 員工名稱 -->
@@ -842,7 +842,21 @@
                 //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
                 //            .then(response => this.employeelist = response.data)
                 //            .catch(alert('查無此項')))
-              }
+                },
+                uploadphoto(event) {
+                    console.log('ok')
+                    if (event.target.files && event.target.files[0]) {
+                        var file = event.target.files[0];
+                        var reader = new FileReader();
+                        let urlimage;
+                        reader.onload = (event) => {
+                            document.querySelector('#upload').src = event.target.result;
+                            this.employeelist.photo = event.target.result;
+                            console.log(this.employeelist.photo);
+                        };
+                        reader.readAsDataURL(file)
+                    }
+                }
 
             },
             mounted() {
