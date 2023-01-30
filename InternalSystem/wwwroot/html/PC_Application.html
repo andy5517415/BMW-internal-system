@@ -563,7 +563,7 @@
                                                                id="firstName"
                                                                name="firstName"
                                                                readonly
-                                                               v-model="item.employeeName"
+                                                               v-model="employeedata.Name"
                                                                autofocus />
                                                     </div>
                                                     <!-- 部門選擇 -->
@@ -632,7 +632,6 @@
                                                                                 <!-- 物品名稱 -->
                                                                                 <td>
                                                                                     {{b.goods}}
-                                                                                    <input type="text" class="form-control fs-5" id="inputunit123" placeholder="請輸入數量">
                                                                                 </td>
                                                                                 <!-- 物品數量 -->
                                                                                 <td>
@@ -785,8 +784,8 @@
 
                                     for (var i = 0; i < this.product.length; i++) {
                                         this.PcOrderDetails[i] = this.product[i];
-                                        //this.PcOrderDetails[i].quantiy = 0;
-                                        //this.PcOrderDetails[i].subtotal = 0;
+                                        this.PcOrderDetails[i].quantiy = 0;
+                                        this.PcOrderDetails[i].subtotal = 0;
                                         this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
                                         this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
 
