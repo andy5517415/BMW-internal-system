@@ -157,6 +157,46 @@ namespace InternalSystem.Controllers
             return await personnelLeaveForm.ToListAsync();
         }
 
+        //複合查詢(部門  員工名稱) 人事部查詢
+        // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
+        [HttpGet("Complex/{name}/{depId}/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int depId, int y, int m)
+        {
+            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+                                     join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     where o.EmployeeName == name && pl.StartDate.Month == m && pl.StartDate.Year == y
+                                     && o.DepartmentId == depId
+                                     select new
+                                     {
+                                         EmployeeName = o.EmployeeName,
+                                         EmployeeNumber = o.EmployeeNumber,
+                                         EmployeeId = pl.EmployeeId,
+                                         DepName = d.DepName,
+                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+                                         StartTime = pl.StartTime,
+                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         EndTime = pl.EndTime,
+                                         pl.TotalTime,
+                                         LeaveId = pl.LeaveId,
+                                         LeaveType = pl.LeaveType,
+                                         StatusId = pl.StatusId,
+                                         AuditStatus = l.AuditStatus,
+                                         Proxy = pl.Proxy,
+                                         auditManerger = pl.AuditManerger,
+                                         Reason = pl.Reason,
+                                         pl.ApplicationDate
+                                     };
+
+            if (personnelLeaveForm == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveForm.ToListAsync();
+        }
+
         //GET被指定代理人之申請
         // GET: api/PersonnelLeaveForms/5
         [HttpGet("proxyAudit/{depId}/{position}/{id}")]

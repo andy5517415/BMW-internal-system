@@ -134,7 +134,7 @@ namespace InternalSystem.Controllers
 
 
         //用部門尋找加班資料
-        // GET: api/PersonnelOvertimeForms 
+        // GET: api/PersonnelOvertimeForms/DepOvertime/1/2023-01
         [HttpGet("DepOvertime/{dep}/{y}-{m}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelDepOvertime(int dep, int y, int m)
         {
@@ -172,6 +172,49 @@ namespace InternalSystem.Controllers
 
             return await overlist.ToListAsync();
         }
+
+        //複合查詢尋找加班資料
+        // GET: api/PersonnelOvertimeForms/Complex/1/name
+        [HttpGet("Complex/{dep}/{name}/{y}-{m}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelComplexOvertime(int dep, string name , int y, int m)
+        {
+
+            var overlist = from ov in _context.PersonnelOvertimeForms
+                           join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
+                           join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                           join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
+                           join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
+                           where p.DepartmentId == dep && ov.StartDate.Year == y && ov.StartDate.Month == m
+                           && p.EmployeeName == name
+                           select new
+                           {
+                               ov.StartWorkId,
+                               ov.EmployeeId,
+                               EmployeeName = p.EmployeeName,
+                               EmployeeNumber = p.EmployeeNumber,
+                               DepName = d.DepName,
+                               StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                               ov.StartTime,
+                               EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                               ov.EndTime,
+                               ov.TotalTime,
+                               ov.AuditStatus,
+                               ov.AreaId,
+                               ov.PropessId,
+                               pda.AreaName,
+                               pdp.ProcessName,
+                               ApplicationDate = ov.ApplicationDate.ToString()
+
+                           };
+            if (overlist == null)
+            {
+                return NotFound();
+            }
+
+            return await overlist.ToListAsync();
+        }
+
+
         //員工自身ID找尋還未被主管檢閱之資料
         // GET: api/PersonnelOvertimeForms/NotyetAudit/{id}
         [HttpGet("NotyetAudit/{id}")]

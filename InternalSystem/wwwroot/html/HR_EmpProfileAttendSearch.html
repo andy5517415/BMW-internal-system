@@ -635,12 +635,22 @@
                 },
                 methods: {
                     search: function () {
-                        if (this.employeedata.depId != null && this.employeedata.date != null) {
+
+                        if (this.employeedata.depId != null && this.employeedata.date != null && this.employeedata.empName != null && this.employeedata.empNumber != null) {
+                            axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.depId + '/'
+                                + this.employeedata.empName + '/' + this.employeedata.empNumber + '/' + this.employeedata.date)
+                                .then(response => {
+                                    this.attendencelist = response.data;
+                                    console.log(this.attendencelist)
+                                    if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
+                                }).catch(err => { console.log(err); alert('查無此項') })
+                        }
+                        else if (this.employeedata.depId != null && this.employeedata.date != null) {
                             axios.get('/api/PersonnelAttendanceTimes/dep/' + this.employeedata.depId + '/' + this.employeedata.date)
                                 .then(response => {
                                     this.attendencelist = response.data;
                                     console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('查無此項') }
+                                    if (this.attendencelist.length == 0) { alert('部門查詢:查無此項') }
                                 }).catch(err => { console.log(err); alert('查無此項') })
                         }
                         else if (this.employeedata.empName != null && this.employeedata.date != null) {
@@ -648,7 +658,7 @@
                                 .then(response => {
                                     this.attendencelist = response.data;
                                     console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('查無此項') }
+                                    if (this.attendencelist.length == 0) { alert('員工查詢:查無此項') }
 
                                 }).catch(err => { console.log(err); alert('查無此項') })
                         }
@@ -657,7 +667,7 @@
                                 .then(response => {
                                     this.attendencelist = response.data;
                                     console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('查無此項') }
+                                    if (this.attendencelist.length == 0) { alert('工號查詢:查無此項') }
 
                                 }).catch(response => { console.log(response); alert('查無此項') })
                         }
