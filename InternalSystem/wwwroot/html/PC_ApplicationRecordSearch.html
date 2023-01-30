@@ -600,7 +600,7 @@
                                                               </td>
                                                               <!-- 配送狀態 -->
                                                               <td>
-                                                                  <span class={{item.color}}>{{item.totalapp}}</span>
+                                                                  <span :class="item.color">{{item.totalapp}}</span>
                                                               </td>
                                                           </tr>
                                                       </template>
@@ -697,7 +697,7 @@
                           ////}
                           if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
                               this.OrderList[i].totalapp = "驗收中"
-                              this.OrderList[i].color = "badge bg-light text-dark";
+                              this.OrderList[i].color = "badge bg-info text-dark";
                           }
                           if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
                               this.OrderList[i].totalapp = "驗收完成"
