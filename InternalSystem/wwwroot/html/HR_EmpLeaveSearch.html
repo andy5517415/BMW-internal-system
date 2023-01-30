@@ -621,7 +621,17 @@
             methods: {
                 okbtn: function () {
                     //alert('OK');
-                    if (this.search.departmentId != null && this.search.date != null) {
+                    if (this.search.departmentId != null && this.search.employeeName != null && this.search.date != null) {
+                        axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.employeeName + '/' + this.search.departmentId + '/' + this.search.date)
+                            .then(response => {
+                                this.employeelist = response.data;
+                                if (this.employeelist.length == 0) { alert('複合查詢:查無此項') }
+                            })
+                            .catch(err => { console.log(err) })
+
+                    }
+
+                    else if (this.search.departmentId != null && this.search.date != null) {
                         axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
                             .then(response => {
                                 this.employeelist = response.data;

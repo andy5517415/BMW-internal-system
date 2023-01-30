@@ -140,7 +140,30 @@ namespace InternalSystem.Controllers
             return await personnelAttendanceTime.ToListAsync();
         }
 
+        //複合查詢
+        // GET: api/PersonnelAttendanceTimes/Complex/5/name/2023001
+        [HttpGet("Complex/{dep}/{name}/{number}/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetAttendanceTimeComplex(int dep,string name , string number, int y, int m)
+        {
+            var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
+                                          join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
+                                          where pd.DepartmentId == dep && pa.Date.Year == y && pa.Date.Month == m
+                                          && pd.EmployeeName == name && pd.EmployeeNumber == number
+                                          select new
+                                          {
+                                              Date = pa.Date.ToString(),
+                                              pa.AttendTime,
+                                              pd.EmployeeName,
+                                              pd.EmployeeNumber
+                                          };
 
+            if (personnelAttendanceTime == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelAttendanceTime.ToListAsync();
+        }
         // PUT: api/PersonnelAttendanceTimes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

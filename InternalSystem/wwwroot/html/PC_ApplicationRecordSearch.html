@@ -515,7 +515,7 @@
                                   <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>查詢表</a>
                               </li>
                           </ul>
-                          <div class="card mb-4 m-4 mx-4">
+                          <div class="card mb-4 m-4 mx-4" id="app">
                               <!-- 員工名稱 -->
                               <div class="card-body">
                                   <!-- 部門選擇 -->
@@ -523,9 +523,10 @@
                                       <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
                                       <select id="department" class="select1 form-select">
                                           <option value="">選擇部門</option>
-                                          <option value="Australia">生產部</option>
-                                          <option value="Bangladesh">業務部</option>
-                                          <option value="Belarus">人資部</option>
+                                          <option value="A">生產部</option>
+                                          <option value="B">業務部</option>
+                                          <option value="C">人資部</option>
+                                          <option value="D">採購部</option>
                                       </select>
                                   </div>
 
@@ -545,8 +546,12 @@
                                           </div>
                                       </div>
                                   </div>
+                                  <!-- 按鈕 -->
+                                  <div class="mt-2  d-md-flex justify-content-md-end">
+                                      <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
+                                      <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                  </div>
                               </div>
-                          </div>
                                   <!-- 採購清單 -->
                                   <div class="card" id="app">
                                       <h5 class="card-header">採購項目</h5>
@@ -595,7 +600,7 @@
                                                               </td>
                                                               <!-- 配送狀態 -->
                                                               <td>
-                                                                  <span class="badge badge bg-success me-1">{{item.totalapp}}</span>
+                                                                  <span :class="item.color">{{item.totalapp}}</span>
                                                               </td>
                                                           </tr>
                                                       </template>
@@ -604,6 +609,7 @@
                                           </div>
                                       </div>
                                   </div>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -625,43 +631,77 @@
                 const app = {
                   data() {
                     return {
-                      OrderList: {},
+                        OrderList: {},
+                        departmentlist: {}
                     }
                   },
-                  methods: {
+                    methods: {
                     Enter: function (e) {
                       sessionStorage.setItem("order", JSON.stringify(e));
+                      },
+                    okbtn: function () {
+                          /*alert('OK');*/
+                          if (this.search.departmentId != null && this.search.date != null) {
+                              axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
+                                  .then(response => {
+                                      this.employeelist = response.data;
+                                      if (this.employeelist.length == 0) { alert('部門查詢:查無此項') }
+                                  })
+                                  .catch(err => { console.log(err) })
+
+                          }
+                          else if (this.search.employeeName != null && this.search.date != null) {
+                              axios.get('/api/PersonnelLeaveForms/employeeName/' + this.search.employeeName + '/' + this.search.date)
+                                  .then(response => {
+                                      this.employeelist = response.data;
+                                      if (this.employeelist.length == 0) { alert('時間查詢:查無此項') }
+                                  })
+                                  .catch(err => { console.log(err) })
+                          }
+                          else {
+                              alert('查無資料')
+                          }
                     }
                   },
-                  mounted() {
+                    mounted() {
+                    axios.get('/api/PersonnelDepartmentLists')
+                            .then(response => this.departmentlist = response.data)
+
                     axios.get("/api/PCApplications/recordsearch")
                       .then(response => {
                         this.OrderList = response.data;
                         for (var i = 0; i < this.OrderList.length; i++) {
                           if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "審核中";
+                              this.OrderList[i].totalapp = "審核中";
+                              this.OrderList[i].color = "badge bg-primary";
+                              
                           }
                           //console.log(this.OrderList[i].totalapp);
                           if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == true && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "駁回申請";
+                              this.OrderList[i].totalapp = "駁回申請";
+                              this.OrderList[i].color = "badge bg-danger";
                           }
                           //if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
                           //    this.OrderList[i].applicationStatus = "審核完成"
                           //}
                           if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "配送中"
+                              this.OrderList[i].totalapp = "配送中"
+                              this.OrderList[i].color = "badge bg-warning text-dark";
                           }
                           if (this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == true) {
-                            this.OrderList[i].totalapp = "已退貨"
+                              this.OrderList[i].totalapp = "已退貨"
+                              this.OrderList[i].color = "badge bg-danger";
                           }
                           ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
                           ////    this.OrderList[i].deliveryStatus = "配送完成"
                           ////}
                           if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "驗收中"
+                              this.OrderList[i].totalapp = "驗收中"
+                              this.OrderList[i].color = "badge bg-info text-dark";
                           }
                           if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "驗收完成"
+                              this.OrderList[i].totalapp = "驗收完成"
+                              this.OrderList[i].color = "badge bg-success";
                           }
                           //if (this.OrderList[i].applicationStatus == false && deliveryStatus == false && acceptanceStatus == false) {
                           //    this.OrderList[i].applicationStatus = "審核中"

@@ -402,6 +402,56 @@ namespace InternalSystem.Controllers
         }
 
 
+        //人事部門尋找員工資料修改(複合查詢)
+        //api/PersonnelProfileDetails/Complex/2023001
+        [HttpGet("Complex/{number}/{name}")]
+        public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetailComplex(string number ,string name)
+        {
+
+            var SearchProfileDetail = from o in _context.PersonnelProfileDetails
+                                      where o.EmployeeNumber == number && o.EmployeeName == name
+                                      join c in _context.PersonnelCityLists on o.CityId equals c.CityId
+                                      join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
+                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                      join r in _context.PersonnelRanks on o.RankId equals r.RankId
+                                      select new
+                                      {
+                                          EmployeeId = o.EmployeeId,
+                                          EmployeeName = o.EmployeeName,
+                                          Sex = o.Sex,
+                                          IsMarried = o.IsMarried,
+                                          IdentiyId = o.IdentiyId,
+                                          CityId = o.CityId,
+                                          PositionId = o.PositionId,
+                                          DepartmentId = o.DepartmentId,
+                                          RankId = o.RankId,
+                                          EmployeeNumber = o.EmployeeNumber,
+                                          HomePhone = o.HomePhone,
+                                          Email = o.Email,
+                                          Birthday = o.Birthday.ToString(),
+                                          PhoneNumber = o.PhoneNumber,
+                                          o.Photo,
+                                          Address = o.Address,
+                                          DutyStatus = o.DutyStatus,
+                                          Country = o.Country,
+                                          EmergencyNumber = o.EmergencyNumber,
+                                          EmergencyPerson = o.EmergencyPerson,
+                                          EmergencyRelation = o.EmergencyRelation,
+                                          EntryDate = o.EntryDate.ToString(),
+                                          Acount = o.Acount,
+                                          Password = o.Password,
+                                          Terminationdate = o.Terminationdate.ToString()
+
+                                      };
+
+            if (SearchProfileDetail == null)
+            {
+                return NotFound();
+            }
+
+            return await SearchProfileDetail.FirstOrDefaultAsync();
+        }
+
         //api/PersonnelProfileDetails/na/5
         [HttpPut("na/{id}")]
         public async Task<IActionResult> PutPersonnelEditProfile(int id, PersonnelProfileDetail SearchNameProfileDetail)
@@ -496,7 +546,7 @@ namespace InternalSystem.Controllers
                 EmployeeNumber = personnelProfileDetail.EmployeeNumber,
                 Acount = personnelProfileDetail.Acount,
                 Password = personnelProfileDetail.Password,
-                DutyStatus = personnelProfileDetail.DutyStatus,
+                DutyStatus = true,
                 EntryDate = personnelProfileDetail.EntryDate,
                 Terminationdate = personnelProfileDetail.Terminationdate,
                 Photo = personnelProfileDetail.Photo,

@@ -765,10 +765,10 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
-                                                v-model="carmediaone.optionalId">
+                                                v-model="carmediaone">
                                             <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
-                                                    :value="one.optionalId">
+                                                    :value="one">
                                                 {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
@@ -955,7 +955,7 @@
 
                     orderput: {},
                     orderdetail: [],
-                    //orderdetailput: {},
+                    orderdetailput: {},
 
                     orderdetailold: '',
                     odId: '',
@@ -968,14 +968,14 @@
             computed: {
                 cnt() {
                     return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
-                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
-                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
-                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
-                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
-                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
-                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
-                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
-                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                           parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                           parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                           parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
+                           parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
+                           parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
+                           parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                           parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                           parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
                         ;
                 },
                 charcnt() {
@@ -1020,39 +1020,40 @@
                         //console.log('btnedit');
                         let dt = new Date();
                         //組裝Order資料表
-                        this.orderput.OrderId = this.orderid;
-                        this.orderput.orderNumber = this.ordenum;
-                        this.orderput.AreaId = this.agentone.areaId;
-                        this.orderput.Price = this.cnt;
-                        this.orderput.EmployeeId = 5;
-                        this.orderput.IsAccepted = false;
-                        //this.orderput = {
-                        //    "OrderId": this.orderid,
-                        //    "OrderNumber": this.ordernum,
-                        //    "OrderDatetime": this.orderdatetime,
-                        //    "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                        //    "AreaId": this.agentone.areaId,
-                        //    "Price": this.cnt,
-                        //    "EmployeeId": Math.floor(Math.random() * 10) + 1,
-                        //    "IsAccepted": false
-                        //};
+                        //this.orderput.OrderId = this.orderid;
+                        //this.orderput.orderNumber = this.ordernum;
+                        //this.orderput.OrderDatetime=this.orderdatetime,
+                        //this.orderput.AreaId = this.agentone.areaId;
+                        //this.orderput.Price = this.cnt;
+                        //this.orderput.EmployeeId = 5;
+                        //this.orderput.IsAccepted = false;
+                        this.orderput = {
+                            "OrderId": this.orderid,
+                            "OrderNumber": this.ordernum,
+                            "OrderDatetime": this.orderdatetime,
+                            "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                            "AreaId": this.agentone.areaId,
+                            "Price": this.cnt,
+                            "EmployeeId": 5,
+                            "IsAccepted": false
+                        };
                         console.log(this.orderput);
 
                         //將新的選配放入陣列儲存
                         this.orderdetail = [];
-                        this.orderdetail.push(this.cartypeone.optionalId);
-                        this.orderdetail.push(this.carcolorone.optionalId);
-                        this.orderdetail.push(this.cartextureone.optionalId);
-                        this.orderdetail.push(this.carwheelone.optionalId);
-                        this.orderdetail.push(this.carplaqueone.optionalId);
-                        this.orderdetail.push(this.carlightone.optionalId);
-                        this.orderdetail.push(this.carsaddleone.optionalId);
-                        this.orderdetail.push(this.carsunroofone.optionalId);
-                        this.orderdetail.push(this.carmediaone.optionalId);
-                        //console.log(this.orderdetail);
+                        this.orderdetail.push(this.cartypeone    .optionalId);
+                        this.orderdetail.push(this.carcolorone   .optionalId);
+                        this.orderdetail.push(this.cartextureone .optionalId);
+                        this.orderdetail.push(this.carwheelone   .optionalId);
+                        this.orderdetail.push(this.carplaqueone  .optionalId);
+                        this.orderdetail.push(this.carlightone   .optionalId);
+                        this.orderdetail.push(this.carsaddleone  .optionalId);
+                        this.orderdetail.push(this.carsunroofone .optionalId);
+                        this.orderdetail.push(this.carmediaone   .optionalId);
+                        console.log(this.orderdetail);
 
                         //修改Order資料表
-                        axios.put('/api/BusinessOrders/withoutloop', this.orderput)
+                        axios.put('/api/BusinessOrders/withoutloop' , this.orderput)
                             .then(p => {
                                 //console.log(p);
                                 console.log('this.orderid = ' + this.orderid);

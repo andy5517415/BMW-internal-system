@@ -713,7 +713,13 @@
                                 employeedata: {},
                                 autopurchaseid: "",
                                 goodslist: {},
-                                PcOrderDetails: []
+                                PcOrderDetails: [],
+                                presetapplicationstatus: false,
+                                presetapplicationrejectstatus: false,
+                                presetdeliverystatus: false,
+                                presetdeliveryrejectstatus: false,
+                                presetacceptancestatus: false,
+                                presetacceptancerejectstatus: false
                             }
                         },
                         computed: {
@@ -727,10 +733,6 @@
                             }
                         },
                         methods: {
-                            //confirmbtn: function () {
-                            //    this.orderid = Date.now().toString().substring(0, 10);
-                            //    console.log(this.orderid);
-                            //},
                             createbtn: function () {
                                 //單純本表新增
                                 axios.post("https://localhost:44319/api/PCApplications/", this.item)
@@ -773,9 +775,17 @@
                             axios.get('/api/PCApplications/applicationlist/' + this.employeedata.EmpID)
                                 .then(response => {
                                     this.item = response.data;
+                                    //預設物品編號
                                     this.autopurchaseid = Date.now().toString().substring(0, 10) + this.employeedata;
                                     this.item.purchaseId = parseInt(this.autopurchaseid);
                                     //console.log(this.item.purchaseId);
+                                    //預設物品審核狀態
+                                    this.item.applicationStatus = this.presetapplicationstatus;
+                                    this.item.applicationRejectStatus = this.presetapplicationrejectstatus;
+                                    this.item.deliveryStatus = this.presetdeliverystatus;
+                                    this.item.deliveryRejectStatus = this.presetdeliveryrejectstatus;
+                                    this.item.acceptanceStatus = this.presetacceptancestatus;
+                                    this.item.acceptanceRejectStatus = this.presetacceptancerejectstatus;
                                 })
                             axios.get('/api/PCApplications/goods')
                                 .then(response => {

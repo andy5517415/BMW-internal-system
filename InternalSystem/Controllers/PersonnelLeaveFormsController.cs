@@ -55,6 +55,7 @@ namespace InternalSystem.Controllers
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
+                                         lt.Type,
                                          AuditStatus = l.AuditStatus,
                                          ProxyAuditDate =  pl.ProxyAuditDate.ToString(),
                                          pl.ProxyAudit,
@@ -83,6 +84,7 @@ namespace InternalSystem.Controllers
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      where o.EmployeeName == name && pl.StartDate.Month == m && pl.StartDate.Year == y
                                      select new
                                      {
@@ -95,6 +97,7 @@ namespace InternalSystem.Controllers
                                          EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
                                          EndTime = pl.EndTime,
                                          pl.TotalTime,
+                                         lt.Type,
                                          LeaveId = pl.LeaveId,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
@@ -125,6 +128,7 @@ namespace InternalSystem.Controllers
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      where o.DepartmentId == depId && pl.StartDate.Month == m && pl.StartDate.Year == y
                                      select new
                                      {
@@ -138,6 +142,7 @@ namespace InternalSystem.Controllers
                                          EndTime = pl.EndTime,
                                          pl.TotalTime,
                                          LeaveId = pl.LeaveId,
+                                         lt.Type,
                                          LeaveType = pl.LeaveType,
                                          StatusId = pl.StatusId,
                                          AuditStatus = l.AuditStatus,
@@ -147,6 +152,48 @@ namespace InternalSystem.Controllers
                                          pl.ApplicationDate
 
 
+                                     };
+
+            if (personnelLeaveForm == null)
+            {
+                return NotFound();
+            }
+
+            return await personnelLeaveForm.ToListAsync();
+        }
+
+        //複合查詢(部門  員工名稱) 人事部查詢
+        // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
+        [HttpGet("Complex/{name}/{depId}/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int depId, int y, int m)
+        {
+            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
+                                     join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     where o.EmployeeName == name && pl.StartDate.Month == m && pl.StartDate.Year == y
+                                     && o.DepartmentId == depId
+                                     select new
+                                     {
+                                         EmployeeName = o.EmployeeName,
+                                         EmployeeNumber = o.EmployeeNumber,
+                                         EmployeeId = pl.EmployeeId,
+                                         DepName = d.DepName,
+                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+                                         StartTime = pl.StartTime,
+                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         EndTime = pl.EndTime,
+                                         pl.TotalTime,
+                                         LeaveId = pl.LeaveId,
+                                         lt.Type,
+                                         LeaveType = pl.LeaveType,
+                                         StatusId = pl.StatusId,
+                                         AuditStatus = l.AuditStatus,
+                                         Proxy = pl.Proxy,
+                                         auditManerger = pl.AuditManerger,
+                                         Reason = pl.Reason,
+                                         pl.ApplicationDate
                                      };
 
             if (personnelLeaveForm == null)
@@ -484,8 +531,9 @@ namespace InternalSystem.Controllers
             var update = (from a in _context.PersonnelLeaveForms
                           where a.LeaveId == personnelLeaveForm.LeaveId
                           select a).SingleOrDefault();
-
-            if (update != null && leave != null && update.StatusId == 2)
+            if (personnelLeaveForm.LeaveType <= 4) { 
+            
+                if (update != null && leave != null && update.StatusId == 2)
             {
                 update.StatusId = 4;
                 update.ManagerAudit = true;
@@ -499,6 +547,23 @@ namespace InternalSystem.Controllers
             else
             {
                 return Content("假表狀態異常，請聯絡人事修改重新送出");
+            }
+            }
+            else
+            {
+                if (update != null &&  update.StatusId == 2)
+                {
+                    update.StatusId = 4;
+                    update.ManagerAudit = true;
+                    update.ManagerAuditDate = managerdate;
+                    update.AuditOpnion = personnelLeaveForm.AuditOpnion;
+                    _context.SaveChanges();
+                    return Content("已送出同意");
+                }
+                else
+                {
+                    return Content("假表狀態異常，請聯絡人事修改重新送出");
+                }
             }
         }
 
@@ -587,8 +652,36 @@ namespace InternalSystem.Controllers
             {
                 return Content("請假時段錯誤!");
             }
-            if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+
+            if (personnelLeaveForm.LeaveType <= 4)
             {
+
+                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                {
+                    if (update != null)
+                    {
+                        update.ApplicationDate = application;
+                        update.StatusId = 1;
+                        update.LeaveType = personnelLeaveForm.LeaveType;
+                        update.StartDate = personnelLeaveForm.StartDate;
+                        update.EndDate = personnelLeaveForm.EndDate;
+                        update.StartTime = personnelLeaveForm.StartTime;
+                        update.EndTime = personnelLeaveForm.EndTime;
+                        update.Proxy = personnelLeaveForm.Proxy;
+                        update.AuditManerger = personnelLeaveForm.AuditManerger;
+                        update.TotalTime = personnelLeaveForm.TotalTime;
+                        update.Reason = personnelLeaveForm.Reason;
+                        _context.SaveChanges();
+                    }
+                    return Content("已重新提交申請");
+                }
+                else
+                {
+                    return Content("請假時數不足");
+                }
+
+            }
+            else {
                 if (update != null)
                 {
                     update.ApplicationDate = application;
@@ -604,11 +697,7 @@ namespace InternalSystem.Controllers
                     update.Reason = personnelLeaveForm.Reason;
                     _context.SaveChanges();
                 }
-                    return Content("已重新提交申請");
-            }
-            else
-            {
-                return Content("請假時數不足");
+                return Content("已重新提交申請");
             }
 
 
@@ -677,9 +766,40 @@ namespace InternalSystem.Controllers
             }
 
 
+
             if (update.StatusId < 5)
             {
-                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                if (personnelLeaveForm.LeaveType <= 4)
+                {
+
+                    if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                    {
+                        if (update != null)
+                        {
+                            update.ApplicationDate = personnelLeaveForm.ApplicationDate;
+                            update.StatusId = 1;
+                            update.LeaveType = personnelLeaveForm.LeaveType;
+                            update.StartDate = personnelLeaveForm.StartDate;
+                            update.EndDate = personnelLeaveForm.EndDate;
+                            update.StartTime = personnelLeaveForm.StartTime;
+                            update.EndTime = personnelLeaveForm.EndTime;
+                            update.Proxy = personnelLeaveForm.Proxy;
+                            update.AuditManerger = personnelLeaveForm.AuditManerger;
+                            update.TotalTime = personnelLeaveForm.TotalTime;
+                            update.ManagerAudit = null;
+                            update.ProxyAudit = null;
+                            update.ManagerAuditDate = null;
+                            update.ProxyAuditDate = null;
+                            _context.SaveChanges();
+                        }
+                        return Content("修改成功");
+                    }
+                    else
+                    {
+                        return Content("剩餘時數不足");
+                    }
+                }
+                else
                 {
                     if (update != null)
                     {
@@ -698,12 +818,12 @@ namespace InternalSystem.Controllers
                         update.ManagerAuditDate = null;
                         update.ProxyAuditDate = null;
                         _context.SaveChanges();
+                        return Content("修改成功");
                     }
-                    return Content("修改成功");
-                }
-                else
-                {
-                    return Content("剩餘時數不足");
+                     else
+                    {
+                        return Content("伺服器錯誤");
+                    }
                 }
             }
             else
@@ -806,9 +926,36 @@ namespace InternalSystem.Controllers
 
 
 
+            if (personnelLeaveForm.LeaveType <= 4)
+            {
+                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                {
+                    PersonnelLeaveForm insert = new PersonnelLeaveForm
+                    {
+                        EmployeeId = personnelLeaveForm.EmployeeId,
+                        ApplicationDate = application,
+                        StatusId = 1,
+                        LeaveType = personnelLeaveForm.LeaveType,
+                        StartDate = personnelLeaveForm.StartDate,
+                        EndDate = personnelLeaveForm.EndDate,
+                        StartTime = personnelLeaveForm.StartTime,
+                        EndTime = personnelLeaveForm.EndTime,
+                        Proxy = personnelLeaveForm.Proxy,
+                        AuditManerger = personnelLeaveForm.AuditManerger,
+                        TotalTime = personnelLeaveForm.TotalTime,
+                        Reason = personnelLeaveForm.Reason,
 
-
-            if (leave.LeaveOver >= personnelLeaveForm.TotalTime) {
+                    };
+                    _context.PersonnelLeaveForms.Add(insert);
+                    _context.SaveChanges();
+                    return Content("申請成功");
+                }
+                else
+                {
+                    return Content("剩餘時數不足");
+                }
+            }
+            else {
                 PersonnelLeaveForm insert = new PersonnelLeaveForm
                 {
                     EmployeeId = personnelLeaveForm.EmployeeId,
@@ -825,14 +972,12 @@ namespace InternalSystem.Controllers
                     Reason = personnelLeaveForm.Reason,
 
                 };
-            _context.PersonnelLeaveForms.Add(insert);
-            _context.SaveChanges();
+                _context.PersonnelLeaveForms.Add(insert);
+                _context.SaveChanges();
                 return Content("申請成功");
             }
-            else
-            {
-                return Content("剩餘時數不足");
-            }
+
+
         }
 
         //主管申請請假
@@ -891,8 +1036,41 @@ namespace InternalSystem.Controllers
                 return Content("請假時段錯誤!");
             }
 
+            if (personnelLeaveForm.LeaveType <= 4)
+            {
 
-            if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                {
+                    PersonnelLeaveForm insert = new PersonnelLeaveForm
+                    {
+                        EmployeeId = personnelLeaveForm.EmployeeId,
+                        ApplicationDate = application,
+                        StatusId = 6,
+                        LeaveType = personnelLeaveForm.LeaveType,
+                        StartDate = personnelLeaveForm.StartDate,
+                        EndDate = personnelLeaveForm.EndDate,
+                        StartTime = personnelLeaveForm.StartTime,
+                        EndTime = personnelLeaveForm.EndTime,
+                        TotalTime = personnelLeaveForm.TotalTime,
+                        Reason = personnelLeaveForm.Reason
+
+                    };
+                    _context.PersonnelLeaveForms.Add(insert);
+                    _context.SaveChanges();
+                    if (leave != null)
+                    {
+
+                        leave.LeaveOver = (double)(leave.LeaveOver - personnelLeaveForm.TotalTime);
+                        leave.Used = (double)(leave.Used + personnelLeaveForm.TotalTime);
+                        _context.SaveChanges();
+                    }
+                    return Content("申請成功");
+                }
+                else
+                { return Content("時數不足"); }
+            }
+
+            else
             {
                 PersonnelLeaveForm insert = new PersonnelLeaveForm
                 {
@@ -910,18 +1088,9 @@ namespace InternalSystem.Controllers
                 };
                 _context.PersonnelLeaveForms.Add(insert);
                 _context.SaveChanges();
-                if (leave != null)
-                {
-
-                    leave.LeaveOver = (double)(leave.LeaveOver - personnelLeaveForm.TotalTime);
-                    leave.Used = (double)(leave.Used + personnelLeaveForm.TotalTime);
-                    _context.SaveChanges();
-                }
                 return Content("申請成功");
-            }
-            else
-            { return Content("時數不足"); }
 
+            }
         }
         //public async Task<ActionResult<PersonnelLeaveForm>> PostPersonnelLeaveForm(PersonnelLeaveForm personnelLeaveForm)
         //{
@@ -964,18 +1133,21 @@ namespace InternalSystem.Controllers
 
         // DELETE: api/PersonnelLeaveForms/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePersonnelLeaveForm(int id)
+        public ActionResult  DeletePersonnelLeaveForm(int id)
         {
-            var personnelLeaveForm = await _context.PersonnelLeaveForms.FindAsync(id);
+            var personnelLeaveForm = (from lf in _context.PersonnelLeaveForms
+                                      where lf.LeaveId == id
+                                      select lf).FirstOrDefault();
             if (personnelLeaveForm == null)
             {
                 return NotFound();
             }
 
             _context.PersonnelLeaveForms.Remove(personnelLeaveForm);
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
 
-            return NoContent();
+            return Content("已刪除本次請假申請");
+
         }
 
         private bool PersonnelLeaveFormExists(int id)

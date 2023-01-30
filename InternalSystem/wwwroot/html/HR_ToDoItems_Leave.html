@@ -700,48 +700,22 @@
                                 if (dd < 10) {
                                     dd = "0" + dd.toString()
                                 }
-                                //this.leaveproxy.proxyAuditDate = `${y}-${mm}-${dd}`
-                                //console.log(this.leaveproxy.proxyAudit);
-                                //this.leaveproxy.statusId = 2;
-                                //this.leaveproxy.proxyAudit = true;
-                                //console.log(this.leaveproxy.proxyAuditDate)
+                           
                                 axios.put('/api/PersonnelLeaveForms/proxy/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                    .then(a => {
-                                        alert('已送出同意代理人之回復');
+                                    .then(response => {
+                                        alert(response.data);
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                             }
                         }
                         if (this.manager.PositionId == 7) {
-                            if (confirm('請確認是否同意2') == true) {
-                                //this.leaveproxy.statusId = 4;
-                                //this.leaveproxy.managerAudit = true;
-                                //this.leavelist.used = this.leavelist.used + this.leaveproxy.totalTime;
-                                //this.leavelist.leaveOver = this.leavelist.leaveOver - this.leavelist.used;
-                                //console.log(this.leavelist.used)
-                                //console.log(this.leavelist.leaveOver)
-                                ////日期格式
-                                //let today = new Date()
-                                //let y = today.getFullYear()
-                                //let mm = today.getMonth() + 1
-                                //let dd = today.getDate()
-                                //if (mm < 10) {
-                                //    mm = "0" + mm.toString()
-                                //}
-                                //if (dd < 10) {
-                                //    dd = "0" + dd.toString()
-                                //}
-                                //console.log(this.leaveproxy.totalTime)
-                                //this.leaveproxy.managerAuditDate = `${y}-${mm}-${dd}`
+                            if (confirm('請確認是否同意') == true) {
+                         
 
                                 axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
                                     .then(response => {
-                                        console.log(response)
-                                        //axios.put('/api/PersonnelLeaveOvers/' + this.leaveproxy.employeeId ,this.leavelist)
-                                        //    .then(b => {
-                                        //        alert('已送出同意');
-                                        //        window.location = "/html/PS_ToDoItems.html";
-                                        //})
+                                        alert(response.data);
+                                        window.location = "/html/PS_ToDoItems.html";
                                     })
                                     .catch(err => { console.log(err) })
                             }
@@ -755,19 +729,17 @@
                                 //this.leaveproxy.statusId = 3;
                                 //this.leaveproxy.proxyAudit = false;
                                 axios.put('/api/PersonnelLeaveForms/proxy/refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                    .then(a => {
-                                        alert('已送出拒絕代理人之回復');
+                                    .then(response => {
+                                        alert(response.data);
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                             }
                         }
                         if (this.manager.PositionId == 7) {
                             if (confirm('請確認是否不同意') == true) {
-                                //this.leaveproxy.statusId = 5;
-                                //this.leaveproxy.managerAudit = false;
                                 axios.put('/api/PersonnelLeaveForms/manager/Refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                    .then(a => {
-                                        alert('已送出不同意');
+                                    .then(response => {
+                                        alert(response.data);
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                             }
@@ -779,13 +751,8 @@
                     console.log(this.leaveproxy)
                     this.manager = JSON.parse(sessionStorage.getItem("LoginInf"))
                     console.log(this.manager.PositionId)
-                    //this.leavelist.employeeId = this.leaveproxy.employeeId;
                     axios.get('/api/PersonnelLeaveOvers/' + this.leaveproxy.leaveType + '/' + this.leaveproxy.employeeId)
                         .then(response => this.leavelist = response.data)
-                    //this.leavelist.leaveType = this.leaveproxy.leaveType;
-                    //this.leavelist.quantity = this.leaveproxy.quantity;
-                    //this.leavelist.used = this.leaveproxy.used;
-                    //this.leavelist.leaveOver = this.leaveproxy.leaveOver;
 
                     axios.get('/api/PersonnelProfileDetails/' + this.leaveproxy.proxy)
                         .then(response => {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace InternalSystem.Controllers
 {
@@ -277,6 +278,7 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       orderby AP.Date
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
@@ -349,7 +351,73 @@ namespace InternalSystem.Controllers
             return await List.ToListAsync();
         }
 
+        //採購清單查詢用
+        //GET: api/PCApplications/department
+        [HttpGet("department/{depId}")]
+        public async Task<ActionResult<dynamic>> GetDepartment(int depid)
+        {
+            var list = from PD in this._context.PersonnelProfileDetails
+                       join DL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals DL.DepartmentId
+                       join AP in this._context.PcApplications on PD.EmployeeId equals AP.EmployeeId
+                       where DL.DepartmentId == depid
+                       select new
+                       {
+                           DepartmentId = DL.DepartmentId,
+                           DepartmentnName = DL.DepName,
+                           Date = AP.Date.ToString("yyyy-MM-dd")
+                       };
 
+            return await list.ToListAsync();
+        }
+
+        //用部門尋找 採購細項查詢
+        // GET: api/PCApplications/department/5
+        [HttpGet("department/{depId}")]
+        public async Task<ActionResult<dynamic>> GetDepartmentLeave(int depId)
+        {
+
+            var list = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       where PDL.DepartmentId == depId
+                       select new
+                       {
+                           DepName = PDL.DepName,
+                       };
+
+
+            if (list == null)
+            {
+                return NotFound();
+            }
+
+            return await list.ToListAsync();
+        }
+
+        //用日期尋找 採購細項查詢
+        // GET: api/PCApplications/department/{y}-{m}
+        [HttpGet("department/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetDateLeave(int y, int m)
+        {
+
+            var list = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       where AP.Date.Year == y && AP.Date.Month == m
+                       select new
+                       {
+                           Year = AP.Date.Year,
+                           Month = AP.Date.Month,
+                       };
+
+
+            if (list == null)
+            {
+                return NotFound();
+            }
+
+            return await list.ToListAsync();
+        }
 
         // GET: api/PCApplications/5
         [HttpGet("{id}")]
