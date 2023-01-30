@@ -600,7 +600,7 @@
                                                               </td>
                                                               <!-- 配送狀態 -->
                                                               <td>
-                                                                  <span class="badge badge bg-success me-1">{{item.totalapp}}</span>
+                                                                  <span class={{item.color}}>{{item.totalapp}}</span>
                                                               </td>
                                                           </tr>
                                                       </template>
@@ -672,29 +672,36 @@
                         this.OrderList = response.data;
                         for (var i = 0; i < this.OrderList.length; i++) {
                           if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "審核中";
+                              this.OrderList[i].totalapp = "審核中";
+                              this.OrderList[i].color = "badge bg-primary";
+                              
                           }
                           //console.log(this.OrderList[i].totalapp);
                           if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == true && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "駁回申請";
+                              this.OrderList[i].totalapp = "駁回申請";
+                              this.OrderList[i].color = "badge bg-danger";
                           }
                           //if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
                           //    this.OrderList[i].applicationStatus = "審核完成"
                           //}
                           if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "配送中"
+                              this.OrderList[i].totalapp = "配送中"
+                              this.OrderList[i].color = "badge bg-warning text-dark";
                           }
                           if (this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == true) {
-                            this.OrderList[i].totalapp = "已退貨"
+                              this.OrderList[i].totalapp = "已退貨"
+                              this.OrderList[i].color = "badge bg-danger";
                           }
                           ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
                           ////    this.OrderList[i].deliveryStatus = "配送完成"
                           ////}
                           if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "驗收中"
+                              this.OrderList[i].totalapp = "驗收中"
+                              this.OrderList[i].color = "badge bg-light text-dark";
                           }
                           if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
-                            this.OrderList[i].totalapp = "驗收完成"
+                              this.OrderList[i].totalapp = "驗收完成"
+                              this.OrderList[i].color = "badge bg-success";
                           }
                           //if (this.OrderList[i].applicationStatus == false && deliveryStatus == false && acceptanceStatus == false) {
                           //    this.OrderList[i].applicationStatus = "審核中"
