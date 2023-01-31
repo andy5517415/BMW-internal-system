@@ -521,12 +521,12 @@
                                   <!-- 部門選擇 -->
                                   <div class="mb-3 col-md-12">
                                       <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
-                                      <select id="department" class="select1 form-select">
+                                      <select id="department" class="select1 form-select" v-model="search.id">
                                           <option value="">選擇部門</option>
-                                          <option value="A">生產部</option>
-                                          <option value="B">業務部</option>
-                                          <option value="C">人資部</option>
-                                          <option value="D">採購部</option>
+                                          <option value="生產部">生產部</option>
+                                          <option value="業務部">業務部</option>
+                                          <option value="人事部">人事部</option>
+                                          <option value="採購部">採購部</option>
                                       </select>
                                   </div>
 
@@ -535,14 +535,14 @@
                                       <div class="mb-3 col-md-6">
                                           <label for="ApplicationDate" class="col-md-2 col-form-label">起始日期</label>
                                           <div class="col-md-12">
-                                              <input class="form-control fs-5" type="date" value="" id="ApplicationDate" />
+                                              <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.startdate" />
                                           </div>
                                       </div>
                                       <!-- 結束日期 -->
                                       <div class="mb-3 col-md-6">
                                           <label for="ApplicationDate" class="col-md-2 col-form-label">結束日期</label>
                                           <div class="col-md-12">
-                                              <input class="form-control fs-5" type="date" value="" id="ApplicationDate" />
+                                              <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.enddate"/>
                                           </div>
                                       </div>
                                   </div>
@@ -632,40 +632,38 @@
                   data() {
                     return {
                         OrderList: {},
-                        departmentlist: {}
+                        departmentlist: {},
+                        search: {
+                            "id": "",
+                            "startdate": ""
+                            /*"enddate":""*/
+                        }
                     }
                   },
                     methods: {
                     Enter: function (e) {
-                      sessionStorage.setItem("order", JSON.stringify(e));
-                      },
+                        sessionStorage.setItem("order", JSON.stringify(e));
+                     },
                     okbtn: function () {
-                          /*alert('OK');*/
-                          if (this.search.departmentId != null && this.search.date != null) {
-                              axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
-                                  .then(response => {
-                                      this.employeelist = response.data;
-                                      if (this.employeelist.length == 0) { alert('部門查詢:查無此項') }
-                                  })
-                                  .catch(err => { console.log(err) })
+                        //console.log("/api/PCApplications/recordsearch/" + this.search.startdate + "/" + this.search.enddate + "/?id=" + this.search.id)
+                        //axios.get("/api/PCApplications/recordsearch?id=" + this.search.id)
+                        //    .then(response => this.OrderList = response.data);
+                        //https://localhost:44319/api/PCApplications/recordsearch/2023-01-01/2023-01-31?id=%E7%94%9F%E7%94%A2%E9%83%A8
+                        if (this.search.enddate != null) {
+                            //按鈕選擇部門+日期，可以進行搜尋
+                            axios.get("/api/PCApplications/recordsearch/" + this.search.startdate + "/" + this.search.enddate + "/?id=" + this.search.id)
+                                .then(response => this.OrderList = response.data);
+                            console.log("a");
+                        } else if (this.search.enddate == null) {
+                            //按鈕選擇部門，可以進行搜尋
+                            axios.get("/api/PCApplications/recordsearch?id=" + this.search.id)
+                                .then(response => this.OrderList = response.data);
+                            console.log("b");
+                        }
 
-                          }
-                          else if (this.search.employeeName != null && this.search.date != null) {
-                              axios.get('/api/PersonnelLeaveForms/employeeName/' + this.search.employeeName + '/' + this.search.date)
-                                  .then(response => {
-                                      this.employeelist = response.data;
-                                      if (this.employeelist.length == 0) { alert('時間查詢:查無此項') }
-                                  })
-                                  .catch(err => { console.log(err) })
-                          }
-                          else {
-                              alert('查無資料')
-                          }
                     }
                   },
                     mounted() {
-                    axios.get('/api/PersonnelDepartmentLists')
-                            .then(response => this.departmentlist = response.data)
 
                     axios.get("/api/PCApplications/recordsearch")
                       .then(response => {
