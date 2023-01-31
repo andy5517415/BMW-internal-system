@@ -21,76 +21,57 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-        // GET: api/MeetingRecords
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MeetingRecord>>> GetMeetingRecords()
-        {
-            return await _context.MeetingRecords.ToListAsync();
-        }
-
-        //先查成功預約的會議室
         // GET: api/MeetingRecords/1
-        [HttpGet("{depId}")]
-        public async Task<ActionResult<dynamic>> GetMeetingRecords(int depId)
+        [HttpGet("{BookMeetId}")]
+        public async Task<ActionResult<dynamic>> GetMeetingRecords_BookMeetId(int BookMeetId)
         {
+            var meetingBookMeetId = from a in _context.MeetingRecords
+                                    where a.BookMeetId == BookMeetId
+                                    select new
+                                    {
+                                        BookMeetId = a.BookMeetId,
+                                    };
 
-            var meetingReserve = from a in _context.MeetingReserves
-                                 join b in _context.MeetingRooms on a.MeetPlaceId equals b.MeetingPlaceId
-                                 join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
-                                 join d in _context.PersonnelProfileDetails on a.EmployeeId equals d.EmployeeId
-                                 where a.DepId == depId
-                                 select new
-                                 {
-                                     BookId = a.BookMeetId,
-                                     MeetPlace = b.MeetingRoom1,
-                                     Date = a.Date,
-                                     Dependent = c.DepName,
-                                     EmployeeName = d.EmployeeName,
-                                     StartTime = a.StartTime,
-                                     EndTime = a.EndTime,
-                                     MeetType = a.MeetType,
-                                 };
-
-            if (meetingReserve == null)
+            if (meetingBookMeetId == null)
             {
                 return NotFound();
             }
             else
             {
                 //return testover;
-                return await meetingReserve.ToListAsync();
+                return await meetingBookMeetId.ToListAsync();
             }
-
+        }
+        
+        //全部查詢
+        public async Task<ActionResult<IEnumerable<MeetingRecord>>> GetMeetingRecords()
+        {
+            return await _context.MeetingRecords.ToListAsync();
         }
 
 
         //最終紀錄的終結果
         // GET: api/MeetingRecords/1(紀錄表編號)/1(會議編號)
         [HttpGet("{1}/{BkId}")]
-        public async Task<ActionResult<dynamic>> GetMeetingRecords(int RcId , int BkId)
+        public async Task<ActionResult<dynamic>> GetMeetingRecords(int RcId, int BkId)
         {
             var meetingRecords = from a in _context.MeetingRecords
-                                 join b in _context.MeetingRooms on a.MeetingPlaceId equals b.MeetingPlaceId
-                                 join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
                                  where a.BookMeetId == BkId
                                  select new
                                  {
-                                    recordSheetId=a.RecordSheetId,
-                                    bookId=a.BookMeetId,
-                                    meetingPlaceId=b.MeetingPlaceId,
-                                    meetPresident=a.MeetPresident,
-                                    recorder=a.Rcorder,
-                                    participater=a.Participater,
-                                    shouldAttend=a.ShouldAttend,
-                                    attend=a.Attend,
-                                    noAttend=a.NoAttend,
-                                    noAttendPerson=a.NoAttendPerson,
-                                    Principal  = a.Principal,
-                                    date =   a.Date,                    
-                                    agenda=a.Agenda,
-                                    record=a.Record,
-                                    meetingPlace=b.MeetingRoom1,
-                                    depment=c.DepName
+                                     recordSheetId = a.RecordSheetId,
+                                     bookId = a.BookMeetId,
+                                     meetPresident = a.MeetPresident,
+                                     recorder = a.Rcorder,
+                                     participater = a.Participater,
+                                     shouldAttend = a.ShouldAttend,
+                                     attend = a.Attend,
+                                     noAttend = a.NoAttend,
+                                     noAttendPerson = a.NoAttendPerson,
+                                     Principal = a.Principal,
+                                     date = a.Date,
+                                     agenda = a.Agenda,
+                                     record = a.Record,
                                  };
 
             if (meetingRecords == null)
@@ -136,29 +117,43 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
-        // POST: api/MeetingRecords
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<MeetingRecord>> PostMeetingRecord(MeetingRecord meetingRecord)
+
+        //建立會議記錄
+        // POST: api/BusinessOrderDetails/1(BookMeetId)
+        [HttpPost("{BookMeetId}")]
+        public string PostMeetingRecords(int BookMeetId, [FromBody] MeetingRecord b)
         {
-            _context.MeetingRecords.Add(meetingRecord);
-            try
+            //判斷外鍵關聯存不存在
+            if (!_context.MeetingReserves.Any(a => a.BookMeetId == BookMeetId))
             {
-                await _context.SaveChangesAsync();
+                return "沒有該筆資料";
             }
-            catch (DbUpdateException)
+            //判斷裡面是不是已經有資料了(有該外鍵)
+            if (_context.MeetingRecords.Any(a => a.BookMeetId == BookMeetId))
             {
-                if (MeetingRecordExists(meetingRecord.RecordSheetId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return "已有資料，不可重複寫入!";
             }
 
-            return CreatedAtAction("GetMeetingRecord", new { id = meetingRecord.RecordSheetId }, meetingRecord);
+            MeetingRecord insert = new MeetingRecord
+            {
+                BookMeetId = BookMeetId,
+                MeetPresident= b.MeetPresident,
+                Rcorder= b.Rcorder,
+                Participater= b.Participater,
+                ShouldAttend= b.ShouldAttend,
+                Attend= b.Attend,
+                NoAttend= b.NoAttend,
+                NoAttendPerson= b.NoAttendPerson,
+                Principal= b.Principal,
+                Date= DateTime.Now,
+                Agenda=b.Agenda,
+                Record= b.Record,
+            };
+
+            _context.MeetingRecords.Add(insert);
+            _context.SaveChanges();
+
+            return "會議記錄新增成功";
         }
 
         // DELETE: api/MeetingRecords/5

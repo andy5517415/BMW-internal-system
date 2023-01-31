@@ -66,30 +66,70 @@ namespace InternalSystem.Controllers
 
          }
 
-        // POST: api/MeetingReserves
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        
-        public async Task<ActionResult<MeetingReserve>> PostMeetingReserve(MeetingReserve meetingReserve)
+        //查預約會議室(部門版本)
+        // GET: api/MeetingReserves/1
+        [HttpGet("{depId}")]
+        public async Task<ActionResult<dynamic>> GetMeetingReserve(int depId)
         {
-            _context.MeetingReserves.Add(meetingReserve);
-            try
+            var meetingReserve = from a in _context.MeetingReserves
+                                 join b in _context.MeetingRooms on a.MeetPlaceId equals b.MeetingPlaceId
+                                 join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
+                                 join d in _context.PersonnelProfileDetails on a.EmployeeId equals d.EmployeeId
+                                 where  a.DepId == depId
+                                 select new
+                                 {
+                                     BookId = a.BookMeetId,
+                                     MeetPlace = b.MeetingRoom1,
+                                     Date = a.Date,
+                                     Dependent = c.DepName,
+                                     EmployeeName = d.EmployeeName,
+                                     StartTime = a.StartTime,
+                                     EndTime = a.EndTime,
+                                     MeetType = a.MeetType,
+                                 };
+
+            if (meetingReserve == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateException)
+            else
             {
-                if (MeetingReserveExists(meetingReserve.BookMeetId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                //return testover;
+                return await meetingReserve.ToListAsync();
             }
 
-            return CreatedAtAction("GetMeetingReserve", new { id = meetingReserve.BookMeetId }, meetingReserve);
+        }
+
+        // POST: api/MeetingReserves
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
+        [HttpPost("{DepId}/{s}-{e}")]
+
+        public ActionResult PostMeetingReserves(int DepId, string s,string e,[FromBody] MeetingReserve form)
+        {
+            TimeSpan hm = Convert.ToDateTime(e).Subtract(Convert.ToDateTime(s)); //兩個相減
+            double hoursCount = hm.TotalMinutes;  //所有的分鐘
+            
+            if (hoursCount >0)
+            {
+                MeetingReserve insert = new MeetingReserve
+                {
+                    DepId = DepId,
+                    MeetPlaceId = form.MeetPlaceId,
+                    Date = form.Date,
+                    EmployeeId= form.EmployeeId,
+                    StartTime= form.StartTime,
+                    EndTime= form.StartTime,
+                    MeetType= form.MeetType,
+                };
+                _context.MeetingReserves.Add(insert);
+                _context.SaveChanges();
+                return Content("預約成功");
+            }
+            else
+            {
+                return Content("選擇預約時間錯誤!");
+            }
         }
 
         // DELETE: api/MeetingReserves/5
@@ -107,32 +147,6 @@ namespace InternalSystem.Controllers
             }
         }
 
-        /*
-        public async Task<IActionResult> DeleteMeetingReserve(int BookId)
-        {
-            
-            var delete = (from a in _context.PersonnelDepartmentLists
-                          where a.DepartmentId == BookId
-                          select a).Include(c => c.PersonnelProfileDetails).SingleOrDefault();
-
-            if (delete != null)
-            {
-                _context.PersonnelDepartmentLists.Remove(delete);
-                _context.SaveChanges();
-            }
-            
-            var meetingReserve = await _context.PersonnelDepartmentLists.FindAsync(BookId);
-            if (meetingReserve == null)
-            {
-                return NotFound();
-            }
-
-            _context.PersonnelDepartmentLists.Remove(meetingReserve);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-        */
         private bool MeetingReserveExists(int BookId)
         {
             return _context.PersonnelDepartmentLists.Any(e => e.DepartmentId == BookId);
