@@ -22,6 +22,7 @@ namespace InternalSystem.Models
         public string EndTime { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
+        public virtual MeetingRoom MeetPlace { get; set; }
         public virtual ICollection<MeetingRecord> MeetingRecords { get; set; }
     }
 }

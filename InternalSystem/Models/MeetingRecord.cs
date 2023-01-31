@@ -16,7 +16,6 @@ namespace InternalSystem.Models
         public int Attend { get; set; }
         public int? NoAttend { get; set; }
         public string NoAttendPerson { get; set; }
-        public string Principal { get; set; }
         public DateTime Date { get; set; }
         public string Agenda { get; set; }
         public string Record { get; set; }
