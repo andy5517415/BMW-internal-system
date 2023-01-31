@@ -63,7 +63,7 @@ namespace InternalSystem.Controllers
 
 
 
-        ////沒迴圈修改orderdetail小表
+        ////沒迴圈修改orderdetail小表(目前未成功)
         //// PUT: api/BusinessOrderDetails
         //[HttpPut]
         //public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)

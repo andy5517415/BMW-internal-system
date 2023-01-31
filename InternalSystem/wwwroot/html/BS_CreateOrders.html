@@ -531,8 +531,8 @@
                 height="315"
                 src="https://www.youtube.com/embed/vhIt7buzd1s?controls=0">
     </iframe>-->
-                                        <div style="height: 500px; ">
-                                            <video autoplay loop style="height: 100%; width: 100%;">
+                                        <div style="height: 480px;" class="py-3">
+                                            <video autoplay loop style="height: 100%; width: 100%; object-fit: cover;">
                                                 <source src="../assets/ENDLESS COMPETITION. THE M3 AND THE M4  BMW Taiwan.mp4" type="video/mp4">
                                                 Your browser does not support the video tag.
                                             </video>
@@ -540,9 +540,8 @@
                                         <!--<iframe width="1000" height="800" src="//sendvid.com/embed/f60yzc1o" allowfullscreen autoplay></iframe>-->
 
 
-
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
                                                 <select id="cartype"
                                                         class="form-select color-dropdown"
@@ -555,7 +554,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -564,11 +563,11 @@
                                                        v-model="cartypeone.price" />
 
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.type" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.type" style="height: 120px; width: 300px;">
                                                     <img :src="srcphoto.type"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="car" />
                                                 </div>
                                             </div>
@@ -579,8 +578,8 @@
 
 
                                         <!--<input v-if="true" @change="uploadphoto" type="file" />
-    <img v-if="true" :src="uploadimg">
-    <button v-if="true" @click="savephoto" type="button">送出圖片</button>-->
+                                            <img v-if="true" :src="uploadimg">
+                                            <button v-if="true" @click="savephoto" type="button">送出圖片</button>-->
 
 
 
@@ -590,8 +589,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="carcolor">車漆顏色</label>
                                                 <select id="carcolor"
                                                         class="form-select"
@@ -604,7 +603,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -612,11 +611,11 @@
                                                        readonly
                                                        v-model="carcolorone.price" />
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.color" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.color" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.color"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain "
                                                          alt="color" />
                                                 </div>
 
@@ -627,8 +626,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="texture">內裝材質</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="texture"
@@ -641,7 +640,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -649,11 +648,11 @@
                                                        readonly
                                                        v-model="cartextureone.price" />
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.texture" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.texture" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.texture"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="texture" />
                                                 </div>
 
@@ -662,8 +661,8 @@
                                         </div>
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="wheel">輪圈款式</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="wheel"
@@ -676,7 +675,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -684,11 +683,11 @@
                                                        readonly
                                                        v-model="carwheelone.price" />
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.wheel" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.wheel" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.wheel"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="wheel" />
                                                 </div>
                                             </div>
@@ -697,8 +696,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="plaque">飾板</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="plaque"
@@ -711,7 +710,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -719,11 +718,11 @@
                                                        readonly
                                                        v-model="carplaqueone.price" />
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.plaque" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.plaque" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.plaque"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="plaque" />
                                                 </div>
                                             </div>
@@ -735,8 +734,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="light">頭燈款式</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="light"
@@ -749,7 +748,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -758,11 +757,11 @@
                                                        v-model="carlightone.price" />
 
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.light" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.light" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.light"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="light" />
                                                 </div>
                                             </div>
@@ -773,8 +772,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="saddle">中央鞍座</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="saddle"
@@ -787,7 +786,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -796,11 +795,11 @@
                                                        v-model="carsaddleone.price" />
 
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.saddle" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.saddle" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.saddle"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="saddle" />
                                                 </div>
                                             </div>
@@ -810,8 +809,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="sunroof">天窗</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="sunroof"
@@ -824,7 +823,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -833,11 +832,11 @@
                                                        v-model="carsunroofone.price" />
 
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.sunroof" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.sunroof" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.sunroof"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="sunroof" />
                                                 </div>
                                             </div>
@@ -847,8 +846,8 @@
 
 
 
-                                        <div class="row">
-                                            <div class="col-3">
+                                        <div class="row py-1">
+                                            <div class="col-4">
                                                 <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                                 <select class="form-select placement-dropdown"
                                                         id="media"
@@ -861,7 +860,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                                 <input type="text"
                                                        class="form-control fs-5"
@@ -869,11 +868,11 @@
                                                        readonly
                                                        v-model="carmediaone.price" />
                                             </div>
-                                            <div class="col-3">
-                                                <div v-if="photoseen.media" style="height: 100px; width: 200px;">
+                                            <div class="col-4">
+                                                <div v-if="photoseen.media" style="height: 100px; width: 300px;">
                                                     <img :src="srcphoto.media"
                                                          class="d-block rounded"
-                                                         style="height: 100%; width: 100%; object-fit: cover; "
+                                                         style="height: 100%; width: 100%; object-fit: contain; "
                                                          alt="media" />
                                                 </div>
                                             </div>
@@ -883,13 +882,14 @@
 
 
 
-                                        <div class="col-md-6">
+                                        <div class="col-4">
                                             <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">小計</label>
                                             <input type="text"
                                                    class="form-control fs-5"
                                                    id=""
                                                    readonly
-                                                   v-model="cnt" />
+                                                   v-model="cnt"
+                                                   />
                                         </div>
 
 
@@ -1360,13 +1360,13 @@
 
                 },
                 savephoto() {
-                    axios.get('/api/BusinessOptionals/19')
+                    axios.get('/api/BusinessOptionals/22')
                         .then(p => {
                             console.log(p);
                             this.putphoto = p.data;
                             this.putphoto.photo = this.uploadimg
                             console.log(this.putphoto.photo);
-                            axios.put('/api/BusinessOptionals/19', this.putphoto).then(p => console.log(p))
+                            axios.put('/api/BusinessOptionals/22', this.putphoto).then(p => console.log(p))
                         })
 
                 },
