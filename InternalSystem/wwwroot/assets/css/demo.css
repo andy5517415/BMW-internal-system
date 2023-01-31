@@ -148,10 +148,20 @@ td{
 
 .lvrv:hover{
   transform:translate(0px,-10px);
-  box-shadow: 4px 4px gray;
+  box-shadow: 4px 4px 2px gray;
   transition-duration: .2s;
 }
-
+.cardBg1{
+  background: rgb(255, 255, 255);
+}
+.cardBg1:hover > .cardBg2{
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  transition-duration: .2s;
+}
+.cardBg1:hover .cardText{
+  color: white;
+  font-weight: bold;
+}
 
 .wrapper {
   display: block;
