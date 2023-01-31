@@ -100,6 +100,40 @@ namespace InternalSystem.Controllers
 
         }
 
+        //查預約會議室(會議室編號版本)
+        // GET: api/MeetingReserves/1
+        [HttpGet("MeetRoom/{placeId}")]
+        public async Task<ActionResult<dynamic>> GetMeetingReserve_MeetRoom(int placeId)
+        {
+            var meetingReserve = from a in _context.MeetingReserves
+                                 join b in _context.MeetingRooms on a.MeetPlaceId equals b.MeetingPlaceId
+                                 join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
+                                 join d in _context.PersonnelProfileDetails on a.EmployeeId equals d.EmployeeId
+                                 where a.MeetPlaceId == placeId
+                                 select new
+                                 {
+                                     BookId = a.BookMeetId,
+                                     MeetPlace = b.MeetingRoom1,
+                                     Date = a.Date,
+                                     Dependent = c.DepName,
+                                     EmployeeName = d.EmployeeName,
+                                     StartTime = a.StartTime,
+                                     EndTime = a.EndTime,
+                                     MeetType = a.MeetType,
+                                 };
+
+            if (meetingReserve == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                //return testover;
+                return await meetingReserve.ToListAsync();
+            }
+
+        }
+
         // POST: api/MeetingReserves
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 
