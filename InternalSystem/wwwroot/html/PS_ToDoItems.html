@@ -586,6 +586,7 @@
                                                             <th class="fs-4 fw-bold">員工名稱</th>
                                                             <th class="fs-4 fw-bold">員工編號</th>
                                                             <th class="fs-4 fw-bold">員工部門</th>
+                                                            <th class="fs-4 fw-bold"></th>
                                                             <th class="fs-4 fw-bold">狀態</th>
                                                         </tr>
                                                     </thead>
@@ -596,15 +597,16 @@
 
                                                             </td>
                                                             <td><i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i> <strong class="fs-5">{{leaveExit.employeeName}}</strong></td>
-                                                            <td>{{leaveExit.employeeNumber}}</td>
+                                                            <td><strong class="fs-5">{{leaveExit.employeeNumber}}</strong></td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>
+                                                                <strong class="fs-5">{{leaveExit.depName}}</strong>
+                                                                <!--<span class="label-primary me-1 fs-5">{{leaveExit.startDate}} - {{leaveExit.startTime}}</span>-->
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>
+                                                                <!--<span class="label-primary me-1 fs-5">{{leaveExit.endDate}} - {{leaveExit.endTime}}</span>-->
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{leaveExit.auditStatus}}</span>
+                                                                <span class="label-primary me-1 fs-5"><strong class="fs-5">{{leaveExit.auditStatus}}</strong></span>
 
                                                             </td>
                                                             <td>
@@ -612,7 +614,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item fs-5" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> 檢視</a>
+                                                                        <a class="dropdown-item fs-5" href="PS_ToDoItems_LeaveExit.html" type="button" @click="exitbtn(leaveExit)"><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5">檢視項目</strong></a>
 
                                                                     </div>
                                                                 </div>
@@ -624,18 +626,17 @@
                                                                 <button type="button" class="btn btn-secondary fs-5 fw-bold" disabled>代理人申請</button>
                                                             </td>
                                                             <td>
-                                                                <i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i>
                                                                 <strong class="fs-5">{{leave.employeeName}}</strong>
                                                             </td>
-                                                            <td>{{leave.employeeNumber}}</td>
+                                                            <td> <strong class="fs-5">{{leave.employeeNumber}}</strong></td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{leave.startDate}} - {{leave.startTime}}</span>
+                                                                <span class="label-primary me-1 fs-5"> <strong class="fs-5">{{leave.depName}}</strong></span>
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{leave.endDate}} - {{leave.endTime}}</span>
+                                                                <!--<span class="label-primary me-1 fs-5">{{leave.endDate}} - {{leave.endTime}}</span>-->
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{leave.auditStatus}}</span>
+                                                                <span class="label-primary me-1 fs-5"><strong class="fs-5">{{leave.auditStatus}}</strong></span>
 
                                                             </td>
                                                             <td>
@@ -643,7 +644,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item fs-5" type="button" @click="checkbtn(leave)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+                                                                        <a class="dropdown-item fs-5" type="button" @click="checkbtn(leave)" href="HR_ToDoItems_Leave.html"><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5">檢視項目</strong></a>
 
                                                                     </div>
                                                                 </div>
@@ -656,18 +657,18 @@
                                                                 <button type="button" class="btn btn-secondary fs-5 fw-bold" disabled>採購</button>
                                                             </td>
                                                             <td>
-                                                                <i class="fab fa-angular fa-lg text-danger me-3 fs-5">1</i>
-                                                                <strong class="fs-5" class="fs-5">{{buy.employeeName}}</strong>
+                                                                <i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i>
+                                                                <strong class="fs-5" >{{buy.employeeName}}</strong>
                                                             </td>
-                                                            <td>{{buy.employeeNumber}} </td>
+                                                            <td><strong class="fs-5">{{buy.employeeNumber}} </strong></td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5">{{buy.department}}</span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="label-primary me-1 fs-5" v-if="buy.applicationRejectStatus ==  false">退件</span>
+                                                                <span class="label-primary me-1 fs-5"><strong class="fs-5">{{buy.department}}</strong></span>
                                                             </td>
                                                             <td>
-                                                            
+                                                                
+                                                            </td>
+                                                            <td>
+                                                                <span class="label-primary me-1 fs-5" v-if="buy.applicationRejectStatus ==  false"><strong class="fs-5">退件</strong></span>
 
                                                             </td>
                                                             <td>
@@ -675,7 +676,7 @@
                                                                 <div class="dropdown">
 
                                                                     <div class="">
-                                                                        <a class="dropdown-item fs-5" type="button" @click="buycheckbtn(buy)" href="PS_ApplicationRejectDetails.html"><i class="bx bx-edit-alt me-2"></i> 檢視項目</a>
+                                                                        <a class="dropdown-item fs-5" type="button" @click="buycheckbtn(buy)" href="PS_ApplicationRejectDetails.html"><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5"> 檢視項目</strong></a>
 
                                                                     </div>
                                                                 </div>
@@ -750,15 +751,15 @@
                                                     <tr>
                                                         <td><i class="fab fa-angular fa-lg text-danger me-3 fs-5"></i> 
                                                             <strong class="fs-5">{{leave.employeeName}}</strong></td>
-                                                        <td>{{leave.employeeNumber}}</td>
+                                                        <td><strong class="fs-5">{{leave.employeeNumber}}</strong></td>
                                                         <td>
-                                                            <span class="label-primary me-1 fs-5">{{leave.startDate}} - {{leave.startTime}}</span>
+                                                            <span class="label-primary me-1 fs-5"> <strong class="fs-5">{{leave.startDate}} - {{leave.startTime}}</strong></span>
                                                         </td>
                                                         <td>
-                                                            <span class="label-primary me-1 fs-5">{{leave.endDate}} - {{leave.endTime}}</span>
+                                                            <span class="label-primary me-1 fs-5"><strong class="fs-5">{{leave.endDate}} - {{leave.endTime}}</strong></span>
                                                         </td>
                                                         <td>
-                                                            <span class="label-primary me-1 fs-5">{{leave.auditStatus}}</span>
+                                                            <span class="label-primary me-1 fs-5"><strong class="fs-5">{{leave.auditStatus}}</strong></span>
 
                                                         </td>
                                                         <td>
@@ -767,7 +768,7 @@
 
                                                                 <div class="">
                                                                     <a class="dropdown-item" href="HR_ToDoItems_Leave.html" @click="checkbtn(leave)">
-                                                                    <i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                                                    <i class="bx bx-edit-alt me-2"></i><strong class="fs-5"> 檢視項目</strong></a>
 
                                                                 </div>
                                                             </div>
@@ -836,7 +837,7 @@
                                                     <th class="fs-4 fw-bold">加班起始時間</th>
                                                     <th class="fs-4 fw-bold">加班結束時間</th>
                                                     <th class="fs-4 fw-bold">狀態</th>
-                                                    <th>修改</th>
+                                                    <th class="fs-4 fw-bold">修改</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0" v-for="(work,key) in wkover">
@@ -845,20 +846,20 @@
                                                         <strong class="fs-5">{{work.employeeName}}</strong></td>
                                                     <td>{{work.employeeNumber}}</td>
                                                     <td>
-                                                        <span class="label-primary me-1 fs-5">{{work.startDate}} - {{work.startTime}} </span>
+                                                        <span class="label-primary me-1 fs-5"><strong class="fs-5">{{work.startDate}} - {{work.startTime}}</strong> </span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary me-1 fs-5">{{work.endDate}} -{{work.endTime}} </span>
+                                                        <span class="label-primary me-1 fs-5"><strong class="fs-5">{{work.endDate}} -{{work.endTime}} </strong></span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary me-1 fs-5" v-if="work.auditStatus==false">待審</span>
+                                                        <span class="label-primary me-1 fs-5" v-if="work.auditStatus==false"><strong class="fs-5">待審</strong></span>
 
                                                     </td>
                                                     <td>
                                                         <div class="dropdown">
 
                                                             <div class="">
-                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button" @click="overbtn(work)"><i class="bx bx-edit-alt me-2"></i> 檢閱</a>
+                                                                <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button" @click="overbtn(work)"><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5">檢閱</strong></a>
 
                                                             </div>
                                                         </div>
