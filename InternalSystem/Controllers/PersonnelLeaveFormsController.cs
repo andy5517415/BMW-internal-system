@@ -243,6 +243,7 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
+                                         pl.Photo,
                                          Reason = pl.Reason,
                                          pl.ApplicationDate
                                      };
@@ -290,6 +291,7 @@ namespace InternalSystem.Controllers
                                          AuditStatus = l.AuditStatus,
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
+                                         pl.Photo,
                                          Reason = pl.Reason,
                                          pl.ApplicationDate
 
@@ -337,6 +339,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
+                                         pl.Photo,
                                          pl.ApplicationDate
 
                                      };
@@ -512,7 +515,7 @@ namespace InternalSystem.Controllers
                 update.ProxyAudit = false;
                 update.ProxyAuditDate = proxydate;
                 _context.SaveChanges();
-                return Content("已送出同意");
+                return Content("已送出不同意");
             }
             else
             {
@@ -675,6 +678,7 @@ namespace InternalSystem.Controllers
                         update.AuditManerger = personnelLeaveForm.AuditManerger;
                         update.TotalTime = personnelLeaveForm.TotalTime;
                         update.Reason = personnelLeaveForm.Reason;
+                        update.Photo = personnelLeaveForm.Photo;
                         _context.SaveChanges();
                     }
                     return Content("已重新提交申請");
@@ -948,7 +952,7 @@ namespace InternalSystem.Controllers
                         AuditManerger = personnelLeaveForm.AuditManerger,
                         TotalTime = personnelLeaveForm.TotalTime,
                         Reason = personnelLeaveForm.Reason,
-
+                        Photo = personnelLeaveForm.Photo
                     };
                     _context.PersonnelLeaveForms.Add(insert);
                     _context.SaveChanges();
@@ -974,6 +978,8 @@ namespace InternalSystem.Controllers
                     AuditManerger = personnelLeaveForm.AuditManerger,
                     TotalTime = personnelLeaveForm.TotalTime,
                     Reason = personnelLeaveForm.Reason,
+                    Photo = personnelLeaveForm.Photo
+
 
                 };
                 _context.PersonnelLeaveForms.Add(insert);
