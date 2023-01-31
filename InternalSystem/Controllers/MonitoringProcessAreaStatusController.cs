@@ -70,7 +70,7 @@ namespace InternalSystem.Controllers
                     join bo in _context.BusinessOrders on pp.OrderId equals bo.OrderId
                     join bod in _context.BusinessOrderDetails on bo.OrderId equals bod.OrderId
                     join bop in _context.BusinessOptionals on bod.OptionalId equals bop.OptionalId
-                    where pp.StatusId == 2 && bop.CategoryId == 1
+                    where pp.StatusId == 2 && bop.CategoryId == 1 && bo.IsAccepted==true
                     select new
                     {
                         bo.OrderNumber,

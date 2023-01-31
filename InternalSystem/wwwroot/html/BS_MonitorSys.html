@@ -686,6 +686,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -768,6 +769,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -849,6 +851,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -938,6 +941,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -1023,6 +1027,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -1108,6 +1113,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -1207,6 +1213,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -1290,6 +1297,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -1373,6 +1381,7 @@
                                                     <div class="col-4 text-center">
                                                         <template v-for="(o,key) in getstatus">
                                                             <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                            <span v-else>&nbsp;</span>
                                                         </template>
                                                     </div>
                                                     <div class="col-4 text-center">
@@ -1614,20 +1623,45 @@
                 var bef = 0;
                 var aft = 0;
                 var flag = true;
+                var cnt = 0;
+                var a = 0;
+                var b = 0;
                 var c = 0;
+                var d = 0;
+
+                var oa = 0;
+                var ob = 0;
+                var oc = 0;
+                var od = 0;
                 function checkstatus() {
-                    console.log(c++);
+                    console.log(cnt++);
                     aft = 0;
+                    a = 0;
+                    b = 0;
+                    c = 0;
+                    d = 0;
+                    oa = 0;
+                    ob = 0;
+                    oc = 0;
+                    od = 0;
                     axios.get('/api/MonitoringProcessAreaStatus/').then(g => {
                         this.abnormalcnt = g.data;
                         //console.log(this.abnormalcnt);
                         this.abnormalcnt.forEach(one => {
-                            (one.status == '異常') ? aft++ : ''
+                            (one.status == '異常') ? aft++ : '';
+                            (one.status == '正常') ? a++ : '';
+                            (one.status == '待處理') ? b++ : '';
+                            (one.status == '處理中') ? c++ : '';
+                            (one.status == '待指派') ? d++ : '';
                         });
                         console.log(`aft${aft}`);
                         console.log(`bef${bef}`);
+                        console.log(`a${a}`);
+                        console.log(`b${b}`);
+                        console.log(`c${c}`);
+                        console.log(`d${d}`);
 
-                        //第一次進入畫面不跳alert
+                        //定義第一次進入畫面不跳吐司訊息
                         if (flag) {
                             flag = !flag;
                             bef = aft;                            
@@ -1638,22 +1672,44 @@
                         else if (aft > bef) {
                             $("#toastSucess").fadeIn("fast");
                             setTimeout(() => $("#toastSucess").fadeOut(), 2000);
-                            setTimeout(()=> window.location.reload(),1000);
+                            setTimeout(()=> window.location.reload(),2000);
                             bef = aft;
                             console.log('有異常');
+                        }
+
+                        //others
+                        if (flag) {
+                            flag = !flag;
+                            oa = 0;
+                            ob = 0;
+                            oc = 0;
+                            od = 0;
+
+
+                        }
+                        else if (oa>a || ob>b || oc>c || od>d) {
+                            oa = a;
+                            ob = b;
+                            oc = c;
+                            od = d;
+
+                        }
+                        else if (oa < a || ob < b || oc < c || od < d) {
+                            setTimeout(()=> window.location.reload(),3000);
+                            //$("#toastSucess").fadeIn("fast");
+                            //setTimeout(() => $("#toastSucess").fadeOut(), 2000);
+                            //bef = aft;
+                            //console.log('有異常');
                         }
                     })
                 }
 
-                setInterval(checkstatus, 3000);
+                setInterval(checkstatus, 4000);
 
             }
         }).mount('#divmonitor');
 
 
-        //$(function () {
-            
-        //});
     </script>
     <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

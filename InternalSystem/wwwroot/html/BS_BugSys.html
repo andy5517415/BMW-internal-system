@@ -724,6 +724,7 @@
                                     .then(g => {
                                         console.log(g)
                                         alert('狀態已更新!');
+                                        window.location = "BS_MonitorSys.html";
 
                                         sessionStorage.setItem("sessiondesc", JSON.stringify(this.description));
                                     })
