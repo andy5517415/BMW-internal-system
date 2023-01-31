@@ -511,7 +511,7 @@
               <h4 class="py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 預約會議室</h4>
           
               <!-- HTML5 Inputs -->
-              <div class="card shadow m-4">
+              <div class="card m-4">
                 <h3 class="fw-bold card-header mx-auto mt-3 " style="text-decoration: underline 4pt #666EE8;">預約會議室</h3>
                 <div class="h-50"></div>
                 <div class="card-body mb-3 col-md-12">
@@ -520,7 +520,13 @@
                   <h5 class="mb-4 text-center">您的部門是：生產部</h5>
                   <div class="mb-3 row g-5 justify-content-center">
                     
-                    <!-- ★查看會議室 -->
+                    <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold" style="width: 120px;">選擇周別</label>
+                    <div class="col-6 col-md-3">
+                      <input v-model="MeetRsInfo.week" class="form-control fs-5" type="week" value="" id="meetWeek_select" style="height: 45px;" />
+                    </div>
+          
+          
+                    <!-- ★預約會議室 -->
                     <label for="meetDepeart_select" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold" style="width: 140px;">選擇會議室</label>
                     <div class="col-6 col-md-3">
                       <select v-model="MeetRsInfo.meetPlaceId" class="form-select" id="meetPlace_select" aria-label="Default select example" style="height: 45px;">
@@ -532,48 +538,16 @@
 
                   </div>
                   <div class="mt-4 row justify-content-center">
-                    <button type="submit" class="col-12 col-md-3 btn btn-outline-primary me-3 fs-5 fw-bold border-3" @click="DoMeetSearch">查看可預約時段</button>
+                    <button type="submit" class="col-12 col-md-3 btn btn-outline-primary me-3 fs-5 fw-bold border-3" @click="MeetReserve">查看可預約時段</button>
                   </div>
                 </div>
               </div>
 
-                        <!-- ★會議室租借紀錄 -->
-                        <div class="card shadow m-4 mb-0" v-if="MeetInf.isValue">
-                          <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室預約一覽</p>
-                          <div class="table-responsive p-5 text-nowrap">
-                            <table class="table table-hover">
-                              <thead>
-                                <tr>
-                                  <th class="fs-4">會議室</th>
-                                  <th class="fs-4">日期</th>
-                                  <th class="fs-4">部門</th>
-                                  <th class="fs-4">會議類型</th>
-                                  <th class="fs-4">登記職員</th>
-                                  <th class="fs-4">租借時間</th>
-                                </tr>
-                              </thead>
-                        
-                              <tbody class="table-border-bottom-0">
-                                <!-- ★一列 -->
-                                <tr v-for="(MeetSearchInf,index) in MeetInf">
-                                  <td><span v-model="MeetInf" class="badge bg-label-primary fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span>
-                                  </td>
-                                  <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
-                                  <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
-                                  <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
-                                  <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
-                                  <td v-model="MeetInf"><span
-                                      class="badge bg-label-primary fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-              
             <!-- ★預約表格 -->
-            <div class="card shadow m-4">
+            <div class="card m-4">
             <div class="card-body mb-3 col-md-12">
-              <p class="fw-bold card-header fs-3 text-center mt-3" style="text-decoration: underline 4pt #666EE8;">預約時段</p>
+              <p class="fw-bold card-header fs-3 text-center mt-3" style="text-decoration: underline 4pt #666EE8;">查看可預約時段</p>
+              <p>沒出現的即為可預約!</p>
               <div class="mb-3 row g-5 justify-content-center">
                 <!-- ★預約時間 -->
                 <!-- 選擇日期 -->
@@ -645,24 +619,129 @@
                   </div>
                 </div>  
               </div>
+
+              <div class="table-responsive p-5 text-nowrap">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th class="fs-6">時間</th>
+                      <th class="fs-6">星期一(12/26)</th>
+                      <th class="fs-6">星期二(12/27)</th>
+                      <th class="fs-6">星期三(12/28)</th>
+                      <th class="fs-6">星期四(12/29)</th>
+                      <th class="fs-6">星期五(12/30)</th>
+                    </tr>
+                  </thead>
+              
+                  <tbody class="table-border-bottom-0">
+                    <!-- ★一列 -->
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>🌞 8:00－8:30</strong></td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+              
+                      <td>
+                        <!-- ★已預約彈跳視窗鈕-->
+                        <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                          style="font-size: 6px;height: 30px;">
+                          已被預約
+                        </button>
+              
+                        <!-- ★Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header mb-3">
+                                <h5 class="modal-title" id="exampleModalLabel"
+                                  style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                  &nbspA01會議室</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="row justify-content-center">
+                                <hr class="col-10">
+                              </div>
+                              <div class="modal-body text-start mt-0">
+                                <p>📋部門：設計部</p>
+                                <p>📋已預約時間：8:00-8:30</p>
+                                <p>📋部門登記人員：李文勝</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+              
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger "></i> <strong>☕ 17:30－18:00</strong></td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-label-success me-1 fs-6">可預約</span>
+                      </td>
+                      <td>
+                        <!-- ★已預約彈跳視窗鈕-->
+                        <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                          style="font-size: 6px;height: 30px;">
+                          已被預約
+                        </button>
+              
+                        <!-- ★Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header mb-3">
+                                <h5 class="modal-title" id="exampleModalLabel"
+                                  style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                  &nbspA01會議室</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="row justify-content-center">
+                                <hr class="col-10">
+                              </div>
+                              <div class="modal-body text-start mt-0">
+                                <p>📋部門：設計部</p>
+                                <p>📋已預約時間：8:00-8:30</p>
+                                <p>📋部門登記人員：李文勝</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                  </tbody>
+                </table>
+              </div>
             <!-- ★送出按鈕 -->
             <div class="m-5 row justify-content-center g-2">
               <button type="submit" class="col-10 col-md-2 btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="MeetReserve">預約會議室</button>
               <button type="submit" class="col-10 col-md-2 btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2">取消重選</button>
             </div>
-          <!-- 我是成功的吐司 -->
-          <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-            aria-live="assertive" aria-atomic="true" id="toastSuc">
-            <div class="toast-header">
-              <i class="bx bx bxs-bell bx-tada me-2"></i>
-              <div class="me-auto fw-bold fs-3">通知</div>
-              <small></small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body fs-4 fw-bold">
-              {{text}}
-            </div>
-          </div>
           <!-- / Content -->
 </div>
 </div>
@@ -703,50 +782,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- 吐司彈出窗 -->
-    <!-- toasts  -->
-    <script src="../assets/js/ui-toasts.js"></script>
-    <!-- 錯誤的 -->
-    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-      aria-live="assertive" aria-atomic="true" id="toastErr">
-      <div class="toast-header">
-        <i class="bx bx bxs-bell bx-tada me-2"></i>
-        <div class="me-auto fw-bold fs-3">通知</div>
-        <small></small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body fs-4 fw-bold">
-        ❌&nbsp;查詢失敗，請選擇日期與部門!
-      </div>
-    </div>
-    <!-- 無資料 -->
-    <div class="bs-toast toast fade show bg-secondary mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-      aria-live="assertive" aria-atomic="true" id="toastNull">
-      <div class="toast-header">
-        <i class="bx bx bxs-bell bx-tada me-2"></i>
-        <div class="me-auto fw-bold fs-3">通知</div>
-        <small></small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body fs-4 fw-bold">
-        ❓&nbsp;無資料，尚未預約!
-      </div>
-    </div>
-    <!-- 成功系列 -->
-    
-    <!-- 刪除 -->
-    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-      aria-live="assertive" aria-atomic="true" id="toastDel">
-      <div class="toast-header">
-        <i class="bx bx bxs-bell bx-tada me-2"></i>
-        <div class="me-auto fw-bold fs-3">通知</div>
-        <small></small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body fs-4 fw-bold">
-        ✔&nbsp;刪除成功!
-      </div>
-    </div>
 
         <script>
           const MeetReserve = {
@@ -755,10 +790,6 @@
                 Dep: {},
                 MeetRoom: {},
                 LoginInf: {},
-                MeetInf: {
-                  isValue: false,
-                  isRecord: false,
-                },
                 MeetRsInfo:
                 {
                   startTime: {},
@@ -770,60 +801,10 @@
                   startTime2: "整點或半小時",
                   endTime1: "選擇時刻",
                   endTime2: "整點或半小時",
-                },
-                text: "",
+                }
               }
             },
             methods: {
-              DoMeetSearch: function () {
-                var self = this;
-                axios.get("https://localhost:44319/api/MeetingReserves/MeetRoom/" + self.MeetRsInfo.meetPlaceId
-                )   //驗證
-                  .then((response) => {
-                    if (response.data[0] != undefined) {
-                      console.log(response.data);
-
-                      self.text = "✔&nbsp查詢成功"
-                      $("#toastSuc").fadeIn("fast");
-                      setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-
-                      //寫進去
-                      self.MeetInf = response.data
-                      //改個資料形式(日期與時間)
-                      for (let i = 0; i < self.MeetInf.length; i++) {
-                        self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                        self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
-                        self.MeetInf[i].ModalId = "cancelModal" + [i]
-                        self.MeetInf[i].isBookIdN = false //建立會議表
-                        self.MeetInf[i].isBookIdY = false //已建立會議表
-                      }
-                      self.MeetInf.isValue = true;
-
-                      //判斷是否有會議紀錄表了
-                      for (let i = 0; i < self.MeetInf.length; i++) {
-
-                        axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetInf[i].bookId)
-                          .then((res) => {
-                            if (res.data[0] == undefined) {
-                              self.MeetInf[i].isBookIdN = true; //會議預約的bookID
-                            } else {
-                              self.MeetInf[i].isBookIdY = true; //當有才可以按，反之顯示
-                            }
-
-                          })
-                          .catch((err) => { alert('連線錯誤' + err); })
-                      }
-                    }
-                    else {
-                      $("#toastNull").fadeIn("fast");
-                      setTimeout(() => $("#toastNull").fadeOut(), 2000);
-                    }
-
-                  })
-                  .catch((error) => { alert('連線錯誤' + error); });
-
-
-              },
               MeetReserve: function () {
                 this.MeetRsInfo.startTime = this.Time.startTime1 + ":" + this.Time.startTime2
                 this.MeetRsInfo.endTime = this.Time.endTime1 + ":" + this.Time.endTime2
@@ -834,9 +815,7 @@
                 axios.post("https://localhost:44319/api/MeetingReserves/" + this.MeetRsInfo.depId + "/" + this.MeetRsInfo.startTime + "-" + this.MeetRsInfo.endTime, this.MeetRsInfo
                 )
                   .then(res => {
-                    this.text = "✔預約成功"
-                    $("#toastSuc").fadeIn("fast");
-                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                    console.log(res);
                   })
                   .catch((error) => { alert('連線錯誤' + error); })
               },
