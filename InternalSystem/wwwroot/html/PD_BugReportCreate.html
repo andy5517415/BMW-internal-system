@@ -597,18 +597,22 @@
                                     </div>
                                     <div class="rounded-1 border border-1" style="">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
-                                            <img src="../assets/img/avatars/1.png"
-                                                 alt="圖片檔"
-                                                 class=" rounded"
-                                                 id="uploadedAvatar" />
+                                            <div style="height: 500px; width: 800px;">
+                                                <img :src="Bugtext.photo"
+                                                     alt="圖片檔"
+                                                     class=" rounded"
+                                                     style="height: 100%; width: 100%; object-fit: scale-down; "
+                                                     id="uploadedAvatar" />
+                                            </div>
+
 
                                         </div>
                                     </div>
-                                   
+
 
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary">確認</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                        <button type="button" v-on:click="Cancel()" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
 
 
@@ -676,19 +680,58 @@
                             this.Bugtext.processId = this.PressList.processId
                             this.Bugtext.areaId = this.PressList.areaId
                             console.log(this.Bugtext)
-                            axios.post('https://localhost:44319/api/ProductionBugContexts', this.Bugtext)
-                                .then(x => {
-                                    console.log(x)
-                                    window.location = "index.html"
-                                })
-                        }
+                            if (this.Bugtext.orderId == undefined) {
+                                alert('請選擇訂單號碼');
+                            } else if (this.Bugtext.date == undefined) {
+                                alert('請選擇日期');
+                            } else if (this.Bugtext.startTime == undefined) {
+                                alert('請選擇開始時間');
+                            } else if (this.Bugtext.endTime == undefined) {
+                                alert('請選擇結束時間');
+                            } else if (this.Bugtext.title == undefined) {
+                                alert('請輸入標題');
+                            } else if (this.Bugtext.rank == undefined) {
+                                alert('請選擇異常等級')
+                            } else if (this.Bugtext.context == undefined) {
+                                alert('請輸入內容')
+                            } else {
+                                if (confirm('是否完成建立?') == true) {
+                                    axios.post('https://localhost:44319/api/ProductionBugContexts', this.Bugtext)
+                                        .then(x => {
+                                            alert('建立完成');
+                                            window.location = "index.html"
+                                        })
+                                }
+                            }
 
+                        },
+
+                        Cancel: function () {
+                            window.location = "index.html"
+                        },
+                        uploadphoto(event) {
+                            console.log('ok')
+                            if (event.target.files && event.target.files[0]) {
+                                var file = event.target.files[0];
+                                var reader = new FileReader();
+                                let urlimage;
+                                reader.onload = (event) => {
+                                    document.querySelector('#upload').src = event.target.result;
+                                    this.Bugtext.photo = event.target.result;
+                                    console.log(this.Bugtext.photo);
+                                };
+                                reader.readAsDataURL(file)
+                            }
+
+                        }
                     }
                 }
                 Vue.createApp(app).mount("#app")
             </script>
             <!-- session -->
             <script src="../assets/js/LoginSession.js"></script>
+            <script src="https://unpkg.com/spacingjs" defer></script>
+
 </body>
 
 
