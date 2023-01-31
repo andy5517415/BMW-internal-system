@@ -47,18 +47,14 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
             }
         }
-
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -174,18 +170,11 @@ namespace InternalSystem.Models
 
                 entity.ToTable("MeetingRecord");
 
-                entity.Property(e => e.RecordSheetId).ValueGeneratedNever();
-
                 entity.Property(e => e.Agenda)
                     .IsRequired()
                     .HasMaxLength(1000);
 
                 entity.Property(e => e.Date).HasColumnType("date");
-
-                entity.Property(e => e.Item)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsFixedLength(true);
 
                 entity.Property(e => e.MeetPresident)
                     .IsRequired()
@@ -197,10 +186,6 @@ namespace InternalSystem.Models
                 entity.Property(e => e.Participater)
                     .IsRequired()
                     .HasMaxLength(100);
-
-                entity.Property(e => e.Principal)
-                    .IsRequired()
-                    .HasMaxLength(10);
 
                 entity.Property(e => e.Rcorder)
                     .IsRequired()
@@ -215,12 +200,6 @@ namespace InternalSystem.Models
                     .HasForeignKey(d => d.BookMeetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MeetingRecord_MeetingReserve");
-
-                entity.HasOne(d => d.MeetingPlace)
-                    .WithMany(p => p.MeetingRecords)
-                    .HasForeignKey(d => d.MeetingPlaceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MeetingRecord_MeetingRoom");
             });
 
             modelBuilder.Entity<MeetingReserve>(entity =>
@@ -230,23 +209,33 @@ namespace InternalSystem.Models
 
                 entity.ToTable("MeetingReserve");
 
-                entity.Property(e => e.BookMeetId).ValueGeneratedNever();
-
                 entity.Property(e => e.Date).HasColumnType("date");
 
-                entity.Property(e => e.EndTime).HasColumnType("datetime");
+                entity.Property(e => e.EndTime)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.MeetType)
                     .IsRequired()
                     .HasMaxLength(4);
 
-                entity.Property(e => e.StartTime).HasColumnType("datetime");
+                entity.Property(e => e.StartTime)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.MeetingReserves)
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MeetingReserve_PersonnelProfileDetail");
+
+                entity.HasOne(d => d.MeetPlace)
+                    .WithMany(p => p.MeetingReserves)
+                    .HasForeignKey(d => d.MeetPlaceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MeetingReserve_MeetingRoom");
             });
 
             modelBuilder.Entity<MeetingRoom>(entity =>

@@ -9,12 +9,12 @@ namespace InternalSystem.Models
     {
         public MeetingRoom()
         {
-            MeetingRecords = new HashSet<MeetingRecord>();
+            MeetingReserves = new HashSet<MeetingReserve>();
         }
 
         public int MeetingPlaceId { get; set; }
         public string MeetingRoom1 { get; set; }
 
-        public virtual ICollection<MeetingRecord> MeetingRecords { get; set; }
+        public virtual ICollection<MeetingReserve> MeetingReserves { get; set; }
     }
 }

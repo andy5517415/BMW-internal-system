@@ -20,22 +20,18 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-        //報工內容清單
+        //報工內容清單(普通表單及複合式查詢)
         //GET: api/ProductionContexts/ContextsList
         [HttpGet("ContextsList")]
-        public async Task<ActionResult<dynamic>> GetContextsList(string empNumber , string empName , string starDate  )
+        public async Task<ActionResult<dynamic>> GetContextsList(string empNumber , string empName , string starDate )
         {
-            //TimeSpan TS = Convert.ToDateTime(productionContext.Date).Subtract(Convert.ToDateTime(starDate));
-            //double dd = TS.TotalDays;
-            //TimeSpan ES = Convert.ToDateTime(endDate).Subtract(Convert.ToDateTime(productionContext.Date));
-            //double ff = ES.TotalDays;
+
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
                         join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
                         join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
                         join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
                         orderby PC.Date descending
-                        //where dd >= 0 && ff <=0
                         select new
                         {
                             EmployeeId = PC.EmployeeId,
@@ -47,6 +43,49 @@ namespace InternalSystem.Controllers
                             BO.OrderNumber
                         };
            
+            if (!string.IsNullOrWhiteSpace(empNumber))
+            {
+                query = query.Where(a => a.EmployeeNumber.Contains(empNumber));
+            }
+            if (!string.IsNullOrWhiteSpace(empName))
+            {
+                query = query.Where(a => a.EmployeeName.Contains(empName));
+            }
+            if (!string.IsNullOrWhiteSpace(starDate))
+            {
+                query = query.Where(a => a.Date.Contains(starDate));
+            }
+           
+
+            return await query.ToListAsync();
+        }
+
+        //報工內容清單(日期複合式查詢)
+        //GET: api/ProductionContexts/ContextsListSearch/start2023-01-01/end2023-02-01
+        [HttpGet("ContextsListSearch/start{startDate}/end{endDate}")]
+        public async Task<ActionResult<dynamic>> GetContextDatesList(string empNumber, string empName, string startDate ,string endDate)
+        {
+            var std = DateTime.Parse(startDate);
+            var end = DateTime.Parse(endDate);
+
+            var query = from PC in this._context.ProductionContexts
+                        join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
+                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
+                        join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
+                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                        orderby PC.Date descending
+                        where PC.Date >= std && PC.Date <= end
+                        select new
+                        {
+                            EmployeeId = PC.EmployeeId,
+                            EmployeeName = PPD.EmployeeName,
+                            EmployeeNumber = PPD.EmployeeNumber,
+                            OrderId = PC.OrderId,
+                            Date = PC.Date.ToString(),
+                            PD.DepName,
+                            BO.OrderNumber
+                        };
+
             if (!string.IsNullOrEmpty(empNumber))
             {
                 query = query.Where(a => a.EmployeeNumber.Contains(empNumber));
@@ -55,14 +94,6 @@ namespace InternalSystem.Controllers
             {
                 query = query.Where(a => a.EmployeeName.Contains(empName));
             }
-            if (!string.IsNullOrEmpty(starDate))
-            {
-                query = query.Where(a => a.Date.Contains(starDate));
-            }
-            
-
-
-
 
             return await query.ToListAsync();
         }
