@@ -109,7 +109,7 @@
                                       <input v-model="form.UserPwd" type="password" id="password" class="form-control fs-5" name="password"
                                              placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                              aria-describedby="password" />
-                                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                   </div>
                               </div>
                               <div class="mb-3">
@@ -167,55 +167,55 @@
 
     <!--Vue-->
     <script>
-        var login = new Vue({
-            el: '#login'
-            , data: function () {
-                var data = {
-                    form: {}
-                };
-                return data;
-            },
-            methods: {
-                // 執行登入按鈕
-                DoLogin: function () {
-                    var self = this;
+      var login = new Vue({
+        el: '#login'
+        , data: function () {
+          var data = {
+            form: {}
+          };
+          return data;
+        },
+        methods: {
+          // 執行登入按鈕
+          DoLogin: function () {
+            var self = this;
 
-                    // 組合表單資料
-                    var postData = {};
-                    postData['Account'] = self.form.UserID;
-                    postData['Password'] = self.form.UserPwd;
+            // 組合表單資料
+            var postData = {};
+            postData['Account'] = self.form.UserID;
+            postData['Password'] = self.form.UserPwd;
 
-                    axios.post("https://localhost:44319/api/LoginTest",
-                        postData
-                    )   //驗證
-                        .then((response) => {
-                            console.log(response.data);
-                            var data = response.data[0]
-                            var LoginInf = {
-                                State: data.state,
-                                EmpID: data.employeeId,
-                                Name: data.employeeName,
-                                EmpNumber: data.employeeNumber,
-                                DepID: data.departmentId,
-                                PositionId: data.positionId,
-                                Depment: data.depment,
-                            }
-                            console.log(LoginInf);
-
-                            if (LoginInf.State == "使用者已登入") {
-                                //取得使用者資訊
-                                sessionStorage.setItem("LoginInf", JSON.stringify(LoginInf));
-                                location.assign("index.html")
-                            }
-                        })
-                        .catch((error) => {
-                            $("#toastErr").fadeIn("fast");
-                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                        })
-
+            axios.post("https://localhost:44319/api/LoginTest",
+              postData
+            )   //驗證
+              .then((response) => {
+                console.log(response.data);
+                var data = response.data[0]
+                var LoginInf = {
+                  State: data.state,
+                  EmpID: data.employeeId,
+                  Name: data.employeeName,
+                  EmpNumber: data.employeeNumber,
+                  DepID: data.departmentId,
+                  PositionId: data.positionId,
+                  Depment: data.depment,
                 }
-            }
-        })
+                console.log(LoginInf);
+
+                if (LoginInf.State == "使用者已登入") {
+                  //取得使用者資訊
+                  sessionStorage.setItem("LoginInf", JSON.stringify(LoginInf));
+                  location.assign("index.html")
+                }
+              })
+              .catch((error) => {
+                $("#toastErr").fadeIn("fast");
+                setTimeout(() => $("#toastErr").fadeOut(), 2000);
+              })
+
+          }
+        }
+      })
     </script>
              
 
