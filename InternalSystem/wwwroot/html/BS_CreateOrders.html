@@ -578,8 +578,8 @@
 
 
                                         <!--<input v-if="true" @change="uploadphoto" type="file" />
-                                            <img v-if="true" :src="uploadimg">
-                                            <button v-if="true" @click="savephoto" type="button">送出圖片</button>-->
+                                            <button v-if="true" @click="savephoto" type="button">送出圖片</button>
+                                            <img v-if="true" :src="uploadimg">-->
 
 
 
@@ -1360,15 +1360,15 @@
 
                 },
                 savephoto() {
-                    axios.get('/api/BusinessOptionals/22')
+                    axios.get('/api/BusinessOptionals/36')
                         .then(p => {
                             console.log(p);
                             this.putphoto = p.data;
                             this.putphoto.photo = this.uploadimg
                             console.log(this.putphoto.photo);
-                            axios.put('/api/BusinessOptionals/22', this.putphoto).then(p => console.log(p))
+                            axios.put('/api/BusinessOptionals/36', this.putphoto).then(p => console.log(p))
                         })
-
+                    alert('成功');
                 },
                 showphoto(e) {
                     //console.log(e.target.innerHTML.toString());
