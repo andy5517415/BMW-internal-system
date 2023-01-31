@@ -25,6 +25,7 @@ namespace InternalSystem.Models
         public bool? ManagerAudit { get; set; }
         public DateTime? ManagerAuditDate { get; set; }
         public string AuditOpnion { get; set; }
+        public string Photo { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual PersonnelLeaveType LeaveTypeNavigation { get; set; }

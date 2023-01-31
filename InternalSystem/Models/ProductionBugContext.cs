@@ -17,6 +17,7 @@ namespace InternalSystem.Models
         public string Title { get; set; }
         public string Context { get; set; }
         public string Dispose { get; set; }
+        public string Photo { get; set; }
 
         public virtual ProductionProcessList ProductionProcessList { get; set; }
     }
