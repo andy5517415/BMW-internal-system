@@ -9,8 +9,6 @@ namespace InternalSystem.Models
     {
         public int RecordSheetId { get; set; }
         public int BookMeetId { get; set; }
-        public int MeetingPlaceId { get; set; }
-        public int DepId { get; set; }
         public string MeetPresident { get; set; }
         public string Rcorder { get; set; }
         public string Participater { get; set; }
@@ -18,13 +16,10 @@ namespace InternalSystem.Models
         public int Attend { get; set; }
         public int? NoAttend { get; set; }
         public string NoAttendPerson { get; set; }
-        public string Principal { get; set; }
         public DateTime Date { get; set; }
-        public string Item { get; set; }
         public string Agenda { get; set; }
         public string Record { get; set; }
 
         public virtual MeetingReserve BookMeet { get; set; }
-        public virtual MeetingRoom MeetingPlace { get; set; }
     }
 }

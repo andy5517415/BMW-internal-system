@@ -575,6 +575,37 @@
                                         <textarea class="form-control fs-5" v-model="Bugtext.dispose" id="dispose" rows="8"></textarea>
                                     </div>
 
+                                    <div class="button-wrapper d-flex justify-content-end">
+
+                                        <label for="upload" class="btn btn-primary me-2 mb-4 p-1 " tabindex="0">
+                                            <span class="">上傳大頭照</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file"
+                                                   id="upload"
+                                                   class="account-file-input"
+                                                   hidden
+                                                   accept="image/png, image/jpeg"
+                                                   @change="uploadphoto" />
+                                        </label>
+
+                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                            <i class="bx bx-reset d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                        </button>
+
+
+                                    </div>
+                                    <div class="rounded-1 border border-1" style="">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
+                                            <img src="../assets/img/avatars/1.png"
+                                                 alt="圖片檔"
+                                                 class=" rounded"
+                                                 id="uploadedAvatar" />
+
+                                        </div>
+                                    </div>
+                                   
+
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary">確認</button>
                                         <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
