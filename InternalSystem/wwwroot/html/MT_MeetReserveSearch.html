@@ -507,7 +507,7 @@
                             <div class="card-body mb-3 col-md-12">
                                 <!-- ⁥!!! -->
                                 <!-- 查詢日期區間 -->
-                                <div class="my-4 g-5 d-flex justify-content-around">
+                                <div class="my-4 g-5 d-flex row justify-content-around">
                                     <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">查詢日期區間</label>
                                     <div class="col-4 col-md-2">
                                         <input v-model="MeetSearch.StartDay1" class="form-control InputCheck" type="date" value="" id="meetSearch_date1"
@@ -836,8 +836,6 @@
                                     //改個資料形式(日期與時間)
                                     for (let i = 0; i < self.MeetInf.length; i++) {
                                         self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                                        self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(11, 16);//開始時間
-                                        self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(11, 16);//結束時間
                                         self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
                                         self.MeetInf[i].ModalId = "cancelModal" + [i]
                                         self.MeetInf[i].isBookIdN = false //建立會議表

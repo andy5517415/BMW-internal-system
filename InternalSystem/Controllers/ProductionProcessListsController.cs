@@ -21,10 +21,10 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-        //異常清單(全部)
+        //異常清單(全部+複合式查詢訂單及異常等級)
         // GET: api/ProductionProcessLists/GetBugList
         [HttpGet("GetBugList")]
-        public async Task<ActionResult<dynamic>> GetBugList()
+        public async Task<ActionResult<dynamic>> GetBugList(string orderNumber , string rank)
         {
             var BugList = from PBC in this._context.ProductionBugContexts
                           join PPL in this._context.ProductionProcessLists on PBC.ProcessId equals PPL.ProcessId
@@ -48,15 +48,71 @@ namespace InternalSystem.Controllers
                                     Date = PBC.Date.ToString(),
                                     StartTime = PBC.StartTime,
                                     EndTime = PBC.EndTime,
-                                    PBC.Title,
-                                    PBC.Context,
-                                    PBC.Rank,
-                                    PBC.Dispose
+                                    Title = PBC.Title,
+                                    Context = PBC.Context,
+                                    Rank = PBC.Rank,
+                                    Dispose = PBC.Dispose,
+                                    Photo =PBC.Photo
                                 };
 
+            if (!string.IsNullOrWhiteSpace(orderNumber))
+            {
+                BugList = BugList.Where(a => a.OrderNumber.Contains(orderNumber));
+            }
+            if (!string.IsNullOrWhiteSpace(rank))
+            {
+                BugList = BugList.Where(a => a.Rank.Contains(rank));
+            }
             return await BugList.ToListAsync();
         }
 
+        //異常清單(全部+複合式查詢訂單、異常等級及日期)
+        // GET: api/ProductionProcessLists/GetBugListDate
+        [HttpGet("GetBugListDate")]
+        public async Task<ActionResult<dynamic>> GetBugListDate(string orderNumber, string rank , string startDate , string endDate)
+        {
+            var std = DateTime.Parse(startDate);
+            var edd = DateTime.Parse(endDate);
+
+            var BugList = from PBC in this._context.ProductionBugContexts
+                          join PPL in this._context.ProductionProcessLists on PBC.ProcessId equals PPL.ProcessId
+                          join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
+                          join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                          join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                          join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                          join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                          join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                          join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                          where PBC.OrderId == PPL.OrderId && BC.CategoryId == 1 && PBC.Date >= std && PBC.Date <= edd
+                          select new
+                          {
+                              OrderId = PBC.OrderId,
+                              OrderNumber = BO.OrderNumber,
+                              OptionalName = BOT.OptionalName,
+                              AreaId = PBC.AreaId,
+                              AreaName = PA.AreaName,
+                              ProcessId = PBC.ProcessId,
+                              ProcessName = PP.ProcessName,
+                              Date = PBC.Date.ToString(),
+                              StartTime = PBC.StartTime,
+                              EndTime = PBC.EndTime,
+                              Title = PBC.Title,
+                              Context = PBC.Context,
+                              Rank = PBC.Rank,
+                              Dispose = PBC.Dispose,
+                              Photo = PBC.Photo
+                          };
+
+            if (!string.IsNullOrWhiteSpace(orderNumber))
+            {
+                BugList = BugList.Where(a => a.OrderNumber.Contains(orderNumber));
+            }
+            if (!string.IsNullOrWhiteSpace(rank))
+            {
+                BugList = BugList.Where(a => a.Rank.Contains(rank));
+            }
+            return await BugList.ToListAsync();
+        }
 
         // 異常清單建立
         // GET: api/ProductionProcessLists/bugListCreate

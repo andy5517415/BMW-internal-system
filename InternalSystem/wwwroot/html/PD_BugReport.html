@@ -534,17 +534,17 @@
 
                                     <div class="mb-3 col-3">
                                         <label for="startTime" class="col-4 fs-5">開始時間</label>
-                                        <input class="form-control fs-5" type="time" v-model="BugList.startTime" id="startTime" disabled/>
+                                        <input class="form-control fs-5" type="time" v-model="BugList.startTime" id="startTime" disabled />
                                     </div>
 
                                     <div class="mb-3 col-3">
                                         <label for="endTime" class="col-4 fs-5">結束時間</label>
-                                        <input class="form-control fs-5" type="time" v-model="BugList.endTime" id="endTime" disabled/>
+                                        <input class="form-control fs-5" type="time" v-model="BugList.endTime" id="endTime" disabled />
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="title" class="fs-5 my-2">異常標題</label>
-                                        <input class="form-control fs-5" type="text" v-model="BugList.title" id="title" disabled/>
+                                        <input class="form-control fs-5" type="text" v-model="BugList.title" id="title" disabled />
                                     </div>
 
                                     <div class="col-md-2">
@@ -567,7 +567,42 @@
                                         <textarea class="form-control fs-5" v-model="BugList.dispose" id="dispose" rows="8" disabled></textarea>
                                     </div>
 
+                                    <div class="button-wrapper d-flex justify-content-end">
+
+                                        <label for="upload" class="btn btn-primary me-2 mb-4 p-1 " tabindex="0">
+                                            <span class="">上傳大頭照</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file"
+                                                   id="upload"
+                                                   class="account-file-input"
+                                                   hidden
+                                                   accept="image/png, image/jpeg"
+                                                   @change="uploadphoto" />
+                                        </label>
+
+                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                            <i class="bx bx-reset d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                        </button>
+
+
+                                    </div>
+                                    <div class="rounded-1 border border-1" style="">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
+                                            <div style="height: 500px; width: 800px;">
+                                                <img :src="BugList.photo"
+                                                     alt="圖片檔"
+                                                     class=" rounded"
+                                                     style="height: 100%; width: 100%; object-fit: scale-down; "
+                                                     id="uploadedAvatar" />
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
                                     <div class="col-form-label d-flex justify-content-end">
+                                        <button type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()">編輯</button>
                                         <button type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary">確認</button>
                                         <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
@@ -626,19 +661,18 @@
                         this.BugList = JSON.parse(sessionStorage.getItem("bugdata"))
                     },
                     methods: {
-                        ted(e) {
-                            axios.get('https://localhost:44319/api/ProductionProcessLists/bugListCreate/' + e)
-                                .then(response => this.PressList = response.data);
-                        },
+                        
                         Enter: function () {
-                            this.Bugtext.processId = this.PressList.processId
-                            this.Bugtext.areaId = this.PressList.areaId
-                            console.log(this.Bugtext)
-                            axios.post('https://localhost:44319/api/ProductionBugContexts', this.Bugtext)
-                                .then(x => {
-                                    console.log(x)
-                                    window.location = "index.html"
-                                })
+                            console.log('ok')
+                            //axios.post('https://localhost:44319/api/ProductionBugContexts', this.Bugtext)
+                            //    .then(x => {
+                            //        console.log(x)
+                            //        window.location = "index.html"
+                            //    })
+                        },
+
+                        Edit: function () {
+
                         }
 
                     }

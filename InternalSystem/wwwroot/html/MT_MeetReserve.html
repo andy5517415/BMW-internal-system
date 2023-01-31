@@ -519,33 +519,21 @@
                   <!-- ★預約日期 -->
                   <h5 class="mb-4 text-center">您的部門是：生產部</h5>
                   <div class="mb-3 row g-2 justify-content-around">
-                    <label for="meetWeek_select"
-                      class="col-4 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇周別</label>
+                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選擇周別</label>
                     <div class="col-8 col-md-3">
                       <input v-model="MeetRsInfo.week" class="form-control fs-5" type="week" value="" id="meetWeek_select" style="height: 45px;" />
                     </div>
           
           
                     <!-- ★預約會議室 -->
-                    <label for="meetPlace_select"
-                      class="col-5 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇會議室</label>
+                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選擇會議室</label>
                     <div class="col-7 col-md-5">
                       <select v-model="MeetRsInfo.meetPlaceId" class="form-select" id="meetPlace_select" aria-label="Default select example" style="height: 45px;">
                         <option value="" disabled>選擇會議室</option>
                         <option v-for="MR in MeetRoom" :value="MR.meetingPlaceId">{{MR.meetingRoom1}}</option>
                       </select>
                     </div>
-                    <!-- 選擇會議類型 -->
-                    <label for="meetPlace_select"
-                      class="col-5 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇會議類型</label>
-                    <div class="col-7 col-md-5">
-                      <select v-model="MeetRsInfo.meetType" class="form-select" id="meetPlace_select" aria-label="Default select example"
-                        style="height: 45px;">
-                        <option value="" disabled>選擇會議類型</option>
-                        <option option value="內部會議">內部會議</option>
-                        <option option value="外部會議">外部會議</option>
-                      </select>
-                    </div>
+                    
 
                   </div>
                   <div class="mt-4 row justify-content-center">
@@ -559,46 +547,70 @@
             <div class="card-body mb-3 col-md-12">
               <p class="fw-bold card-header fs-3 text-center mt-3" style="text-decoration: underline 4pt #666EE8;">查看可預約時段</p>
               <p>沒出現的即為可預約!</p>
-              <div class="my-3 row g-2 justify-content-around">
+              <div class="my-4 row g-5 mx-auto">
+                <!-- 選擇會議類型 -->
+                <div class="col-2">
+                  <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">會議類型</label>
+                </div>
+                <div class="col-4 col-md-4">
+                  
+                  <select v-model="MeetRsInfo.meetType" class="form-select" id="meetPlace_select" aria-label="Default select example"
+                    style="height: 45px;">
+                    <option value="" disabled>選擇會議類型</option>
+                    <option option value="內部會議">內部會議</option>
+                    <option option value="外部會議">外部會議</option>
+                  </select>
+                </div>
                 <!-- ★預約時間 -->
                 <!-- 選擇日期 -->
-                <label for="meetTime_select"
-                  class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇時間區段</label>
-                <div class="col-12 col-md-5">
-                  <input v-model="MeetRsInfo.date" class="form-control fs-5" type="date" value="" id="meetTime_select"
-                    style="height: 45px;" />
+                <div class="col-2">
+                  <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選擇日期</label>
                 </div>
+                  <div class="col-4 col-md-4">
+                    
+                    <input v-model="MeetRsInfo.date" class="form-control fs-5" type="date" value="" id="meetTime_select"
+                      style="height: 45px;" />
+                  </div>
+                  <!-- 空白 -->
+                  </div>
 
-                <label for="meetTime_select"
-                  class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">選擇時間區段</label>
-                <!-- 區段1 -->
-                <div class="col-12 col-md-5">
-                  <label for="meetTime_select"
-                    class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">開始時間</label>
-                  <select v-model="Time.startTime1" id="hourbox1" class="form-select" >
+                  <div>
+                  <!-- 選擇時間 -->
+                  <!-- 區段1 -->
+                  <div class="col-2">
+                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始時間</label>
+                  </div>
+                  <div class="col-4 col-md-3">
+                    
+                  <select v-model="Time.startTime1" id="hourbox1" class="form-select" style="height: 45px;">
                     <option selected disabled>選擇時刻</option>
                   </select>
-
-                  <select v-model="Time.startTime2" id="minutebox" class="form-select">
-                    <option selected disabled>整點或半小時</option>
-                    <option value="00" >00</option>
-                    <option value="30">30</option>
-                  </select>
-                </div>
-                <!-- 區段2 -->
-                <label for="meetTime_select"
-                  class="col-12 col-md-2 col-form-label fs-5 text-center badge bg-primary text-wrap p-3">結束時間</label>
-                <div class="col-12 col-md-5">
-                  <select v-model="Time.endTime1" id="hourbox2" class="form-select">
-                    <option selected disabled>選擇時刻</option>
-                  </select>
-                  
-                  <select v-model="Time.endTime2" id="minutebox" class="form-select">
-                    <option selected disabled>整點或半小時</option>
-                    <option value="00">00</option>
-                    <option value="30">30</option>
-                  </select>
-                </div>
+                  </div>
+                  <div class="col-4 col-md-3">
+                    <select v-model="Time.startTime2" class="form-select" style="height: 45px;">
+                      <option selected disabled>整點或半小時</option>
+                      <option value="00">00</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+                  <!-- 區段1 -->
+                  <div class="col-2">
+                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束時間</label>
+                  </div>
+                  <div class="col-4 col-md-3">
+                    
+                      <select v-model="Time.endTime1" id="hourbox2" class="form-select" style="height: 45px;">
+                        <option selected disabled>選擇時刻</option>
+                      </select>      
+                  </div>
+                  <div class="col-4 col-md-3">
+                    <select v-model="Time.endTime2" class="form-select" style="height: 45px;">
+                      <option selected disabled>整點或半小時</option>
+                      <option value="00">00</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+                </div>  
               </div>
 
               <div class="table-responsive p-5 text-nowrap">
@@ -792,13 +804,13 @@
                 console.log(this.MeetRsInfo.startTime);
                 console.log(this.MeetRsInfo.endTime);
                 console.log(this.MeetRsInfo);
-                /*
+
                 axios.post("https://localhost:44319/api/MeetingReserves/" + this.MeetRsInfo.depId + "/" + this.MeetRsInfo.startTime + "-" + this.MeetRsInfo.endTime, this.MeetRsInfo
                 )
                   .then(res => {
                     console.log(res);
                   })
-                  .catch((error) => { alert('連線錯誤' + error); })*/
+                  .catch((error) => { alert('連線錯誤' + error); })
               },
 
             },
