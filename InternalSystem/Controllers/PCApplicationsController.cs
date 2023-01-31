@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace InternalSystem.Controllers
 {
@@ -269,11 +270,11 @@ namespace InternalSystem.Controllers
 
 
 
-        // 物品查詢專用
+        // 物品查詢專用  部門搜尋
         // 用於 PC_ApplicationRecordSearch
         // GET: api/PCApplications/recordsearch
         [HttpGet("recordsearch")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetPCrecordsearch()
+        public async Task<ActionResult<dynamic>> GetPCrecordsearch(string id)
         {
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
@@ -283,6 +284,7 @@ namespace InternalSystem.Controllers
                        {
                            PurchaseId = AP.PurchaseId,
                            EmployeeName = PD.EmployeeName,
+                           DepartmentId = PDL.DepartmentId,
                            Department = PDL.DepName,
                            Date = AP.Date.ToString(),
                            Comment = AP.Comment,
@@ -295,6 +297,47 @@ namespace InternalSystem.Controllers
                            AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
                        };
 
+            if (!string.IsNullOrWhiteSpace(id)) {
+                List = List.Where(a => a.Department.Contains(id));
+            }
+
+            return await List.ToListAsync();
+        }
+
+        // 物品查詢專用  部門+日期搜尋
+        // 用於 PC_ApplicationRecordSearch
+        // GET: api/PCApplications/recordsearch/{startdate}/{enddate}
+        [HttpGet("recordsearch/{startdate}/{enddate}")]
+        public async Task<ActionResult<dynamic>> GetPCrecordsearchDate(string id,string startdate,string enddate)
+        {
+            var Mystartdate = DateTime.Parse(startdate);
+            var Myenddate = DateTime.Parse(enddate);
+            var List = from AP in this._context.PcApplications
+                       join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
+                       join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
+                       orderby AP.Date
+                       where AP.Date >= Mystartdate && AP.Date <= Myenddate
+                       select new
+                       {
+                           PurchaseId = AP.PurchaseId,
+                           EmployeeName = PD.EmployeeName,
+                           DepartmentId = PDL.DepartmentId,
+                           Department = PDL.DepName,
+                           Date = AP.Date.ToString(),
+                           Comment = AP.Comment,
+                           Total = AP.Total,
+                           ApplicationStatus = AP.ApplicationStatus,
+                           ApplicationRejectStatus = AP.ApplicationRejectStatus,
+                           DeliveryStatus = AP.DeliveryStatus,
+                           DeliveryRejectStatus = AP.DeliveryRejectStatus,
+                           AcceptanceStatus = AP.AcceptanceStatus,
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
+                       };
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                List = List.Where(a => a.Department.Contains(id));
+            }
 
             return await List.ToListAsync();
         }

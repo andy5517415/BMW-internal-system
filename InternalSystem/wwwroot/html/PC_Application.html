@@ -261,15 +261,11 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="BS_BugSys.html" class="menu-link">
-                                    <div data-i18n="Account">業務_報錯系統</div>
+                                <a href="BS_OrderAll.html" class="menu-link">
+                                  <div data-i18n="Account">訂單一覽</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="BS_MonitorSys.html" class="menu-link">
-                                    <div data-i18n="Account">業務_監控系統</div>
-                                </a>
-                            </li>
+                            
                         </ul>
                     </li>
                     <!-- 產線系統 -->
@@ -313,7 +309,16 @@
                             <div data-i18n="Account Settings">產線狀況監控</div>
                         </a>
                         <ul class="menu-sub">
-                             
+                            <li class="menu-item">
+                                <a href="BS_BugSys.html" class="menu-link">
+                                    <div data-i18n="Account">報錯系統</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="BS_MonitorSys.html" class="menu-link">
+                                    <div data-i18n="Account">監控系統</div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -570,7 +575,7 @@
                                                     </div>
                                                     <!-- 申請日期 -->
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
+                                                        <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請日期</label>
                                                         <div class="col-md-12">
                                                             <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="item.date" />
                                                         </div>

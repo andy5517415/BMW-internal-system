@@ -229,7 +229,11 @@
                                     <div data-i18n="Account">查詢/修改/刪除訂單</div>
                                 </a>
                             </li>
-
+                            <li class="menu-item">
+                                <a href="BS_OrderAll.html" class="menu-link">
+                                  <div data-i18n="Account">訂單一覽</div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -522,21 +526,21 @@
 
                                 </div>
                                 <div class="row py-3">
-                                    
+
                                     <div class="mb-3 col-md-2">
                                         <label for="StartTime" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
                                         <input class="form-control fs-5 mb-2" type="date" id="StartTime" v-model="leaveExit.startDate" />
-                                        
+
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <div style="height: 43px;"></div>
                                         <input class="form-control fs-5" type="time" id="html5-date-input" v-model="leaveExit.startTime" />
-                                        
+
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="EndTime" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束日期</label>
                                         <input class="form-control fs-5 mb-2" type="date" id="Endtimeforvacation" v-model="leaveExit.endDate" />
-                                        
+
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <div style="height: 43px;"></div>
@@ -548,34 +552,62 @@
                                     </div>
 
                                 </div>
-                                
+
 
                                 <div class="row ">
                                     <div class="col-md-2">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
-                                        <select id="Rank" class="select2 form-select"  v-model="leaveExit.leaveType">
-                                            <option v-for="leave in leavetype":value="leave.leaveTypeId">{{leave.type}}</option>
+                                        <select id="Rank" class="select2 form-select" v-model="leaveExit.leaveType">
+                                            <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
 
                                         </select>
                                     </div>
                                     <div class="col-md-2">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
-                                        <select id="proxy" class="select2 form-select"  v-model="leaveExit.proxy">
+                                        <select id="proxy" class="select2 form-select" v-model="leaveExit.proxy">
                                             <option v-for="item in proxy" :value="item.employeeId"> {{item.employeeName}}</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="col-md-2" >
+                                <div class="col-md-2">
                                     <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="manager" v-model="leaveExit.manerger">審核主管</label>
                                     <select id="manager" class="select2 form-select">
-                                        <option  v-for="item in manager" :value="item.employeeId" >{{item.employeeName}} </option>
-</select>
+                                        <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}} </option>
+                                    </select>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="mb-3 col-md-12">
                                         <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
                                         <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveExit.reason" rows="6" col="6"></textarea>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                    <img :src="leaveExit.photo"
+                                         alt="請上傳圖片"
+                                         class="d-block rounded"
+                                         height="300"
+                                         width="300"
+                                         id="uploadedAvatar"
+                                         @mouseover="mouseover" />
+                                    <div class="button-wrapper">
+                                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">上傳照片</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file"
+                                                   id="upload"
+                                                   class="account-file-input"
+                                                   hidden
+                                                   accept="image/png, image/jpeg"
+                                                   @change="uploadphoto" />
+                                        </label>
+
+                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                            <i class="bx bx-reset d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                        </button>
+
+                                        <p class="text-muted mb-0">病假請附上診斷證明或處方籤</p>
                                     </div>
                                 </div>
                                 <!-- 按鈕 -->
@@ -733,6 +765,22 @@
                                 })
                         }
                     },
+                    uploadphoto(event) {
+                        console.log('ok')
+                        if (event.target.files && event.target.files[0]) {
+                            var file = event.target.files[0];
+                            var reader = new FileReader();
+                            let urlimage;
+                            reader.onload = (event) => {
+                                document.querySelector('#upload').src = event.target.result;
+                                this.leaveExit.photo = event.target.result;
+                                console.log(this.leaveExit.photo);
+                            };
+                            reader.readAsDataURL(file)
+                        }
+
+
+                    }
                 },
                 mounted() {
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));//獲取使用者ID
