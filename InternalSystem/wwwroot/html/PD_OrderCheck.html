@@ -710,265 +710,280 @@
     
     <script>
 
-      const app = {
-        data() {
-          return {
-            item: {},
-            carName: {},
-            carcolor: {},
-            cartexture: {},
-            carwheel: {},
-            carplaque: {},
-            carlight: {},
-            carsaddle: {},
-            carsunroof: {},
-            carmedia: {},
-            processes: {},
-            Areas: {},
-            processesAreaList: {},
-            BSO: { isAccepted: 1 }
-          }
-        },
-        mounted() {
-          this.item = JSON.parse(sessionStorage.getItem("order"))
-          this.processesAreaList.orderId = this.item.orderId
-          this.processesAreaList.processId = this.item.processId
+        const app = {
+            data() {
+                return {
+                    item: {},
+                    carName: {},
+                    carcolor: {},
+                    cartexture: {},
+                    carwheel: {},
+                    carplaque: {},
+                    carlight: {},
+                    carsaddle: {},
+                    carsunroof: {},
+                    carmedia: {},
+                    processes: {},
+                    Areas: {},
+                    processesAreaList: {},
+                    BSO: { isAccepted: 1 }
+                }
+            },
+            mounted() {
+                this.item = JSON.parse(sessionStorage.getItem("order"))
+                this.processesAreaList.orderId = this.item.orderId
+                this.processesAreaList.processId = this.item.processId
 
-          //日期格式
-          let today = new Date()
-          let yyyy = today.getFullYear()
-          let mm = today.getMonth() + 1
-          let dd = today.getDate()
-          if (mm < 10) {
-            mm = "0" + mm.toString()
-          }
-          if (dd < 10) {
-            dd = "0" + dd.toString()
-          }
-          this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
-          this.processesAreaList.statusId = 2
+                //日期格式
+                let today = new Date()
+                let yyyy = today.getFullYear()
+                let mm = today.getMonth() + 1
+                let dd = today.getDate()
+                if (mm < 10) {
+                    mm = "0" + mm.toString()
+                }
+                if (dd < 10) {
+                    dd = "0" + dd.toString()
+                }
+                this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
+                this.processesAreaList.statusId = 2
 
 
-          if (this.item.processId != 1) {
-            //業務訂單內容
-            axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessorBack/' + this.item.orderId)
-              .then(response => {
-                this.carName = response.data[0]
-                this.carcolor = response.data[1]
-                this.cartexture = response.data[2]
-                this.carwheel = response.data[3]
-                this.carplaque = response.data[4]
-                this.carlight = response.data[5]
-                this.carsaddle = response.data[6]
-                this.carsunroof = response.data[7]
-                this.carmedia = response.data[8]
-              })
+                if (this.item.processId != 1) {
+                    //業務訂單內容
+                    axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessorBack/' + this.item.orderId)
+                        .then(response => {
+                            this.carName = response.data[0]
+                            this.carcolor = response.data[1]
+                            this.cartexture = response.data[2]
+                            this.carwheel = response.data[3]
+                            this.carplaque = response.data[4]
+                            this.carlight = response.data[5]
+                            this.carsaddle = response.data[6]
+                            this.carsunroof = response.data[7]
+                            this.carmedia = response.data[8]
+                        })
+                    //廠區單
+                    axios.get('https://localhost:44319/api/ProductionAreas')
+                        .then(response => this.Areas = response.data)
 
-          } else if (this.item.processId = 1) {
-            //業務訂單內容
-            axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/' + this.item.orderId)
-              .then(response => {
-                this.carName = response.data[0]
-                this.carcolor = response.data[1]
-                this.cartexture = response.data[2]
-                this.carwheel = response.data[3]
-                this.carplaque = response.data[4]
-                this.carlight = response.data[5]
-                this.carsaddle = response.data[6]
-                this.carsunroof = response.data[7]
-                this.carmedia = response.data[8]
-              })
+                } else if (this.item.processId = 1) {
+                    //業務訂單內容
+                    axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/' + this.item.orderId)
+                        .then(response => {
+                            this.carName = response.data[0]
+                            this.carcolor = response.data[1]
+                            this.cartexture = response.data[2]
+                            this.carwheel = response.data[3]
+                            this.carplaque = response.data[4]
+                            this.carlight = response.data[5]
+                            this.carsaddle = response.data[6]
+                            this.carsunroof = response.data[7]
+                            this.carmedia = response.data[8]
+                        })
 
-            //整張訂單(要put使用)
-            axios.get('https://localhost:44319/api/BusinessOrders/' + this.item.orderId)
-              .then(response => {
-                this.BSO = response.data
-                this.BSO.isAccepted = true
-              })
+                    //整張訂單(要put使用)
+                    axios.get('https://localhost:44319/api/BusinessOrders/' + this.item.orderId)
+                        .then(response => {
+                            this.BSO = response.data
+                            this.BSO.isAccepted = true
+                        })
 
-            //製程單
-            axios.get('https://localhost:44319/api/ProductionProcesses')
-              .then(response => this.processes = response.data)
-            //廠區單
-            axios.get('https://localhost:44319/api/ProductionAreas')
-              .then(response => this.Areas = response.data)
-          }
+                    //製程單
+                    axios.get('https://localhost:44319/api/ProductionProcesses')
+                        .then(response => this.processes = response.data)
+                    //廠區單
+                    axios.get('https://localhost:44319/api/ProductionAreas')
+                        .then(response => this.Areas = response.data)
+                }
 
-        },
-        computed: {
-          carmoney() {
-            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
-              parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
-              parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
-              parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
-              parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
-              parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
-              parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
-              parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
-              parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
-          }
-        },
-        methods: {
-          Enter: function () {
-            //回傳到生產製程表
-            console.log(this.processesAreaList)
-            console.log(this.BSO)
-            if (confirm('確定送出?')) {
-              axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
-                .then(x => console.log(x))
+            },
+            computed: {
+                carmoney() {
+                    return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
+                        parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
+                        parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
+                        parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
+                        parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
+                        parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
+                        parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
+                        parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
+                        parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
+                }
+            },
+            methods: {
+                Enter: function () {
+                    //回傳到生產製程表
+                    console.log(this.processesAreaList)
+                    console.log(this.BSO)
 
-              axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
-                .then(x => console.log(x))
+                    if (this.processesAreaList.processId != 1) {
+                        if (confirm('確定送出?')) {
+                            axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processesAreaList.orderId, this.processesAreaList)
+                                .then(x => console.log(x))
+                        }
+                        window.location = "PD_ToDoItems.html"
+                        console.log('a');
+                    } else if (this.processesAreaList.processId == 1) {
+
+                        if (confirm('確定送出?')) {
+                            axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
+                                .then(x => console.log(x))
+
+                            axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
+                                .then(x => console.log(x))
+                            console.log('b');
+                        }
+                        window.location = "PD_ToDoItems.html"
+                    }
+
+                }
             }
-            window.location = "PD_ToDoItems.html"
-
-          }
         }
-      }
-      Vue.createApp(app).mount('#app');
+        Vue.createApp(app).mount('#app');
 
-        //var app = new Vue({
-        //    el: "#app",
-        //    data: {
-        //        item: {},
-        //        carName: {},
-        //        carcolor: {},
-        //        cartexture: {},
-        //        carwheel: {},
-        //        carplaque: {},
-        //        carlight: {},
-        //        carsaddle: {},
-        //        carsunroof: {},
-        //        carmedia: {},
-        //        processes: {},
-        //        Areas: {},
-        //        processesAreaList: {},
-        //        BSO: { isAccepted: 1 }
+                    //var app = new Vue({
+                    //    el: "#app",
+                    //    data: {
+                    //        item: {},
+                    //        carName: {},
+                    //        carcolor: {},
+                    //        cartexture: {},
+                    //        carwheel: {},
+                    //        carplaque: {},
+                    //        carlight: {},
+                    //        carsaddle: {},
+                    //        carsunroof: {},
+                    //        carmedia: {},
+                    //        processes: {},
+                    //        Areas: {},
+                    //        processesAreaList: {},
+                    //        BSO: { isAccepted: 1 }
 
-        //    },
-        //    mounted: function (e) {
-        //        this.item = JSON.parse(sessionStorage.getItem("order"))
-        //        this.processesAreaList.orderId = this.item.orderId
+                    //    },
+                    //    mounted: function (e) {
+                    //        this.item = JSON.parse(sessionStorage.getItem("order"))
+                    //        this.processesAreaList.orderId = this.item.orderId
 
-        //        //日期格式
-        //        let today = new Date()
-        //        let yyyy = today.getFullYear()
-        //        let mm = today.getMonth() + 1
-        //        let dd = today.getDate()
-        //        if (mm < 10) {
-        //            mm = "0" + mm.toString()
-        //        }
-        //        if (dd < 10) {
-        //            dd = "0" + dd.toString()
-        //        }
+                    //        //日期格式
+                    //        let today = new Date()
+                    //        let yyyy = today.getFullYear()
+                    //        let mm = today.getMonth() + 1
+                    //        let dd = today.getDate()
+                    //        if (mm < 10) {
+                    //            mm = "0" + mm.toString()
+                    //        }
+                    //        if (dd < 10) {
+                    //            dd = "0" + dd.toString()
+                    //        }
 
-        //        this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
-        //        this.processesAreaList.statusId = 2
-        //        $.ajax({
-        //            type: "get",
-        //            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
-        //            success: function (e) {
-        //                app.carName = e[0]
-        //                app.carcolor = e[1]
-        //                app.cartexture = e[2]
-        //                app.carwheel = e[3]
-        //                app.carplaque = e[4]
-        //                app.carlight = e[5]
-        //                app.carsaddle = e[6]
-        //                app.carsunroof = e[7]
-        //                app.carmedia = e[8]
+                    //        this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
+                    //        this.processesAreaList.statusId = 2
+                    //        $.ajax({
+                    //            type: "get",
+                    //            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
+                    //            success: function (e) {
+                    //                app.carName = e[0]
+                    //                app.carcolor = e[1]
+                    //                app.cartexture = e[2]
+                    //                app.carwheel = e[3]
+                    //                app.carplaque = e[4]
+                    //                app.carlight = e[5]
+                    //                app.carsaddle = e[6]
+                    //                app.carsunroof = e[7]
+                    //                app.carmedia = e[8]
 
-        //            }
-        //        })
+                    //            }
+                    //        })
 
-        //        $.ajax({
-        //            type: "get",
-        //            url: "https://localhost:44319/api/BusinessOrders/" + this.item.orderId,
-        //            success: function (f) {
-        //                app.BSO = f
-        //                app.BSO.isAccepted = true
+                    //        $.ajax({
+                    //            type: "get",
+                    //            url: "https://localhost:44319/api/BusinessOrders/" + this.item.orderId,
+                    //            success: function (f) {
+                    //                app.BSO = f
+                    //                app.BSO.isAccepted = true
 
-        //            }
-        //        })
-        //    },
-        //    computed: {
-        //        carmoney() {
-        //            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
-        //                parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
-        //                parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
-        //                parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
-        //                parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
-        //                parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
-        //                parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
-        //                parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
-        //                parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
-        //        }
-        //    },
-        //    methods: {
-        //        Enter: () => {
+                    //            }
+                    //        })
+                    //    },
+                    //    computed: {
+                    //        carmoney() {
+                    //            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
+                    //                parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
+                    //                parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
+                    //                parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
+                    //                parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
+                    //                parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
+                    //                parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
+                    //                parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
+                    //                parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
+                    //        }
+                    //    },
+                    //    methods: {
+                    //        Enter: () => {
 
-        //            $.ajax({
-        //                type: "post",
-        //                url: "https://localhost:44319/api/ProductionProcessLists",
-        //                contentType: "application/json",
-        //                data: JSON.stringify(app.processesAreaList),
-        //                success: function () {
-        //                    console.log(JSON.stringify(app.processesAreaList))
-        //                    alert('製程ok');
-        //                    window.location = "PD_ToDoItems.html"
+                    //            $.ajax({
+                    //                type: "post",
+                    //                url: "https://localhost:44319/api/ProductionProcessLists",
+                    //                contentType: "application/json",
+                    //                data: JSON.stringify(app.processesAreaList),
+                    //                success: function () {
+                    //                    console.log(JSON.stringify(app.processesAreaList))
+                    //                    alert('製程ok');
+                    //                    window.location = "PD_ToDoItems.html"
 
-        //                },
-        //                error: function () {
-        //                    console.log(JSON.stringify(app.processesAreaList))
-        //                    alert('製程失敗')
-        //                }
+                    //                },
+                    //                error: function () {
+                    //                    console.log(JSON.stringify(app.processesAreaList))
+                    //                    alert('製程失敗')
+                    //                }
 
-        //            })
-
+                    //            })
 
 
 
-        //            $.ajax({
-        //                type: "put",
-        //                url: "https://localhost:44319/api/BusinessOrders/" + app.item.orderId,
-        //                contentType: "application/json",
-        //                data: JSON.stringify(app.BSO),
-        //                success: function () {
-        //                    console.log(JSON.stringify(app.BSO))
-        //                    alert('訂單ok');
-        //                },
-        //                error: function () {
-        //                    console.log(JSON.stringify(app.BSO))
-        //                    alert('訂單失敗')
-        //                }
-        //            })
+
+                    //            $.ajax({
+                    //                type: "put",
+                    //                url: "https://localhost:44319/api/BusinessOrders/" + app.item.orderId,
+                    //                contentType: "application/json",
+                    //                data: JSON.stringify(app.BSO),
+                    //                success: function () {
+                    //                    console.log(JSON.stringify(app.BSO))
+                    //                    alert('訂單ok');
+                    //                },
+                    //                error: function () {
+                    //                    console.log(JSON.stringify(app.BSO))
+                    //                    alert('訂單失敗')
+                    //                }
+                    //            })
 
 
 
-        //        }
-        //    }
-        //})
+                    //        }
+                    //    }
+                    //})
 
 
-        //// 製程單
-        //$.ajax({
-        //    type: "get",
-        //    url: "https://localhost:44319/api/ProductionProcesses",
-        //    success: function (e) {
-        //        app.processes = e
-        //        //console.log(e)
-        //    }
-        //})
+                    //// 製程單
+                    //$.ajax({
+                    //    type: "get",
+                    //    url: "https://localhost:44319/api/ProductionProcesses",
+                    //    success: function (e) {
+                    //        app.processes = e
+                    //        //console.log(e)
+                    //    }
+                    //})
 
-        //// 廠區單
-        //$.ajax({
-        //    type: "get",
-        //    url: "https://localhost:44319/api/ProductionAreas",
-        //    success: function (e) {
-        //        app.Areas = e
-        //        //console.log(e)
-        //    }
-        //})
+                    //// 廠區單
+                    //$.ajax({
+                    //    type: "get",
+                    //    url: "https://localhost:44319/api/ProductionAreas",
+                    //    success: function (e) {
+                    //        app.Areas = e
+                    //        //console.log(e)
+                    //    }
+                    //})
 
     </script>
 
