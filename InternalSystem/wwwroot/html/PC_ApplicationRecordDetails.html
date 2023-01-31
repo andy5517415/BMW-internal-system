@@ -590,11 +590,11 @@
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                  <tr v-for="a in list">
+                                                  <tr v-for="(a,index) in list">
                                                       <!-- 第一項物品 -->
                                                       <!-- 項次 -->
                                                       <td>
-                                                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
+                                                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
                                                       </td>
                                                       <!-- 物品名稱 -->
                                                       <td>{{a.goods}}</td>
