@@ -175,8 +175,8 @@ namespace InternalSystem.Controllers
 
         //複合查詢尋找加班資料
         // GET: api/PersonnelOvertimeForms/Complex/1/name
-        [HttpGet("Complex/{dep}/{name}/{y}-{m}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelComplexOvertime(int dep, string name , int y, int m)
+        [HttpGet("Complex/{y}-{m}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelComplexOvertime(int? dep, string name , int y, int m)
         {
 
             var overlist = from ov in _context.PersonnelOvertimeForms
@@ -184,8 +184,7 @@ namespace InternalSystem.Controllers
                            join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
                            join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
                            join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
-                           where p.DepartmentId == dep && ov.StartDate.Year == y && ov.StartDate.Month == m
-                           && p.EmployeeName == name
+                           where ov.StartDate.Year == y && ov.StartDate.Month == m
                            select new
                            {
                                ov.StartWorkId,
@@ -193,6 +192,7 @@ namespace InternalSystem.Controllers
                                EmployeeName = p.EmployeeName,
                                EmployeeNumber = p.EmployeeNumber,
                                DepName = d.DepName,
+                               DepartmentId = d.DepartmentId,
                                StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
                                ov.StartTime,
                                EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
@@ -210,7 +210,13 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
-
+            if (dep != null) {
+                overlist = overlist.Where(a => a.DepartmentId == dep);
+            }
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                overlist = overlist.Where(a => a.EmployeeName.Contains(name));
+            }
             return await overlist.ToListAsync();
         }
 

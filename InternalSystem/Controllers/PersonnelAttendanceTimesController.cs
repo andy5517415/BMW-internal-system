@@ -68,100 +68,102 @@ namespace InternalSystem.Controllers
 
         //工號查詢
         // GET: api/PersonnelAttendanceTimes/number/5
-        [HttpGet("number/{number}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetAttendanceTime(string number, int y, int m)
-        {
-            var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
-                                          join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
-                                          where pd.EmployeeNumber == number && pa.Date.Year == y && pa.Date.Month == m
-                                          select new
-                                          {
-                                              Date = pa.Date.ToString(),
-                                              pa.AttendTime,
-                                              pd.EmployeeName,
-                                              pd.EmployeeNumber
-                                          };
+        //[HttpGet("number/{number}/{y}-{m}")]
+        //public async Task<ActionResult<dynamic>> GetAttendanceTime(string number, int y, int m)
+        //{
+        //    var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
+        //                                  join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
+        //                                  where pd.EmployeeNumber == number && pa.Date.Year == y && pa.Date.Month == m
+        //                                  select new
+        //                                  {
+        //                                      Date = pa.Date.ToString(),
+        //                                      pa.AttendTime,
+        //                                      pd.EmployeeName,
+        //                                      pd.EmployeeNumber
+        //                                  };
 
-            if (personnelAttendanceTime == null)
-            {
-                return NotFound();
-            }
+        //    if (personnelAttendanceTime == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return await personnelAttendanceTime.ToListAsync();
-        }
+        //    return await personnelAttendanceTime.ToListAsync();
+        //}
 
 
         //名稱查詢
         // GET: api/PersonnelAttendanceTimes/name/5
-        [HttpGet("name/{name}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetAttendanceTimeWithName(string name, int y, int m)
-        {
-            var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
-                                          join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
-                                          where pd.EmployeeName == name && pa.Date.Year == y && pa.Date.Month == m
-                                          select new
-                                          {
-                                              Date = pa.Date.ToString(),
-                                              pa.AttendTime,
-                                              pd.EmployeeName,
-                                              pd.EmployeeNumber
+        //[HttpGet("name/{name}/{y}-{m}")]
+        //public async Task<ActionResult<dynamic>> GetAttendanceTimeWithName(string name, int y, int m)
+        //{
+        //    var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
+        //                                  join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
+        //                                  where pd.EmployeeName == name && pa.Date.Year == y && pa.Date.Month == m
+        //                                  select new
+        //                                  {
+        //                                      Date = pa.Date.ToString(),
+        //                                      pa.AttendTime,
+        //                                      pd.EmployeeName,
+        //                                      pd.EmployeeNumber
 
-                                          };
+        //                                  };
 
-            if (personnelAttendanceTime == null)
-            {
-                return NotFound();
-            }
+        //    if (personnelAttendanceTime == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return await personnelAttendanceTime.ToListAsync();
-        }
+        //    return await personnelAttendanceTime.ToListAsync();
+        //}
 
         //部門查詢
         // GET: api/PersonnelAttendanceTimes/dep/5
-        [HttpGet("dep/{dep}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetAttendanceTimeWithDep(int dep, int y, int m)
-        {
-            var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
-                                          join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
-                                          where pd.DepartmentId == dep && pa.Date.Year == y && pa.Date.Month == m
-                                          select new
-                                          {
-                                              Date = pa.Date.ToString(),
-                                              pa.AttendTime,
-                                              pd.EmployeeName,
-                                              pd.EmployeeNumber
-                                          };
+        //[HttpGet("dep/{dep}/{y}-{m}")]
+        //public async Task<ActionResult<dynamic>> GetAttendanceTimeWithDep(int dep, int y, int m)
+        //{
+        //    var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
+        //                                  join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
+        //                                  where pd.DepartmentId == dep && pa.Date.Year == y && pa.Date.Month == m
+        //                                  select new
+        //                                  {
+        //                                      Date = pa.Date.ToString(),
+        //                                      pa.AttendTime,
+        //                                      pd.EmployeeName,
+        //                                      pd.EmployeeNumber
+        //                                  };
 
-            if (personnelAttendanceTime == null)
-            {
-                return NotFound();
-            }
+        //    if (personnelAttendanceTime == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return await personnelAttendanceTime.ToListAsync();
-        }
+        //    return await personnelAttendanceTime.ToListAsync();
+        //}
 
         //複合查詢
         // GET: api/PersonnelAttendanceTimes/Complex/5/name/2023001
-        [HttpGet("Complex/{dep}/{name}/{number}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetAttendanceTimeComplex(int dep,string name , string number, int y, int m)
+        [HttpGet("Complex/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetAttendanceTimeComplex(int? dep,string name , string number, int y, int m)
         {
             var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
                                           join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
-                                          where pd.DepartmentId == dep && pa.Date.Year == y && pa.Date.Month == m
-                                          && pd.EmployeeName == name && pd.EmployeeNumber == number
+                                          where pa.Date.Year == y && pa.Date.Month == m
                                           select new
                                           {
                                               Date = pa.Date.ToString(),
                                               pa.AttendTime,
                                               pd.EmployeeName,
-                                              pd.EmployeeNumber
+                                              pd.EmployeeNumber,
+                                              pd.DepartmentId
                                           };
 
             if (personnelAttendanceTime == null)
             {
                 return NotFound();
             }
-
+            if(dep != null) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.DepartmentId == dep); }
+            if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
+            if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
             return await personnelAttendanceTime.ToListAsync();
         }
         // PUT: api/PersonnelAttendanceTimes/5

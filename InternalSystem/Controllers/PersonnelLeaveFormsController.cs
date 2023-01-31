@@ -77,103 +77,102 @@ namespace InternalSystem.Controllers
 
         //用名稱尋找  人事部查詢
         // GET: api/PersonnelLeaveForms/employeeName/5/{y}-{m}
-        [HttpGet("employeeName/{name}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetNameLeave(string name, int y, int m)
-        {
-            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
-                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
-                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
-                                     join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
-                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
-                                     where o.EmployeeName == name && pl.StartDate.Month == m && pl.StartDate.Year == y
-                                     select new
-                                     {
-                                         EmployeeName = o.EmployeeName,
-                                         EmployeeNumber = o.EmployeeNumber,
-                                         EmployeeId = pl.EmployeeId,
-                                         DepName = d.DepName,
-                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
-                                         StartTime = pl.StartTime,
-                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
-                                         EndTime = pl.EndTime,
-                                         pl.TotalTime,
-                                         lt.Type,
-                                         LeaveId = pl.LeaveId,
-                                         LeaveType = pl.LeaveType,
-                                         StatusId = pl.StatusId,
-                                         AuditStatus = l.AuditStatus,
-                                         Proxy = pl.Proxy,
-                                         auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason,
-                                         pl.ApplicationDate
-                                     };
+        //[HttpGet("employeeName/{name}/{y}-{m}")]
+        //public async Task<ActionResult<dynamic>> GetNameLeave(string name, int y, int m)
+        //{
+        //    var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+        //                             join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+        //                             join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+        //                             join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+        //                             join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
+        //                             where o.EmployeeName == name && pl.StartDate.Month == m && pl.StartDate.Year == y
+        //                             select new
+        //                             {
+        //                                 EmployeeName = o.EmployeeName,
+        //                                 EmployeeNumber = o.EmployeeNumber,
+        //                                 EmployeeId = pl.EmployeeId,
+        //                                 DepName = d.DepName,
+        //                                 StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+        //                                 StartTime = pl.StartTime,
+        //                                 EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+        //                                 EndTime = pl.EndTime,
+        //                                 pl.TotalTime,
+        //                                 lt.Type,
+        //                                 LeaveId = pl.LeaveId,
+        //                                 LeaveType = pl.LeaveType,
+        //                                 StatusId = pl.StatusId,
+        //                                 AuditStatus = l.AuditStatus,
+        //                                 Proxy = pl.Proxy,
+        //                                 auditManerger = pl.AuditManerger,
+        //                                 Reason = pl.Reason,
+        //                                 pl.ApplicationDate
+        //                             };
 
-            if (personnelLeaveForm == null)
-            {
-                return NotFound();
-            }
+        //    if (personnelLeaveForm == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return await personnelLeaveForm.ToListAsync();
-        }
+        //    return await personnelLeaveForm.ToListAsync();
+        //}
 
 
 
         //用部門尋找 人事部查詢
         // GET: api/PersonnelLeaveForms/department/5/{y}-{m}
-        [HttpGet("department/{depId}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetDepartmentLeave(int depId, int y, int m)
-        {
+        //[HttpGet("department/{depId}/{y}-{m}")]
+        //public async Task<ActionResult<dynamic>> GetDepartmentLeave(int depId, int y, int m)
+        //{
 
-            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
-                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
-                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
-                                     join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
-                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
-                                     where o.DepartmentId == depId && pl.StartDate.Month == m && pl.StartDate.Year == y
-                                     select new
-                                     {
-                                         EmployeeName = o.EmployeeName,
-                                         EmployeeNumber = o.EmployeeNumber,
-                                         EmployeeId = pl.EmployeeId,
-                                         DepName = d.DepName,
-                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
-                                         StartTime = pl.StartTime,
-                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
-                                         EndTime = pl.EndTime,
-                                         pl.TotalTime,
-                                         LeaveId = pl.LeaveId,
-                                         lt.Type,
-                                         LeaveType = pl.LeaveType,
-                                         StatusId = pl.StatusId,
-                                         AuditStatus = l.AuditStatus,
-                                         Proxy = pl.Proxy,
-                                         auditManerger = pl.AuditManerger,
-                                         Reason = pl.Reason,
-                                         pl.ApplicationDate
+        //    var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+        //                             join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+        //                             join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+        //                             join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+        //                             join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
+        //                             where o.DepartmentId == depId && pl.StartDate.Month == m && pl.StartDate.Year == y
+        //                             select new
+        //                             {
+        //                                 EmployeeName = o.EmployeeName,
+        //                                 EmployeeNumber = o.EmployeeNumber,
+        //                                 EmployeeId = pl.EmployeeId,
+        //                                 DepName = d.DepName,
+        //                                 StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+        //                                 StartTime = pl.StartTime,
+        //                                 EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+        //                                 EndTime = pl.EndTime,
+        //                                 pl.TotalTime,
+        //                                 LeaveId = pl.LeaveId,
+        //                                 lt.Type,
+        //                                 LeaveType = pl.LeaveType,
+        //                                 StatusId = pl.StatusId,
+        //                                 AuditStatus = l.AuditStatus,
+        //                                 Proxy = pl.Proxy,
+        //                                 auditManerger = pl.AuditManerger,
+        //                                 Reason = pl.Reason,
+        //                                 pl.ApplicationDate
 
 
-                                     };
+        //                             };
 
-            if (personnelLeaveForm == null)
-            {
-                return NotFound();
-            }
+        //    if (personnelLeaveForm == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return await personnelLeaveForm.ToListAsync();
-        }
+        //    return await personnelLeaveForm.ToListAsync();
+        //}
 
         //複合查詢(部門  員工名稱) 人事部查詢
         // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
-        [HttpGet("Complex/{name}/{depId}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int depId, int y, int m)
+        [HttpGet("Complex/{y}-{m}")]
+        public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int? depId, int y, int m)
         {
             var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
                                      join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
-                                     where o.EmployeeName == name && pl.StartDate.Month == m && pl.StartDate.Year == y
-                                     && o.DepartmentId == depId
+                                     where pl.StartDate.Month == m && pl.StartDate.Year == y
                                      select new
                                      {
                                          EmployeeName = o.EmployeeName,
@@ -193,6 +192,7 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
+                                         DepartmentId =  o.DepartmentId,
                                          pl.ApplicationDate
                                      };
 
@@ -200,6 +200,10 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
+            if (!string.IsNullOrWhiteSpace(name))
+            { personnelLeaveForm = personnelLeaveForm.Where(a => a.EmployeeName.Contains(name)); }
+            if (depId!=null)
+            { personnelLeaveForm = personnelLeaveForm.Where(a => a.DepartmentId == depId); }
 
             return await personnelLeaveForm.ToListAsync();
         }

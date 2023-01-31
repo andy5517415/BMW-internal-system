@@ -276,16 +276,7 @@
                 <div data-i18n="Account Settings">產線狀況監控</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Account">產線狀況監控(尚未)</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Account">即時異常狀況</div>
-                  </a>
-                </li>
+                 
                 <li class="menu-item">
                   <a href="BS_BugSys.html" class="menu-link">
                     <div data-i18n="Account">報錯系統</div>
@@ -620,7 +611,7 @@
       const app = {
         data() {
           return {
-            employeelist: {},
+              employeelist: { "depId":""},
             overtimelist: {},
             departmentlist: {}
           }
@@ -628,34 +619,33 @@
         methods: {
           search: function () {
             //alert('ok')
-                if (this.employeelist.depId != null && this.employeelist.month != null) {
-                    axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.depId + '/' + this.employeelist.name + '/' + this.employeelist.month)
+                axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep='  + this.employeelist.depId )
                         .then(response => {
                             this.overtimelist = response.data;
                             if (this.overtimelist.length == 0) { alert('查無資料') };
                         })
                         .catch(err => console.log(err))
-                }
+                
 
-                else if (this.employeelist.depId != null && this.employeelist.month != null) {
-                    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
-                        .then(response => {
-                            this.overtimelist = response.data;
-                            if (this.overtimelist.length == 0) { alert('查無資料') };
-                        })
-                        .catch(err => console.log(err))
-                }
-                else if (this.employeelist.name != null && this.employeelist.month != null) {
-                    axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
-                        .then(response => {
-                            this.overtimelist = response.data;
-                            if (this.overtimelist.length == 0) { alert('查無資料') };
-                        })
-                        .catch(err => console.log(err))
-                }
-                else {
-                    alert('查無項目')
-                }
+                //else if (this.employeelist.depId != null && this.employeelist.month != null) {
+                //    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
+                //        .then(response => {
+                //            this.overtimelist = response.data;
+                //            if (this.overtimelist.length == 0) { alert('查無資料') };
+                //        })
+                //        .catch(err => console.log(err))
+                //}
+                //else if (this.employeelist.name != null && this.employeelist.month != null) {
+                //    axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
+                //        .then(response => {
+                //            this.overtimelist = response.data;
+                //            if (this.overtimelist.length == 0) { alert('查無資料') };
+                //        })
+                //        .catch(err => console.log(err))
+                //}
+                //else {
+                //    alert('查無項目')
+                //}
 
           },
           overedit: function (e) {

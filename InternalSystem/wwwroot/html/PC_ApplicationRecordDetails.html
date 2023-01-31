@@ -272,16 +272,7 @@
                               <div data-i18n="Account Settings">產線狀況監控</div>
                           </a>
                           <ul class="menu-sub">
-                              <li class="menu-item">
-                                  <a href="#" class="menu-link">
-                                      <div data-i18n="Account">產線狀況監控(尚未)</div>
-                                  </a>
-                              </li>
-                              <li class="menu-item">
-                                  <a href="#" class="menu-link">
-                                      <div data-i18n="Account">即時異常狀況</div>
-                                  </a>
-                              </li>
+                               
                               <li class="menu-item">
                                   <a href="BS_BugSys.html" class="menu-link">
                                       <div data-i18n="Account">報錯系統</div>
@@ -563,6 +554,16 @@
                                          v-model="myobject.comment"
                                          placeholder="" />
                               </div>
+                              <!-- 狀態 -->
+                              <div class="mb-3 col-md-6">
+                                  <label for="Comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">狀態</label>
+                                  <input class="form-control fs-5"
+                                         type="text"
+                                         id="Statue"
+                                         name="Statue"
+                                         v-model="myobject.totalapp"
+                                         placeholder="" />
+                              </div>
                               <!-- 採購清單 -->
                               <div class="card">
                                   <h5 class="card-header">採購項目</h5>
@@ -580,11 +581,11 @@
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                  <tr v-for="a in list">
+                                                  <tr v-for="(a,index) in list">
                                                       <!-- 第一項物品 -->
                                                       <!-- 項次 -->
                                                       <td>
-                                                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
+                                                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
                                                       </td>
                                                       <!-- 物品名稱 -->
                                                       <td>{{a.goods}}</td>

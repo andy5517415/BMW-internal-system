@@ -280,16 +280,7 @@
                               <div data-i18n="Account Settings">產線狀況監控</div>
                           </a>
                           <ul class="menu-sub">
-                              <li class="menu-item">
-                                  <a href="#" class="menu-link">
-                                      <div data-i18n="Account">產線狀況監控(尚未)</div>
-                                  </a>
-                              </li>
-                              <li class="menu-item">
-                                  <a href="#" class="menu-link">
-                                      <div data-i18n="Account">即時異常狀況</div>
-                                  </a>
-                              </li>
+                               
                               <li class="menu-item">
                                   <a href="BS_BugSys.html" class="menu-link">
                                       <div data-i18n="Account">報錯系統</div>
@@ -627,7 +618,7 @@
                 data() {
                     return {
                         empNumber: {},
-                        employeedata: {},
+                        employeedata: {"empName":"","empNumber":"","depId":""},
                         attendencelist: {},
                         departmentlist: {}
                     }
@@ -636,44 +627,44 @@
                 methods: {
                     search: function () {
 
-                        if (this.employeedata.depId != null && this.employeedata.date != null && this.employeedata.empName != null && this.employeedata.empNumber != null) {
-                            axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.depId + '/'
-                                + this.employeedata.empName + '/' + this.employeedata.empNumber + '/' + this.employeedata.date)
+                       
+                        axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
+                            + '&dep=' + this.employeedata.depId)
                                 .then(response => {
                                     this.attendencelist = response.data;
                                     console.log(this.attendencelist)
                                     if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
                                 }).catch(err => { console.log(err); alert('查無此項') })
-                        }
-                        else if (this.employeedata.depId != null && this.employeedata.date != null) {
-                            axios.get('/api/PersonnelAttendanceTimes/dep/' + this.employeedata.depId + '/' + this.employeedata.date)
-                                .then(response => {
-                                    this.attendencelist = response.data;
-                                    console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('部門查詢:查無此項') }
-                                }).catch(err => { console.log(err); alert('查無此項') })
-                        }
-                        else if (this.employeedata.empName != null && this.employeedata.date != null) {
-                            axios.get('/api/PersonnelAttendanceTimes/name/' + this.employeedata.empName + '/' + this.employeedata.date)
-                                .then(response => {
-                                    this.attendencelist = response.data;
-                                    console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('員工查詢:查無此項') }
+                        
+                        //else if (this.employeedata.depId != null && this.employeedata.date != null) {
+                        //    axios.get('/api/PersonnelAttendanceTimes/dep/' + this.employeedata.depId + '/' + this.employeedata.date)
+                        //        .then(response => {
+                        //            this.attendencelist = response.data;
+                        //            console.log(this.attendencelist)
+                        //            if (this.attendencelist.length == 0) { alert('部門查詢:查無此項') }
+                        //        }).catch(err => { console.log(err); alert('查無此項') })
+                        //}
+                        //else if (this.employeedata.empName != null && this.employeedata.date != null) {
+                        //    axios.get('/api/PersonnelAttendanceTimes/name/' + this.employeedata.empName + '/' + this.employeedata.date)
+                        //        .then(response => {
+                        //            this.attendencelist = response.data;
+                        //            console.log(this.attendencelist)
+                        //            if (this.attendencelist.length == 0) { alert('員工查詢:查無此項') }
 
-                                }).catch(err => { console.log(err); alert('查無此項') })
-                        }
-                        else if (this.employeedata.empNumber != null && this.employeedata.date != null) {
-                            axios.get('/api/PersonnelAttendanceTimes/number/' + this.employeedata.empNumber + '/' + this.employeedata.date)
-                                .then(response => {
-                                    this.attendencelist = response.data;
-                                    console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('工號查詢:查無此項') }
+                        //        }).catch(err => { console.log(err); alert('查無此項') })
+                        //}
+                        //else if (this.employeedata.empNumber != null && this.employeedata.date != null) {
+                        //    axios.get('/api/PersonnelAttendanceTimes/number/' + this.employeedata.empNumber + '/' + this.employeedata.date)
+                        //        .then(response => {
+                        //            this.attendencelist = response.data;
+                        //            console.log(this.attendencelist)
+                        //            if (this.attendencelist.length == 0) { alert('工號查詢:查無此項') }
 
-                                }).catch(response => { console.log(response); alert('查無此項') })
-                        }
-                        else {
-                            alert('查無資料')
-                        }
+                        //        }).catch(response => { console.log(response); alert('查無此項') })
+                        //}
+                        //else {
+                        //    alert('查無資料')
+                        //}
 
                     }
 
