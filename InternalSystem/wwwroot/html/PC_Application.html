@@ -634,8 +634,8 @@
                                                                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                                         <div class="mb-3 col-md-12">
                                                                                             <label for="數量" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
-                                                                                            <input @input="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-if="b.quantiy != NaN " v-model="bee[key]">
-                                                                                            <input @input="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">
+                                                                                            <input @change="addorder(); getprice();" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
+                                                                                            <!--<input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">-->
                                                                                         </div>
                                                                                     </ul>
                                                                                 </td>
@@ -711,6 +711,7 @@
                                 autopurchaseid: "",
                                 goodslist: {},
                                 PcOrderDetails: [],
+                                text: []
                             }
                         },
                         computed: {
@@ -747,8 +748,6 @@
                                     //    this.item.PcOrderDetails[i].subtotal = 0;
                                     //}
                                 }
-
-
                                 //console.log(this.product.goods);
                                 //this.pcOrderDetail.goods = this.product.goods;
                                 //this.sum = this.product[0].unitPrice * this.bee[0]
@@ -757,7 +756,12 @@
                                 //}
                                 //this.sum += 1
                                 //console.log('getprice')
+                            },
+                            addorder() {
+                                this.text.push('No.1');
                             }
+
+      
                         },
                         mounted() {
                             // 接上一頁的session
