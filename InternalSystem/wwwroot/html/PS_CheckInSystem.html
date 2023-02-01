@@ -512,7 +512,7 @@
 
                                       <div class="mb-3 col-md-3">
                                           <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
-                                          <input class="form-control fs-5" v-model="empNumber.employeeNumber" id="Employeenameid" />
+                                          <input class="form-control fs-5" v-model="empNumber.employeeNumber" id="Employeenameid" disabled/>
                                       </div>
 
 
@@ -592,6 +592,7 @@
                 },
                 mounted() {
                     this.empid = JSON.parse(sessionStorage.getItem("LoginInf"))
+                    this.empNumber.employeeNumber = this.empid.EmpNumber
                 }
             }
 
