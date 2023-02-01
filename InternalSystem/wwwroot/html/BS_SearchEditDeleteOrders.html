@@ -1102,8 +1102,8 @@
                                         })
                                 }
                                 alert('訂單修改成功!');
-                                window.location.reload();
                             });
+                                //window.location.reload();//刷新會更新失敗
                     }
                 },
                 btndelete() {
@@ -1112,8 +1112,9 @@
                         axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
                             .then(d => {
                                 /*console.log(d);*/
-                                alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
-                                window.location.reload();
+                                alert(d.data);
+                                //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
+                                //window.location.reload();
                             })
                     }
                 }
