@@ -69,9 +69,8 @@ namespace InternalSystem.Controllers
 
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
-                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
                         join PD in this._context.PersonnelDepartmentLists on PPD.DepartmentId equals PD.DepartmentId
-                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                        join BO in this._context.BusinessOrders on PC.OrderId equals BO.OrderId
                         orderby PC.Date descending
                         where PC.Date >= std && PC.Date <= end
                         select new
