@@ -730,7 +730,8 @@
                     processes: {},
                     Areas: {},
                     processesAreaList: {},
-                    BSO: { isAccepted: 1 }
+                    BSO: { isAccepted: 1 },
+                    monitor: {}
                 }
             },
             mounted() {
@@ -831,12 +832,33 @@
                     } else if (this.processesAreaList.processId == 1) {
 
                         if (confirm('確定送出?')) {
-                            axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
-                                .then(x => console.log(x))
+                            //先檢查該廠區是否已有訂單生產中
+                            axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/1/${this.carName.optionalName.toString().substring(4)}`)
+                                .then(g => {
+                                    if (g.data.status !='待指派') {
+                                        alert('該廠區已有訂單生產中，請選擇其他廠區!');
+                                    }
+                                    else {
+                                        axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
+                                            .then(x => console.log(x))
+                                        axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
+                                            .then(x => console.log(x))
+                                        console.log('b');
 
-                            axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
-                                .then(x => console.log(x))
-                            console.log('b');
+                                        //指派廠區後將監控狀態從待指派改為正常
+                                        var rr = g.data.monitorId;
+                                        //console.log(rr)
+                                        axios.get('/api/MonitoringProcessAreaStatus/'+ rr ).then(g => {
+                                            //console.log(g.data);
+                                            this.monitor = g.data;
+                                            this.monitor.status = '正常';
+                                            console.log(this.monitor)
+                                            axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                                console.log(p);
+                                            })
+                                        })
+                                    }
+                                })
                         }
                         window.location = "PD_ToDoItems.html"
                     }

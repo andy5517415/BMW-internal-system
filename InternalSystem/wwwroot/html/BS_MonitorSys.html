@@ -1624,42 +1624,42 @@
                 var aft = 0;
                 var flag = true;
                 var cnt = 0;
-                var a = 0;
-                var b = 0;
-                var c = 0;
-                var d = 0;
+                //var a = 0;
+                //var b = 0;
+                //var c = 0;
+                //var d = 0;
 
-                var oa = 0;
-                var ob = 0;
-                var oc = 0;
-                var od = 0;
+                //var oa = 0;
+                //var ob = 0;
+                //var oc = 0;
+                //var od = 0;
                 function checkstatus() {
                     console.log(cnt++);
                     aft = 0;
-                    a = 0;
-                    b = 0;
-                    c = 0;
-                    d = 0;
-                    oa = 0;
-                    ob = 0;
-                    oc = 0;
-                    od = 0;
+                    //a = 0;
+                    //b = 0;
+                    //c = 0;
+                    //d = 0;
+                    //oa = 0;
+                    //ob = 0;
+                    //oc = 0;
+                    //od = 0;
                     axios.get('/api/MonitoringProcessAreaStatus/').then(g => {
                         this.abnormalcnt = g.data;
                         //console.log(this.abnormalcnt);
                         this.abnormalcnt.forEach(one => {
                             (one.status == '異常') ? aft++ : '';
-                            (one.status == '正常') ? a++ : '';
-                            (one.status == '待處理') ? b++ : '';
-                            (one.status == '處理中') ? c++ : '';
-                            (one.status == '待指派') ? d++ : '';
+                            //(one.status == '正常') ? a++ : '';
+                            //(one.status == '待處理') ? b++ : '';
+                            //(one.status == '處理中') ? c++ : '';
+                            //(one.status == '待指派') ? d++ : '';
                         });
                         console.log(`aft${aft}`);
                         console.log(`bef${bef}`);
-                        console.log(`a${a}`);
-                        console.log(`b${b}`);
-                        console.log(`c${c}`);
-                        console.log(`d${d}`);
+                        //console.log(`a${a}`);
+                        //console.log(`b${b}`);
+                        //console.log(`c${c}`);
+                        //console.log(`d${d}`);
 
                         //定義第一次進入畫面不跳吐司訊息
                         if (flag) {
@@ -1678,7 +1678,7 @@
                         }
 
                         //others
-                        if (flag) {
+                        /*if (flag) {
                             flag = !flag;
                             oa = 0;
                             ob = 0;
@@ -1700,7 +1700,7 @@
                             //setTimeout(() => $("#toastSucess").fadeOut(), 2000);
                             //bef = aft;
                             //console.log('有異常');
-                        }
+                        }*/
                     })
                 }
 

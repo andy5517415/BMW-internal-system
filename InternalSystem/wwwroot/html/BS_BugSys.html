@@ -521,6 +521,7 @@
 
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
                                         <select id="ordid" class="form-select color-dropdown" v-model="selcone">
+                                            <option value="999" selected disabled>請選擇訂單</option>
                                             <option v-for="one in bugsysorder"
                                                     :value="one">
                                                 {{one.orderNumber}} 車款 : {{one.optionalName}}
@@ -690,13 +691,13 @@
 
             data() {
                 return {
-                    selectedcartype: 'default',
+                    /*selectedcartype: 'default',
                     selectedarea: 'default',
-                    selectedprocess: 'default',
+                    selectedprocess: 'default',*/
                     putstate: {},
                     description: '',
                     bugsysorder: {},
-                    selcone: {}
+                    selcone: '999'
                 }
             },
             methods: {

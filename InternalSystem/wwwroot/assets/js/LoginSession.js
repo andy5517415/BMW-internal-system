@@ -58,7 +58,7 @@ const navInf = {
         var cnt = 0;
 
         function checkstatus() {
-            console.log(cnt++);
+            //console.log(cnt++);
             aft = 0;
             axios.get('/api/MonitoringProcessAreaStatus/').then(g => {
                 this.abnormalcnt = g.data;
@@ -78,7 +78,7 @@ const navInf = {
                     bef = aft;
                 }
                 else if (aft > bef) {
-                    alert('異常狀態更新!');
+                    alert('有新增異常狀態!');
                     //$("#toastSucess").fadeIn("fast");
                     //setTimeout(() => $("#toastSucess").fadeOut(), 2000);
                     //setTimeout(() => window.location.reload(), 2000);
@@ -88,7 +88,7 @@ const navInf = {
 
             })
         }
-        setInterval(checkstatus, 4000);
+        setInterval(checkstatus, 3000);
 //end of 監控
     }
 }
