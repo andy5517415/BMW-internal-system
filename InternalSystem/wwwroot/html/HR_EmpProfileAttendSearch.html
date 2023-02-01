@@ -590,6 +590,7 @@
                                               </a>
                                           </li>
                                       </ul>
+                                      <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                                   </nav>
                               </div>
                               <!--/ Basic Bootstrap Table -->
@@ -641,7 +642,8 @@
                         employeedata: {"empName":"","empNumber":"","depId":""},
                         attendencelist: {},
                         departmentlist: {},
-                        page: {}
+                        page: 0,
+                        nowpage: {}
                     }
 
                 },
@@ -653,6 +655,7 @@
                             + '&dep=' + this.employeedata.depId +'&page=' + 1)
                                 .then(response => {
                                     this.attendencelist = response.data;
+                                    this.nowpage = 1;
                                     console.log(this.attendencelist)
                                     if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
                                 }).catch(err => { console.log(err); alert('查無此項') })
@@ -710,6 +713,7 @@
                             + '&dep=' + this.employeedata.depId +'&page=' +e)
                                 .then(response => {
                                     this.attendencelist = response.data;
+                                    this.nowpage = e;
                                     console.log(this.attendencelist)
                                     if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
                                 }).catch(err => { console.log(err); alert('查無此項') })

@@ -43,8 +43,8 @@ namespace InternalSystem.Controllers
 
         //個人查詢
         // GET: api/PersonnelAttendanceTimes/4/2023-01
-        [HttpGet("id/{id}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetAttendanceTimeWithProfile(int id, int y, int m)
+        [HttpGet("id/{id}/{y}-{m}/{page}")]
+        public async Task<ActionResult<dynamic>> GetAttendanceTimeWithProfile(int id, int y, int m,int page)
         {
             var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
                                           join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
@@ -61,11 +61,34 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
-
-            return await personnelAttendanceTime.ToListAsync();
+            var query = personnelAttendanceTime.Skip((page - 1) * 10).Take(10);
+            return await query.ToListAsync();
         }
 
+        //個人查詢 頁面
+        // GET: api/PersonnelAttendanceTimes/4/2023-01
+        [HttpGet("Page/id/{id}/{y}-{m}")]
+        public int GetAttendanceTimeWithProfilePage(int id, int y, int m)
+        {
+            var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
+                                          join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
+                                          where pa.EmployeeId == id && pa.Date.Year == y && pa.Date.Month == m
+                                          select new
+                                          {
+                                              Date = pa.Date.ToString(),
+                                              pa.AttendTime,
+                                              pd.EmployeeName,
+                                              pd.EmployeeNumber
+                                          };
 
+            if (personnelAttendanceTime == null)
+            {
+                return 0;
+            }
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelAttendanceTime.Count())/10));
+
+            return total;
+        }
         //工號查詢
         // GET: api/PersonnelAttendanceTimes/number/5
         //[HttpGet("number/{number}/{y}-{m}")]
@@ -195,7 +218,7 @@ namespace InternalSystem.Controllers
             if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
             if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
             var query = personnelAttendanceTime.Skip(page * 10).Take(10);
-            var totalpage = Convert.ToInt16(Math.Ceiling(Convert.ToDouble((personnelAttendanceTime.Count())/ 10)));
+            var totalpage = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelAttendanceTime.Count())/ 10));
             
             return totalpage;
         }

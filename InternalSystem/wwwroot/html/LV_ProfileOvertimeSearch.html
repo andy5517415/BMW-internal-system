@@ -552,6 +552,23 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
+                            </nav>
                         </div>
                         <!--/ Basic Bootstrap Table -->
                     </div>
@@ -601,18 +618,35 @@
                     employeeover: {},
                     employeedata: {},
                     area: {},
-                    process: {}
+                    process: {},
+                    page: 0,
+                    nowpage: {}
                 }
             },
             methods: {
                 searchbtn: function () {
                     console.log(this.selectlist.month)
-                    axios.get('https://localhost:44319/api/PersonnelOvertimeForms/' + this.employeedata.EmpID + '/' + this.selectlist.month)
-                        .then(response => this.employeeover = response.data)
+                    axios.get('https://localhost:44319/api/PersonnelOvertimeForms/' + this.employeedata.EmpID + '/' + this.selectlist.month + '/' + 1)
+                        .then(response => {
+                            this.employeeover = response.data;
+                            this.nowpage = 1;
+                        })
+                        .catch(err => console.log(err))
+                    axios.get('/api/PersonnelOvertimeForms/Page/' + this.employeedata.EmpID + '/' + this.selectlist.month + '/' + 1)
+                        .then(response => this.page = response.data)
                         .catch(err => console.log(err))
                 },
                 lookbtn: function (e) {
                     sessionStorage.setItem("overdata", JSON.stringify(e))
+                },
+                find: function (e) {
+
+                    axios.get('/api/PersonnelOvertimeForms/' + this.employeedata.EmpID + '/' + this.selectlist.month + '/' + e)
+                        .then(response => {
+                            this.employeeover = response.data;
+                            this.nowpage = e;
+                            console.log(this.employeeover)
+                        }).catch(err => { console.log(err); alert('查無此項') })
                 }
             },
             mounted() {

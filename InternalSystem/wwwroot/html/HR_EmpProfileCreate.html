@@ -541,7 +541,7 @@
                                     <!-- 員工名稱 -->
                                     <div class="card-body">
                                         <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                            <div class="alert alert-primary text-center  fs-5 fw-bold" role="alert">
+                                            <div class="alert alert-primary text-center  fs-5 fw-bold" role="alert" @click="use">
                                                 員工基本資料
                                             </div>
                                             <div class="row">
@@ -1048,7 +1048,7 @@
 
                     if (confirm('新增資料是否正確?') == true) {
                         axios.post("https://localhost:44319/api/PersonnelProfileDetails/", this.employeelist)
-                            .then(response => { if (response.status == 200) { alert('資料新增完成') } })
+                            .then(response => { alert(response.data)  })
                             .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
                         //    .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
                         //    .then(response => {
@@ -1086,6 +1086,38 @@
                     //}
                     /*  window.location = "HR_EmpProfileCreate.html";*/
                 },
+                use: function () {
+                    this.employeelist.employeeName = "李文勝",
+                        this.employeelist.sex = "男性",
+                        this.employeelist.isMarried = false,
+                        this.employeelist.identiyId = "B122824523",
+                        this.employeelist.email = "wenson7126843@gmail.com",
+                        this.employeelist.birthday = "2000-08-12",
+                        this.employeelist.phoneNumber = "0969002843",
+                        this.employeelist.cityId = 8,
+                        this.employeelist.address = "東勢區三民街10號",
+                        this.employeelist.homePhone = "03-601222",
+                        this.employeelist.emergencyPerson = "李文嚴",
+                        this.employeelist.emergencyRelation = "哥哥",
+                        this.employeelist.emergencyNumber = "0952432881",
+                        this.employeelist.country = "台灣",
+                        this.employeelist.positionId = 3,
+                        this.employeelist.rankId = 1,
+                        this.employeelist.departmentId = 2,
+                        this.employeelist.employeeNumber = "2023020",
+                        this.employeelist.acount = "2023020",
+                        this.employeelist.password = "890812",
+                        this.employeelist.dutyStatus = false,
+                        this.employeelist.entryDate = "2023-02-15",
+                        this.employeelist.note = "非常優秀!值得栽培!",
+                        this.employeelist.PersonnelLeaveOvers = [{ "LeaveType": 1, "Quantity": 112, "Used": "0", "LeaveOver": "112" },
+                        { "LeaveType": 2, "Quantity": 240, "Used": "0", "LeaveOver": "240" },
+                        { "LeaveType": 3, "Quantity": 0, "Used": "0", "LeaveOver": "0" },
+                        { "LeaveType": 4, "Quantity": 0, "Used": "0", "LeaveOver": "0" }
+                        ]
+                
+                    }
+                
 
             },
             computed:

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using Microsoft.CodeAnalysis;
 
 namespace InternalSystem.Controllers
 {
@@ -88,12 +89,14 @@ namespace InternalSystem.Controllers
         [HttpPost]
         public ActionResult PostPcApplicationGoods(int OrderId, [FromBody] PcOrderDetail pcOrderDetail)
         {
-            if (!_context.PcOrderDetails.Any(a => a.OrderId == OrderId)) {
-                return Content("沒資料");
+            if (!_context.PcOrderDetails.Any(a => a.OrderId == OrderId))
+            {
+                return Content("子資料沒資料");
             }
 
-            if (!double.IsNaN(pcOrderDetail.Quantiy) && !double.IsNaN(pcOrderDetail.Subtotal)) { 
-            PcOrderDetail insert = new PcOrderDetail
+            //if (!double.IsNaN(Convert.ToDouble(pcOrderDetail.Quantiy)) && !double.IsNaN(Convert.ToDouble(pcOrderDetail.Subtotal)))
+            //{
+                PcOrderDetail insert = new PcOrderDetail
             {
                 OrderId = OrderId,
                 ProductId = pcOrderDetail.ProductId,
@@ -106,8 +109,8 @@ namespace InternalSystem.Controllers
 
             _context.PcOrderDetails.Add(insert);
             _context.SaveChanges();
-            }
-            return Content("ok");
+        //}
+            return Content("子資料新建Ok");
         }
 
         // DELETE: api/PcOrderDetails/5

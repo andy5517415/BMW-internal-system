@@ -59,8 +59,8 @@ namespace InternalSystem.Controllers
 
         //個人加班搜尋(use session)
         // GET: api/PersonnelOvertimeForms/5/mm  
-        [HttpGet("{id}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetPersonnelOvertime(int id,int y,int m)
+        [HttpGet("{id}/{y}-{m}/{page}")]
+        public async Task<ActionResult<dynamic>> GetPersonnelOvertime(int id,int y,int m,int page)
         {
             var personnelOvertimeForm = from o in _context.PersonnelOvertimeForms
                                         where o.EmployeeId == id && o.StartDate.Month == m && o.StartDate.Year == y
@@ -87,10 +87,45 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
-
-            return await personnelOvertimeForm.ToListAsync();
+            var query = personnelOvertimeForm.Skip((page - 1) * 10).Take(10);
+            return await query.ToListAsync();
         }
 
+
+        //個人加班搜尋(use session)頁面
+        // GET: api/PersonnelOvertimeForms/5/mm  
+        [HttpGet("Page/{id}/{y}-{m}/{page}")]
+        public int  GetPersonnelOvertimePage(int id, int y, int m,int page)
+        {
+            var personnelOvertimeForm = from o in _context.PersonnelOvertimeForms
+                                        where o.EmployeeId == id && o.StartDate.Month == m && o.StartDate.Year == y
+                                        join p in _context.PersonnelProfileDetails on o.EmployeeId equals p.EmployeeId
+                                        join pda in _context.ProductionAreas on o.AreaId equals pda.AreaId
+                                        join pdp in _context.ProductionProcesses on o.PropessId equals pdp.ProcessId
+                                        select new
+                                        {
+                                            EmployeeId = o.EmployeeId,
+                                            EmployeeName = p.EmployeeName,
+                                            EmployeeNumber = p.EmployeeNumber,
+                                            StartDate = o.StartDate.ToString("yyyy-MM-dd"),
+                                            StartTime = o.StartTime,
+                                            EndDate = o.EndDate.ToString("yyyy-MM-dd"),
+                                            EndTime = o.EndTime,
+                                            TotalTime = o.TotalTime,
+                                            AuditStatus = o.AuditStatus,
+                                            pda.AreaName,
+                                            pdp.ProcessName
+
+                                        };
+
+            if (personnelOvertimeForm == null)
+            {
+                return 0;
+            }
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelOvertimeForm.Count()) / 10));
+
+            return total;
+        }
 
         //用人名尋找加班資料
         // GET: api/PersonnelOvertimeForms/
