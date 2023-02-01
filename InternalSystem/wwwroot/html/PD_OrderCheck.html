@@ -845,13 +845,14 @@
                                             console.log(this.monitor)
                                             axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
                                                 console.log(p);
+                                                window.location = "PD_ToDoItems.html"
                                             })
                                         })
                                     }
                                 })
 
                         }
-                        window.location = "PD_ToDoItems.html"
+                        
                         alert('a');
                     } else if (this.processesAreaList.processId == 1) {
 
@@ -861,6 +862,7 @@
                                 .then(g => {
                                     if (g.data.status != '待指派') {
                                         alert('該廠區已有訂單生產中，請選擇其他廠區!');
+                                        window.location = "PD_ToDoItems.html"
                                     }
                                     else {
                                         axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
@@ -879,12 +881,13 @@
                                             console.log(this.monitor)
                                             axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
                                                 console.log(p);
+                                                window.location = "PD_ToDoItems.html"
                                             })
                                         })
                                     }
                                 })
                         }
-                        window.location = "PD_ToDoItems.html"
+                        
                     }
 
                 }
