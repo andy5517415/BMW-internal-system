@@ -165,7 +165,7 @@ namespace InternalSystem.Controllers
         //複合查詢(部門  員工名稱) 人事部查詢
         // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
         [HttpGet("Complex/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int? depId, int y, int m)
+        public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int? depId, int y, int m, int page)
         {
             var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
                                      join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
@@ -205,9 +205,59 @@ namespace InternalSystem.Controllers
             if (depId!=null)
             { personnelLeaveForm = personnelLeaveForm.Where(a => a.DepartmentId == depId); }
 
-            return await personnelLeaveForm.ToListAsync();
+            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+            return await query.ToListAsync();
         }
 
+
+
+        //複合查詢頁面
+        // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
+        [HttpGet("ComplexPage/{y}-{m}")]
+        public int  GetLeaveComplexPage(string name, int? depId, int y, int m,int page)
+        {
+            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
+                                     join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
+                                     where pl.StartDate.Month == m && pl.StartDate.Year == y
+                                     select new
+                                     {
+                                         EmployeeName = o.EmployeeName,
+                                         EmployeeNumber = o.EmployeeNumber,
+                                         EmployeeId = pl.EmployeeId,
+                                         DepName = d.DepName,
+                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+                                         StartTime = pl.StartTime,
+                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         EndTime = pl.EndTime,
+                                         pl.TotalTime,
+                                         LeaveId = pl.LeaveId,
+                                         lt.Type,
+                                         LeaveType = pl.LeaveType,
+                                         StatusId = pl.StatusId,
+                                         AuditStatus = l.AuditStatus,
+                                         Proxy = pl.Proxy,
+                                         auditManerger = pl.AuditManerger,
+                                         Reason = pl.Reason,
+                                         DepartmentId = o.DepartmentId,
+                                         pl.ApplicationDate
+                                     };
+
+            if (personnelLeaveForm == null)
+            {
+                return 0;
+            }
+            if (!string.IsNullOrWhiteSpace(name))
+            { personnelLeaveForm = personnelLeaveForm.Where(a => a.EmployeeName.Contains(name)); }
+            if (depId != null)
+            { personnelLeaveForm = personnelLeaveForm.Where(a => a.DepartmentId == depId); }
+            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelLeaveForm.Count() )/ 10));
+            return total;
+        }
         //GET被指定代理人之申請
         // GET: api/PersonnelLeaveForms/5
         [HttpGet("proxyAudit/{depId}/{position}/{id}")]

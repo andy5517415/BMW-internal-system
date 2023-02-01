@@ -575,6 +575,22 @@
 
                                       </tbody>
                                   </table>
+                                  <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                      <ul class="pagination">
+                                          <li class="page-item">
+                                              <a class="page-link" href="#" aria-label="Previous">
+                                                  <span aria-hidden="true">&laquo;</span>
+                                              </a>
+                                          </li>
+                                          <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                          <li class="page-item">
+                                              <a class="page-link" href="#" aria-label="Next">
+                                                  <span aria-hidden="true">&raquo;</span>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </nav>
                               </div>
                               <!--/ Basic Bootstrap Table -->
                           </div>
@@ -624,7 +640,8 @@
                         empNumber: {},
                         employeedata: {"empName":"","empNumber":"","depId":""},
                         attendencelist: {},
-                        departmentlist: {}
+                        departmentlist: {},
+                        page: {}
                     }
 
                 },
@@ -633,13 +650,29 @@
 
                        
                         axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
-                            + '&dep=' + this.employeedata.depId)
+                            + '&dep=' + this.employeedata.depId +'&page=' + 1)
                                 .then(response => {
                                     this.attendencelist = response.data;
                                     console.log(this.attendencelist)
                                     if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
                                 }).catch(err => { console.log(err); alert('查無此項') })
-                        
+
+                        //axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
+                        //    + '&dep=' + this.employeedata.depId)
+                        //    .then(response => {
+                        //        sessionStorage.setItem("attend",response.data);
+                        //            console.log(this.attendencelist)
+                        //            if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
+                        //        }).catch(err => { console.log(err); alert('查無此項') })
+                         axios.get('/api/PersonnelAttendanceTimes/ComplexPage/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
+                            + '&dep=' + this.employeedata.depId)
+                                .then(response => {
+                                    this.page = response.data;
+                                    console.log(this.page)
+                                    /*if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }*/
+                                }).catch(err => { console.log(err); alert('查無此項') })
+
+
                         //else if (this.employeedata.depId != null && this.employeedata.date != null) {
                         //    axios.get('/api/PersonnelAttendanceTimes/dep/' + this.employeedata.depId + '/' + this.employeedata.date)
                         //        .then(response => {
@@ -670,6 +703,16 @@
                         //    alert('查無資料')
                         //}
 
+                    },
+                    find: function (e) {
+
+                        axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
+                            + '&dep=' + this.employeedata.depId +'&page=' +e)
+                                .then(response => {
+                                    this.attendencelist = response.data;
+                                    console.log(this.attendencelist)
+                                    if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
+                                }).catch(err => { console.log(err); alert('查無此項') })
                     }
 
                 },
