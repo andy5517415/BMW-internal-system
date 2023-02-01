@@ -634,7 +634,8 @@
                                                                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                                         <div class="mb-3 col-md-12">
                                                                                             <label for="數量" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
-                                                                                            <input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
+                                                                                            <input @input="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-if="b.quantiy != NaN " v-model="bee[key]">
+                                                                                            <input @input="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">
                                                                                         </div>
                                                                                     </ul>
                                                                                 </td>
@@ -710,12 +711,6 @@
                                 autopurchaseid: "",
                                 goodslist: {},
                                 PcOrderDetails: [],
-                                presetapplicationstatus: false,
-                                presetapplicationrejectstatus: false,
-                                presetdeliverystatus: false,
-                                presetdeliveryrejectstatus: false,
-                                presetacceptancestatus: false,
-                                presetacceptancerejectstatus: false
                             }
                         },
                         computed: {
@@ -776,12 +771,16 @@
                                     this.item.purchaseId = parseInt(this.autopurchaseid);
                                     //console.log(this.item.purchaseId);
                                     //預設物品審核狀態
-                                    this.item.applicationStatus = this.presetapplicationstatus;
-                                    this.item.applicationRejectStatus = this.presetapplicationrejectstatus;
-                                    this.item.deliveryStatus = this.presetdeliverystatus;
-                                    this.item.deliveryRejectStatus = this.presetdeliveryrejectstatus;
-                                    this.item.acceptanceStatus = this.presetacceptancestatus;
-                                    this.item.acceptanceRejectStatus = this.presetacceptancerejectstatus;
+                                    //this.item.applicationStatus = this.presetapplicationstatus;
+                                    //this.item.applicationRejectStatus = this.presetapplicationrejectstatus;
+                                    //this.item.deliveryStatus = this.presetdeliverystatus;
+                                    //this.item.deliveryRejectStatus = this.presetdeliveryrejectstatus;
+                                    //this.item.acceptanceStatus = this.presetacceptancestatus;
+                                    //this.item.acceptanceRejectStatus = this.presetacceptancerejectstatus;
+                                    //預設單價+小計為0
+                                    this.product.quantiy = 0;
+                                    this.product.subtotal = 0;
+
                                 })
                             axios.get('/api/PCApplications/goods')
                                 .then(response => {

@@ -289,8 +289,6 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_Application");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
-
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
                 entity.Property(e => e.Date).HasColumnType("date");
@@ -327,8 +325,6 @@ namespace InternalSystem.Models
                 entity.HasKey(e => new { e.OrderId, e.ProductId });
 
                 entity.ToTable("PC_OrderDetails");
-
-                entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Goods)
                     .IsRequired()

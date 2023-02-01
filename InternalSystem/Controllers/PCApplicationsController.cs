@@ -529,18 +529,18 @@ namespace InternalSystem.Controllers
                 Department = pcApplication.Department,
                 Date = pcApplication.Date,
                 Comment = pcApplication.Comment,
-                Total = pcApplication.Total,
-                ApplicationStatus = pcApplication.ApplicationStatus,
-                ApplicationRejectStatus = pcApplication.ApplicationRejectStatus,
-                DeliveryStatus = pcApplication.DeliveryStatus,
-                DeliveryRejectStatus = pcApplication.DeliveryRejectStatus,
-                AcceptanceStatus = pcApplication.AcceptanceStatus,
-                AcceptanceRejectStatus = pcApplication.AcceptanceRejectStatus,
+                Total = 0,
+                ApplicationStatus = false,
+                ApplicationRejectStatus = false,
+                DeliveryStatus = false,
+                DeliveryRejectStatus = false,
+                AcceptanceStatus = false,
+                AcceptanceRejectStatus = false,
                 PcOrderDetails = pcApplication.PcOrderDetails
             };
             _context.PcApplications.Add(insert);
             _context.SaveChanges();
-            return Content("ok");
+            return Content("主資料新建ok");
         }
 
         //// POST: api/PCApplications
