@@ -582,6 +582,7 @@
                                 </a>
                             </li>
                         </ul>
+                        <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                     </nav>
                 </div>
               <!--/ Basic Bootstrap Table -->
@@ -629,10 +630,11 @@
       const app = {
         data() {
           return {
-                  employeelist: { "depId": "" },
-                  overtimelist: {},
-                  departmentlist: {},
-                  page:{ }
+              employeelist: { "depId": "" },
+              overtimelist: {},
+              departmentlist: {},
+              page: 0,
+              nowpage: {}
           }
         },
         methods: {
@@ -641,6 +643,7 @@
                 axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep='  + this.employeelist.depId + '&page=' + 1)
                         .then(response => {
                             this.overtimelist = response.data;
+                            this.nowpage = 1;
                             if (this.overtimelist.length == 0) { alert('查無資料') };
                         })
                         .catch(err => console.log(err))
@@ -679,6 +682,7 @@
                 axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId + '&page=' + e)
                     .then(response => {
                         this.overtimelist = response.data;
+                        this.nowpage = e;
                         console.log(this.overtimelist)
                     }).catch(err => { console.log(err); alert('查無此項') })
             }

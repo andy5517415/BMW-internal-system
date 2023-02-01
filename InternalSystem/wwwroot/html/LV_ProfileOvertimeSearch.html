@@ -567,6 +567,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                             </nav>
                         </div>
                         <!--/ Basic Bootstrap Table -->
@@ -618,14 +619,18 @@
                     employeedata: {},
                     area: {},
                     process: {},
-                    page:{ }
+                    page: 0,
+                    nowpage: {}
                 }
             },
             methods: {
                 searchbtn: function () {
                     console.log(this.selectlist.month)
                     axios.get('https://localhost:44319/api/PersonnelOvertimeForms/' + this.employeedata.EmpID + '/' + this.selectlist.month + '/' + 1)
-                        .then(response => this.employeeover = response.data)
+                        .then(response => {
+                            this.employeeover = response.data;
+                            this.nowpage = 1;
+                        })
                         .catch(err => console.log(err))
                     axios.get('/api/PersonnelOvertimeForms/Page/' + this.employeedata.EmpID + '/' + this.selectlist.month + '/' + 1)
                         .then(response => this.page = response.data)
@@ -639,6 +644,7 @@
                     axios.get('/api/PersonnelOvertimeForms/' + this.employeedata.EmpID + '/' + this.selectlist.month + '/' + e)
                         .then(response => {
                             this.employeeover = response.data;
+                            this.nowpage = e;
                             console.log(this.employeeover)
                         }).catch(err => { console.log(err); alert('查無此項') })
                 }

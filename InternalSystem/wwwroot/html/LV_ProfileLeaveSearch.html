@@ -567,6 +567,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                             </nav>
                         </div>
                         <!--/ Basic Bootstrap Table -->
@@ -613,7 +614,8 @@
                     leavesearch: {},
                     leavelist: {},
                     employeedata: {},
-                    page: {}
+                    page: 0,
+                    nowpage:{ }
 
 
                 }
@@ -624,7 +626,10 @@
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
                     axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/'+1)
-                        .then(response => this.leavelist = response.data)
+                        .then(response => {
+                            this.leavelist = response.data;
+                            this.nowpage = 1;
+                        })
                         .catch(err => console.log(err))
                     axios.get('/api/PersonnelLeaveForms/profilePage/' + this.employeedata.EmpID + '/' + this.leavesearch.month)
                         .then(response => this.page = response.data)
@@ -638,6 +643,7 @@
                     axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/'+e)
                         .then(response => {
                             this.leavelist = response.data;
+                            this.nowpage =e
                             console.log(this.leavelistt)
                         }).catch(err => { console.log(err); alert('查無此項') })
                 }

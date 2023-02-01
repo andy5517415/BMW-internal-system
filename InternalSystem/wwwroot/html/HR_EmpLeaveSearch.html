@@ -579,6 +579,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                             </nav>
                         </div>
                         <!--/ Basic Bootstrap Table -->
@@ -627,7 +628,8 @@
                     employeelist: {},
                     departmentlist: {},
                     search: { "departmentId": "" },
-                    page: {}
+                    page: 0,
+                    nowpage: {}
                 }
             },
             methods: {
@@ -636,6 +638,7 @@
                     axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId +'&page=' + 1 )
                             .then(response => {
                                 this.employeelist = response.data;
+                                this.nowpage = 1;
                                 if (this.employeelist.length == 0) { alert('複合查詢:查無此項') }
                             })
                             .catch(err => { console.log(err) })
@@ -674,6 +677,7 @@
                     axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' +e)
                         .then(response => {
                             this.employeelist = response.data;
+                            this.nowpage = e;
                             console.log(this.employeelist)
                         }).catch(err => { console.log(err); alert('查無此項') })
                 }
