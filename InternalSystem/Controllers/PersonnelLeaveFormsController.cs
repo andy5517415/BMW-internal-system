@@ -10,6 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace InternalSystem.Controllers
 {
@@ -33,8 +34,8 @@ namespace InternalSystem.Controllers
 
         //用員工ID尋找(Session帶入員工ID) 個人查詢
         // GET: api/PersonnelLeaveForms/profile/5/{y}-{m}
-        [HttpGet("profile/{id}/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetPersonnelLeave(int id ,int y , int m)
+        [HttpGet("profile/{id}/{y}-{m}/{page}")]
+        public async Task<ActionResult<dynamic>> GetPersonnelLeave(int id ,int y , int m,int page)
         {
             
              var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
@@ -71,10 +72,56 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
+            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
 
-            return await personnelLeaveForm.ToListAsync();
+            return await query.ToListAsync();
         }
 
+        //用員工ID尋找(Session帶入員工ID) 個人查詢 頁面
+        // GET: api/PersonnelLeaveForms/profile/5/{y}-{m}
+        [HttpGet("profilePage/{id}/{y}-{m}")]
+        public int GetPersonnelLeavePage(int id, int y, int m,int page)
+        {
+
+            var personnelLeaveForm = from pl in _context.PersonnelLeaveForms
+                                     join o in _context.PersonnelProfileDetails on pl.EmployeeId equals o.EmployeeId
+                                     join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
+                                     join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
+                                     where o.EmployeeId == id && pl.StartDate.Year == y && pl.StartDate.Month == m
+                                     select new
+                                     {
+                                         EmployeeName = o.EmployeeName,
+                                         EmployeeNumber = o.EmployeeNumber,
+                                         EmployeeId = pl.EmployeeId,
+                                         StartDate = pl.StartDate.ToString("yyyy-MM-dd"),
+                                         StartTime = pl.StartTime,
+                                         EndDate = pl.EndDate.ToString("yyyy-MM-dd"),
+                                         EndTime = pl.EndTime,
+                                         pl.TotalTime,
+                                         LeaveId = pl.LeaveId,
+                                         LeaveType = pl.LeaveType,
+                                         StatusId = pl.StatusId,
+                                         lt.Type,
+                                         AuditStatus = l.AuditStatus,
+                                         ProxyAuditDate = pl.ProxyAuditDate.ToString(),
+                                         pl.ProxyAudit,
+                                         pl.ManagerAudit,
+                                         ManagerAuditDate = pl.ManagerAuditDate.ToString(),
+                                         Proxy = pl.Proxy,
+                                         auditManerger = pl.AuditManerger,
+                                         Reason = pl.Reason,
+                                         pl.ApplicationDate
+                                     };
+
+            if (personnelLeaveForm == null)
+            {
+                return 0;
+            }
+            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelLeaveForm.Count()) / 10));
+            return total;
+        }
         //用名稱尋找  人事部查詢
         // GET: api/PersonnelLeaveForms/employeeName/5/{y}-{m}
         //[HttpGet("employeeName/{name}/{y}-{m}")]

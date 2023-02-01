@@ -500,76 +500,90 @@
                 <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
               <!-- 加班資料查詢/修改 -->
                 <div class="card m-4 card-body">
-                    <form id="formAccountSettings"  method="POST" onsubmit="return false">
-                    <div class="row py-3 ">
-                     
-                        <div class="mb-3 col-md-2">
-                          <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label> 
-                            <input class="form-control fs-5"   id="Employeename" v-model="employeelist.name" />
-                         </div>
-                        <div class="mb-3 col-md-2">
-                            <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
-                            <select id="department" class="select2 form-select" v-model="employeelist.depId">
-                              <option value="">選擇部門</option>
-                              <option v-for="item in departmentlist":value="item.departmentId">{{item.depName}}</option>
-                      
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-2">
-                            <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班月份</label>
-                              <input class="form-control fs-5" type="month" id="html5-month-input" v-model="employeelist.month"/>
-                          </div>
-                          <div class="mt-2  d-md-flex justify-content-md-end">
-                            <button type="button" v-on:click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                            <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
-                          </div>
-                    </div>
-                  
-                  
+                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row py-3 ">
+
+                            <div class="mb-3 col-md-2">
+                                <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                <input class="form-control fs-5" id="Employeename" v-model="employeelist.name" />
+                            </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                <select id="department" class="select2 form-select" v-model="employeelist.depId">
+                                    <option value="">選擇部門</option>
+                                    <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
+
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班月份</label>
+                                <input class="form-control fs-5" type="month" id="html5-month-input" v-model="employeelist.month" />
+                            </div>
+                            <div class="mt-2  d-md-flex justify-content-md-end">
+                                <button type="button" v-on:click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
+                                <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                            </div>
+                        </div>
+
+
                     </form>
-                       <!-- Basic Bootstrap Table -->
-              <div id="workdata">
-                <h5 class="card-header fw-bold">員工加班資料</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th class="fs-4 fw-blod">員工名稱</th>
-                        <th class="fs-4 fw-blod">員工編號</th>
-                        <th class="fs-4 fw-blod">加班起始時間</th>
-                        <th class="fs-4 fw-blod">加班結束時間</th>
-                        <th>修改</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0" v-for="item in overtimelist">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
-                        <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
-                        <td>
-                            <span class="label-primary">{{item.startDate}} - {{item.startTime}}</span>
-                        </td>
-                        <td>
-                            <span class="label-primary">{{item.endDate}} - {{item.endTime}}</span>
-                        </td>
+                    <!-- Basic Bootstrap Table -->
+                    <div id="workdata">
+                        <h5 class="card-header fw-bold">員工加班資料</h5>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="fs-4 fw-blod">員工名稱</th>
+                                        <th class="fs-4 fw-blod">員工編號</th>
+                                        <th class="fs-4 fw-blod">加班起始時間</th>
+                                        <th class="fs-4 fw-blod">加班結束時間</th>
+                                        <th>修改</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0" v-for="item in overtimelist">
+                                    <tr>
+                                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
+                                        <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
+                                        <td>
+                                            <span class="label-primary">{{item.startDate}} - {{item.startTime}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="label-primary">{{item.endDate}} - {{item.endTime}}</span>
+                                        </td>
 
-                        <td>
-                              
-                              <a class="item" href="HR_OvertimeEdit.html"
-                              v-on:click="overedit(item)"
-                                ><i class="bx bx-edit-alt me-1"></i> 修改</a
-                              >
-                              <!-- <a class="item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              > -->
+                                        <td>
 
-                          </div>
+                                            <a class="item" href="HR_OvertimeEdit.html"
+                                               v-on:click="overedit(item)"><i class="bx bx-edit-alt me-1"></i> 修改</a>
+                                            <!-- <a class="item" href="javascript:void(0);"
+                              ><i class="bx bx-trash me-1"></i> Delete</a
+                            > -->
+
+                        </div>
                         </td>
-                      </tr>
-                     
-                    </tbody>
-                  </table>
+                        </tr>
+
+                        </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-              </div>
               <!--/ Basic Bootstrap Table -->
                 </div>
             <!-- / Content -->
@@ -615,21 +629,26 @@
       const app = {
         data() {
           return {
-              employeelist: { "depId":""},
-            overtimelist: {},
-            departmentlist: {}
+                  employeelist: { "depId": "" },
+                  overtimelist: {},
+                  departmentlist: {},
+                  page:{ }
           }
         },
         methods: {
           search: function () {
             //alert('ok')
-                axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep='  + this.employeelist.depId )
+                axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep='  + this.employeelist.depId + '&page=' + 1)
                         .then(response => {
                             this.overtimelist = response.data;
                             if (this.overtimelist.length == 0) { alert('查無資料') };
                         })
                         .catch(err => console.log(err))
-                
+                axios.get('/api/PersonnelOvertimeForms/ComplexPage/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId)
+                    .then(response => {
+                        this.page = response.data;
+                    })
+                    .catch(err => console.log(err))
 
                 //else if (this.employeelist.depId != null && this.employeelist.month != null) {
                 //    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
@@ -652,9 +671,17 @@
                 //}
 
           },
-          overedit: function (e) {
-            sessionStorage.setItem("overdata", JSON.stringify(e))
-          }
+            overedit: function (e) {
+                sessionStorage.setItem("overdata", JSON.stringify(e))
+            },
+            find: function (e) {
+
+                axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId + '&page=' + e)
+                    .then(response => {
+                        this.overtimelist = response.data;
+                        console.log(this.overtimelist)
+                    }).catch(err => { console.log(err); alert('查無此項') })
+            }
         },
         mounted() {
 

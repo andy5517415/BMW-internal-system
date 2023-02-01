@@ -176,7 +176,7 @@ namespace InternalSystem.Controllers
         //複合查詢尋找加班資料
         // GET: api/PersonnelOvertimeForms/Complex/1/name
         [HttpGet("Complex/{y}-{m}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelComplexOvertime(int? dep, string name , int y, int m)
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPersonnelComplexOvertime(int? dep, string name , int y, int m,int page)
         {
 
             var overlist = from ov in _context.PersonnelOvertimeForms
@@ -217,10 +217,61 @@ namespace InternalSystem.Controllers
             {
                 overlist = overlist.Where(a => a.EmployeeName.Contains(name));
             }
-            return await overlist.ToListAsync();
+            var query = overlist.Skip((page - 1) * 10).Take(10);
+            return await query.ToListAsync();
         }
 
+        //複合查詢尋找加班資料 頁面
+        // GET: api/PersonnelOvertimeForms/ComplexPage/1/name
+        [HttpGet("ComplexPage/{y}-{m}")]
+        public int GetPersonnelComplexOvertimePage(int? dep, string name, int y, int m,int page)
+        {
 
+            var overlist = from ov in _context.PersonnelOvertimeForms
+                           join p in _context.PersonnelProfileDetails on ov.EmployeeId equals p.EmployeeId
+                           join d in _context.PersonnelDepartmentLists on p.DepartmentId equals d.DepartmentId
+                           join pda in _context.ProductionAreas on ov.AreaId equals pda.AreaId
+                           join pdp in _context.ProductionProcesses on ov.PropessId equals pdp.ProcessId
+                           where ov.StartDate.Year == y && ov.StartDate.Month == m
+                           select new
+                           {
+                               ov.StartWorkId,
+                               ov.EmployeeId,
+                               EmployeeName = p.EmployeeName,
+                               EmployeeNumber = p.EmployeeNumber,
+                               DepName = d.DepName,
+                               DepartmentId = d.DepartmentId,
+                               StartDate = ov.StartDate.ToString("yyyy-MM-dd"),
+                               ov.StartTime,
+                               EndDate = ov.EndDate.ToString("yyyy-MM-dd"),
+                               ov.EndTime,
+                               ov.TotalTime,
+                               ov.AuditStatus,
+                               ov.AreaId,
+                               ov.PropessId,
+                               pda.AreaName,
+                               pdp.ProcessName,
+                               ApplicationDate = ov.ApplicationDate.ToString()
+
+                           };
+            if (overlist == null)
+            {
+                return 0;
+            }
+            if (dep != null)
+            {
+                overlist = overlist.Where(a => a.DepartmentId == dep);
+            }
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                overlist = overlist.Where(a => a.EmployeeName.Contains(name));
+            }
+
+            var query = overlist.Skip((page - 1) * 10).Take(10);
+
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(overlist.Count()) / 10));
+            return total;
+        }
         //員工自身ID找尋還未被主管檢閱之資料
         // GET: api/PersonnelOvertimeForms/NotyetAudit/{id}
         [HttpGet("NotyetAudit/{id}")]

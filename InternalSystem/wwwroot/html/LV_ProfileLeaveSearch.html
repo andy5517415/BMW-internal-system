@@ -552,6 +552,22 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                         <!--/ Basic Bootstrap Table -->
                     </div>
@@ -596,7 +612,9 @@
                 return {
                     leavesearch: {},
                     leavelist: {},
-                    employeedata: {}
+                    employeedata: {},
+                    page: {}
+
 
                 }
             },
@@ -605,12 +623,23 @@
 
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
-                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month)
+                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/'+1)
                         .then(response => this.leavelist = response.data)
+                        .catch(err => console.log(err))
+                    axios.get('/api/PersonnelLeaveForms/profilePage/' + this.employeedata.EmpID + '/' + this.leavesearch.month)
+                        .then(response => this.page = response.data)
                         .catch(err => console.log(err))
                 },
                 look: function (e) {
                     sessionStorage.setItem("leave", JSON.stringify(e))
+                },
+                find: function (e) {
+
+                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/'+e)
+                        .then(response => {
+                            this.leavelist = response.data;
+                            console.log(this.leavelistt)
+                        }).catch(err => { console.log(err); alert('查無此項') })
                 }
             },
             mounted() {
