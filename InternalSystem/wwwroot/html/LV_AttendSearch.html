@@ -536,7 +536,7 @@
                                               <th class="fs-4 fw-blod">出勤狀態</th>
                                           </tr>
                                       </thead>
-                                      <tbody class="table-border-bottom-0" >
+                                      <tbody class="table-border-bottom-0">
                                           <tr v-for="item in attendencelist">
                                               <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
                                               <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
@@ -555,6 +555,22 @@
                                       </tbody>
                                   </table>
                               </div>
+                              <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                  <ul class="pagination">
+                                      <li class="page-item">
+                                          <a class="page-link" href="#" aria-label="Previous">
+                                              <span aria-hidden="true">&laquo;</span>
+                                          </a>
+                                      </li>
+                                      <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                      <li class="page-item">
+                                          <a class="page-link" href="#" aria-label="Next">
+                                              <span aria-hidden="true">&raquo;</span>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </nav>
                           </div>
                           <!--/ Basic Bootstrap Table -->
                       </div>
@@ -602,22 +618,36 @@
                 return {
                     empdata: {},
                     employeedata: {},
-                    attendencelist: {}
+                    attendencelist: {},
+                    page: {}
                 }
             },
             methods: {
                 searchbtn: function () {
                     if (this.employeedata.date != null) {
-                        axios.get('/api/PersonnelAttendanceTimes/id/' + this.empdata.EmpID + '/' + this.employeedata.date)
+                        axios.get('/api/PersonnelAttendanceTimes/id/' + this.empdata.EmpID + '/' + this.employeedata.date +'/' +1)
                             .then(response => {
                                 this.attendencelist = response.data;
                                 console.log(this.attendencelist)
                                 if (this.attendencelist.length == 0) { alert('查無此項') }
                             }).catch(err => { console.log(err); alert('查無此項') })
+                        axios.get('/api/PersonnelAttendanceTimes/Page/id/' + this.empdata.EmpID + '/' + this.employeedata.date )
+                            .then(response => {
+                                this.page = response.data;
+                                console.log(this.page)
+                            }).catch(err => { console.log(err); alert('查無此項') })
                     }
                     else {
                         alert('查無結果')
                     }
+                },
+                find: function (e) {
+
+                    axios.get('/api/PersonnelAttendanceTimes/id/' + this.empdata.EmpID + '/' + this.employeedata.date + '/' + e)
+                        .then(response => {
+                            this.attendencelist = response.data;
+                            console.log(this.attendencelist)
+                        }).catch(err => { console.log(err); alert('查無此項') })
                 }
             },
             mounted() {
