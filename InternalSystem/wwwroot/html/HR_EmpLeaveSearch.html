@@ -556,14 +556,30 @@
 
                                                 <a class="item" href="HR_EmpLeaveEdit.html" @click="ToEditbtn(item)"><i class="bx bx-edit-alt"></i> 修改</a>
                                                 <!-- <a class="item" href="javascript:void(0);"
-                                                                              ><i class="bx bx-trash me-1"></i> Delete</a
-                                                                            > -->
+                                                      ><i class="bx bx-trash me-1"></i> Delete</a
+                                                    > -->
                             </div>
                             </td>
                             </tr>
 
                             </tbody>
                             </table>
+                            <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                         <!--/ Basic Bootstrap Table -->
                     </div>
@@ -610,13 +626,14 @@
                 return {
                     employeelist: {},
                     departmentlist: {},
-                    search: {"departmentId":""}
+                    search: { "departmentId": "" },
+                    page: {}
                 }
             },
             methods: {
                 okbtn: function () {
                     //alert('OK');
-                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId  )
+                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId +'&page=' + 1 )
                             .then(response => {
                                 this.employeelist = response.data;
                                 if (this.employeelist.length == 0) { alert('複合查詢:查無此項') }
@@ -624,7 +641,12 @@
                             .catch(err => { console.log(err) })
 
                     
-
+                    axios.get('/api/PersonnelLeaveForms/ComplexPage/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId)
+                        .then(response => {
+                            this.page = response.data;
+                            console.log(this.page)
+                        })
+                        .catch(err => { console.log(err) })
                     //else if (this.search.departmentId != null && this.search.date != null) {
                     //    axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
                     //        .then(response => {
@@ -646,6 +668,14 @@
                 },
                 ToEditbtn: function (e) {
                     sessionStorage.setItem("leavedata", JSON.stringify(e))
+                },
+                find: function (e) {
+
+                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' +e)
+                        .then(response => {
+                            this.employeelist = response.data;
+                            console.log(this.employeelist)
+                        }).catch(err => { console.log(err); alert('查無此項') })
                 }
             },
             mounted() {

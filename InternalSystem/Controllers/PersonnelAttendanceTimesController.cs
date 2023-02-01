@@ -143,7 +143,7 @@ namespace InternalSystem.Controllers
         //複合查詢
         // GET: api/PersonnelAttendanceTimes/Complex/5/name/2023001
         [HttpGet("Complex/{y}-{m}")]
-        public async Task<ActionResult<dynamic>> GetAttendanceTimeComplex(int? dep,string name , string number, int y, int m)
+        public async Task<ActionResult<dynamic>> GetAttendanceTimeComplex(int? dep,string name , string number, int y, int m,int page)
         {
             var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
                                           join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
@@ -164,7 +164,40 @@ namespace InternalSystem.Controllers
             if(dep != null) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.DepartmentId == dep); }
             if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
             if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
-            return await personnelAttendanceTime.ToListAsync();
+            var query = personnelAttendanceTime.Skip((page-1) * 10).Take(10);
+            var totalpage = query.Count();
+            return await query.ToListAsync();
+        }
+
+
+        //複合查詢頁數
+        // GET: api/PersonnelAttendanceTimes/Complex/5/name/2023001
+        [HttpGet("ComplexPage/{y}-{m}")]
+        public int GetAttendanceTimePage(int? dep, string name, string number, int y, int m, int page)
+        {
+            var personnelAttendanceTime = from pa in _context.PersonnelAttendanceTimes
+                                          join pd in _context.PersonnelProfileDetails on pa.EmployeeId equals pd.EmployeeId
+                                          where pa.Date.Year == y && pa.Date.Month == m
+                                          select new
+                                          {
+                                              Date = pa.Date.ToString(),
+                                              pa.AttendTime,
+                                              pd.EmployeeName,
+                                              pd.EmployeeNumber,
+                                              pd.DepartmentId
+                                          };
+
+            if (personnelAttendanceTime == null)
+            {
+                return 0;
+            }
+            if (dep != null) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.DepartmentId == dep); }
+            if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
+            if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
+            var query = personnelAttendanceTime.Skip(page * 10).Take(10);
+            var totalpage = Convert.ToInt16(Math.Ceiling(Convert.ToDouble((personnelAttendanceTime.Count())/ 10)));
+            
+            return totalpage;
         }
         // PUT: api/PersonnelAttendanceTimes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
