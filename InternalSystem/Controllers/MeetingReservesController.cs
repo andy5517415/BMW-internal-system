@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace InternalSystem.Controllers
@@ -22,10 +23,39 @@ namespace InternalSystem.Controllers
         }
 
         // GET: api/MeetingReserves
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MeetingReserve>>> GetMeetingReserves()
+        [HttpGet("{s}-{e}")]
+        public object GetMeetingReserves(string s,string e)
         {
-            return await _context.MeetingReserves.ToListAsync();
+            int stime=Convert.ToInt32(s.Substring(0,2));
+            int etime = Convert.ToInt32(e.Substring(0, 2));
+
+            var timeZone = from a in _context.MeetingReserves
+                           select new
+                           {
+                               startTime=a.StartTime,
+                               endTime=a.EndTime,
+
+                           };
+            var timeZone2 = timeZone.ToArray();
+
+            int[] startTime = new int[timeZone2.Length];
+            int[] endTime = new int[timeZone2.Length];
+            for (int i = 0; i < startTime.Length; i++)
+            {
+                startTime[i] = Convert.ToInt32( timeZone2[i].startTime.Substring(0,2));
+                endTime[i] = Convert.ToInt32(timeZone2[i].endTime.Substring(0, 2));
+            }
+
+            for (int i = 0; i < endTime.Length; i++)
+            {
+                if (stime < endTime[i])
+                {
+                    return "我比你小";
+                }
+            }
+           
+
+            return endTime;
         }
 
         //查預約會議室
@@ -101,7 +131,7 @@ namespace InternalSystem.Controllers
         }
 
         //查預約會議室(會議室編號版本)
-        // GET: api/MeetingReserves/1
+        // GET: api/MeetingReserves/MeetRoom/1
         [HttpGet("MeetRoom/{placeId}")]
         public async Task<ActionResult<dynamic>> GetMeetingReserve_MeetRoom(int placeId)
         {
@@ -134,31 +164,88 @@ namespace InternalSystem.Controllers
 
         }
 
-        // POST: api/MeetingReserves
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/MeetingReserves/2/2023-01-05/15:00-16:00
+        [HttpPost("{DepId}/{date}/{s}-{e}")]
 
-        [HttpPost("{DepId}/{s}-{e}")]
-
-        public ActionResult PostMeetingReserves(int DepId, string s,string e,[FromBody] MeetingReserve form)
+        public ActionResult PostMeetingReserves(int DepId, string date, string s,string e,[FromBody] MeetingReserve form)
         {
             TimeSpan hm = Convert.ToDateTime(e).Subtract(Convert.ToDateTime(s)); //兩個相減
             double hoursCount = hm.TotalMinutes;  //所有的分鐘
-            
+
+            var dateT = DateTime.Parse(date);
+
+            int star2 = Convert.ToInt32(s.Substring(0, 2));
+            int end2 = Convert.ToInt32(e.Substring(0, 2));
+
+            var timeZone = from a in _context.MeetingReserves
+                           select new
+                           {
+                               startTime = a.StartTime,
+                               endTime = a.EndTime,
+
+                           };
+            var timeZone2 = timeZone.ToArray();
+
+            int[] startTime = new int[timeZone2.Length];
+            int[] endTime = new int[timeZone2.Length];
+            for (int i = 0; i < startTime.Length; i++)
+            {
+                startTime[i] = Convert.ToInt32(timeZone2[i].startTime.Substring(0, 2));
+                endTime[i] = Convert.ToInt32(timeZone2[i].endTime.Substring(0, 2));
+            }
+
+            //判斷結束時間不能小於起始時間
             if (hoursCount >0)
             {
-                MeetingReserve insert = new MeetingReserve
+                //若為同一天
+                var sameDay = from a in _context.MeetingReserves
+                               where dateT == a.Date
+                               select a;
+                if (sameDay != null) //就是同一天
                 {
-                    DepId = DepId,
-                    MeetPlaceId = form.MeetPlaceId,
-                    Date = form.Date,
-                    EmployeeId= form.EmployeeId,
-                    StartTime= form.StartTime,
-                    EndTime= form.StartTime,
-                    MeetType= form.MeetType,
-                };
-                _context.MeetingReserves.Add(insert);
-                _context.SaveChanges();
-                return Content("預約成功");
+                    for (int i = 0; i < startTime.Length; i++)
+                    {
+                        //時區重複判斷
+                        if (star2 >= startTime[i] && star2 <= endTime[i] || end2 >= startTime[i] && end2 <= endTime[i]
+                                         || startTime[i] >= star2 && startTime[i] <end2)
+                        {
+                            return Content("選擇時段已有人預約");
+                        }
+                        else
+                        {
+                            MeetingReserve insert = new MeetingReserve
+                            {
+                                DepId = DepId,
+                                MeetPlaceId = form.MeetPlaceId,
+                                Date = form.Date,
+                                EmployeeId = form.EmployeeId,
+                                StartTime = form.StartTime,
+                                EndTime = form.StartTime,
+                                MeetType = form.MeetType,
+                            };
+                            _context.MeetingReserves.Add(insert);
+                            _context.SaveChanges();
+                            return Content("預約成功");
+                        }
+                    }
+                    return NoContent();
+                }
+                else
+                {
+                    MeetingReserve insert = new MeetingReserve
+                    {
+                        DepId = DepId,
+                        MeetPlaceId = form.MeetPlaceId,
+                        Date = form.Date,
+                        EmployeeId = form.EmployeeId,
+                        StartTime = form.StartTime,
+                        EndTime = form.StartTime,
+                        MeetType = form.MeetType,
+                    };
+                    _context.MeetingReserves.Add(insert);
+                    _context.SaveChanges();
+                    return Content("預約成功");
+                }
             }
             else
             {
