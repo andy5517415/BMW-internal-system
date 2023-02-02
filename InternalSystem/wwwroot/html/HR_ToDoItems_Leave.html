@@ -533,6 +533,7 @@
                                         <input class="form-control fs-5" v-model="leaveproxy.startTime" id="StartTime" disabled />
 
                                     </div>
+                                    
                                     <div class="mb-3 col-md-3">
 
                                         <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假結束時間</label>
@@ -709,7 +710,7 @@
                                 if (dd < 10) {
                                     dd = "0" + dd.toString()
                                 }
-                           
+
                                 axios.put('/api/PersonnelLeaveForms/proxy/' + this.leaveproxy.leaveId, this.leaveproxy)
                                     .then(response => {
                                         alert(response.data);
@@ -719,7 +720,7 @@
                         }
                         if (this.manager.PositionId == 7) {
                             if (confirm('請確認是否同意') == true) {
-                         
+
 
                                 axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
                                     .then(response => {
@@ -729,7 +730,7 @@
                                     .catch(err => { console.log(err) })
                             }
                         }
-                       
+
                     },
 
                     nobtn: function () {
@@ -755,7 +756,7 @@
                             }
                         }
                     },
-                     mouseover() {
+                    mouseover() {
 
                     }
                 },

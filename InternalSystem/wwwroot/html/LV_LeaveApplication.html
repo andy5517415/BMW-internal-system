@@ -501,11 +501,11 @@
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料申請</h4>
 
-                        <div class="card mb-4 m-4 card-body">
+                        <div class="card my-5 m-4 card-body shadow">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 過往請假紀錄一覽</p>
 
-                                <div class="row p-3 mx-5 myShadow rounded-3" style="border-width:10px;border-style:dashed;border-color:#99CCFF;">
+                                <div class="row p-3 mx-5">
                                     <div class="mb-3 col-md-2 mb-4">
                                         <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" v-model="employeelist.employeeName" id="Employeename" disabled />
@@ -547,12 +547,13 @@
                                         <input class="form-control fs-5" v-model="menstrualleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                 </div>
-                                <br><br>
+                            </div>
+                            <div class="card m-4 my-5 shadow card-body">
                                 <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
-                                <div class="row p-3 mx-5 myShadow rounded-3 ">
-                                    <div class="my-3 col-md-2">
-                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
-                                        <input class="form-control fs-5" type="date" v-model="application.startDate" id="Starttimeforvacation" />
+                                <div class="row p-3 mx-5 rounded-3 ">
+                                    <div class="mb-3 col-md-2">
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
+                                        <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <div style="height: 43px;"></div>
@@ -583,12 +584,13 @@
 
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2 my-2" v-if="employeelist.positionId<7">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="manager">審核主管</label>
-                                        <select id="manager" class="select2 form-select" v-model="application.auditManerger">
-                                            <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
-                                        </select>
+                                        <div class="col-md-2" v-if="employeelist.positionId<7">
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
+                                            <select id="proxy" class="select2 form-select" v-model="application.auditManerger">
+                                                <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
+                                        
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row my-2">
                                         <div class="mb-3 col-md-12">
@@ -618,9 +620,8 @@
                                              width="100"
                                              id="uploadedAvatar" />
                                         <div class="button-wrapper">
-                                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                <span class="d-none d-sm-block">上傳照片</span>
-                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
+                                                上傳照片
                                                 <input type="file"
                                                        id="upload"
                                                        class="account-file-input"

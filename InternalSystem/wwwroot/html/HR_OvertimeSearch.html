@@ -500,9 +500,11 @@
                 <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
               <!-- 加班資料查詢/修改 -->
                 <div class="card m-4 card-body">
+                  <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 250px;" role="alert">
+                    加班資料查詢
+                  </div>
                     <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row py-3 ">
-
+                        <div class="row mt-4 justify-content-center">
                             <div class="mb-3 col-md-2">
                                 <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                 <input class="form-control fs-5" id="Employeename" v-model="employeelist.name" />
@@ -529,7 +531,9 @@
                     </form>
                     <!-- Basic Bootstrap Table -->
                     <div id="workdata">
-                        <h5 class="card-header fw-bold">員工加班資料</h5>
+                        <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 250px;" role="alert">
+                          員工加班資料
+                        </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
@@ -538,7 +542,7 @@
                                         <th class="fs-4 fw-blod">員工編號</th>
                                         <th class="fs-4 fw-blod">加班起始時間</th>
                                         <th class="fs-4 fw-blod">加班結束時間</th>
-                                        <th>修改</th>
+                                        <th class="fs-4 fw-blod">修改</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0" v-for="item in overtimelist">
@@ -630,62 +634,62 @@
       const app = {
         data() {
           return {
-              employeelist: { "depId": "" },
-              overtimelist: {},
-              departmentlist: {},
-              page: 0,
-              nowpage: {}
+            employeelist: { "depId": "" },
+            overtimelist: {},
+            departmentlist: {},
+            page: 0,
+            nowpage: {}
           }
         },
         methods: {
           search: function () {
             //alert('ok')
-                axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep='  + this.employeelist.depId + '&page=' + 1)
-                        .then(response => {
-                            this.overtimelist = response.data;
-                            this.nowpage = 1;
-                            if (this.overtimelist.length == 0) { alert('查無資料') };
-                        })
-                        .catch(err => console.log(err))
-                axios.get('/api/PersonnelOvertimeForms/ComplexPage/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId)
-                    .then(response => {
-                        this.page = response.data;
-                    })
-                    .catch(err => console.log(err))
+            axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId + '&page=' + 1)
+              .then(response => {
+                this.overtimelist = response.data;
+                this.nowpage = 1;
+                if (this.overtimelist.length == 0) { alert('查無資料') };
+              })
+              .catch(err => console.log(err))
+            axios.get('/api/PersonnelOvertimeForms/ComplexPage/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId)
+              .then(response => {
+                this.page = response.data;
+              })
+              .catch(err => console.log(err))
 
-                //else if (this.employeelist.depId != null && this.employeelist.month != null) {
-                //    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
-                //        .then(response => {
-                //            this.overtimelist = response.data;
-                //            if (this.overtimelist.length == 0) { alert('查無資料') };
-                //        })
-                //        .catch(err => console.log(err))
-                //}
-                //else if (this.employeelist.name != null && this.employeelist.month != null) {
-                //    axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
-                //        .then(response => {
-                //            this.overtimelist = response.data;
-                //            if (this.overtimelist.length == 0) { alert('查無資料') };
-                //        })
-                //        .catch(err => console.log(err))
-                //}
-                //else {
-                //    alert('查無項目')
-                //}
+            //else if (this.employeelist.depId != null && this.employeelist.month != null) {
+            //    axios.get('/api/PersonnelOvertimeForms/DepOvertime/' + this.employeelist.depId + '/' + this.employeelist.month)
+            //        .then(response => {
+            //            this.overtimelist = response.data;
+            //            if (this.overtimelist.length == 0) { alert('查無資料') };
+            //        })
+            //        .catch(err => console.log(err))
+            //}
+            //else if (this.employeelist.name != null && this.employeelist.month != null) {
+            //    axios.get('/api/PersonnelOvertimeForms/Overtime/' + this.employeelist.name + '/' + this.employeelist.month)
+            //        .then(response => {
+            //            this.overtimelist = response.data;
+            //            if (this.overtimelist.length == 0) { alert('查無資料') };
+            //        })
+            //        .catch(err => console.log(err))
+            //}
+            //else {
+            //    alert('查無項目')
+            //}
 
           },
-            overedit: function (e) {
-                sessionStorage.setItem("overdata", JSON.stringify(e))
-            },
-            find: function (e) {
+          overedit: function (e) {
+            sessionStorage.setItem("overdata", JSON.stringify(e))
+          },
+          find: function (e) {
 
-                axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId + '&page=' + e)
-                    .then(response => {
-                        this.overtimelist = response.data;
-                        this.nowpage = e;
-                        console.log(this.overtimelist)
-                    }).catch(err => { console.log(err); alert('查無此項') })
-            }
+            axios.get('/api/PersonnelOvertimeForms/Complex/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId + '&page=' + e)
+              .then(response => {
+                this.overtimelist = response.data;
+                this.nowpage = e;
+                console.log(this.overtimelist)
+              }).catch(err => { console.log(err); alert('查無此項') })
+          }
         },
         mounted() {
 

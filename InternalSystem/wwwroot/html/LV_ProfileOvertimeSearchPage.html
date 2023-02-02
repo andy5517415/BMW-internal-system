@@ -543,10 +543,9 @@
                                 <strong class="form-control fs-5" v-if="detail.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
                                 <strong class="form-control fs-5" v-if="detail.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                             </div>
-                            <div class="mb-3 col-md-3">
-                                <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">總加班時數</label>
-                                <input class="form-control fs-5" v-model="detail.totalTime" id="Totalvacation" disabled />
-                            </div>
+
+                              <div class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{detail.totalTime}}&nbsp 小時</div>
+                              
                             <div class="mb-3 col-md-3">
                                 <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班廠區</label>
                                 <input class="form-control fs-5" v-model="detail.areaName" id="Totalvacation" disabled />

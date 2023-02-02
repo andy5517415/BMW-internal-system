@@ -693,12 +693,12 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>待修正項目</th>
+                                                            <th class="fs-4 fw-blod">待修正項目</th>
                                                             <th class="fs-4 fw-blod">員工編號</th>
                                                             <th class="fs-4 fw-blod">加班起始時間</th>
                                                             <th class="fs-4 fw-blod">加班結束時間</th>
                                                             <th class="fs-4 fw-blod">狀態</th>
-                                                            <th>修改</th>
+                                                            <th class="fs-4 fw-blod">修改</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="notyet in NotyetOver">
@@ -786,12 +786,12 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>待修正項目</th>
+                                                    <th class="fs-4 fw-blod">待修正項目</th>
                                                     <th class="fs-4 fw-blod">員工編號</th>
                                                     <th class="fs-4 fw-blod">請假起始時間</th>
                                                     <th class="fs-4 fw-blod">請假結束時間</th>
                                                     <th class="fs-4 fw-blod">狀態</th>
-                                                    <th>修改</th>
+                                                    <th class="fs-4 fw-blod">修改</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0" v-for="leave in leaveproxy">
@@ -991,10 +991,10 @@
                   //一般員工GET被退件之採購申請
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
-                        .then(response => {
-                            this.buyapp = response.data;
-                            this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
-                        })
+                      .then(response => {
+                        this.buyapp = response.data;
+                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                      })
                   }
 
                   //主管GET代理人同意之請假 以及同部門員工申請加班資料
@@ -1019,8 +1019,8 @@
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
                       .then(response => {
-                          this.leavereturn = response.data;
-                          this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                        this.leavereturn = response.data;
+                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                         //console.log(this.cnt)
                       })
                   }

@@ -615,7 +615,7 @@
                     leavelist: {},
                     employeedata: {},
                     page: 0,
-                    nowpage:{ }
+                    nowpage: {}
 
 
                 }
@@ -625,7 +625,7 @@
 
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
-                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/'+1)
+                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/' + 1)
                         .then(response => {
                             this.leavelist = response.data;
                             this.nowpage = 1;
@@ -640,10 +640,10 @@
                 },
                 find: function (e) {
 
-                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/'+e)
+                    axios.get('/api/PersonnelLeaveForms/profile/' + this.employeedata.EmpID + '/' + this.leavesearch.month + '/' + e)
                         .then(response => {
                             this.leavelist = response.data;
-                            this.nowpage =e
+                            this.nowpage = e
                             console.log(this.leavelistt)
                         }).catch(err => { console.log(err); alert('查無此項') })
                 }

@@ -517,8 +517,8 @@
                                                  width="100"
                                                  id="uploadedAvatar" />
                                             <div class="button-wrapper">
-                                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                    <span class="d-none d-sm-block">上傳大頭照</span>
+                                                <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
+                                                    上傳大頭照
                                                     <i class="bx bx-upload d-block d-sm-none"></i>
                                                     <input type="file"
                                                            id="upload"
@@ -576,6 +576,7 @@
                                                 <!-- 身分證字號 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
+                                                    <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
                                                     <div class="input-group input-group-merge">
                                                         <input v-model="employeelist.identiyId" type="text"
                                                                id="IdentityNumber"
@@ -584,7 +585,7 @@
                                                                @change="Identit"
                                                                placeholder="" disabled/>
                                                     </div>
-                                                    <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">{{cnt}}/10</p>
+                                                    
                                                 </div>
                                                 <!-- 國籍 -->
                                                 <div class="mb-3 col-md-4">
@@ -623,6 +624,7 @@
                                                 <!-- 行動電話 -->
                                                 <div class="mb-4 col-md-6">
                                                     <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="phoneNumber">行動電話</label>
+                                                    <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-5">{{pnt}}/10</p>
                                                     <div class="input-group input-group-merge">
                                                         <!--<span class="input-group-text">TW </span>-->
                                                         <input v-model="employeelist.phoneNumber" type="text"
@@ -632,7 +634,7 @@
                                                                placeholder="TW(+886)09-"
                                                                @change="phoneNumber" disabled/>
                                                     </div>
-                                                    <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">{{pnt}}/10</p>
+                                                    
                                                 </div>
                                                 <!--縣市-->
                                                 <div class="mb-3 col-md-6">
@@ -686,10 +688,11 @@
                                                 <!-- 緊急聯絡人電話 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="EmergencyNumber">緊急聯絡人電話</label>
+                                                    <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-5">{{epnt}}/10</p>
                                                     <div class="input-group input-group-merge">
                                                         <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control fs-5" placeholder="" disabled/>
                                                     </div>
-                                                    <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">{{epnt}}/10</p>
+                                                    
                                                 </div>
                                             </div>
 
@@ -783,7 +786,7 @@
                                             </div>
                                             <!-- 確認按鈕 -->
                                             <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                                <button type="button" v-on:click="createbtn" class="btn btn-primary me-2 ">存檔</button>
+                                                <button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>
                                                 <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                             </div>
                                         </form>
