@@ -505,28 +505,28 @@
          <!-- 選擇生產的工作位置報工-->
               <div class="container-xxl flex-grow-1 container-p-y">
                   <div class="card mb-4 m-4 ">
-                      <div class="row card-body ">
+                    <div class="alert alert-primary text-center mt-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                      報工查詢
+                    </div>
+                      <div class="row my-2 mb-4 justify-content-center card-body ">
                           <div class="mb-3 mb-3 col-md-2">
-                              <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
-                              <input class="form-control fs-5" type="text" v-model ="Search.EmployeeNumber" id="EmployeeNumber" />
-                          </div>
-                          <div class="mb-3 col-md-2">
-                              <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工姓名</label>
-                              <input class="form-control fs-5" type="text" v-model="Search.EmployeeName" id="Employeename" />
-                          </div>
-                          <div class="mb-3 col-md-2">
-                              <label for="StarDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
-                              <input class="form-control fs-5" type="date" v-model="Search.StarDate" id="StarDate" />
-                          </div>
-                          <div class="mb-3 col-md-2">
-                              <label for="EndDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束日期</label>
-                              <input class="form-control fs-5" type="date" v-model="Search.EndDate" id="EndDate" />
-                          </div>
+                              <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">員工編號</label>
+                              <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-4">員工姓名</label>
+                              <label for="StarDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">開始日期</label>
+                              <label for="EndDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 mt-4">結束日期</label>
 
-                          <div class=" mb-4 col-md-2 my-4">
-                              <button type="button" v-on:click="Searchbtn()" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
-                              <button type="reset" v-on:click="Clean()" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">清除</button>
+                              
                           </div>
+                          <div class="mb-3 col-md-3 d-flex flex-column">
+                              <input class="form-control fs-5 mb-4" type="text" v-model="Search.EmployeeNumber" id="EmployeeNumber" />
+                              <input class="form-control fs-5" type="text" v-model="Search.EmployeeName" id="Employeename" />
+                              <input class="form-control fs-5 my-4" type="date" v-model="Search.StarDate" id="StarDate" />
+                              <input class="form-control fs-5 mt-1" type="date" v-model="Search.EndDate" id="EndDate" />
+                          </div>
+                      </div>
+                      <div class="mb-5 d-flex justify-content-center">
+                        <button type="button" v-on:click="Searchbtn()" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                        <button type="reset" v-on:click="Clean()" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">清除</button>
                       </div>
                   </div>
 
