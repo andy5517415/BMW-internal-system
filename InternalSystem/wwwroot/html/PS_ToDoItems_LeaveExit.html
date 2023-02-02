@@ -591,7 +591,7 @@
                                          id="uploadedAvatar"
                                          @mouseover="mouseover" />
                                     <div class="button-wrapper">
-                                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                        <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4" tabindex="0">
                                             <span class="d-none d-sm-block">上傳照片</span>
                                             <i class="bx bx-upload d-block d-sm-none"></i>
                                             <input type="file"
@@ -732,7 +732,7 @@
                 methods: {
 
                     okbtn: function () {
-                        if (confirm('是否送出請假資料?1') == true) {
+                        if (confirm('是否送出請假資料?') == true) {
 
                             if (this.leaveExit.leaveType != null &&
                                 this.leaveExit.proxy != null && this.leaveExit.auditManerger != null
@@ -745,7 +745,9 @@
                                     axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                         .then(response => {
                                             alert(response.data);
+                                            if (response.data == "修改成功") {
                                             window.location = "/html/PS_ToDoItems.html";
+                                            }
                                         })
                                 }
                                 else { alert('請假項目請確實填寫') };

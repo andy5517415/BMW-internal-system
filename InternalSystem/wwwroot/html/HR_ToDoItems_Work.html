@@ -519,36 +519,11 @@
                                 </div>
 
                                 <div class="row ">
-                                    <label for="Starttimeforvacation" class="col-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班開始時間</label>
-                                    <label for="Endtimeforvacation" class="col-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班結束時間</label>
+                                    
                                 </div>
-                                <div class="row">
+                                <div class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{overlist.totalTime}}&nbsp 小時</div>
+                                
 
-                                    <div class="col-md-2">
-
-                                        <input class="form-control fs-5" v-model="overlist.startDate"  id="StartDate" disabled />
-
-                                    </div>
-                                    <div class="col-md-2">
-
-                                        <input class="form-control fs-5" v-model="overlist.startTime"  id="StartTime" disabled />
-
-                                    </div>
-                                    <div class=" col-md-2">
-
-                                        <input class="form-control fs-5" v-model="overlist.endDate"  id="EndDate" disabled />
-
-                                    </div>
-                                    <div class="col-md-2">
-
-                                        <input class="form-control fs-5" v-model="overlist.endTime"  id="EndTime" disabled />
-
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <p class=" fs-4">總加班時間:{{overlist.totalTime}}小時</p>
-                                    </div>
-                                </div>
                                 <div class="my-2 d-md-flex justify-content-md-end">
                                     <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
                                 </div>

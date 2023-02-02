@@ -570,12 +570,12 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>項次</th>
-                                                    <th>品名</th>
-                                                    <th>數量</th>
-                                                    <th>單位</th>
-                                                    <th>單價</th>
-                                                    <th>小計</th>
+                                                    <th class="fs-4 fw-blod">項次</th>
+                                                    <th class="fs-4 fw-blod">品名</th>
+                                                    <th class="fs-4 fw-blod">數量</th>
+                                                    <th class="fs-4 fw-blod">單位</th>
+                                                    <th class="fs-4 fw-blod">單價</th>
+                                                    <th class="fs-4 fw-blod">小計</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -715,7 +715,7 @@
           },
 
           Cancel: function () {
-              this.todoitem.applicationRejectStatus = true;
+            this.todoitem.applicationRejectStatus = true;
             if (confirm("確定要駁回申請嗎?") == true) {
               //console.log("ok");
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
@@ -723,11 +723,11 @@
               window.location = "PC_ToDoItems.html";
 
             }
-            },
+          },
 
-            show: function () {
-                
-            }
+          show: function () {
+
+          }
 
         },
         mounted() {

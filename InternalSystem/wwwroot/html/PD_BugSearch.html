@@ -530,7 +530,7 @@
                   </div>
 
                   <div class=" mb-4 col-md-2 my-4">
-                      <button type="button" v-on:click="Searchbtn()" class="btn btn-primary me-2 ">查詢</button>
+                      <button type="button" v-on:click="Searchbtn()" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
                       <button type="reset" v-on:click="Clean()" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                   </div>
               </div>
@@ -612,48 +612,48 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-        const app = {
-            data() {
-                return {
-                    BugList: {},
-                    Search: { "orderNumber": "", "rank": "" }
-                }
-            },
-            mounted() {
-                axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList')
-                    .then(response => this.BugList = response.data)
-            },
-            methods: {
-                Enter: function (e) {
-                    sessionStorage.setItem("bugdata", JSON.stringify(e));
-                    window.location = "PD_BugReport.html";
-                },
-                Searchbtn: function () {
+      const app = {
+        data() {
+          return {
+            BugList: {},
+            Search: { "orderNumber": "", "rank": "" }
+          }
+        },
+        mounted() {
+          axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugListALL')
+            .then(response => this.BugList = response.data)
+        },
+        methods: {
+          Enter: function (e) {
+            sessionStorage.setItem("bugdata", JSON.stringify(e));
+            window.location = "PD_BugReport.html";
+          },
+          Searchbtn: function () {
 
-                    if (this.Search.Enddate == undefined) {
-                        axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList?orderNumber=' + this.Search.orderNumber + '&rank=' + this.Search.rank)
-                            .then(response => this.BugList = response.data)
-                        console.log('a')
-                    } else if (this.Search.Enddate != undefined) {
-                        axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugListDate?orderNumber=' + this.Search.orderNumber + '&rank=' + this.Search.rank + '&startDate=' + this.Search.Startdate + '&Enddate=' + this.Search.Enddate)
-                            .then(response => this.BugList = response.data)
-                        console.log('b')
-                    }                  
-                },
-                Clean: function () {
-
-                    this.Search.orderNumber = ""
-                    this.Search.rank = ""
-                    delete this.Search.Startdate
-                    delete this.Search.Enddate
-
-                    axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList')
-                        .then(response => this.BugList = response.data)
-                }
+            if (this.Search.Enddate == undefined) {
+              axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugListAll?orderNumber=' + this.Search.orderNumber + '&rank=' + this.Search.rank)
+                .then(response => this.BugList = response.data)
+              console.log('a')
+            } else if (this.Search.Enddate != undefined) {
+              axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugListDate?orderNumber=' + this.Search.orderNumber + '&rank=' + this.Search.rank + '&startDate=' + this.Search.Startdate + '&Enddate=' + this.Search.Enddate)
+                .then(response => this.BugList = response.data)
+              console.log('b')
             }
-        }
+          },
+          Clean: function () {
 
-        Vue.createApp(app).mount('#app')
+            this.Search.orderNumber = ""
+            this.Search.rank = ""
+            delete this.Search.Startdate
+            delete this.Search.Enddate
+
+            axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList')
+              .then(response => this.BugList = response.data)
+          }
+        }
+      }
+
+      Vue.createApp(app).mount('#app')
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

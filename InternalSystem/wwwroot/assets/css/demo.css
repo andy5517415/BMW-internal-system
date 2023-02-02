@@ -226,3 +226,7 @@ button:hover {
 .bg-menu-theme{
   background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
+.mybtn{
+  height: 50px;
+  padding-top: 10px;
+}

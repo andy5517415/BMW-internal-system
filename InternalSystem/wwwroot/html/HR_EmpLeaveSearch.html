@@ -500,7 +500,7 @@
                         <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料查詢/修改</h4>
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                                <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 350px;" role="alert">
                                     請假資料查詢/修改
                                 </div>
                                 <div class="row mt-4 justify-content-center">
@@ -530,7 +530,9 @@
 
                             </form>
                             <!-- Basic Bootstrap Table -->
-                            <h5>Table Basic</h5>
+                            <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                                請假資料
+                            </div>
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
                                     <thead>
@@ -539,7 +541,7 @@
                                             <th class="fs-4 fw-blod">員工編號</th>
                                             <th class="fs-4 fw-blod">請假起始時間</th>
                                             <th class="fs-4 fw-blod">請假結束時間</th>
-                                            <th>修改</th>
+                                            <th class="fs-4 fw-blod">修改</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0" v-for="item in employeelist">
@@ -627,7 +629,7 @@
                 return {
                     employeelist: {},
                     departmentlist: {},
-                    search: { "departmentId": "" },
+                    search: { /*"employeeName":"","departmentId": ""*/ },
                     page: 0,
                     nowpage: {}
                 }
@@ -635,21 +637,30 @@
             methods: {
                 okbtn: function () {
                     //alert('OK');
-                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId +'&page=' + 1 )
+                    if (this.search.employeeName == undefined) { this.search.employeeName = "" }
+                    if (this.search.departmentId == undefined) { this.search.departmentId = "" }
+                    if (this.search.date != undefined) {
+
+                        axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' + 1)
                             .then(response => {
                                 this.employeelist = response.data;
                                 this.nowpage = 1;
+                                console.log(response)
                                 if (this.employeelist.length == 0) { alert('複合查詢:查無此項') }
                             })
                             .catch(err => { console.log(err) })
 
-                    
-                    axios.get('/api/PersonnelLeaveForms/ComplexPage/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId)
-                        .then(response => {
-                            this.page = response.data;
-                            console.log(this.page)
-                        })
-                        .catch(err => { console.log(err) })
+
+                        axios.get('/api/PersonnelLeaveForms/ComplexPage/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId)
+                            .then(response => {
+                                this.page = response.data;
+                                console.log(this.page)
+                            })
+                            .catch(err => { console.log(err) })
+                    }
+                    else {alert('請選擇時間') }
+                 
+                 
                     //else if (this.search.departmentId != null && this.search.date != null) {
                     //    axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
                     //        .then(response => {
@@ -667,14 +678,14 @@
                     //        })
                     //        .catch(err => { console.log(err) })
                     //}
-                 
+
                 },
                 ToEditbtn: function (e) {
                     sessionStorage.setItem("leavedata", JSON.stringify(e))
                 },
                 find: function (e) {
 
-                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' +e)
+                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' + e)
                         .then(response => {
                             this.employeelist = response.data;
                             this.nowpage = e;

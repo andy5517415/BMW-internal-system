@@ -502,12 +502,12 @@
                         <div class="row">
                             <div class="col-md-12">
 
-                                <div class="card mb-4 m-4 mx-4">
+                                <div class="card m-4 my-5">
                                     <!-- Account -->
                                     <div class="card-body">
-                                      <p class="fs-2 mb-5 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工照片</p>
+                                      <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工照片</p>
 
-                                      <div class="d-flex align-items-start align-items-sm-center gap-4 mx-5">
+                                      <div class="d-flex align-items-start align-items-sm-center gap-4 mx-5 mb-3">
                                           <img :src="employeelist.photo"
                                                alt="user-avatar"
                                                class="d-block rounded"
@@ -515,8 +515,8 @@
                                                width="100"
                                                id="uploadedAvatar" />
                                           <div class="button-wrapper">
-                                              <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                  <span class="d-none d-sm-block">上傳大頭照</span>
+                                              <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
+                                                  上傳大頭照
                                                   <i class="bx bx-upload d-block d-sm-none"></i>
                                                   <input type="file"
                                                          id="upload"
@@ -535,12 +535,13 @@
                                           </div>
                                       </div>
                                     </div>
-                                    <hr class="my-0 col-11 mx-auto" />
+                                  </div>
+                                  <div class="card m-4 my-5">
                                     <!-- 員工名稱 -->
                                     <div class="card-body">
                                         <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                          <p class="fs-2 mb-5 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工基本資料</p>
-                                            <div class="row mx-5 mx-5">
+                                          <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工基本資料</p>
+                                            <div class="row mx-5">
                                                 <div class="mb-4 col-md-4">
                                                     <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                                     <input v-model="employeelist.employeeName" class="form-control fs-5 fs-5"
@@ -605,7 +606,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <p class="fs-2 mb-5 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 聯絡資料</p>
+                                          </div>
+                                        </div>
+                                        <div class="card m-4 my-5">
+                                          <div class="card-body">
+                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 聯絡資料</p>
                                             <div class="row mx-5">
 
                                                 <!-- 電子信箱 -->
@@ -683,8 +688,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <p class="fs-2 mb-5 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 在職資料</p>
+                                          </div>
+                                        </div>
+                                        <div class="card m-4 my-5">
+                                          <div class="card-body">
+                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 在職資料</p>
                                             <div class="row mx-5">
                                                 <!-- 員工工號 -->
                                                 <div class="mb-3 col-md-6">
@@ -739,7 +747,11 @@
                                                     <input v-model="employeelist.entryDate" class="form-control fs-5" type="date" id="Entrydate" disabled/>
                                                 </div>
                                             </div>
-                                            <p class="fs-2 mb-5 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
+                                          </div>
+                                        </div>
+                                        <div class="card m-4 my-5">
+                                          <div class="card-body">
+                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
                                             <div class="row mx-5">
                                                 <!--帳號設置-->
                                                 <div class="mb-3 col-md-6">
@@ -758,9 +770,11 @@
                                             </div>
                                             <!-- 確認按鈕 -->
                                             <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                                <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3 ">存檔GG</button>
+                                                <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3 ">存檔</button>
                                                 <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3">取消</button>
                                             </div>
+                                          </div>
+                                        </div>
                                         </form>
                                     </div>
                                     <!-- /Account -->
@@ -837,21 +851,21 @@
                 //        axios.get('api/PersonnelProfileDetails/Name/' + this.employeeName)
                 //            .then(response => this.employeelist = response.data)
                 //            .catch(alert('查無此項')))
-                },
-                uploadphoto(event) {
-                    console.log('ok')
-                    if (event.target.files && event.target.files[0]) {
-                        var file = event.target.files[0];
-                        var reader = new FileReader();
-                        let urlimage;
-                        reader.onload = (event) => {
-                            document.querySelector('#upload').src = event.target.result;
-                            this.employeelist.photo = event.target.result;
-                            console.log(this.employeelist.photo);
-                        };
-                        reader.readAsDataURL(file)
-                    }
+              },
+              uploadphoto(event) {
+                console.log('ok')
+                if (event.target.files && event.target.files[0]) {
+                  var file = event.target.files[0];
+                  var reader = new FileReader();
+                  let urlimage;
+                  reader.onload = (event) => {
+                    document.querySelector('#upload').src = event.target.result;
+                    this.employeelist.photo = event.target.result;
+                    console.log(this.employeelist.photo);
+                  };
+                  reader.readAsDataURL(file)
                 }
+              }
 
             },
             mounted() {

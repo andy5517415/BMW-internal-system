@@ -503,12 +503,12 @@
                   <!-- Content wrapper -->
                   <div class="content-wrapper">
                       <!-- Content -->
-                      <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                      <div class="container-xxl flex-grow-1 container-p-y" id="app" v-cloak>
                           <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 出缺勤查詢</h4>
                           <div class="card mb-4 m-4 card-body">
 
                               <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                  <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                                  <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
                                       出缺勤查詢
                                   </div>
                                   <div class="row mt-4 justify-content-center">
@@ -545,16 +545,18 @@
 
                               </form>
                               <!-- Basic Bootstrap Table -->
-                              <h5 class="fw-bold">出勤資料</h5>
+                            <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                                出勤資料
+                            </div>
                               <div class="table-responsive text-nowrap">
                                   <table class="table">
                                       <thead>
                                           <tr>
                                               <th class="fs-4 fw-blod">員工名稱</th>
                                               <th class="fs-4 fw-blod">員工編號</th>
-                                              <th>打卡日期</th>
-                                              <th>打卡時間</th>
-                                              <th>出勤狀態</th>
+                                              <th class="fs-4 fw-blod">打卡日期</th>
+                                              <th class="fs-4 fw-blod">打卡時間</th>
+                                              <th class="fs-4 fw-blod">出勤狀態</th>
                                           </tr>
                                       </thead>
                                       <tbody class="table-border-bottom-0">
@@ -639,7 +641,7 @@
                 data() {
                     return {
                         empNumber: {},
-                        employeedata: {"empName":"","empNumber":"","depId":""},
+                        employeedata: { "empName": "", "empNumber": "", "depId": "" },
                         attendencelist: {},
                         departmentlist: {},
                         page: 0,
@@ -650,15 +652,15 @@
                 methods: {
                     search: function () {
 
-                       
+
                         axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
-                            + '&dep=' + this.employeedata.depId +'&page=' + 1)
-                                .then(response => {
-                                    this.attendencelist = response.data;
-                                    this.nowpage = 1;
-                                    console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
-                                }).catch(err => { console.log(err); alert('查無此項') })
+                            + '&dep=' + this.employeedata.depId + '&page=' + 1)
+                            .then(response => {
+                                this.attendencelist = response.data;
+                                this.nowpage = 1;
+                                console.log(this.attendencelist)
+                                if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
+                            }).catch(err => { console.log(err); })
 
                         //axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
                         //    + '&dep=' + this.employeedata.depId)
@@ -667,13 +669,13 @@
                         //            console.log(this.attendencelist)
                         //            if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
                         //        }).catch(err => { console.log(err); alert('查無此項') })
-                         axios.get('/api/PersonnelAttendanceTimes/ComplexPage/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
+                        axios.get('/api/PersonnelAttendanceTimes/ComplexPage/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
                             + '&dep=' + this.employeedata.depId)
-                                .then(response => {
-                                    this.page = response.data;
-                                    console.log(this.page)
-                                    /*if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }*/
-                                }).catch(err => { console.log(err); alert('查無此項') })
+                            .then(response => {
+                                this.page = response.data;
+                                console.log(this.page)
+                                /*if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }*/
+                            }).catch(err => { console.log(err); alert('查無此項') })
 
 
                         //else if (this.employeedata.depId != null && this.employeedata.date != null) {
@@ -710,13 +712,13 @@
                     find: function (e) {
 
                         axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
-                            + '&dep=' + this.employeedata.depId +'&page=' +e)
-                                .then(response => {
-                                    this.attendencelist = response.data;
-                                    this.nowpage = e;
-                                    console.log(this.attendencelist)
-                                    if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
-                                }).catch(err => { console.log(err); alert('查無此項') })
+                            + '&dep=' + this.employeedata.depId + '&page=' + e)
+                            .then(response => {
+                                this.attendencelist = response.data;
+                                this.nowpage = e;
+                                console.log(this.attendencelist)
+                                if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
+                            }).catch(err => { console.log(err); alert('查無此項') })
                     }
 
                 },
