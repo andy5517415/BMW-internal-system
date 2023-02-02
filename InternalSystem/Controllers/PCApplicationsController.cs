@@ -118,6 +118,25 @@ namespace InternalSystem.Controllers
         public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchaseItemSearches()
         {
             var i = from PS in this._context.PcGoodLists
+                    where PS.Classification == "通用"
+                    select new
+                    {
+                        ProductId = PS.ProductId,
+                        Goods = PS.Goods,
+                        Unit = PS.Unit,
+                        UnitPrice = PS.UnitPrice,
+                    };
+
+            return await i.ToListAsync();
+        }
+
+        // 進階物品篩選
+        // GET: api/PCApplications/selectgoods
+        [HttpGet("selectgoods/{Dep}")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetPcPurchaseItemSearchesDepartment(string Dep)
+        {
+            var i = from PS in this._context.PcGoodLists
+                    where PS.Classification == Dep
                     select new
                     {
                         ProductId = PS.ProductId,

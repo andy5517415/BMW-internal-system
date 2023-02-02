@@ -24,7 +24,49 @@ namespace InternalSystem.Controllers
         //異常清單(全部+複合式查詢訂單及異常等級)
         // GET: api/ProductionProcessLists/GetBugList
         [HttpGet("GetBugList")]
-        public async Task<ActionResult<dynamic>> GetBugList(string orderNumber , string rank)
+        public async Task<ActionResult<dynamic>> GetBugList(string orderNumber, string date)
+        {
+            var BugList = from PBC in this._context.ProductionBugContexts
+                          join PPL in this._context.ProductionProcessLists on PBC.ProcessId equals PPL.ProcessId
+                          join PA in this._context.ProductionAreas on PPL.AreaId equals PA.AreaId
+                          join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                          join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                          join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                          join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                          join BOT in this._context.BusinessOptionals on BOD.OptionalId equals BOT.OptionalId
+                          join BC in this._context.BusinessCategories on BOT.CategoryId equals BC.CategoryId
+                          where PBC.OrderId == PPL.OrderId && BC.CategoryId == 1
+                          select new
+                          {
+                              OrderId = PBC.OrderId,
+                              OrderNumber = BO.OrderNumber,
+                              OptionalName = BOT.OptionalName,
+                              AreaId = PBC.AreaId,
+                              AreaName = PA.AreaName,
+                              ProcessId = PBC.ProcessId,
+                              ProcessName = PP.ProcessName,
+                              Date = PBC.Date.ToString(),
+                              StartTime = PBC.StartTime,
+                              EndTime = PBC.EndTime,
+                              Title = PBC.Title,
+                              Context = PBC.Context,
+                              Rank = PBC.Rank,
+                              Dispose = PBC.Dispose,
+                              Photo = PBC.Photo
+                          };
+
+            if (!string.IsNullOrWhiteSpace(orderNumber))
+            {
+                BugList = BugList.Where(a => a.OrderNumber.Contains(orderNumber));
+            }
+            
+            return await BugList.FirstOrDefaultAsync();
+        }
+
+        //異常清單(全部+複合式查詢訂單及異常等級)
+        // GET: api/ProductionProcessLists/GetBugList
+        [HttpGet("GetBugListAll")]
+        public async Task<ActionResult<dynamic>> GetBugListAll(string orderNumber , string rank)
         {
             var BugList = from PBC in this._context.ProductionBugContexts
                           join PPL in this._context.ProductionProcessLists on PBC.ProcessId equals PPL.ProcessId
@@ -40,19 +82,10 @@ namespace InternalSystem.Controllers
                                 {
                                     OrderId = PBC.OrderId,
                                     OrderNumber = BO.OrderNumber,
-                                    OptionalName = BOT.OptionalName,
-                                    AreaId = PBC.AreaId,
-                                    AreaName = PA.AreaName,
-                                    ProcessId = PBC.ProcessId,
-                                    ProcessName = PP.ProcessName,
                                     Date = PBC.Date.ToString(),
-                                    StartTime = PBC.StartTime,
-                                    EndTime = PBC.EndTime,
                                     Title = PBC.Title,
-                                    Context = PBC.Context,
-                                    Rank = PBC.Rank,
-                                    Dispose = PBC.Dispose,
-                                    Photo =PBC.Photo
+                                    Rank = PBC.Rank
+
                                 };
 
             if (!string.IsNullOrWhiteSpace(orderNumber))
@@ -88,19 +121,9 @@ namespace InternalSystem.Controllers
                           {
                               OrderId = PBC.OrderId,
                               OrderNumber = BO.OrderNumber,
-                              OptionalName = BOT.OptionalName,
-                              AreaId = PBC.AreaId,
-                              AreaName = PA.AreaName,
-                              ProcessId = PBC.ProcessId,
-                              ProcessName = PP.ProcessName,
                               Date = PBC.Date.ToString(),
-                              StartTime = PBC.StartTime,
-                              EndTime = PBC.EndTime,
                               Title = PBC.Title,
-                              Context = PBC.Context,
-                              Rank = PBC.Rank,
-                              Dispose = PBC.Dispose,
-                              Photo = PBC.Photo
+                              Rank = PBC.Rank
                           };
 
             if (!string.IsNullOrWhiteSpace(orderNumber))
@@ -385,6 +408,39 @@ namespace InternalSystem.Controllers
 
             return productionProcessList;
         }
+
+
+        // PUT: api/ProductionProcessLists/putBug
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("putBug/{orderid}/{date}/{title}")]
+        public async Task<IActionResult> PutProductionProcessListPutBug(int orderid, string date , string title, ProductionBugContext productionBugContext)
+        {
+            if (orderid != productionBugContext.OrderId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(productionBugContext).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (productionBugContext.OrderId != orderid)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
 
         // PUT: api/ProductionProcessLists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
