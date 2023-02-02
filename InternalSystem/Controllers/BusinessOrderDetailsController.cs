@@ -20,7 +20,18 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-
+        //自己寫的
+        // GET: api/BusinessOrderDetails/fatherandson/25/1
+        [HttpGet("fatherandson/{ordid}/{oplid}")]
+        public int GetOdIdfatherandson(int ordid, int oplid)
+        {
+            var q = _context.BusinessOrderDetails
+                .Where(a => a.OrderId == ordid && a.OptionalId == oplid)
+                .Select(x => x.OdId)
+                .SingleOrDefault();
+                    
+            return Convert.ToInt32(q);
+        }
 
 
 
@@ -168,7 +179,7 @@ namespace InternalSystem.Controllers
                 //再刪除訂單大表
                 _context.BusinessOrders.Remove(ord);
                 _context.SaveChanges();
-                return $"訂單編號 : {ordernum} 刪除成功!z";
+                return $"訂單編號 : {ordernum} 刪除成功!";
             }
         }
 
