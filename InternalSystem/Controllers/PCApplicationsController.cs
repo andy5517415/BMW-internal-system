@@ -35,9 +35,9 @@ namespace InternalSystem.Controllers
                        where PD.EmployeeId == id
                        select new
                        {
+                           PurchaseId = AP.PurchaseId,
                            EmployeeId = PD.EmployeeId,
                            Department = PDL.DepName,
-                           PurchaseId = AP.PurchaseId,
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
                            ApplicationRejectStatus = AP.ApplicationRejectStatus,
@@ -559,7 +559,9 @@ namespace InternalSystem.Controllers
                 Department = pcApplication.Department,
                 Date = pcApplication.Date,
                 Comment = pcApplication.Comment,
-                Total = 0,
+                ApplicationRejectReason = pcApplication.ApplicationRejectReason,
+                DeliveryRejectReason = pcApplication.DeliveryRejectReason,
+                Total = pcApplication.Total,
                 ApplicationStatus = false,
                 ApplicationRejectStatus = false,
                 DeliveryStatus = false,

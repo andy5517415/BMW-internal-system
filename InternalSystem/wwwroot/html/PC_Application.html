@@ -570,7 +570,7 @@
                                                                id="department"
                                                                name="department"
                                                                readonly
-                                                               v-model="item.department"
+                                                               v-model="employeedata.Depment"
                                                                autofocus />
                                                     </div>
                                                     <!-- 申請日期 -->
@@ -587,7 +587,7 @@
                                                                type="text"
                                                                id="PurchaseID"
                                                                name="PurchaseID"
-                                                               v-model="item.purchaseId"
+                                                               v-model="employeedata.purchaseId"
                                                                autofocus />
                                                     </div>
                                                     <!-- 備註 -->
@@ -628,13 +628,14 @@
                                                                                 <!-- 物品名稱 -->
                                                                                 <td>
                                                                                     {{b.goods}}
+                                                                                    <input disabled  v-model="b.goods">
                                                                                 </td>
                                                                                 <!-- 物品數量 -->
                                                                                 <td>
                                                                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                                         <div class="mb-3 col-md-12">
                                                                                             <label for="數量" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
-                                                                                            <input @change="addorder(); getprice();" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="bee[key]">
+                                                                                            <input @change="addorder(b) ;getprice()" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="b.quantiy">
                                                                                             <!--<input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">-->
                                                                                         </div>
                                                                                     </ul>
@@ -648,6 +649,8 @@
                                                                                     <div class="dropdown">
                                                                                         <span id="Unit_price">
                                                                                             {{b.unitPrice}}元
+                                                                                            <input disabled v-model="b.unitPrice">
+
                                                                                         </span>
                                                                                     </div>
                                                                                 </td>
@@ -655,7 +658,9 @@
                                                                                 <td>
                                                                                     <div class="dropdown">
                                                                                         <div>
-                                                                                            <p id="total">{{bee[key]*b.unitPrice || 0}}元</p>
+                                                                                            <p id="total">{{b.quantiy*b.unitPrice || 0}}元</p>
+                                                                                            <input disabled v-model="b.subTotal">
+
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
@@ -705,28 +710,39 @@
                         data() {
                             return {
                                 item: {},
-                                product: {},
+                                product: { "quantiy": 0 },
                                 bee: [],
                                 employeedata: {},
                                 autopurchaseid: "",
                                 goodslist: {},
                                 PcOrderDetails: [],
-                                text: []
+                                text: [],
+                                sum:0
                             }
                         },
                         computed: {
                             sum() {
-                                let sum = 0;
-                                for (let k = 0; k < this.product.length; k++) {
-                                    sum += this.bee[k] == null ? 0 : this.bee[k] * this.product[k].unitPrice;
-                                    //console.log(sum);
-                                };
-                                return sum
+                                //let sum = 0;
+                                //for (let k = 0; k < this.product.length; k++) {
+                                //    sum += this.total == null ? 0 : this.text[k].quantiy * this.text[k].unitPrice;
+                                //    //console.log(sum);
+                                //};
+                                //return sum
                             }
                         },
                         methods: {
                             createbtn: function () {
                                 //單純本表新增
+                                console.log(typeof this.pcorderdetails)
+                                //console.log(this.item["PcOrderDetails"][0])
+                           
+
+                                    //this.item.pcorderdetails[i].quantiy = parseint(this.bee[i]);
+
+                                    /*                 += b[i].quantiy * b[i].unitprice;*/
+                                    console.log(this.item.total)
+                                
+
                                 axios.post("https://localhost:44319/api/PCApplications/", this.item)
                                     .then(response => {
                                         alert('資料已新建');
@@ -736,81 +752,98 @@
                                 //console.log(typeof (this.item));
 
                             },
-                            //getprice() {
+                            getprice() {
+                                this.text.forEach(X => {
+                                    this.item.total += X.UnitPrice * parseInt(X.Quantiy);
+                                    //console.log(X.UnitPrice)
+                                    //console.log(X.Quantiy)
+                                    //console.log(this.item.total)
+                                    this.sum += X.UnitPrice * parseInt(X.Quantiy);
 
-                            //    for (var i = 0; i < this.product.length; i++) {
-                            //        this.sum += this.product[i].unitPrice * this.bee[i];
-                            //        this.item.PcOrderDetails[i].quantiy = parseInt(this.bee[i]);
+                                console.log(this.sum)
+                                });
+                                //for (var i = 0; i < this.product.length; i++) {
+                                //    this.sum += this.product[i].unitprice * this.b[i];
+                                //    //this.item.pcorderdetails[i].quantiy = parseint(this.bee[i]);
 
-                            //        this.item.PcOrderDetails[i].subtotal = this.item.PcOrderDetails[i].quantiy * this.product[i].unitPrice;
-                            //        //if (this.item.PcOrderDetails[i].quantiy == NaN) {
-                            //        //    this.item.PcOrderDetails[i].quantiy = 0;
-                            //        //    this.item.PcOrderDetails[i].subtotal = 0;
-                            //        //}
-                            //    }
+                                //    this.item.total += b[i].quantiy * b[i].unitprice;
+                                //    console(this.item.total)
+                                //    //if (this.item.pcorderdetails[i].quantiy == nan) {
+                                //    //    this.item.pcorderdetails[i].quantiy = 0;
+                                //    //    this.item.pcorderdetails[i].subtotal = 0;
+                                //    //}
+                                //}
                             //    //console.log(this.product.goods);
-                            //    //this.pcOrderDetail.goods = this.product.goods;
-                            //    //this.sum = this.product[0].unitPrice * this.bee[0]
-                            //    //this.sum += this.product[1].unitPrice * this.bee[1]
-                            //    //for (var k = 0; k < this.product.Length; k++) {
+                            //    //this.pcorderdetail.goods = this.product.goods;
+                            //    //this.sum = this.product[0].unitprice * this.bee[0]
+                            //    //this.sum += this.product[1].unitprice * this.bee[1]
+                            //    //for (var k = 0; k < this.product.length; k++) {
                             //    //}
                             //    //this.sum += 1
                             //    //console.log('getprice')
-                            //},
-                            addorder() {
-                                this.text.push(
-                                    {
-                                        ProductId: 1,
-                                        Goods: "鉛筆",
-                                        Unit: "隻",
-                                        UnitPrice: 20,
-                                        Quantiy: 10,
-                                        Subtotal: 200,
-                                    }
+                            },
+                             addorder(b) {
+                                
+                                this.text.push({
+                                    ProductId: b.productId,
+                                    Goods: b.goods,
+                                    Unit: b.unit,
+                                    UnitPrice: b.unitPrice,
+                                    Quantiy: parseInt(b.quantiy),
+                                    Subtotal: b.quantiy * b.unitPrice
+                                }    
                                 );
+                                    //b.quantiy =e
                             }
-
-      
                         },
                         mounted() {
                             // 接上一頁的session
                             this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
                             //console.log(this.employeedata)
-                            axios.get('/api/PCApplications/applicationlist/' + this.employeedata.EmpID)
-                                .then(response => {
-                                    this.item = response.data;
-                                    //預設物品編號
-                                    this.autopurchaseid = Date.now().toString().substring(0, 10) + this.employeedata;
-                                    this.item.purchaseId = parseInt(this.autopurchaseid);
-                                    //console.log(this.item.purchaseId);
-                                    //預設物品審核狀態
-                                    //this.item.applicationStatus = this.presetapplicationstatus;
-                                    //this.item.applicationRejectStatus = this.presetapplicationrejectstatus;
-                                    //this.item.deliveryStatus = this.presetdeliverystatus;
-                                    //this.item.deliveryRejectStatus = this.presetdeliveryrejectstatus;
-                                    //this.item.acceptanceStatus = this.presetacceptancestatus;
-                                    //this.item.acceptanceRejectStatus = this.presetacceptancerejectstatus;
-                                    //預設單價+小計為0
-                                    this.product.quantiy = 0;
-                                    this.product.subtotal = 0;
+                      
+                            //預設物品編號
+                            this.autopurchaseid = Date.now().toString().substring(0, 10) + this.employeedata;
+                            this.employeedata.purchaseId = parseInt(this.autopurchaseid);
+                            this.item.purchaseId = parseInt(this.autopurchaseid);
+                            this.item.employeeId = this.employeedata.EmpID;
+                            this.item.department = this.employeedata.Depment;
+                            this.item.comment = "";
+                            this.item.applicationrejectreason = "";
+                            this.item.deliveryrejectreason = "";
+                            this.item.total = 0;
+                            //預設物品審核狀態
+                            this.item.applicationStatus = false;
+                            this.item.applicationRejectStatus = false;
+                            this.item.deliveryStatus = false;
+                            this.item.deliveryRejectStatus = false;
+                            this.item.acceptanceStatus = false;
+                            this.item.acceptanceRejectStatus = false;
+                            
 
-                                })
-                            axios.get('/api/PCApplications/goods')
-                                .then(response => {
-                                    this.product = response.data;
-                                    //console.log(this.product);
+                            //console.log(this.item.purchaseId);
 
-                                    for (var i = 0; i < this.product.length; i++) {
-                                        this.PcOrderDetails[i] = this.product[i];
-                                        this.PcOrderDetails[i].quantiy = 0;
-                                        this.PcOrderDetails[i].subtotal = 0;
-                                        this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
-                                        this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
 
-                                    };
-                                    this.item.PcOrderDetails = this.text;
-                                    //console.log(this.item);
-                                })
+                            //預設單價+小計為0
+                            //this.product.quantiy = 0;
+                            //this.product.subtotal = 0;
+
+                           //得到物品清單   
+                           axios.get('/api/PCApplications/goods')
+                               .then(response => {
+                                   this.product = response.data;
+                                   //console.log(this.product);
+
+                                   for (var i = 0; i < this.product.length; i++) {
+                                       //this.PcOrderDetails[i] = this.product[i];
+                                       //this.product[i].quantiy = 0;
+                                       //this.PcOrderDetails[i].subtotal = 0;
+                                       //this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
+                                       //this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
+                                   };
+                                   console.log(this.product)
+                                   this.item.PcOrderDetails = this.text;
+                                   //console.log(this.item);
+                               })
                         }
                     }
 
