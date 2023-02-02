@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace InternalSystem.Controllers
 {
@@ -135,7 +137,7 @@ namespace InternalSystem.Controllers
 
 
 
-        //沒迴圈新增order大表
+        //新增父子資料
         // POST: api/BusinessOrders/withoutloop
         [HttpPost("withoutloop")]
         public string PostOrder([FromBody] ICollection<BusinessOrderDetail> bod ,
@@ -148,22 +150,20 @@ namespace InternalSystem.Controllers
             )
 
         {
-            //return bo.BusinessOrderDetails.OptionalId.ToString();
 
+            /*foreach (var item in bod)
+            {
+                if (!Regex.IsMatch(item.OptionalId.ToString(), @"^[0-9]$"))
+                {
+                    return "有遺漏的選配，請重新選擇!";
+                }
+            }
 
-            //foreach (var item in bod)
-            //{
-            //    if (!Regex.IsMatch(item.OptionalId.ToString(), @"^[0-9]$")) 
-            //    {
-            //        return "有遺漏的選配，請重新選擇!";
-            //    }
-            //}
-
-            if (areaid == 0)
+            if (areaid.ToString()==null)
             {
                 return "代理商區域未選擇，請填選!";
             }
-            else if(bod!=null /*&& bo.BusinessOrderDetails.Count==9 && bo.AreaId>0*/)
+            else*/ if(bod!=null /*&& bo.BusinessOrderDetails.Count==9 && bo.AreaId>0*/)
             {
                 BusinessOrder insert = new BusinessOrder
                 {
@@ -196,30 +196,86 @@ namespace InternalSystem.Controllers
 
 
 
-        ////沒迴圈修改order大表(目前未成功)
-        //// PUT: api/BusinessOrders/withoutloop
+        ////修改父子資料(目前未成功)
+        //// PUT: api/BusinessOrders/withoutloop?ordnum=M011672502400&areaid=1&price=5741000
         //[HttpPut("withoutloop")]
-        //public string PutOrder([FromBody] BusinessOrder boput)
+        //public string PutOrder(string ordnum,int areaid, int price, ICollection<BusinessOrderDetail> bodput)
         //{
+        //    var q = _context.BusinessOrders.Select(x => x).Where(x=>x.OrderNumber== ordnum).SingleOrDefault();
+        //    var ed = _context.BusinessOrderDetails.Select(x => x).Where(x=>x.OrderId==q.OrderId);
+
         //    BusinessOrder update = new BusinessOrder
         //    {
-        //        OrderId=boput.OrderId,
-        //        OrderNumber = boput.OrderNumber,
-        //        OrderDateTime = boput.OrderDateTime,
+        //        OrderId = q.OrderId,
+        //        OrderNumber = q.OrderNumber,
+        //        OrderDateTime = q.OrderDateTime,
         //        EditDatetime = DateTime.Now,
-        //        AreaId = boput.AreaId,
-        //        Price = boput.Price,
+        //        AreaId = areaid,
+        //        Price = price,
         //        EmployeeId = 5,
         //        IsAccepted = false,
-        //        BusinessOrderDetails = boput.BusinessOrderDetails
+        //        BusinessOrderDetails = bodput
         //    };
 
-        //    _context.BusinessOrders.Update(update);
+        //    //foreach (var item in bodput)
+        //    //{
+
+        //    //}
+
+
+
+        //    _context.BusinessOrders.UpdateRange(update);
         //    _context.SaveChanges();
         //    return "Order大表修改成功";
         //}
 
+        //修改父子資料(目前未成功)
+        // PUT: api/BusinessOrders/withoutloop?ordnum=M011672502400&areaid=1&price=5741000
+        [HttpPut("withoutloop")]
+        public int PutOrder(string ordnum, int areaid, int price, ICollection<BusinessOrderDetail> bodput)
+        {
 
+            var q = _context.BusinessOrders.Select(x => new
+            {
+                OrderId = x.OrderId,
+                OrderNumber = x.OrderNumber,
+                OrderDateTime = x.OrderDateTime,
+                EditDatetime = DateTime.Now,
+                AreaId = areaid,
+                Price = price,
+                EmployeeId = 5,
+                IsAccepted = false,
+                BusinessOrderDetails = bodput
+            }).Where(x => x.OrderNumber == ordnum).SingleOrDefault();
+
+
+            //var ed = _context.BusinessOrderDetails.Select(x => x).Where(x => x.OrderId == q.OrderId);
+
+            BusinessOrder update = new BusinessOrder
+            {
+                OrderId = q.OrderId,
+                OrderNumber = q.OrderNumber,
+                OrderDateTime = q.OrderDateTime,
+                EditDatetime = DateTime.Now,
+                AreaId = areaid,
+                Price = price,
+                EmployeeId = 5,
+                IsAccepted = false,
+                BusinessOrderDetails = bodput
+            };
+
+            //foreach (var item in bodput)
+            //{
+
+            //}
+
+
+
+            _context.BusinessOrders.UpdateRange(update);
+            
+            //return "Order大表修改成功";
+            return _context.SaveChanges();
+        }
 
 
 
