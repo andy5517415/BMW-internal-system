@@ -315,6 +315,8 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_GoodList");
 
+                entity.Property(e => e.Classification).HasMaxLength(10);
+
                 entity.Property(e => e.Goods)
                     .IsRequired()
                     .HasMaxLength(10);

@@ -17,6 +17,7 @@ namespace InternalSystem.Models
         public string Unit { get; set; }
         public int UnitPrice { get; set; }
         public byte[] Image { get; set; }
+        public string Classification { get; set; }
 
         public virtual ICollection<PcOrderDetail> PcOrderDetails { get; set; }
     }
