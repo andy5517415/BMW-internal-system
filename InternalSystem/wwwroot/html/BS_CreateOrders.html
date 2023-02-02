@@ -1264,6 +1264,9 @@
                     orderpost: {
                         businessOrderDetails: []
                     },
+
+                    bods: [],
+
                     orderdetail: [],
                     limit: {},
                     putphoto: {},
@@ -1300,7 +1303,7 @@
                 btnconfirmclick() {
                     this.formfill = !this.formfill
                     this.formconfirm = !this.formconfirm
-                    this.orderid = this.cartypeone.optionalName.substring(4, 5)
+                    this.orderid = (this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5)
                         + '0'
                         + this.agentone.areaId
                         + Date.now().toString().substring(0, 10);
@@ -1322,20 +1325,21 @@
                     this.formconfirm = !this.formconfirm
                 },
                 btnCreateNextClick() {
-
-                        this.orderpost.orderNumber = this.orderid;
-                        this.orderpost.AreaId = this.agentone.areaId;
-                        this.orderpost.Price = this.cnt;
-                        this.orderpost.EmployeeId = 5;
-                        this.orderpost.IsAccepted = false;
-                        this.orderdetail.forEach(x => this.orderpost.businessOrderDetails.push({ 'optionalId': x }));
-
-                        console.log(this.orderpost);
-                        axios.post('/api/BusinessOrders/withoutloop', this.orderpost)
+                        //this.orderpost.orderNumber = this.orderid;
+                        //this.orderpost.AreaId = this.agentone.areaId;
+                        //this.orderpost.Price = this.cnt;
+                        //this.orderpost.EmployeeId = 5;
+                        //this.orderpost.IsAccepted = false;
+                        this.orderdetail.forEach(x => this.bods.push({ 'optionalId': x }));
+                        //console.log('orderpost')
+                        console.log(this.bods);
+                    axios.post(`/api/BusinessOrders/withoutloop?ordnum=${this.orderid}&areaid=${this.agentone.areaId}&price=${this.cnt}&empid=5&isacc=false`, this.bods)
                             .then(p => {
                                 console.log(p);
-                                alert('訂單新建成功!');
-                                window.location.reload();
+                                console.log(p.data);
+                                alert(p.data);
+                                //alert('訂單新建成功!');
+                                //window.location.reload();
                             });
                 },
                 uploadphoto(event) {
@@ -1354,13 +1358,13 @@
 
                 },
                 savephoto() {
-                    axios.get('/api/BusinessOptionals/28')
+                    axios.get('/api/BusinessOptionals/')
                         .then(p => {
                             console.log(p);
                             this.putphoto = p.data;
                             this.putphoto.photo = this.uploadimg
                             console.log(this.putphoto.photo);
-                            axios.put('/api/BusinessOptionals/28', this.putphoto).then(p => console.log(p))
+                            axios.put('/api/BusinessOptionals/', this.putphoto).then(p => console.log(p))
                         })
                     alert('成功');
                 },

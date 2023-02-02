@@ -26,7 +26,7 @@ namespace InternalSystem.Controllers
 
         // GET: api/MeetingReserves
         [HttpGet("")]
-        public object GetMeetingReserves(string d,string s,string e)
+        public object GetMeetingReserves1(string d,string s,string e)
         {
             return 5;
         }
@@ -105,16 +105,22 @@ namespace InternalSystem.Controllers
 
         }
 
-        //查預約會議室(會議室編號版本)
-        // GET: api/MeetingReserves/MeetRoom/1
-        [HttpGet("MeetRoom/{placeId}")]
-        public async Task<ActionResult<dynamic>> GetMeetingReserve_MeetRoom(int placeId)
+        //查預約會議室
+        // GET: api/MeetingReserves/1/20230101/20230106
+        [HttpGet("RM/{placeId}/{s}/{e}")]
+        public async Task<ActionResult<dynamic>> GetMeetingReserve2(int placeId, int s, int e)
         {
+            var sd = s.ToString();
+            var ed = e.ToString();
+
+            var sday = DateTime.Parse(sd.Substring(0, 4) + "/" + sd.Substring(4, 2) + "/" + sd.Substring(6, 2));
+            var eday = DateTime.Parse(ed.Substring(0, 4) + "/" + ed.Substring(4, 2) + "/" + ed.Substring(6, 2));
+
             var meetingReserve = from a in _context.MeetingReserves
                                  join b in _context.MeetingRooms on a.MeetPlaceId equals b.MeetingPlaceId
                                  join c in _context.PersonnelDepartmentLists on a.DepId equals c.DepartmentId
                                  join d in _context.PersonnelProfileDetails on a.EmployeeId equals d.EmployeeId
-                                 where a.MeetPlaceId == placeId
+                                 where a.Date >= sday && a.Date <= eday && a.MeetPlaceId == placeId
                                  orderby a.Date, a.StartTime
                                  select new
                                  {

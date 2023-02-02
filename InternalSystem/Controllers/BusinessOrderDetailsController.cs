@@ -36,7 +36,7 @@ namespace InternalSystem.Controllers
         }
 
 
-        //沒迴圈新增orderdetail小表
+        //新增父子資料
         // POST: api/BusinessOrderDetails
         [HttpPost]
         public string PostOrderDetail(int OrderId , [FromBody] BusinessOrderDetail bod)
@@ -63,27 +63,27 @@ namespace InternalSystem.Controllers
 
 
 
-        ////沒迴圈修改orderdetail小表(目前未成功)
-        //// PUT: api/BusinessOrderDetails
-        //[HttpPut]
-        //public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)
-        //{
-        //    if (!_context.BusinessOrderDetails.Any(a => a.OrderId == OrderId))
-        //    {
-        //        return "沒有該筆資料";
-        //    }
+        //修改父子資料(目前未成功)
+        // PUT: api/BusinessOrderDetails
+        [HttpPut]
+        public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)
+        {
+            if (!_context.BusinessOrderDetails.Any(a => a.OrderId == OrderId))
+            {
+                return "沒有該筆資料";
+            }
 
-        //    BusinessOrderDetail update = new BusinessOrderDetail
-        //    {
-        //        OrderId = bodput.OrderId,
-        //        OptionalId = bodput.OptionalId
-        //    };
+            BusinessOrderDetail update = new BusinessOrderDetail
+            {
+                OrderId = bodput.OrderId,
+                OptionalId = bodput.OptionalId
+            };
 
-        //    _context.BusinessOrderDetails.Update(update);
-        //    _context.SaveChanges();
+            _context.BusinessOrderDetails.Update(update);
+            _context.SaveChanges();
 
-        //    return "orderdetail小表修改成功";
-        //}
+            return "orderdetail小表修改成功";
+        }
 
 
 
@@ -140,7 +140,7 @@ namespace InternalSystem.Controllers
 
 
 
-        //Delete訂單(父子資料同時刪除)
+        //刪除父子資料
         // Delete: api/BusinessOrderDetails/order/X021674138417
         [HttpDelete("order/{ordernum}")]
         public string DeleteOrder(string ordernum)

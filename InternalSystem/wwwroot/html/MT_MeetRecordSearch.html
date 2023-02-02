@@ -745,7 +745,7 @@
             methods: {
                 DoMeetSearch: function () {
                     var self = this;
-                    axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetSearch.DepId
+                    axios.get("https://localhost:44319/api/MeetingRecords/Rc/" + self.MeetSearch.DepId
                     )   //驗證
                         .then((response) => {
                             console.log(response.data);
@@ -780,7 +780,7 @@
                 DoSearchRecord: function (index) {
                     var self = this;
                     self.MeetInf.isRecord = true;
-                    axios.get("https://localhost:44319/api/MeetingRecords/1/" + self.MeetInf[index].bookId
+                    axios.get("https://localhost:44319/api/MeetingRecords/Record/" + self.MeetInf[index].bookId
                     )
                         .then(res => {
                             console.log(res.data);

@@ -602,8 +602,8 @@
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()">編輯</button>
-                                        <button type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary">確認</button>
+                                        <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()">編輯</button>
+                                        <button id="update" type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary" disabled>更新</button>
                                         <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
 
@@ -672,7 +672,14 @@
                         },
 
                         Edit: function () {
-
+                            $('#startTime').removeAttr('disabled')
+                            $('#endTime').removeAttr('disabled')
+                            $('#title').removeAttr('disabled')
+                            $('#rank').removeAttr('disabled')
+                            $('#bugtxt').removeAttr('disabled')
+                            $('#dispose').removeAttr('disabled')
+                            $('#update').removeAttr('disabled')
+                            $('#edit').attr('disabled','true')
                         }
 
                     }

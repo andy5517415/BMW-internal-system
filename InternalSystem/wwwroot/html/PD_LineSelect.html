@@ -578,13 +578,13 @@
                             this.PDProcessList = response.data;
                             for (var i = 0; i < this.PDProcessList.length; i++) {
                                 if (this.PDProcessList[i].optionalId == 1) {
-                                    this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(3);
+                                    this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4);
                                 }
                                 if (this.PDProcessList[i].optionalId == 2) {
                                     this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4);
                                 }
                                 if (this.PDProcessList[i].optionalId == 3) {
-                                    this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4, 15);
+                                    this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4);
                                 }
                             }
                         })
@@ -617,7 +617,26 @@
                             this.processput.statusId = 3
                             axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processput.orderId, this.processput)
                                 .then(y => console.log(y))
-                            window.location = "PD_MakeClass.html"
+
+                            //put 更改監控狀態
+                            console.log(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
+                            axios.get(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
+                                .then(g => {
+                                    //指派廠區後將監控狀態從待指派改為正常
+                                    var rr = g.data.monitorId;
+                                    //console.log(rr)
+                                    axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                        //console.log(g.data);
+                                        this.monitor = g.data;
+                                        this.monitor.status = '待指派';
+                                        console.log(this.monitor)
+                                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                            console.log(p);
+                                            window.location = "PD_LineSelect.html"
+                                        })
+                                    })
+                                })
+
                         } else {
                             if (confirm('確定送出?')) {
                                 //post 新建第二製程
@@ -639,9 +658,28 @@
                                 this.processput.statusId = 3
                                 axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processput.orderId, this.processput)
                                     .then(y => console.log(y))
+
+                                //put 更改監控狀態
+                                console.log(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
+                                axios.get(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
+                                    .then(g => {
+                                        //指派廠區後將監控狀態從待指派改為正常
+                                        var rr = g.data.monitorId;
+                                        //console.log(rr)
+                                        axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                            //console.log(g.data);
+                                            this.monitor = g.data;
+                                            this.monitor.status = '待指派';
+                                            console.log(this.monitor)
+                                            axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                                console.log(p);
+                                                window.location = "PD_LineSelect.html"
+                                            })
+                                        })
+                                    })
                             }
                             alert('成功送出');
-                            window.location = "PD_MakeClass.html"
+                            //window.location = "PD_MakeClass.html"
                         }
                         
 

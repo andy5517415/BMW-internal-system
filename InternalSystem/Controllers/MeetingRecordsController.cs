@@ -23,7 +23,7 @@ namespace InternalSystem.Controllers
 
         //有紀錄的才會顯示
         // GET: api/MeetingRecords/1(部門編號)
-        [HttpGet("{depId}")]
+        [HttpGet("Rc/{depId}")]
         public async Task<ActionResult<dynamic>> GetMeetingRecords_DepId(int depId)
         {
             var meetingBookMeetId = from a in _context.MeetingRecords
@@ -56,16 +56,35 @@ namespace InternalSystem.Controllers
             }
         }
 
-        //全部查詢
-        public async Task<ActionResult<IEnumerable<MeetingRecord>>> GetMeetingRecords()
+        //BookID有才會回傳
+        // GET: api/MeetingRecords/1
+        [HttpGet("BkId/{BookMeetId}")]
+        public async Task<ActionResult<dynamic>> GetMeetingRecords_BookMeetId(int BookMeetId)
         {
-            return await _context.MeetingRecords.ToListAsync();
+            var meetingBookMeetId = from a in _context.MeetingRecords
+                                    where a.BookMeetId == BookMeetId
+                                    select new
+                                    {
+                                        BookMeetId = a.BookMeetId,
+                                    };
+
+            if (meetingBookMeetId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                //return testover;
+                return await meetingBookMeetId.ToListAsync();
+            }
         }
+
+
 
 
         //最終紀錄的終結果
         // GET: api/MeetingRecords/1(紀錄表編號)/1(會議編號)
-        [HttpGet("{1}/{BkId}")]
+        [HttpGet("Record/{BkId}")]
         public async Task<ActionResult<dynamic>> GetMeetingRecords(int RcId, int BkId)
         {
             var meetingRecords = from a in _context.MeetingRecords
@@ -96,6 +115,12 @@ namespace InternalSystem.Controllers
                 return await meetingRecords.ToListAsync();
             }
 
+        }
+
+        //全部查詢
+        public async Task<ActionResult<IEnumerable<MeetingRecord>>> GetMeetingRecords()
+        {
+            return await _context.MeetingRecords.ToListAsync();
         }
 
         // PUT: api/MeetingRecords/5
