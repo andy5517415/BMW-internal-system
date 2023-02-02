@@ -628,14 +628,14 @@
                                                                                 <!-- 物品名稱 -->
                                                                                 <td>
                                                                                     {{b.goods}}
-                                                                                    <input disabled  v-model="b.goods">
+                                                                                    <!--<input disabled  v-model="b.goods">-->
                                                                                 </td>
                                                                                 <!-- 物品數量 -->
                                                                                 <td>
                                                                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                                                         <div class="mb-3 col-md-12">
                                                                                             <label for="數量" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
-                                                                                            <input @change="addorder(b) ;getprice()" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="b.quantiy">
+                                                                                            <input @change="addorder(b) ; getprice()" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="b.quantiy">
                                                                                             <!--<input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">-->
                                                                                         </div>
                                                                                     </ul>
@@ -649,7 +649,7 @@
                                                                                     <div class="dropdown">
                                                                                         <span id="Unit_price">
                                                                                             {{b.unitPrice}}元
-                                                                                            <input disabled v-model="b.unitPrice">
+                                                                                            <!--<input disabled v-model="b.unitPrice">-->
 
                                                                                         </span>
                                                                                     </div>
@@ -659,7 +659,7 @@
                                                                                     <div class="dropdown">
                                                                                         <div>
                                                                                             <p id="total">{{b.quantiy*b.unitPrice || 0}}元</p>
-                                                                                            <input disabled v-model="b.subTotal">
+                                                                                            <!--<input disabled v-model="b.subTotal">-->
 
                                                                                         </div>
                                                                                     </div>
@@ -711,7 +711,6 @@
                             return {
                                 item: {},
                                 product: { "quantiy": 0 },
-                                bee: [],
                                 employeedata: {},
                                 autopurchaseid: "",
                                 goodslist: {},
@@ -733,20 +732,19 @@
                         methods: {
                             createbtn: function () {
                                 //單純本表新增
-                                console.log(typeof this.pcorderdetails)
+                                //console.log(typeof this.pcorderdetails)
                                 //console.log(this.item["PcOrderDetails"][0])
 
 
                                 //this.item.pcorderdetails[i].quantiy = parseint(this.bee[i]);
-
-                                /*                 += b[i].quantiy * b[i].unitprice;*/
-                                console.log(this.item.total)
+                                /*+= b[i].quantiy * b[i].unitprice;*/
+                                //console.log(this.item.total)
 
 
                                 axios.post("https://localhost:44319/api/PCApplications/", this.item)
                                     .then(response => {
                                         alert('資料已新建');
-                                        console.log(response.data);
+                                        //console.log(response.data);
                                     }).catch(err => alert(err))
                                 //window.location = "PC_ApplicationRecordSearch.html";
                                 //console.log(typeof (this.item));
@@ -754,14 +752,30 @@
                             },
                             getprice() {
                                 this.text.forEach(X => {
-                                    this.item.total += X.UnitPrice * parseInt(X.Quantiy);
+                                    //this.item.total += X.UnitPrice * parseInt(X.Quantiy);
+                                    //this.sum += X.UnitPrice * parseInt(X.Quantiy);
+                                    this.sum += X.Subtotal;
+                                    this.item.total += X.Subtotal;
+                                    console.log(X.Subtotal);
+  
                                     //console.log(X.UnitPrice)
                                     //console.log(X.Quantiy)
                                     //console.log(this.item.total)
-                                    this.sum += X.UnitPrice * parseInt(X.Quantiy);
-
-                                    console.log(this.sum)
+                                    //console.log(this.sum)
                                 });
+
+                                //for (var i = 0; i < this.text.length; i++) {
+                                //    console.log(text);
+                                //    this.sum += this.text.UnitPrice[i] * parseInt(this.text.Quantiy[i]);
+                                //    this.item.total += this.text.UnitPrice[i] * parseInt(this.text.Quantiy[i]);
+                                //    console.log(this.text.UnitPrice[i]);
+                                //    console.log(parseInt(this.text.Quantiy[i]));
+                                //    console.log(this.sum);
+                                //    console.log(this.item.total);
+
+
+                                //    //this.item.pcorderdetails[i].quantiy = parseint(this.bee[i]);
+                                //}
                                 //for (var i = 0; i < this.product.length; i++) {
                                 //    this.sum += this.product[i].unitprice * this.b[i];
                                 //    //this.item.pcorderdetails[i].quantiy = parseint(this.bee[i]);
@@ -793,7 +807,6 @@
                                     Subtotal: b.quantiy * b.unitPrice
                                 }
                                 );
-                                //b.quantiy =e
                             }
                         },
                         mounted() {
@@ -840,7 +853,7 @@
                                         //this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
                                         //this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
                                     };
-                                    console.log(this.product)
+                                    //console.log(this.product)
                                     this.item.PcOrderDetails = this.text;
                                     //console.log(this.item);
                                 })
