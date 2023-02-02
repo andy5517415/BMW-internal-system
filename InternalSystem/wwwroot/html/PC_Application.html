@@ -751,18 +751,27 @@
 
                             },
                             getprice() {
-                                this.text.forEach(X => {
-                                    //this.item.total += X.UnitPrice * parseInt(X.Quantiy);
-                                    //this.sum += X.UnitPrice * parseInt(X.Quantiy);
-                                    this.sum += X.Subtotal;
-                                    this.item.total += X.Subtotal;
-                                    console.log(X.Subtotal);
+
+                                this.item.total = 0;
+                                this.sum = 0;
+                                for (var i = 0; i < this.text.length; i++) {
+                                    this.item.total += this.text[i].UnitPrice * parseInt(this.text[i].Quantiy)
+                                    this.sum += this.text[i].UnitPrice * parseInt(this.text[i].Quantiy)
+                                    console.log(this.item.total)
+                                }
+
+                                //this.text.forEach(X => {
+                                //    //this.item.total += X.UnitPrice * parseInt(X.Quantiy);
+                                //    //this.sum += X.UnitPrice * parseInt(X.Quantiy);
+                                //    this.sum += X.Subtotal;
+                                //    this.item.total += X.Subtotal;
+                                //    console.log(X.Subtotal);
   
-                                    //console.log(X.UnitPrice)
-                                    //console.log(X.Quantiy)
-                                    //console.log(this.item.total)
-                                    //console.log(this.sum)
-                                });
+                                //    //console.log(X.UnitPrice)
+                                //    //console.log(X.Quantiy)
+                                //    //console.log(this.item.total)
+                                //    //console.log(this.sum)
+                                //});
 
                                 //for (var i = 0; i < this.text.length; i++) {
                                 //    console.log(text);
@@ -820,9 +829,9 @@
                             this.item.purchaseId = parseInt(this.autopurchaseid);
                             this.item.employeeId = this.employeedata.EmpID;
                             this.item.department = this.employeedata.Depment;
-                            this.item.comment = "";
-                            this.item.applicationrejectreason = "";
-                            this.item.deliveryrejectreason = "";
+                            //this.item.comment = "";
+                            //this.item.applicationrejectreason = "";
+                            //this.item.deliveryrejectreason = "";
                             this.item.total = 0;
                             //預設物品審核狀態
                             this.item.applicationStatus = false;

@@ -511,7 +511,8 @@
                       <label for="department" class="form-label fs-5">部門</label>
                       <select id="department" class="select1 form-select fs-5" @change="selectchange(search.id)" v-model="search.id">
                           <option value="選擇">選擇部門</option>
-                          <option value="通用">生產部</option>
+                          <option value="通用">通用</option>
+                          <option value="生產部">生產部</option>
                           <option value="業務部">業務部</option>
                           <option value="人事部">人事部</option>
                           <option value="採購部">採購部</option>
@@ -565,6 +566,7 @@
                     item: {},
                     search: {
                         "id": "",
+                        "id2":""
                     }
                 }
             },
