@@ -620,7 +620,7 @@
           }
         },
         mounted() {
-          axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList')
+          axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugListALL')
             .then(response => this.BugList = response.data)
         },
         methods: {
@@ -631,7 +631,7 @@
           Searchbtn: function () {
 
             if (this.Search.Enddate == undefined) {
-              axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList?orderNumber=' + this.Search.orderNumber + '&rank=' + this.Search.rank)
+              axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugListAll?orderNumber=' + this.Search.orderNumber + '&rank=' + this.Search.rank)
                 .then(response => this.BugList = response.data)
               console.log('a')
             } else if (this.Search.Enddate != undefined) {

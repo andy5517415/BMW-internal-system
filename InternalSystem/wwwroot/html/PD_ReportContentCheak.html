@@ -557,7 +557,7 @@
 
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()" v-if="this.Context.employeeId == this.navInf.EmpID">編輯</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-primary" v-on:click="Enter()" v-if="this.Context.employeeId == this.navInf.EmpID">確認</button>
+                                        <button id="enter" type="button" class="mx-2 col-1 btn btn-outline-primary" v-on:click="Enter()" v-if="this.Context.employeeId == this.navInf.EmpID" disabled>更新</button>
                                         <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3" v-on:click="Back">返回</button>
                                     </div>
 
@@ -622,15 +622,17 @@
                     },
                     methods: {
                         Enter: function () {
-                            //axios.put('https://localhost:44319/api/ProductionContexts/' + this.Context.orderId, this.Context)
-                            //.then(x => console.log(x))
-                            //window.location = 'index.html';
+                            axios.put('https://localhost:44319/api/ProductionContexts/as/' + this.Context.orderId + '/' + this.Context.employeeId + '/' + this.Context.date, this.Context)
+                                .then(x => console.log(x))
+                            alert('更新完成');
+                            window.location = 'PD_ReportContentSearch.html';
                         },
                         Edit: function () {
                             $('#startTime').removeAttr('disabled')
                             $('#context').removeAttr('disabled')
                             $('#endTime').removeAttr('disabled')
-                            $('#edit').attr('disabled','true')
+                            $('#edit').attr('disabled', 'true')
+                            $('#enter').removeAttr('disabled')
                         },
                         Back: function () {
                             window.location = 'PD_ReportContentSearch.html';
