@@ -1017,7 +1017,7 @@
                     if (confirm('請確認修改資料是否正確') == true) {
 
                         axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
-                        ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
+                        ).then(alert('資料以修改')).catch(err => { alert(err) });
                         //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
                         //window.location = "HR_EmpProfileEdit.html";
                     }

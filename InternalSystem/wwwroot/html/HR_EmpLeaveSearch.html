@@ -629,7 +629,7 @@
                 return {
                     employeelist: {},
                     departmentlist: {},
-                    search: { "departmentId": "" },
+                    search: { /*"employeeName":"","departmentId": ""*/ },
                     page: 0,
                     nowpage: {}
                 }
@@ -637,21 +637,30 @@
             methods: {
                 okbtn: function () {
                     //alert('OK');
-                    axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' + 1)
-                        .then(response => {
-                            this.employeelist = response.data;
-                            this.nowpage = 1;
-                            if (this.employeelist.length == 0) { alert('複合查詢:查無此項') }
-                        })
-                        .catch(err => { console.log(err) })
+                    if (this.search.employeeName == undefined) { this.search.employeeName = "" }
+                    if (this.search.departmentId == undefined) { this.search.departmentId = "" }
+                    if (this.search.date != undefined) {
+
+                        axios.get('/api/PersonnelLeaveForms/Complex/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId + '&page=' + 1)
+                            .then(response => {
+                                this.employeelist = response.data;
+                                this.nowpage = 1;
+                                console.log(response)
+                                if (this.employeelist.length == 0) { alert('複合查詢:查無此項') }
+                            })
+                            .catch(err => { console.log(err) })
 
 
-                    axios.get('/api/PersonnelLeaveForms/ComplexPage/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId)
-                        .then(response => {
-                            this.page = response.data;
-                            console.log(this.page)
-                        })
-                        .catch(err => { console.log(err) })
+                        axios.get('/api/PersonnelLeaveForms/ComplexPage/' + this.search.date + '?name=' + this.search.employeeName + '&depId=' + this.search.departmentId)
+                            .then(response => {
+                                this.page = response.data;
+                                console.log(this.page)
+                            })
+                            .catch(err => { console.log(err) })
+                    }
+                    else {alert('請選擇時間') }
+                 
+                 
                     //else if (this.search.departmentId != null && this.search.date != null) {
                     //    axios.get('/api/PersonnelLeaveForms/department/' + this.search.departmentId + '/' + this.search.date)
                     //        .then(response => {

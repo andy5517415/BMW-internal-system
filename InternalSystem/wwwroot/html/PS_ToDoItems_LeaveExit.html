@@ -732,7 +732,7 @@
                 methods: {
 
                     okbtn: function () {
-                        if (confirm('是否送出請假資料?1') == true) {
+                        if (confirm('是否送出請假資料?') == true) {
 
                             if (this.leaveExit.leaveType != null &&
                                 this.leaveExit.proxy != null && this.leaveExit.auditManerger != null
@@ -745,7 +745,9 @@
                                     axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
                                         .then(response => {
                                             alert(response.data);
+                                            if (response.data == "修改成功") {
                                             window.location = "/html/PS_ToDoItems.html";
+                                            }
                                         })
                                 }
                                 else { alert('請假項目請確實填寫') };

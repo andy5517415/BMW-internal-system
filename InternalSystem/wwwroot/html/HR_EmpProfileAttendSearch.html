@@ -503,7 +503,7 @@
                   <!-- Content wrapper -->
                   <div class="content-wrapper">
                       <!-- Content -->
-                      <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                      <div class="container-xxl flex-grow-1 container-p-y" id="app" v-cloak>
                           <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 出缺勤查詢</h4>
                           <div class="card mb-4 m-4 card-body">
 
@@ -660,7 +660,7 @@
                                 this.nowpage = 1;
                                 console.log(this.attendencelist)
                                 if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
-                            }).catch(err => { console.log(err); alert('查無此項') })
+                            }).catch(err => { console.log(err); })
 
                         //axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
                         //    + '&dep=' + this.employeedata.depId)
