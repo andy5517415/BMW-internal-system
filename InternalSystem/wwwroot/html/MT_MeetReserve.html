@@ -519,7 +519,17 @@
                   <!-- ★預約日期 -->
                   <h5 class="mb-4 text-center">您的部門是：生產部</h5>
                   <div class="mb-3 row g-5 justify-content-center">
-                    
+                    <!-- 日期 -->
+                    <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold"
+                      style="width: 160px;">查詢日期區間</label>
+                    <div class="col-6 col-md-3">
+                      <input v-model="MeetSearch.StartDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date1"
+                        style="height: 45px;" />
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <input v-model="MeetSearch.EndDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date2"
+                        style="height: 45px;" />
+                    </div>
                     <!-- ★查看會議室 -->
                     <label for="meetDepeart_select" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold" style="width: 140px;">選擇會議室</label>
                     <div class="col-6 col-md-3">
@@ -760,6 +770,7 @@
                   isValue: false,
                   isRecord: false,
                 },
+                MeetSearch: {},
                 MeetRsInfo:
                 {
                   startTime: {},
@@ -778,52 +789,47 @@
             methods: {
               DoMeetSearch: function () {
                 var self = this;
-                axios.get("https://localhost:44319/api/MeetingReserves/MeetRoom/" + self.MeetRsInfo.meetPlaceId
-                )   //驗證
-                  .then((response) => {
-                    if (response.data[0] != undefined) {
-                      console.log(response.data);
 
-                      self.text = "✔ 查詢成功"
-                      $("#toastSuc").fadeIn("fast");
-                      setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                if (self.MeetSearch.StartDay1 == undefined || self.MeetSearch.EndDay1 == undefined || self.MeetRsInfo.depId == undefined) {
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                }
+                else {
+                  var sDay = self.MeetSearch.StartDay1
+                  self.MeetSearch.StartDay2 = sDay.substring(0, 4) + sDay.substring(5, 7) + sDay.substring(8, 10)
+                  var eDay = self.MeetSearch.EndDay1
+                  self.MeetSearch.EndDay2 = eDay.substring(0, 4) + eDay.substring(5, 7) + eDay.substring(8, 10)
 
-                      //寫進去
-                      self.MeetInf = response.data
-                      //改個資料形式(日期與時間)
-                      for (let i = 0; i < self.MeetInf.length; i++) {
-                        self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                        self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
-                        self.MeetInf[i].ModalId = "cancelModal" + [i]
-                        self.MeetInf[i].isBookIdN = false //建立會議表
-                        self.MeetInf[i].isBookIdY = false //已建立會議表
+                  axios.get("https://localhost:44319/api/MeetingReserves/RM/" + self.MeetRsInfo.meetPlaceId + "/" + self.MeetSearch.StartDay2 + "/" + self.MeetSearch.EndDay2
+                  )   //驗證
+                    .then((response) => {
+                      if (response.data[0] != undefined) {
+                        console.log(response.data);
+
+                        self.text = "查詢成功"
+                        $("#toastSuc").fadeIn("fast");
+                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                        //寫進去
+                        self.MeetInf = response.data
+                        //改個資料形式(日期與時間)
+                        for (let i = 0; i < self.MeetInf.length; i++) {
+                          self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
+                          self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
+                          self.MeetInf[i].ModalId = "cancelModal" + [i]
+                          self.MeetInf[i].isBookIdN = false //建立會議表
+                          self.MeetInf[i].isBookIdY = false //已建立會議表
+                        }
+                        self.MeetInf.isValue = true;
+
                       }
-                      self.MeetInf.isValue = true;
-
-                      //判斷是否有會議紀錄表了
-                      for (let i = 0; i < self.MeetInf.length; i++) {
-
-                        axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetInf[i].bookId)
-                          .then((res) => {
-                            if (res.data[0] == undefined) {
-                              self.MeetInf[i].isBookIdN = true; //會議預約的bookID
-                            } else {
-                              self.MeetInf[i].isBookIdY = true; //當有才可以按，反之顯示
-                            }
-
-                          })
-                          .catch((err) => { alert('連線錯誤' + err); })
+                      else {
+                        $("#toastNull").fadeIn("fast");
+                        setTimeout(() => $("#toastNull").fadeOut(), 2000);
                       }
-                    }
-                    else {
-                      $("#toastNull").fadeIn("fast");
-                      setTimeout(() => $("#toastNull").fadeOut(), 2000);
-                    }
-
-                  })
-                  .catch((error) => { alert('連線錯誤' + error); });
-
-
+                    })
+                    .catch((error) => { alert('連線錯誤' + error); });
+                }
               },
               MeetReserve: function () {
                 this.MeetRsInfo.startTime = this.Time.startTime1 + ":" + this.Time.startTime2
