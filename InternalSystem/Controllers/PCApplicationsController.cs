@@ -9,6 +9,7 @@ using InternalSystem.Models;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.CodeAnalysis;
 
 namespace InternalSystem.Controllers
 {
@@ -404,9 +405,7 @@ namespace InternalSystem.Controllers
         [HttpGet("departmentsearch")]
         public async Task<ActionResult<dynamic>> GetGoodsDepartmentSearch(string id)
         {
-            var List = from AP in this._context.PcApplications
-                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
-                       join GL in this._context.PcGoodLists on OD.ProductId equals GL.ProductId
+            var List = from GL in this._context.PcGoodLists 
                        select new
                        {
                            ProductId = GL.ProductId,

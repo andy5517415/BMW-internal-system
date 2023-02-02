@@ -509,7 +509,7 @@
               <div class="container">
                   <div class="mb-5 col-md-12 fs-4">
                       <label for="department" class="form-label fs-5">部門</label>
-                      <select id="department" class="select1 form-select fs-5" @change="selectchange" v-model="search.id">
+                      <select id="department" class="select1 form-select fs-5" @change="selectchange(search.id)" v-model="search.id">
                           <option value="選擇">選擇部門</option>
                           <option value="通用">生產部</option>
                           <option value="業務部">業務部</option>
@@ -569,12 +569,11 @@
                 }
             },
             methods: {
-                selectchange: function () {
-                    console.log("/api/PCApplications/departmentsearch/?id=" + this.search.id)
-                    axios.get("/api/PCApplications/recordsearch?id=" + this.search.id)
+                selectchange: function (e) {
+                    //console.log("/api/PCApplications/departmentsearch?id=" + this.search.id)
+                    axios.get("/api/PCApplications/departmentsearch?id=" + e)
                         .then(response => this.item = response.data);
                 }
-
             },
             mounted() {
                 axios.get('https://localhost:44319/api/PCApplications/itemsearch')
