@@ -1097,13 +1097,13 @@
                                                     axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
                                                         .then(p => {
                                                             console.log(p);
+                                                            window.location.reload();//promise
                                                         })
                                                 })
                                         })
                                 }
                                 alert('訂單修改成功!');
                             });
-                                //window.location.reload();//刷新會更新失敗
                     }
                 },
                 btndelete() {

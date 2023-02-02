@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace InternalSystem.Controllers
 {
@@ -136,22 +138,54 @@ namespace InternalSystem.Controllers
         //沒迴圈新增order大表
         // POST: api/BusinessOrders/withoutloop
         [HttpPost("withoutloop")]
-        public string PostOrder([FromBody] BusinessOrder bo)
+        public string PostOrder([FromBody] ICollection<BusinessOrderDetail> bod ,
+            string ordnum ,
+            //string orddate ,
+            int    areaid,
+            int    price,
+            int    empid,
+            bool   isacc
+            )
+
         {
-            BusinessOrder insert = new BusinessOrder
+            //return bo.BusinessOrderDetails.OptionalId.ToString();
+
+
+            //foreach (var item in bod)
+            //{
+            //    if (!Regex.IsMatch(item.OptionalId.ToString(), @"^[0-9]$")) 
+            //    {
+            //        return "有遺漏的選配，請重新選擇!";
+            //    }
+            //}
+
+            if (areaid == 0)
             {
-                OrderNumber = bo.OrderNumber,
-                OrderDateTime = DateTime.Now,
-                AreaId = bo.AreaId,
-                Price = bo.Price,
-                EmployeeId = bo.EmployeeId,
-                IsAccepted = bo.IsAccepted,
-                BusinessOrderDetails = bo.BusinessOrderDetails
+                return "代理商區域未選擇，請填選!";
+            }
+            else if(bod!=null /*&& bo.BusinessOrderDetails.Count==9 && bo.AreaId>0*/)
+            {
+                BusinessOrder insert = new BusinessOrder
+                {
+                    OrderNumber          = ordnum,
+                    OrderDateTime        = DateTime.Now,
+                    AreaId               = areaid,
+                    Price                = price,
+                    EmployeeId           = empid,
+                    IsAccepted           = isacc,
+                    BusinessOrderDetails = bod
+                };
+
+                _context.BusinessOrders.Add(insert);
+                _context.SaveChanges();
+                return "訂單新增成功!Order";
+            }
+            else
+            {
+                return "last";
             };
 
-            _context.BusinessOrders.Add(insert);
-            _context.SaveChanges();
-            return "order大表新增成功";
+            //return "last";
 
         }
 
@@ -201,8 +235,8 @@ namespace InternalSystem.Controllers
 
 
 
-    // GET: api/BusinessOrders
-    [HttpGet]
+        // GET: api/BusinessOrders
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessOrder>>> GetBusinessOrders()
         {
             return await _context.BusinessOrders.ToListAsync();
