@@ -601,8 +601,9 @@
                                                                placeholder="" />
                                                     </div>
                                                     <!-- 採購清單 -->
+                                                    <!--部門專用-->
                                                     <div class="card">
-                                                        <h5 class="card-header">採購項目</h5>
+                                                        <h5 class="card-header">採購部門專用項目</h5>
                                                         <div class="card-body">
                                                             <div class="table-responsive text-nowrap">
                                                                 <table class="table table-bordered">
@@ -617,10 +618,10 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <template v-for="(b,key) in product">
+                                                                        <template v-for="(b,key) in depproduct">
                                                                             <tr>
 
-                                                                                <!-- 第一項物品 -->
+                                                                                <!-- 物品 -->
                                                                                 <!-- 項次 -->
                                                                                 <td>
                                                                                     <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
@@ -669,21 +670,90 @@
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-                                                            <!-- 總價 -->
-                                                            <div>
-                                                                <div class="d-flex flex-row-reverse bd-highlight">
-                                                                    <div class="p-2 bd-highlight">總價：{{sum}}元</div>
+                                                            <!--通用-->
+                                                            <div class="card">
+                                                                <h5 class="card-header">採購通用項目</h5>
+                                                                <div >
+                                                                    <div class="table-responsive text-nowrap">
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="fs-4 fw-blod">項次</th>
+                                                                                    <th class="fs-4 fw-blod">品名</th>
+                                                                                    <th class="fs-4 fw-blod">數量</th>
+                                                                                    <th class="fs-4 fw-blod">單位</th>
+                                                                                    <th class="fs-4 fw-blod">單價</th>
+                                                                                    <th class="fs-4 fw-blod">小計</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <template v-for="(b,key) in product">
+                                                                                    <tr>
+
+                                                                                        <!-- 物品 -->
+                                                                                        <!-- 項次 -->
+                                                                                        <td>
+                                                                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
+                                                                                        </td>
+                                                                                        <!-- 物品名稱 -->
+                                                                                        <td>
+                                                                                            {{b.goods}}
+                                                                                            <!--<input disabled  v-model="b.goods">-->
+                                                                                        </td>
+                                                                                        <!-- 物品數量 -->
+                                                                                        <td>
+                                                                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                                                                <div class="mb-3 col-md-12">
+                                                                                                    <label for="數量" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
+                                                                                                    <input @change="addorder(b) ; getprice()" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-model="b.quantiy">
+                                                                                                    <!--<input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">-->
+                                                                                                </div>
+                                                                                            </ul>
+                                                                                        </td>
+                                                                                        <!-- 單位 -->
+                                                                                        <td>
+                                                                                            <span id="number" class="badge bg-label-primary me-1">{{b.unit}}</span>
+                                                                                        </td>
+                                                                                        <!-- 單價 -->
+                                                                                        <td>
+                                                                                            <div class="dropdown">
+                                                                                                <span id="Unit_price">
+                                                                                                    {{b.unitPrice}}元
+                                                                                                    <!--<input disabled v-model="b.unitPrice">-->
+
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <!-- 小計 -->
+                                                                                        <td>
+                                                                                            <div class="dropdown">
+                                                                                                <div>
+                                                                                                    <p id="total">{{b.quantiy*b.unitPrice || 0}}元</p>
+                                                                                                    <!--<input disabled v-model="b.subTotal">-->
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </template>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- 總價 -->
+                                                                    <div>
+                                                                        <div class="d-flex flex-row-reverse bd-highlight">
+                                                                            <div class="p-2 bd-highlight">總價：{{sum}}元</div>
+                                                                        </div>
+                                                                        <div class="table-responsive text-nowrap"></div>
+                                                                    </div>
+                                                                    <!-- 確認按鈕 -->
+                                                                    <div class="mt-2 d-flex flex-row-reverse bd-highlight">
+                                                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 ">取消</button>
+                                                                        <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="table-responsive text-nowrap"></div>
-                                                            </div>
-                                                            <!-- 確認按鈕 -->
-                                                            <div class="mt-2 d-flex flex-row-reverse bd-highlight">
-                                                                <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 ">取消</button>
-                                                                <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -715,8 +785,9 @@
                                 autopurchaseid: "",
                                 goodslist: {},
                                 PcOrderDetails: [],
+                                depproduct: {},
                                 text: [],
-                                sum: 0
+                                sum: 0,
                             }
                         },
                         computed: {
@@ -866,6 +937,13 @@
                                     this.item.PcOrderDetails = this.text;
                                     //console.log(this.item);
                                 })
+                            //得到部門物品清單
+                            axios.get('/api/PCApplications/selectgoods/' + this.employeedata.Depment)
+                                .then(response => {
+                                    this.depproduct = response.data;
+                                    //console.log(this.depproduct);
+                                })
+
                         }
                     }
 
