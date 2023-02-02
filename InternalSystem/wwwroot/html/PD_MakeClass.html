@@ -654,9 +654,9 @@
                             axios.get('https://localhost:44319/api/ProductionProcessLists/model')
                                 .then(response => {
                                     this.CarModel = response.data;
-                                    this.CarModel[0].optionalName = this.CarModel[0].optionalName.slice(3);
+                                    this.CarModel[0].optionalName = this.CarModel[0].optionalName.slice(4);
                                     this.CarModel[1].optionalName = this.CarModel[1].optionalName.slice(4);
-                                    this.CarModel[2].optionalName = this.CarModel[2].optionalName.slice(4, 15);
+                                    this.CarModel[2].optionalName = this.CarModel[2].optionalName.slice(4);
                                 })
                         }
                     }

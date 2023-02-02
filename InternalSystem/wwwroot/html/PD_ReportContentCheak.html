@@ -551,14 +551,14 @@
                                     </div>
 
                                     <div class="my-2">
-                                        <label for="exampleFormControlTextarea1" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control fs-5" id="exampleFormControlTextarea1" v-model="Context.context"  rows="8" disabled></textarea>
+                                        <label for="context" class="form-label fs-5 my-2">內容</label>
+                                        <textarea class="form-control fs-5" id="context" v-model="Context.context"  rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()">編輯</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-primary" v-on:click="Enter()">確認</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                        <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()" v-if="this.Context.employeeId == this.navInf.EmpID">編輯</button>
+                                        <button type="button" class="mx-2 col-1 btn btn-outline-primary" v-on:click="Enter()" v-if="this.Context.employeeId == this.navInf.EmpID">確認</button>
+                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3" v-on:click="Back">返回</button>
                                     </div>
 
                                 </div>
@@ -602,24 +602,38 @@
                 const app = {
                     data() {
                         return {
-                            Context: {}
+                            Context: {},
+                            navInf: {}
                         }
                     },
                     mounted() {
                         var item = JSON.parse(sessionStorage.getItem("data"))
+                        this.navInf = JSON.parse(sessionStorage.getItem("LoginInf"))
                         /*                        console.log(item)*/
                         axios.get('https://localhost:44319/api/ProductionContexts/ContextsCheck/' + item.orderId + "/" + item.employeeId + "/" + item.date)
-                            .then(response => this.Context = response.data)
+                            .then(response => {
+                                this.Context = response.data;
+                                this.Context.optionalName = this.Context.optionalName.slice(4);
+                            })
+                        //if (this.Context.employeeId == this.navInf.EmpID) {
+                        //    $('#edit').hide();
+                        //}
 
                     },
                     methods: {
                         Enter: function () {
-
-                            window.location = 'index.html';
+                            //axios.put('https://localhost:44319/api/ProductionContexts/' + this.Context.orderId, this.Context)
+                            //.then(x => console.log(x))
+                            //window.location = 'index.html';
                         },
                         Edit: function () {
                             $('#startTime').removeAttr('disabled')
-                            $('#exampleFormControlTextarea1').removeAttr('disabled')
+                            $('#context').removeAttr('disabled')
+                            $('#endTime').removeAttr('disabled')
+                            $('#edit').attr('disabled','true')
+                        },
+                        Back: function () {
+                            window.location = 'PD_ReportContentSearch.html';
                         }
                     }
                 }

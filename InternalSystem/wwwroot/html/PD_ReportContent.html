@@ -621,59 +621,77 @@
                             this.Context.orderId = this.ProcessList.orderId
                             this.Context.employeeId = this.employee.EmpID
                             console.log(this.Context)
-                            axios.post('https://localhost:44319/api/ProductionContexts', this.Context)
-                                .then(x => console.log(x))
-                            window.location = 'index.html';
+                            if (confirm('確定送出?')) {
+                                if (this.Context.date == null) {
+                                    alert('請選擇日期')
+                                } else if (this.Context.startTime == null) {
+                                    alert('請選擇開始時間')
+                                } else if (this.Context.endTime == null) {
+                                    alert('請選擇結束時間')
+                                } else if (this.Context.context == undefined) {
+                                    alert('請輸入報工內容')
+                                } else {
+                                    axios.post('https://localhost:44319/api/ProductionContexts', this.Context)
+                                        .then(x => {
+                                            alert(x.data)
+                                            if (x.data == "成功") {
+                                                window.location = 'index.html';
+                                            }
+                                        })
+                                }
+
+                            }
+
                         }
                     }
                 }
                 Vue.createApp(app).mount('#app');
 
 
-                //var app = new Vue({
-                //    el: "#app",
-                //    data: {
-                //        ProcessList: {},
-                //        Context: {},
-                //        emplyee: { contxt: "" }
-                //    },
-                //    mounted:
-                //        function () {
-                //            $.ajax({
-                //                type: "get",
-                //                url: "https://localhost:44319/api/ProductionContexts/Contexts",
-                //                success: (e) => {
-                //                    this.Context = e[0];
-                //                }
-                //            })
-                //        }
-                //    ,
-                //    methods: {
-                //        Enter: function () {
+                                        //var app = new Vue({
+                                        //    el: "#app",
+                                        //    data: {
+                                        //        ProcessList: {},
+                                        //        Context: {},
+                                        //        emplyee: { contxt: "" }
+                                        //    },
+                                        //    mounted:
+                                        //        function () {
+                                        //            $.ajax({
+                                        //                type: "get",
+                                        //                url: "https://localhost:44319/api/ProductionContexts/Contexts",
+                                        //                success: (e) => {
+                                        //                    this.Context = e[0];
+                                        //                }
+                                        //            })
+                                        //        }
+                                        //    ,
+                                        //    methods: {
+                                        //        Enter: function () {
 
-                //            this.Context.processId = this.ProcessList.processId;
-                //            this.Context.employeeId = this.emplyee.id
-                //            this.Context.context = this.emplyee.contxt
-                //            this.Context.orderId = this.ProcessList.orderId
-                //            console.log(this.Context)
+                                        //            this.Context.processId = this.ProcessList.processId;
+                                        //            this.Context.employeeId = this.emplyee.id
+                                        //            this.Context.context = this.emplyee.contxt
+                                        //            this.Context.orderId = this.ProcessList.orderId
+                                        //            console.log(this.Context)
 
-                //            $.ajax({
-                //                type: "post",
-                //                url: "https://localhost:44319/api/ProductionContexts",
-                //                contentType: "application/json",
-                //                data: JSON.stringify(this.Context),
-                //                success: function () {
-                //                    window.location = "index.html"
-                //                }
-                //            })
-                //        }
-                //    }
-                //})
+                                        //            $.ajax({
+                                        //                type: "post",
+                                        //                url: "https://localhost:44319/api/ProductionContexts",
+                                        //                contentType: "application/json",
+                                        //                data: JSON.stringify(this.Context),
+                                        //                success: function () {
+                                        //                    window.location = "index.html"
+                                        //                }
+                                        //            })
+                                        //        }
+                                        //    }
+                                        //})
 
 
 
-                //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
-                //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
+                                        //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
+                                        //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
             </script>
             <!-- vue -->
             <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

@@ -214,26 +214,35 @@ namespace InternalSystem.Controllers
         // POST: api/ProductionContexts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ProductionContext>> PostProductionContext(ProductionContext productionContext)
+        public string  PostProductionContext(ProductionContext productionContext)
         {
-            _context.ProductionContexts.Add(productionContext);
-            try
+            TimeSpan endtime = Convert.ToDateTime(productionContext.EndTime).Subtract(Convert.ToDateTime(productionContext.StartTime));
+            double tt = endtime.TotalMinutes;
+            if (tt>0)
             {
-                await _context.SaveChangesAsync();
+                _context.ProductionContexts.Add(productionContext);
+                try
+                {
+                     _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    if (ProductionContextExists(productionContext.OrderId))
+                    {
+                        return Conflict().ToString();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
-            catch (DbUpdateException)
+            else
             {
-                if (ProductionContextExists(productionContext.OrderId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return "開始時間不能大於結束時間";
             }
 
-            return CreatedAtAction("GetProductionContext", new { id = productionContext.OrderId }, productionContext);
+            return "成功";
         }
 
         // DELETE: api/ProductionContexts/5
