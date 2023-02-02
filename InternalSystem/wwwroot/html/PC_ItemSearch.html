@@ -498,7 +498,7 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
+          <div class="content-wrapper"  id="app" >
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
@@ -509,19 +509,19 @@
               <div class="container">
                   <div class="mb-5 col-md-12 fs-4">
                       <label for="department" class="form-label fs-5">部門</label>
-                      <select id="department" class="select1 form-select fs-5">
-                          <option value="">選擇部門</option>
-                          <option value="Australia">生產部</option>
-                          <option value="Bangladesh">業務部</option>
-                          <option value="Belarus">人資部</option>
-                          <option value="Belarus">採購部</option>
+                      <select id="department" class="select1 form-select fs-5" @change="selectchange" v-model="search.id">
+                          <option value="選擇">選擇部門</option>
+                          <option value="通用">生產部</option>
+                          <option value="業務部">業務部</option>
+                          <option value="人事部">人事部</option>
+                          <option value="採購部">採購部</option>
                       </select>
                   </div>
 
                   <!-- 物品清單顯示 -->
                   <!-- 物品清單第一個 -->
                   <div class="row mb-5">
-                      <div id="app">
+                      <div>
                           <div class="row" >
                               <div v-for="a in item"class=" col-3 col-lg-4 mb-3 ">
                                   <div  class="card h-80 lvrv">
@@ -563,9 +563,17 @@
             data() {
                 return {
                     item: {},
+                    search: {
+                        "id": "",
+                    }
                 }
             },
             methods: {
+                selectchange: function () {
+                    console.log("/api/PCApplications/departmentsearch/?id=" + this.search.id)
+                    axios.get("/api/PCApplications/recordsearch?id=" + this.search.id)
+                        .then(response => this.item = response.data);
+                }
 
             },
             mounted() {

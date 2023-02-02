@@ -390,9 +390,37 @@ namespace InternalSystem.Controllers
                            Goods = OL.Goods,
                            Unit = OL.Unit,
                            UnitPrice = OL.UnitPrice,
-                           Image = OL.Image
+                           Image = OL.Image,
+                           Classification = OL.Classification
                        };
 
+
+            return await List.ToListAsync();
+        }
+
+        // 物品查詢專用  部門搜尋
+        // 用於 PC_ItemSearch
+        // GET: api/PCApplications/departmentsearch
+        [HttpGet("departmentsearch")]
+        public async Task<ActionResult<dynamic>> GetGoodsDepartmentSearch(string id)
+        {
+            var List = from AP in this._context.PcApplications
+                       join OD in this._context.PcOrderDetails on AP.OrderId equals OD.OrderId
+                       join GL in this._context.PcGoodLists on OD.ProductId equals GL.ProductId
+                       select new
+                       {
+                           ProductId = GL.ProductId,
+                           Goods = GL.Goods,
+                           Unit = GL.Unit,
+                           UnitPrice = GL.UnitPrice,
+                           Image = GL.Image,
+                           Classification = GL.Classification
+                       };
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                List = List.Where(a => a.Classification.Contains(id));
+            }
 
             return await List.ToListAsync();
         }
