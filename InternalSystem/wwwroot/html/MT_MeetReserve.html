@@ -660,7 +660,20 @@
               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body fs-4 fw-bold">
-              {{text}}
+              ✔&nbsp;{{text}}
+            </div>
+          </div>
+          <!-- 錯誤的吐司 -->
+          <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+            aria-live="assertive" aria-atomic="true" id="toastErr">
+            <div class="toast-header">
+              <i class="bx bx bxs-bell bx-tada me-2"></i>
+              <div class="me-auto fw-bold fs-3">通知</div>
+              <small></small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body fs-4 fw-bold">
+              ❌&nbsp;{{text}}
             </div>
           </div>
           <!-- / Content -->
@@ -706,19 +719,7 @@
     <!-- 吐司彈出窗 -->
     <!-- toasts  -->
     <script src="../assets/js/ui-toasts.js"></script>
-    <!-- 錯誤的 -->
-    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-      aria-live="assertive" aria-atomic="true" id="toastErr">
-      <div class="toast-header">
-        <i class="bx bx bxs-bell bx-tada me-2"></i>
-        <div class="me-auto fw-bold fs-3">通知</div>
-        <small></small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body fs-4 fw-bold">
-        ❌&nbsp;查詢失敗，請選擇日期與部門!
-      </div>
-    </div>
+    
     <!-- 無資料 -->
     <div class="bs-toast toast fade show bg-secondary mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
       aria-live="assertive" aria-atomic="true" id="toastNull">
@@ -783,7 +784,7 @@
                     if (response.data[0] != undefined) {
                       console.log(response.data);
 
-                      self.text = "✔&nbsp查詢成功"
+                      self.text = "✔ 查詢成功"
                       $("#toastSuc").fadeIn("fast");
                       setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
@@ -792,8 +793,6 @@
                       //改個資料形式(日期與時間)
                       for (let i = 0; i < self.MeetInf.length; i++) {
                         self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                        self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(0, 5);//開始時間
-                        self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(0, 5);//結束時間
                         self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
                         self.MeetInf[i].ModalId = "cancelModal" + [i]
                         self.MeetInf[i].isBookIdN = false //建立會議表
@@ -833,12 +832,25 @@
                 console.log(this.MeetRsInfo.endTime);
                 console.log(this.MeetRsInfo);
 
-                axios.post("https://localhost:44319/api/MeetingReserves/" + this.MeetRsInfo.depId + "/" + this.MeetRsInfo.startTime + "-" + this.MeetRsInfo.endTime, this.MeetRsInfo
+                axios.post("https://localhost:44319/api/MeetingReserves/" + this.MeetRsInfo.depId + "/" + this.MeetRsInfo.date + "/" + this.MeetRsInfo.startTime + "-" + this.MeetRsInfo.endTime, this.MeetRsInfo
                 )
                   .then(res => {
-                    this.text = "✔預約成功"
-                    $("#toastSuc").fadeIn("fast");
-                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                    if (res.data == "預約成功!") {
+                      this.text = res.data
+                      $("#toastSuc").fadeIn("fast");
+                      setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                    }
+                    else if (res.data == "選擇時段已有人預約!") {
+                      this.text = res.data
+                      $("#toastErr").fadeIn("fast");
+                      setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                    }
+                    else if (res.data == "結束時間要小於開始時間!") {
+                      this.text = res.data
+                      $("#toastErr").fadeIn("fast");
+                      setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                    }
+
                   })
                   .catch((error) => { alert('連線錯誤' + error); })
               },
