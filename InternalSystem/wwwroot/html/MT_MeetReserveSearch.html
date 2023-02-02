@@ -848,7 +848,7 @@
                                     //判斷是否有會議紀錄表了
                                     for (let i = 0; i < self.MeetInf.length; i++) {
 
-                                        axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetInf[i].bookId)
+                                        axios.get("https://localhost:44319/api/MeetingRecords/BkId/" + self.MeetInf[i].bookId)
                                             .then((res) => {
                                                 if (res.data[0] == undefined) {
                                                     self.MeetInf[i].isBookIdN = true; //會議預約的bookID
@@ -895,9 +895,10 @@
                             self.text = "✔儲存成功"
                             $("#toastSuc").fadeIn("fast");
                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            self.MeetInf.isRecord = false;
+                            this.DoMeetSearch();
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
-                    //this.DoMeetSearch();
                 }
             },
             mounted() {
