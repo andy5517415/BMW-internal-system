@@ -570,7 +570,7 @@
                                     <div class="button-wrapper d-flex justify-content-end">
 
                                         <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
-                                            上傳大頭照
+                                            上傳照片
                                             <i class="bx bx-upload d-block d-sm-none"></i>
                                             <input type="file"
                                                    id="upload"
@@ -579,11 +579,6 @@
                                                    accept="image/png, image/jpeg"
                                                    @change="uploadphoto" />
                                         </label>
-
-                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
-                                            <i class="bx bx-reset d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
-                                        </button>
 
 
                                     </div>
@@ -654,21 +649,24 @@
                 const app = {
                     data() {
                         return {
-                            BugList: {}
+                            BugList: {},
+                            List: {}
                         }
                     },
                     mounted() {
-                        this.BugList = JSON.parse(sessionStorage.getItem("bugdata"))
+                        this.List = JSON.parse(sessionStorage.getItem("bugdata"))
+                        axios.get('https://localhost:44319/api/ProductionProcessLists/GetBugList?orderNumber=' + this.List.orderNumber + '&date=' + this.List.date)
+                            .then(response => this.BugList = response.data);
                     },
                     methods: {
 
                         Enter: function () {
-                            console.log('ok')
-                            //axios.post('https://localhost:44319/api/ProductionBugContexts', this.Bugtext)
-                            //    .then(x => {
-                            //        console.log(x)
-                            //        window.location = "index.html"
-                            //    })
+                            axios.put('https://localhost:44319/api/ProductionProcessLists/putBug/' + this.BugList.orderId + '/' + this.BugList.date + '/' + this.BugList.title, this.BugList)
+                                .then(x => {
+                                    console.log(x)
+                                    alert('更新完成')
+                                    window.location = "index.html"
+                                })
                         },
 
                         Edit: function () {

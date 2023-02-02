@@ -119,7 +119,9 @@ namespace InternalSystem.Controllers
                             EmployeeName = PPD.EmployeeName,
                             EmployeeNumber = PPD.EmployeeNumber,
                             PD.DepName,
+                            ProcessId = PP.ProcessId,
                             ProcessName = PP.ProcessName,
+                            AreaId = PA.AreaId,
                             AreaName = PA.AreaName,
                             Date = PC.Date.ToString(),
                             StartTime = PC.StartTime,
@@ -180,12 +182,14 @@ namespace InternalSystem.Controllers
             return productionContext;
         }
 
+      
+
         // PUT: api/ProductionContexts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProductionContext(int id, ProductionContext productionContext)
+        [HttpPut("as/{orderid}/{empid}/{date}")]
+        public async Task<IActionResult> PutProductionContext(int orderid, int empid, string date, ProductionContext productionContext)
         {
-            if (id != productionContext.OrderId)
+            if (orderid != productionContext.OrderId)
             {
                 return BadRequest();
             }
@@ -198,7 +202,7 @@ namespace InternalSystem.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductionContextExists(id))
+                if (!ProductionContextExists(orderid))
                 {
                     return NotFound();
                 }
@@ -216,6 +220,7 @@ namespace InternalSystem.Controllers
         [HttpPost]
         public string  PostProductionContext(ProductionContext productionContext)
         {
+            //結束時間不能大於開始時間
             TimeSpan endtime = Convert.ToDateTime(productionContext.EndTime).Subtract(Convert.ToDateTime(productionContext.StartTime));
             double tt = endtime.TotalMinutes;
             if (tt>0)
@@ -245,6 +250,43 @@ namespace InternalSystem.Controllers
             return "成功";
         }
 
+
+
+        // POST: api/ProductionContexts
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("{id}")]
+        public string PostProductionContextUpdate(int id, ProductionContext productionContext)
+        {
+            //結束時間不能大於開始時間
+            TimeSpan endtime = Convert.ToDateTime(productionContext.EndTime).Subtract(Convert.ToDateTime(productionContext.StartTime));
+            double tt = endtime.TotalMinutes;
+            if (tt > 0)
+            {
+                _context.Entry(productionContext).State = EntityState.Modified;
+                //_context.ProductionContexts.Add(productionContext);
+                try
+                {
+                    _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    if (ProductionContextExists(productionContext.OrderId))
+                    {
+                        return Conflict().ToString();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            else
+            {
+                return "開始時間不能大於結束時間";
+            }
+
+            return "成功";
+        }
         // DELETE: api/ProductionContexts/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProductionContext(int id)

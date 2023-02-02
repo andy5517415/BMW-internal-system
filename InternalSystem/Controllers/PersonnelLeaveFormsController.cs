@@ -723,6 +723,8 @@ namespace InternalSystem.Controllers
             //日期差異判斷
             TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
             TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            DayOfWeek sd = personnelLeaveForm.StartDate.DayOfWeek;
+            DayOfWeek ed = personnelLeaveForm.EndDate.DayOfWeek;
             double dayCount = ts.TotalDays;
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
@@ -760,7 +762,8 @@ namespace InternalSystem.Controllers
             if (personnelLeaveForm.LeaveType <= 4)
             {
 
-                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                if (leave.LeaveOver >= personnelLeaveForm.TotalTime && sd != DayOfWeek.Saturday &&
+                    sd != DayOfWeek.Sunday && ed != DayOfWeek.Saturday && ed != DayOfWeek.Sunday)
                 {
                     if (update != null)
                     {
@@ -779,6 +782,11 @@ namespace InternalSystem.Controllers
                         _context.SaveChanges();
                     }
                     return Content("已重新提交申請");
+                }
+                else if (sd == DayOfWeek.Saturday || sd == DayOfWeek.Sunday ||
+                   ed == DayOfWeek.Saturday || ed == DayOfWeek.Sunday)
+                {
+                    return Content("請假開始時間或結束時間不可選於假日");
                 }
                 else
                 {
@@ -993,6 +1001,8 @@ namespace InternalSystem.Controllers
             //日期差異判斷
             TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
             TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            DayOfWeek sd = personnelLeaveForm.StartDate.DayOfWeek;
+            DayOfWeek ed = personnelLeaveForm.EndDate.DayOfWeek;
             double dayCount = ts.TotalDays;
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
@@ -1033,7 +1043,8 @@ namespace InternalSystem.Controllers
 
             if (personnelLeaveForm.LeaveType <= 4)
             {
-                if (leave.LeaveOver >= personnelLeaveForm.TotalTime)
+                if (leave.LeaveOver >= personnelLeaveForm.TotalTime && sd != DayOfWeek.Saturday && 
+                    sd != DayOfWeek.Sunday && ed != DayOfWeek.Saturday && ed != DayOfWeek.Sunday)
                 {
                     PersonnelLeaveForm insert = new PersonnelLeaveForm
                     {
@@ -1054,6 +1065,11 @@ namespace InternalSystem.Controllers
                     _context.PersonnelLeaveForms.Add(insert);
                     _context.SaveChanges();
                     return Content("申請成功");
+                }
+                else if(sd == DayOfWeek.Saturday || sd == DayOfWeek.Sunday || 
+                    ed == DayOfWeek.Saturday || ed== DayOfWeek.Sunday)
+                { 
+                    return Content("請假開始時間或結束時間不可選於假日");
                 }
                 else
                 {

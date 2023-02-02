@@ -505,7 +505,7 @@
 
                     <div v-if="limit.DepID==3" id="confirm" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
-                            <h2 class="card-header">訂單查詢/修改/刪除</h2>
+                            <h2 class="card-header" @click="oneclick">訂單查詢/修改/刪除</h2>
                             <h5 class="card-header">車輛資訊</h5>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
@@ -995,7 +995,8 @@
                                 this.isDisabled = true;
                             }
                                 axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
-                                    //console.log(g);
+                                    this.orderdetailold = g.data[0].optionalId;
+                                    console.log(`orderdetailold${this.orderdetailold}`);
                                     if (g.data[0].isAccepted) {
                                         this.btnseen = false;
                                         this.describeseen = true;
@@ -1057,19 +1058,30 @@
 
                         //將新的選配放入陣列儲存
                         this.orderdetail = [];
-                        this.orderdetail.push(this.cartypeone    .optionalId);
-                        this.orderdetail.push(this.carcolorone   .optionalId);
-                        this.orderdetail.push(this.cartextureone .optionalId);
-                        this.orderdetail.push(this.carwheelone   .optionalId);
-                        this.orderdetail.push(this.carplaqueone  .optionalId);
-                        this.orderdetail.push(this.carlightone   .optionalId);
-                        this.orderdetail.push(this.carsaddleone  .optionalId);
-                        this.orderdetail.push(this.carsunroofone .optionalId);
-                        this.orderdetail.push(this.carmediaone   .optionalId);
+                        this.orderdetail.push((this.cartypeone    .optionalId ==null)?'':this.cartypeone    .optionalId);
+                        this.orderdetail.push((this.carcolorone   .optionalId ==null)?'':this.carcolorone   .optionalId);
+                        this.orderdetail.push((this.cartextureone .optionalId ==null)?'':this.cartextureone .optionalId);
+                        this.orderdetail.push((this.carwheelone   .optionalId ==null)?'':this.carwheelone   .optionalId);
+                        this.orderdetail.push((this.carplaqueone  .optionalId ==null)?'':this.carplaqueone  .optionalId);
+                        this.orderdetail.push((this.carlightone   .optionalId ==null)?'':this.carlightone   .optionalId);
+                        this.orderdetail.push((this.carsaddleone  .optionalId ==null)?'':this.carsaddleone  .optionalId);
+                        this.orderdetail.push((this.carsunroofone .optionalId ==null)?'':this.carsunroofone .optionalId);
+                        this.orderdetail.push((this.carmediaone   .optionalId ==null)?'':this.carmediaone   .optionalId);
                         //console.log(this.orderdetail);
+                        axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}/${this.orderdetailold}`)
+                            .then(p => {
+                                this.odid = p.data;
+                                console.log(`${typeof this.odid}:${this.odid}`);
+                            });
 
-
-                        this.orderdetail.forEach(x => this.bodput.push({ 'orderId': this.orderid,'optionalId': x }));
+                        this.orderdetail.forEach((x,key) => {
+                            this.bodput.push(
+                                {
+                                    'odId': parseInt(this.odid) + parseInt(key,10),
+                                    'orderId': this.orderid,
+                                    'optionalId': x
+                                })
+                        });
                         console.log(this.bodput);
 
                         //修改Order資料表
@@ -1122,9 +1134,21 @@
                                 /*console.log(d);*/
                                 alert(d.data);
                                 //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
-                                //window.location.reload();
+                                window.location.reload();
                             })
                     }
+                },
+                oneclick() {
+                    this.cartypeone = this.cartype[0];
+                    this.carcolorone = this.carcolor[0];
+                    this.cartextureone = this.cartexture[0];
+                    this.carwheelone = this.carwheel[0];
+                    this.carplaqueone = this.carplaque[0];
+                    this.carlightone = this.carlight[0];
+                    this.carsaddleone = this.carsaddle[0];
+                    this.carsunroofone = this.carsunroof[0];
+                    this.carmediaone = this.carmedia[0];
+                    this.agentone = this.agent[0];
                 }
             },
             mounted() {
