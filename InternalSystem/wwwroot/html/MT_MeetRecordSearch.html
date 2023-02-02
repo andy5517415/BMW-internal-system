@@ -745,7 +745,7 @@
             methods: {
                 DoMeetSearch: function () {
                     var self = this;
-                    axios.get("https://localhost:44319/api/MeetingReserves/" + self.MeetSearch.DepId
+                    axios.get("https://localhost:44319/api/MeetingRecords/Rc/" + self.MeetSearch.DepId
                     )   //驗證
                         .then((response) => {
                             console.log(response.data);
@@ -760,14 +760,13 @@
                                 //改個資料形式(日期與時間)
                                 for (let i = 0; i < self.MeetInf.length; i++) {
                                     self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                                    self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(0, 5);//開始時間
-                                    self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(0, 5);//結束時間
                                     self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
                                     self.MeetInf[i].ModalId = "cancelModal" + [i]
                                 }
 
                             }
                             else {
+                                self.MeetInf.isValue = false;
                                 $("#toastNull").fadeIn("fast");
                                 setTimeout(() => $("#toastNull").fadeOut(), 2000);
                             }
@@ -781,7 +780,7 @@
                 DoSearchRecord: function (index) {
                     var self = this;
                     self.MeetInf.isRecord = true;
-                    axios.get("https://localhost:44319/api/MeetingRecords/1/" + self.MeetInf[index].bookId
+                    axios.get("https://localhost:44319/api/MeetingRecords/Record/" + self.MeetInf[index].bookId
                     )
                         .then(res => {
                             console.log(res.data);

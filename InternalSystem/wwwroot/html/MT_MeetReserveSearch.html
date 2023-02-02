@@ -33,7 +33,7 @@
     <script crossorigin="anonymous"
             integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
             src="https://lib.baomitu.com/axios/1.2.2/axios.min.js"></script>
-
+    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -521,12 +521,11 @@
                                     <label for="meetDepeart_select"
                                         class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold text-center fw-bold" style="width: 140px;">選擇部門</label>
                                     <div class="col-6 col-md-2">
-                                        <select v-model="MeetSearch.DepId" class="form-select fs-5" id="meetDepeart_select" style="height: 45px;">
+                                        <select v-model="MeetSearch.DepId" class="form-select fs-5" id="meetDepeart_select" style="height: 45px;" disabled>
                                             <option value="" disabled>選擇部門</option>
                                             <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
                                         </select>
                                     </div>
-
                                     <!-- ★送出按鈕 -->
                                     <div class="col-12 col-md-2">
                                         <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 col-12 fs-5 p-1">查詢</button>
@@ -534,6 +533,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- ★會議室租借紀錄 -->
                         <div class="card shadow m-4 mb-0" v-if="MeetInf.isValue">
                             <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
@@ -787,12 +787,14 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
 
-
+    <!-- Vue -->
     <script>
         const MeetSearchInf = {
             data() {
                 return {
+                    LoginInf: {},
                     Dep: {},
                     MeetSearch: {},
                     MeetInf: {
@@ -827,7 +829,7 @@
                                 if (response.data[0] != undefined) {
                                     console.log(response.data);
 
-                                    self.text = "✔&nbsp查詢成功"
+                                    self.text = "查詢成功"
                                     $("#toastSuc").fadeIn("fast");
                                     setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
@@ -836,8 +838,6 @@
                                     //改個資料形式(日期與時間)
                                     for (let i = 0; i < self.MeetInf.length; i++) {
                                         self.MeetInf[i].date = self.MeetInf[i].date.substring(0, 10);  //日期
-                                        self.MeetInf[i].startTime = self.MeetInf[i].startTime.substring(0, 5);//開始時間
-                                        self.MeetInf[i].endTime = self.MeetInf[i].endTime.substring(0, 5);//結束時間
                                         self.MeetInf[i].ModalTarget = "#cancelModal" + [i]
                                         self.MeetInf[i].ModalId = "cancelModal" + [i]
                                         self.MeetInf[i].isBookIdN = false //建立會議表
@@ -848,7 +848,7 @@
                                     //判斷是否有會議紀錄表了
                                     for (let i = 0; i < self.MeetInf.length; i++) {
 
-                                        axios.get("https://localhost:44319/api/MeetingRecords/" + self.MeetInf[i].bookId)
+                                        axios.get("https://localhost:44319/api/MeetingRecords/BkId/" + self.MeetInf[i].bookId)
                                             .then((res) => {
                                                 if (res.data[0] == undefined) {
                                                     self.MeetInf[i].isBookIdN = true; //會議預約的bookID
@@ -895,13 +895,16 @@
                             self.text = "✔儲存成功"
                             $("#toastSuc").fadeIn("fast");
                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            self.MeetInf.isRecord = false;
+                            this.DoMeetSearch();
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
-                    //this.DoMeetSearch();
                 }
             },
             mounted() {
                 axios.get('/api/PersonnelDepartmentLists').then(res => { this.Dep = res.data })
+                this.LoginInf = JSON.parse(sessionStorage.getItem("LoginInf"));
+                this.MeetSearch.DepId = this.LoginInf.DepID;
             }
         }
 

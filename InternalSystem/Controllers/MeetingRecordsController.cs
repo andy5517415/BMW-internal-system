@@ -21,8 +21,44 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
+        //有紀錄的才會顯示
+        // GET: api/MeetingRecords/1(部門編號)
+        [HttpGet("Rc/{depId}")]
+        public async Task<ActionResult<dynamic>> GetMeetingRecords_DepId(int depId)
+        {
+            var meetingBookMeetId = from a in _context.MeetingRecords
+                                    join b in _context.MeetingReserves on a.BookMeetId equals b.BookMeetId
+                                    join c in _context.MeetingRooms on b.MeetPlaceId equals c.MeetingPlaceId
+                                    join d in _context.PersonnelDepartmentLists on b.DepId equals d.DepartmentId
+                                    join e in _context.PersonnelProfileDetails on b.EmployeeId equals e.EmployeeId
+                                    where b.DepId == depId
+                                    orderby b.Date, b.StartTime
+                                    select new
+                                    {
+                                        BookId = a.BookMeetId,
+                                        MeetPlace = c.MeetingRoom1,
+                                        Date = b.Date,
+                                        Dependent = d.DepName,
+                                        EmployeeName = e.EmployeeName,
+                                        StartTime = b.StartTime,
+                                        EndTime = b.EndTime,
+                                        MeetType = b.MeetType,
+                                    };
+
+            if (meetingBookMeetId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                //return testover;
+                return await meetingBookMeetId.ToListAsync();
+            }
+        }
+
+        //BookID有才會回傳
         // GET: api/MeetingRecords/1
-        [HttpGet("{BookMeetId}")]
+        [HttpGet("BkId/{BookMeetId}")]
         public async Task<ActionResult<dynamic>> GetMeetingRecords_BookMeetId(int BookMeetId)
         {
             var meetingBookMeetId = from a in _context.MeetingRecords
@@ -42,17 +78,13 @@ namespace InternalSystem.Controllers
                 return await meetingBookMeetId.ToListAsync();
             }
         }
-        
-        //全部查詢
-        public async Task<ActionResult<IEnumerable<MeetingRecord>>> GetMeetingRecords()
-        {
-            return await _context.MeetingRecords.ToListAsync();
-        }
+
+
 
 
         //最終紀錄的終結果
         // GET: api/MeetingRecords/1(紀錄表編號)/1(會議編號)
-        [HttpGet("{1}/{BkId}")]
+        [HttpGet("Record/{BkId}")]
         public async Task<ActionResult<dynamic>> GetMeetingRecords(int RcId, int BkId)
         {
             var meetingRecords = from a in _context.MeetingRecords
@@ -83,6 +115,12 @@ namespace InternalSystem.Controllers
                 return await meetingRecords.ToListAsync();
             }
 
+        }
+
+        //全部查詢
+        public async Task<ActionResult<IEnumerable<MeetingRecord>>> GetMeetingRecords()
+        {
+            return await _context.MeetingRecords.ToListAsync();
         }
 
         // PUT: api/MeetingRecords/5
@@ -136,16 +174,16 @@ namespace InternalSystem.Controllers
             MeetingRecord insert = new MeetingRecord
             {
                 BookMeetId = BookMeetId,
-                MeetPresident= b.MeetPresident,
-                Rcorder= b.Rcorder,
-                Participater= b.Participater,
-                ShouldAttend= b.ShouldAttend,
-                Attend= b.Attend,
-                NoAttend= b.NoAttend,
-                NoAttendPerson= b.NoAttendPerson,
-                Date= DateTime.Now,
-                Agenda=b.Agenda,
-                Record= b.Record,
+                MeetPresident = b.MeetPresident,
+                Rcorder = b.Rcorder,
+                Participater = b.Participater,
+                ShouldAttend = b.ShouldAttend,
+                Attend = b.Attend,
+                NoAttend = b.NoAttend,
+                NoAttendPerson = b.NoAttendPerson,
+                Date = DateTime.Now,
+                Agenda = b.Agenda,
+                Record = b.Record,
             };
 
             _context.MeetingRecords.Add(insert);

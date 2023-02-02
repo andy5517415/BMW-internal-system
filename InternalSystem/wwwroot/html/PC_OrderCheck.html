@@ -623,8 +623,20 @@
                             </div>
                             <div>
                             </div>
+
+                            <!--錯誤訊息-->
+                            <div v-if="seen">
+                                <label for="appcationrejectreson" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">審核未通過描述 : </label>
+                                <input class="form-control fs-5"
+                                          id="appcationrejectreson"
+                                          rows="5"
+                                          readonly
+                                          v-model="description">
+
+                            </div>
+
                             <div class="row">
-                                <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">駁回</button>
+                                <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="show">駁回</button>
                                 <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
                             </div>
                         </div>
@@ -693,7 +705,6 @@
           Confirm: function () {
             this.todoitem.applicationStatus = true;
             this.todoitem.deliveryStatus = true;
-            /*this.todoitem.total = 500;*/
             //console.log(this.todoitem.orderId);
             if (confirm("確定要送出申請嗎?") == true) {
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
@@ -704,7 +715,7 @@
           },
 
           Cancel: function () {
-            this.todoitem.applicationRejectStatus = true;
+              this.todoitem.applicationRejectStatus = true;
             if (confirm("確定要駁回申請嗎?") == true) {
               //console.log("ok");
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
@@ -712,7 +723,11 @@
               window.location = "PC_ToDoItems.html";
 
             }
-          }
+            },
+
+            show: function () {
+                
+            }
 
         },
         mounted() {

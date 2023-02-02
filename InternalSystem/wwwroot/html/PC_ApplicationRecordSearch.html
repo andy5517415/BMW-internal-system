@@ -544,7 +544,7 @@
                                   <!-- 按鈕 -->
                                   <div class="mt-2  d-md-flex justify-content-md-end">
                                       <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                                      <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                      <button type="reset" @click="cancelbtn" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                   </div>
                               </div>
                                   <!-- 採購清單 -->
@@ -631,7 +631,6 @@
                         search: {
                             "id": "",
                             "startdate": ""
-                            /*"enddate":""*/
                         }
                     }
                   },
@@ -722,9 +721,49 @@
                                         console.log("b");
                                     }
                                 });
-                        }
+                            }
+                        }, cancelbtn: function () {
+                            this.search.id = ""
+                            delete this.search.startdate
+                            delete this.search.enddate
 
-                    }
+                        axios.get('/api/PCApplications/recordsearch')
+                            .then(response => {
+                                this.OrderList = response.data;
+                                for (var i = 0; i < this.OrderList.length; i++) {
+                                    if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                                        this.OrderList[i].totalapp = "審核中";
+                                        this.OrderList[i].color = "badge bg-primary";
+                                    }
+                                    if (this.OrderList[i].applicationStatus == false && this.OrderList[i].deliveryStatus == false && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == true && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                                        this.OrderList[i].totalapp = "駁回申請";
+                                        this.OrderList[i].color = "badge bg-danger";
+                                    }
+                                    //if (this.OrderList[i].applicationStatus == true && deliveryStatus == false && acceptanceStatus == false) {
+                                    //    this.OrderList[i].applicationStatus = "審核完成"
+                                    //}
+                                    if (this.OrderList[i].deliveryStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                                        this.OrderList[i].totalapp = "配送中"
+                                        this.OrderList[i].color = "badge bg-warning text-dark";
+                                    }
+                                    if (this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == true) {
+                                        this.OrderList[i].totalapp = "已退貨"
+                                        this.OrderList[i].color = "badge bg-danger";
+                                    }
+                                    ////if (this.OrderList[i].deliveryStatus == true && applicationStatus == true && acceptanceStatus == false) {
+                                    ////    this.OrderList[i].deliveryStatus = "配送完成"
+                                    ////}
+                                    if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                                        this.OrderList[i].totalapp = "驗收中"
+                                        this.OrderList[i].color = "badge bg-info text-dark";
+                                    }
+                                    if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
+                                        this.OrderList[i].totalapp = "驗收完成"
+                                        this.OrderList[i].color = "badge bg-success";
+                                    }
+                                }
+                            })
+                        }
                   },
                     mounted() {
 

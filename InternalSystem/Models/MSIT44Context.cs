@@ -289,9 +289,13 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_Application");
 
+                entity.Property(e => e.ApplicationRejectReason).HasMaxLength(200);
+
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
                 entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.DeliveryRejectReason).HasMaxLength(200);
 
                 entity.Property(e => e.Department)
                     .IsRequired()
@@ -310,6 +314,8 @@ namespace InternalSystem.Models
                     .HasName("PK_物品資料查詢");
 
                 entity.ToTable("PC_GoodList");
+
+                entity.Property(e => e.Classification).HasMaxLength(10);
 
                 entity.Property(e => e.Goods)
                     .IsRequired()

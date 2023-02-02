@@ -942,7 +942,10 @@
                     odId: '',
                     areaId: '',
                     limit: {},
-                    orderdatetime: {}
+                    orderdatetime: {},
+
+
+                    bodput: []
                 }
             },
             computed: {
@@ -992,7 +995,7 @@
                                 this.isDisabled = true;
                             }
                                 axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
-                                    console.log(g);
+                                    //console.log(g);
                                     if (g.data[0].isAccepted) {
                                         this.btnseen = false;
                                         this.describeseen = true;
@@ -1050,7 +1053,7 @@
                             "EmployeeId": 5,
                             "IsAccepted": false
                         };
-                        console.log(this.orderput);
+                        //console.log(this.orderput);
 
                         //將新的選配放入陣列儲存
                         this.orderdetail = [];
@@ -1063,14 +1066,18 @@
                         this.orderdetail.push(this.carsaddleone  .optionalId);
                         this.orderdetail.push(this.carsunroofone .optionalId);
                         this.orderdetail.push(this.carmediaone   .optionalId);
-                        console.log(this.orderdetail);
+                        //console.log(this.orderdetail);
+
+
+                        this.orderdetail.forEach(x => this.bodput.push({ 'orderId': this.orderid,'optionalId': x }));
+                        console.log(this.bodput);
 
                         //修改Order資料表
-                        axios.put('/api/BusinessOrders/' + this.orderid, this.orderput)
+                        axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}&price=${this.cnt}`, this.bodput)
                             .then(p => {
-                                //console.log('this.orderid = ' + this.orderid);
+                                console.log(p);
 
-                                //迴圈9次修改OrderDetail
+                                /*//迴圈9次修改OrderDetail
                                 for (let n = 0; n < 9; n++) {
                                     //找舊選配optionalId
                                     axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
@@ -1097,13 +1104,14 @@
                                                     axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
                                                         .then(p => {
                                                             console.log(p);
+                                                            //window.location.reload();//promise
                                                         })
                                                 })
                                         })
                                 }
+                                */
                                 alert('訂單修改成功!');
                             });
-                                //window.location.reload();//刷新會更新失敗
                     }
                 },
                 btndelete() {
