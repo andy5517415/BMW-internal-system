@@ -1067,63 +1067,62 @@
                         this.orderdetail.push((this.carsaddleone  .optionalId ==null)?'':this.carsaddleone  .optionalId);
                         this.orderdetail.push((this.carsunroofone .optionalId ==null)?'':this.carsunroofone .optionalId);
                         this.orderdetail.push((this.carmediaone   .optionalId ==null)?'':this.carmediaone   .optionalId);
-                        //console.log(this.orderdetail);
+                        console.log(this.orderdetail);
                         axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}/${this.orderdetailold}`)
                             .then(p => {
                                 this.odid = p.data;
-                                console.log(`${typeof this.odid}:${this.odid}`);
-                            });
-
-                        this.orderdetail.forEach((x,key) => {
-                            this.bodput.push(
-                                {
-                                    'odId': parseInt(this.odid) + parseInt(key,10),
-                                    'orderId': this.orderid,
-                                    'optionalId': x
-                                })
-                        });
-                        console.log(this.bodput);
-
-                        //修改Order資料表
-                        axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}&price=${this.cnt}`, this.bodput)
-                            .then(p => {
-                                console.log(p);
-
-                                /*//迴圈9次修改OrderDetail
-                                for (let n = 0; n < 9; n++) {
-                                    //找舊選配optionalId
-                                    axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
-                                        .then(g => {
-                                            console.log(g.data[n].optionalId);
-                                            this.orderdetailold = g.data[n].optionalId;
-                                            //console.log(`g.data[0].OptionalId${g.data[n].OptionalId}`);
-                                            //console.log(`this.orderdetailold${this.orderdetailold}`);
-
-                                            //由 orderId, optionalId  找到唯一識別欄位OdId
-                                            axios.get('/api/BusinessOrderDetails/' + this.orderid + '/' + this.orderdetailold)
-                                                .then(p => {
-                                                    //console.log(p.data);
-                                                    this.odid = p.data;
-                                                    console.log(this.odid);
-                                                    //組裝OrderDetail資料表
-                                                    this.orderdetailput = {
-                                                        "odId": this.odid,
-                                                        "OrderId": this.orderid,
-                                                        "OptionalId": this.orderdetail[n]
-                                                    }
-                                                    console.log(this.orderdetailput);
-                                                    //putOrderDetail資料表
-                                                    axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
-                                                        .then(p => {
-                                                            console.log(p);
-                                                            //window.location.reload();//promise
-                                                        })
-                                                })
+                                this.orderdetail.forEach((x,key) => {
+                                    this.bodput.push(
+                                        {
+                                            'odId': parseInt(this.odid) + parseInt(key,10),
+                                            'orderId': this.orderid,
+                                            'optionalId': x
                                         })
-                                }
-                                */
-                                alert('訂單修改成功!');
+                                });
+                                axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}&price=${this.cnt}`, this.bodput)
+                                    .then(p => {
+                                    console.log(p);
+
+                                    /*//迴圈9次修改OrderDetail
+                                    for (let n = 0; n < 9; n++) {
+                                        //找舊選配optionalId
+                                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
+                                            .then(g => {
+                                                console.log(g.data[n].optionalId);
+                                                this.orderdetailold = g.data[n].optionalId;
+                                                //console.log(`g.data[0].OptionalId${g.data[n].OptionalId}`);
+                                                //console.log(`this.orderdetailold${this.orderdetailold}`);
+
+                                                //由 orderId, optionalId  找到唯一識別欄位OdId
+                                                axios.get('/api/BusinessOrderDetails/' + this.orderid + '/' + this.orderdetailold)
+                                                    .then(p => {
+                                                        //console.log(p.data);
+                                                        this.odid = p.data;
+                                                        console.log(this.odid);
+                                                        //組裝OrderDetail資料表
+                                                        this.orderdetailput = {
+                                                            "odId": this.odid,
+                                                            "OrderId": this.orderid,
+                                                            "OptionalId": this.orderdetail[n]
+                                                        }
+                                                        console.log(this.orderdetailput);
+                                                        //putOrderDetail資料表
+                                                        axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
+                                                            .then(p => {
+                                                                console.log(p);
+                                                                //window.location.reload();//promise
+                                                            })
+                                                    })
+                                            })
+                                    }
+                                    */
+                                    alert('訂單修改成功!');
+                                });
+                                //console.log(`${typeof this.odid}:${this.odid}`);
+                                //console.log(this.bodput);
+
                             });
+                        //修改Order資料表
                     }
                 },
                 btndelete() {
