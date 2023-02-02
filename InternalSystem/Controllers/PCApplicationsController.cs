@@ -78,8 +78,8 @@ namespace InternalSystem.Controllers
             return await list.ToListAsync();
         }
 
-        //申請表
-        // 用於PC_OrderCheck.html 送出成功拋值
+        //採購審核訂單細項
+        //用於PC_OrderCheck.html 送出成功拋值
         //GET: api/PCApplications/OrderCheck
         [HttpGet("OrderCheck/{id}")]
         public async Task<ActionResult<dynamic>> GetOrderCheck(int id)
@@ -103,7 +103,9 @@ namespace InternalSystem.Controllers
                            DeliveryStatus = AP.DeliveryStatus,
                            DeliveryRejectStatus = AP.DeliveryRejectStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
-                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus
+                           AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
+                           ApplicationRejectReason = AP.ApplicationRejectReason,
+                           DeliveryRejectReason = AP.DeliveryRejectReason
                        };
 
             return await list.FirstOrDefaultAsync();
@@ -226,6 +228,7 @@ namespace InternalSystem.Controllers
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
                            ApplicationRejectStatus = AP.ApplicationRejectStatus,
+                           ApplicationRejectReason = AP.ApplicationRejectReason,
                            Date = AP.Date.ToString(),
                            Comment = AP.Comment
                        };

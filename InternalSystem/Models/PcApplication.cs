@@ -25,6 +25,8 @@ namespace InternalSystem.Models
         public bool DeliveryRejectStatus { get; set; }
         public bool AcceptanceStatus { get; set; }
         public bool AcceptanceRejectStatus { get; set; }
+        public string ApplicationRejectReason { get; set; }
+        public string DeliveryRejectReason { get; set; }
 
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual ICollection<PcOrderDetail> PcOrderDetails { get; set; }

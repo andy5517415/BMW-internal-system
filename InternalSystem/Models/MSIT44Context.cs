@@ -289,9 +289,13 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_Application");
 
+                entity.Property(e => e.ApplicationRejectReason).HasMaxLength(200);
+
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
                 entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.DeliveryRejectReason).HasMaxLength(200);
 
                 entity.Property(e => e.Department)
                     .IsRequired()

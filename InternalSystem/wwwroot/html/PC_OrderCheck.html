@@ -693,7 +693,6 @@
           Confirm: function () {
             this.todoitem.applicationStatus = true;
             this.todoitem.deliveryStatus = true;
-            /*this.todoitem.total = 500;*/
             //console.log(this.todoitem.orderId);
             if (confirm("確定要送出申請嗎?") == true) {
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
@@ -704,7 +703,7 @@
           },
 
           Cancel: function () {
-            this.todoitem.applicationRejectStatus = true;
+              this.todoitem.applicationRejectStatus = true;
             if (confirm("確定要駁回申請嗎?") == true) {
               //console.log("ok");
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
