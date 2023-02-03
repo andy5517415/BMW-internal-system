@@ -111,7 +111,7 @@ namespace InternalSystem.Controllers
 
 
         //個人資料觀看
-        // GET: api/PersonnelProfileDetails/5
+        // GET: api/PersonnelProfileDetails/profile/5
         [HttpGet("profile/{id}")]
         public async Task<ActionResult<dynamic>> GetProfileDetail(int id)
         {
