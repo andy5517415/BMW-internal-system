@@ -498,20 +498,20 @@
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料查詢</h4>
-                        <div class="card mb-4 m-4 card-body">
+                        <div class="card m-4 my-5 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="my-4 d-flex justify-content-center">
-                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假月份</label>
-                                    <div class="col-md-2">
+                                <div class="my-4 d-flex mx-4" style="width: 500px;">
+                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">請假月份</label>
+                                    <div class="col">
                                         <input class="form-control fs-5" type="month" v-model="leavesearch.month" id="html5-month-input" />
                                     </div>
-                                </div>
-                                <div class="mt-5 mb-3 d-flex justify-content-center">
-                                    <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                                    <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">重選</button>
-                                </div>
+                                    <div class="col">
+                                        <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
+                                    </div>                                      
+                                </div>                           
                             </form>
                         </div>
+
 
 
                         <!-- Basic Bootstrap Table -->
@@ -552,6 +552,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
                             <nav aria-label="Page navigation example" class="justify-content-center d-flex">
                                 <ul class="pagination">
                                     <li class="page-item">

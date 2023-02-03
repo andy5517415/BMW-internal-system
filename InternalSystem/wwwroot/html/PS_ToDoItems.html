@@ -502,18 +502,14 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y" id="app">
                 <h4 class="fw-bold py-3 mb-4EK"><span class="text-muted fw-light">個人資料 /</span> 待辦事項</h4>
-                <div class="card mb-4 m-4 card-body">
                     <div class="container-xxl flex-grow-1 container-p-y">
-
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="nav-align-top mb-4">
+                      <div class="card mb-4 m-4">
                                     <!-- ★設權限 -->
                                     <ul class="nav nav-pills mb-3 nav-fill active" role="tablist" >
                                         <li class="nav-item " v-if="employeelist.positionId<7">
                                             <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt!=0">{{cnt}}</span>
                                             <button type="button"
-                                                    class="btn-outline-primary fw-bold border-3"
+                                                    class="btn-outline-primary fw-bold border-3 my-5"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
@@ -573,11 +569,14 @@
                                             </button>
                                         </li>-->
                                     </ul>
+                                
 
+                        
 
-                                    <div class="tab-content">
+                                    
+
                                         <!-- 請假 -->
-                                        <div class="tab-pane fade show active" id="home" role="tabpanel" v-if="employeelist.positionId < 7">
+                                        <div id="home" role="tabpanel" v-if="employeelist.positionId < 7">
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table">
                                                     <thead>
@@ -869,9 +868,9 @@
                                         </table>
                             </div>
                         </div>
-                    </div>
 
-                </div>
+
+
 
             </div>
             <!-- Content wrapper -->

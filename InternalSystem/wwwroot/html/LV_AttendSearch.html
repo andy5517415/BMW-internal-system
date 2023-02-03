@@ -508,23 +508,22 @@
                           <div class="card mb-4 m-4 card-body">
                               <form id="formAccountSettings" method="POST" onsubmit="return false">
 
-                                <div class="my-4 d-flex justify-content-center">
-                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">查詢月份</label>
-                                    <div class="col-md-2">
+                                <div class="my-4 d-flex" style="width: 500px;">
+                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">查詢月份</label>
+                                    <div class="col">
                                         <input class="form-control fs-5" type="month" v-model="employeedata.date" id="html5-month-input" />
                                     </div>
-                                </div>
-                                  <div class="mt-5 mb-3 d-flex justify-content-center">
-                                      <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                                      <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
-                                  </div>
+                                    <div class="col">
+                                        <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
+                                    </div>
+                                </div>                             
                           </div>
 
 
                           </form>
                           <!-- Basic Bootstrap Table -->
-                          <div class="card">
-                              <h5 class="card-header">出勤資料</h5>
+                          <div class="card mx-4">
+                            <h5 class="alert alert-primary mx-auto my-4 fw-bold fs-2">出勤資料</h5>
                               <div class="table-responsive text-nowrap">
                                   <table class="table">
                                       <thead>
@@ -627,14 +626,14 @@
             methods: {
                 searchbtn: function () {
                     if (this.employeedata.date != null) {
-                        axios.get('/api/PersonnelAttendanceTimes/id/' + this.empdata.EmpID + '/' + this.employeedata.date +'/' +1)
+                        axios.get('/api/PersonnelAttendanceTimes/id/' + this.empdata.EmpID + '/' + this.employeedata.date + '/' + 1)
                             .then(response => {
                                 this.attendencelist = response.data;
                                 this.nowpage = 1;
                                 console.log(this.attendencelist)
                                 if (this.attendencelist.length == 0) { alert('查無此項') }
                             }).catch(err => { console.log(err); alert('查無此項') })
-                        axios.get('/api/PersonnelAttendanceTimes/Page/id/' + this.empdata.EmpID + '/' + this.employeedata.date )
+                        axios.get('/api/PersonnelAttendanceTimes/Page/id/' + this.empdata.EmpID + '/' + this.employeedata.date)
                             .then(response => {
                                 this.page = response.data;
                                 console.log(this.page)
