@@ -511,18 +511,16 @@
 
                   <div class="card mb-4 m-4 ">
                       <div class="card text-center ">
-                      <div class="row card-body">
-                          <div class=" row">
-                              <label for="" class=" col-2 fs-4 ">訂單編號</label>
-                              <label for="" class=" col-2 fs-4 ">部門</label>
-                              <label for="" class=" col-2 fs-4 ">申請人</label>
-                              <label for="" class=" col-2 fs-4 ">金額</label>
-                              <label for="" class=" col-2 fs-4 ">配送狀態</label>
-                          </div>
-                      
+                            <div class="row card-body">
+                                <div class=" row">
+                                    <label for="" class=" col-2 fs-4 ">訂單編號</label>
+                                    <label for="" class=" col-2 fs-4 ">部門</label>
+                                    <label for="" class=" col-2 fs-4 ">申請人</label>
+                                    <label for="" class=" col-2 fs-4 ">金額</label>
+                                    <label for="" class=" col-2 fs-4 ">配送狀態</label>
+                                </div>
+                            </div>
                       </div>
-        
-                    </div>
                   </div>
                   
                   <div id="app">
@@ -535,6 +533,7 @@
                                       <label for="" class=" col-2 fs-4 ">{{order.employeeName}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.total}}</label>
                                       <label for="" class=" col-2 fs-4 ">{{order.deliveryStatus}}</label>
+                                      <!--點擊按鈕進去驗收細項-->
                                       <div class="col-2   d-md-flex justify-content-md-end">
                                           <a href="PC_AcceptanceOrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">驗收</a>
                                       </div>
@@ -545,17 +544,8 @@
                           </div>
                       </div>
                   </div>
-                  
-              <!-- </div> -->
-
-            <!-- / Content -->
-
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
+                 <div class="content-backdrop fade"></div>
+            </div>
             
           <!-- Content wrapper -->
         </div>
@@ -566,6 +556,8 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+    <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -620,7 +612,5 @@
         Vue.createApp(app).mount('#app')
 
     </script>
-      <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>

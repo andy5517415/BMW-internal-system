@@ -170,6 +170,7 @@ td{
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 button {
   padding: 0.75em 2em;
   text-align: center;
@@ -204,7 +205,7 @@ button:hover {
       transform: skewX(-45deg) translateX(40em);
      transition: all 1s ease-in-out;
     }
-
+    
 .toast{
   display: none;
 }
