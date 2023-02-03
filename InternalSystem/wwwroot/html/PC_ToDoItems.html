@@ -511,18 +511,16 @@
 
                   <div class="card mb-4 m-4 ">
                       <div class="card text-center ">
-                      <div class="row card-body">
-                          <div class=" row">
-                              <label for="" class=" col-2 fs-4 ">訂單編號</label>
-                              <label for="" class=" col-2 fs-4 ">部門</label>
-                              <label for="" class=" col-2 fs-4 ">申請人</label>
-                              <label for="" class=" col-2 fs-4 ">金額</label>
-                              <label for="" class=" col-2 fs-4 ">審核狀態</label>
+                          <div class="row card-body">
+                              <div class=" row">
+                                  <label for="" class=" col-2 fs-4 ">訂單編號</label>
+                                  <label for="" class=" col-2 fs-4 ">部門</label>
+                                  <label for="" class=" col-2 fs-4 ">申請人</label>
+                                  <label for="" class=" col-2 fs-4 ">金額</label>
+                                  <label for="" class=" col-2 fs-4 ">審核狀態</label>
+                              </div>
                           </div>
-                      
                       </div>
-        
-                    </div>
                   </div>
                   
                   <div id="app">
@@ -539,21 +537,10 @@
                                           <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-outline-primary 2">安排</a>
                                       </div>
                                   </div>
-
                               </div>
-
                           </div>
                       </div>
                   </div>
-                  
-              <!-- </div> -->
-
-            <!-- / Content -->
-
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
             <div class="content-backdrop fade"></div>
           </div>
             
@@ -576,6 +563,8 @@
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
+    <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
 
     <!-- Vendors JS -->
     <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
@@ -617,7 +606,5 @@
         Vue.createApp(app).mount('#app')
 
     </script>
-      <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>
