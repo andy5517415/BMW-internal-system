@@ -646,7 +646,7 @@
                                             </div>
                                             <div class="modal-body alert fs-4 fw-bold col-12 mx-auto text-center">
                                                 請輸入原因：
-                                                <input>
+                                                <input v-model="rejectreason">
                                             </div>
                                             <br>
                                             <p class="fs-6 text-center">⚠️注意，取消後需重新申請!</p>
@@ -718,11 +718,7 @@
             myobject: {},
             todoitem: {},
             aok: {},
-            MeetInf: {
-                isValue: false,
-                isRecord: false,
-            },
-
+            rejectreason: {}
           }
         },
         methods: {
@@ -736,17 +732,16 @@
                 .then(a => console.log(a));
               window.location = "PC_ToDoItems.html";
             }
-
           },
 
           Cancel: function () {
-            this.todoitem.applicationRejectStatus = true;
+              this.todoitem.applicationRejectStatus = true;
+              this.todoitem.ApplicationRejectReason = this.rejectreason;
             if (confirm("確定要駁回申請嗎?") == true) {
               //console.log("ok");
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
                 .then(a => console.log(a));
               window.location = "PC_ToDoItems.html";
-
             }
           },
 
@@ -772,7 +767,7 @@
             })
 
           //得到整張申請單狀態
-          axios.get('https://localhost:44319/api/PCApplications/OrderCheck/' + this.myobject.orderId)
+          axios.get('/api/PCApplications/OrderCheck/' + this.myobject.orderId)
             .then(response => this.todoitem = response.data);
           console.log(this.todoitem);
         }
