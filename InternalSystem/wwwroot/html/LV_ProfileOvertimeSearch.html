@@ -501,15 +501,14 @@
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
 
-                                <div class="my-4 d-flex justify-content-center">
-                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班月份</label>
-                                    <div class="col-md-2">
+                                <div class="my-4 d-flex mx-4" style="width: 500px;">
+                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">加班月份</label>
+                                    <div class="col">
                                         <input class="form-control fs-5" type="month" v-model="selectlist.month" id="html5-month-input" />
                                     </div>
-                                </div>
-                                <div class="mt-5  d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " v-on:click="searchbtn">查詢</button>
-                                    <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                    <div class="col ms-4">
+                                        <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " v-on:click="searchbtn">查詢</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

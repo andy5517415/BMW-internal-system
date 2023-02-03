@@ -500,39 +500,23 @@
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 修改員工資料</h4>
                         <div class="card mb-5 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="alert alert-primary text-center my-4 fs-2 fw-bold col-3 mx-auto" style="width: 350px;" role="alert">
-                                    員工資料修改
-                                </div>
-                                <div class="row py-3 d-flex justify-content-center">
-                                    <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-5">員工編號</label>
-                                        <div class="my-4"></div>
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-5">員工名稱</label>
+                                
+                                <div class="my-4 d-flex">
+                                    <label for="EmployeeName" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
+                                    <div class="col">
+                                        <input v-model="employeeNumber" class="form-control fs-5" id="EmployeeNumber" />
                                     </div>
                                     
-                                    <div class="mb-3 col-md-3">
-                                        <input v-model="employeeNumber" class="form-control fs-5" id="EmployeeNumber" />
-                                        <div class="my-4"></div>
-                                        <div style="height: 5px;"></div>
+                                    <label for="EmployeeName" class="ms-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工名稱</label>
+
+                                    <div class="col ms-4">
                                         <input v-model="employeeName" class="form-control fs-5" id="Employeename" />
                                     </div>
 
-                                    
-                                    
-                                    <!--<div class="mb-3 col-md-2">
-                                        <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
-                                        <select v-model="employeelist.departmentId" v-if="departmentId" id="department" class="select2 form-select">
-                                            <option v-for="item in departmentlist" :value="item.depId"></option>
-                                        </select>
-                                    </div>-->
-
-                                    <div class="mt-4 d-flex justify-content-center">
+                                    <div class="col ms-4">
                                         <button type="button" v-on:click="searchbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
-                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3" >取消</button>
                                     </div>
                                 </div>
-
-
                             </form>
                         </div>
 
