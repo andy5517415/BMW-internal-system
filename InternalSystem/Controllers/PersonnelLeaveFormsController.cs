@@ -457,7 +457,7 @@ namespace InternalSystem.Controllers
         {
             var personnelLeaveForm = from ap in _context.PcApplications
                                      join pd in _context.PersonnelProfileDetails on ap.EmployeeId equals pd.EmployeeId
-                                     where ap.EmployeeId == id && ap.ApplicationRejectStatus == false
+                                     where ap.EmployeeId == id && ap.ApplicationRejectStatus == true
 
                                      select new
                                      {
