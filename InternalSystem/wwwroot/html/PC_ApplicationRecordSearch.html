@@ -499,58 +499,45 @@
           <div class="content-wrapper">
               <!-- Content -->
 
-              <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="container-xxl flex-grow-1 container-p-y" id="app">
                   <!-- 頁面中間上面輸出 -->
                   <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購紀錄查詢</h4>
 
                   <div class="row">
                       <div class="col-md-12">
-                          <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                              <li class="nav-item mb-4 mx-4">
-                                  <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>查詢表</a>
-                              </li>
-                          </ul>
-                          <div class="card mb-4 m-4 mx-4" id="app">
-                              <!-- 員工名稱 -->
-                              <div class="card-body">
-                                  <!-- 部門選擇 -->
-                                  <div class="mb-3 col-md-12">
-                                      <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
-                                      <select id="department" class="select1 form-select" v-model="search.id">
-                                          <option value="">選擇部門</option>
-                                          <option value="生產部">生產部</option>
-                                          <option value="業務部">業務部</option>
-                                          <option value="人事部">人事部</option>
-                                          <option value="採購部">採購部</option>
-                                      </select>
-                                  </div>
-
-                                  <!-- 起始日期 -->
-                                  <div class="row">
-                                      <div class="mb-3 col-md-6">
-                                          <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">起始日期</label>
-                                          <div class="col-md-12">
-                                              <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.startdate" />
-                                          </div>
-                                      </div>
-                                      <!-- 結束日期 -->
-                                      <div class="mb-3 col-md-6">
-                                          <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-boldl">結束日期</label>
-                                          <div class="col-md-12">
-                                              <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.enddate"/>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- 按鈕 -->
-                                  <div class="mt-2  d-md-flex justify-content-md-end">
-                                      <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                                      <button type="reset" @click="cancelbtn" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
-                                  </div>
+                          <div class="card mb-5 m-4 card-body inputCard">
+                            <div class="d-flex mt-4">
+                              <!-- 部門 -->
+                              <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                              <div class="col ms-2">
+                                <select id="department" class="select1 form-select" v-model="search.id">
+                                  <option value="">選擇部門</option>
+                                  <option value="生產部">生產部</option>
+                                  <option value="業務部">業務部</option>
+                                  <option value="人事部">人事部</option>
+                                  <option value="採購部">採購部</option>
+                                </select>
                               </div>
+                              <!-- 起始日 -->
+                              <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-4">起始日期</label>
+                              <div class="col ms-2">
+                                <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.startdate" />
+                              </div>
+                              <!-- 結束日 -->
+                              <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-4">結束日期</label>
+                              <div class="col ms-2">
+                                <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.enddate" />
+                              </div>
+                            </div>  
+
+                              <!-- 按鈕 -->
+                              <div class="my-4 mb-2 d-md-flex justify-content-center">
+                                  <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
+                              </div>
+                              </div>
+                              <div class="card mb-5 m-4 card-body">
                                   <!-- 採購清單 -->
-                                  <div class="card">
                                       <h5 class="card-header">採購項目</h5>
-                                      <div class="card-body" >
                                           <div class="table-responsive text-nowrap" >
                                               <table class="table table-bordered" >
                                                   <thead>
@@ -602,10 +589,10 @@
                                                   </tbody>
                                               </table>
                                           </div>
-                                      </div>
-                                  </div>
+
+
                           </div>
-                      </div>
+
                   </div>
               </div>
           </div>
