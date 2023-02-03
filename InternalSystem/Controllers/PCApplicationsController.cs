@@ -318,6 +318,8 @@ namespace InternalSystem.Controllers
                            DeliveryRejectStatus = AP.DeliveryRejectStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
                            AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
+                           ApplicationRejectReason = AP.ApplicationRejectReason,
+                           DeliveryRejectReason = AP.DeliveryRejectReason
                        };
 
             if (!string.IsNullOrWhiteSpace(id)) {
@@ -355,6 +357,8 @@ namespace InternalSystem.Controllers
                            DeliveryRejectStatus = AP.DeliveryRejectStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
                            AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
+                           ApplicationRejectReason = AP.ApplicationRejectReason,
+                           DeliveryRejectReason = AP.DeliveryRejectReason
                        };
 
             if (!string.IsNullOrWhiteSpace(id))
@@ -390,6 +394,8 @@ namespace InternalSystem.Controllers
                            Quantiy = OD.Quantiy,
                            UnitPrice = OD.UnitPrice,
                            Subtotal = OD.Subtotal,
+                           ApplicationRejectReason = AP.ApplicationRejectReason,
+                           DeliveryRejectReason = AP.DeliveryRejectReason
 
                        };
 

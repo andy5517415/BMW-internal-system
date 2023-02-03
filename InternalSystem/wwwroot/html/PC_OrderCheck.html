@@ -723,7 +723,7 @@
           Cancel: function () {
               this.todoitem.applicationRejectStatus = true;
               //this.todoitem.ApplicationRejectReason = this.rejectreason;
-              
+              this.todoitem.applicationRejectReason = this.rejectreason.content;
             if (confirm("確定要駁回申請嗎?") == true) {
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
                 .then(a => console.log(a));
