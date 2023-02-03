@@ -618,13 +618,13 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <template v-for="(b,key) in depproduct">
+                                                                        <template v-for="(b,index) in depproduct">
                                                                             <tr>
 
                                                                                 <!-- 物品 -->
                                                                                 <!-- 項次 -->
                                                                                 <td>
-                                                                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
+                                                                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{index+1}}</strong>
                                                                                 </td>
                                                                                 <!-- 物品名稱 -->
                                                                                 <td>
@@ -687,13 +687,13 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                                <template v-for="(b,key) in product">
+                                                                                <template v-for="(b,index) in product">
                                                                                     <tr>
 
                                                                                         <!-- 物品 -->
                                                                                         <!-- 項次 -->
                                                                                         <td>
-                                                                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{b.productId}}</strong>
+                                                                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A{{index+1}}</strong>
                                                                                         </td>
                                                                                         <!-- 物品名稱 -->
                                                                                         <td>
