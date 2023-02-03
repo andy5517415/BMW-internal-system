@@ -681,6 +681,8 @@
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
+    <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
 
     <!-- Vendors JS -->
     <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
@@ -695,22 +697,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script>
-      //Vue3+axios原本寫法
-      //Vue.createApp({
-      //    data: function() {
-      //        return {
-      //            data:[]
-      //        }
-      //    },
-      //    methods: {},
-      //    mounted: function() {
-      //        axios.get('https://localhost:44319/api/PCApplications/todoitem')
-      //            .then(function(response){
-      //                console.log(response)
-      //        })
-      //    }
-      //}).mount('#app')
-
       var app = {
         data() {
           return {
@@ -734,6 +720,7 @@
             }
           },
 
+          // 按下駁回按鈕
           Cancel: function () {
               this.todoitem.applicationRejectStatus = true;
               this.todoitem.ApplicationRejectReason = this.rejectreason;
@@ -744,11 +731,6 @@
               window.location = "PC_ToDoItems.html";
             }
           },
-
-          show: function () {
-
-          }
-
         },
         mounted() {
           this.myobject = JSON.parse(sessionStorage.getItem('order'))
@@ -780,7 +762,5 @@
 
     </script>
 
-      <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>
