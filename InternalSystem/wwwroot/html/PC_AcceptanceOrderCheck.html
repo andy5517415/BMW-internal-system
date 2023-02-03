@@ -623,8 +623,37 @@
                                 <div>
                                 </div>
                                 <div class="row">
-                                    <button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>
+                                    <button type="button" class="col-md-6 btn btn-outline-primary d-block" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        駁回
+                                    </button>
+                                    <!--<button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>-->
                                     <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
+                                                <div class="alert alert-danger fs-4 fw-bold col-12 mx-auto text-center">
+                                                    確定要取消預約嗎?
+                                                </div>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body alert fs-4 fw-bold col-12 mx-auto text-center">
+                                                請輸入原因：
+                                                <input v-model="rejectreason.content">
+                                            </div>
+                                            <br>
+                                            <p class="fs-6 text-center">⚠️注意，取消後需重新申請!</p>
+                                            <p class="fs-6 text-center">⚠️注意，取消後訂單將被取消!</p>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
+                                                <button type="button" class="btn btn-outline-primary border-3" v-on:click="Cancel">確定</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -667,7 +696,8 @@
                 return {
                     list: {},
                     myobject: {},
-                    todoitem: {}
+                    todoitem: {},
+                    rejectreason: { "content": "" }
                 }
             },
             methods: {
@@ -686,6 +716,7 @@
 
                 Cancel: function () {
                     this.todoitem.acceptanceRejectStatus = true;
+                    this.todoitem.rejectReason = this.rejectreason.content;
                     if (confirm("確定要退貨嗎?") == true) {
                         //console.log("ok");
                         axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
