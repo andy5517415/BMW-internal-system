@@ -52,7 +52,7 @@ namespace InternalSystem.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=10.0.104.99\\L27\\SQLEXPRESS,1433;Database=MSIT44;Integrated Security=false;User ID = Lin;Password= 8564;");
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=MSIT44;Integrated Security=True;");
             }
         }
 
@@ -288,17 +288,15 @@ namespace InternalSystem.Models
 
                 entity.ToTable("PC_Application");
 
-                entity.Property(e => e.ApplicationRejectReason).HasMaxLength(200);
-
                 entity.Property(e => e.Comment).HasMaxLength(200);
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
-                entity.Property(e => e.DeliveryRejectReason).HasMaxLength(200);
-
                 entity.Property(e => e.Department)
                     .IsRequired()
                     .HasMaxLength(10);
+
+                entity.Property(e => e.RejectReason).HasMaxLength(200);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PcApplications)
