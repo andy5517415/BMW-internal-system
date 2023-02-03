@@ -197,9 +197,7 @@ button::before{
     transition: none;
   }
 button:hover {
-    background-color: #2194E0;
     color: #fff;
-    border-bottom: 4px solid darken(#2194E0, 10%);
   }
    button:hover::before {
       transform: skewX(-45deg) translateX(40em);
@@ -213,12 +211,9 @@ button:hover {
 .form-control:hover,.form-select:hover{
   border: 2px solid #7d84ff;
 }
-.form-control:focus{
+.form-control:focus,.form-select:focus{
   border: 3px solid #7d84ff;
-  background-color: #f4f4ffbe;
-}
-.form-select:focus{
-  border: 3px solid #7d84ff;
+
 }
 .myShadow:hover{
   box-shadow: 0px 4px 4px 2px gray;
@@ -234,4 +229,23 @@ button:hover {
 .mylLable{
   width: 130px;height: 45px;
   padding-top: 14px;
+  margin-top: 5px;
+}
+.myinput{
+  margin-top: 5px;
+}
+.inputCard{
+  background-image: linear-gradient(to top, #a0baec 0%, #e3edff 100%);
+}
+.inputCard:hover{
+  box-shadow: 0px 3px 3px 2px gray;
+  transition: 0.3s;
+}
+.btn-outline-primary{
+  background-color: white;
+}
+.btn-outline-primary:hover{
+  box-shadow: 0px 2px 2px 2px #7d84ff;
+  transform:translate(0px,-5px);
+  transition: 0.3s;
 }

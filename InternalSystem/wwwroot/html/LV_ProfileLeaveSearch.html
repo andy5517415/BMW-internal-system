@@ -407,7 +407,6 @@
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-
                 <nav class="container" id="navInf">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
@@ -497,16 +496,16 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                        <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料查詢</h4>
-                        <div class="card m-4 my-5 card-body">
+                        <h4 class="fw-bold py-4 ms-4"> 請假資料查詢</h4>
+                        <div class="card m-4 my-4 card-body inputCard">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="my-4 d-flex mx-4" style="width: 500px;">
-                                    <label for="html5-month-input" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">請假月份</label>
-                                    <div class="col">
-                                        <input class="form-control fs-5" type="month" v-model="leavesearch.month" id="html5-month-input" />
+                                <div class="my-4 d-flex mx-4" style="width: 1000px;">
+                                    <label for="html5-month-input" class="me-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">請假月份</label>
+                                    <div class="col-3">
+                                        <input class="form-control fs-5 myinput" type="month" v-model="leavesearch.month" id="html5-month-input" />
                                     </div>
-                                    <div class="col">
-                                        <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
+                                    <div class="col ms-5">
+                                        <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
                                     </div>                                      
                                 </div>                           
                             </form>
@@ -515,7 +514,7 @@
 
 
                         <!-- Basic Bootstrap Table -->
-                        <div class="card mx-4">
+                        <div class="card mx-4 mt-5 shadow">
                             <h5 class="alert alert-primary mx-auto my-5 fw-bold fs-2">請假申請資料</h5>
                             <div class="table-responsive text-nowrap">
                                 <table class="table">

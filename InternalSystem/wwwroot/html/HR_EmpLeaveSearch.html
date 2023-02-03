@@ -498,21 +498,21 @@
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
                         <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料查詢/修改</h4>
-                        <div class="card mb-5 m-4 card-body">
+                        <div class="card mb-5 m-4 card-body inputCard">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="my-4 d-flex">
                                     <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                        style="width: 140px;">請假年、月</label>
+                                        style="width: 140px;">年、月份</label>
 
-                                    <div class="col ms-4">
-                                        <input class="form-control fs-5" type="month" v-model="search.date" id="html5-month-input" />
+                                    <div class="col ms-2">
+                                        <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
                                     </div>
 
                                     <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
                                         style="width: 70px;">部門</label>
                                     
-                                    <div class="col ms-4">
-                                        <select id="department" class="select2 form-select fs-5" v-model="search.departmentId">
+                                    <div class="col ms-2">
+                                        <select id="department" class="select2 form-select fs-5 myinput" v-model="search.departmentId">
                                             <option value="" disabled>請選擇部門</option>
                                             <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
                                         </select>
@@ -521,11 +521,11 @@
                                     <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
                                         style="width: 120px;">員工名稱</label>
 
-                                    <div class="col ms-4">
-                                        <input class="form-control fs-5 mt-auto" v-model="search.employeeName" id="Employeename" />
+                                    <div class="col ms-2">
+                                        <input class="form-control fs-5 myinput" v-model="search.employeeName" id="Employeename" />
                                     </div>
 
-                                    <div class="col ms-4">
+                                    <div class="col ms-5">
                                         <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
                                     </div>
 
