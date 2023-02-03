@@ -19,7 +19,7 @@ namespace InternalSystem.Models
         public DateTime? EditDatetime { get; set; }
         public int AreaId { get; set; }
         public int? Price { get; set; }
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
         public bool IsAccepted { get; set; }
 
         public virtual BusinessArea Area { get; set; }
