@@ -500,7 +500,7 @@
   <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div  class="content-wrapper">
+          <div id="app" class="content-wrapper">
 
          <!-- 選擇生產的工作位置報工-->
               <div class="container-xxl flex-grow-1 container-p-y">
@@ -518,15 +518,15 @@
                               
                           </div>
                           <div class="mb-3 col-md-3 d-flex flex-column">
-                              <input class="form-control fs-5 mb-4" type="text" v-model="Search.EmployeeNumber" id="EmployeeNumber" />
-                              <input class="form-control fs-5" type="text" v-model="Search.EmployeeName" id="Employeename" />
-                              <input class="form-control fs-5 my-4" type="date" v-model="Search.StarDate" id="StarDate" />
-                              <input class="form-control fs-5 mt-1" type="date" v-model="Search.EndDate" id="EndDate" />
+                              <input class="form-control fs-5 mb-4" type="text"  id="EmployeeNumber" />
+                              <input class="form-control fs-5" type="text"  id="Employeename" />
+                              <input class="form-control fs-5 my-4" type="date"  id="StarDate" />
+                              <input class="form-control fs-5 mt-1" type="date"  id="EndDate" />
                           </div>
                       </div>
                       <div class="mb-5 d-flex justify-content-center">
-                        <button type="button" v-on:click="Searchbtn()" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
-                        <button type="reset" v-on:click="Clean()" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">清除</button>
+                        <button type="button"  class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                        <button type="reset"  class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">清除</button>
                       </div>
                   </div>
 
@@ -547,27 +547,29 @@
                       </div>
                   </div>
 
+                  <div id="apple">
 
-                  <div class="accordion mt-3" id="accordionExample">
-                      <div class="card accordion-item mb-4 m-4 active">
-                          <h2 class="accordion-header" id="headingOne">
+                  </div>
+                  <div class="accordion mt-3" id="accordionExample" v-for="(title,key) in item">
+                      <div class="card accordion-item mb-4 m-4 " >
+                          <h2 class="accordion-header" id="headingOne" >
                               <button type="button"
                                       class="accordion-button "
                                       data-bs-toggle="collapse"
-                                      data-bs-target="#accordionOne"
+                                      :data-bs-target="'#'+accordionOne[key]"
                                       aria-expanded="true"
                                       aria-controls="accordionOne">
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">X123456789156</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">M4 Competition</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">2023-01-01</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">2023-01-31</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">800</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.orderNumber}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.optionalName.slice(4)}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.StartDay}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.EndDay}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.Total}}</strong>
                                   <strong for="" class=" col-1 fs-5 text-center my-1">生產中</strong>
                               </button>
                           </h2>
 
-                          <div id="accordionOne"
-                               class="accordion-collapse collapse show"
+                          <div :id="accordionOne[key]"
+                               class="accordion-collapse collapse "
                                data-bs-parent="#accordionExample">
                               <div class="accordion-body">
                                   <table class="table">
@@ -581,23 +583,23 @@
                                               <th class="fs-4 fw-bold">狀態</th>
                                               <th class="fs-4 fw-bold">修改</th>
                                       </thead>
-                                      <tbody class="table-border-bottom-0" >
+                                      <tbody class="table-border-bottom-0" v-for="(p,key) in title.proess">
                                           <tr>
                                               <td>
                                                   <i class="fab fa-angular fa-lg text-danger fs-5"></i>
-                                                  <strong class="fs-5">製程A</strong>
+                                                  <strong class="fs-5">{{p.processName}}</strong>
                                               </td>
                                               <td>
-                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">2023-01-01</strong> </span>
+                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.starDate}}</strong> </span>
                                               </td>
                                               <td>
-                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">2023-01-10</strong> </span>
+                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.endDate}}</strong> </span>
                                               </td>
                                               <td>
-                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">200</strong></span>
+                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5"></strong>{{p.tot[key]}}</span>
                                               </td>
                                               <td>
-                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">已完成</strong></span>
+                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.statusName}}</strong></span>
 
                                               </td>
                                               <td>
@@ -655,21 +657,50 @@
 
     <script>
 
-      const app = {
-        data() {
-          return {
-            
-          }
-        },
-        mounted() {
-          
-        },
-        methods: {
-          
-        }
-      }
+        const app = {
+            data() {
+                return {
+                    item: {},
+                    dd: [],
+                    accordionOne: []
+                }
+            },
+            mounted() {
+                
+                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+                    then(response => {
+                        this.item = response.data
+                        console.log(this.item[0].orderId)
+                        for (var i = 0; i < this.item.length; i++) {
+                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                                then(response => {
+                                    //this.apple[i] = response.data;
+                                    this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess });
+                                    console.log(this.dd)
+                                    //this.dd = response.data;
+                                    for (var j = 0; j < this.dd.length; j++) {
+                                        this.item[j].Total = this.dd[j].Total;
+                                        this.item[j].StartDay = this.dd[j].StartDay;
+                                        this.item[j].EndDay = this.dd[j].EndDay;
+                                        this.item[j].proess = this.dd[j].proess;
+                                    }
 
-      Vue.createApp(app).mount('#app')
+                                })
+
+                        }
+                        this.item.forEach((x, index) => {
+                            this.accordionOne.push(x.orderNumber)
+                        })
+                    });
+
+
+            },
+            methods: {
+
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

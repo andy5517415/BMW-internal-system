@@ -1,5 +1,4 @@
-﻿using InternalSystem.Dotos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -27,6 +26,5 @@ namespace InternalSystem.Models
         public virtual PersonnelProfileDetail Employee { get; set; }
         public virtual ICollection<BusinessOrderDetail> BusinessOrderDetails { get; set; }
         public virtual ICollection<ProductionProcessList> ProductionProcessLists { get; set; }
-        //public virtual IEnumerable<leftjoin> leftjoin { get; set; }
     }
 }
