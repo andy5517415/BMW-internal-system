@@ -505,7 +505,7 @@
 
                     <div v-if="limit.DepID==3" id="confirm" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
-                            <h2 class="card-header" @click="oneclick">訂單查詢/修改/刪除</h2>
+                            <h2 class="card-header">訂單查詢/修改/刪除</h2>
                             <h5 class="card-header">車輛資訊</h5>
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
@@ -523,7 +523,7 @@
                                     <hr />
 
                                     <!--車款  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
@@ -535,14 +535,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="cartypeone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款價格</label>
                                         <input type="text"
@@ -552,7 +552,7 @@
                                                v-model="cartypeone.price" />
                                     </div>
                                     <!--車漆顏色  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="carcolor">車漆顏色</label>
                                         <select id="carcolor"
                                                 class="form-select"
@@ -564,14 +564,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車漆顏色</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carcolorone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -581,7 +581,7 @@
                                                v-model="carcolorone.price" />
                                     </div>
                                     <!--內裝材質  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div  class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown"
                                                 id="texture"
@@ -593,14 +593,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">內裝材質</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="cartextureone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -610,7 +610,7 @@
                                                v-model="cartextureone.price" />
                                     </div>
                                     <!--輪圈款式  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div  class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="wheel">輪圈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="wheel"
@@ -622,14 +622,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">輪圈款式</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carwheelone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -639,7 +639,7 @@
                                                v-model="carwheelone.price" />
                                     </div>
                                     <!--飾板  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div  class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="plaque">飾板</label>
                                         <select class="form-select placement-dropdown"
                                                 id="plaque"
@@ -651,14 +651,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">飾板</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carplaqueone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -668,7 +668,7 @@
                                                v-model="carplaqueone.price" />
                                     </div>
                                     <!--頭燈款式  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div  class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="light">頭燈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="light"
@@ -680,14 +680,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">頭燈款式</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carlightone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -697,7 +697,7 @@
                                                v-model="carlightone.price" />
                                     </div>
                                     <!--中央鞍座  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div  class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="saddle">中央鞍座</label>
                                         <select class="form-select placement-dropdown"
                                                 id="saddle"
@@ -709,14 +709,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">中央鞍座</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carsaddleone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -726,7 +726,7 @@
                                                v-model="carsaddleone.price" />
                                     </div>
                                     <!--天窗  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="sunroof">天窗</label>
                                         <select class="form-select placement-dropdown"
                                                 id="sunroof"
@@ -738,14 +738,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">天窗</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carsunroofone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -755,7 +755,7 @@
                                                v-model="carsunroofone.price" />
                                     </div>
                                     <!--多媒體  -->
-                                    <div v-if="!isDisabled" class="col-md-3">
+                                    <div  class="col-md-3">
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
@@ -767,14 +767,14 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div v-if="isDisabled" class="col-md-3">
+                                    <!--<div v-if="isDisabled" class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">多媒體</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                :value="carmediaone.optionalName" />
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-3">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
@@ -793,8 +793,8 @@
                                     </div>
                                     <hr />
                                     <!--代理商地區-->
-                                    <div v-if="!isDisabled" class="col-md-3 py-2">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
+                                    <div  class="col-md-3 py-2">
+                                        <label @click="oneclick" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
                                         <select id="area"
                                                 class="form-select color-dropdown"
                                                 v-model="agentone">
@@ -806,32 +806,32 @@
                                         </select>
                                     </div>
 
-                                    <div v-if="isDisabled" class="col-md-6 py-2">
+                                    <!--<div v-if="isDisabled" class="col-md-6 py-2">
                                         <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理商地區</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                v-model="agentone.areaName" />
-                                    </div>
+                                    </div>-->
 
 
                                     <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
-                                    <button v-if="btnseen" @click="btnedit" class="btn btn-outline-primary d-block">修改</button>
-                                    <button v-if="btneditseen" @click="btneditok" class="btn btn-outline-primary d-block">確定修改</button>
+                                    <button v-if="btnseen" @click="btneditok" class="btn btn-outline-primary d-block">修改</button>
+                                    <!--<button v-if="btneditseen" @click="btneditok" class="btn btn-outline-primary d-block">確定修改</button>-->
                                     <button v-if="btnseen" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>
                                     
                                     
-                                    <div class="col-lg-4 col-md-6">
+                                    <!--<div class="col-lg-4 col-md-6">
 
-                                        <div class="mt-3">
+                                        <div class="mt-3">-->
                                             <!-- Button trigger modal -->
                                             <!-- Modal -->
 
 
 
-                                        </div>
-                                    </div>
+                                        <!--</div>
+                                    </div>-->
 
 
                                 </div>
@@ -945,7 +945,10 @@
                     orderdatetime: {},
 
 
-                    bodput: []
+                    bodput: [],
+
+                    aa: {},
+                    bb:[]
                 }
             },
             computed: {
@@ -978,6 +981,7 @@
                                 alert('無此訂單號碼，請確認訂單號碼!');
                             }
                             else {
+                                
                                 alert('查詢成功!');
                                 this.cartypeone = g.data;
                                 this.orderid = g.data.orderId;
@@ -996,7 +1000,7 @@
                             }
                                 axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
                                     this.orderdetailold = g.data[0].optionalId;
-                                    console.log(`orderdetailold${this.orderdetailold}`);
+                                    //console.log(`orderdetailold${this.orderdetailold}`);
                                     if (g.data[0].isAccepted) {
                                         this.btnseen = false;
                                         this.describeseen = true;
@@ -1005,6 +1009,29 @@
                                         this.btnseen = true;
                                         this.describeseen = false;
                                     }
+
+                                    axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
+                                        //console.log(g.data)
+                                        this.aa = g.data;
+                                        console.log(this.aa);
+                                        this.bb = [];
+                                        this.aa.forEach((x, idx) => {
+                                            this.bb.push(this.aa[idx].optionalId);
+                                        })
+                                        console.log(this.bb)
+
+                                        this.cartype    .forEach((x, idx) => { if (x.optionalId == this.bb[0]) { this.cartypeone     = this.cartype[idx] } });
+                                        this.carcolor   .forEach((x, idx) => { if (x.optionalId == this.bb[1]) { this.carcolorone    = this.carcolor[idx] } });
+                                        this.cartexture .forEach((x, idx) => { if (x.optionalId == this.bb[2]) { this.cartextureone  = this.cartexture[idx] } });
+                                        this.carwheel   .forEach((x, idx) => { if (x.optionalId == this.bb[3]) { this.carwheelone    = this.carwheel[idx] } });
+                                        this.carplaque  .forEach((x, idx) => { if (x.optionalId == this.bb[4]) { this.carplaqueone   = this.carplaque[idx] } });
+                                        this.carlight   .forEach((x, idx) => { if (x.optionalId == this.bb[5]) { this.carlightone    = this.carlight[idx] } });
+                                        this.carsaddle  .forEach((x, idx) => { if (x.optionalId == this.bb[6]) { this.carsaddleone   = this.carsaddle[idx] } });
+                                        this.carsunroof .forEach((x, idx) => { if (x.optionalId == this.bb[7]) { this.carsunroofone  = this.carsunroof[idx] } });
+                                        this.carmedia   .forEach((x, idx) => { if (x.optionalId == this.bb[8]) { this.carmediaone    = this.carmedia[idx] } });
+                                        this.agent      .forEach((x, idx) => { if (x.areaId     == this.areaId){ this.agentone       = this.agent[idx]; } });
+                                    });
+
                                 })
                         })
                     }
@@ -1035,7 +1062,7 @@
                     if (confirm("確認是否要修改訂單?") == true) {
 
                         //console.log('btnedit');
-                        let dt = new Date();
+                        //let dt = new Date();
                         //組裝Order資料表
                         //this.orderput.OrderId = this.orderid;
                         //this.orderput.orderNumber = this.ordernum;
@@ -1044,16 +1071,16 @@
                         //this.orderput.Price = this.cnt;
                         //this.orderput.EmployeeId = 5;
                         //this.orderput.IsAccepted = false;
-                        this.orderput = {
-                            "OrderId": this.orderid,
-                            "OrderNumber": this.ordernum,
-                            "OrderDatetime": this.orderdatetime,
-                            "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
-                            "AreaId": this.agentone.areaId,
-                            "Price": this.cnt,
-                            "EmployeeId": 5,
-                            "IsAccepted": false
-                        };
+                        //this.orderput = {
+                        //    "OrderId": this.orderid,
+                        //    "OrderNumber": this.ordernum,
+                        //    "OrderDatetime": this.orderdatetime,
+                        //    "EditDatetime": `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}T${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`,
+                        //    "AreaId": this.agentone.areaId,
+                        //    "Price": this.cnt,
+                        //    "EmployeeId": 5,
+                        //    "IsAccepted": false
+                        //};
                         //console.log(this.orderput);
 
                         //將新的選配放入陣列儲存
@@ -1071,17 +1098,20 @@
                         axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}/${this.orderdetailold}`)
                             .then(p => {
                                 this.odid = p.data;
+                                this.bodput = [];
                                 this.orderdetail.forEach((x,key) => {
                                     this.bodput.push(
                                         {
-                                            'odId': parseInt(this.odid) + parseInt(key,10),
+                                            'odId': this.odid + key,
                                             'orderId': this.orderid,
                                             'optionalId': x
                                         })
                                 });
+                                    console.log(this.bodput);
                                 axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}&price=${this.cnt}`, this.bodput)
                                     .then(p => {
                                     console.log(p);
+                                    window.location.reload();//promise
 
                                     /*//迴圈9次修改OrderDetail
                                     for (let n = 0; n < 9; n++) {

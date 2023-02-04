@@ -11,6 +11,8 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.CodeAnalysis;
+using System.Security.Cryptography;
+using InternalSystem.Dotos;
 
 namespace InternalSystem.Controllers
 {
@@ -27,8 +29,8 @@ namespace InternalSystem.Controllers
 
 
 
-        //自己寫的
-        // GET: api/BusinessOrders/getorder/i0320230105003
+        //以訂單號碼找該筆訂單
+        // GET: api/BusinessOrders/getorder/M011672502400
         [HttpGet("getorder/{ordernum}")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrder(string ordernum)
         {
@@ -52,7 +54,7 @@ namespace InternalSystem.Controllers
         }
 
 
-        //自己寫的
+        //訂單查詢分流
         // GET: api/BusinessOrders/getorder/i0320230105003/1
         [HttpGet("getorder/{ordernum}/{category}")]
         public async Task<ActionResult<dynamic>> GetOrderdetail(string ordernum, int category)
@@ -84,7 +86,7 @@ namespace InternalSystem.Controllers
 
 
 
-        //自己寫的
+        //找代理商區域ID
         // GET: api/BusinessOrders/getagent/1
         [HttpGet("getagent/{id}")]
         public async Task<ActionResult<dynamic>> getagent(int id)
@@ -101,40 +103,85 @@ namespace InternalSystem.Controllers
 
 
 
-        //自己寫的
+        //撈全部訂單資料和細項
         // GET: api/BusinessOrders/GetOrderAll
         [HttpGet("GetOrderAll")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAll()
         {
             //var b = _context.BusinessOrders.Include
 
-            var q = from ord in _context.BusinessOrders
-                    join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
-                    join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
-                    join a in _context.BusinessAreas on ord.AreaId equals a.AreaId
-                    //join ppl in _context.ProductionProcessLists on ord.OrderId equals ppl.OrderId
-                    //join pps in _context.ProductionProcessStatusNames on ppl.StatusId equals pps.StatusId
-                    //join pp in _context.ProductionProcesses on ppl.ProcessId equals pp.ProcessId
-                    where opl.CategoryId == 1 /*&& ord.IsAccepted==true*/
-                    select new
+            //var q = from ord in _context.BusinessOrders
+            //        join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
+            //        join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
+            //        join a in _context.BusinessAreas on ord.AreaId equals a.AreaId
+            //        //join ppl in _context.ProductionProcessLists on ord.OrderId equals ppl.OrderId
+            //        //join pps in _context.ProductionProcessStatusNames on ppl.StatusId equals pps.StatusId
+            //        //join pp in _context.ProductionProcesses on ppl.ProcessId equals pp.ProcessId
+            //        /*where opl.CategoryId == 1 && ord.IsAccepted==true*/
+            //        select new
+            //        {
+            //            OrderNumber = ord.OrderNumber,
+            //            OptionalName = opl.OptionalName,
+            //            IsAccepted = ord.IsAccepted,
+            //            Area = a.AreaName,
+            //            //process = pp.ProcessName,
+            //            //processstate = pps.StatusName,
+            //            orderdatetime = ord.OrderDateTime,
+            //            editdatetime = ord.EditDatetime,
+
+
+
+            //            OrderId = ord.OrderId,
+            //            OptionalId = od.OptionalId,
+            //            CategoryId = opl.CategoryId,
+            //            Price = opl.Price,
+
+
+            //            //ordiddis=_context.BusinessOrders.Select(x=>x.OrderId)
+            //        };
+
+            //var p = _context.leftjoin.FromSqlRaw<leftjoin>(@"
+            //      select o.OrderId,
+            //o.OrderNumber,
+            //o.OrderDateTime,
+            //o.EditDatetime,
+            //o.IsAccepted,
+            //op.OptionalName,
+            //a.AreaName,
+            //pa.AreaName as AreaNameProcess,
+            //pp.ProcessName
+            //      from [dbo].[BusinessOrder] as o
+            //      join [dbo].[BusinessOrderDetail] as od on o.OrderId=od.OrderId
+            //      join [dbo].[BusinessOptional] as op on od.OptionalId=op.OptionalId
+            //      join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
+            //      left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
+            //      left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
+            //      left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
+
+            var q = _context.BusinessOrders.Select(a => new
+            {
+                a.OrderId,
+                a.OrderNumber,
+                a.OrderDateTime,
+                a.EditDatetime,
+                a.Area.AreaName,
+                a.IsAccepted,
+                detail = a.BusinessOrderDetails.Select(b => new
+                {
+                    OdId = b.OdId,
+                    Optional = new
                     {
-                        OrderNumber = ord.OrderNumber,
-                        OptionalName = opl.OptionalName,
-                        IsAccepted = ord.IsAccepted,
-                        Area = a.AreaName,
-                        //process = pp.ProcessName,
-                        //processstate = pps.StatusName,
-                        orderdatetime = ord.OrderDateTime,
-                        editdatetime = ord.EditDatetime,
+                        OptionalName = b.Optional.OptionalName /*,
+                        Price = b.Optional.Price,*/
+                    }
+                }),
+                //p
+            });;
 
 
 
-                        OrderId = ord.OrderId,
-                        OptionalId = od.OptionalId,
-                        CategoryId = opl.CategoryId,
-                        Price = opl.Price,
-                    };
             return await q.ToListAsync();
+            //return await q.ToListAsync();
         }
 
 
@@ -148,7 +195,7 @@ namespace InternalSystem.Controllers
             //string orddate ,
             int    areaid,
             int    price,
-            int    empid,
+            //int    empid,
             bool   isacc
             )
 
@@ -168,20 +215,28 @@ namespace InternalSystem.Controllers
             }
             else*/ if(bod!=null /*&& bo.BusinessOrderDetails.Count==9 && bo.AreaId>0*/)
             {
+
+                //找第一位業務部員工
+                var emp = _context.PersonnelProfileDetails
+                    .Where(a => a.DepartmentId == 3)
+                    .Select(x => x.EmployeeId)
+                    .First();
+
+
                 BusinessOrder insert = new BusinessOrder
                 {
                     OrderNumber          = ordnum,
                     OrderDateTime        = DateTime.Now,
                     AreaId               = areaid,
                     Price                = price,
-                    EmployeeId           = empid,
+                    EmployeeId           = emp,
                     IsAccepted           = isacc,
                     BusinessOrderDetails = bod
                 };
 
                 _context.BusinessOrders.Add(insert);
                 _context.SaveChanges();
-                return "訂單新增成功!Order";
+                return "訂單新增成功!";
             }
             else
             {

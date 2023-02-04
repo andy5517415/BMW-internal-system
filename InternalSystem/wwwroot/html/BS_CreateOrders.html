@@ -511,7 +511,7 @@
                                 
 
 
-                                <h2 class="card-header" @click="oneclick">新建訂單</h2>
+                                <h2 class="card-header">新建訂單</h2>
                                 <h5 class="card-header">車輛資訊</h5>
 
                                 
@@ -919,7 +919,7 @@
                                                    v-model="agentone.address" />
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理商電話</label>
+                                            <label @click="oneclick" for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理商電話</label>
                                             <input type="text"
                                                    class="form-control fs-5"
                                                    id=""
