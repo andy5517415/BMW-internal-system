@@ -259,10 +259,17 @@ namespace InternalSystem.Controllers
                 else if (a.TotalMinutes >= 300)
                 {
                     Atotal += a.TotalMinutes - 60;
+                }else  
+                {
+                    Atotal += a.TotalMinutes;
                 }
 
             }
-            Atotal = Atotal / 60;
+
+                Atotal = Atotal / 60;
+            
+
+            
 
             //抓取 製程B 總時
             var proessesB = from o in _context.ProductionContexts
@@ -311,6 +318,34 @@ namespace InternalSystem.Controllers
 
             double Total = Atotal + Btotal + Ctotal;
 
+
+
+            // 訂單內製程每個製程及製程總時
+            var proess = (from PPL in this._context.ProductionProcessLists
+                        join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                        join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                        join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                        join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                        where BOP.CategoryId == 1 && PPL.OrderId == id
+                        select new
+                        {
+                            OrderId = PPL.OrderId,
+                            ProcessName = PP.ProcessName,
+                            StarDate = PPL.StarDate.ToString(),
+                            EndDate = PPL.EndDate.ToString(),
+                            BO.OrderNumber,
+                            OptionalId = BOP.OptionalId,
+                            OptionalName = BOP.OptionalName,
+                            StatusId = PPSN.StatusId,
+                            StatusName = PPSN.StatusName,
+
+                            Atotal = (float)Math.Round(Atotal, 1),
+                            Btotal = (float)Math.Round(Btotal, 1),
+                            Ctotal = (float)Math.Round(Ctotal, 1),
+                        }).ToList();
+
             // 抓訂單的開始日期及結束日期
             var startDate = (from o in this._context.ProductionProcessLists
                             where o.ProcessId == 1 && o.OrderId == id && (o.StatusId == 2 || o.StatusId == 3)
@@ -318,9 +353,12 @@ namespace InternalSystem.Controllers
             var endDate = (from o in this._context.ProductionProcessLists
                             where o.ProcessId == 3 && o.OrderId == id && o.StatusId == 3
                            select o).FirstOrDefault();
-           
-            
-            var query = from BO in this._context.BusinessOrders 
+
+
+
+            if (endDate == null)
+            {
+                var query = from BO in this._context.BusinessOrders 
                         join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
                         join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
                         join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
@@ -332,11 +370,35 @@ namespace InternalSystem.Controllers
                             OptionalId = BOP.OptionalId,
                             OptionalName = BOP.OptionalName,
                             Total,
-                            StarDate = startDate.StarDate,
-                            //EndDate = endDate.EndDate,
-                        };
+                            StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
+                            EndDate = "",
+                            proess
 
-            return await query.FirstOrDefaultAsync();
+                        };
+                return await query.FirstOrDefaultAsync();
+            }
+            else 
+            {
+                var query = from BO in this._context.BusinessOrders
+                            join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                            join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                            join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                            where BOP.CategoryId == 1 && BO.IsAccepted == true && BO.OrderId == id
+                            select new
+                            {
+                                OrderId = BO.OrderId,
+                                BO.OrderNumber,
+                                OptionalId = BOP.OptionalId,
+                                OptionalName = BOP.OptionalName,
+                                Total,
+                                StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
+                                EndDate = endDate.EndDate,
+                                proess
+                            };
+                return await query.FirstOrDefaultAsync();
+            }
+            
+
         }
 
 
@@ -390,7 +452,7 @@ namespace InternalSystem.Controllers
 
             //抓取 製程A總時
             var proessesA = from o in _context.ProductionContexts
-                            where o.OrderId == 25 && o.ProcessId == 1 
+                            where o.OrderId == 1 && o.ProcessId == 1 
                             select o;
 
             double Atotal = 0;
@@ -411,7 +473,7 @@ namespace InternalSystem.Controllers
 
             //抓取 製程B 總時
             var proessesB = from o in _context.ProductionContexts
-                            where o.OrderId == 25 && o.ProcessId == 2
+                            where o.OrderId == 1 && o.ProcessId == 2
                             select o;
 
             double Btotal = 0;
@@ -435,7 +497,7 @@ namespace InternalSystem.Controllers
 
             //抓取 製程C 總時
             var proessesC = from o in _context.ProductionContexts
-                            where o.OrderId == 25 && o.ProcessId == 3
+                            where o.OrderId == 1 && o.ProcessId == 3
                             select o;
 
             double Ctotal = 0;
@@ -465,7 +527,7 @@ namespace InternalSystem.Controllers
                         join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
                         join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
                         join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-                        where BOP.CategoryId == 1 && PPL.OrderId == 25
+                        where BOP.CategoryId == 1 && PPL.OrderId == 1
                         select new
                         {
                             OrderId = PPL.OrderId,
