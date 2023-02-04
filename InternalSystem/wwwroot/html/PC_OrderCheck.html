@@ -640,13 +640,13 @@
                                             <div class="modal-header">
                                                 <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
                                                 <div class="alert alert-danger fs-4 fw-bold col-12 mx-auto text-center">
-                                                    確定要取消預約嗎?
+                                                    確認要駁回此項申請嗎?
                                                 </div>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body alert fs-4 fw-bold col-12 mx-auto text-center">
                                                 請輸入原因：
-                                                <input v-model="rejectreason">
+                                                <input v-model="rejectreason.content">
                                             </div>
                                             <br>
                                             <p class="fs-6 text-center">⚠️注意，取消後需重新申請!</p>
@@ -703,8 +703,7 @@
             list: {},
             myobject: {},
             todoitem: {},
-            aok: {},
-            rejectreason: {}
+            rejectreason: { "content": "" }
           }
         },
         methods: {
@@ -723,9 +722,9 @@
           // 按下駁回按鈕
           Cancel: function () {
               this.todoitem.applicationRejectStatus = true;
-              this.todoitem.ApplicationRejectReason = this.rejectreason;
+              //this.todoitem.ApplicationRejectReason = this.rejectreason;
+              this.todoitem.rejectReason = this.rejectreason.content;
             if (confirm("確定要駁回申請嗎?") == true) {
-              //console.log("ok");
               axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
                 .then(a => console.log(a));
               window.location = "PC_ToDoItems.html";
@@ -742,8 +741,8 @@
               for (var i = 0; i < this.list.length; i++) {
                 k += response.data[i].subtotal;
               }
-              //this.list.orderlist = i;
               this.totalprice = k;
+              //this.list.orderlist = i;
               //console.log(this.totalprice);
               //console.log(this.list.orderlist);
             })
@@ -751,7 +750,7 @@
           //得到整張申請單狀態
           axios.get('/api/PCApplications/OrderCheck/' + this.myobject.orderId)
             .then(response => this.todoitem = response.data);
-          console.log(this.todoitem);
+          //console.log(this.todoitem);
         }
       }
 

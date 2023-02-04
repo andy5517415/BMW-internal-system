@@ -498,22 +498,22 @@
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 修改員工資料</h4>
-                        <div class="card mb-5 m-4 card-body">
+                        <div class="card mb-5 m-4 card-body inputCard">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 
-                                <div class="my-4 d-flex">
-                                    <label for="EmployeeName" class="me-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
+                                <div class="my-4 d-flex ms-4">
+                                    <label for="EmployeeName" class="me-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
                                     <div class="col">
-                                        <input v-model="employeeNumber" class="form-control fs-5" id="EmployeeNumber" />
+                                        <input v-model="employeeNumber" class="form-control fs-5 myinput" id="EmployeeNumber" />
                                     </div>
                                     
                                     <label for="EmployeeName" class="ms-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工名稱</label>
 
-                                    <div class="col ms-4">
-                                        <input v-model="employeeName" class="form-control fs-5" id="Employeename" />
+                                    <div class="col ms-2">
+                                        <input v-model="employeeName" class="form-control fs-5 myinput" id="Employeename" />
                                     </div>
 
-                                    <div class="col ms-4">
+                                    <div class="col ms-5">
                                         <button type="button" v-on:click="searchbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
                                     </div>
                                 </div>
@@ -532,7 +532,8 @@
                                          class="d-block rounded"
                                          height="100"
                                          width="100"
-                                         id="uploadedAvatar" />
+                                         id="uploadedAvatar"
+                                         style="object-fit:contain"/>
                                     <div class="button-wrapper">
                                         <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
                                             上傳大頭照
