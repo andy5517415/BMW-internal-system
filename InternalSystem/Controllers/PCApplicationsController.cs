@@ -174,7 +174,7 @@ namespace InternalSystem.Controllers
             var List = from AP in this._context.PcApplications
                        join PD in this._context.PersonnelProfileDetails on AP.EmployeeId equals PD.EmployeeId
                        join PDL in this._context.PersonnelDepartmentLists on PD.DepartmentId equals PDL.DepartmentId
-                       where AP.DeliveryStatus == true && AP.AcceptanceStatus == false && AP.AcceptanceRejectStatus == false
+                       where AP.DeliveryStatus == true && AP.AcceptanceStatus == false && AP.AcceptanceRejectStatus == false && AP.DeliveryRejectStatus == false
                        select new
                        {
                            PurchaseId = AP.PurchaseId,
