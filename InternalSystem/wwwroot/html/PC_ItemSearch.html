@@ -507,7 +507,31 @@
 
               <!-- 部門查詢篩選 -->
               <div class="container">
-                  <div class="mb-5 col-md-12 fs-4">
+                <div class="alert fs-2 fw-bold mt-5" style="background-image: linear-gradient(to top, #a0baec 0%, #e3edff 100%);color: black;">請選擇您的部門</div>
+                <!-- test -->
+                  <div class="btn-group col-12 mb-5" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="通用" checked v-model="search.id" @change="selectchange(search.id)">
+                    <label class="btn btn-outline-primary text-center fw-bold fs-3  border-3" for="btnradio1">通用</label>
+
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="生產部" v-model="search.id" @change="selectchange(search.id)">
+                    <label class="btn btn-outline-primary fw-bold fs-3  border-3" for="btnradio2">生產部</label>
+
+
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="業務部" v-model="search.id" @change="selectchange(search.id)">
+                    <label class="btn btn-outline-primary fw-bold fs-3  border-3" for="btnradio3">業務部</label>
+
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="人事部" v-model="search.id" @change="selectchange(search.id)">
+                    <label class="btn btn-outline-primary fw-bold fs-3  border-3" for="btnradio4">人事部</label>
+
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" value="採購部" v-model="search.id" @change="selectchange(search.id)">
+                    <label class="btn btn-outline-primary fw-bold fs-3  border-3" for="btnradio5">採購部</label>
+                  </div>
+                
+                  <!-- <div class="mb-5 col-md-12 fs-4">
                       <label for="department" class="form-label fs-5">部門</label>
                       <select id="department" class="select1 form-select fs-5" @change="selectchange(search.id)" v-model="search.id">
                           <option value="選擇">選擇部門</option>
@@ -517,7 +541,7 @@
                           <option value="人事部">人事部</option>
                           <option value="採購部">採購部</option>
                       </select>
-                  </div>
+                  </div> -->
 
                   <!-- 物品清單顯示 -->
                   <!-- 物品清單第一個 -->
@@ -531,8 +555,8 @@
                                           <h5 class="card-title fs-4 fs-4">{{a.goods}}</h5>
                                           <p class="card-text fs-4">
                                               No.P{{a.productId}}<br>
-                                              單價一{{a.unit}} <br>
-                                              {{a.unitPrice}} 元。
+                                              單價：<br>
+                                              一{{a.unit}} {{a.unitPrice}} 元。
                                           </p>
                                       </div>
                                   </div>
@@ -560,31 +584,31 @@
     <!-- Vue 傳值 -->
     <script>
 
-        var app = {
-            data() {
-                return {
-                    item: {},
-                    search: {
-                        "id": "",
-                        "id2":""
-                    }
-                }
-            },
-            methods: {
-                selectchange: function (e) {
-                    //console.log("/api/PCApplications/departmentsearch?id=" + this.search.id)
-                    axios.get("/api/PCApplications/departmentsearch?id=" + e)
-                        .then(response => this.item = response.data);
-                }
-            },
-            mounted() {
-                axios.get('https://localhost:44319/api/PCApplications/itemsearch')
-                    .then(response => this.item = response.data);
+      var app = {
+        data() {
+          return {
+            item: {},
+            search: {
+              "id": "",
+              "id2": ""
             }
+          }
+        },
+        methods: {
+          selectchange: function (e) {
+            //console.log("/api/PCApplications/departmentsearch?id=" + this.search.id)
+            axios.get("/api/PCApplications/departmentsearch?id=" + e)
+              .then(response => this.item = response.data);
+          }
+        },
+        mounted() {
+          axios.get('https://localhost:44319/api/PCApplications/itemsearch')
+            .then(response => this.item = response.data);
         }
+      }
 
 
-        Vue.createApp(app).mount('#app')
+      Vue.createApp(app).mount('#app')
 
     </script>
     <!-- Core JS -->

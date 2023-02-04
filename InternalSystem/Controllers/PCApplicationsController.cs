@@ -105,8 +105,7 @@ namespace InternalSystem.Controllers
                            DeliveryRejectStatus = AP.DeliveryRejectStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
                            AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
-                           ApplicationRejectReason = AP.ApplicationRejectReason,
-                           DeliveryRejectReason = AP.DeliveryRejectReason
+                           RejectReason = AP.RejectReason
                        };
 
             return await list.FirstOrDefaultAsync();
@@ -248,7 +247,7 @@ namespace InternalSystem.Controllers
                            Total = AP.Total,
                            ApplicationStatus = AP.ApplicationStatus,
                            ApplicationRejectStatus = AP.ApplicationRejectStatus,
-                           ApplicationRejectReason = AP.ApplicationRejectReason,
+                           RejectReason = AP.RejectReason,
                            Date = AP.Date.ToString(),
                            Comment = AP.Comment
                        };
@@ -318,6 +317,7 @@ namespace InternalSystem.Controllers
                            DeliveryRejectStatus = AP.DeliveryRejectStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
                            AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
+                           RejectReason = AP.RejectReason
                        };
 
             if (!string.IsNullOrWhiteSpace(id)) {
@@ -355,6 +355,7 @@ namespace InternalSystem.Controllers
                            DeliveryRejectStatus = AP.DeliveryRejectStatus,
                            AcceptanceStatus = AP.AcceptanceStatus,
                            AcceptanceRejectStatus = AP.AcceptanceRejectStatus,
+                           RejectReason = AP.RejectReason,
                        };
 
             if (!string.IsNullOrWhiteSpace(id))
@@ -390,6 +391,7 @@ namespace InternalSystem.Controllers
                            Quantiy = OD.Quantiy,
                            UnitPrice = OD.UnitPrice,
                            Subtotal = OD.Subtotal,
+                           RejectReason = AP.RejectReason,
 
                        };
 
@@ -578,8 +580,7 @@ namespace InternalSystem.Controllers
                 Department = pcApplication.Department,
                 Date = pcApplication.Date,
                 Comment = pcApplication.Comment,
-                ApplicationRejectReason = pcApplication.ApplicationRejectReason,
-                DeliveryRejectReason = pcApplication.DeliveryRejectReason,
+                RejectReason = pcApplication.RejectReason,
                 Total = pcApplication.Total,
                 ApplicationStatus = false,
                 ApplicationRejectStatus = false,

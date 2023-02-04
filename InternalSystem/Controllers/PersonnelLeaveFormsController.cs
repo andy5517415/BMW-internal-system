@@ -846,9 +846,10 @@ namespace InternalSystem.Controllers
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
+            
 
             var application = DateTime.Now.ToString("yyyy-MM-dd");
-
+            
             if (dayTohour > 0 || (dayTohour == 0 && hoursCount > 0))
             {
                 if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)

@@ -218,7 +218,7 @@
                             <div data-i18n="Account Settings">業務系統</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item active">
+                            <li class="menu-item">
                                 <a href="BS_CreateOrders.html" class="menu-link">
                                     <div data-i18n="Account">新建訂單</div>
                                 </a>
@@ -229,7 +229,7 @@
                                     <div data-i18n="Account">查詢/修改/刪除訂單</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item active">
                                 <a href="BS_OrderAll.html" class="menu-link">
                                   <div data-i18n="Account">訂單一覽</div>
                                 </a>
@@ -499,7 +499,7 @@
 
 
 
-                <div id="divorderall">
+                <div id="divorderall" v-cloak>
 
 
                     <!-- / Navbar -->
@@ -513,8 +513,36 @@
 
 
                                 <!-- Basic Bootstrap Table -->
-                                <h5 class="fw-bold">訂單資料</h5>
+                                <!--<h5 class="fw-bold">訂單資料</h5>-->
                                 <div class="table-responsive text-nowrap">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
+                                            <select id="cartype"
+                                                    class="form-select color-dropdown"
+                                                    v-model="sl.car"
+                                                    @change="filter">
+                                                <option selected disabled value="999">請選擇車款</option>
+                                                <option value="跑車- M4 Competition">M4 Competition</option>
+                                                <option value="休旅車-X7 xDrive40i">X7 xDrive40i</option>
+                                                <option value="電動車-iX xDrive40 旗艦版">iX xDrive40 旗艦版</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">代理商區域篩選</label>
+                                            <select id="cartype"
+                                                    class="form-select color-dropdown"
+                                                    v-model="sl.area"
+                                                    @change="filter">
+                                                <option selected disabled value="999">請選擇代理商區域</option>
+                                                <option value="北區">北區</option>
+                                                <option value="中區">中區</option>
+                                                <option value="南區">南區</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -524,24 +552,111 @@
                                                 <th class="fs-4 fw-blod">修改訂單時間</th>
                                                 <th class="fs-4 fw-blod">代理商區域</th>
                                                 <th class="fs-4 fw-blod">接單狀態</th>
+                                                <!--<th class="fs-4 fw-blod">製程</th>
+                <th class="fs-4 fw-blod">廠區</th>-->
                                             </tr>
                                         </thead>
-                                        <tbody class="table-border-bottom-0">
-                                            <tr v-for="(o,key) in order">
-                                                <td><strong>{{o.orderNumber}}</strong></td>
-                                                <td>{{o.optionalName}}</td>
-                                                <td>{{o.orderdatetime.substring(0,16).replace('T', ' ')}}</td>
-                                                <td>{{(o.editdatetime==null)? 'N/A' : o.editdatetime.substring(0,16).replace('T', ' ')}}</td>
-                                                <td>{{o.area}}</td>
-                                                <td>{{o.isAccepted==1 ? '是':'否'}}</td>
-                                            </tr>
+                                        <!--<tbody class="table-border-bottom-0">
+            <tr v-for="(o,key) in order">
+                <td><strong>{{o.orderNumber}}</strong></td>
+                <td>{{o.optionalName}}</td>
+                <td>{{o.orderdatetime.substring(0,16).replace('T', ' ')}}</td>
+                <td>{{(o.editdatetime==null)? 'N/A' : o.editdatetime.substring(0,16).replace('T', ' ')}}</td>
+                <td>{{o.area}}</td>
+                <td>{{o.isAccepted==1 ? '是':'否'}}</td>
+            </tr>
 
-                                        </tbody>
+        </tbody>-->
                                     </table>
                                 </div>
                                 <!--/ Basic Bootstrap Table -->
+
+
                             </div>
                             <!-- / Content -->
+                            <template v-for="(o,key) in filt">
+                                <div  class="accordion mt-3" id="accordionExample">
+                                    <div class="card accordion-item mb-4 m-4 active">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <input type="text" hidden >
+                                            <button type="button"
+                                                    class="accordion-button collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    :data-bs-target="'#'+accordionOne[key]"
+                                                    aria-expanded="true"
+                                                    aria-controls="accordionOne">
+                                                <strong class=" col-2 fs-6 text-center my-1">#{{key+1}}/&nbsp;&nbsp;{{o.orderNumber}}</strong>
+                                                <strong class=" col-2 fs-6 text-center my-1">{{o.detail[0].optional.optionalName.substring(4)}}</strong>
+                                                <strong class=" col-2 fs-6 text-center my-1">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
+                                                <strong class=" col-2 fs-6 text-center my-1">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
+                                                <strong class=" col-2 fs-6 text-center my-1">{{o.areaName}}</strong>
+                                                <strong class=" col-2 fs-6 text-center my-1">{{o.isAccepted==1 ? '是':'否'}}</strong>
+                                                <!--<strong class=" col-1 fs-5 text-center my-1">製程</strong>
+                                                <strong class=" col-1 fs-5 text-center my-1">廠區</strong>-->
+                                            </button>
+                                        </h2>
+
+                                        <div :id="accordionOne[key]"
+                                             class="accordion-collapse collapse"
+                                             >
+                                            <div class="accordion-body">
+                                                <p>車漆顏色:{{o.detail[1].optional.optionalName}}</p>
+                                                <p>內裝材質:{{o.detail[2].optional.optionalName}}</p>
+                                                <p>輪圈款式:{{o.detail[3].optional.optionalName}}</p>
+                                                <p>飾板   : {{o.detail[4].optional.optionalName}}   </p>
+                                                <p>頭燈款式:{{o.detail[5].optional.optionalName}}</p>
+                                                <p>中央鞍座:{{o.detail[6].optional.optionalName}}</p>
+                                                <p>天窗:   {{o.detail[7].optional.optionalName}}</p>
+                                                <p>多媒體: {{o.detail[8].optional.optionalName}}</p>
+
+                                                <!--<table class="table">
+        <thead>
+            <tr>
+                <hr>
+                <th class="fs-4 fw-bold">製程</th>
+                <th class="fs-4 fw-bold">開始時間</th>
+                <th class="fs-4 fw-bold">結束時間</th>
+                <th class="fs-4 fw-bold">總時(hr)</th>
+                <th class="fs-4 fw-bold">狀態</th>
+                <th class="fs-4 fw-bold">修改</th>
+        </thead>
+        <tbody class="table-border-bottom-0">
+            <tr>
+                <td>
+                    <i class="fab fa-angular fa-lg text-danger fs-5"></i>
+                    <strong class="fs-5">製程A</strong>
+                </td>
+                <td>
+                    <span class="label-primary me-1 fs-5"><strong class="fs-5">2023-01-01</strong> </span>
+                </td>
+                <td>
+                    <span class="label-primary me-1 fs-5"><strong class="fs-5">2023-01-10</strong> </span>
+                </td>
+                <td>
+                    <span class="label-primary me-1 fs-5"><strong class="fs-5">200</strong></span>
+                </td>
+                <td>
+                    <span class="label-primary me-1 fs-5"><strong class="fs-5">已完成</strong></span>
+
+                </td>
+                <td>
+                    <div class="dropdown">
+
+                        <div class="">
+                            <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button"><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5">檢閱</strong></a>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+    </table>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </template>
                             <!-- Footer -->
                             <!-- / Footer -->
 
@@ -594,8 +709,10 @@
             data() {
                 return {
                     limit: {},
-                    order: {}
-
+                    order: {},
+                    accordionOne: [],
+                    filt: {},
+                    sl: {}
                 }
             },
             computed: {
@@ -603,14 +720,38 @@
 
             },
             methods: {
+                filter() {
+                    this.filt = {};
+                    this.filt = this.order.filter(function (item) {
+                        return item.detail[0].optional.optionalName == "跑車- M4 Competition"                  
+                    });
+                    //console.log(this.sl.car);
+                    //if (sl.area.toString().indexOf('區')>0) {
+                    //    var b = e.target.value.toString();
+                    //}
+                    //else if (e.target.value.toString().indexOf('區') < 0){
+                    //    var a = e.target.value.toString();
+                    //}
+                    //else {
+                    //    this.filt = this.order;
+                    //}
 
-
+                    //this.order.forEach((x,idx) => {
+                    //    if (x.detail[0].optional.optionalName == e.target.value.toString()) {
+                    //     filt=   
+                    //    }
+                    //})
+                }
             },
             mounted() {
                 axios.get('/api/BusinessOrders/GetOrderAll')
                     .then(g => {
                         console.log(g.data);
-                        this.order = g.data
+                        this.order = g.data;                       
+                        this.order.forEach((x,idx) => {
+                            this.accordionOne.push(g.data[idx].orderNumber);
+                        });
+                        console.log(this.accordionOne);
                     });
 
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));

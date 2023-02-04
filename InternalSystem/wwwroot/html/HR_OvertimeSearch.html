@@ -412,84 +412,91 @@
         <div class="layout-page">
           <!-- Navbar -->
         
-          <nav class="container">
-            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-              id="layout-navbar">
-        
-              <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                <!-- 問好 -->
-                <div class="navbar-nav align-items-center fs-4">
-                  😊您好，王鴻杰!
-                </div>
-                <!-- /問好 -->
-        
-                <ul class="navbar-nav flex-row align-items-center ms-auto">
-        
-                  <!-- User -->
-                  <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                      <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                <nav class="container" id="navInf">
+                  <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar">
+                
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                      <!-- 問好 -->
+                      <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                        😊您好
+                        <span class="fw-bold mx-2 fs-2"
+                          style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                        📋工號：
+                        <span class="fw-bold mx-2 fs-2"
+                          style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                        💻部門：
+                        <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                       </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
+                      <!-- /問好 -->
+                
+                      <ul class="navbar-nav flex-row align-items-center ms-auto">
+                
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                            <div class="avatar avatar-online">
+                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
-                            <div class="flex-grow-1">
-                              <span class="fw-semibold d-block">John Doe</span>
-                              <small class="text-muted">Admin</small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <i class="bx bx-user me-2"></i>
-                          <span class="align-middle">My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <i class="bx bx-cog me-2"></i>
-                          <span class="align-middle">Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <span class="d-flex align-items-center align-middle">
-                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                            <span class="flex-grow-1 align-middle">Billing</span>
-                            <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                          </span>
-                        </a>
-                      </li>
-                      <li>
-                        <div class="dropdown-divider"></div>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
-                          <i class="bx bx-power-off me-2"></i>
-                          <span class="align-middle">Log Out</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <!--/ User -->
-                </ul>
-        
-              </div>
-            </nav>
-            <!-- / Navbar -->
-          </nav>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                              <a class="dropdown-item" href="#">
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0 me-3">
+                                    <div class="avatar avatar-online">
+                                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                    </div>
+                                  </div>
+                                  <div class="flex-grow-1">
+                                    <span class="fw-semibold d-block">John Doe</span>
+                                    <small class="text-muted">Admin</small>
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                            <li>
+                              <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="#">
+                                <i class="bx bx-user me-2"></i>
+                                <span class="align-middle">My Profile</span>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="#">
+                                <i class="bx bx-cog me-2"></i>
+                                <span class="align-middle">Settings</span>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="#">
+                                <span class="d-flex align-items-center align-middle">
+                                  <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                  <span class="flex-grow-1 align-middle">Billing</span>
+                                  <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                </span>
+                              </a>
+                            </li>
+                            <li>
+                              <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="auth-login-basic.html">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                        <!--/ User -->
+                      </ul>
+                
+                    </div>
+                  </nav>
+                  <!-- / Navbar -->
+                </nav>
         
           <!-- / Navbar -->
 
@@ -499,35 +506,37 @@
             <div class="container-xxl flex-grow-1 container-p-y" id="app">
                 <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
               <!-- 加班資料查詢/修改 -->
-                <div class="card m-4 card-body">
-                  <div class="alert alert-primary text-center my-4 mb-3 fs-2 fw-bold col-3 mx-auto" style="width: 350px;" role="alert">
-                    加班資料查詢/修改
+              <div class="card m-4 my-4 card-body inputCard">
+                <form id="formAccountSettings" method="POST" onsubmit="return false">
+
+                  <div class="my-4 d-flex">
+                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工名稱</label>
+                    <div class="col ms-2">
+                      <input class="form-control fs-5 myinput" id="Employeename" v-model="employeelist.name" />
+                    </div>
+
+                    <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4 myinput" style="width: 70px;">部門</label>
+                    <div class="col ms-2">
+                      <select id="department" class="select2 form-select fs-5 myinput" v-model="employeelist.depId">
+                        <option value="">選擇部門</option>
+                        <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
+                      </select>
+                    </div>
+
+                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">加班月份</label>
+                    <div class="col ms-2">
+                      <input class="form-control fs-5 myinput" type="month" id="html5-month-input" v-model="employeelist.month" />
+                    </div>
+
+                    <div class="col ms-5">
+                      <button type="button" v-on:click="search" class="btn btn-outline-primary fs-4 fw-bold border-3 ">查詢</button>
+                    </div>
                   </div>
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row mt-4 justify-content-center">
-                            <div class="mb-3 col-md-2">
-                                <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工名稱</label>
-                                <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4 my-4">部門</label>
-                                <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">加班月份</label>
-                               
-                            </div>
-                            <div class="mb-3 col-md-3">
-                                <input class="form-control fs-5" id="Employeename" v-model="employeelist.name" />
-                                <select id="department" class="select2 form-select my-4" v-model="employeelist.depId">
-                                    <option value="">選擇部門</option>
-                                    <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
-                                </select>
-                                <input class="form-control fs-5" type="month" id="html5-month-input" v-model="employeelist.month" />
-                            </div>
 
-                            <div class="my-4  d-flex justify-content-center">
-                                <button type="button" v-on:click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                                <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
-                            </div>
-                        </div>
-                      </div>
+                </form>
+              </div>
 
-                    </form>
+
                     <!-- Basic Bootstrap Table -->
                     <div class="card m-4 card-body">
                     <div id="workdata">
@@ -703,5 +712,7 @@
       Vue.createApp(app).mount('#app')
 
     </script>
+    <!-- session -->
+    <script src="../assets/js/LoginSession.js"></script>
   </body>
 </html>
