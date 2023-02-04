@@ -544,7 +544,8 @@
                                                         @change="showphoto">
                                                     <option disabled value="999">請選擇車款</option>
                                                     <option v-for="one in cartype"
-                                                            :value="one">
+                                                            :value="one"
+                                                            >
                                                         {{one.optionalId}}/{{one.optionalName}}
                                                     </option>
                                                 </select>
@@ -941,7 +942,7 @@
                         <div v-if="formconfirm" class="container-xxl flex-grow-1 container-p-y">
                             <div class="card mb-4 m-4">
                                 <h2 class="card-header">請確認您的訂單是否正確!</h2>
-                                <div class="card-body">
+                                <!--<div class="card-body">
                                     <div class="row gx-3 gy-2 align-items-center">
                                         <div class="col-md-6">
                                             <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
@@ -953,7 +954,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div>-->
                                 <hr>
                                 <h5 class="card-header">車輛資訊</h5>
                                 
@@ -1188,7 +1189,7 @@
 
 
 
-                    <p v-if="limit.DepID!=3">非業務無法查看</p>
+                    <p v-if="limit.DepID!=3" class="fw-bold mx-2 fs-2" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
 
 
 
@@ -1260,10 +1261,10 @@
                     carsunroofone: 999,
                     carmediaone: 999,
                     agentone: 999,
-                    orderid: '',
-                    orderpost: {
-                        businessOrderDetails: []
-                    },
+                    typeenglish: '',
+                    //orderpost: {
+                    //    businessOrderDetails: []
+                    //},
 
                     bods: [],
 
@@ -1301,24 +1302,38 @@
             },
             methods: {
                 btnconfirmclick() {
-                    this.formfill = !this.formfill
-                    this.formconfirm = !this.formconfirm
-                    this.orderid = (this.cartypeone.optionalName == null) ? 'N' : this.cartypeone.optionalName.substring(4, 5)
-                        + '0'
-                        + this.agentone.areaId
-                        + Date.now().toString().substring(0, 10);
                     this.orderdetail = [];
-                    this.orderdetail.push(this.cartypeone.optionalId);
-                    this.orderdetail.push(this.carcolorone.optionalId);
-                    this.orderdetail.push(this.cartextureone.optionalId);
-                    this.orderdetail.push(this.carwheelone.optionalId);
-                    this.orderdetail.push(this.carplaqueone.optionalId);
-                    this.orderdetail.push(this.carlightone.optionalId);
-                    this.orderdetail.push(this.carsaddleone.optionalId);
-                    this.orderdetail.push(this.carsunroofone.optionalId);
-                    this.orderdetail.push(this.carmediaone.optionalId);
+                    this.orderdetail.push((this.cartypeone    /*.optionalId*/ ==999)?'':this.cartypeone    .optionalId);
+                    this.orderdetail.push((this.carcolorone   /*.optionalId*/ ==999)?'':this.carcolorone   .optionalId);
+                    this.orderdetail.push((this.cartextureone /*.optionalId*/ ==999)?'':this.cartextureone .optionalId);
+                    this.orderdetail.push((this.carwheelone   /*.optionalId*/ ==999)?'':this.carwheelone   .optionalId);
+                    this.orderdetail.push((this.carplaqueone  /*.optionalId*/ ==999)?'':this.carplaqueone  .optionalId);
+                    this.orderdetail.push((this.carlightone   /*.optionalId*/ ==999)?'':this.carlightone   .optionalId);
+                    this.orderdetail.push((this.carsaddleone  /*.optionalId*/ ==999)?'':this.carsaddleone  .optionalId);
+                    this.orderdetail.push((this.carsunroofone /*.optionalId*/ ==999)?'':this.carsunroofone .optionalId);
+                    this.orderdetail.push((this.carmediaone   /*.optionalId*/ ==999)?'':this.carmediaone   .optionalId);
                     console.log(this.orderdetail);
+                    //this.agentone=(this.agentone == 999) ? '' : this.agentone;
+                    //console.log(this.agentone);
 
+                    var empcnt = 0;
+                    this.orderdetail.forEach(x => {
+                        if (x == '') { empcnt++ };
+                    });
+                    if (this.agentone == 999) { empcnt++ };
+
+                    //console.log(empcnt);
+                    if (empcnt==0) {
+                        this.formfill = !this.formfill
+                        this.formconfirm = !this.formconfirm
+                        //console.log(this.cartypeone.optionalName);
+                        this.typeenglish = this.cartypeone.optionalName.substring(4, 5);
+                        //console.log(this.typeenglish);
+                    }
+                    else {
+                        alert('有未選選項!');
+                    }
+                    
                 },
                 btnCreatePreviousClick() {
                     this.formfill = !this.formfill
@@ -1330,12 +1345,13 @@
                         //this.orderpost.Price = this.cnt;
                         //this.orderpost.EmployeeId = 5;
                         //this.orderpost.IsAccepted = false;
-                        this.orderdetail.forEach(x => this.bods.push({ 'optionalId': x }));
                         //console.log('orderpost')
+                        this.bods= [];
+                        this.orderdetail.forEach(x => this.bods.push({ 'optionalId': x }));
                         console.log(this.bods);
-                    axios.post(`/api/BusinessOrders/withoutloop?ordnum=${this.orderid}&areaid=${this.agentone.areaId}&price=${this.cnt}&empid=5&isacc=false`, this.bods)
+                    axios.post(`/api/BusinessOrders/withoutloop?type=${this.typeenglish}&areaid=${this.agentone.areaId}`, this.bods)
                             .then(p => {
-                                console.log(p);
+                                //console.log(p);
                                 console.log(p.data);
                                 alert(p.data);
                                 //alert('訂單新建成功!');

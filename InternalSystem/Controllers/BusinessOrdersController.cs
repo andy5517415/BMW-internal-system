@@ -74,13 +74,11 @@ namespace InternalSystem.Controllers
                         OrderId = ord.OrderId,
                         OrderNumber = ord.OrderNumber,
                         AreaId = ord.AreaId,
-                        OrderDateTime = ord.OrderDateTime
+                        OrderDateTime = ord.OrderDateTime,
+                        ord.IsAccepted
                     };
             return await q.SingleOrDefaultAsync();
         }
-
-
-
 
 
 
@@ -99,7 +97,82 @@ namespace InternalSystem.Controllers
 
 
 
+        //複合式查詢訂單
+        //GET: api/BusinessOrders/GetOrderAllFilter
+        [HttpGet("GetOrderAllFilter")]
+        public dynamic GetOrderAllFilter(/*string cartype, string area*/)
+        {
 
+            var q = _context.BusinessOrders.Select(a => new
+            {
+                a.OrderId,
+                a.OrderNumber,
+                a.OrderDateTime,
+                a.EditDatetime,
+                a.Area.AreaName,
+                a.IsAccepted,
+                detail = a.BusinessOrderDetails.Select(b => new
+                {
+                    OdId = b.OdId,
+                    Optional = new
+                    {
+                        OptionalName = b.Optional.OptionalName,
+                        optionalId = b.OptionalId
+                    }
+                }),
+                //p
+            }).OrderByDescending(a => a.OrderId);
+
+            //var p = q.Where(a => a.detail.Where(b => b.Optional.optionalId == 2);
+
+            //List<dynamic> lt = new List<dynamic>();
+            //    foreach (var i in q)
+            //    {
+            //        lt.Add(i.detail.Where(a=>a.Optional.optionalId==2));
+            //    }
+            //if (!string.IsNullOrWhiteSpace(cartype))
+            //{
+            //        //q = q.Where(a => a.detail[0].optional.optionalId.Contains(cartype));
+            //    //foreach (var item in q)
+            //    //{
+            //    //}
+            //}
+            //if (!string.IsNullOrWhiteSpace(area))
+            //{
+            //    q = q.Where(a => a.EmployeeName.Contains(area));
+            //}
+
+            return q;
+        }
+
+
+
+        //直送sql指令
+        // GET: api/BusinessOrders/GetOrderAllSql
+        [HttpGet("GetOrderAllSql")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllFromsqlraw()
+        {
+
+            var p = _context.leftjoin.FromSqlRaw<leftjoin>(@"
+                  select o.OrderId,
+            o.OrderNumber,
+            o.OrderDateTime,
+            o.EditDatetime,
+            o.IsAccepted,
+            a.AreaName,
+            pa.AreaName as AreaNameProcess,
+            pp.ProcessName
+                  from [dbo].[BusinessOrder] as o
+                  join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
+                  left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
+                  left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
+                  left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
+
+
+            //var p = _context.leftjoin.FromSqlRaw<leftjoin>("EXEC p_left");
+
+            return await p.ToListAsync();
+        }
 
 
 
@@ -108,39 +181,7 @@ namespace InternalSystem.Controllers
         [HttpGet("GetOrderAll")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAll()
         {
-            //var b = _context.BusinessOrders.Include
-
-            //var q = from ord in _context.BusinessOrders
-            //        join od in _context.BusinessOrderDetails on ord.OrderId equals od.OrderId
-            //        join opl in _context.BusinessOptionals on od.OptionalId equals opl.OptionalId
-            //        join a in _context.BusinessAreas on ord.AreaId equals a.AreaId
-            //        //join ppl in _context.ProductionProcessLists on ord.OrderId equals ppl.OrderId
-            //        //join pps in _context.ProductionProcessStatusNames on ppl.StatusId equals pps.StatusId
-            //        //join pp in _context.ProductionProcesses on ppl.ProcessId equals pp.ProcessId
-            //        /*where opl.CategoryId == 1 && ord.IsAccepted==true*/
-            //        select new
-            //        {
-            //            OrderNumber = ord.OrderNumber,
-            //            OptionalName = opl.OptionalName,
-            //            IsAccepted = ord.IsAccepted,
-            //            Area = a.AreaName,
-            //            //process = pp.ProcessName,
-            //            //processstate = pps.StatusName,
-            //            orderdatetime = ord.OrderDateTime,
-            //            editdatetime = ord.EditDatetime,
-
-
-
-            //            OrderId = ord.OrderId,
-            //            OptionalId = od.OptionalId,
-            //            CategoryId = opl.CategoryId,
-            //            Price = opl.Price,
-
-
-            //            //ordiddis=_context.BusinessOrders.Select(x=>x.OrderId)
-            //        };
-
-            //var p = _context.leftjoin.FromSqlRaw<leftjoin>(@"
+            //string sql = @"
             //      select o.OrderId,
             //o.OrderNumber,
             //o.OrderDateTime,
@@ -156,7 +197,8 @@ namespace InternalSystem.Controllers
             //      join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
             //      left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
             //      left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
-            //      left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
+            //      left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId";
+            //var p = _context.leftjoin.FromSqlRaw<leftjoin>(sql).ToList();            
 
             var q = _context.BusinessOrders.Select(a => new
             {
@@ -171,17 +213,16 @@ namespace InternalSystem.Controllers
                     OdId = b.OdId,
                     Optional = new
                     {
-                        OptionalName = b.Optional.OptionalName /*,
-                        Price = b.Optional.Price,*/
+                        OptionalName = b.Optional.OptionalName,
+                        optionalId = b.OptionalId
                     }
                 }),
-                //p
-            });;
+                //a.leftjoin
+            }).OrderByDescending(a => a.OrderId);
 
 
 
             return await q.ToListAsync();
-            //return await q.ToListAsync();
         }
 
 
@@ -190,47 +231,35 @@ namespace InternalSystem.Controllers
         //新增父子資料
         // POST: api/BusinessOrders/withoutloop
         [HttpPost("withoutloop")]
-        public string PostOrder([FromBody] ICollection<BusinessOrderDetail> bod ,
-            string ordnum ,
-            //string orddate ,
-            int    areaid,
-            int    price,
-            //int    empid,
-            bool   isacc
-            )
-
+        public dynamic PostOrder([FromBody] ICollection<BusinessOrderDetail> bod ,string type,int areaid)
         {
 
-            /*foreach (var item in bod)
+            if (bod != null && type != null && areaid.ToString() != null)
             {
-                if (!Regex.IsMatch(item.OptionalId.ToString(), @"^[0-9]$"))
-                {
-                    return "有遺漏的選配，請重新選擇!";
-                }
-            }
-
-            if (areaid.ToString()==null)
-            {
-                return "代理商區域未選擇，請填選!";
-            }
-            else*/ if(bod!=null /*&& bo.BusinessOrderDetails.Count==9 && bo.AreaId>0*/)
-            {
-
                 //找第一位業務部員工
                 var emp = _context.PersonnelProfileDetails
                     .Where(a => a.DepartmentId == 3)
                     .Select(x => x.EmployeeId)
                     .First();
+                //組裝訂單編號
+                var ordnum = $"{type}0{areaid}{DateTimeOffset.Now.ToUnixTimeSeconds()}";
 
+
+                //算本訂單價錢
+                var money = 0;
+                foreach (var item in bod)
+                {
+                    money += _context.BusinessOptionals.Where(x => x.OptionalId == item.OptionalId).Select(a => a.Price).First();
+                }
 
                 BusinessOrder insert = new BusinessOrder
                 {
-                    OrderNumber          = ordnum,
-                    OrderDateTime        = DateTime.Now,
-                    AreaId               = areaid,
-                    Price                = price,
-                    EmployeeId           = emp,
-                    IsAccepted           = isacc,
+                    OrderNumber = ordnum,
+                    OrderDateTime = DateTime.Now,
+                    AreaId = areaid,
+                    Price = money,
+                    EmployeeId = emp,
+                    IsAccepted = false,
                     BusinessOrderDetails = bod
                 };
 
@@ -240,16 +269,16 @@ namespace InternalSystem.Controllers
             }
             else
             {
-                return "last";
+                return "有誤!";
             };
         }
 
 
 
-        //修改父子資料(目前未成功)
+        //修改父子資料(分開作成功)
         // PUT: api/BusinessOrders/withoutloop?ordnum=M011672502400&areaid=3&price=9999998
         [HttpPut("withoutloop")]
-        public dynamic PutOrder(string ordnum, int areaid, int price, [FromBody] ICollection<BusinessOrderDetail> bodput)
+        public dynamic PutOrder(string ordnum, int areaid, [FromBody] ICollection<BusinessOrderDetail> bodput)
         {
             //子資料先修改
             foreach (var item in bodput)
@@ -264,7 +293,7 @@ namespace InternalSystem.Controllers
             }
 
             //父資料再修改
-            //找業務部員工
+            //找第一位業務部員工
             var emp = _context.PersonnelProfileDetails
                 .Where(a => a.DepartmentId == 3)
                 .Select(x => x.EmployeeId)
@@ -278,6 +307,13 @@ namespace InternalSystem.Controllers
                     a.OrderDateTime 
                     }).SingleOrDefault();
 
+            //算修改後的訂單價錢
+            var money = 0;
+            foreach (var item in bodput)
+            {
+                money += _context.BusinessOptionals.Where(x => x.OptionalId == item.OptionalId).Select(a => a.Price).First();
+            }
+
             BusinessOrder USAfather = new BusinessOrder
             {
                 OrderId = q.OrderId,
@@ -285,7 +321,7 @@ namespace InternalSystem.Controllers
                 OrderDateTime = q.OrderDateTime,
                 EditDatetime = DateTime.Now,
                 AreaId = areaid,
-                Price = price,
+                Price = money,
                 EmployeeId = emp,
                 IsAccepted = false
                 //,BusinessOrderDetails = bodput

@@ -514,18 +514,21 @@
 
                                 <!-- Basic Bootstrap Table -->
                                 <!--<h5 class="fw-bold">訂單資料</h5>-->
-                                <div class="table-responsive text-nowrap">
-                                    <div class="row">
+                                <div class="text-nowrap">
+
+
+                                    <!-- 尚未完成篩選條件 -->
+                                    <!--<div class="row">
                                         <div class="col-6">
                                             <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
                                                     v-model="sl.car"
-                                                    @change="filter">
+                                                    >
                                                 <option selected disabled value="999">請選擇車款</option>
-                                                <option value="跑車- M4 Competition">M4 Competition</option>
-                                                <option value="休旅車-X7 xDrive40i">X7 xDrive40i</option>
-                                                <option value="電動車-iX xDrive40 旗艦版">iX xDrive40 旗艦版</option>
+                                                <option value="1">M4 Competition</option>
+                                                <option value="2">X7 xDrive40i</option>
+                                                <option value="3">iX xDrive40 旗艦版</option>
                                             </select>
                                         </div>
                                         <div class="col-6">
@@ -533,7 +536,7 @@
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
                                                     v-model="sl.area"
-                                                    @change="filter">
+                                                    >
                                                 <option selected disabled value="999">請選擇代理商區域</option>
                                                 <option value="北區">北區</option>
                                                 <option value="中區">中區</option>
@@ -541,6 +544,9 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <button @click="filter" type="button" class="">查詢
+                                    </button>-->
 
 
                                     <table class="table">
@@ -574,7 +580,7 @@
 
                             </div>
                             <!-- / Content -->
-                            <template v-for="(o,key) in filt">
+                            <template v-for="(o,key) in filtered">
                                 <div  class="accordion mt-3" id="accordionExample">
                                     <div class="card accordion-item mb-4 m-4 active">
                                         <h2 class="accordion-header" id="headingOne">
@@ -600,6 +606,8 @@
                                              class="accordion-collapse collapse"
                                              >
                                             <div class="accordion-body">
+                                                <p>訂單編號:{{o.orderNumber}}</p>
+                                                <p>車款:{{o.detail[0].optional.optionalName.substring(4)}}</p>
                                                 <p>車漆顏色:{{o.detail[1].optional.optionalName}}</p>
                                                 <p>內裝材質:{{o.detail[2].optional.optionalName}}</p>
                                                 <p>輪圈款式:{{o.detail[3].optional.optionalName}}</p>
@@ -667,7 +675,7 @@
 
 
                     <!-- / Layout page -->
-                    <p v-if="limit.DepID!=3">非業務無法查看</p>
+                    <p v-if="limit.DepID!=3" class="fw-bold mx-2 fs-2" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
                     <!-- Overlay -->
                     <div class="layout-overlay layout-menu-toggle"></div>
                 </div>
@@ -711,8 +719,9 @@
                     limit: {},
                     order: {},
                     accordionOne: [],
-                    filt: {},
-                    sl: {}
+                    filtered: {},
+                    sl: {car:999,area:999},
+                    leftjoin: []
                 }
             },
             computed: {
@@ -721,10 +730,15 @@
             },
             methods: {
                 filter() {
-                    this.filt = {};
-                    this.filt = this.order.filter(function (item) {
-                        return item.detail[0].optional.optionalName == "跑車- M4 Competition"                  
-                    });
+                    this.filtered = {};
+
+
+
+
+
+                    //this.filtered = this.order.filter(function (item) {
+                    //    return item.detail[0].optional.optionalId == this.sl.car;                  
+                    //});
                     //console.log(this.sl.car);
                     //if (sl.area.toString().indexOf('區')>0) {
                     //    var b = e.target.value.toString();
@@ -733,7 +747,7 @@
                     //    var a = e.target.value.toString();
                     //}
                     //else {
-                    //    this.filt = this.order;
+                        //this.filtered = this.order;
                     //}
 
                     //this.order.forEach((x,idx) => {
@@ -748,11 +762,25 @@
                     .then(g => {
                         console.log(g.data);
                         this.order = g.data;                       
+                        this.filtered = g.data;                       
                         this.order.forEach((x,idx) => {
                             this.accordionOne.push(g.data[idx].orderNumber);
                         });
                         console.log(this.accordionOne);
                     });
+
+                axios.get('/api/BusinessOrders/GetOrderAllSql').then(g => {
+                    console.log('-----------');
+                    console.log(g.data);
+                    //    this.leftjoin[0].ordernum = g.data[0].orderNumber;
+                    //this.leftjoin[0].areaname = g.data[0].areaNameProcess;
+                    //this.leftjoin[0].processname = g.data[0].processName;
+                    //g.data.forEach((x, idx) => {
+                    //})
+                    //console.log(this.leftjoin);
+                })
+
+
 
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }

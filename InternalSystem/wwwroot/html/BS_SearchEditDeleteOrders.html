@@ -527,7 +527,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
-                                                v-model="cartypeone">
+                                                v-model="cartypeone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled :value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
@@ -556,7 +558,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="carcolor">車漆顏色</label>
                                         <select id="carcolor"
                                                 class="form-select"
-                                                v-model="carcolorone">
+                                                v-model="carcolorone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇車漆顏色</option>
                                             <option v-for="one in carcolor"
                                                     :value="one">
@@ -585,7 +589,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown"
                                                 id="texture"
-                                                v-model="cartextureone">
+                                                v-model="cartextureone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇內裝材質</option>
                                             <option v-for="one in cartexture"
                                                     :value="one">
@@ -614,7 +620,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="wheel">輪圈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="wheel"
-                                                v-model="carwheelone">
+                                                v-model="carwheelone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇輪圈款式</option>
                                             <option v-for="one in carwheel"
                                                     v-bind:value="one">
@@ -643,7 +651,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="plaque">飾板</label>
                                         <select class="form-select placement-dropdown"
                                                 id="plaque"
-                                                v-model="carplaqueone">
+                                                v-model="carplaqueone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇飾板款式</option>
                                             <option v-for="one in carplaque"
                                                     :value="one">
@@ -672,7 +682,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="light">頭燈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="light"
-                                                v-model="carlightone">
+                                                v-model="carlightone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇頭燈款式</option>
                                             <option v-for="one in carlight"
                                                     :value="one">
@@ -701,7 +713,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="saddle">中央鞍座</label>
                                         <select class="form-select placement-dropdown"
                                                 id="saddle"
-                                                v-model="carsaddleone">
+                                                v-model="carsaddleone"
+                                                :disabled="isdisable"                                                
+                                                >
                                             <option disabled value="999">請選擇中央鞍座款式</option>
                                             <option v-for="one in carsaddle"
                                                     :value="one">
@@ -730,7 +744,9 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="sunroof">天窗</label>
                                         <select class="form-select placement-dropdown"
                                                 id="sunroof"
-                                                v-model="carsunroofone">
+                                                v-model="carsunroofone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇天窗款式</option>
                                             <option v-for="one in carsunroof"
                                                     :value="one">
@@ -759,10 +775,13 @@
                                         <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
-                                                v-model="carmediaone">
+                                                v-model="carmediaone"
+                                                :disabled="isdisable"                                               
+                                                >
                                             <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
-                                                    :value="one">
+                                                    :value="one"
+                                                    >
                                                 {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
@@ -797,7 +816,9 @@
                                         <label @click="oneclick" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
                                         <select id="area"
                                                 class="form-select color-dropdown"
-                                                v-model="agentone">
+                                                v-model="agentone"
+                                                :disabled="isdisable"
+                                                >
                                             <option disabled value="999">請選擇代理商地區</option>
                                             <option v-for="one in agent"
                                                     :value="one">
@@ -859,7 +880,7 @@
 
 
 
-                    <p v-if="limit.DepID!=3">非業務部不可查看</p>
+                    <p v-if="limit.DepID!=3" class="fw-bold mx-2 fs-2" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
                     <!-- / Content -->
                     <!-- Footer -->
                     <!-- / Footer -->
@@ -905,10 +926,11 @@
 
             data() {
                 return {
-                    isDisabled: true,
+                    //isDisabled: true,
                     btnseen: false,
                     describeseen: false,
-                    btneditseen:false,
+                    isdisable:true,
+                    //btneditseen:false,
                     ordernum: '',
                     orderid: '',
 
@@ -934,11 +956,11 @@
                     carmediaone: {},
                     agentone: {},
 
-                    orderput: {},
+                    //orderput: {},
                     orderdetail: [],
-                    orderdetailput: {},
+                    //orderdetailput: {},
 
-                    orderdetailold: '',
+                    //orderdetailold: '',
                     odId: '',
                     areaId: '',
                     limit: {},
@@ -947,8 +969,8 @@
 
                     bodput: [],
 
-                    aa: {},
-                    bb:[]
+                    olddetail: {},
+                    oldoplId:[]
                 }
             },
             computed: {
@@ -980,59 +1002,55 @@
                             if (g.status != 200) {
                                 alert('無此訂單號碼，請確認訂單號碼!');
                             }
-                            else {
-                                
+                            else {                                
                                 alert('查詢成功!');
-                                this.cartypeone = g.data;
+                                //this.cartypeone = g.data;
                                 this.orderid = g.data.orderId;
-                                this.areaId = g.data.areaId;
-                                this.orderdatetime = g.data.orderDateTime;
-                                axios.get('/api/BusinessOrders/getagent/' + this.areaId         ).then(g => this.agentone      = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/2').then(g => this.carcolorone   = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/3').then(g => this.cartextureone = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/4').then(g => this.carwheelone   = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/5').then(g => this.carplaqueone  = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/6').then(g => this.carlightone   = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/7').then(g => this.carsaddleone  = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/8').then(g => this.carsunroofone = g.data)
-                                axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/9').then(g => this.carmediaone   = g.data)
-                                this.isDisabled = true;
-                            }
+                                if (g.data.isAccepted) {
+                                    this.btnseen = false;
+                                    this.describeseen = true;
+                                    this.isdisable = true;
+                                }
+                                else {
+                                    this.btnseen = true;
+                                    this.describeseen = false;
+                                    this.isdisable = false;
+                                }
                                 axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
-                                    this.orderdetailold = g.data[0].optionalId;
-                                    //console.log(`orderdetailold${this.orderdetailold}`);
-                                    if (g.data[0].isAccepted) {
-                                        this.btnseen = false;
-                                        this.describeseen = true;
-                                    }
-                                    else {
-                                        this.btnseen = true;
-                                        this.describeseen = false;
-                                    }
+                                    //console.log(g.data)
+                                    var ag = g.data[0].areaId;
+                                    this.olddetail = g.data;
+                                    console.log(this.olddetail);
+                                    this.oldoplId = [];
+                                    this.olddetail.forEach((x, idx) => {
+                                        this.oldoplId.push(this.olddetail[idx].optionalId);
+                                    })
+                                    console.log(this.oldoplId)
 
-                                    axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
-                                        //console.log(g.data)
-                                        this.aa = g.data;
-                                        console.log(this.aa);
-                                        this.bb = [];
-                                        this.aa.forEach((x, idx) => {
-                                            this.bb.push(this.aa[idx].optionalId);
-                                        })
-                                        console.log(this.bb)
-
-                                        this.cartype    .forEach((x, idx) => { if (x.optionalId == this.bb[0]) { this.cartypeone     = this.cartype[idx] } });
-                                        this.carcolor   .forEach((x, idx) => { if (x.optionalId == this.bb[1]) { this.carcolorone    = this.carcolor[idx] } });
-                                        this.cartexture .forEach((x, idx) => { if (x.optionalId == this.bb[2]) { this.cartextureone  = this.cartexture[idx] } });
-                                        this.carwheel   .forEach((x, idx) => { if (x.optionalId == this.bb[3]) { this.carwheelone    = this.carwheel[idx] } });
-                                        this.carplaque  .forEach((x, idx) => { if (x.optionalId == this.bb[4]) { this.carplaqueone   = this.carplaque[idx] } });
-                                        this.carlight   .forEach((x, idx) => { if (x.optionalId == this.bb[5]) { this.carlightone    = this.carlight[idx] } });
-                                        this.carsaddle  .forEach((x, idx) => { if (x.optionalId == this.bb[6]) { this.carsaddleone   = this.carsaddle[idx] } });
-                                        this.carsunroof .forEach((x, idx) => { if (x.optionalId == this.bb[7]) { this.carsunroofone  = this.carsunroof[idx] } });
-                                        this.carmedia   .forEach((x, idx) => { if (x.optionalId == this.bb[8]) { this.carmediaone    = this.carmedia[idx] } });
-                                        this.agent      .forEach((x, idx) => { if (x.areaId     == this.areaId){ this.agentone       = this.agent[idx]; } });
-                                    });
-
-                                })
+                                    this.cartype    .forEach((x, idx) => { if (x.optionalId == this.oldoplId[0]) { this.cartypeone     = this.cartype[idx] } });
+                                    this.carcolor   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[1]) { this.carcolorone    = this.carcolor[idx] } });
+                                    this.cartexture .forEach((x, idx) => { if (x.optionalId == this.oldoplId[2]) { this.cartextureone  = this.cartexture[idx] } });
+                                    this.carwheel   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[3]) { this.carwheelone    = this.carwheel[idx] } });
+                                    this.carplaque  .forEach((x, idx) => { if (x.optionalId == this.oldoplId[4]) { this.carplaqueone   = this.carplaque[idx] } });
+                                    this.carlight   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[5]) { this.carlightone    = this.carlight[idx] } });
+                                    this.carsaddle  .forEach((x, idx) => { if (x.optionalId == this.oldoplId[6]) { this.carsaddleone   = this.carsaddle[idx] } });
+                                    this.carsunroof .forEach((x, idx) => { if (x.optionalId == this.oldoplId[7]) { this.carsunroofone  = this.carsunroof[idx] } });
+                                    this.carmedia   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[8]) { this.carmediaone    = this.carmedia[idx] } });
+                                    this.agent      .forEach((x, idx) => { if (x.areaId     == ag        ) { this.agentone       = this.agent[idx]; } });
+                                });
+                                //this.areaId = g.data.areaId;
+                                //this.orderdatetime = g.data.orderDateTime;
+                                //axios.get('/api/BusinessOrders/getagent/' + this.areaId         ).then(g => this.agentone      = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/2').then(g => this.carcolorone   = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/3').then(g => this.cartextureone = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/4').then(g => this.carwheelone   = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/5').then(g => this.carplaqueone  = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/6').then(g => this.carlightone   = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/7').then(g => this.carsaddleone  = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/8').then(g => this.carsunroofone = g.data)
+                                //axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/9').then(g => this.carmediaone   = g.data)
+                                //this.isDisabled = true;
+                            }
                         })
                     }
                     else {
@@ -1041,23 +1059,35 @@
                     }
                 },
                 btnedit() {
-                    axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
-                        this.isDisabled = false;
-                        this.agentone = '';
-                        this.cartypeone   = '';
-                        this.carcolorone   = '';
-                        this.cartextureone = '';
-                        this.carwheelone   = '';
-                        this.carplaqueone  = '';
-                        this.carlightone   = '';
-                        this.carsaddleone  = '';
-                        this.carsunroofone = '';
-                        this.carmediaone = '';
-                        this.cnt = '';
-                        this.btneditseen = true;
-                    });
+                    //axios.get('/api/BusinessOrders/getorder/' + this.ordernum).then(g => {
+                    //    this.isDisabled = false;
+                    //    this.agentone = '';
+                    //    this.cartypeone   = '';
+                    //    this.carcolorone   = '';
+                    //    this.cartextureone = '';
+                    //    this.carwheelone   = '';
+                    //    this.carplaqueone  = '';
+                    //    this.carlightone   = '';
+                    //    this.carsaddleone  = '';
+                    //    this.carsunroofone = '';
+                    //    this.carmediaone = '';
+                    //    this.cnt = '';
+                    //    this.btneditseen = true;
+                    //});
                 },
                 btneditok() {
+                        //將新的選配放入陣列儲存
+                        this.orderdetail = [];
+                        this.orderdetail.push((this.cartypeone    .optionalId ==null)?'':this.cartypeone    .optionalId);
+                        this.orderdetail.push((this.carcolorone   .optionalId ==null)?'':this.carcolorone   .optionalId);
+                        this.orderdetail.push((this.cartextureone .optionalId ==null)?'':this.cartextureone .optionalId);
+                        this.orderdetail.push((this.carwheelone   .optionalId ==null)?'':this.carwheelone   .optionalId);
+                        this.orderdetail.push((this.carplaqueone  .optionalId ==null)?'':this.carplaqueone  .optionalId);
+                        this.orderdetail.push((this.carlightone   .optionalId ==null)?'':this.carlightone   .optionalId);
+                        this.orderdetail.push((this.carsaddleone  .optionalId ==null)?'':this.carsaddleone  .optionalId);
+                        this.orderdetail.push((this.carsunroofone .optionalId ==null)?'':this.carsunroofone .optionalId);
+                        this.orderdetail.push((this.carmediaone   .optionalId ==null)?'':this.carmediaone   .optionalId);
+                        console.log(this.orderdetail);
 
                     if (confirm("確認是否要修改訂單?") == true) {
 
@@ -1083,19 +1113,7 @@
                         //};
                         //console.log(this.orderput);
 
-                        //將新的選配放入陣列儲存
-                        this.orderdetail = [];
-                        this.orderdetail.push((this.cartypeone    .optionalId ==null)?'':this.cartypeone    .optionalId);
-                        this.orderdetail.push((this.carcolorone   .optionalId ==null)?'':this.carcolorone   .optionalId);
-                        this.orderdetail.push((this.cartextureone .optionalId ==null)?'':this.cartextureone .optionalId);
-                        this.orderdetail.push((this.carwheelone   .optionalId ==null)?'':this.carwheelone   .optionalId);
-                        this.orderdetail.push((this.carplaqueone  .optionalId ==null)?'':this.carplaqueone  .optionalId);
-                        this.orderdetail.push((this.carlightone   .optionalId ==null)?'':this.carlightone   .optionalId);
-                        this.orderdetail.push((this.carsaddleone  .optionalId ==null)?'':this.carsaddleone  .optionalId);
-                        this.orderdetail.push((this.carsunroofone .optionalId ==null)?'':this.carsunroofone .optionalId);
-                        this.orderdetail.push((this.carmediaone   .optionalId ==null)?'':this.carmediaone   .optionalId);
-                        console.log(this.orderdetail);
-                        axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}/${this.orderdetailold}`)
+                        axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
                             .then(p => {
                                 this.odid = p.data;
                                 this.bodput = [];
@@ -1108,10 +1126,10 @@
                                         })
                                 });
                                     console.log(this.bodput);
-                                axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}&price=${this.cnt}`, this.bodput)
+                                axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}`, this.bodput)
                                     .then(p => {
-                                    console.log(p);
-                                    window.location.reload();//promise
+                                            console.log(p);
+                                            window.location.reload();//promise
 
                                     /*//迴圈9次修改OrderDetail
                                     for (let n = 0; n < 9; n++) {

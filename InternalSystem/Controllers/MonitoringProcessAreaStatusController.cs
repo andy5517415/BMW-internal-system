@@ -23,29 +23,63 @@ namespace InternalSystem.Controllers
         }
 
 
-
-
-
-
-        //自己寫的
+        //監控預載入
         // GET: api/MonitoringProcessAreaStatus/1/1/iX xDrive40 旗艦版
         [HttpGet("{areaid}/{processId}/{cartype}")]
-        public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId,string cartype)
+        public async Task<ActionResult<dynamic>> GetMonitoringProcessAreaStatus(int areaid, int processId, string cartype)
         {
             var q = from m in _context.MonitoringProcessAreaStatuses
-                    where m.AreaId== areaid && m.ProcessId == processId && m.CarType== cartype
-                    select new { 
+                    where m.AreaId == areaid && m.ProcessId == processId && m.CarType == cartype
+                    select new
+                    {
                         status = m.Status,
                         MonitorId = m.MonitorId
                     };
 
-                return await q.SingleOrDefaultAsync();
+            return await q.SingleOrDefaultAsync();
+        }
+
+
+
+        //報錯系統修改狀態及更新敘述(填完報錯系統根據狀態按鈕送出)
+        // GET: api/MonitoringProcessAreaStatus/putstatus?areaid=1&processId=1&cartype=M4 Competition&stateName=異常&des=999
+        [HttpPut("putstatus")]
+        public dynamic GetMonitoringProcessAreaStatus(int areaid, int processId,string cartype,string stateName,string des)
+        {
+            if (!string.IsNullOrEmpty(areaid.ToString()) && 
+                !string.IsNullOrEmpty(processId.ToString()) &&
+                !string.IsNullOrEmpty(cartype) &&
+                !string.IsNullOrEmpty(stateName) &&
+                !string.IsNullOrEmpty(des)
+                )
+            {
+                var getmid = _context.MonitoringProcessAreaStatuses
+                    .Where(x => x.AreaId == areaid && x.ProcessId == processId && x.CarType == cartype)
+                    .Select(x => x.MonitorId).SingleOrDefault();
+
+                MonitoringProcessAreaStatus mp = new MonitoringProcessAreaStatus
+                {
+                    MonitorId=getmid,
+                    AreaId= areaid,
+                    ProcessId= processId,
+                    CarType= cartype,
+                    Status= stateName,
+                    Description=des
+                };
+                _context.MonitoringProcessAreaStatuses.Update(mp);
+                _context.SaveChanges();
+                return "commit";
+            }
+            else
+            {
+                return "rollback";
+            }
         }
 
 
 
 
-        //自己寫的
+        //監控系統撈目前各廠區製程錯誤狀態敘述(點異常框跳出錯誤訊息)
         // GET: api/MonitoringProcessAreaStatus/description/1/1/iX xDrive40 旗艦版
         [HttpGet("description/{areaid}/{processId}/{cartype}")]
         public async Task<ActionResult<dynamic>> GetDescription(int areaid, int processId, string cartype)
@@ -61,7 +95,7 @@ namespace InternalSystem.Controllers
 
 
 
-        //自己寫的
+        //報錯系統撈訂單資料(已接單且狀態生產中)(報錯系統下拉式選單)
         // GET: api/MonitoringProcessAreaStatus/bugsysgetord
         [HttpGet("bugsysgetord")]
         public async Task<ActionResult<dynamic>> GetBugOrder()

@@ -20,15 +20,15 @@ namespace InternalSystem.Controllers
             _context = context;
         }
 
-        //自己寫的
-        // GET: api/BusinessOrderDetails/fatherandson/25/1
-        [HttpGet("fatherandson/{ordid}/{oplid}")]
-        public int GetOdIdfatherandson(int ordid, int oplid)
+        //找到第一筆訂單細項的OdId
+        // GET: api/BusinessOrderDetails/fatherandson/25
+        [HttpGet("fatherandson/{ordid}")]
+        public int GetOdIdfatherandson(int ordid)
         {
             var q = _context.BusinessOrderDetails
-                .Where(a => a.OrderId == ordid && a.OptionalId == oplid)
+                .Where(a => a.OrderId == ordid)
                 .Select(x => x.OdId)
-                .SingleOrDefault();
+                .First();
                     
             return Convert.ToInt32(q);
         }
@@ -74,7 +74,7 @@ namespace InternalSystem.Controllers
 
 
 
-        //修改父子資料(目前未成功)
+        //修改子資料(目前未成功)(已在order控制器作掉)
         // PUT: api/BusinessOrderDetails
         [HttpPut]
         public string PutOrderDetail(int OrderId, [FromBody] BusinessOrderDetail bodput)
