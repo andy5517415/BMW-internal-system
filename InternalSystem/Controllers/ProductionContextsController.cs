@@ -290,6 +290,10 @@ namespace InternalSystem.Controllers
                 {
                     Btotal += b.TotalMinutes - 60;
                 }
+                else
+                {
+                    Btotal += b.TotalMinutes;
+                }
 
             }
             Btotal = Btotal / 60;
@@ -312,13 +316,21 @@ namespace InternalSystem.Controllers
                 {
                     Ctotal += c.TotalMinutes - 60;
                 }
+                else
+                {
+                    Ctotal += c.TotalMinutes;
+                }
 
             }
             Ctotal = Ctotal / 60;
 
             double Total = Atotal + Btotal + Ctotal;
 
-
+            List<double> tot = new List<double>();
+          
+            tot.Add(Atotal);
+            tot.Add(Btotal);
+            tot.Add(Ctotal);
 
             // 訂單內製程每個製程及製程總時
             var proess = (from PPL in this._context.ProductionProcessLists
@@ -340,10 +352,10 @@ namespace InternalSystem.Controllers
                             OptionalName = BOP.OptionalName,
                             StatusId = PPSN.StatusId,
                             StatusName = PPSN.StatusName,
-
-                            Atotal = (float)Math.Round(Atotal, 1),
-                            Btotal = (float)Math.Round(Btotal, 1),
-                            Ctotal = (float)Math.Round(Ctotal, 1),
+                            tot
+                            //Atotal = (float)Math.Round(Atotal, 1),
+                            //Btotal = (float)Math.Round(Btotal, 1),
+                            //Ctotal = (float)Math.Round(Ctotal, 1),
                         }).ToList();
 
             // 抓訂單的開始日期及結束日期
@@ -352,8 +364,7 @@ namespace InternalSystem.Controllers
                             select o).FirstOrDefault();
             var endDate = (from o in this._context.ProductionProcessLists
                             where o.ProcessId == 3 && o.OrderId == id && o.StatusId == 3
-                           select o).FirstOrDefault();
-
+                           select o).FirstOrDefault();            
 
 
             if (endDate == null)
