@@ -65,7 +65,8 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.ApplicationDate
+                                         pl.ApplicationDate,
+                                         pl.AuditOpnion
                                      };
 
             if (personnelLeaveForm == null)
@@ -110,7 +111,8 @@ namespace InternalSystem.Controllers
                                          Proxy = pl.Proxy,
                                          auditManerger = pl.AuditManerger,
                                          Reason = pl.Reason,
-                                         pl.ApplicationDate
+                                         pl.ApplicationDate,
+                                         pl.AuditOpnion
                                      };
 
             if (personnelLeaveForm == null)
