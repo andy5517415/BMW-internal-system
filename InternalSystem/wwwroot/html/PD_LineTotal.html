@@ -267,9 +267,14 @@
             <div data-i18n="Account">異常清單查詢</div>
           </a>
         </li>
-        <li class="menu-item active">
+        <li class="menu-item">
           <a href="PD_ReportContentSearch.html" class="menu-link">
             <div data-i18n="Account">報工查詢</div>
+          </a>
+        </li>
+        <li class="menu-item active">
+          <a href="PD_LineTotal.html" class="menu-link">
+            <div data-i18n="Account">製程總工時</div>
           </a>
         </li>
       </ul>
@@ -350,14 +355,10 @@
         </li>
         <li class="menu-item">
           <a href="MT_MeetReserveSearch.html" class="menu-link">
-            <div data-i18n="Account">查詢租借紀錄</div>
+            <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="MT_MeetRecordCreate.html" class="menu-link">
-            <div data-i18n="Account">建立會議記錄表</div>
-          </a>
-        </li>
+        
         <li class="menu-item">
           <a href="MT_MeetRecordSearch.html" class="menu-link">
             <div data-i18n="Account">會議記錄表查詢</div>
@@ -366,45 +367,8 @@
       </ul>
     </li>
 
-    <!-- 登入 -->
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">登入</span>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-        <div data-i18n="Authentications">登入與註冊</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="Login.html" class="menu-link" target="_blank">
-            <div data-i18n="Basic">登入</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <!-- 連線錯誤 -->
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">連線錯誤與維護</span>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-        <div data-i18n="Misc">連線錯誤與維護</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="pages-misc-error.html" class="menu-link">
-            <div data-i18n="Error">404錯誤</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="pages-misc-under-maintenance.html" class="menu-link">
-            <div data-i18n="Under Maintenance">平台維護中</div>
-          </a>
-        </li>
-      </ul>
-    </li>
+    
+    
   </ul>
 </aside>
 <!-- /Menu -->
@@ -657,50 +621,50 @@
 
     <script>
 
-        const app = {
-            data() {
-                return {
-                    item: {},
-                    dd: [],
-                    accordionOne: []
-                }
-            },
-            mounted() {
-                
-                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-                    then(response => {
-                        this.item = response.data
-                        console.log(this.item[0].orderId)
-                        for (var i = 0; i < this.item.length; i++) {
-                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                then(response => {
-                                    //this.apple[i] = response.data;
-                                    this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess });
-                                    console.log(this.dd)
-                                    //this.dd = response.data;
-                                    for (var j = 0; j < this.dd.length; j++) {
-                                        this.item[j].Total = this.dd[j].Total;
-                                        this.item[j].StartDay = this.dd[j].StartDay;
-                                        this.item[j].EndDay = this.dd[j].EndDay;
-                                        this.item[j].proess = this.dd[j].proess;
-                                    }
+      const app = {
+        data() {
+          return {
+            item: {},
+            dd: [],
+            accordionOne: []
+          }
+        },
+        mounted() {
 
-                                })
+          axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+            then(response => {
+              this.item = response.data
+              console.log(this.item[0].orderId)
+              for (var i = 0; i < this.item.length; i++) {
+                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                  then(response => {
+                    //this.apple[i] = response.data;
+                    this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess });
+                    console.log(this.dd)
+                    //this.dd = response.data;
+                    for (var j = 0; j < this.dd.length; j++) {
+                      this.item[j].Total = this.dd[j].Total;
+                      this.item[j].StartDay = this.dd[j].StartDay;
+                      this.item[j].EndDay = this.dd[j].EndDay;
+                      this.item[j].proess = this.dd[j].proess;
+                    }
 
-                        }
-                        this.item.forEach((x, index) => {
-                            this.accordionOne.push(x.orderNumber)
-                        })
-                    });
+                  })
+
+              }
+              this.item.forEach((x, index) => {
+                this.accordionOne.push(x.orderNumber)
+              })
+            });
 
 
-            },
-            methods: {
+        },
+        methods: {
 
-            }
         }
+      }
 
-        Vue.createApp(app).mount('#app')
+      Vue.createApp(app).mount('#app')
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

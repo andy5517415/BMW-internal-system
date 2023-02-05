@@ -270,6 +270,11 @@
                                     <div data-i18n="Account">報工查詢</div>
                                 </a>
                             </li>
+                            <li class="menu-item">
+                                <a href="PD_LineTotal.html" class="menu-link">
+                                    <div data-i18n="Account">製程總工時</div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -346,16 +351,8 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="MT_MeetReserveSearch.html" class="menu-link">
-                                    <div data-i18n="Account">查詢租借紀錄</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="MT_MeetRecordCreate.html" class="menu-link">
-                                    <div data-i18n="Account">建立會議記錄表</div>
-                                </a>
-                            </li>
+                            
+                            
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
                                     <div data-i18n="Account">會議記錄表查詢</div>
@@ -364,45 +361,8 @@
                         </ul>
                     </li>
 
-                    <!-- 登入 -->
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">登入</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                            <div data-i18n="Authentications">登入與註冊</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="Login.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">登入</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- 連線錯誤 -->
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">連線錯誤與維護</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                            <div data-i18n="Misc">連線錯誤與維護</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="pages-misc-error.html" class="menu-link">
-                                    <div data-i18n="Error">404錯誤</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="pages-misc-under-maintenance.html" class="menu-link">
-                                    <div data-i18n="Under Maintenance">平台維護中</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    
+                    
                 </ul>
             </aside>
             <!-- /Menu -->
@@ -929,7 +889,7 @@
                     //isDisabled: true,
                     btnseen: false,
                     describeseen: false,
-                    isdisable:true,
+                    isdisable: true,
                     //btneditseen:false,
                     ordernum: '',
                     orderid: '',
@@ -970,20 +930,20 @@
                     bodput: [],
 
                     olddetail: {},
-                    oldoplId:[]
+                    oldoplId: []
                 }
             },
             computed: {
                 cnt() {
                     return parseInt((this.cartypeone.price == null) ? 0 : this.cartypeone.price, 10) +
-                           parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
-                           parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
-                           parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
-                           parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
-                           parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
-                           parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
-                           parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
-                           parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
+                        parseInt((this.carcolorone.price == null) ? 0 : this.carcolorone.price, 10) +
+                        parseInt((this.cartextureone.price == null) ? 0 : this.cartextureone.price, 10) +
+                        parseInt((this.carwheelone.price == null) ? 0 : this.carwheelone.price, 10) +
+                        parseInt((this.carplaqueone.price == null) ? 0 : this.carplaqueone.price, 10) +
+                        parseInt((this.carlightone.price == null) ? 0 : this.carlightone.price, 10) +
+                        parseInt((this.carsaddleone.price == null) ? 0 : this.carsaddleone.price, 10) +
+                        parseInt((this.carsunroofone.price == null) ? 0 : this.carsunroofone.price, 10) +
+                        parseInt((this.carmediaone.price == null) ? 0 : this.carmediaone.price, 10)
                         ;
                 },
                 charcnt() {
@@ -1002,7 +962,7 @@
                             if (g.status != 200) {
                                 alert('無此訂單號碼，請確認訂單號碼!');
                             }
-                            else {                                
+                            else {
                                 alert('查詢成功!');
                                 //this.cartypeone = g.data;
                                 this.orderid = g.data.orderId;
@@ -1027,16 +987,16 @@
                                     })
                                     console.log(this.oldoplId)
 
-                                    this.cartype    .forEach((x, idx) => { if (x.optionalId == this.oldoplId[0]) { this.cartypeone     = this.cartype[idx] } });
-                                    this.carcolor   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[1]) { this.carcolorone    = this.carcolor[idx] } });
-                                    this.cartexture .forEach((x, idx) => { if (x.optionalId == this.oldoplId[2]) { this.cartextureone  = this.cartexture[idx] } });
-                                    this.carwheel   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[3]) { this.carwheelone    = this.carwheel[idx] } });
-                                    this.carplaque  .forEach((x, idx) => { if (x.optionalId == this.oldoplId[4]) { this.carplaqueone   = this.carplaque[idx] } });
-                                    this.carlight   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[5]) { this.carlightone    = this.carlight[idx] } });
-                                    this.carsaddle  .forEach((x, idx) => { if (x.optionalId == this.oldoplId[6]) { this.carsaddleone   = this.carsaddle[idx] } });
-                                    this.carsunroof .forEach((x, idx) => { if (x.optionalId == this.oldoplId[7]) { this.carsunroofone  = this.carsunroof[idx] } });
-                                    this.carmedia   .forEach((x, idx) => { if (x.optionalId == this.oldoplId[8]) { this.carmediaone    = this.carmedia[idx] } });
-                                    this.agent      .forEach((x, idx) => { if (x.areaId     == ag        ) { this.agentone       = this.agent[idx]; } });
+                                    this.cartype.forEach((x, idx) => { if (x.optionalId == this.oldoplId[0]) { this.cartypeone = this.cartype[idx] } });
+                                    this.carcolor.forEach((x, idx) => { if (x.optionalId == this.oldoplId[1]) { this.carcolorone = this.carcolor[idx] } });
+                                    this.cartexture.forEach((x, idx) => { if (x.optionalId == this.oldoplId[2]) { this.cartextureone = this.cartexture[idx] } });
+                                    this.carwheel.forEach((x, idx) => { if (x.optionalId == this.oldoplId[3]) { this.carwheelone = this.carwheel[idx] } });
+                                    this.carplaque.forEach((x, idx) => { if (x.optionalId == this.oldoplId[4]) { this.carplaqueone = this.carplaque[idx] } });
+                                    this.carlight.forEach((x, idx) => { if (x.optionalId == this.oldoplId[5]) { this.carlightone = this.carlight[idx] } });
+                                    this.carsaddle.forEach((x, idx) => { if (x.optionalId == this.oldoplId[6]) { this.carsaddleone = this.carsaddle[idx] } });
+                                    this.carsunroof.forEach((x, idx) => { if (x.optionalId == this.oldoplId[7]) { this.carsunroofone = this.carsunroof[idx] } });
+                                    this.carmedia.forEach((x, idx) => { if (x.optionalId == this.oldoplId[8]) { this.carmediaone = this.carmedia[idx] } });
+                                    this.agent.forEach((x, idx) => { if (x.areaId == ag) { this.agentone = this.agent[idx]; } });
                                 });
                                 //this.areaId = g.data.areaId;
                                 //this.orderdatetime = g.data.orderDateTime;
@@ -1076,18 +1036,18 @@
                     //});
                 },
                 btneditok() {
-                        //將新的選配放入陣列儲存
-                        this.orderdetail = [];
-                        this.orderdetail.push((this.cartypeone    .optionalId ==null)?'':this.cartypeone    .optionalId);
-                        this.orderdetail.push((this.carcolorone   .optionalId ==null)?'':this.carcolorone   .optionalId);
-                        this.orderdetail.push((this.cartextureone .optionalId ==null)?'':this.cartextureone .optionalId);
-                        this.orderdetail.push((this.carwheelone   .optionalId ==null)?'':this.carwheelone   .optionalId);
-                        this.orderdetail.push((this.carplaqueone  .optionalId ==null)?'':this.carplaqueone  .optionalId);
-                        this.orderdetail.push((this.carlightone   .optionalId ==null)?'':this.carlightone   .optionalId);
-                        this.orderdetail.push((this.carsaddleone  .optionalId ==null)?'':this.carsaddleone  .optionalId);
-                        this.orderdetail.push((this.carsunroofone .optionalId ==null)?'':this.carsunroofone .optionalId);
-                        this.orderdetail.push((this.carmediaone   .optionalId ==null)?'':this.carmediaone   .optionalId);
-                        console.log(this.orderdetail);
+                    //將新的選配放入陣列儲存
+                    this.orderdetail = [];
+                    this.orderdetail.push((this.cartypeone.optionalId == null) ? '' : this.cartypeone.optionalId);
+                    this.orderdetail.push((this.carcolorone.optionalId == null) ? '' : this.carcolorone.optionalId);
+                    this.orderdetail.push((this.cartextureone.optionalId == null) ? '' : this.cartextureone.optionalId);
+                    this.orderdetail.push((this.carwheelone.optionalId == null) ? '' : this.carwheelone.optionalId);
+                    this.orderdetail.push((this.carplaqueone.optionalId == null) ? '' : this.carplaqueone.optionalId);
+                    this.orderdetail.push((this.carlightone.optionalId == null) ? '' : this.carlightone.optionalId);
+                    this.orderdetail.push((this.carsaddleone.optionalId == null) ? '' : this.carsaddleone.optionalId);
+                    this.orderdetail.push((this.carsunroofone.optionalId == null) ? '' : this.carsunroofone.optionalId);
+                    this.orderdetail.push((this.carmediaone.optionalId == null) ? '' : this.carmediaone.optionalId);
+                    console.log(this.orderdetail);
 
                     if (confirm("確認是否要修改訂單?") == true) {
 
@@ -1117,7 +1077,7 @@
                             .then(p => {
                                 this.odid = p.data;
                                 this.bodput = [];
-                                this.orderdetail.forEach((x,key) => {
+                                this.orderdetail.forEach((x, key) => {
                                     this.bodput.push(
                                         {
                                             'odId': this.odid + key,
@@ -1125,47 +1085,47 @@
                                             'optionalId': x
                                         })
                                 });
-                                    console.log(this.bodput);
+                                console.log(this.bodput);
                                 axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}`, this.bodput)
                                     .then(p => {
-                                            console.log(p);
-                                            window.location.reload();//promise
+                                        console.log(p);
+                                        window.location.reload();//promise
 
-                                    /*//迴圈9次修改OrderDetail
-                                    for (let n = 0; n < 9; n++) {
-                                        //找舊選配optionalId
-                                        axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
-                                            .then(g => {
-                                                console.log(g.data[n].optionalId);
-                                                this.orderdetailold = g.data[n].optionalId;
-                                                //console.log(`g.data[0].OptionalId${g.data[n].OptionalId}`);
-                                                //console.log(`this.orderdetailold${this.orderdetailold}`);
-
-                                                //由 orderId, optionalId  找到唯一識別欄位OdId
-                                                axios.get('/api/BusinessOrderDetails/' + this.orderid + '/' + this.orderdetailold)
-                                                    .then(p => {
-                                                        //console.log(p.data);
-                                                        this.odid = p.data;
-                                                        console.log(this.odid);
-                                                        //組裝OrderDetail資料表
-                                                        this.orderdetailput = {
-                                                            "odId": this.odid,
-                                                            "OrderId": this.orderid,
-                                                            "OptionalId": this.orderdetail[n]
-                                                        }
-                                                        console.log(this.orderdetailput);
-                                                        //putOrderDetail資料表
-                                                        axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
-                                                            .then(p => {
-                                                                console.log(p);
-                                                                //window.location.reload();//promise
-                                                            })
-                                                    })
-                                            })
-                                    }
-                                    */
-                                    alert('訂單修改成功!');
-                                });
+                                        /*//迴圈9次修改OrderDetail
+                                        for (let n = 0; n < 9; n++) {
+                                            //找舊選配optionalId
+                                            axios.get('/api/BusinessOrders/getorder/' + this.ordernum)
+                                                .then(g => {
+                                                    console.log(g.data[n].optionalId);
+                                                    this.orderdetailold = g.data[n].optionalId;
+                                                    //console.log(`g.data[0].OptionalId${g.data[n].OptionalId}`);
+                                                    //console.log(`this.orderdetailold${this.orderdetailold}`);
+    
+                                                    //由 orderId, optionalId  找到唯一識別欄位OdId
+                                                    axios.get('/api/BusinessOrderDetails/' + this.orderid + '/' + this.orderdetailold)
+                                                        .then(p => {
+                                                            //console.log(p.data);
+                                                            this.odid = p.data;
+                                                            console.log(this.odid);
+                                                            //組裝OrderDetail資料表
+                                                            this.orderdetailput = {
+                                                                "odId": this.odid,
+                                                                "OrderId": this.orderid,
+                                                                "OptionalId": this.orderdetail[n]
+                                                            }
+                                                            console.log(this.orderdetailput);
+                                                            //putOrderDetail資料表
+                                                            axios.put('/api/BusinessOrderDetails/' + this.odid, this.orderdetailput)
+                                                                .then(p => {
+                                                                    console.log(p);
+                                                                    //window.location.reload();//promise
+                                                                })
+                                                        })
+                                                })
+                                        }
+                                        */
+                                        alert('訂單修改成功!');
+                                    });
                                 //console.log(`${typeof this.odid}:${this.odid}`);
                                 //console.log(this.bodput);
 

@@ -187,6 +187,7 @@ namespace InternalSystem.Controllers
             if(dep != null) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.DepartmentId == dep); }
             if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
             if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
+
             var query = personnelAttendanceTime.Skip((page-1) * 10).Take(10);
             var totalpage = query.Count();
             return await query.ToListAsync();
