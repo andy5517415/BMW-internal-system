@@ -147,32 +147,32 @@ namespace InternalSystem.Controllers
 
 
 
-        //直送sql指令
-        // GET: api/BusinessOrders/GetOrderAllSql
-        [HttpGet("GetOrderAllSql")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllFromsqlraw()
-        {
+        ////直送sql指令
+        //// GET: api/BusinessOrders/GetOrderAllSql
+        //[HttpGet("GetOrderAllSql")]
+        //public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllFromsqlraw()
+        //{
 
-            var p = _context.leftjoin.FromSqlRaw<leftjoin>(@"
-                  select o.OrderId,
-            o.OrderNumber,
-            o.OrderDateTime,
-            o.EditDatetime,
-            o.IsAccepted,
-            a.AreaName,
-            pa.AreaName as AreaNameProcess,
-            pp.ProcessName
-                  from [dbo].[BusinessOrder] as o
-                  join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
-                  left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
-                  left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
-                  left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
+        //    var p = _context.leftjoin.FromSqlRaw<Leftjoin>(@"
+        //          select o.OrderId,
+        //    o.OrderNumber,
+        //    o.OrderDateTime,
+        //    o.EditDatetime,
+        //    o.IsAccepted,
+        //    a.AreaName,
+        //    pa.AreaName as AreaNameProcess,
+        //    pp.ProcessName
+        //          from [dbo].[BusinessOrder] as o
+        //          join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
+        //          left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
+        //          left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
+        //          left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
 
 
-            //var p = _context.leftjoin.FromSqlRaw<leftjoin>("EXEC p_left");
+        //    //var p = _context.leftjoin.FromSqlRaw<leftjoin>("EXEC p_left");
 
-            return await p.ToListAsync();
-        }
+        //    return await p.ToListAsync();
+        //}
 
 
 
