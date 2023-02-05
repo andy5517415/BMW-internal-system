@@ -850,11 +850,6 @@
                 return {
                     text: "",
                     employeelist: {
-                        "employeeNumber": "", PersonnelLeaveOvers: [{ "LeaveType": 1, "Quantity": 112, "Used": "0", "LeaveOver": "112" },
-                        { "LeaveType": 2, "Quantity": 240, "Used": "0", "LeaveOver": "240" },
-                        { "LeaveType": 3, "Quantity": 0, "Used": "0", "LeaveOver": "0" },
-                        { "LeaveType": 4, "Quantity": 96, "Used": "0", "LeaveOver": "96" }
-                        ]
                     },
                     departmentlist: {},
                     positionlist: {},
@@ -1027,16 +1022,16 @@
                 },
 
 
-                sexleave() {
-                    if (this.employeelist.sex == "男性") {
-                        this.employeelist.PersonnelLeaveOvers[3].LeaveOver = "0";
-                        this.employeelist.PersonnelLeaveOvers[3].Quantity = 0;
-                    }
-                    else if (this.employeelist.sex == "女性") {
-                        this.employeelist.PersonnelLeaveOvers[3].LeaveOver = "96";
-                        this.employeelist.PersonnelLeaveOvers[3].Quantity = 96;
-                    }
-                },
+                //sexleave() {
+                //    if (this.employeelist.sex == "男性") {
+                //        this.employeelist.PersonnelLeaveOvers[3].LeaveOver = "0";
+                //        this.employeelist.PersonnelLeaveOvers[3].Quantity = 0;
+                //    }
+                //    else if (this.employeelist.sex == "女性") {
+                //        this.employeelist.PersonnelLeaveOvers[3].LeaveOver = "96";
+                //        this.employeelist.PersonnelLeaveOvers[3].Quantity = 96;
+                //    }
+                //},
                 passwdset() {
 
                     let y = (parseFloat(this.employeelist.birthday.substring(0, 4)) - 1911).toString();
