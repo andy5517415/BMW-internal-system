@@ -13,5 +13,6 @@ namespace InternalSystem.Dotos
         public string AreaName { get; set; }
         public string AreaNameProcess { get; set; }
         public string ProcessName { get; set; }
+        public int StatusId { get; set; }
     }
 }

@@ -20,9 +20,9 @@ namespace InternalSystem.Controllers
     [ApiController]
     public class BusinessOrdersController : ControllerBase
     {
-        private readonly MSIT44Context _context;
+        private readonly MSIT44Context2 _context;
 
-        public BusinessOrdersController(MSIT44Context context)
+        public BusinessOrdersController(MSIT44Context2 context)
         {
             _context = context;
         }
@@ -147,32 +147,32 @@ namespace InternalSystem.Controllers
 
 
 
-        ////直送sql指令
-        //// GET: api/BusinessOrders/GetOrderAllSql
-        //[HttpGet("GetOrderAllSql")]
-        //public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllFromsqlraw()
-        //{
+        //直送sql指令
+        // GET: api/BusinessOrders/GetOrderAllSql
+        [HttpGet("GetOrderAllSql")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllFromsqlraw()
+        {
 
-        //    var p = _context.leftjoin.FromSqlRaw<Leftjoin>(@"
-        //          select o.OrderId,
-        //    o.OrderNumber,
-        //    o.OrderDateTime,
-        //    o.EditDatetime,
-        //    o.IsAccepted,
-        //    a.AreaName,
-        //    pa.AreaName as AreaNameProcess,
-        //    pp.ProcessName
-        //          from [dbo].[BusinessOrder] as o
-        //          join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
-        //          left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
-        //          left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
-        //          left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
+            //var p = _context.Leftjoin.FromSqlRaw(@"
+            //      select o.OrderId,
+            //o.OrderNumber,
+            //o.OrderDateTime,
+            //o.EditDatetime,
+            //o.IsAccepted,
+            //a.AreaName,
+            //pa.AreaName as AreaNameProcess,
+            //pp.ProcessName
+            //      from [dbo].[BusinessOrder] as o
+            //      join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
+            //      left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
+            //      left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
+            //      left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
 
 
-        //    //var p = _context.leftjoin.FromSqlRaw<leftjoin>("EXEC p_left");
+            var p = _context.Leftjoin.FromSqlRaw("EXEC p_left");
 
-        //    return await p.ToListAsync();
-        //}
+            return await p.ToListAsync();
+        }
 
 
 
@@ -181,25 +181,7 @@ namespace InternalSystem.Controllers
         [HttpGet("GetOrderAll")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAll()
         {
-            //string sql = @"
-            //      select o.OrderId,
-            //o.OrderNumber,
-            //o.OrderDateTime,
-            //o.EditDatetime,
-            //o.IsAccepted,
-            //op.OptionalName,
-            //a.AreaName,
-            //pa.AreaName as AreaNameProcess,
-            //pp.ProcessName
-            //      from [dbo].[BusinessOrder] as o
-            //      join [dbo].[BusinessOrderDetail] as od on o.OrderId=od.OrderId
-            //      join [dbo].[BusinessOptional] as op on od.OptionalId=op.OptionalId
-            //      join [dbo].[BusinessArea] as a on o.AreaId=a.AreaId
-            //      left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
-            //      left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
-            //      left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId";
-            //var p = _context.leftjoin.FromSqlRaw<leftjoin>(sql).ToList();            
-
+                   
             var q = _context.BusinessOrders.Select(a => new
             {
                 a.OrderId,
@@ -225,6 +207,33 @@ namespace InternalSystem.Controllers
 
             return await q.ToListAsync();
         }
+
+
+
+
+
+        ////嘗試leftjoin
+        //// GET: api/BusinessOrders/GetOrderAllleftjoin
+        //[HttpGet("GetOrderAllleftjoin")]
+        //public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllLeftjoin()
+        //{
+        //    var q = from bo in _context.BusinessOrders
+        //                //join ba in _context.BusinessAreas on bo.AreaId equals ba.AreaId
+        //            join ppl in _context.ProductionProcessLists on bo.OrderId equals ppl.OrderId
+        //            join 
+        //            into groupjoin
+        //            from gj in groupjoin.DefaultIfEmpty()
+        //            select new
+        //            {
+        //                bo.OrderId,
+        //                bo.OrderNumber,
+        //                state=gj==null ? 0: gj.StatusId
+
+
+        //            };
+
+        //    return await q.ToListAsync();
+        //}
 
 
 
