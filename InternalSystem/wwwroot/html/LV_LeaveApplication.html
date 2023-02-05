@@ -721,6 +721,11 @@
                                         }).catch(err => alert(err))
                                 }
                             }
+                            else {
+                                this.text = '請確實填寫請假資料!';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                            }
                         }
                     }
 
@@ -749,6 +754,11 @@
                                         }).catch(err => alert(err))
                                     //window.location = "/html/LV_LeaveApplication.html"
                                 }
+                            }
+                            else {
+                                this.text = '請確實填寫請假資料!';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             }
                         }
                     }
