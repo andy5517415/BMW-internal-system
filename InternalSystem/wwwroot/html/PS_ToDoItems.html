@@ -464,7 +464,33 @@
           <!-- Content wrapper -->
         <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                 <h4 class="fw-bold py-3 mb-4EK"><span class="text-muted fw-light">個人資料 /</span> 待辦事項</h4>
                     <div class="container-xxl flex-grow-1 container-p-y">
                       <div class="card mb-4 m-4">
@@ -473,7 +499,7 @@
                                         <li class="nav-item " v-if="employeelist.positionId<7">
                                             <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt!=0">{{cnt}}</span>
                                             <button type="button"
-                                                    class="btn-outline-primary fw-bold border-3 my-5"
+                                                    class="btn-primary fw-bold border-3 my-5"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#home"
@@ -495,7 +521,7 @@
                                         </li>-->
                                         <li class="nav-item " v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="btn-outline-primary fw-bold border-3"
+                                                    class="btn-primary fw-bold border-3"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditleave"
@@ -508,7 +534,7 @@
 
                                         <li class="nav-item" v-if="employeelist.positionId==7">
                                             <button type="button"
-                                                    class="btn-outline-primary fw-bold border-3"
+                                                    class="btn-primary fw-bold border-3"
                                                     role="tab"
                                                     data-bs-toggle="tab"
                                                     data-bs-target="#auditover"

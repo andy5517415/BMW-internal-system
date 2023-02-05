@@ -372,6 +372,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -459,7 +460,33 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                         <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班審核</h4>
 
 
@@ -468,11 +495,11 @@
 
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" v-model="overlist.employeeName" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input class="form-control fs-5" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
                                     </div>
 
@@ -481,20 +508,20 @@
                                 <div class="row ">
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班開始時間</label>
+                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班開始時間</label>
                                         <input class="form-control fs-5" v-model="overlist.startDate" id="Starttimeforvacation" disabled />
                                         <input class="form-control fs-5" v-model="overlist.startTime" id="Starttimeforvacation" disabled />
 
                                     </div>
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班結束時間</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班結束時間</label>
                                         <input class="form-control fs-5" v-model="overlist.endDate" id="Endtimeforvacation" disabled />
                                         <input class="form-control fs-5" v-model="overlist.endTime" id="Endtimeforvacation" disabled />
 
                                     </div>
                                     <div class="mb-3 col-md-3">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">審核狀態</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">審核狀態</label>
                                         <strong class="form-control fs-5" v-if="overlist.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
                                         <strong class="form-control fs-5" v-if="overlist.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                                     </div>
@@ -503,7 +530,7 @@
                                 
 
                                 <div class="my-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
                                 </div>
                         </div>
 
@@ -550,6 +577,7 @@
         const app = {
             data() {
                 return {
+                    text: "",
                     overlist: {}
                 }
             },
@@ -557,7 +585,10 @@
                 okbtn: function () {
                     if (confirm('確認審閱嗎?') == true) {
                         axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkId, this.overlist).then(a => {
-                            alert('已送出審閱訊息');
+                            //★成功
+                            this.text = '已送出審閱訊息';
+                            $("#toastSuc").fadeIn("fast");
+                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                             window.location = "/html/PS_ToDoItems.html";
                         })
 

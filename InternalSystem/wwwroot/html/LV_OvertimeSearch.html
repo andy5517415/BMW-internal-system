@@ -368,6 +368,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -456,36 +457,62 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
 
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="row my-4 mx-4">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input v-model="employeelist.employeeName" class="form-control fs-5" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="EmployeeNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input v-model="employeelist.employeeNumber" class="form-control fs-5" id="EmployeeNumber" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input v-model="employeelist.employeeId" class="form-control fs-5" id="Employeeid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
-                                        <label for="Status" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Status" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input v-model="workoverlist.auditStatus" class="form-control fs-5" id="Status" disabled />
                                     </div>
                                 </div>
 
                                 <div class="row mx-4 mb-4">
                                     <div class="mb-3 col-md-3">
-                                        <label for="html5-date-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始時間</label>
+                                        <label for="html5-date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始時間</label>
                                         <input class="mb-4 form-control fs-5" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
 
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束時間</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束時間</label>
                                         <input class="form-control fs-5" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
                                     </div>
                                     <div class="mb-3 col-md-3">
@@ -498,7 +525,7 @@
 
                                 <div class="row mb-4 mx-4">
                                     <div class="mb-3 col-md-3">
-                                        <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班訂單/製程/廠區</label>
+                                        <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班訂單/製程/廠區</label>
                                         <select v-model="product.orderId" @change="overReason(product.orderId)" id="orderNumber" class="select1 form-select">
                                             <option value="請選擇訂單" disabled>請選擇訂單</option>
                                             <option v-for="item in product" :value="item.areaId">{{item.orderNumber}}</option>
@@ -506,17 +533,17 @@
                                     </div>
                                     
                                     <div class="mb-3 col-md-3">
-                                        <label for="area" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班廠區</label>
+                                        <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班廠區</label>
                                         <input class="form-control fs-5" v-model="overprocess.areaName" id="area" disabled />
                                     </div>
                                     
                                     <div class="mb-3 col-md-3">
-                                        <label for="process" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班製程</label>
+                                        <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班製程</label>
                                         <input class="form-control fs-5" v-model="overprocess.processName" id="process" disabled />
                                     </div>
                                     <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                        <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " v-on:click="okbtn">送出</button>
-                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2">取消</button>
+                                        <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " v-on:click="okbtn">送出</button>
+                                        <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-2">取消</button>
                                     </div>
                                 </div>                             
                             </form>
@@ -564,6 +591,7 @@
 
             data() {
                 return {
+                    text: "",
                     employeelist: {},
                     workoverlist: {},
                     totaltime: {},
@@ -589,14 +617,24 @@
                         if (confirm('是否送出資料') == true) {
                             axios.post('/api/PersonnelOvertimeForms', this.workoverlist)
                                 .then(response => {
-                                    alert(response.data);
+                                    //★成功
+                                    this.text = response.data;
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                                    //失敗
+                                    this.text = response.data;
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                     window.location = "/html/LV_OvertimeSearch.html";
                                 })
                                 .catch(err => console.log(err))
                         }
                     }
                     else {
-                        alert('資料請確實填寫')
+                        this.text = '資料請確實填寫';
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                     }
 
 
@@ -618,7 +656,10 @@
                     if (confirm('確認修改?') == true) {
                         axios.put('/api/PersonnelOvertimeForms/' + this.workoverlist.startWorkId, this.workoverlist)
                             .then(a => {
-                                alert('修改完畢');
+                                this.text = '修改完畢';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                 window.location = "/html/PS_ToDoItems.html"
                             })
                     }
@@ -633,7 +674,10 @@
                     if (confirm('刪除本次加班資料?') == true) {
                         axios.delete('/api/PersonnelOvertimeForms/' + this.workoverlist.startWorkId, this.workoverlist)
                             .then(a => {
-                                alert('修改完畢');
+                                this.text = '修改完畢';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                 window.location = "/html/PS_ToDoItems.html"
                             })
                     }

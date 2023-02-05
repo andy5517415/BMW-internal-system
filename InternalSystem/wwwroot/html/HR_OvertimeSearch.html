@@ -377,6 +377,7 @@
           <!-- Navbar -->
         
                 <nav class="container" id="navInf">
+                  
                   <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                     id="layout-navbar">
                 
@@ -467,7 +468,34 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        
+              <!-- 我是成功的吐司 -->
+              <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                aria-live="assertive" aria-atomic="true" id="toastSuc">
+                <div class="toast-header">
+                  <i class="bx bx bxs-bell bx-tada me-2"></i>
+                  <div class="me-auto fw-bold fs-3">通知</div>
+                  <small></small>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body fs-4 fw-bold">
+                  ✔&nbsp;{{text}}
+                </div>
+              </div>
+              <!-- 錯誤的吐司 -->
+              <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                aria-live="assertive" aria-atomic="true" id="toastErr">
+                <div class="toast-header">
+                  <i class="bx bx bxs-bell bx-tada me-2"></i>
+                  <div class="me-auto fw-bold fs-3">通知</div>
+                  <small></small>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body fs-4 fw-bold">
+                  ❌&nbsp;{{text}}
+                </div>
+              </div>
                 <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
               <!-- 加班資料查詢/修改 -->
               <div class="card m-4 my-4 card-body inputCard">
@@ -493,7 +521,7 @@
                     </div>
 
                     <div class="col ms-5">
-                      <button type="button" v-on:click="search" class="btn btn-outline-primary fs-4 fw-bold border-3 ">查詢</button>
+                      <button type="button" v-on:click="search" class="btn btn-primary fs-4 fw-bold border-3 ">查詢</button>
                     </div>
                   </div>
 
@@ -607,6 +635,7 @@
       const app = {
         data() {
           return {
+            text: "",
             employeelist: { "name": "", "depId": "" },
             overtimelist: {},
             departmentlist: {},
@@ -621,7 +650,16 @@
               .then(response => {
                 this.overtimelist = response.data;
                 this.nowpage = 1;
-                if (this.overtimelist.length == 0) { alert('查無資料') };
+                if (this.overtimelist.length == 0) {
+                  this.text = '查無資料';
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                }
+                else {
+                  this.text = "查詢成功";
+                  $("#toastSuc").fadeIn("fast");
+                  setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                };
               })
               .catch(err => console.log(err))
             axios.get('/api/PersonnelOvertimeForms/ComplexPage/' + this.employeelist.month + '?name=' + this.employeelist.name + '&dep=' + this.employeelist.depId)
@@ -661,7 +699,13 @@
                 this.overtimelist = response.data;
                 this.nowpage = e;
                 console.log(this.overtimelist)
-              }).catch(err => { console.log(err); alert('查無此項') })
+              }).catch(err => {
+                console.log(err); {
+                  this.text = "查無此項";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                }
+              })
           }
         },
         mounted() {

@@ -367,6 +367,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -452,23 +453,49 @@
 
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
-                <div class="content-wrapper" />
+                <div class="content-wrapper" >
                 <!-- Content -->
 
-                <div class="container-xxl flex-grow-1 container-p-y" id="app" />
+                <div class="container-xxl flex-grow-1 container-p-y" id="app" >
+                    <!-- 我是成功的吐司 -->
+                    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastSuc">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ✔&nbsp;{{text}}
+                        </div>
+                    </div>
+                    <!-- 錯誤的吐司 -->
+                    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastErr">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ❌&nbsp;{{text}}
+                        </div>
+                    </div>
                 <!-- 頁面中間上面輸出 -->
                 <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購紀錄細項</h4>
 
-                <div class="row" />
-                <div class="col-md-12" />
+                <div class="row" >
+                <div class="col-md-12" >
 
                 <div class="card mb-4 m-4 mx-4">
                     <!-- 員工名稱 -->
                     <div class="card-body">
-                        <form id="formAccountSettings" method="POST" onsubmit="return false" />
+                        <form id="formAccountSettings" method="POST" onsubmit="return false" >
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="employeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                 <input class="form-control fs-5"
                                        type="text"
                                        id="employeeName"
@@ -478,7 +505,7 @@
                             </div>
                             <!-- 部門選擇 -->
                             <div class="mb-3 col-md-6">
-                                <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
                                 <input class="form-control fs-5"
                                        type="text"
                                        id="department"
@@ -495,7 +522,7 @@
                             </div>
                             <!-- 採購單號 -->
                             <div class="mb-3 col-md-6">
-                                <label for="PurchaseID" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">採購單號</label>
+                                <label for="PurchaseID" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">採購單號</label>
                                 <input class="form-control fs-5"
                                        type="text"
                                        id="PurchaseID"
@@ -505,7 +532,7 @@
                             </div>
                             <!-- 備註 -->
                             <div class="mb-3 col-md-6">
-                                <label for="Comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註</label>
+                                <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
                                 <input class="form-control fs-5"
                                        type="text"
                                        id="Comment"
@@ -515,7 +542,7 @@
                             </div>
                             <!-- 審核結果 -->
                             <div class="mb-3 col-md-6">
-                                <label for="Comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請結果</label>
+                                <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請結果</label>
                                 <input class="form-control fs-5"
                                        type="text"
                                        id="Comment"
@@ -581,7 +608,7 @@
                                         <!-- 按鈕 -->
                                         <div class="mt-2 d-md-flex justify-content-md-end">
 
-                                            <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3" @click="delbtn">刪除</button>
+                                            <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3" @click="delbtn">刪除</button>
 
                                         </div>
                                     </div>
@@ -619,6 +646,7 @@
                         var app = {
                             data() {
                                 return {
+                                    text: "",
                                     list: {},
                                     myobject: {},
                                     totalprice: {}
@@ -630,7 +658,15 @@
                                         axios.delete('/api/PersonnelLeaveForms/buyrej/' + this.myobject.orderId)
                                             .then(response => {
                                                 //console.log(response.status);
-                                                alert(response.data);
+                                                //★成功
+                                                this.text = response.data;
+                                                $("#toastSuc").fadeIn("fast");
+                                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                                                //失敗
+                                                this.text = response.data;
+                                                $("#toastErr").fadeIn("fast");
+                                                setTimeout(() => $("#toastErr").fadeOut(), 2000);;
                                             })
                                             .catch(err => console.log(err))
                                     }

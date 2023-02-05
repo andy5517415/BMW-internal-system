@@ -373,6 +373,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -462,27 +463,79 @@
 
                     <!-- 選擇生產的工作位置報工-->
                     <div id="app">
+                            <!-- 我是成功的吐司 -->
+                            <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastSuc">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ✔&nbsp;{{text}}
+                                </div>
+                            </div>
+                            <!-- 錯誤的吐司 -->
+                            <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastErr">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ❌&nbsp;{{text}}
+                                </div>
+                            </div>
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <div class="card mb-3 m-4">
                                 <div class="row card-body">
 
                                     <div class="mb-3 col-6">
-                                        <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單號碼 </label>
+                                        <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單號碼 </label>
                                         <input class="form-control fs-5" type="text" v-model="BugList.orderNumber" id="orderNumber" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="optionalName" class=" badge rounded-pill bg-primary fs-4 mb-1 fw-bold">型號 </label>
+                                        <label for="optionalName" class=" badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">型號 </label>
                                         <input class="form-control fs-5" type="text" v-model="BugList.optionalName" id="optionalName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="processName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">生產 </label>
+                                        <label for="processName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">生產 </label>
                                         <input id="processName" class="form-control fs-5" type="text" v-model="BugList.processName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="areaName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">廠區 </label>
+                                        <label for="areaName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區 </label>
                                         <input id="areaName" class="form-control fs-5" type="text" v-model="BugList.areaName" disabled />
                                     </div>
 
@@ -558,8 +611,8 @@
 
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()">編輯</button>
-                                        <button id="update" type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary" disabled>更新</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                        <button id="update" type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-primary" disabled>更新</button>
+                                        <button type="button" class="mx-2 col-1 btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
 
 
@@ -609,6 +662,7 @@
                 const app = {
                     data() {
                         return {
+                            text: "",
                             BugList: {},
                             List: {}
                         }
@@ -624,7 +678,11 @@
                             axios.put('https://localhost:44319/api/ProductionProcessLists/putBug/' + this.BugList.orderId + '/' + this.BugList.date + '/' + this.BugList.title, this.BugList)
                                 .then(x => {
                                     console.log(x)
-                                    alert('更新完成')
+                                    //成功
+                                    this.text = "更新完成";
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
                                     window.location = "index.html"
                                 })
                         },
