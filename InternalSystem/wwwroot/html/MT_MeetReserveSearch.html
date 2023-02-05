@@ -528,7 +528,7 @@
                                             <td v-model="MeetInf"><span class="badge bg-label-primary fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
 
                                             <!-- 取消按鈕 -->
-                                            <td v-model="MeetInf">
+                                            <td v-model="MeetInf" v-if="MeetInf[index].isBookIdN">
                                                 <button :data-bs-target="MeetSearchInf.ModalTarget" type="button" class="btn btn-danger p-1 fs-4 fw-bold" data-bs-toggle="modal">
                                                     取消預約
                                                 </button>
@@ -569,6 +569,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </td>
+                                            <td v-model="MeetInf" v-if="MeetInf[index].isBookIdY">
+                                                <span class="badge bg-label-success me-1 fs-4 fw-bold">開完會了</span>
                                             </td>
                                             <!-- 建立會議記錄 -->
                                             <td v-model="MeetInf" v-if="MeetInf[index].isBookIdN">

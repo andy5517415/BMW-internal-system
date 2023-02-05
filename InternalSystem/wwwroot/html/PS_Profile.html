@@ -372,6 +372,7 @@
         <!-- Navbar -->
 
         <nav class="container" id="navInf">
+          
           <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
 
@@ -460,7 +461,33 @@
                 <div class="content-wrapper">
                     <!-- Content -->
 
-                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                         <h4 class="fw-bold py-3 mb-4EK"><span class="text-muted fw-light">個人資料 /</span> 個人資料</h4>
 
                         <div class="row">
@@ -782,6 +809,7 @@
           const app = {
             data() {
               return {
+                text: "",
                 employeelist: {},
                 departmentlist: {},
                 positionlist: {},
@@ -794,7 +822,15 @@
               createbtn: function () {
 
                 axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
-                ).then(alert('資料以修改')).catch(error => { alert('你媽B') });
+                ).then((res) => {
+                  this.text = "資料已修改";
+                  $("#toastSuc").fadeIn("fast");
+                  setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                }).catch(error => {
+                  this.text = "錯誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                });
                 //window.location = "HR_EmpProfileEdit.html";
 
               },
@@ -805,7 +841,11 @@
 
                 axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
                   .then(response => this.employeelist = response.data)
-                  .catch(alert => alert('查無此項'))
+                  .catch(err => {
+                    this.text = "查無此項";
+                    $("#toastErr").fadeIn("fast");
+                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  })
 
 
                 //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)

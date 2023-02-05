@@ -371,6 +371,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -461,7 +462,32 @@
                 <div class="content-wrapper" id="divedit">
                     <!-- Content -->
                     <!-- 查詢訂單 -->
-
+                    <!-- 我是成功的吐司 -->
+                    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastSuc">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ✔&nbsp;{{text}}
+                        </div>
+                    </div>
+                    <!-- 錯誤的吐司 -->
+                    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastErr">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ❌&nbsp;{{text}}
+                        </div>
+                    </div>
 
                     <div v-if="limit.DepID==3" id="confirm" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
@@ -886,6 +912,7 @@
 
             data() {
                 return {
+                    text: "",
                     //isDisabled: true,
                     btnseen: false,
                     describeseen: false,
@@ -960,10 +987,16 @@
                         //找到訂單流水號、代理商區域流水號
                         axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/1').then(g => {
                             if (g.status != 200) {
-                                alert('無此訂單號碼，請確認訂單號碼!');
+                                //失敗
+                                this.text = "無此訂單號碼，請確認訂單號碼!";
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             }
                             else {
-                                alert('查詢成功!');
+                                //成功
+                                this.text = "查詢成功!";
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 //this.cartypeone = g.data;
                                 this.orderid = g.data.orderId;
                                 if (g.data.isAccepted) {
@@ -1014,7 +1047,10 @@
                         })
                     }
                     else {
-                        alert('訂單號碼格式有誤，請重新輸入!');
+                        //失敗
+                        this.text = "訂單號碼格式有誤，請重新輸入!";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.$refs.reffocus.focus();
                     }
                 },
@@ -1124,7 +1160,10 @@
                                                 })
                                         }
                                         */
-                                        alert('訂單修改成功!');
+                                        //成功
+                                        this.text = "訂單修改成功!";
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                     });
                                 //console.log(`${typeof this.odid}:${this.odid}`);
                                 //console.log(this.bodput);
@@ -1139,7 +1178,10 @@
                         axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
                             .then(d => {
                                 /*console.log(d);*/
-                                alert(d.data);
+                                //成功
+                                this.text = d.data
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
                                 window.location.reload();
                             })

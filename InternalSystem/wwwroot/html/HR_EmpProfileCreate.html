@@ -366,6 +366,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -456,7 +457,34 @@
                 <div class="content-wrapper">
                     <!-- Content -->
 
-                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                         <h4 class="fw-bold py-4 mb-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 新建員工資料</h4>
 
                         <div class="row">
@@ -820,6 +848,7 @@
         const app = {
             data() {
                 return {
+                    text: "",
                     employeelist: {
                         "employeeNumber": "", PersonnelLeaveOvers: [{ "LeaveType": 1, "Quantity": 112, "Used": "0", "LeaveOver": "112" },
                         { "LeaveType": 2, "Quantity": 240, "Used": "0", "LeaveOver": "240" },
@@ -842,7 +871,10 @@
                     //console.log(logic);
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('身份證字號格式有誤');
+                        this.text = "身份證字號格式有誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.identiyId = "";
                     }
                 },
@@ -851,7 +883,10 @@
                     logic = phn.test(this.employeelist.phoneNumber)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('行動電話格式有誤');
+                        this.text = "行動電話格式有誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.phoneNumber = "";
                     }
                 },
@@ -860,7 +895,10 @@
                     logic = ephn.test(this.employeelist.emergencyNumber)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('行動電話格式有誤');
+                        this.text = "行動電話格式有誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.emergencyNumber = "";
                     }
                 },
@@ -869,7 +907,10 @@
                     logic = empname.test(this.employeelist.employeeName)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('名稱不可有特殊字元');
+                        this.text = "名稱不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.employeeName = "";
                     }
                 },
@@ -878,7 +919,10 @@
                     logic = email.test(this.employeelist.email)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('信箱不可有特殊字元');
+                        this.text = "信箱不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.email = "";
                     }
                 },
@@ -888,7 +932,10 @@
                     logic = address.test(this.employeelist.address)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('地址不可有特殊字元');
+                        this.text = "地址不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.address = "";
                     }
                 },
@@ -897,7 +944,10 @@
                     logic = homenumber.test(this.employeelist.homePhone)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('家用電話格式錯誤');
+                        this.text = "家用電話格式錯誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.homePhone = "";
                     }
                 },
@@ -906,7 +956,10 @@
                     logic = emergen.test(this.employeelist.emergencyPerson)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('緊急聯絡人不可有特殊字元');
+                        this.text = "緊急聯絡人不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.emergencyPerson = "";
                     }
                 },
@@ -915,7 +968,10 @@
                     logic = empnumber.test(this.employeelist.employeeNumber)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('工號請輸入純數字');
+                        this.text = "工號請輸入純數字";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.employeeNumber = "";
                     }
                 },
@@ -924,7 +980,10 @@
                     logic = emergencycontact.test(this.employeelist.emergencyRelation)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('緊急連絡人關係請請輸入英文數字，不可有特殊字元');
+                        this.text = "緊急連絡人關係請請輸入英文數字，不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.emergencyRelation = "";
                     }
                 },
@@ -933,7 +992,10 @@
                     logic = usernum.test(this.employeelist.acount)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('帳號請輸入純數字');
+                        this.text = "帳號請輸入純數字";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.acount = "";
                     }
                 },
@@ -942,7 +1004,10 @@
                     logic = password.test(this.employeelist.password)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('密碼請輸入英文數字，部分特殊字元不可用');
+                        this.text = "密碼請輸入英文數字，部分特殊字元不可用";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.password = "";
                     }
                 },
@@ -953,7 +1018,10 @@
                         console.log('ok');
                     }
                     else {
-                        alert('備註欄不可有特殊字元，逗點符號請用標準格式:如，。、');
+                        this.text = "備註欄不可有特殊字元，逗點符號請用標準格式:如，。、";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                         this.employeelist.note = "";
                     }
                 },
@@ -1007,8 +1075,17 @@
 
                     if (confirm('新增資料是否正確?') == true) {
                         axios.post("https://localhost:44319/api/PersonnelProfileDetails/", this.employeelist)
-                            .then(response => { alert(response.data) })
-                            .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
+                            .then(response => {
+                                this.text = response.data;
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            })
+                            .catch(err => {
+                                if (err.response.status == 500 || err.response.status == 415)
+                                    this.text = "請確實填寫資料";
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                            })
                         //    .catch(err => { if (err.response.status == 500 || err.response.status == 415) alert('請確實填寫資料') })
                         //    .then(response => {
                         //    console.log(this.employeelist)

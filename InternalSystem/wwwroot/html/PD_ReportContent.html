@@ -375,6 +375,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -465,6 +466,32 @@
                     <!-- 選擇生產的工作位置報工-->
                     <div class="container-xxl flex-grow-1 container-p-y" >
                         <div id="app">
+                            <!-- 我是成功的吐司 -->
+                            <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastSuc">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ✔&nbsp;{{text}}
+                                </div>
+                            </div>
+                            <!-- 錯誤的吐司 -->
+                            <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastErr">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ❌&nbsp;{{text}}
+                                </div>
+                            </div>
                             <div class="card mb-3 m-4">
                                 <div class="row card-body">
                                     <div class="row my-2">
@@ -563,6 +590,7 @@
                 const app = {
                     data() {
                         return {
+                            text: "",
                             ProcessList: {},
                             Context: {},
                             employee: {}
@@ -583,17 +611,31 @@
                             console.log(this.Context)
                             if (confirm('確定送出?')) {
                                 if (this.Context.date == null) {
-                                    alert('請選擇日期')
+                                    this.text = '請選擇日期';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                 } else if (this.Context.startTime == null) {
-                                    alert('請選擇開始時間')
+                                    this.text = '請選擇開始時間';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                 } else if (this.Context.endTime == null) {
-                                    alert('請選擇結束時間')
+                                    this.text = '請選擇結束時間';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                 } else if (this.Context.context == undefined) {
-                                    alert('請輸入報工內容')
+                                    this.text = '請輸入報工內容';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                 } else {
                                     axios.post('https://localhost:44319/api/ProductionContexts', this.Context)
                                         .then(x => {
-                                            alert(x.data)
+                                            this.text = x.data;
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                             if (x.data == "成功") {
                                                 window.location = 'index.html';
                                             }

@@ -471,6 +471,32 @@
                
             <!-- 訂單確認 -->
               <div id="app">
+                            <!-- 我是成功的吐司 -->
+                            <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastSuc">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ✔&nbsp;{{text}}
+                                </div>
+                            </div>
+                            <!-- 錯誤的吐司 -->
+                            <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastErr">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ❌&nbsp;{{text}}
+                                </div>
+                            </div>
                   <div id="confirm" class="container-xxl flex-grow-1 container-p-y">
                       <div class="card mb-4 m-4">
                           <h2 class="card-header">業務訂單內容</h2>
@@ -681,6 +707,7 @@
       const app = {
         data() {
           return {
+            text: "",
             item: {},
             carName: {},
             carcolor: {},
@@ -793,7 +820,11 @@
                 axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/${this.processesAreaList.processId}/${this.carName.optionalName.toString().substring(4)}`)
                   .then(g => {
                     if (g.data.status != '待指派') {
-                      alert('該廠區已有訂單生產中，請選擇其他廠區!');
+                      //失敗
+                      this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
+                      $("#toastErr").fadeIn("fast");
+                      setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                     }
                     else {
                       axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processesAreaList.orderId, this.processesAreaList)
@@ -809,7 +840,9 @@
                         console.log(this.monitor)
                         axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
                           console.log(p);
-                          alert('成功');
+                          this.text = '成功';
+                          $("#toastSuc").fadeIn("fast");
+                          setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                           window.location = "PD_ToDoItems.html"
                         })
                       })
@@ -825,7 +858,11 @@
                 axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/1/${this.carName.optionalName.toString().substring(4)}`)
                   .then(g => {
                     if (g.data.status != '待指派') {
-                      alert('該廠區已有訂單生產中，請選擇其他廠區!');
+                      //失敗
+                      this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
+                      $("#toastErr").fadeIn("fast");
+                      setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                     }
                     else {
                       axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
@@ -844,7 +881,9 @@
                         console.log(this.monitor)
                         axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
                           console.log(p);
-                          alert('成功');
+                          this.text = '成功';
+                          $("#toastSuc").fadeIn("fast");
+                          setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                           window.location = "PD_ToDoItems.html"
                         })
                       })
