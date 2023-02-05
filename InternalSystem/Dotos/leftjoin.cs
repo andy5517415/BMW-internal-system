@@ -2,7 +2,7 @@
 
 namespace InternalSystem.Dotos
 {
-    public class leftjoin
+    public class Leftjoin
     {
         public int OrderId { get; set; }
         public string OrderNumber { get; set; }
