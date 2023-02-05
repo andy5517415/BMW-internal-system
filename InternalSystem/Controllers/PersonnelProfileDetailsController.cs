@@ -309,8 +309,8 @@ namespace InternalSystem.Controllers
                                           EntryDate = o.EntryDate.ToString(),
                                           Acount = o.Acount,
                                           Password = o.Password,
-                                          Terminationdate = o.Terminationdate.ToString()
-
+                                          Terminationdate = o.Terminationdate.ToString(),
+                                          o.Note
                                       };
 
             if (SearchProfileDetail == null)
@@ -389,7 +389,8 @@ namespace InternalSystem.Controllers
                                               EntryDate = o.EntryDate.ToString(),
                                               Acount = o.Acount,
                                               Password = o.Password,
-                                              Terminationdate = o.Terminationdate.ToString()
+                                              Terminationdate = o.Terminationdate.ToString(),
+                                              o.Note
 
                                           };
 
@@ -440,7 +441,8 @@ namespace InternalSystem.Controllers
                                           EntryDate = o.EntryDate.ToString(),
                                           Acount = o.Acount,
                                           Password = o.Password,
-                                          Terminationdate = o.Terminationdate.ToString()
+                                          Terminationdate = o.Terminationdate.ToString(),
+                                          o.Note
 
                                       };
 

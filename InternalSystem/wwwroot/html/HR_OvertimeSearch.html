@@ -510,10 +510,6 @@
                 <form id="formAccountSettings" method="POST" onsubmit="return false">
 
                   <div class="my-4 d-flex">
-                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工名稱</label>
-                    <div class="col ms-2">
-                      <input class="form-control fs-5 myinput" id="Employeename" v-model="employeelist.name" />
-                    </div>
 
                     <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4 myinput" style="width: 70px;">部門</label>
                     <div class="col ms-2">
@@ -526,6 +522,10 @@
                     <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">加班月份</label>
                     <div class="col ms-2">
                       <input class="form-control fs-5 myinput" type="month" id="html5-month-input" v-model="employeelist.month" />
+                    </div>
+                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工名稱</label>
+                    <div class="col ms-2">
+                      <input class="form-control fs-5 myinput" id="Employeename" v-model="employeelist.name" />
                     </div>
 
                     <div class="col ms-5">
@@ -643,7 +643,7 @@
       const app = {
         data() {
           return {
-            employeelist: { "depId": "" },
+            employeelist: {"name":"", "depId": "" },
             overtimelist: {},
             departmentlist: {},
             page: 0,

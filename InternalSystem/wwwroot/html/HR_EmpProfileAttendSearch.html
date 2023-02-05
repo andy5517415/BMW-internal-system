@@ -507,18 +507,6 @@
                           <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 出缺勤查詢</h4>
                           <div class="card mb-5 m-4 card-body inputCard">
                               <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="mx-4 my-4 d-flex">
-                                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">員工名稱</label>
-                                    <div class="col ms-2">
-                                        <input class="form-control fs-5 myinput" v-model="employeedata.empName" id="Employeename" />
-                                    </div>
-                                    
-                                    <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工編號</label>
-                                    <div class="col ms-2">
-                                        <input class="form-control fs-5 myinput" v-model="employeedata.empNumber" id="Employeenameid" />
-                                    </div>                         
-                                </div>
-
                                 <div class="mx-4 d-flex">
                                     <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">查詢月份</label>
                                     <div class="col ms-2">
@@ -533,6 +521,18 @@
                                     
                                     </div>
                                 </div>
+                                <div class="mx-4 my-4 d-flex">
+                                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">員工名稱</label>
+                                    <div class="col ms-2">
+                                        <input class="form-control fs-5 myinput" v-model="employeedata.empName" id="Employeename" />
+                                    </div>
+                                    
+                                    <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工編號</label>
+                                    <div class="col ms-2">
+                                        <input class="form-control fs-5 myinput" v-model="employeedata.empNumber" id="Employeenameid" />
+                                    </div>                         
+                                </div>
+
 
                                 <div class="my-4 mb-2 d-flex justify-content-center">
                                     <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " @click="search">查詢</button>

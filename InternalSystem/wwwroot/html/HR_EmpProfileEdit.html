@@ -580,7 +580,7 @@
                                         <!-- 性別 -->
                                         <div class="mb-3 col-md-4">
                                             <label for="Sex" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">性別</label>
-                                            <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
+                                            <select v-model="employeelist.sex" id="Sex" class="select1 form-select">
                                                 <option>選擇性別</option>
                                                 <option value="男性">男</option>
                                                 <option value="女性">女</option>
@@ -863,7 +863,7 @@
             data() {
                 return {
                     employeelist: {
-                        "photo": "https://x.nctu.app/img/g7Fx.jpg"
+                        "photo": "../assets/img/Defaultimg.jfif"
                     },
                     departmentlist: {},
                     positionlist: {},
@@ -996,17 +996,7 @@
                         this.employeelist.note = "";
                     }
                 },
-                //sexleave() {
-                //    if (this.employeelist.sex == "男性") {
-                //        this.Leavelist.LeaveOver = 0;
-                //        this.Leavelist.Quantity = 0;
-                //    }
-                //    else if (this.employeelist.sex == "女性") {
-                //        this.Leavelist.LeaveOver = 96;
-                //        this.Leavelist.Quantity = 96;
-
-                //    }
-                //},
+             
 
                 createbtn: function () {
                     if (confirm('請確認修改資料是否正確') == true) {
