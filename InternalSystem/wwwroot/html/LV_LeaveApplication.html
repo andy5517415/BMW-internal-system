@@ -362,23 +362,7 @@
                         </ul>
                     </li>
 
-                    <!-- 登入 -->
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">登入</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                            <div data-i18n="Authentications">登入與註冊</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="Login.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">登入</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     <!-- 連線錯誤 -->
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text">連線錯誤與維護</span>
@@ -719,7 +703,7 @@
                                         .then(response => {
                                             console.log(response.data)
                                             alert(response.data)
-                                            if (response.data == "申請成功" ) {
+                                            if (response.data == "申請成功") {
                                                 window.location = "/html/PS_ToDoItems.html";
                                             }
                                         }).catch(err => alert(err))
@@ -739,7 +723,7 @@
                                         .then(response => {
                                             console.log(response.data)
                                             alert(response.data)
-                                            if (response.data == "申請成功" ) {
+                                            if (response.data == "申請成功") {
                                                 window.location = "/html/PS_ToDoItems.html";
                                             }
                                         }).catch(err => alert(err))
@@ -795,7 +779,7 @@
                         this.emp = response.data;
                         console.log(this.emp)
                     })
-                
+
             }
 
         }
