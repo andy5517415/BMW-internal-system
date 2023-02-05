@@ -506,11 +506,11 @@
                   <div class="row">
                       <div class="col-md-12">
                           <div class="card mb-5 m-4 card-body inputCard">
-                            <div class="d-flex mt-4">
+                            <div class="d-flex my-4">
                               <!-- 部門 -->
-                              <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                              <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-4">部門</label>
                               <div class="col ms-2">
-                                <select id="department" class="select1 form-select" v-model="search.id">
+                                <select id="department" class="select1 form-select myinput" v-model="search.id">
                                   <option value="">選擇部門</option>
                                   <option value="生產部">生產部</option>
                                   <option value="業務部">業務部</option>
@@ -519,21 +519,21 @@
                                 </select>
                               </div>
                               <!-- 起始日 -->
-                              <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-4">起始日期</label>
+                              <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-4">起始日期</label>
                               <div class="col ms-2">
-                                <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.startdate" />
+                                <input class="form-control fs-5 myinput" type="date" id="ApplicationDate" v-model="search.startdate" />
                               </div>
                               <!-- 結束日 -->
-                              <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-4">結束日期</label>
+                              <label for="ApplicationDate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-4">結束日期</label>
                               <div class="col ms-2">
-                                <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="search.enddate" />
+                                <input class="form-control fs-5 myinput" type="date" id="ApplicationDate" v-model="search.enddate" />
+                              </div>
+                              
+                              <!-- 按鈕 -->
+                              <div class="col ms-5">
+                                <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
                               </div>
                             </div>  
-
-                              <!-- 按鈕 -->
-                              <div class="my-4 mb-2 d-md-flex justify-content-center">
-                                  <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ">查詢</button>
-                              </div>
                               </div>
                               <div class="card mb-5 m-4 card-body">
                                   <!-- 採購清單 -->

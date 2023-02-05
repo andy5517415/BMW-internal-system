@@ -502,37 +502,38 @@
                         <h4 class="fw-bold py-3 mx-4"><span class="text-muted fw-light">會議室 /</span> 查詢預約紀錄</h4>
 
                         <!-- ★查詢預約紀錄 -->
-                        <div class="card m-4">
-                            <h2 class=" alert alert-primary mx-auto mt-5 fw-bold fs-2">查詢預約紀錄</h2><div class="h-50"></div>
-                            <div class="card-body mb-3 col-md-12">
+                            <div class="card mb-5 m-4 card-body inputCard">
                                 <!-- ⁥!!! -->
                                 <!-- 查詢日期區間 -->
-                                <div class="mb-4 g-5 d-flex row justify-content-center">
-                                    <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold" style="width: 160px;">查詢日期區間</label>
-                                    <div class="col-6 col-md-3">
-                                        <input v-model="MeetSearch.StartDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date1"
+                                <div class="my-4 d-flex">
+                                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable"
+                                        style="width: 160px;">查詢日期區間</label>
+                                    <div class="col ms-2">
+                                        <input v-model="MeetSearch.StartDay1" class="form-control fs-5 myinput" type="date" value="" id="meetSearch_date1"
                                             style="height: 45px;" />
                                     </div>
-                                    <div class="col-6 col-md-3">
-                                        <input v-model="MeetSearch.EndDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date2"
+                                    <div class="col ms-2">
+                                        <input v-model="MeetSearch.EndDay1" class="form-control fs-5 myinput" type="date" value="" id="meetSearch_date2"
                                             style="height: 45px;" />
                                     </div>
-                                    <!-- 選擇部門 -->
+
                                     <label for="meetDepeart_select"
-                                        class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold text-center fw-bold" style="width: 140px;">選擇部門</label>
-                                    <div class="col-6 col-md-2">
-                                        <select v-model="MeetSearch.DepId" class="form-select fs-5" id="meetDepeart_select" style="height: 45px;" disabled>
-                                            <option value="" disabled>選擇部門</option>
+                                        class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold text-center fw-bold mylLable ms-4"
+                                        style="width: 140px;">部門</label>
+                                    <div class="col ms-2">
+                                        <select v-model="MeetSearch.DepId" class="form-select fs-5 myinput" id="meetDepeart_select" style="height: 45px;" disabled>
+                                            <option value="" disabled>部門</option>
                                             <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
                                         </select>
                                     </div>
-                                    <!-- ★送出按鈕 -->
-                                    <div class="col-12 col-md-2">
-                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 col-12 fs-5 p-1">查詢</button>
+
+                                    <div class="col ms-5">
+                                        <button @click="DoMeetSearch" type="submit"
+                                            class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
                         
                         <!-- ★會議室租借紀錄 -->
                         <div class="card shadow m-4 mb-0" v-if="MeetInf.isValue">

@@ -499,28 +499,22 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container flex-grow-1 container-p-y" id="MeetSearch">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 會議記錄表</h4>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 查詢會議紀錄表</h4>
 
                         <!-- HTML5 Inputs -->
-                        <div class="card m-4 mb-5">
-                            <h3 class="card-header mx-auto mt-3 fw-bold " style="text-decoration: underline 4pt #666EE8;">查詢會議紀錄表</h3>
-                            <div class="h-50"></div>
-                            <div class="card-body mb-3 col-md-12">
-                                <!-- ⁥!!! -->
-                                <div class="mb-3 row g-3 justify-content-center">
-                                    <!-- 空白 -->
-                                    <div class="col-1"></div>
-                                    <!-- 選擇部門 -->
-                                    <label for="meetDepeart_select" class="col-6 col-md-1 col-form-label fs-5 text-center fw-bold bg-black">選擇部門</label>
-                                    <div class="col-6 col-md-2">
-                                        <select  v-model="MeetSearch.DepId" class="form-select" id="meetDepeart_select" aria-label="Default select example" style="height: 45px;">
-                                            <option value="" disabled>選擇部門</option>
-                                            <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 col-md-2">
-                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3" style="height: 45px;">確定</button>
-                                    </div>
+                        <div class="card mb-5 m-4 card-body inputCard">
+                            <div class="my-4 d-flex">
+                                <!-- 選擇部門 -->
+                                <label for="meetDepeart_select" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">選擇部門</label>
+                                <div class="col-2 ms-2">
+                                    <select v-model="MeetSearch.DepId" class="form-select myinput fs-5" id="meetDepeart_select" aria-label="Default select example">
+                                        <option value="" disabled>選擇部門</option>
+                                        <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col ms-5">
+                                    <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">確定</button>
                                 </div>
                             </div>
                         </div>

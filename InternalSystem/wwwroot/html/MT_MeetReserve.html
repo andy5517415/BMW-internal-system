@@ -511,40 +511,35 @@
               <h4 class="py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 預約會議室</h4>
           
               <!-- HTML5 Inputs -->
-              <div class="card shadow m-4">
-                <h3 class="fw-bold card-header mx-auto mt-3 " style="text-decoration: underline 4pt #666EE8;">預約會議室</h3>
-                <div class="h-50"></div>
-                <div class="card-body mb-3 col-md-12">
-                  <!-- ⁥!!! -->
-                  <!-- ★預約日期 -->
-                  <h5 class="mb-4 text-center">您的部門是：生產部</h5>
-                  <div class="mb-3 row g-5 justify-content-center">
-                    <!-- 日期 -->
-                    <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold"
-                      style="width: 160px;">查詢日期區間</label>
-                    <div class="col-6 col-md-3">
-                      <input v-model="MeetSearch.StartDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date1"
+              <div class="card mb-5 m-4 card-body inputCard">
+                <p class="fw-bold card-header fs-3 text-center" style="text-decoration: underline 4pt #666EE8;">查詢預約時段</p>
+                  <div class="mb-4 d-flex">
+                    <!-- ★預約日期 -->
+                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable" style="width: 160px;">查詢日期區間</label>
+                    <div class="col ms-2">
+                      <input v-model="MeetSearch.StartDay1" class="form-control fs-5 myinput" type="date" value="" id="meetSearch_date1"
                         style="height: 45px;" />
                     </div>
-                    <div class="col-6 col-md-3">
-                      <input v-model="MeetSearch.EndDay1" class="form-control fs-5" type="date" value="" id="meetSearch_date2"
+                    <div class="col ms-2">
+                      <input v-model="MeetSearch.EndDay1" class="form-control fs-5 myinput" type="date" value="" id="meetSearch_date2"
                         style="height: 45px;" />
                     </div>
                     <!-- ★查看會議室 -->
-                    <label for="meetDepeart_select" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold" style="width: 140px;">選擇會議室</label>
-                    <div class="col-6 col-md-3">
-                      <select v-model="MeetRsInfo.meetPlaceId" class="form-select" id="meetPlace_select" aria-label="Default select example" style="height: 45px;">
+                    <label for="meetDepeart_select" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-4">選擇會議室</label>
+                    <div class="col ms-2">
+                      <select v-model="MeetRsInfo.meetPlaceId" class="form-select myinput" id="meetPlace_select" aria-label="Default select example"
+                        style="height: 45px;">
                         <option value="" disabled>選擇會議室</option>
                         <option v-for="MR in MeetRoom" :value="MR.meetingPlaceId">{{MR.meetingRoom1}}</option>
                       </select>
                     </div>
-                    
 
+                    <div class="col ms-5 mb-2">
+                      <button type="submit" class="btn btn-outline-primary fs-4 fw-bold border-3"
+                        @click="DoMeetSearch">查看預約情形</button>
+                    </div>
                   </div>
-                  <div class="mt-4 row justify-content-center">
-                    <button type="submit" class="col-12 col-md-3 btn btn-outline-primary me-3 fs-5 fw-bold border-3" @click="DoMeetSearch">查看可預約時段</button>
-                  </div>
-                </div>
+
               </div>
 
                         <!-- ★會議室租借紀錄 -->
@@ -583,7 +578,7 @@
             <!-- ★預約表格 -->
             <div class="card shadow m-4">
             <div class="card-body mb-3 col-md-12">
-              <p class="fw-bold card-header fs-3 text-center mt-3" style="text-decoration: underline 4pt #666EE8;">預約時段</p>
+              <p class="fw-bold card-header fs-3 text-center my-3" style="text-decoration: underline 4pt #666EE8;">預約時段</p>
               <div class="mb-3 row g-5 justify-content-center">
                 <!-- ★預約時間 -->
                 <!-- 選擇日期 -->
