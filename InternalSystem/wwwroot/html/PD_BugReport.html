@@ -520,22 +520,22 @@
                                 <div class="row card-body">
 
                                     <div class="mb-3 col-6">
-                                        <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單號碼 </label>
+                                        <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單號碼 </label>
                                         <input class="form-control fs-5" type="text" v-model="BugList.orderNumber" id="orderNumber" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="optionalName" class=" badge rounded-pill bg-primary fs-4 mb-1 fw-bold">型號 </label>
+                                        <label for="optionalName" class=" badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">型號 </label>
                                         <input class="form-control fs-5" type="text" v-model="BugList.optionalName" id="optionalName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="processName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">生產 </label>
+                                        <label for="processName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">生產 </label>
                                         <input id="processName" class="form-control fs-5" type="text" v-model="BugList.processName" disabled />
                                     </div>
 
                                     <div class="mb-3 col-6">
-                                        <label for="areaName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">廠區 </label>
+                                        <label for="areaName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區 </label>
                                         <input id="areaName" class="form-control fs-5" type="text" v-model="BugList.areaName" disabled />
                                     </div>
 
@@ -611,8 +611,8 @@
 
                                     <div class="col-form-label d-flex justify-content-end">
                                         <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()">編輯</button>
-                                        <button id="update" type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-outline-primary" disabled>更新</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                        <button id="update" type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-primary" disabled>更新</button>
+                                        <button type="button" class="mx-2 col-1 btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
 
 

@@ -532,33 +532,33 @@
                     <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="row mt-4">
                             <div class="mb-3 col-md-6">
-                                <label for="firstName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                <label for="firstName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                 <input class="form-control fs-5" type="text" id="firstName" name="firstName" readonly
                                     v-model="employeedata.Name" autofocus />
                             </div>
                             <!-- 部門選擇 -->
                             <div class="mb-3 col-md-6">
-                                <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
                                 <input class="form-control fs-5" type="text" id="department" name="department" readonly
                                     v-model="employeedata.Depment" autofocus />
                             </div>
                             <!-- 申請日期 -->
                             <div class="mb-3 col-md-6">
                                 <label for="ApplicationDate"
-                                    class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請日期</label>
+                                    class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
                                 <div class="col-md-12">
                                     <input class="form-control fs-5" type="date" id="ApplicationDate" v-model="item.date" />
                                 </div>
                             </div>
                             <!-- 採購單號 -->
                             <div class="mb-3 col-md-6">
-                                <label for="PurchaseID" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">採購單號</label>
+                                <label for="PurchaseID" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">採購單號</label>
                                 <input class="form-control fs-5" type="text" id="PurchaseID" name="PurchaseID"
                                     v-model="employeedata.purchaseId" autofocus />
                             </div>
                             <!-- 備註 -->
                             <div class="mb-3 col-md-6">
-                                <label for="Comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註</label>
+                                <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
                                 <input class="form-control fs-5" type="text" id="Comment" name="Comment" v-model="item.comment"
                                     placeholder="" />
                             </div>
@@ -601,7 +601,7 @@
                                                         class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                         <div class="mb-3 col-md-12">
                                                             <label for="數量"
-                                                                class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
+                                                                class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"></label>
                                                             <input @change="addorder(b) ; getprice()" type="text"
                                                                 class="form-control fs-5" id="inputunit" placeholder="請輸入數量"
                                                                 v-model="b.quantiy">
@@ -676,7 +676,7 @@
                                                         class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                                         <div class="mb-3 col-md-12">
                                                             <label for="數量"
-                                                                class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold"></label>
+                                                                class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"></label>
                                                             <input @change="addorder(b) ; getprice()" type="text"
                                                                 class="form-control fs-5" id="inputunit" placeholder="請輸入數量"
                                                                 v-model="b.quantiy">
@@ -719,8 +719,8 @@
                                 </div>
                             <!-- 確認按鈕 -->
                             <div class="mt-2 d-flex flex-row-reverse bd-highlight">
-                                <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 ">取消</button>
-                                <button type="button" v-on:click="createbtn" class="btn btn-outline-primary me-3">送出</button>
+                                <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 ">取消</button>
+                                <button type="button" v-on:click="createbtn" class="btn btn-primary me-3">送出</button>
                             </div>
         
         

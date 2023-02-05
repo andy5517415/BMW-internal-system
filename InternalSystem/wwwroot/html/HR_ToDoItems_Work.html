@@ -495,11 +495,11 @@
 
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" v-model="overlist.employeeName" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input class="form-control fs-5" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
                                     </div>
 
@@ -508,20 +508,20 @@
                                 <div class="row ">
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班開始時間</label>
+                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班開始時間</label>
                                         <input class="form-control fs-5" v-model="overlist.startDate" id="Starttimeforvacation" disabled />
                                         <input class="form-control fs-5" v-model="overlist.startTime" id="Starttimeforvacation" disabled />
 
                                     </div>
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">加班結束時間</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班結束時間</label>
                                         <input class="form-control fs-5" v-model="overlist.endDate" id="Endtimeforvacation" disabled />
                                         <input class="form-control fs-5" v-model="overlist.endTime" id="Endtimeforvacation" disabled />
 
                                     </div>
                                     <div class="mb-3 col-md-3">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">審核狀態</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">審核狀態</label>
                                         <strong class="form-control fs-5" v-if="overlist.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
                                         <strong class="form-control fs-5" v-if="overlist.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                                     </div>
@@ -530,7 +530,7 @@
                                 
 
                                 <div class="my-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
                                 </div>
                         </div>
 

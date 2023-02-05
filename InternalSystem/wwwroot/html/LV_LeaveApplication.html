@@ -494,43 +494,43 @@
 
                                 <div class="row p-3 mx-5">
                                     <div class="mb-3 col-md-2 mb-4">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" v-model="employeelist.employeeName" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input class="form-control fs-5" v-model="employeelist.employeeNumber" id="Employeeid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="paidvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">可用特休</label>
+                                        <label for="paidvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">可用特休</label>
                                         <input class="form-control fs-5" id="paidvacation" v-model="annualleave.leaveOver" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="usedpaidvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">已用特休</label>
+                                        <label for="usedpaidvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">已用特休</label>
                                         <input class="form-control fs-5" v-model="annualleave.used" id="usedpaidvacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">可用事假</label>
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">可用事假</label>
                                         <input class="form-control fs-5" v-model="personalleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">已用事假</label>
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">已用事假</label>
                                         <input class="form-control fs-5" v-model="personalleave.used" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">可用病假</label>
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">可用病假</label>
                                         <input class="form-control fs-5" v-model="sickleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="remaindervacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">已用病假</label>
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">已用病假</label>
                                         <input class="form-control fs-5" v-model="sickleave.used" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" v-if="emp.sex =='女性' ">
-                                        <label for="remaindervacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">已用生理假</label>
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">已用生理假</label>
                                         <input class="form-control fs-5" v-model="menstrualleave.used" id="remaindervacation" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" v-if="emp.sex == '女性' ">
-                                        <label for="remaindervacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">剩餘生理假</label>
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">剩餘生理假</label>
                                         <input class="form-control fs-5" v-model="menstrualleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                 </div>
@@ -539,7 +539,7 @@
                                 <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
                                 <div class="row p-3 mx-5 rounded-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
                                         <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
                                     </div>
                                     <div class="mb-3 col-md-2">
@@ -548,7 +548,7 @@
                                     </div>
 
                                     <div class="mb-3 col-md-2">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束日期</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
                                         <input class="form-control fs-5" type="date" v-model="application.endDate" id="Endtimeforvacation" />
                                     </div>
                                     <div class="mb-3 col-md-2">
@@ -558,21 +558,21 @@
 
                                     <div class="row my-2">
                                         <div class="col-md-2">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
                                             <select id="Rank" class="select2 form-select" v-model="application.leaveType">
                                                 <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
 
                                             </select>
                                         </div>
                                         <div class="col-md-2" v-if="employeelist.positionId<7">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
                                             <select id="proxy" class="select2 form-select" v-model="application.proxy">
                                                 <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
 
                                             </select>
                                         </div>
                                         <div class="col-md-2" v-if="employeelist.positionId<7">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
                                             <select id="proxy" class="select2 form-select" v-model="application.auditManerger">
                                                 <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
                                         
@@ -581,21 +581,21 @@
                                     </div>
                                     <div class="row my-2">
                                         <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="application.reason" rows="6"
                                                       col="6"></textarea>
                                         </div>
                                     </div>
                                     <div class="row my-2" style="display:none">
                                         <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="application.statusId" rows="6"
                                                       col="6"></textarea>
                                         </div>
                                     </div>
                                     <div class="row my-2" role="alert">
                                         <div class="mb-3 col-md-12">
-                                            <label for="leaveprove" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假證明</label>
+                                            <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
 
                                         </div>
                                     </div>
@@ -617,7 +617,7 @@
                                                        @change="uploadphoto" />
                                             </label>
 
-                                            <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                            <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
                                                 <i class="bx bx-reset d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block" @click="photoreset">Reset</span>
                                             </button>
@@ -628,8 +628,8 @@
                                 </div>
                                 
                                 <div class="my-3 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 mb-4 fs-4 border-3 " >送出</button>
-                                    <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
+                                    <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 " >送出</button>
+                                    <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
                                 </div>
                             </form>
                         </div>

@@ -490,25 +490,25 @@
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input v-model="employeelist.employeeName" class="form-control fs-5" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="EmployeeNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input v-model="employeelist.employeeNumber" class="form-control fs-5" id="EmployeeNumber" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input v-model="employeelist.employeeId" class="form-control fs-5" id="Employeeid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
-                                        <label for="Status" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Status" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input v-model="workoverlist.auditStatus" class="form-control fs-5" id="Status" disabled />
                                     </div>
                                 </div>
                                 <div class="row">
 
-                                    <label for="html5-date-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始時間</label>
+                                    <label for="html5-date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始時間</label>
                                     <div class="col-3">
                                         <input class="form-control fs-5" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
                                     </div>
@@ -516,7 +516,7 @@
                                     <div class="col-3">
                                         <input class="form-control fs-5" type="time" v-model="workoverlist.startTime" id="html5-date-input" />
                                     </div>
-                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束時間</label>
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束時間</label>
 
                                     <div class="col-3">
                                         <input class="form-control fs-5" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
@@ -540,8 +540,8 @@
                                     <p>一共   小時</p>
                                 </div>
                                 <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " v-on:click="editbtn">修改送出</button>
-                                    <button type="button" @click="tobackbtn" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2" >取消</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " v-on:click="editbtn">修改送出</button>
+                                    <button type="button" @click="tobackbtn" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-2" >取消</button>
                                     <button type="button" class="btn btn-warning me-2" @click="todelbtn" >刪除</button>
                                 </div>
                             </form>
