@@ -208,6 +208,7 @@ namespace InternalSystem.Controllers
                 a.EditDatetime,
                 a.Area.AreaName,
                 a.IsAccepted,
+                a.Price,
                 detail = a.BusinessOrderDetails.Select(b => new
                 {
                     OdId = b.OdId,

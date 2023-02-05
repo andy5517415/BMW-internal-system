@@ -23,7 +23,11 @@ namespace InternalSystem.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Leftjoin>().HasNoKey();            
+
+            modelBuilder.Entity<Leftjoin>(entity =>
+            {
+                entity.HasNoKey();
+            });
         }
     }
 }

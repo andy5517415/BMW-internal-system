@@ -17,7 +17,6 @@ namespace InternalSystem.Models
             : base(options)
         {
         }
-        public virtual DbSet<Leftjoin> Leftjoin { get; set; }
         public virtual DbSet<BusinessArea> BusinessAreas { get; set; }
         public virtual DbSet<BusinessCategory> BusinessCategories { get; set; }
         public virtual DbSet<BusinessOptional> BusinessOptionals { get; set; }
@@ -54,10 +53,7 @@ namespace InternalSystem.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
 
-            modelBuilder.Entity<Leftjoin>(entity =>
-            {
-                entity.HasNoKey();
-            });
+            
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)

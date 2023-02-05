@@ -616,6 +616,7 @@
                                                 <p>中央鞍座:{{o.detail[6].optional.optionalName}}</p>
                                                 <p>天窗:   {{o.detail[7].optional.optionalName}}</p>
                                                 <p>多媒體: {{o.detail[8].optional.optionalName}}</p>
+                                                <p>價格: {{o.price}}</p>
 
                                                 <!--<table class="table">
         <thead>
@@ -769,16 +770,16 @@
                         console.log(this.accordionOne);
                     });
 
-                axios.get('/api/BusinessOrders/GetOrderAllSql').then(g => {
-                    console.log('-----------');
-                    console.log(g.data);
-                    //    this.leftjoin[0].ordernum = g.data[0].orderNumber;
-                    //this.leftjoin[0].areaname = g.data[0].areaNameProcess;
-                    //this.leftjoin[0].processname = g.data[0].processName;
-                    //g.data.forEach((x, idx) => {
-                    //})
-                    //console.log(this.leftjoin);
-                })
+                //axios.get('/api/BusinessOrders/GetOrderAllSql').then(g => {
+                //    console.log('-----------');
+                //    console.log(g.data);
+                //    //    this.leftjoin[0].ordernum = g.data[0].orderNumber;
+                //    //this.leftjoin[0].areaname = g.data[0].areaNameProcess;
+                //    //this.leftjoin[0].processname = g.data[0].processName;
+                //    //g.data.forEach((x, idx) => {
+                //    //})
+                //    //console.log(this.leftjoin);
+                //})
 
 
 
