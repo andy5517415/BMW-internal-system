@@ -17,7 +17,7 @@ namespace InternalSystem.Models
             : base(options)
         {
         }
-        public virtual DbSet<Leftjoin> leftjoin { get; set; }
+        public virtual DbSet<Leftjoin> Leftjoin { get; set; }
         public virtual DbSet<BusinessArea> BusinessAreas { get; set; }
         public virtual DbSet<BusinessCategory> BusinessCategories { get; set; }
         public virtual DbSet<BusinessOptional> BusinessOptionals { get; set; }
