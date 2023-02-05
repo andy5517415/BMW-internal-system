@@ -503,7 +503,7 @@
                           <div class="card-body">
                               <div class="row gx-3 gy-2 align-items-center">
                                   <div class="col-md-6">
-                                      <label for="orderid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                      <label for="orderid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="orderid"
@@ -521,7 +521,7 @@
                           <div class="card-body">
                               <div class="row gx-3 gy-2 align-items-center">
                                   <div class="col-md-6">
-                                      <label for="typed" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款</label>
+                                      <label for="typed" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="typed"
@@ -531,7 +531,7 @@
                                              v-model ="carName.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label for="colored" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車漆顏色</label>
+                                      <label for="colored" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車漆顏色</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="colored"
@@ -541,7 +541,7 @@
                                              v-model ="carcolor.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="textured">內裝材質</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="textured">內裝材質</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="textured"
@@ -552,7 +552,7 @@
                                              />
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="wheeled">輪圈款式</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="wheeled">輪圈款式</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="wheeled"
@@ -562,7 +562,7 @@
                                              v-model ="carwheel.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="plaqued">飾板</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="plaqued">飾板</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="plaqued"
@@ -572,7 +572,7 @@
                                              v-model="carplaque.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="lighted">頭燈款式</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="lighted">頭燈款式</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="lighted"
@@ -582,7 +582,7 @@
                                              v-model="carlight.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="saddleed">中央鞍座</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="saddleed">中央鞍座</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="saddleed"
@@ -592,7 +592,7 @@
                                              v-model ="carsaddle.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="sunroofed">天窗</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="sunroofed">天窗</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="sunroofed"
@@ -602,7 +602,7 @@
                                              v-model ="carsunroof.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="textureed"
@@ -612,7 +612,7 @@
                                              v-model ="carmedia.optionalName"/>
                                   </div>
                                   <div class="col-md-6">
-                                      <label for="subtotaled" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">小計</label>
+                                      <label for="subtotaled" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">小計</label>
                                       <input type="text"
                                              class="form-control fs-5"
                                              id="subtotaled"
@@ -627,12 +627,12 @@
                                   <hr>
 
                                   <div class="mb-3 col-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="processName">生產</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="processName">生產</label>
                                       <input id="processName" type="text" :value="item.processName" class="form-control fs-5" name="processName" disabled/>
                                   </div>
 
                                   <div class="mb-3 col-6">
-                                      <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Areas">廠區</label>
+                                      <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Areas">廠區</label>
                                       <select id="Areas" class="  form-select color-dropdown " v-model="processesAreaList.areaId" >
                                           <option disabled >請選擇產區</option>
                                           <option v-for="Area in Areas" :value="Area.areaId">{{Area.areaName}}</option>
@@ -640,7 +640,7 @@
                                       </select>
                                   </div>
 
-                                  <button id="btncreate" v-on:click="Enter()" class="btn btn-outline-primary d-block">送出</button>
+                                  <button id="btncreate" v-on:click="Enter()" class="btn btn-primary d-block">送出</button>
 
 
                               </div>

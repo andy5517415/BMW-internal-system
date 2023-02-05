@@ -506,7 +506,7 @@
                                           </div>-->
 
 
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
                                         <select id="ordid" class="form-select color-dropdown" v-model="selcone">
                                             <option value="999" selected disabled>請選擇訂單</option>
                                             <option v-for="one in bugsysorder"
@@ -516,7 +516,7 @@
                                         </select>
 
                                                                   
-                                        <label for="cartype" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款</label>
+                                        <label for="cartype" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="cartype"
@@ -524,7 +524,7 @@
                                                :value="selcone.optionalName"
                                                />
 
-                                        <label for="area" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">廠區</label>
+                                        <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="area"
@@ -532,7 +532,7 @@
                                                :value="selcone.areaId"
                                                />
 
-                                        <label for="process" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">製程</label>
+                                        <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">製程</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="process"
@@ -544,7 +544,7 @@
 
 
 
-                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">事件描述 : </label>
+                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : </label>
                                         <textarea class="form-control fs-5"
                                                   id="exampleFormControlTextarea1"
                                                   rows="10"
@@ -553,19 +553,19 @@
 
 
                                         <br /><br />
-                                        <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選擇下方按鈕送出</p>
+                                        <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選擇下方按鈕送出</p>
                                         <div class="row my-5">
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-success">正常</button>
+                                                <button @click="btnstate" type="button" class="btn btn-success fw-bold">正常</button>
                                             </div>
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-warning">待處理</button>
+                                                <button @click="btnstate" type="button" class="btn btn-warning fw-bold">待處理</button>
                                             </div>
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-info">處理中</button>
+                                                <button @click="btnstate" type="button" class="btn btn-info fw-bold">處理中</button>
                                             </div>
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-danger">異常</button>
+                                                <button @click="btnstate" type="button" class="btn btn-danger fw-bold">異常</button>
                                             </div>
                                             <br><br><br>
                                         </div>

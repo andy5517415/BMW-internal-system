@@ -241,11 +241,17 @@ button:hover {
   box-shadow: 0px 3px 3px 2px gray;
   transition: 0.3s;
 }
-.btn-outline-primary{
+
+.btn-outline-primary,.btn-outline-info{
   background-color: white;
 }
-.btn-outline-primary:hover{
+.btn-primary:hover,.btn-outline-primary:hover{
   box-shadow: 0px 2px 2px 2px #7d84ff;
+  transform:translate(0px,-5px);
+  transition: 0.3s;
+}
+.btn-secondary:hover,.btn-success:hover,.btn-warning:hover,.btn-info:hover,.btn-danger:hover,.btn-outline-info:hover{
+  box-shadow: 0px 2px 2px 2px gray;
   transform:translate(0px,-5px);
   transition: 0.3s;
 }

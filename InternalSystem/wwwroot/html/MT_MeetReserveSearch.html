@@ -493,7 +493,7 @@
 
                                     <div class="col ms-5">
                                         <button @click="DoMeetSearch" type="submit"
-                                            class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
+                                            class="btn btn-primary me-3 fs-4 fw-bold border-3">查詢</button>
                                     </div>
                                 </div>
                             </div>
@@ -520,12 +520,12 @@
                                     <tbody class="table-border-bottom-0">
                                         <!-- ★一列 -->
                                         <tr v-for="(MeetSearchInf,index) in MeetInf">
-                                            <td><span v-model="MeetInf" class="badge bg-label-primary fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
+                                            <td><span v-model="MeetInf" class="badge bg-primary fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
-                                            <td v-model="MeetInf"><span class="badge bg-label-primary fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
+                                            <td v-model="MeetInf"><span class="badge bg-primary fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
 
                                             <!-- 取消按鈕 -->
                                             <td v-model="MeetInf" v-if="MeetInf[index].isBookIdN">
@@ -562,9 +562,9 @@
 
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button @click="Del(MeetSearchInf.bookId)" type="button" class="btn btn-outline-primary border-3" data-bs-dismiss="modal">確定</button>
-                                                                <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
-                                                                <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
+                                                                <button @click="Del(MeetSearchInf.bookId)" type="button" class="btn btn-primary border-3" data-bs-dismiss="modal">確定</button>
+                                                                <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
+                                                                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -657,7 +657,7 @@
                             </div>
                             <!-- 送出按鈕 -->
                             <div class="my-5 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="SaveMtRecord">儲存</button>
+                                <button type="submit" class="btn btn-primary me-3 fs-4 fw-bold border-3" @click="SaveMtRecord">儲存</button>
                             </div>
                         </div>
                         <!-- 我是成功的吐司 -->

@@ -493,19 +493,19 @@
 
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" id="Employeename" v-model="leaveExit.employeeName" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input class="form-control fs-5" id="Employeenameid" v-model="leaveExit.employeeNumber" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="type" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假類別</label>
+                                        <label for="type" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假類別</label>
                                         <input class="form-control fs-5" id="type" v-model="leaveExit.type" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="type" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理人</label>
+                                        <label for="type" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理人</label>
                                         <input class="form-control fs-5" id="type" v-model="proxyname.employeeName" disabled />
                                     </div>
 
@@ -515,7 +515,7 @@
                                 <div class="row py-3">
 
                                     <div class="mb-3 col-md-2">
-                                        <label for="StartTime" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">開始日期</label>
+                                        <label for="StartTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
                                         <input class="form-control fs-5 mb-2" type="date" id="StartTime" v-model="leaveExit.startDate" />
 
                                     </div>
@@ -525,7 +525,7 @@
 
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="EndTime" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">結束日期</label>
+                                        <label for="EndTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
                                         <input class="form-control fs-5 mb-2" type="date" id="Endtimeforvacation" v-model="leaveExit.endDate" />
 
                                     </div>
@@ -543,14 +543,14 @@
 
                                 <div class="row ">
                                     <div class="col-md-2">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
                                         <select id="Rank" class="select2 form-select" v-model="leaveExit.leaveType">
                                             <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
 
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
                                         <select id="proxy" class="select2 form-select" v-model="leaveExit.proxy">
                                             <option v-for="item in proxy" :value="item.employeeId"> {{item.employeeName}}</option>
                                         </select>
@@ -558,14 +558,14 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="manager" v-model="leaveExit.manerger">審核主管</label>
+                                    <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="manager" v-model="leaveExit.manerger">審核主管</label>
                                     <select id="manager" class="select2 form-select">
                                         <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}} </option>
                                     </select>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="mb-3 col-md-12">
-                                        <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                        <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
                                         <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveExit.reason" rows="6" col="6"></textarea>
                                     </div>
                                 </div>
@@ -589,7 +589,7 @@
                                                    @change="uploadphoto" />
                                         </label>
 
-                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
                                             <i class="bx bx-reset d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block" @click="photoreset">Reset</span>
                                         </button>
@@ -599,9 +599,9 @@
                                 </div>
                                 <!-- 按鈕 -->
                                 <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="okbtn">更改提交</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3" @click="okbtn">更改提交</button>
 
-                                    <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 fs-4 fw-bold border-3 me-3" @click="nobtn">刪除</button>
+                                    <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 fs-4 fw-bold border-3 me-3" @click="nobtn">刪除</button>
 
                                 </div>
 </div>

@@ -479,7 +479,7 @@
                 <p class="fw-bold card-header fs-3 text-center" style="text-decoration: underline 4pt #666EE8;">查詢預約時段</p>
                   <div class="mb-4 d-flex">
                     <!-- ★預約日期 -->
-                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable" style="width: 160px;">查詢日期區間</label>
+                    <label for="html5-month-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold mylLable" style="width: 160px;">查詢日期區間</label>
                     <div class="col ms-2">
                       <input v-model="MeetSearch.StartDay1" class="form-control fs-5 myinput" type="date" value="" id="meetSearch_date1"
                         style="height: 45px;" />
@@ -489,7 +489,7 @@
                         style="height: 45px;" />
                     </div>
                     <!-- ★查看會議室 -->
-                    <label for="meetDepeart_select" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable ms-4">選擇會議室</label>
+                    <label for="meetDepeart_select" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold mylLable ms-4">選擇會議室</label>
                     <div class="col ms-2">
                       <select v-model="MeetRsInfo.meetPlaceId" class="form-select myinput" id="meetPlace_select" aria-label="Default select example"
                         style="height: 45px;">
@@ -499,7 +499,7 @@
                     </div>
 
                     <div class="col ms-5 mb-2">
-                      <button type="submit" class="btn btn-outline-primary fs-4 fw-bold border-3"
+                      <button type="submit" class="btn btn-primary fs-4 fw-bold border-3"
                         @click="DoMeetSearch">查看預約情形</button>
                     </div>
                   </div>
@@ -546,7 +546,7 @@
               <div class="mb-3 row g-5 justify-content-center">
                 <!-- ★預約時間 -->
                 <!-- 選擇日期 -->
-                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold"
+                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"
                     style="width: 120px;">選擇日期</label>
 
                   <div class="col-6 col-md-3">
@@ -555,7 +555,7 @@
                   </div>
                     
                   <!-- 選擇會議類型 -->
-                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold"
+                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"
                     style="width: 120px;">會議類型</label>
                   
                   <div class="col-6 col-md-3">
@@ -573,7 +573,7 @@
                   <div class="mb-3 row g-3 justify-content-center">
                   <!-- 選擇時間 -->
                   <!-- 區段1 -->
-                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold"
+                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"
                     style="width: 120px;">開始時間</label>
 
                   <div class="col-6 col-md-2">   
@@ -594,7 +594,7 @@
                     <!-- 空白 -->
                     <div></div>
                   <!-- 區段1 -->
-                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold"
+                  <label for="html5-month-input" class="col-6 col-md-2 badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"
                     style="width: 120px;">結束時間</label>
 
                   <div class="col-6 col-md-2">
@@ -616,8 +616,8 @@
               </div>
             <!-- ★送出按鈕 -->
             <div class="m-5 row justify-content-center g-2">
-              <button type="submit" class="col-10 col-md-2 btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="MeetReserve">預約會議室</button>
-              <button type="submit" class="col-10 col-md-2 btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2">取消重選</button>
+              <button type="submit" class="col-10 col-md-2 btn btn-primary me-3 fs-4 fw-bold border-3" @click="MeetReserve">預約會議室</button>
+              <button type="submit" class="col-10 col-md-2 btn btn-secondary fs-4 fw-bold border-3 me-3 me-2">取消重選</button>
             </div>
           <!-- 我是成功的吐司 -->
           <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
