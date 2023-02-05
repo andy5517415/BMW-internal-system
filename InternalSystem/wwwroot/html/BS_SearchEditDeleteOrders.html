@@ -1089,7 +1089,7 @@
                                 axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}`, this.bodput)
                                     .then(p => {
                                         console.log(p);
-                                        window.location.reload();//promise
+                                        window.location = "BS_OrderAll.html";//promise
 
                                         /*//迴圈9次修改OrderDetail
                                         for (let n = 0; n < 9; n++) {
@@ -1141,7 +1141,7 @@
                                 /*console.log(d);*/
                                 alert(d.data);
                                 //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
-                                window.location.reload();
+                                window.location = "BS_OrderAll.html";//promise
                             })
                     }
                 },
