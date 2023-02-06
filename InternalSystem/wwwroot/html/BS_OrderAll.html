@@ -546,8 +546,8 @@
                                                 <strong class="col-2 fs-6 text-center my-1">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
                                                 <strong class="col-1 fs-6 text-center my-1">{{o.areaName}}</strong>
                                                 <strong class="col-1 fs-6 text-center my-1">{{o.isAccepted==1 ? '是':'否'}}</strong>
-                                                <strong class="col-1 fs-5 text-center my-1">{{(o.pparea=='N/A')?'尚未指派':o.pparea}}</strong>
-                                                <strong class="col-2 fs-5 text-center my-1">{{(o.ppname=='N/A')?'尚未指派':o.ppname}}</strong>
+                                                <strong class="col-1 fs-5 text-center my-1">{{(o.pparea=='N/A'||o.pparea==null)?'尚未指派':o.pparea}}</strong>
+                                                <strong class="col-2 fs-5 text-center my-1">{{(o.ppname=='N/A'||o.ppname==null)?'尚未指派':o.ppname}}</strong>
                                             </button>
                                         </h2>
 
