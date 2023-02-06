@@ -489,13 +489,6 @@
                         <div class="card mb-5 m-4 card-body inputCard2">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="my-4 d-flex">
-                                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                        style="width: 140px;">年、月份</label>
-
-                                    <div class="col ms-2">
-                                        <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
-                                    </div>
-
                                     <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
                                         style="width: 70px;">部門</label>
                                     
@@ -505,6 +498,13 @@
                                             <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
                                         </select>
                                     </div>
+                                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                        style="width: 140px;">年、月份</label>
+
+                                    <div class="col ms-2">
+                                        <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
+                                    </div>
+
 
                                     <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
                                         style="width: 120px;">員工名稱</label>
