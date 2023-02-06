@@ -33,6 +33,7 @@ namespace InternalSystem.Controllers
         {
             var user = from a in _context.PersonnelProfileDetails //找員工資料表
                        join b in _context.PersonnelDepartmentLists on a.DepartmentId equals b.DepartmentId
+                       join c in _context.PersonnelPositions on a.PositionId equals c.PositionId
                        where a.Acount == value.Account  //帳號
                        && a.Password == value.Password  //密碼
                        select new
@@ -43,7 +44,9 @@ namespace InternalSystem.Controllers
                            EmployeeName = a.EmployeeName,
                            EmployeeNumber = a.EmployeeNumber,
                            PositionId = a.PositionId,
-                           Depment = b.DepName
+                           Depment = b.DepName,
+                           PositionName =c.PositionName,
+                           Photo = a.Photo
                        };
 
             //這邊不null判斷了，直接報錯

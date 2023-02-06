@@ -141,10 +141,6 @@ namespace InternalSystem.Controllers
             //    })
             //}).OrderByDescending(a => a.OrderId);
 
-
-
-
-
             var q = (from bo in _context.BusinessOrders
                      join ppl in _context.ProductionProcessLists on bo.OrderId equals ppl.OrderId into a
                      from ppl in a.DefaultIfEmpty()
@@ -182,7 +178,8 @@ namespace InternalSystem.Controllers
                          //        }
                      }).OrderByDescending(d => d.OrderId).ThenByDescending(c => c.ppname);
 
-            string st = "";
+            //過濾資料 有製程C撈C 有B撈B 有A撈A
+            int oid = 0;
             List<dynamic> lt = new List<dynamic>();
             foreach (var item in q)
             {
@@ -192,26 +189,30 @@ namespace InternalSystem.Controllers
                 }
                 else if (item.ppname == "製程C-性能測試")
                 {
-                    st = "製程C-性能測試";
-                    lt.Add(item);
+                    if (oid!=item.OrderId)
+                    {
+                        lt.Add(item);
+                        oid =item.OrderId;
+                    }
                 }
                 else if (item.ppname == "製程B-噴漆/內裝")
-                {                    
-                    st = "製程B-噴漆/內裝";
-                    lt.Add(item);
+                {
+                    if (oid != item.OrderId)
+                    {
+                        lt.Add(item);
+                        oid = item.OrderId;
+                    }
                 }
                 else if (item.ppname == "製程A-零件組裝")
                 {
-                    st = "製程A-零件組裝";
-                    lt.Add(item);
+                    if (oid != item.OrderId)
+                    {
+                        lt.Add(item);
+                        oid = item.OrderId;
+                    }
                 }
             }
-
-
-
-
             return lt.ToList();
-            //return await q.ToListAsync();
         }
 
 
@@ -295,6 +296,7 @@ namespace InternalSystem.Controllers
         [HttpPut("withoutloop")]
         public dynamic PutOrder(string ordnum, int areaid, [FromBody] ICollection<BusinessOrderDetail> bodput)
         {
+            int type = 0;
             //子資料先修改
             foreach (var item in bodput)
             {
@@ -304,6 +306,11 @@ namespace InternalSystem.Controllers
                     OrderId = item.OrderId,
                     OptionalId = item.OptionalId
                 };
+                //撈修改後的型號修改訂單編號首字母
+                if (item.OptionalId<4)
+                {
+                    type = item.OptionalId;
+                }
                 _context.BusinessOrderDetails.Update(son);
             }
 
@@ -322,6 +329,23 @@ namespace InternalSystem.Controllers
                     a.OrderDateTime 
                     }).SingleOrDefault();
 
+            //改訂單首英文字母
+            string strtemp = "";
+            switch (type)
+            {
+                case 1:
+                    strtemp = q.OrderNumber.Remove(0, 1).Insert(0, "M");
+                    break;
+                case 2:
+                    strtemp = q.OrderNumber.Remove(0, 1).Insert(0, "X");
+                    break;
+                case 3:
+                    strtemp = q.OrderNumber.Remove(0, 1).Insert(0, "i");
+                    break;
+                default:                    
+                    break;
+            }
+
             //算修改後的訂單價錢
             var money = 0;
             foreach (var item in bodput)
@@ -332,7 +356,7 @@ namespace InternalSystem.Controllers
             BusinessOrder USAfather = new BusinessOrder
             {
                 OrderId = q.OrderId,
-                OrderNumber = q.OrderNumber,
+                OrderNumber = strtemp,
                 OrderDateTime = q.OrderDateTime,
                 EditDatetime = DateTime.Now,
                 AreaId = areaid,
