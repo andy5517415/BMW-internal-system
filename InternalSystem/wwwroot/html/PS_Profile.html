@@ -349,7 +349,7 @@
               </li>
               <li class="menu-item">
                 <a href="MT_MeetReserveSearch.html" class="menu-link">
-                  <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
+                  <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
                 </a>
               </li>
               
@@ -502,9 +502,10 @@
                                           <img :src="employeelist.photo"
                                                alt="user-avatar"
                                                class="d-block rounded"
-                                               height="100"
-                                               width="100"
-                                               id="uploadedAvatar" />
+                                               height="250"
+                                               width="150"
+                                               id="uploadedAvatar" 
+                                               style="object-fit:contain"/>
                                           <div class="button-wrapper">
                                               <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
                                                   上傳大頭照
@@ -741,30 +742,64 @@
                                           </div>
                                         </div>
                                         <div class="card m-4 my-5">
-                                          <div class="card-body">
-                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
-                                            <div class="row mx-5">
-                                                <!--帳號設置-->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="usernumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">帳號設定</label>
-                                                    <input v-model="employeelist.acount" class="form-control fs-5" type="text" id="usernumber" name="usernumber" autofocus disabled/>
+                                            <div class="card-body">
+                                                <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
+                                                <div class="row mx-5">
+                                                    <!--帳號設置-->
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="usernumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">帳號設定</label>
+                                                        <input v-model="employeelist.acount" class="form-control fs-5" type="text" id="usernumber" name="usernumber" autofocus disabled />
+                                                    </div>
+                                                    <!--密碼設置-->
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="password" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">密碼設定</label>
+                                                        <input v-model="employeelist.password" class="form-control fs-5"
+                                                               type="text"
+                                                               id="password"
+                                                               name="password"
+                                                               autofocus />
+                                                    </div>
                                                 </div>
-                                                <!--密碼設置-->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="password" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">密碼設定</label>
-                                                    <input v-model="employeelist.password" class="form-control fs-5"
-                                                           type="text"
-                                                           id="password"
-                                                           name="password"
-                                                           autofocus />
+                                                <!-- ★Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content border border-5">
+                                                            <div class="modal-header mb-3">
+                                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                                    &nbsp修改資料
+                                                                </p>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <hr class="col-10">
+                                                            </div>
+                                                            <div class="modal-body text-start mt-0">
+                                                                <!--<p class="fs-5">✏️員工名稱：{{employeelist.employeeName}}</p>
+                                                                <p class="fs-5">✏️員工工號：{{employeelist.employeeNumber}}</p>-->
+                                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認修改資料?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <!-- 存檔按鈕 -->
+                                                                <button type="button" v-on:click="createbtn" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 " data-bs-dismiss="modal">確定</button>
+                                                                <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">取消</button>
+                                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <!-- 確認視窗按鈕 -->
+                                                <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                                    <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        存檔
+                                                    </button>
+                                                    <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
+                                                    <!--<button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">重打</button>-->
+                                                </div>
+                                                <!-- 確認按鈕 -->
+                                                <!--<div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                                    <button type="button" v-on:click="createbtn" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 ">存檔</button>
+                                                    <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3">取消</button>
+                                                </div>-->
                                             </div>
-                                            <!-- 確認按鈕 -->
-                                            <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                                <button type="button" v-on:click="createbtn" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 ">存檔</button>
-                                                <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3">取消</button>
-                                            </div>
-                                          </div>
                                         </div>
                                         </form>
                                     </div>

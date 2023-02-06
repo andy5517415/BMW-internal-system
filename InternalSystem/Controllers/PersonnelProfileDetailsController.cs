@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
+using Newtonsoft.Json.Linq;
 
 namespace InternalSystem.Controllers
 {
@@ -520,12 +521,15 @@ namespace InternalSystem.Controllers
             return NoContent();
         }
 
-        //父子資料同時新增(員工+該員工假別時數)
+        //父子資料新增(員工+該員工假別時數)
         // POST: api/PersonnelProfileDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public ActionResult PostPersonnelProfileDetail([FromBody] PersonnelProfileDetail personnelProfileDetail)
         {
+
+          
+
             PersonnelProfileDetail insert = new PersonnelProfileDetail
             {
                 EmployeeName = personnelProfileDetail.EmployeeName,
@@ -553,11 +557,31 @@ namespace InternalSystem.Controllers
                 Terminationdate = personnelProfileDetail.Terminationdate,
                 Photo = personnelProfileDetail.Photo,
                 Note = personnelProfileDetail.Note,
-                PersonnelLeaveOvers = personnelProfileDetail.PersonnelLeaveOvers
+                //PersonnelLeaveOvers = personnelProfileDetail.PersonnelLeaveOvers
             };
             _context.PersonnelProfileDetails.Add(insert);
             _context.SaveChanges();
-            return Content("新增完成");
+                int q;
+            for (var i = 1; i < 5;i++)
+            {
+                if (i == 1) {    q= 112;   }
+                else if (i == 2) {   q = 240;}
+                else if (i == 4&& personnelProfileDetail.Sex=="女性") { q = 96; }
+                else {  q = 0;  }
+                PersonnelLeaveOver insertover = new PersonnelLeaveOver
+                {
+                    LeaveType = i,
+                    Quantity = q,
+                    Used = 0,
+                    LeaveOver = q,
+                    EmployeeId = insert.EmployeeId,
+
+                };
+            _context.PersonnelLeaveOvers.Add(insertover);
+            }
+            _context.SaveChanges();
+
+            return Content("新建完成");
         }
 
 

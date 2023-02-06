@@ -347,7 +347,13 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
+
                             
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -486,23 +492,23 @@
                             </div>
                         </div>
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 修改員工資料</h4>
-                        <div class="card mb-5 m-4 card-body inputCard">
+                        <div class="card mb-5 m-4 card-body inputCard2">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 
                                 <div class="my-4 d-flex ms-4">
-                                    <label for="EmployeeName" class="me-2 badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
+                                    <label for="EmployeeName" class="me-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
                                     <div class="col">
                                         <input v-model="employeeNumber" class="form-control fs-5 myinput" id="EmployeeNumber" />
                                     </div>
                                     
-                                    <label for="EmployeeName" class="ms-4 badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold mylLable">員工名稱</label>
+                                    <label for="EmployeeName" class="ms-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工名稱</label>
 
                                     <div class="col ms-2">
                                         <input v-model="employeeName" class="form-control fs-5 myinput" id="Employeename" />
                                     </div>
 
                                     <div class="col ms-5">
-                                        <button type="button" v-on:click="searchbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                                        <button type="button" v-on:click="searchbtn" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
                                     </div>
                                 </div>
                             </form>
@@ -518,8 +524,8 @@
                                     <img :src="employeelist.photo"
                                          alt="user-avatar"
                                          class="d-block rounded"
-                                         height="100"
-                                         width="100"
+                                         height="250"
+                                         width="150"
                                          id="uploadedAvatar"
                                          style="object-fit:contain"/>
                                     <div class="button-wrapper">
@@ -779,16 +785,16 @@
                                     </div>
                                 </div>
                                 <div class="card card-body mb-5 mx-4">
-                                    <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
-                                    <div class="row mx-5">
+                                    <!--<p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
+                                    <div class="row mx-5">-->
                                         <!--帳號設置-->
-                                        <div class="mb-3 col-md-6">
+                                        <!--<div class="mb-3 col-md-6">
                                             <label for="usernumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">帳號設定</label>
                                             <input v-model="employeelist.acount" class="form-control fs-5" type="text" id="usernumber" name="usernumber" autofocus
                                                    @change="usernum" />
-                                        </div>
+                                        </div>-->
                                         <!--密碼設置-->
-                                        <div class="mb-3 col-md-6">
+                                        <!--<div class="mb-3 col-md-6">
                                             <label for="password" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">密碼設定</label>
                                             <input v-model="employeelist.password" class="form-control fs-5"
                                                    type="text"
@@ -797,7 +803,7 @@
                                                    autofocus
                                                    @change="password" />
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <!--員工備註-->
                                     <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工備註</p>
@@ -806,9 +812,36 @@
                                         <label for="Note" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註欄</label>
                                         <textarea class="form-control fs-5" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
                                     </div>
+                                            <!-- ★Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border border-5">
+                                                        <div class="modal-header mb-3">
+                                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                                style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                                &nbsp💡提示訊息
+                                                            </p>
+                                                        </div>
+                                                        <div class="row justify-content-center">
+                                                            <hr class="col-10">
+                                                        </div>
+                                                        <div class="modal-body text-start mt-0">
+                                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認修改資料?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close"
+                                                                v-on:click="createbtn">
+                                                                確認
+                                                            </button>
+                                                            <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     <!-- 確認按鈕 -->
                                     <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                        <button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>
+                                        <button type="button"  class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">存檔</button>
                                         <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
                                 </form>
@@ -999,7 +1032,7 @@
                     }
                 },
                 note() {
-                    let note = /^[\u4e00-\u9fa5a-zA-Z\，。‧、]+$/;
+                    let note = /^[\u4e00-\u9fa5a-zA-Z\0-9\，。‧、]+$/;
                     logic = note.test(this.employeelist.note)
                     if (note.test(this.employeelist.note)) {
                         console.log('ok');
@@ -1014,21 +1047,21 @@
 
 
                 createbtn: function () {
-                    if (confirm('請確認修改資料是否正確') == true) {
 
-                        axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
-                        ).then((res) => {
-                            this.text = "資料已修改";
-                            $("#toastSuc").fadeIn("fast");
-                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                        }).catch(err => {
-                            this.text = err;
-                            $("#toastErr").fadeIn("fast");
-                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                        });
-                        //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
-                        //window.location = "HR_EmpProfileEdit.html";
-                    }
+
+                    axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
+                    ).then((res) => {
+                        this.text = "資料已修改";
+                        $("#toastSuc").fadeIn("fast");
+                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                    }).catch(err => {
+                        this.text = err;
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                    });
+                    //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
+                    //window.location = "HR_EmpProfileEdit.html";
+
                 },
                 searchbtn: function () {
 

@@ -353,7 +353,7 @@
               </li>
               <li class="menu-item">
                 <a href="MT_MeetReserveSearch.html" class="menu-link">
-                  <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
+                  <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
                 </a>
               </li>
               
@@ -568,15 +568,15 @@
                                         <!-- 請假 -->
                                         <div id="home" role="tabpanel" v-if="employeelist.positionId < 7">
                                             <div class="table-responsive text-nowrap">
-                                                <table class="table">
-                                                    <thead>
+                                                <table class="table table-striped table-hover">
+                                                    <thead class="bg-black">
                                                         <tr>
-                                                            <th class="fs-4 fw-bold">待辦項目</th>
-                                                            <th class="fs-4 fw-bold">員工名稱</th>
-                                                            <th class="fs-4 fw-bold">員工編號</th>
-                                                            <th class="fs-4 fw-bold">員工部門</th>
-                                                            <th class="fs-4 fw-bold"></th>
-                                                            <th class="fs-4 fw-bold">狀態</th>
+                                                            <th class="fs-4 text-white fw-bold">待辦項目</th>
+                                                            <th class="fs-4 text-white fw-bold">員工名稱</th>
+                                                            <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                            <th class="fs-4 text-white fw-bold">員工部門</th>
+                                                            <th class="fs-4 text-white fw-bold"></th>
+                                                            <th class="fs-4 text-white fw-bold">狀態</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="(leaveExit,key) in leavereturn">
@@ -679,15 +679,15 @@
                                     <!--加班 -->
                                     <!--<div class="tab-pane fade " id="navs-top-profile" role="tabpanel">
                                             <div class="table-responsive text-nowrap">
-                                                <table class="table">
-                                                    <thead>
+                                                <table class="table table-striped table-hover">
+                                                    <thead class="bg-black">
                                                         <tr>
-                                                            <th class="fs-4 fw-blod">待修正項目</th>
-                                                            <th class="fs-4 fw-blod">員工編號</th>
-                                                            <th class="fs-4 fw-blod">加班起始時間</th>
-                                                            <th class="fs-4 fw-blod">加班結束時間</th>
-                                                            <th class="fs-4 fw-blod">狀態</th>
-                                                            <th class="fs-4 fw-blod">修改</th>
+                                                            <th class="fs-4 text-white fw-bold">待修正項目</th>
+                                                            <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                            <th class="fs-4 text-white fw-bold">加班起始時間</th>
+                                                            <th class="fs-4 text-white fw-bold">加班結束時間</th>
+                                                            <th class="fs-4 text-white fw-bold">狀態</th>
+                                                            <th class="fs-4 text-white fw-bold">修改</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="notyet in NotyetOver">
@@ -725,15 +725,15 @@
                                 <div class="tab-pane fade " id="auditleave" role="tabpanel" 
                                     >
                                         <div class="table-responsive text-nowrap" >
-                                            <table class="table">
-                                                <thead>
+                                            <table class="table table-striped table-hover">
+                                                <thead class="bg-black">
                                                     <tr>
-                                                        <th class="fs-4 fw-bold">待辦項目</th>
-                                                        <th class="fs-4 fw-bold">員工編號</th>
-                                                        <th class="fs-4 fw-bold">請假起始時間</th>
-                                                        <th class="fs-4 fw-bold">請假結束時間</th>
-                                                        <th class="fs-4 fw-bold">狀態</th>
-                                                        <th class="fs-4 fw-bold">修改</th>
+                                                        <th class="fs-4 text-white fw-bold">待辦項目</th>
+                                                        <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                        <th class="fs-4 text-white fw-bold">請假起始時間</th>
+                                                        <th class="fs-4 text-white fw-bold">請假結束時間</th>
+                                                        <th class="fs-4 text-white fw-bold">狀態</th>
+                                                        <th class="fs-4 text-white fw-bold">修改</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0"  v-for="(leave,key) in leaveproxy">
@@ -772,15 +772,15 @@
                             <!--請假代理-->
                             <!--<div class="tab-pane fade " id="proxy" role="tabpanel">
                                     <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-striped table-hover">
+                                            <thead class="bg-black">
                                                 <tr>
-                                                    <th class="fs-4 fw-blod">待修正項目</th>
-                                                    <th class="fs-4 fw-blod">員工編號</th>
-                                                    <th class="fs-4 fw-blod">請假起始時間</th>
-                                                    <th class="fs-4 fw-blod">請假結束時間</th>
-                                                    <th class="fs-4 fw-blod">狀態</th>
-                                                    <th class="fs-4 fw-blod">修改</th>
+                                                    <th class="fs-4 text-white fw-bold">待修正項目</th>
+                                                    <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                    <th class="fs-4 text-white fw-bold">請假起始時間</th>
+                                                    <th class="fs-4 text-white fw-bold">請假結束時間</th>
+                                                    <th class="fs-4 text-white fw-bold">狀態</th>
+                                                    <th class="fs-4 text-white fw-bold">修改</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0" v-for="leave in leaveproxy">
@@ -818,15 +818,15 @@
                             <!--加班審核-->
                             <div class="tab-pane fade " id="auditover" role="tabpanel" >
                                     <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-striped table-hover">
+                                            <thead class="bg-black">
                                                 <tr>
-                                                    <th class="fs-4 fw-bold">待辦項目</th>
-                                                    <th class="fs-4 fw-bold">員工編號</th>
-                                                    <th class="fs-4 fw-bold">加班起始時間</th>
-                                                    <th class="fs-4 fw-bold">加班結束時間</th>
-                                                    <th class="fs-4 fw-bold">狀態</th>
-                                                    <th class="fs-4 fw-bold">修改</th>
+                                                    <th class="fs-4 text-white fw-bold">待辦項目</th>
+                                                    <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                    <th class="fs-4 text-white fw-bold">加班起始時間</th>
+                                                    <th class="fs-4 text-white fw-bold">加班結束時間</th>
+                                                    <th class="fs-4 text-white fw-bold">狀態</th>
+                                                    <th class="fs-4 text-white fw-bold">修改</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0" v-for="(work,key) in wkover">

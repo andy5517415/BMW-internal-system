@@ -466,7 +466,7 @@
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 查詢會議紀錄表</h4>
 
                         <!-- HTML5 Inputs -->
-                        <div class="card mb-5 m-4 card-body inputCard">
+                        <div class="card mb-5 m-4 card-body inputCard2">
                             <div class="my-4 d-flex">
                                 <!-- 選擇部門 -->
                                 <label for="meetDepeart_select" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">選擇部門</label>
@@ -478,7 +478,7 @@
                                 </div>
 
                                 <div class="col ms-5">
-                                    <button @click="DoMeetSearch" type="submit" class="btn btn-primary me-3 fs-4 fw-bold border-3">確定</button>
+                                    <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">確定</button>
                                 </div>
                             </div>
                         </div>
@@ -490,13 +490,13 @@
                                 <table class="table table-hover table-striped">
                                     <thead class="table-primary">
                                         <tr>
-                                            <th class="fs-4">會議室</th>
-                                            <th class="fs-4">日期</th>
-                                            <th class="fs-4">部門</th>
-                                            <th class="fs-4">會議類型</th>
-                                            <th class="fs-4">租借登記職員</th>
-                                            <th class="fs-4">租借時間</th>
-                                            <th class="fs-4"></th>
+                                            <th class="fs-4 text-white fw-bold">會議室</th>
+                                            <th class="fs-4 text-white fw-bold">日期</th>
+                                            <th class="fs-4 text-white fw-bold">部門</th>
+                                            <th class="fs-4 text-white fw-bold">會議類型</th>
+                                            <th class="fs-4 text-white fw-bold">租借登記職員</th>
+                                            <th class="fs-4 text-white fw-bold">租借時間</th>
+                                            <th class="fs-4 text-white fw-bold"></th>
                                         </tr>
                                     </thead>
                         
@@ -514,7 +514,7 @@
                         
                                             <!-- 取消按鈕 -->
                                             <td v-model="MeetInf">
-                                                <button v-if="MeetInf.isValue" @click="DoSearchRecord(index)" type="button" class="btn btn-primary p-1 fs-6"
+                                                <button v-if="MeetInf.isValue" @click="DoSearchRecord(index)" type="button" class="btn btn-outline-primary p-1 fs-6"
                                                     data-bs-toggle="modal" style="font-size: 6px;height: 30px;">
                                                     查看會議記錄
                                                 </button>
@@ -591,7 +591,7 @@
                                 <!-- 送出按鈕 -->
                                 <div class="my-5 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-outline-info me-2">編輯</button>
-                                    <button type="submit" class="btn btn-primary me-3 fs-4 fw-bold border-3">完全儲存</button>
+                                    <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">完全儲存</button>
                                 </div>
                             </div>
                         </div>

@@ -349,7 +349,13 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
+
                             
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -552,7 +558,7 @@
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
-                                    請假資料修改
+                                    員工請假資料修改
                                 </div>
                                 <div class="row">
                                     <div class="row col-10 justify-content-center mx-5">
@@ -588,8 +594,35 @@
                                     </div>
 
                                 </div>
+                                            <!-- ★Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border border-5">
+                                                        <div class="modal-header mb-3">
+                                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                                style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                                &nbsp💡提示訊息
+                                                            </p>
+                                                        </div>
+                                                        <div class="row justify-content-center">
+                                                            <hr class="col-10">
+                                                        </div>
+                                                        <div class="modal-body text-start mt-0">
+                                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認編輯資料?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close"
+                                                                @click="leaveedit">
+                                                                確認
+                                                            </button>
+                                                            <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 <div class="my-4 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="leaveedit" class="btn btn-primary me-3 fs-4 fw-bold border-3 ">修改</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
                                     <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                 </div>
                         </div>
@@ -633,7 +666,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
-  </body>
+  
 
     <!-- Vue -->
     <script>
@@ -660,23 +693,31 @@
                         // 判斷是否日期時間是否填入
                         if (this.leavedata.startDate != null && this.leavedata.endDate != null &&
                             this.leavedata.startTime != null && this.leavedata.endTime != null) {
-                            if (confirm('請確認修改資料是否正確') == true) {
-                                axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
-                                    .then(response => {
-                                        //★成功
-                                        this.text = response.data;
+
+                            axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
+                                .then(response => {
+                                    //★成功
+                                    this.text = response.data;
+                                    if (this.text == "修改成功") {
                                         $("#toastSuc").fadeIn("fast");
                                         setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                        window.location = "/html/HR_EmpLeaveSearch.html";
+                                    }
 
-                                        //失敗
+
+
+
+                                    //失敗
+                                    if (this.text == "主管已審核同意之請假無法進行更改" || this.text == "請假時段錯誤!"
+                                        || this.text == "伺服器錯誤" || this.text == "主管已審核同意之請假無法進行更改!"
+                                        || this.text =="剩餘時數不足") {
                                         this.text = response.data;
                                         $("#toastErr").fadeIn("fast");
                                         setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    }
+                                })
+                                .catch(err => console.log(err))
 
-                                        //window.location = "/html/HR_EmpLeaveSearch.html";
-                                    })
-                                    .catch(err => console.log(err))
-                            }
                         }
                     }
                 }

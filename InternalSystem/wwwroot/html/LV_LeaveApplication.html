@@ -349,7 +349,13 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
+
                             
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -535,102 +541,143 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card m-4 my-5 shadow card-body">
-                                <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
-                                <div class="row p-3 mx-5 rounded-3 ">
-                                    <div class="mb-3 col-md-2">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
-                                        <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
-                                    </div>
-                                    <div class="mb-3 col-md-2">
-                                        <div style="height: 43px;"></div>
-                                        <input class="form-control fs-5" type="time" v-model="application.startTime" id="html5-date-input" />
-                                    </div>
+                        <div class="card m-4 my-5 shadow card-body">
+                            <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
+                            <div class="row p-3 mx-5 rounded-3 ">
+                                <div class="mb-3 col-md-2">
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
+                                    <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div style="height: 43px;"></div>
+                                    <input class="form-control fs-5" type="time" v-model="application.startTime" id="html5-date-input" />
+                                </div>
 
-                                    <div class="mb-3 col-md-2">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
-                                        <input class="form-control fs-5" type="date" v-model="application.endDate" id="Endtimeforvacation" />
-                                    </div>
-                                    <div class="mb-3 col-md-2">
-                                        <div style="height: 43px;"></div>
-                                        <input class="form-control fs-5" type="time" v-model="application.endTime" id="html5-time-input" />
-                                    </div>
+                                <div class="mb-3 col-md-2">
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
+                                    <input class="form-control fs-5" type="date" v-model="application.endDate" id="Endtimeforvacation" />
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div style="height: 43px;"></div>
+                                    <input class="form-control fs-5" type="time" v-model="application.endTime" id="html5-time-input" />
+                                </div>
 
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
-                                            <select id="Rank" class="select2 form-select" v-model="application.leaveType">
-                                                <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
+                                <div class="row my-2">
+                                    <div class="col-md-2">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
+                                        <select id="Rank" class="select2 form-select" v-model="application.leaveType">
+                                            <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
 
-                                            </select>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2" v-if="employeelist.positionId<7">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
+                                        <select id="proxy" class="select2 form-select" v-model="application.proxy">
+                                            <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2" v-if="employeelist.positionId<7">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
+                                        <select id="proxy" class="select2 form-select" v-model="application.auditManerger">
+                                            <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                        <textarea class="form-control fs-5" id="Vacationreason" v-model="application.reason" rows="6"
+                                                  col="6"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row my-2" style="display:none">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                        <textarea class="form-control fs-5" id="Vacationreason" v-model="application.statusId" rows="6"
+                                                  col="6"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row my-2" role="alert">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
+
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                    <img :src="application.photo"
+                                         alt="請上傳圖片"
+                                         class="d-block rounded"
+                                         height="100"
+                                         width="100"
+                                         id="uploadedAvatar" />
+                                    <div class="button-wrapper">
+                                        <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
+                                            上傳照片
+                                            <input type="file"
+                                                   id="upload"
+                                                   class="account-file-input"
+                                                   hidden
+                                                   accept="image/png, image/jpeg"
+                                                   @change="uploadphoto" />
+                                        </label>
+
+                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                            <i class="bx bx-reset d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                        </button>
+
+                                        <p class="text-muted mb-0">病假請附上診斷證明或處方籤</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ★Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border border-5">
+                                        <div class="modal-header mb-3">
+                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                &nbsp請假資料確認
+                                            </p>
                                         </div>
-                                        <div class="col-md-2" v-if="employeelist.positionId<7">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
-                                            <select id="proxy" class="select2 form-select" v-model="application.proxy">
-                                                <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
-
-                                            </select>
+                                        <div class="row justify-content-center">
+                                            <hr class="col-10">
                                         </div>
-                                        <div class="col-md-2" v-if="employeelist.positionId<7">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
-                                            <select id="proxy" class="select2 form-select" v-model="application.auditManerger">
-                                                <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
-                                        
-                                            </select>
+                                        <div class="modal-body text-start mt-0">
+                                            <p class="fs-5">✏️請假開始時間：{{application.startDate}} {{application.startTime}}</p>
+                                            <p class="fs-5">✏️請假結束時間：{{application.endDate}} {{application.endTime}}</p>
+                                            <p class="fs-5" v-if="application.leaveType==1">✏️請假假別：事假</p>
+                                            <p class="fs-5" v-if="application.leaveType==2">✏️請假假別：病假</p>
+                                            <p class="fs-5" v-if="application.leaveType==3">✏️請假假別：特假</p>
+                                            <p class="fs-5" v-if="application.leaveType==4">✏️請假假別：生理假</p>
+                                            <p class="fs-5" v-if="application.leaveType==5">✏️請假假別：喪假</p>
+                                            <p class="fs-5" v-if="application.leaveType==6">✏️請假假別：婚假</p>
+                                            <p class="fs-5" v-if="application.leaveType==7">✏️請假假別：育嬰假</p>
+                                            <p class="fs-5" v-if="application.leaveType==8">✏️請假假別：產假</p>
+                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認申請?</p>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
-                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="application.reason" rows="6"
-                                                      col="6"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2" style="display:none">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
-                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="application.statusId" rows="6"
-                                                      col="6"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2" role="alert">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
-
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                        <img :src="application.photo"
-                                             alt="請上傳圖片"
-                                             class="d-block rounded"
-                                             height="100"
-                                             width="100"
-                                             id="uploadedAvatar" />
-                                        <div class="button-wrapper">
-                                            <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
-                                                上傳照片
-                                                <input type="file"
-                                                       id="upload"
-                                                       class="account-file-input"
-                                                       hidden
-                                                       accept="image/png, image/jpeg"
-                                                       @change="uploadphoto" />
-                                            </label>
-
-                                            <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
-                                                <i class="bx bx-reset d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block" @click="photoreset">Reset</span>
-                                            </button>
-
-                                            <p class="text-muted mb-0">病假請附上診斷證明或處方籤</p>
+                                        <div class="modal-footer">
+                                            <!-- 存檔按鈕 -->
+                                            <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 ">送出</button>
+                                            <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 "data-bs-dismiss="modal">取消</button>
+                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="my-3 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 " >送出</button>
-                                    <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
-                                </div>
+                            </div>
+                            <!-- 確認視窗按鈕 -->
+                            <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    送出申請
+                                </button>
+                                <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
+                                <!--<button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">重打</button>-->
+                            </div>
+                            <!--<div class="my-3 d-md-flex justify-content-md-end">
+                                <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 ">送出</button>
+                                <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
+                            </div>-->
                             </form>
                         </div>
                     </div>
@@ -694,8 +741,6 @@
                     //alert('OK');
                     //一般員工請假
                     if (this.employeedata.PositionId < 7) {
-                        if (confirm('是否送出請假資料?') == true) {
-
                             if (this.application.leaveType != null &&
                                 this.application.proxy != null && this.application.auditManerger != null
                                 && this.application.reason != null
@@ -726,12 +771,10 @@
                                 $("#toastErr").fadeIn("fast");
                                 setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             }
-                        }
                     }
 
                     //主管請假
                     if (this.employeedata.PositionId >= 7) {
-                        if (confirm('是否送出請假資料?') == true) {
                             if (this.application.leaveType != null) {
                                 // 判斷是否日期時間是否填入
                                 if (this.application.startDate != null && this.application.endDate != null &&
@@ -760,7 +803,6 @@
                                 $("#toastErr").fadeIn("fast");
                                 setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             }
-                        }
                     }
                 },
                 uploadphoto(event) {

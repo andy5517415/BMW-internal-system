@@ -351,7 +351,13 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
+
                             
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -530,11 +536,11 @@
                                     <div class="row col-10 justify-content-center mx-5">
                                         <div class="mb-3 col-md-5">
                                             <label for="StartTime" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">加班開始時間</label>
-                                            <input class="form-control fs-5" type="date"v-model="overlist.startDate" id="StartDate" />
+                                            <input class="form-control fs-5" type="date" v-model="overlist.startDate" id="StartDate" />
                                         </div>
 
                                         <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control fs-5" type="time" v-model="overlist.startTime"  id="EndTime" />
+                                            <input class="form-control fs-5" type="time" v-model="overlist.startTime" id="EndTime" />
                                         </div>
                                     </div>
 
@@ -545,17 +551,47 @@
                                         </div>
 
                                         <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control fs-5" type="time" v-model="overlist.endTime"  id="Endtimeforvacation" />
+                                            <input class="form-control fs-5" type="time" v-model="overlist.endTime" id="Endtimeforvacation" />
                                         </div>
                                     </div>
-                                        <label for="Endtimeforvacation" class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{overlist.totalTime}}&nbsp 小時</label>
+                                    <label for="Endtimeforvacation" class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{overlist.totalTime}}&nbsp 小時</label>
 
                                 </div>
+                                <!-- ★Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border border-5">
+                                            <div class="modal-header mb-3">
+                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                   style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                    &nbsp💡員工加班資料修改
+                                                </p>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <hr class="col-10">
+                                            </div>
+                                            <div class="modal-body text-start mt-0">
+                                                <p class="fs-5">✏️加班開始時間：{{overlist.startDate}} - {{overlist.startTime}}</p>
+                                                <p class="fs-5">✏️加班結束時間：{{overlist.endDate}} - {{overlist.endTime}}</p>
+                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認編輯資料?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close"
+                                                       @click="overedit">
+                                                    確認
+                                                </button>
+                                                <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="my-4 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="overedit" class="btn btn-primary me-3 fs-4 fw-bold border-3 ">修改</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
                                     <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                 </div>
-                        </div>
+                            
+</div>
 
 
                         </form>
@@ -613,31 +649,26 @@
                         this.overlist.endDate != null && this.overlist.endTime != null && this.overlist.areaId != null &&
                         this.overlist.propessId != null) {
 
-                        if (confirm('是否送出資料') == true) {
                             axios.put('/api/PersonnelOvertimeForms/dep/' + this.overlist.startWorkId, this.overlist)
                                 .then(response => {
                                     //★成功
                                     this.text = response.data;
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    if (this.text == "修改成功") {
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    }
+                         
 
                                     //失敗
-                                    this.text = response.data;
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                    //★成功
-                                    this.text = response.data;
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-
-                                    //失敗
-                                    this.text = response.data;
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                    window.location = "/html/hr_overtimesearch.html";
+                                    if (this.text == "修改時間有誤") {
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    }
+                                 
+                                  
                                 }).catch(err => console.log(err))
 
-                        }
+                        
                     }
                     else {
                         //失敗

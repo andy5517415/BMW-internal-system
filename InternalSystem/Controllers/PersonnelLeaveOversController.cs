@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
-
+using InternalSystem.Dotos;
 namespace InternalSystem.Controllers
 {
     [Route("api/[controller]")]
@@ -215,31 +215,48 @@ namespace InternalSystem.Controllers
 
         // POST: api/PersonnelLeaveOvers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public string PostPersonnelLeaveOver(int EmployeeId,[FromBody] PersonnelLeaveOver value)
-        {
-            if (!_context.PersonnelProfileDetails.Any(a => a.EmployeeId == EmployeeId))
-            {
-                return "沒有該筆資料";
-            }
-       
-    
-        PersonnelLeaveOver insert = new PersonnelLeaveOver
-            {
+        //[HttpPost]
+        //public string PostPersonnelLeaveOver(int EmployeeId, [FromBody] PersonnelLeaveOver value)
+        //{
+        //    if (!_context.PersonnelProfileDetails.Any(a => a.EmployeeId == EmployeeId))
+        //    {
+        //        return "沒有該員工";
+        //    }
+        //    //if(!_context.PersonnelProfileDetails.Any(a => a.Sex == Sex))
+        //    //{
 
-                LeaveType = value.LeaveType,
-                Quantity = value.Quantity,
-                Used = value.Used,
-                LeaveOver = value.LeaveOver,
-                EmployeeId = EmployeeId,
-            };
-            _context.PersonnelLeaveOvers.Add(insert);
-            _context.SaveChanges();
+        //    //    return "沒有性別資料";
+        //    //}
 
-            return "OK";
+        //    //if (Sex == "男性")
+        //    //{
+
+        //    //var maleleave = _context.MaleLeaveOver.FromSqlRaw($"EXEC Male_leaveOver {EmployeeId}");
+
+        //    //return maleleave.ToList();
+        //    //}
+        //    //for (value.LeaveType = 1; value.LeaveType < 4; value.LeaveType++)
+        //    //{
+        //    //    if (value.LeaveType == 1) { value.Quantity = 112; value.LeaveOver = 112;value.Used = 0; }
+        //    //    else if(value.LeaveType == 2) { value.Quantity = 240; value.LeaveOver = 240; value.Used = 0; }
+        //    //    else { value.Quantity = 0; value.LeaveOver = 0; value.Used = 0; }
+        //        PersonnelLeaveOver insert = new PersonnelLeaveOver
+        //        {
+        //            LeaveType = value.LeaveType,
+        //            Quantity = value.Quantity,
+        //            Used = value.Used,
+        //            LeaveOver = value.LeaveOver,
+        //            EmployeeId = EmployeeId,
+
+        //        };
+        //    _context.PersonnelLeaveOvers.Add(insert);
+        //    //}
+        //    _context.SaveChanges();
+
+        //    return "OK";
 
 
-        }
+        //}
 
 
         // POST: api/PersonnelLeaveOvers

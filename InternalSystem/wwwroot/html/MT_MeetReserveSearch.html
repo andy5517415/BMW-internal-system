@@ -353,7 +353,7 @@
                             </li>
                             <li class="menu-item active">
                                 <a href="MT_MeetReserveSearch.html" class="menu-link">
-                                    <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
                                 </a>
                             </li>
                             
@@ -466,7 +466,7 @@
                         <h4 class="fw-bold py-3 mx-4"><span class="text-muted fw-light">會議室 /</span> 查詢預約紀錄</h4>
 
                         <!-- ★查詢預約紀錄 -->
-                            <div class="card mb-5 m-4 card-body inputCard">
+                            <div class="card mb-5 m-4 card-body inputCard2">
                                 <!-- ⁥!!! -->
                                 <!-- 查詢日期區間 -->
                                 <div class="my-4 d-flex">
@@ -493,7 +493,7 @@
 
                                     <div class="col ms-5">
                                         <button @click="DoMeetSearch" type="submit"
-                                            class="btn btn-primary me-3 fs-4 fw-bold border-3">查詢</button>
+                                            class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
                                     </div>
                                 </div>
                             </div>
@@ -504,16 +504,16 @@
                             <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
                             <div class="table-responsive p-5 text-nowrap">
                                 <table class="table table-hover">
-                                    <thead>
+                                    <thead class="bg-black">
                                         <tr>
-                                            <th class="fs-4">會議室</th>
-                                            <th class="fs-4">日期</th>
-                                            <th class="fs-4">部門</th>
-                                            <th class="fs-4">會議類型</th>
-                                            <th class="fs-4">登記職員</th>
-                                            <th class="fs-4">租借時間</th>
-                                            <th class="fs-4">是否取消</th>
-                                            <th class="fs-4">建立會議記錄</th>
+                                            <th class="fs-4 text-white fw-bold">會議室</th>
+                                            <th class="fs-4 text-white fw-bold">日期</th>
+                                            <th class="fs-4 text-white fw-bold">部門</th>
+                                            <th class="fs-4 text-white fw-bold">會議類型</th>
+                                            <th class="fs-4 text-white fw-bold">登記職員</th>
+                                            <th class="fs-4 text-white fw-bold">租借時間</th>
+                                            <th class="fs-4 text-white fw-bold">是否取消</th>
+                                            <th class="fs-4 text-white fw-bold">建立會議記錄</th>
                                         </tr>
                                     </thead>
 
@@ -562,9 +562,9 @@
 
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button @click="Del(MeetSearchInf.bookId)" type="button" class="btn btn-primary border-3" data-bs-dismiss="modal">確定</button>
+                                                                <button @click="Del(MeetSearchInf.bookId)" type="button" class="btn btn-outline-primary border-3" data-bs-dismiss="modal">確定</button>
                                                                 <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
-                                                                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                                                <!-- <button type="button" class="btn btn-outline-primary">Save changes</button> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -575,7 +575,7 @@
                                             </td>
                                             <!-- 建立會議記錄 -->
                                             <td v-model="MeetInf" v-if="MeetInf[index].isBookIdN">
-                                                <button @click="DoSearchRecord(index)" type="button" class="btn btn-primary p-1 fs-4 fw-bold">
+                                                <button @click="DoSearchRecord(index)" type="button" class="btn btn-outline-primary p-1 fs-4 fw-bold">
                                                     建立
                                                 </button>
                                             </td>
@@ -657,7 +657,7 @@
                             </div>
                             <!-- 送出按鈕 -->
                             <div class="my-5 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary me-3 fs-4 fw-bold border-3" @click="SaveMtRecord">儲存</button>
+                                <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3" @click="SaveMtRecord">儲存</button>
                             </div>
                         </div>
                         <!-- 我是成功的吐司 -->

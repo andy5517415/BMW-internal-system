@@ -234,15 +234,15 @@ button:hover {
 .myinput{
   margin-top: 5px;
 }
-.inputCard{
+.inputCard2{
   background-image: linear-gradient(to top, #a0baec 0%, #e3edff 100%);
 }
-.inputCard:hover{
+.inputCard2:hover{
   box-shadow: 0px 3px 3px 2px gray;
   transition: 0.3s;
 }
 
-.btn-outline-primary,.btn-outline-info{
+.btn-outline-primary,.btn-outline-info,.btn-outline-secondary{
   background-color: white;
 }
 .btn-primary:hover,.btn-outline-primary:hover{
