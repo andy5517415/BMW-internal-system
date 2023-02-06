@@ -485,15 +485,15 @@
                         </div>
                         
                         <h4 class="fw-bold py-4 ms-4"> 請假資料查詢</h4>
-                        <div class="card m-4 my-4 card-body inputCard">
+                        <div class="card m-4 my-4 card-body inputCard2">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="my-4 d-flex mx-4" style="width: 1000px;">
-                                    <label for="html5-month-input" class="me-2 badge rounded-pill bg-primary fs-4 fw-bold mylLable">請假月份</label>
-                                    <div class="col-3">
+                                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">請假月份</label>
+                                    <div class="col-3 ms-2">
                                         <input class="form-control fs-5 myinput" type="month" v-model="leavesearch.month" id="html5-month-input" />
                                     </div>
                                     <div class="col ms-5">
-                                        <button type="button" @click="searchbtn" class="btn btn-primary me-3 fs-4 fw-bold border-3">查詢</button>
+                                        <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
                                     </div>                                      
                                 </div>                           
                             </form>

@@ -468,7 +468,7 @@
       <!-- 選擇生產的工作位置報工-->
 
       <div class="container-xxl flex-grow-1 container-p-y">
-          <div class="card mb-5 m-4 card-body inputCard">
+          <div class="card mb-5 m-4 card-body inputCard2">
             <div class="my-4 d-flex mx-5">
               <label for="Startdate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">開始日期</label>
               <div class="col ms-2">
@@ -499,8 +499,8 @@
             </div>
             <!-- 按鈕 -->
             <div class="col d-flex justify-content-center my-5 mb-2">
-              <button type="button" v-on:click="Searchbtn()" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
-              <button type="reset" v-on:click="Clean()" class="btn btn-secondary fs-4 fw-bold border-3 me-3">清除</button>
+              <button type="button" v-on:click="Searchbtn()" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+              <button type="reset" v-on:click="Clean()" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">清除</button>
             </div>
           </div>
           <div class="card mb-4 m-4 ">
@@ -531,7 +531,7 @@
                               <label for="" class=" col-2 ">{{List.date}}</label>
                               <label for="" class=" col-1 ">異常</label>
                               <div class="col-2   d-md-flex justify-content-md-end">
-                                  <button type="submit" class="btn btn-primary 2" v-on:click="Enter(List)">查詢</button>
+                                  <button type="submit" class="btn btn-outline-primary 2" v-on:click="Enter(List)">查詢</button>
                               </div>
                           </div>
 
