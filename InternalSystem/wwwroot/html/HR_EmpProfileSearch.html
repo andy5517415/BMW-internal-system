@@ -500,22 +500,36 @@
                               <form id="formAccountSettings" method="POST" onsubmit="return false">
                                   <div class="mx-4 d-flex">
                                       <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">部門</label>
-                                      <div class="col-2">
+                                      <div class="col-1">
                                           <select class="select1 form-select myinput" v-model="employeedata.depId" id="department">
                                               <option v-for="item in departmentlist" :value="item.departmentId"> {{item.depName}}</option>
                                           </select>
 
                                       </div>
+                                      <label for="position" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職位</label>
+                                      <div class="col-2">
+                                          <select class="select1 form-select myinput" id="position" v-model="employeedata.positionId">
+                                              <option v-for="p in positionlist" :value="p.positionId"> {{p.positionName}}</option>
+                                          </select>
+                                      </div>
+                                      <label for="rank" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職等</label>
+                                      <div class="col-1">
+                                          <select class="select1 form-select myinput" id="rank" v-model="employeedata.rankId">
+                                              <option v-for="r in ranklist" :value="r.rankId">{{r.rank}}</option>
+                                          </select>
+                                      </div>
                                       <label for="onduty" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">在職狀態</label>
                                       <div class="col-1">
-                                          <select class="select1 form-select myinput" id="onduty">
-                                              <option> 在職</option>
-                                              <option> 離職</option>
+                                          <select class="select1 form-select myinput" id="onduty" v-model="employeedata.dutyStatus">
+                                              <option value=true> 在職</option>
+                                              <option value=false> 離職</option>
                                           </select>
-
                                       </div>
                                       <div class="col">
-                                          <button type="button"  class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
+                                          <button type="button" @click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
+                                      </div>
+                                      <div class="col">
+                                          <button type="button" @click="reset" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">清除</button>
                                       </div>
                                   </div>
 
@@ -524,7 +538,6 @@
 
                              
                               </form>
-                            </div>
                             <div class="card mb-4 m-4 card-body">
                               <!-- Basic Bootstrap Table -->
                             <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
@@ -538,22 +551,30 @@
                                               <th class="fs-4 text-white fw-bold">員工名稱</th>
                                               <th class="fs-4 text-white fw-bold">員工編號</th>
                                               <th class="fs-4 text-white fw-bold">職位</th>
+                                              <th class="fs-4 text-white fw-bold">職等</th>
                                               <th class="fs-4 text-white fw-bold">在職狀態</th>
                                           </tr>
                                       </thead>
                                       <tbody class="table-border-bottom-0">
-                                          <tr v-for="item in attendencelist">
-                                              <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
-                                              <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
-                                              <td>
-                                                  <span class="label-primary">{{item.date}}</span>
-                                              </td>
-                                              <td>
-                                                  <span class="label-primary">{{item.attendTime}}</span>
-                                              </td>
+                                          <tr v-for="item in emplist">
+                                              <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.depName}}</strong></td>
+                                              <td class="fs-5 fw-bold">{{item.employeeName}}</td>
+
                                               <td>
 
-                                                  <span class="label-primary">出勤</span>
+                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.employeeNumber}}</span></strong>
+                                              </td>
+                                              <td>
+                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.positionName}}</span></strong>
+
+                                              </td>
+                                              <td>
+                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.rank}}</span></strong>
+
+                                              </td>
+                                              <td>
+                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.dutyStatus?"在職":"離職"}}</span></strong>
+
                                               </td>
                                           </tr>
 
@@ -561,22 +582,23 @@
                                   </table>
                                   <nav aria-label="Page navigation example" class="justify-content-center d-flex">
                                       <ul class="pagination">
-                                          <li class="page-item">
+                                          <!--<li class="page-item">
                                               <a class="page-link" href="#" aria-label="Previous">
                                                   <span aria-hidden="true">&laquo;</span>
                                               </a>
-                                          </li>
+                                          </li>-->
                                           <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
 
-                                          <li class="page-item">
+                                          <!--<li class="page-item">
                                               <a class="page-link" href="#" aria-label="Next">
                                                   <span aria-hidden="true">&raquo;</span>
                                               </a>
-                                          </li>
+                                          </li>-->
                                       </ul>
-                                      <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                                   </nav>
+                                      <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
                               </div>
+                            </div>
                               <!--/ Basic Bootstrap Table -->
                           </div>
                           <!-- / Content -->
@@ -624,8 +646,10 @@
                     return {
                         text: "",
                         empNumber: {},
-                        employeedata: { "empName": "", "empNumber": "", "depId": "" },
-                        attendencelist: {},
+                        employeedata: { "depId": "", "dutyStatus": "","positionId":"","rankId":""},
+                        emplist: {},
+                        positionlist: {},
+                        ranklist: {},
                         departmentlist: {},
                         page: 0,
                         nowpage: {}
@@ -636,13 +660,15 @@
                     search: function () {
 
 
-                        axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
-                            + '&dep=' + this.employeedata.depId + '&page=' + 1)
+                        axios.get('/api/PersonnelProfileDetails/Personnel/?depId=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId+ '&dutystatus=' + this.employeedata.dutyStatus
+                        + '&page=' + 1)
                             .then(response => {
-                                this.attendencelist = response.data;
+                                this.emplist = response.data;
                                 this.nowpage = 1;
-                                console.log(this.attendencelist)
-                                if (this.attendencelist.length == 0) {
+                                console.log(response)
+
+                                console.log(this.emplist)
+                                if (this.emplist.length == 0) {
                                     //失敗
                                     this.text = "複合查詢:查無此項";
                                     $("#toastErr").fadeIn("fast");
@@ -660,15 +686,16 @@
                         //    + '&dep=' + this.employeedata.depId)
                         //    .then(response => {
                         //        sessionStorage.setItem("attend",response.data);
-                        //            console.log(this.attendencelist)
-                        //            if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }
+                        //            console.log(this.emplist)
+                        //            if (this.emplist.length == 0) { alert('複合查詢:查無此項') }
                         //        }).catch(err => { console.log(err); alert('查無此項') })
-                        axios.get('/api/PersonnelAttendanceTimes/ComplexPage/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
-                            + '&dep=' + this.employeedata.depId)
+
+                        axios.get('/api/PersonnelProfileDetails/PersonnelPage/?depid=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId+ '&dutystatus=' + this.employeedata.dutyStatus
+                            )
                             .then(response => {
                                 this.page = response.data;
                                 console.log(this.page)
-                                /*if (this.attendencelist.length == 0) { alert('複合查詢:查無此項') }*/
+                                /*if (this.emplist.length == 0) { alert('複合查詢:查無此項') }*/
                             }).catch(err => {
                                 //失敗
                                 this.text = "查無此項";
@@ -680,26 +707,26 @@
                         //else if (this.employeedata.depId != null && this.employeedata.date != null) {
                         //    axios.get('/api/PersonnelAttendanceTimes/dep/' + this.employeedata.depId + '/' + this.employeedata.date)
                         //        .then(response => {
-                        //            this.attendencelist = response.data;
-                        //            console.log(this.attendencelist)
-                        //            if (this.attendencelist.length == 0) { alert('部門查詢:查無此項') }
+                        //            this.emplist = response.data;
+                        //            console.log(this.emplist)
+                        //            if (this.emplist.length == 0) { alert('部門查詢:查無此項') }
                         //        }).catch(err => { console.log(err); alert('查無此項') })
                         //}
                         //else if (this.employeedata.empName != null && this.employeedata.date != null) {
                         //    axios.get('/api/PersonnelAttendanceTimes/name/' + this.employeedata.empName + '/' + this.employeedata.date)
                         //        .then(response => {
-                        //            this.attendencelist = response.data;
-                        //            console.log(this.attendencelist)
-                        //            if (this.attendencelist.length == 0) { alert('員工查詢:查無此項') }
+                        //            this.emplist = response.data;
+                        //            console.log(this.emplist)
+                        //            if (this.emplist.length == 0) { alert('員工查詢:查無此項') }
 
                         //        }).catch(err => { console.log(err); alert('查無此項') })
                         //}
                         //else if (this.employeedata.empNumber != null && this.employeedata.date != null) {
                         //    axios.get('/api/PersonnelAttendanceTimes/number/' + this.employeedata.empNumber + '/' + this.employeedata.date)
                         //        .then(response => {
-                        //            this.attendencelist = response.data;
-                        //            console.log(this.attendencelist)
-                        //            if (this.attendencelist.length == 0) { alert('工號查詢:查無此項') }
+                        //            this.emplist = response.data;
+                        //            console.log(this.emplist)
+                        //            if (this.emplist.length == 0) { alert('工號查詢:查無此項') }
 
                         //        }).catch(response => { console.log(response); alert('查無此項') })
                         //}
@@ -710,36 +737,46 @@
                     },
                     find: function (e) {
 
-                        axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber
-                            + '&dep=' + this.employeedata.depId + '&page=' + e)
+                        axios.get('/api/PersonnelProfileDetails/Personnel/?depId=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId + '&dutystatus=' + this.employeedata.dutyStatus
+                            + '&page=' + e)
                             .then(response => {
-                                this.attendencelist = response.data;
+                                this.emplist = response.data;
                                 this.nowpage = e;
-                                console.log(this.attendencelist)
-                                if (this.attendencelist.length == 0) { //失敗
+                                console.log(this.emplist)
+                                if (this.emplist.length == 0) { //失敗
                                     this.text = "複合查詢:查無此項";
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    //$("#toastErr").fadeIn("fast");
+                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                 }
                                 else {
                                     //成功
                                     this.text = "查詢成功!";
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    //$("#toastSuc").fadeIn("fast");
+                                    //setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 }
                             }).catch(err => {
                                 console.log(err);
                                 //失敗
                                 this.text = "查無此項";
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                //$("#toastErr").fadeIn("fast");
+                                //setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             })
+                    },
+                    reset: function () {
+                        this.employeedata.depId = "";
+                        this.employeedata.positionId = "";
+                        this.employeedata.rankId = "";
+                        this.employeedata.dutyStatus = "";
                     }
 
                 },
                 mounted() {
                     axios.get('/api/PersonnelDepartmentLists')
                         .then(response => this.departmentlist = response.data)
+                    axios.get('/api/PersonnelPositions')
+                        .then(response => this.positionlist = response.data)
+                    axios.get('/api/PersonnelRanks')
+                        .then(response => this.ranklist = response.data)
                 }
             }
 
