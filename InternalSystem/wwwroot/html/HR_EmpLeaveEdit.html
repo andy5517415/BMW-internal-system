@@ -558,7 +558,7 @@
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
-                                    請假資料修改
+                                    員工請假資料修改
                                 </div>
                                 <div class="row">
                                     <div class="row col-10 justify-content-center mx-5">
@@ -666,7 +666,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
-  </body>
+  
 
     <!-- Vue -->
     <script>
@@ -698,15 +698,23 @@
                                 .then(response => {
                                     //★成功
                                     this.text = response.data;
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    if (this.text == "修改成功") {
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                        window.location = "/html/HR_EmpLeaveSearch.html";
+                                    }
+
+
+
 
                                     //失敗
-                                    this.text = response.data;
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
-
-                                    //window.location = "/html/HR_EmpLeaveSearch.html";
+                                    if (this.text == "主管已審核同意之請假無法進行更改" || this.text == "請假時段錯誤!"
+                                        || this.text == "伺服器錯誤" || this.text == "主管已審核同意之請假無法進行更改!"
+                                        || this.text =="剩餘時數不足") {
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    }
                                 })
                                 .catch(err => console.log(err))
 

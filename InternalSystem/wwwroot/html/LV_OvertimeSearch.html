@@ -537,22 +537,53 @@
                                             <option v-for="item in product" :value="item.areaId">{{item.orderNumber}}</option>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="mb-3 col-md-3">
                                         <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班廠區</label>
                                         <input class="form-control fs-5" v-model="overprocess.areaName" id="area" disabled />
                                     </div>
-                                    
+
                                     <div class="mb-3 col-md-3">
                                         <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班製程</label>
                                         <input class="form-control fs-5" v-model="overprocess.processName" id="process" disabled />
                                     </div>
-                                    <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                        <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " v-on:click="okbtn">送出</button>
-                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 me-2">取消</button>
+
+                                    <!-- ★Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border border-5">
+                                                <div class="modal-header mb-3">
+                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                        &nbsp加班資料確認
+                                                    </p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <hr class="col-10">
+                                                </div>
+                                                <div class="modal-body text-start mt-0">
+                                                    <p class="fs-5">✏️加班開始時間：{{workoverlist.startDate}} - {{workoverlist.startTime}}</p>
+                                                    <p class="fs-5">✏️加班結束時間：{{workoverlist.endDate}} - {{workoverlist.endTime}}</p>
+                                                    <p class="fs-5">✏️加班廠區：{{overprocess.areaName}}</p>
+                                                    <p class="fs-5">✏️加班製程：{{overprocess.processName}}</p>
+                                                    <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認申請?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <!-- 存檔按鈕 -->
+                                                    <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 "> 送出</button>
+                                                    <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
+                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>                             
-                            </form>
+                                    <!-- 確認視窗按鈕 -->
+                                    <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                        <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            送出申請
+                                        </button>
+     
+                                    </div>
+</form>
                         </div>
                     </div>
                 </div>
@@ -605,7 +636,8 @@
                     area: {},
                     process: {},
                     product: {},
-                    overprocess: {}
+                    overprocess: {},
+                    processname: {}
                 }
             },
             methods: {
@@ -620,7 +652,6 @@
                     if (this.workoverlist.employeeId != null && this.workoverlist.startDate != null && this.workoverlist.startTime != null &&
                         this.workoverlist.endDate != null && this.workoverlist.endTime != null && this.workoverlist.areaId != null &&
                         this.workoverlist.propessId != null) {
-                        if (confirm('是否送出資料') == true) {
                             axios.post('/api/PersonnelOvertimeForms', this.workoverlist)
                                 .then(response => {
                                     //★成功
@@ -635,7 +666,6 @@
                                     window.location = "/html/LV_OvertimeSearch.html";
                                 })
                                 .catch(err => console.log(err))
-                        }
                     }
                     else {
                         this.text = '資料請確實填寫';
@@ -657,6 +687,8 @@
                             this.overprocess.areaName = response.data.areaName;
                             this.workoverlist.areaId = response.data.areaId;
                         })
+                    axios.get('/api/PersonnelOvertimeForms/productProcessList')
+                        .then(response => this.processname = response.data)
                 },
                 editbtn: function () {
                     if (confirm('確認修改?') == true) {
