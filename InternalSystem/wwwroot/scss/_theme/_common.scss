@@ -15,8 +15,8 @@
   // Need to add shift-color as BS5 updated with table variant colors like this
 
   @include template-table-variant('primary', shift-color($background, $table-bg-scale));
-  @include template-button-variant('.btn-outline-primary', $background, $color);
-  @include template-button-outline-variant('.btn-outline-primary', $background, $color);
+  @include template-button-variant('.btn-primary', $background, $color);
+  @include template-button-outline-variant('.btn-primary', $background, $color);
   @include template-dropdown-theme(rgba($background, 0.08), $background);
   @include template-nav-theme($background, $color);
   @include template-form-control-theme($background);

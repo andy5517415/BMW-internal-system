@@ -352,6 +352,12 @@
                                 </a>
                             </li>
                             
+
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -371,6 +377,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -461,7 +468,32 @@
                 <div class="content-wrapper" id="divedit">
                     <!-- Content -->
                     <!-- 查詢訂單 -->
-
+                    <!-- 我是成功的吐司 -->
+                    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastSuc">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ✔&nbsp;{{text}}
+                        </div>
+                    </div>
+                    <!-- 錯誤的吐司 -->
+                    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastErr">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ❌&nbsp;{{text}}
+                        </div>
+                    </div>
 
                     <div v-if="limit.DepID==3" id="confirm" class="container-xxl flex-grow-1 container-p-y">
                         <div class="card mb-4 m-4">
@@ -470,7 +502,7 @@
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-6 py-3">
-                                        <label for="ordernum" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                        <label for="ordernum" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
                                         <p>{{charcnt}}/13</p>
                                         <input type="text"
                                                class="form-control fs-5"
@@ -484,7 +516,7 @@
 
                                     <!--車款  -->
                                     <div class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
                                                 v-model="cartypeone"
@@ -498,7 +530,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -506,7 +538,7 @@
                                                :value="cartypeone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車款價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -515,7 +547,7 @@
                                     </div>
                                     <!--車漆顏色  -->
                                     <div class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="carcolor">車漆顏色</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="carcolor">車漆顏色</label>
                                         <select id="carcolor"
                                                 class="form-select"
                                                 v-model="carcolorone"
@@ -529,7 +561,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">車漆顏色</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車漆顏色</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -537,7 +569,7 @@
                                                :value="carcolorone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -546,7 +578,7 @@
                                     </div>
                                     <!--內裝材質  -->
                                     <div  class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="texture">內裝材質</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown"
                                                 id="texture"
                                                 v-model="cartextureone"
@@ -560,7 +592,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">內裝材質</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">內裝材質</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -568,7 +600,7 @@
                                                :value="cartextureone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -577,7 +609,7 @@
                                     </div>
                                     <!--輪圈款式  -->
                                     <div  class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="wheel">輪圈款式</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="wheel">輪圈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="wheel"
                                                 v-model="carwheelone"
@@ -591,7 +623,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">輪圈款式</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">輪圈款式</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -599,7 +631,7 @@
                                                :value="carwheelone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -608,7 +640,7 @@
                                     </div>
                                     <!--飾板  -->
                                     <div  class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="plaque">飾板</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="plaque">飾板</label>
                                         <select class="form-select placement-dropdown"
                                                 id="plaque"
                                                 v-model="carplaqueone"
@@ -622,7 +654,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">飾板</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">飾板</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -630,7 +662,7 @@
                                                :value="carplaqueone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -639,7 +671,7 @@
                                     </div>
                                     <!--頭燈款式  -->
                                     <div  class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="light">頭燈款式</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="light">頭燈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="light"
                                                 v-model="carlightone"
@@ -653,7 +685,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">頭燈款式</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">頭燈款式</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -661,7 +693,7 @@
                                                :value="carlightone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -670,7 +702,7 @@
                                     </div>
                                     <!--中央鞍座  -->
                                     <div  class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="saddle">中央鞍座</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="saddle">中央鞍座</label>
                                         <select class="form-select placement-dropdown"
                                                 id="saddle"
                                                 v-model="carsaddleone"
@@ -684,7 +716,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">中央鞍座</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">中央鞍座</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -692,7 +724,7 @@
                                                :value="carsaddleone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -701,7 +733,7 @@
                                     </div>
                                     <!--天窗  -->
                                     <div class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="sunroof">天窗</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="sunroof">天窗</label>
                                         <select class="form-select placement-dropdown"
                                                 id="sunroof"
                                                 v-model="carsunroofone"
@@ -715,7 +747,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">天窗</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">天窗</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -723,7 +755,7 @@
                                                :value="carsunroofone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -732,7 +764,7 @@
                                     </div>
                                     <!--多媒體  -->
                                     <div  class="col-md-3">
-                                        <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
                                                 v-model="carmediaone"
@@ -747,7 +779,7 @@
                                         </select>
                                     </div>
                                     <!--<div v-if="isDisabled" class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">多媒體</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">多媒體</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -755,7 +787,7 @@
                                                :value="carmediaone.optionalName" />
                                     </div>-->
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -763,7 +795,7 @@
                                                v-model="carmediaone.price" />
                                     </div>
                                     <div class="col-md-3 py-2">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">小計</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">小計</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -773,7 +805,7 @@
                                     <hr />
                                     <!--代理商地區-->
                                     <div  class="col-md-3 py-2">
-                                        <label @click="oneclick" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
+                                        <label @click="oneclick" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
                                         <select id="area"
                                                 class="form-select color-dropdown"
                                                 v-model="agentone"
@@ -788,7 +820,7 @@
                                     </div>
 
                                     <!--<div v-if="isDisabled" class="col-md-6 py-2">
-                                        <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理商地區</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理商地區</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -797,10 +829,10 @@
                                     </div>-->
 
 
-                                    <button @click="btnquery" class="btn btn-outline-primary d-block">查詢</button>
-                                    <button v-if="btnseen" @click="btneditok" class="btn btn-outline-primary d-block">修改</button>
-                                    <!--<button v-if="btneditseen" @click="btneditok" class="btn btn-outline-primary d-block">確定修改</button>-->
-                                    <button v-if="btnseen" @click="btndelete" class="btn btn-outline-primary d-block">刪除</button>
+                                    <button @click="btnquery" class="btn btn-primary d-block">查詢</button>
+                                    <button v-if="btnseen" @click="btneditok" class="btn btn-primary d-block">修改</button>
+                                    <!--<button v-if="btneditseen" @click="btneditok" class="btn btn-primary d-block">確定修改</button>-->
+                                    <button v-if="btnseen" @click="btndelete" class="btn btn-primary d-block">刪除</button>
                                     
                                     
                                     <!--<div class="col-lg-4 col-md-6">
@@ -886,6 +918,7 @@
 
             data() {
                 return {
+                    text: "",
                     //isDisabled: true,
                     btnseen: false,
                     describeseen: false,
@@ -960,10 +993,16 @@
                         //找到訂單流水號、代理商區域流水號
                         axios.get('/api/BusinessOrders/getorder/' + this.ordernum + '/1').then(g => {
                             if (g.status != 200) {
-                                alert('無此訂單號碼，請確認訂單號碼!');
+                                //失敗
+                                this.text = "無此訂單號碼，請確認訂單號碼!";
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
                             }
                             else {
-                                alert('查詢成功!');
+                                //成功
+                                this.text = "查詢成功!";
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 //this.cartypeone = g.data;
                                 this.orderid = g.data.orderId;
                                 if (g.data.isAccepted) {
@@ -1014,7 +1053,10 @@
                         })
                     }
                     else {
-                        alert('訂單號碼格式有誤，請重新輸入!');
+                        //失敗
+                        this.text = "訂單號碼格式有誤，請重新輸入!";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.$refs.reffocus.focus();
                     }
                 },
@@ -1124,7 +1166,10 @@
                                                 })
                                         }
                                         */
-                                        alert('訂單修改成功!');
+                                        //成功
+                                        this.text = "訂單修改成功!";
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                     });
                                 //console.log(`${typeof this.odid}:${this.odid}`);
                                 //console.log(this.bodput);
@@ -1139,7 +1184,10 @@
                         axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
                             .then(d => {
                                 /*console.log(d);*/
-                                alert(d.data);
+                                //成功
+                                this.text = d.data
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
                                 window.location = "BS_OrderAll.html";//promise
                             })

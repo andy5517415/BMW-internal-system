@@ -347,7 +347,13 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
+
                             
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -367,6 +373,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -456,9 +463,36 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 修改員工資料</h4>
-                        <div class="card mb-5 m-4 card-body inputCard">
+                        <div class="card mb-5 m-4 card-body inputCard2">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 
                                 <div class="my-4 d-flex ms-4">
@@ -474,7 +508,7 @@
                                     </div>
 
                                     <div class="col ms-5">
-                                        <button type="button" v-on:click="searchbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                                        <button type="button" v-on:click="searchbtn" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
                                     </div>
                                 </div>
                             </form>
@@ -506,7 +540,7 @@
                                                    @change="uploadphoto"
                                                    />
                                         </label>
-                                        <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
                                             <i class="bx bx-reset d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block" @click="photoreset">Reset</span>
                                         </button>
@@ -523,7 +557,7 @@
                                     </p>
                                     <div class="row mx-5">
                                         <div class="mb-4 col-md-4">
-                                            <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                            <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                             <input v-model="employeelist.employeeName" class="form-control fs-5"
                                                    type="text"
                                                    id="EmployeeName"
@@ -534,12 +568,12 @@
                                         <!-- 傳遞參數ID -->
                                         <!--<div style="display: none">-->
                                         <!--style="display: none"-->
-                                        <!--<label for="EmployeeId" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工ID</label>
+                                        <!--<label for="EmployeeId" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工ID</label>
             <input v-model="employeelist.employeeId" class="form-control fs-5" id="EmployeeId" />
         </div>-->
                                         <!-- 性別 -->
                                         <div class="mb-3 col-md-4">
-                                            <label for="Sex" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">性別</label>
+                                            <label for="Sex" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">性別</label>
                                             <select v-model="employeelist.sex" id="Sex" class="select1 form-select">
                                                 <option>選擇性別</option>
                                                 <option value="男性">男</option>
@@ -548,7 +582,7 @@
                                         </div>
                                         <!-- 婚姻狀態 -->
                                         <div class="mb-3 col-md-4">
-                                            <label for="Maritalstatus" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">婚姻狀態</label>
+                                            <label for="Maritalstatus" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">婚姻狀態</label>
                                             <select v-model="employeelist.isMarried" id="Maritalstatus" class="select1 form-select">
                                                 <option value="" disabled>選擇狀態</option>
                                                 <option :value="true">已婚</option>
@@ -558,8 +592,8 @@
                                         </div>
                                         <!-- 身分證字號 -->
                                         <div class="mb-3 col-md-4">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
-                                            <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
+                                            <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
                                                 <input v-model="employeelist.identiyId" type="text"
@@ -573,7 +607,7 @@
                                         </div>
                                         <!-- 國籍 -->
                                         <div class="mb-3 col-md-4">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Country">國籍</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Country">國籍</label>
                                             <select v-model="employeelist.country" id="Country" class="select2 form-select">
                                                 <option value="">Select</option>
                                                 <option value="台灣">台灣</option>
@@ -598,7 +632,7 @@
 
                                         <!-- 電子信箱 -->
                                         <div class="mb-4 col-md-6">
-                                            <label for="email" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">E-mail</label>
+                                            <label for="email" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">E-mail</label>
                                             <input v-model="employeelist.email" class="form-control fs-5"
                                                    type="text"
                                                    id="email"
@@ -609,7 +643,7 @@
 
                                         <!-- 行動電話 -->
                                         <div class="mb-4 col-md-6">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="phoneNumber">行動電話</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="phoneNumber">行動電話</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text">TW (+886)</span>
                                                 <input v-model="employeelist.phoneNumber" type="text"
@@ -622,7 +656,7 @@
                                         </div>
                                         <!--縣市-->
                                         <div class="mb-3 col-md-6">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="City">城市</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="City">城市</label>
                                             <select v-model="employeelist.cityId" id="City" class="select form-select">
                                                 <option v-for="item in citylist" :value="item.cityId">{{item.cityName}}</option>
 
@@ -630,7 +664,7 @@
                                         </div>
                                         <!-- 地址 -->
                                         <div class="mb-4 col-md-6">
-                                            <label for="address" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">地址</label>
+                                            <label for="address" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">地址</label>
                                             <input v-model="employeelist.address" class="form-control fs-5"
                                                    type="text"
                                                    id="address"
@@ -639,7 +673,7 @@
                                         </div>
                                         <!-- 家用電話 -->
                                         <div class="mb-4 col-md-6">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Number">家用電話</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Number">家用電話</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
                                                 <input v-model="employeelist.homePhone" type="text"
@@ -652,7 +686,7 @@
                                         </div>
                                         <!-- 緊急聯絡人 -->
                                         <div class="mb-4 col-md-4">
-                                            <label for="Emergency" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">緊急聯絡人</label>
+                                            <label for="Emergency" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">緊急聯絡人</label>
                                             <input v-model="employeelist.emergencyPerson" class="form-control fs-5"
                                                    type="text"
                                                    id="Emergency"
@@ -662,7 +696,7 @@
                                         </div>
                                         <!-- 緊急聯絡人關係選擇 -->
                                         <div class="mb-4 col-md-4">
-                                            <label for="EmergencyContact" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">緊急聯絡人關係</label>
+                                            <label for="EmergencyContact" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">緊急聯絡人關係</label>
                                             <input v-model="employeelist.emergencyRelation" class="form-control fs-5"
                                                    type="text"
                                                    id="EmergencyContact"
@@ -672,8 +706,8 @@
                                         </div>
                                         <!-- 緊急聯絡人電話 -->
                                         <div class="mb-3 col-md-4">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="EmergencyNumber">緊急聯絡人電話</label>
-                                            <p class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold ms-5">{{epnt}}/10</p>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="EmergencyNumber">緊急聯絡人電話</label>
+                                            <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{epnt}}/10</p>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"></span>
                                                 <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control fs-5" placeholder="" />
@@ -690,13 +724,13 @@
                                     <div class="row mx-5">
                                         <!-- 員工工號 -->
                                         <div class="mb-3 col-md-6">
-                                            <label for="residence" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工工號</label>
+                                            <label for="residence" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工工號</label>
                                             <input v-model="employeelist.employeeNumber" class="form-control fs-5" type="text" id="residence" name="residence" autofocus
                                                    @change="empnumber" />
                                         </div>
                                         <!-- 部門選擇 -->
                                         <div class="mb-4 col-md-6">
-                                            <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                            <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
                                             <select v-model="employeelist.departmentId" id="department" class="select1 form-select">
                                                 <option v-for="item in departmentlist" :value="item.departmentId">
                                                     {{item.depName}}
@@ -708,7 +742,7 @@
 
                                         <!--職位-->
                                         <div class="mb-3 col-md-6">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="position">職稱</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="position">職稱</label>
                                             <select v-model="employeelist.positionId" id="position" class="select2 form-select">
                                                 <option v-for="item in positionlist" :value="item.positionId">
                                                     {{item.positionName}}
@@ -718,7 +752,7 @@
                                         </div>
                                         <!-- 職等 -->
                                         <div class="mb-3 col-md-6">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="Rank">職等</label>
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">職等</label>
                                             <select v-model="employeelist.rankId" id="Rank" class="select2 form-select">
                                                 <option v-for="item in ranklist" :value="item.rankId">
                                                     {{item.rank}}
@@ -729,7 +763,7 @@
 
                                         <!-- 在職選擇 -->
                                         <div class="mb-3 col-md-6">
-                                            <label for="Onduty" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">是否在職</label>
+                                            <label for="Onduty" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">是否在職</label>
                                             <select v-model="employeelist.dutyStatus" id="Onduty" class="select2 form-select">
                                                 <option :value="true">是</option>
                                                 <option :value="false">否</option>
@@ -755,13 +789,13 @@
                                     <div class="row mx-5">
                                         <!--帳號設置-->
                                         <div class="mb-3 col-md-6">
-                                            <label for="usernumber" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">帳號設定</label>
+                                            <label for="usernumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">帳號設定</label>
                                             <input v-model="employeelist.acount" class="form-control fs-5" type="text" id="usernumber" name="usernumber" autofocus
                                                    @change="usernum" />
                                         </div>
                                         <!--密碼設置-->
                                         <div class="mb-3 col-md-6">
-                                            <label for="password" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">密碼設定</label>
+                                            <label for="password" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">密碼設定</label>
                                             <input v-model="employeelist.password" class="form-control fs-5"
                                                    type="text"
                                                    id="password"
@@ -775,13 +809,40 @@
                                     <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工備註</p>
 
                                     <div class="mb-3 col mx-5">
-                                        <label for="Note" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註欄</label>
+                                        <label for="Note" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註欄</label>
                                         <textarea class="form-control fs-5" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
                                     </div>
+                                            <!-- ★Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border border-5">
+                                                        <div class="modal-header mb-3">
+                                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                                style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                                &nbsp💡提示訊息
+                                                            </p>
+                                                        </div>
+                                                        <div class="row justify-content-center">
+                                                            <hr class="col-10">
+                                                        </div>
+                                                        <div class="modal-body text-start mt-0">
+                                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認修改資料?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close"
+                                                                v-on:click="createbtn">
+                                                                確認
+                                                            </button>
+                                                            <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     <!-- 確認按鈕 -->
                                     <div class="mt-2 py-5 d-md-flex justify-content-md-end">
-                                        <button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>
-                                        <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                        <button type="button"  class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">存檔</button>
+                                        <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                     </div>
                                 </form>
                             </div>
@@ -822,6 +883,7 @@
         const app = {
             data() {
                 return {
+                    text: "",
                     employeelist: {
                         "photo": "../assets/img/Defaultimg.jfif"
                     },
@@ -841,7 +903,9 @@
                     //console.log(logic);
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('身份證字號格式有誤');
+                        this.text = "身份證字號格式有誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.identiyId = "";
                     }
                 },
@@ -850,7 +914,9 @@
                     logic = phn.test(this.employeelist.phoneNumber)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('行動電話格式有誤');
+                        this.text = "行動電話格式有誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.phoneNumber = "";
                     }
                 },
@@ -859,7 +925,9 @@
                     logic = ephn.test(this.employeelist.emergencyNumber)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('行動電話格式有誤');
+                        this.text = "行動電話格式有誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.emergencyNumber = "";
                     }
                 },
@@ -868,7 +936,9 @@
                     logic = empname.test(this.employeelist.employeeName)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('名稱不可有特殊字元');
+                        this.text = "名稱不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.employeeName = "";
                     }
                 },
@@ -877,7 +947,9 @@
                     logic = email.test(this.employeelist.email)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('信箱不可有特殊字元');
+                        this.text = "信箱不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.email = "";
                     }
                 },
@@ -887,7 +959,9 @@
                     logic = address.test(this.employeelist.address)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('地址不可有特殊字元');
+                        this.text = "地址不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.address = "";
                     }
                 },
@@ -896,7 +970,9 @@
                     logic = homenumber.test(this.employeelist.homePhone)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('家用電話格式錯誤');
+                        this.text = "家用電話格式錯誤";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.homePhone = "";
                     }
                 },
@@ -905,7 +981,9 @@
                     logic = emergen.test(this.employeelist.emergencyPerson)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('緊急聯絡人不可有特殊字元');
+                        this.text = "緊急聯絡人不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.emergencyPerson = "";
                     }
                 },
@@ -914,7 +992,9 @@
                     logic = empnumber.test(this.employeelist.employeeNumber)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('工號請輸入純數字');
+                        this.text = "工號請輸入純數字";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.employeeNumber = "";
                     }
                 },
@@ -923,7 +1003,9 @@
                     logic = emergencycontact.test(this.employeelist.emergencyRelation)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('緊急連絡人關係請請輸入英文數字，不可有特殊字元');
+                        this.text = "緊急連絡人關係請請輸入英文數字，不可有特殊字元";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.emergencyRelation = "";
                     }
                 },
@@ -932,7 +1014,9 @@
                     logic = usernum.test(this.employeelist.acount)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('帳號請輸入純數字');
+                        this.text = "帳號請輸入純數字";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.acount = "";
                     }
                 },
@@ -941,7 +1025,9 @@
                     logic = password.test(this.employeelist.password)
                     if (logic == true) { console.log('OK') }
                     else {
-                        alert('密碼請輸入英文數字，部分特殊字元不可用');
+                        this.text = "密碼請輸入英文數字，部分特殊字元不可用";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.password = "";
                     }
                 },
@@ -952,20 +1038,30 @@
                         console.log('ok');
                     }
                     else {
-                        alert('備註欄不可有特殊字元，逗點符號請用標準格式:如，。、');
+                        this.text = "備註欄不可有特殊字元，逗點符號請用標準格式:如，。、";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         this.employeelist.note = "";
                     }
                 },
 
 
                 createbtn: function () {
-                    if (confirm('請確認修改資料是否正確') == true) {
 
-                        axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
-                        ).then(alert('資料以修改')).catch(err => { alert(err) });
-                        //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
-                        //window.location = "HR_EmpProfileEdit.html";
-                    }
+
+                    axios.put("/api/PersonnelProfileDetails/" + this.employeelist.employeeId, this.employeelist
+                    ).then((res) => {
+                        this.text = "資料已修改";
+                        $("#toastSuc").fadeIn("fast");
+                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                    }).catch(err => {
+                        this.text = err;
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                    });
+                    //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
+                    //window.location = "HR_EmpProfileEdit.html";
+
                 },
                 searchbtn: function () {
 
@@ -974,8 +1070,14 @@
                             .then(response => {
                                 this.employeelist = response.data;
                                 if (this.employeelist.length == 0) {
-                                    alert('複合查詢:查無此項')
+                                    this.text = "複合查詢:查無此項";
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                     window.location = "/html/HR_EmpProfileEdit.html"
+                                } else {
+                                    this.text = "查詢成功";
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 }
                             })
                             .catch(err => console.log(err))
@@ -985,8 +1087,14 @@
                             .then(response => {
                                 this.employeelist = response.data;
                                 if (this.employeelist.length == 0) {
-                                    alert('工號查詢:查無此人')
+                                    this.text = "工號查詢:查無此人";
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                     window.location = "/html/HR_EmpProfileEdit.html"
+                                } else {
+                                    this.text = "查詢成功";
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 }
                             })
                             .catch(err => console.log(err))
@@ -997,13 +1105,23 @@
                             .then(response => {
                                 this.employeelist = response.data;
                                 if (this.employeelist.length == 0) {
-                                    alert('名稱查詢:查無此人')
+                                    this.text = "名稱查詢:查無此人";
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                     window.location = "/html/HR_EmpProfileEdit.html"
+                                } else {
+                                    this.text = "查詢成功";
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 }
                             })
                             .catch(err => console.log(err))
                     }
-                    else { alert('查無此人') };
+                    else {
+                        this.text = "查無此人";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                    };
                     //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
                     //    .then(response => this.employeelist = response.data)
                     //    .catch(error => alert('查無此項'))

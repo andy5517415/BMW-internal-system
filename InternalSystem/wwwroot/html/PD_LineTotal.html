@@ -355,7 +355,7 @@
         </li>
         <li class="menu-item">
           <a href="MT_MeetReserveSearch.html" class="menu-link">
-            <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
+            <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
           </a>
         </li>
         
@@ -490,7 +490,7 @@
                       </div>
                       <div class="mb-5 d-flex justify-content-center">
                         <button type="button"  class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
-                        <button type="reset"  class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">清除</button>
+                        <button type="reset"  class="btn btn-secondary fs-4 fw-bold border-3 me-3">清除</button>
                       </div>
                   </div>
 
@@ -536,16 +536,16 @@
                                class="accordion-collapse collapse "
                                data-bs-parent="#accordionExample">
                               <div class="accordion-body">
-                                  <table class="table">
-                                      <thead>
+                                  <table class="table table-striped table-hover">
+                                      <thead class="bg-black">
                                           <tr>
                                               <hr>
-                                              <th class="fs-4 fw-bold">製程</th>
-                                              <th class="fs-4 fw-bold">開始時間</th>
-                                              <th class="fs-4 fw-bold">結束時間</th>
-                                              <th class="fs-4 fw-bold">總時(hr)</th>
-                                              <th class="fs-4 fw-bold">狀態</th>
-                                              <th class="fs-4 fw-bold">修改</th>
+                                              <th class="fs-4 text-white fw-bold">製程</th>
+                                              <th class="fs-4 text-white fw-bold">開始時間</th>
+                                              <th class="fs-4 text-white fw-bold">結束時間</th>
+                                              <th class="fs-4 text-white fw-bold">總時(hr)</th>
+                                              <th class="fs-4 text-white fw-bold">狀態</th>
+                                              <th class="fs-4 text-white fw-bold">修改</th>
                                       </thead>
                                       <tbody class="table-border-bottom-0" v-for=" (p,key) in title.proess">
                                           <tr>

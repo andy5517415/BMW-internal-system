@@ -61,6 +61,8 @@ namespace InternalSystem
             });
             services.AddDbContext<MSIT44Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MSIT44DbContext")));
+            services.AddDbContext<MSIT44Context2>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MSIT44DbContext")));
 
         }
 

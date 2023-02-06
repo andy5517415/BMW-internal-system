@@ -350,7 +350,13 @@
                                     <div data-i18n="Account">預約會議室</div>
                                 </a>
                             </li>
+
                             
+                            <li class="menu-item">
+                                <a href="MT_MeetReserveSearch.html" class="menu-link">
+                                    <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
+                                </a>
+                            </li>
                             
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
@@ -370,6 +376,7 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
+                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                          id="layout-navbar">
 
@@ -458,6 +465,33 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                        <!-- 我是成功的吐司 -->
+                        <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ✔&nbsp;{{text}}
+                            </div>
+                        </div>
+                        <!-- 錯誤的吐司 -->
+                        <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                            <div class="toast-header">
+                                <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                <div class="me-auto fw-bold fs-3">通知</div>
+                                <small></small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body fs-4 fw-bold">
+                                ❌&nbsp;{{text}}
+                            </div>
+                        </div>
+
                         <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料審核</h4>
 
 
@@ -466,19 +500,19 @@
 
                                 <div class="row py-3 ">
                                     <div class="mb-3 col-md-2">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" v-model="leaveproxy.employeeName" id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="Employeeid" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">員工編號</label>
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
                                         <input class="form-control fs-5" v-model="leaveproxy.employeeNumber" id="Employeenameid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="type" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假類別</label>
+                                        <label for="type" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假類別</label>
                                         <input class="form-control fs-5" v-model="leaveproxy.type" id="type" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
-                                        <label for="type" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">代理人</label>
+                                        <label for="type" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理人</label>
                                         <input class="form-control fs-5" v-model="proxyname.employeeName" id="type" disabled />
                                     </div>
 
@@ -488,7 +522,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假開始時間</label>
+                                        <label for="Starttimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假開始時間</label>
                                         <input class="form-control fs-5 mb-2" v-model="leaveproxy.startDate" id="StartDate" disabled />
                                         <input class="form-control fs-5" v-model="leaveproxy.startTime" id="StartTime" disabled />
 
@@ -496,35 +530,35 @@
                                     
                                     <div class="mb-3 col-md-3">
 
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假結束時間</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假結束時間</label>
                                         <input class="form-control fs-5 mb-2" v-model="leaveproxy.endDate" id="EndDate" disabled />
                                         <input class="form-control fs-5" v-model="leaveproxy.endTime" id="EndTime" disabled />
 
                                     </div>
 
                                     <div class="mb-3 col-md-3">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">總請假時數</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">總請假時數</label>
                                         <input class="form-control fs-5" v-model="leaveproxy.totalTime" id="Totalvacation" disabled />
                                     </div>
                                     <div class="row mt-3" v-if="this.manager.PositionId < 7">
                                         <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
                                         </div>
                                     </div>
                                     <div class="row mt-3" v-if="this.manager.PositionId== 7">
                                         <div class="mb-3 col-md-6">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.reason" rows="6" col="6" readonly></textarea>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假意見</label>
+                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假意見</label>
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.auditOpnion" rows="6" col="6"></textarea>
                                         </div>
                                     </div>
                                     <div class="row my-2" role="alert">
                                         <div class="mb-3 col-md-12">
-                                            <label for="leaveprove" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">請假證明</label>
+                                            <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
 
                                         </div>
                                     </div>
@@ -540,9 +574,9 @@
                                 </div>
                                 <!-- 按鈕 -->
                                 <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" @click="okbtn" >同意</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" @click="okbtn" >同意</button>
 
-                                    <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3 fs-4 fw-bold"  @click="nobtn">不同意</button>
+                                    <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3 fs-4 fw-bold"  @click="nobtn">不同意</button>
                                 </div>
                         </div>
                         </form>
@@ -645,6 +679,7 @@
             const app = {
                 data() {
                     return {
+                        text: "",
                         leaveproxy: {},
                         proxyname: {},
                         maName: {},
@@ -673,7 +708,15 @@
 
                                 axios.put('/api/PersonnelLeaveForms/proxy/' + this.leaveproxy.leaveId, this.leaveproxy)
                                     .then(response => {
-                                        alert(response.data);
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                             }
@@ -684,7 +727,16 @@
 
                                 axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
                                     .then(response => {
-                                        alert(response.data);
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                                     .catch(err => { console.log(err) })
@@ -701,7 +753,17 @@
                                 //this.leaveproxy.proxyAudit = false;
                                 axios.put('/api/PersonnelLeaveForms/proxy/refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
                                     .then(response => {
-                                        alert(response.data);
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                             }
@@ -710,7 +772,15 @@
                             if (confirm('請確認是否不同意') == true) {
                                 axios.put('/api/PersonnelLeaveForms/manager/Refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
                                     .then(response => {
-                                        alert(response.data);
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                         window.location = "/html/PS_ToDoItems.html";
                                     })
                             }

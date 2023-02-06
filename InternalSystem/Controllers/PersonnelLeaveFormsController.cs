@@ -11,16 +11,16 @@ using Newtonsoft.Json;
 using Microsoft.CodeAnalysis;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using InternalSystem.Dotos;
 namespace InternalSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PersonnelLeaveFormsController : ControllerBase
     {
-        private readonly MSIT44Context _context;
+        private readonly MSIT44Context2 _context;
 
-        public PersonnelLeaveFormsController(MSIT44Context context)
+        public PersonnelLeaveFormsController(MSIT44Context2 context)
         {
             _context = context;
         }

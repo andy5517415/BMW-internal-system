@@ -353,7 +353,7 @@
         </li>
         <li class="menu-item">
           <a href="MT_MeetReserveSearch.html" class="menu-link">
-            <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
+            <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
           </a>
         </li>
         
@@ -466,6 +466,32 @@
 
          <!-- 選擇生產的工作位置報工-->
               <div id="app">
+                            <!-- 我是成功的吐司 -->
+                            <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastSuc">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ✔&nbsp;{{text}}
+                                </div>
+                            </div>
+                            <!-- 錯誤的吐司 -->
+                            <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                                aria-live="assertive" aria-atomic="true" id="toastErr">
+                                <div class="toast-header">
+                                    <i class="bx bx bxs-bell bx-tada me-2"></i>
+                                    <div class="me-auto fw-bold fs-3">通知</div>
+                                    <small></small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body fs-4 fw-bold">
+                                    ❌&nbsp;{{text}}
+                                </div>
+                            </div>
                   <div class="container-xxl flex-grow-1 container-p-y">
                       <div class="card mb-4 m-4 ">
                           <div class="row card-body">

@@ -351,7 +351,7 @@
         </li>
         <li class="menu-item">
           <a href="MT_MeetReserveSearch.html" class="menu-link">
-            <div data-i18n="Account">查詢預約紀錄/建立會議記錄表</div>
+            <div data-i18n="Account">查詢租借紀錄/<br>建立會議記錄表</div>
           </a>
         </li>
         
@@ -468,7 +468,7 @@
                     <div class="card-body">
                         <div class="row gx-3 gy-2 align-items-center">
                             <div class="col-md-6">
-                                <label for="purchaseId" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                <label for="purchaseId" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
                                 <input type="text"
                                        class="form-control fs-5"
                                        id="purchaseId"
@@ -484,7 +484,7 @@
                     <div class="card-body">
                         <div class="row gx-3 gy-2 align-items-center">
                             <div class="col-md-6">
-                                <label for="employeeName" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請人</label>
+                                <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請人</label>
                                 <input type="text"
                                        class="form-control fs-5"
                                        id="employeeName"
@@ -494,7 +494,7 @@
                                        v-model="myobject.employeeName" />
                             </div>
                             <div class="col-md-6">
-                                <label for="department" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">部門</label>
+                                <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
                                 <input type="text"
                                        class="form-control fs-5"
                                        id="department"
@@ -504,7 +504,7 @@
                                        v-model="myobject.department" />
                             </div>
                             <div class="col-md-6">
-                                <label for="applicationdate" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">申請日期</label>
+                                <label for="applicationdate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
                                 <input type="text"
                                        class="form-control fs-5"
                                        id="applicationdate"
@@ -514,7 +514,7 @@
                                        v-model="myobject.date" />
                             </div>
                             <div class="col-md-6">
-                                <label for="comment" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">備註</label>
+                                <label for="comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
                                 <input type="text"
                                        class="form-control fs-5"
                                        id="comment"
@@ -532,14 +532,14 @@
                                 <div class="card-body">
                                     <div class="table-responsive text-nowrap">
                                         <table class="table table-bordered">
-                                            <thead>
+                                            <thead class="bg-black">
                                                 <tr>
-                                                    <th class="fs-4 fw-blod">項次</th>
-                                                    <th class="fs-4 fw-blod">品名</th>
-                                                    <th class="fs-4 fw-blod">數量</th>
-                                                    <th class="fs-4 fw-blod">單位</th>
-                                                    <th class="fs-4 fw-blod">單價</th>
-                                                    <th class="fs-4 fw-blod">小計</th>
+                                                    <th class="fs-4 text-white fw-bold">項次</th>
+                                                    <th class="fs-4 text-white fw-bold">品名</th>
+                                                    <th class="fs-4 text-white fw-bold">數量</th>
+                                                    <th class="fs-4 text-white fw-bold">單位</th>
+                                                    <th class="fs-4 text-white fw-bold">單價</th>
+                                                    <th class="fs-4 text-white fw-bold">小計</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -591,11 +591,11 @@
 
                                 <!-- Button trigger modal -->
                             <div class="row">
-                                <button type="button" class="col-md-6 btn btn-outline-primary d-block" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     駁回
                                 </button>
-                                <!--<button class="col-md-6 btn btn-outline-primary d-block" id="btncancel" v-on:click="show">駁回</button>-->
-                                <button class="col-md-6 btn btn-outline-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
+                                <!--<button class="col-md-6 btn btn-primary d-block" id="btncancel" v-on:click="show">駁回</button>-->
+                                <button class="col-md-6 btn btn-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -616,8 +616,8 @@
                                             <p class="fs-6 text-center">⚠️注意，取消後需重新申請!</p>
                                             <p class="fs-6 text-center">⚠️注意，取消後訂單將被取消!</p>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
-                                                <button type="button" class="btn btn-outline-primary border-3" v-on:click="Cancel">確定</button>
+                                                <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
+                                                <button type="button" class="btn btn-primary border-3" v-on:click="Cancel">確定</button>
                                             </div>
 
                                         </div>

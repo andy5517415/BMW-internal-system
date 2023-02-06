@@ -19,6 +19,7 @@ namespace InternalSystem.Models
         }
         public virtual DbSet<Leftjoin> Leftjoin { get; set; }
         
+        public virtual DbSet<MaleLeaveOver> MaleLeaveOver { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,13 @@ namespace InternalSystem.Models
             modelBuilder.Entity<Leftjoin>(entity =>
             {
                 entity.HasNoKey();
+            });
+            modelBuilder.Entity<MaleLeaveOver>(entity =>
+            {
+                entity.HasNoKey();
+
+
+
             });
         }
     }
