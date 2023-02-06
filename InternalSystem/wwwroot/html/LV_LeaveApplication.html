@@ -375,30 +375,29 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
-                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                         id="layout-navbar">
-
+                        id="layout-navbar" style="height: 80px;">
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
-                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
-                  😊您好
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
-                📋工號：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
-                💻部門：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
-                </div>
-                <!-- /問好 -->
-
+                            <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                                😊您好
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                📋工號：
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                💻部門：
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
+                            </div>
+                            <!-- /問好 -->
+                
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-
+                
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                                       data-bs-toggle="dropdown">
+                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                            <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -407,55 +406,28 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="../assets/img/avatars/1.png" alt
-                                                                 class="w-px-40 h-auto rounded-circle" />
+                                                            <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="fw-semibold d-block">John Doe</span>
-                                                        <small class="text-muted">Admin</small>
+                                                        <span class="fw-semibold d-block fs-5">{{navInf.Name}}</span>
+                                                        <small class="text-muted fs-6">{{navInf.PositionName}}</small>
                                                     </div>
                                                 </div>
                                             </a>
                                         </li>
+                
                                         <li>
-                                            <div class="dropdown-divider"></div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-user me-2"></i>
-                                                <span class="align-middle">My Profile</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-cog me-2"></i>
-                                                <span class="align-middle">Settings</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <span class="d-flex align-items-center align-middle">
-                                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                    <span class="flex-grow-1 align-middle">Billing</span>
-                                                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <div class="dropdown-divider"></div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="auth-login-basic.html">
+                                            <a class="dropdown-item" href="#" @click="DoLogOut">
                                                 <i class="bx bx-power-off me-2"></i>
-                                                <span class="align-middle">Log Out</span>
+                                                <span class="align-middle">登出</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <!--/ User -->
                             </ul>
-
+                
                         </div>
                     </nav>
                     <!-- / Navbar -->
@@ -741,68 +713,68 @@
                     //alert('OK');
                     //一般員工請假
                     if (this.employeedata.PositionId < 7) {
-                            if (this.application.leaveType != null &&
-                                this.application.proxy != null && this.application.auditManerger != null
-                                && this.application.reason != null
-                            ) {
-                                // 判斷是否日期時間是否填入
-                                if (this.application.startDate != null && this.application.endDate != null &&
-                                    this.application.startTime != null && this.application.endTime != null) {
-                                    axios.post('/api/PersonnelLeaveForms', this.application)
-                                        .then(response => {
-                                            console.log(response.data)
-                                            //★成功
-                                            this.text = response.data;
-                                            $("#toastSuc").fadeIn("fast");
-                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                        if (this.application.leaveType != null &&
+                            this.application.proxy != null && this.application.auditManerger != null
+                            && this.application.reason != null
+                        ) {
+                            // 判斷是否日期時間是否填入
+                            if (this.application.startDate != null && this.application.endDate != null &&
+                                this.application.startTime != null && this.application.endTime != null) {
+                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                    .then(response => {
+                                        console.log(response.data)
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                            //失敗
-                                            this.text = response.data;
-                                            $("#toastErr").fadeIn("fast");
-                                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                            if (response.data == "申請成功") {
-                                                window.location = "/html/PS_ToDoItems.html";
-                                            }
-                                        }).catch(err => alert(err))
-                                }
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                        if (response.data == "申請成功") {
+                                            window.location = "/html/PS_ToDoItems.html";
+                                        }
+                                    }).catch(err => alert(err))
                             }
-                            else {
-                                this.text = '請確實填寫請假資料!';
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                            }
+                        }
+                        else {
+                            this.text = '請確實填寫請假資料!';
+                            $("#toastErr").fadeIn("fast");
+                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                        }
                     }
 
                     //主管請假
                     if (this.employeedata.PositionId >= 7) {
-                            if (this.application.leaveType != null) {
-                                // 判斷是否日期時間是否填入
-                                if (this.application.startDate != null && this.application.endDate != null &&
-                                    this.application.startTime != null && this.application.endTime != null) {
-                                    axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                        .then(response => {
-                                            console.log(response.data)
-                                            //★成功
-                                            this.text = response.data;
-                                            $("#toastSuc").fadeIn("fast");
-                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                        if (this.application.leaveType != null) {
+                            // 判斷是否日期時間是否填入
+                            if (this.application.startDate != null && this.application.endDate != null &&
+                                this.application.startTime != null && this.application.endTime != null) {
+                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
+                                    .then(response => {
+                                        console.log(response.data)
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                            //失敗
-                                            this.text = response.data;
-                                            $("#toastErr").fadeIn("fast");
-                                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                            if (response.data == "申請成功") {
-                                                window.location = "/html/PS_ToDoItems.html";
-                                            }
-                                        }).catch(err => alert(err))
-                                    //window.location = "/html/LV_LeaveApplication.html"
-                                }
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                        if (response.data == "申請成功") {
+                                            window.location = "/html/PS_ToDoItems.html";
+                                        }
+                                    }).catch(err => alert(err))
+                                //window.location = "/html/LV_LeaveApplication.html"
                             }
-                            else {
-                                this.text = '請確實填寫請假資料!';
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                            }
+                        }
+                        else {
+                            this.text = '請確實填寫請假資料!';
+                            $("#toastErr").fadeIn("fast");
+                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                        }
                     }
                 },
                 uploadphoto(event) {
