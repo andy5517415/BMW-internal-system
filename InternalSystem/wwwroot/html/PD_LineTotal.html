@@ -514,7 +514,7 @@
                   <div id="apple">
 
                   </div>
-                  <div class="accordion mt-3" id="accordionExample" v-for="(title,key) in item">
+                  <div class="accordion mt-3" id="accordionExample" v-for="(title,key) in dd">
                       <div class="card accordion-item mb-4 m-4 " >
                           <h2 class="accordion-header" id="headingOne" >
                               <button type="button"
@@ -525,10 +525,10 @@
                                       aria-controls="accordionOne">
                                   <strong for="" class=" col-2 fs-5 text-center my-1">{{title.orderNumber}}</strong>
                                   <strong for="" class=" col-2 fs-5 text-center my-1">{{title.optionalName.slice(4)}}</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.StartDay}}</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.EndDay}}</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.Total}}</strong>
-                                  <strong for="" class=" col-1 fs-5 text-center my-1">生產中</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.starDate}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.endDate}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.total}}</strong>
+                                  <strong for="" class=" col-1 fs-5 text-center my-1">{{title.sta}}</strong>
                               </button>
                           </h2>
 
@@ -547,7 +547,7 @@
                                               <th class="fs-4 fw-bold">狀態</th>
                                               <th class="fs-4 fw-bold">修改</th>
                                       </thead>
-                                      <tbody class="table-border-bottom-0" v-for="(p,key) in title.proess">
+                                      <tbody class="table-border-bottom-0" v-for=" (p,key) in title.proess">
                                           <tr>
                                               <td>
                                                   <i class="fab fa-angular fa-lg text-danger fs-5"></i>
@@ -560,7 +560,7 @@
                                                   <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.endDate}}</strong> </span>
                                               </td>
                                               <td>
-                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5"></strong>{{p.tot[key]}}</span>
+                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.tot[key]}}</strong></span>
                                               </td>
                                               <td>
                                                   <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.statusName}}</strong></span>
@@ -621,52 +621,83 @@
 
     <script>
 
-      const app = {
-        data() {
-          return {
-            item: {},
-            dd: [],
-            accordionOne: []
-          }
-        },
-        mounted() {
+        const app = {
+            data() {
+                return {
+                    item: {},
+                    dd: [],
+                    accordionOne: []
+                }
+            },
+            mounted() {
 
-          axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-            then(response => {
-              this.item = response.data
-              console.log(this.item[0].orderId)
-              for (var i = 0; i < this.item.length; i++) {
-                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                  then(response => {
-                    //this.apple[i] = response.data;
-                    this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess });
-                    console.log(this.dd)
-                    //this.dd = response.data;
-                    for (var j = 0; j < this.dd.length; j++) {
-                      this.item[j].Total = this.dd[j].Total;
-                      this.item[j].StartDay = this.dd[j].StartDay;
-                      this.item[j].EndDay = this.dd[j].EndDay;
-                      this.item[j].proess = this.dd[j].proess;
-                    }
+                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+                    then(response => {
+                        this.item = response.data
 
-                  })
+                        for (var i = 0; i < this.item.length; i++) {
+                            //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                                then(response => {
+                                    this.dd.push(response.data);
+                                    //console.log(response.data)
+                                })
+                            this.item.forEach((x, index) => {
+                                this.accordionOne.push(x.orderNumber)
+                            })
+                        }
+                        this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
+                        //this.dd.sort(function (a, b) {
+                        //    return a.orderId - b.orderId;
+                        //})
+                        console.log(this.dd);
+                    })
 
-              }
-              this.item.forEach((x, index) => {
-                this.accordionOne.push(x.orderNumber)
-              })
-            });
+            },
+            methods: {
 
-
-        },
-        methods: {
-
+            }
         }
-      }
+        Vue.createApp(app).mount('#app');
 
-      Vue.createApp(app).mount('#app')
+
+
+
+
+                                                                     //axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+                                                                                //                    then(async function (response) {
+                                                                                //                        this.item = response.data
+                                                                                //                        for (var i = 0; i < this.item.length; i++) {
+                                                                                //                            await x(i);
+                                                                                //                            //await console.log(this.dd)
+                                                                                //                            //console.log(j)
+                                                                                //                            this.item[i].Total = this.dd.total;
+                                                                                //                            this.item[i].StartDay = this.dd.starDate;
+                                                                                //                            this.item[i].EndDay = this.dd.endDate;
+                                                                                //                            this.item[i].proess = this.dd.proess;
+                                                                                //                            console.log(this.item)
+
+                                                                                //                        }
+                                                                                //                        //this.item.forEach((x, index) => {
+                                                                                //                        //    this.accordionOne.push(x.orderNumber)
+                                                                                //                        //})
+                                                                                //                    });
+
+                                                                                //        async function x(i) {
+                                                                                //            await axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                                                                                //                then(await function (response) {
+                                                                                //                    this.dd = response.data;
+                                                                                //                    //console.log(this.dd);
+                                                                                //                    //this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess, orderid: response.data.orderId });
+
+
+                                                                                //                })
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>
+
+
   </body>
 </html>
+
+

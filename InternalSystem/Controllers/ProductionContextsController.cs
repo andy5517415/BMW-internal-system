@@ -383,6 +383,7 @@ namespace InternalSystem.Controllers
                             Total,
                             StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
                             EndDate = "",
+                            Sta = "未完成",
                             proess
 
                         };
@@ -404,6 +405,7 @@ namespace InternalSystem.Controllers
                                 Total,
                                 StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
                                 EndDate = endDate.EndDate,
+                                Sta = "已完成",
                                 proess
                             };
                 return await query.FirstOrDefaultAsync();
