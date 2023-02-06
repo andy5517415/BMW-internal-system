@@ -80,10 +80,6 @@ namespace InternalSystem.Controllers
             return await q.SingleOrDefaultAsync();
         }
 
-
-
-
-
         //找代理商區域ID
         // GET: api/BusinessOrders/getagent/1
         [HttpGet("getagent/{id}")]
@@ -95,64 +91,11 @@ namespace InternalSystem.Controllers
             return await q.SingleOrDefaultAsync();
         }
 
-
-
-        //複合式查詢訂單
-        //GET: api/BusinessOrders/GetOrderAllFilter
-        [HttpGet("GetOrderAllFilter")]
-        public dynamic GetOrderAllFilter(/*string cartype, string area*/)
-        {
-
-            var q = _context.BusinessOrders.Select(a => new
-            {
-                a.OrderId,
-                a.OrderNumber,
-                a.OrderDateTime,
-                a.EditDatetime,
-                a.Area.AreaName,
-                a.IsAccepted,
-                detail = a.BusinessOrderDetails.Select(b => new
-                {
-                    OdId = b.OdId,
-                    Optional = new
-                    {
-                        OptionalName = b.Optional.OptionalName,
-                        optionalId = b.OptionalId
-                    }
-                }),
-                //p
-            }).OrderByDescending(a => a.OrderId);
-
-            //var p = q.Where(a => a.detail.Where(b => b.Optional.optionalId == 2);
-
-            //List<dynamic> lt = new List<dynamic>();
-            //    foreach (var i in q)
-            //    {
-            //        lt.Add(i.detail.Where(a=>a.Optional.optionalId==2));
-            //    }
-            //if (!string.IsNullOrWhiteSpace(cartype))
-            //{
-            //        //q = q.Where(a => a.detail[0].optional.optionalId.Contains(cartype));
-            //    //foreach (var item in q)
-            //    //{
-            //    //}
-            //}
-            //if (!string.IsNullOrWhiteSpace(area))
-            //{
-            //    q = q.Where(a => a.EmployeeName.Contains(area));
-            //}
-
-            return q;
-        }
-
-
-
         //直送sql指令
         // GET: api/BusinessOrders/GetOrderAllSql
         [HttpGet("GetOrderAllSql")]
         public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllFromsqlraw()
         {
-
             //var p = _context.Leftjoin.FromSqlRaw(@"
             //      select o.OrderId,
             //o.OrderNumber,
@@ -167,10 +110,7 @@ namespace InternalSystem.Controllers
             //      left join [dbo].[ProductionProcessList] as ppl on ppl.OrderId=o.OrderId
             //      left join [dbo].[ProductionProcess] as pp on ppl.ProcessId=pp.ProcessId
             //      left join [dbo].[ProductionArea] as pa on ppl.AreaId=pa.AreaId");
-
-
             var p = _context.Leftjoin.FromSqlRaw("EXEC p_left");
-
             return await p.ToListAsync();
         }
 
@@ -179,63 +119,128 @@ namespace InternalSystem.Controllers
         //撈全部訂單資料和細項
         // GET: api/BusinessOrders/GetOrderAll
         [HttpGet("GetOrderAll")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAll()
+        public dynamic GetOrderAll()
         {
-                   
-            var q = _context.BusinessOrders.Select(a => new
+            //var q = _context.BusinessOrders.Select(a => new
+            //{
+            //    a.OrderId,
+            //    a.OrderNumber,
+            //    a.OrderDateTime,
+            //    a.EditDatetime,
+            //    a.Area.AreaName,
+            //    a.IsAccepted,
+            //    a.Price,
+            //    detail = a.BusinessOrderDetails.Select(b => new
+            //    {
+            //        OdId = b.OdId,
+            //        Optional = new
+            //        {
+            //            OptionalName = b.Optional.OptionalName,
+            //            optionalId = b.OptionalId
+            //        }
+            //    })
+            //}).OrderByDescending(a => a.OrderId);
+
+
+
+
+
+            var q = (from bo in _context.BusinessOrders
+                     join ppl in _context.ProductionProcessLists on bo.OrderId equals ppl.OrderId into a
+                     from ppl in a.DefaultIfEmpty()
+                     select new
+                     {
+                         bo.OrderId,
+                         bo.OrderNumber,
+                         bo.OrderDateTime,
+                         bo.EditDatetime,
+                         bo.Area.AreaName,
+                         bo.Price,
+                         bo.IsAccepted,
+                         pparea = ppl == null ? "N/A" : ppl.Area.AreaName,
+                         ppname = ppl == null ? "N/A" : ppl.Process.ProcessName,
+                         ppstate = ppl == null ? "N/A" : ppl.Status.StatusName,
+
+                         detail = bo.BusinessOrderDetails.Select(b => new {
+                             b.OptionalId,
+                             b.Optional.OptionalName
+                         })
+
+                         //bo.BusinessOrderDetails.Select(a => a.OptionalId)
+                         //錯誤型態
+                         //from bod in _context.BusinessOrderDetails 
+                         //          join bp in _context.BusinessOptionals on bod.OptionalId equals bp.OptionalId
+                         //          select new { 
+                         //          bp.OptionalId,
+                         //          bp.OptionalName
+                         //          }
+
+                         //detail= from bod in _context.BusinessOrderDetails
+                         //        select new 
+                         //        { 
+                         //        bo.OrderId
+                         //        }
+                     }).OrderByDescending(d => d.OrderId).ThenByDescending(c => c.ppname);
+
+            string st = "";
+            List<dynamic> lt = new List<dynamic>();
+            foreach (var item in q)
             {
-                a.OrderId,
-                a.OrderNumber,
-                a.OrderDateTime,
-                a.EditDatetime,
-                a.Area.AreaName,
-                a.IsAccepted,
-                a.Price,
-                detail = a.BusinessOrderDetails.Select(b => new
+                if (item.ppname == "N/A")
                 {
-                    OdId = b.OdId,
-                    Optional = new
-                    {
-                        OptionalName = b.Optional.OptionalName,
-                        optionalId = b.OptionalId
-                    }
-                }),
-                //a.leftjoin
-            }).OrderByDescending(a => a.OrderId);
+                    lt.Add(item);
+                }
+                else if (item.ppname == "製程C-性能測試")
+                {
+                    st = "製程C-性能測試";
+                    lt.Add(item);
+                }
+                else if (item.ppname == "製程B-噴漆/內裝")
+                {                    
+                    st = "製程B-噴漆/內裝";
+                    lt.Add(item);
+                }
+                else if (item.ppname == "製程A-零件組裝")
+                {
+                    st = "製程A-零件組裝";
+                    lt.Add(item);
+                }
+            }
 
 
 
-            return await q.ToListAsync();
+
+            return lt.ToList();
+            //return await q.ToListAsync();
         }
 
 
 
 
 
-        ////嘗試leftjoin
-        //// GET: api/BusinessOrders/GetOrderAllleftjoin
-        //[HttpGet("GetOrderAllleftjoin")]
-        //public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllLeftjoin()
-        //{
-        //    var q = from bo in _context.BusinessOrders
-        //                //join ba in _context.BusinessAreas on bo.AreaId equals ba.AreaId
-        //            join ppl in _context.ProductionProcessLists on bo.OrderId equals ppl.OrderId
-        //            join 
-        //            into groupjoin
-        //            from gj in groupjoin.DefaultIfEmpty()
-        //            select new
-        //            {
-        //                bo.OrderId,
-        //                bo.OrderNumber,
-        //                state=gj==null ? 0: gj.StatusId
-
-
-        //            };
-
-        //    return await q.ToListAsync();
-        //}
-
-
+        //嘗試leftjoin
+        // GET: api/BusinessOrders/GetOrderAllleftjoin
+        [HttpGet("GetOrderAllleftjoin")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetOrderAllLeftjoin()
+        {
+           var q =  
+            from bo in _context.BusinessOrders
+            join ppl in _context.ProductionProcessLists on bo.OrderId equals ppl.OrderId into a
+            from ppl in a.DefaultIfEmpty()
+            select new
+            {
+                bo.OrderId,
+                bo.OrderNumber,
+                bo.OrderDateTime,
+                bo.EditDatetime,
+                bo.IsAccepted,
+                bsarea=bo.Area.AreaName,
+                pparea = ppl == null ? "N/A" : ppl.Area.AreaName,
+                ppname = ppl == null ? "N/A" : ppl.Process.ProcessName,
+                ppstate = ppl == null ? "N/A" : ppl.Status.StatusName
+            };
+            return await q.ToListAsync();
+        }
 
 
         //新增父子資料
