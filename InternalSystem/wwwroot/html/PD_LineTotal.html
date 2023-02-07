@@ -177,6 +177,11 @@
           </a>
         </li>
         <li class="menu-item">
+          <a href="HR_EmpProfileSearch.html" class="menu-link">
+            <div data-i18n="Account">員工資料查詢</div>
+          </a>
+        </li>
+        <li class="menu-item">
           <a href="HR_EmpProfileEdit.html" class="menu-link">
             <div data-i18n="Account">員工資料修改</div>
           </a>
@@ -196,16 +201,7 @@
             <div data-i18n="Account">員工出勤查詢</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="HR_ToDoItems_Leave.html" class="menu-link">
-            <div data-i18n="Account">員工請假審核</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="HR_ToDoItems_Work.html" class="menu-link">
-            <div data-i18n="Account">員工加班審核</div>
-          </a>
-        </li>
+        
 
       </ul>
     </li>
@@ -596,71 +592,71 @@
 
     <script>
 
-        const app = {
-            data() {
-                return {
-                    item: {},
-                    dd: [],
-                    accordionOne: []
-                }
-            },
-            mounted() {
+      const app = {
+        data() {
+          return {
+            item: {},
+            dd: [],
+            accordionOne: []
+          }
+        },
+        mounted() {
 
 
-                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+          axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+            then(response => {
+              this.item = response.data
+
+              for (var i = 0; i < this.item.length; i++) {
+                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                  then(response => {
+                    this.dd.push(response.data);
+                    //console.log(response.data)
+                  })
+                this.item.forEach((x, index) => {
+                  this.accordionOne.push(x.orderNumber)
+                })
+              }
+              this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
+              //this.dd.sort(function (a, b) {
+              //    return a.orderId - b.orderId;
+              //})
+              console.log(this.dd);
+            })
+
+        },
+        methods: {
+
+          SearchEnter: function () {
+            console.log('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber)
+            axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber).
+              then(response => {
+                this.item = response.data
+                console.log(this.item)
+                this.dd = [];
+                for (var i = 0; i < this.item.length; i++) {
+                  //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                  axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
                     then(response => {
-                        this.item = response.data
-
-                        for (var i = 0; i < this.item.length; i++) {
-                            //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                then(response => {
-                                    this.dd.push(response.data);
-                                    //console.log(response.data)
-                                })
-                            this.item.forEach((x, index) => {
-                                this.accordionOne.push(x.orderNumber)
-                            })
-                        }
-                        this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
-                        //this.dd.sort(function (a, b) {
-                        //    return a.orderId - b.orderId;
-                        //})
-                        console.log(this.dd);
+                      this.dd.push(response.data);
+                      //console.log(response.data)
                     })
-
-            },
-            methods: {
-
-                SearchEnter: function () {
-                    console.log('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber)
-                    axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber).
-                        then(response => {
-                            this.item = response.data
-                            console.log(this.item)
-                            this.dd = [];
-                            for (var i = 0; i < this.item.length; i++) {
-                                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                    then(response => {
-                                        this.dd.push(response.data);
-                                        //console.log(response.data)
-                                    })
-                                this.item.forEach((x, index) => {
-                                    this.accordionOne.push(x.orderNumber)
-                                })
-                            }
-                            this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
-                            //this.dd.sort(function (a, b) {
-                            //    return a.orderId - b.orderId;
-                            //})
-
-                        })
+                  this.item.forEach((x, index) => {
+                    this.accordionOne.push(x.orderNumber)
+                  })
                 }
-            }
+                this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
+                //this.dd.sort(function (a, b) {
+                //    return a.orderId - b.orderId;
+                //})
 
+              })
+          }
         }
-        Vue.createApp(app).mount('#app');
+
+      }
+      Vue.createApp(app).mount('#app');
 
 
 

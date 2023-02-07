@@ -174,6 +174,16 @@
                                 </a>
                             </li>
                             <li class="menu-item">
+                                <a href="HR_EmpProfileSearch.html" class="menu-link">
+                                    <div data-i18n="Account">員工資料查詢</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="HR_EmpProfileSearch.html" class="menu-link">
+                                    <div data-i18n="Account">員工資料查詢</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
                                 <a href="HR_EmpProfileEdit.html" class="menu-link">
                                     <div data-i18n="Account">員工資料修改</div>
                                 </a>
@@ -193,16 +203,7 @@
                                     <div data-i18n="Account">員工出勤查詢</div>
                                 </a>
                             </li>
-                            <li class="menu-item active">
-                                <a href="HR_ToDoItems_Leave.html" class="menu-link">
-                                    <div data-i18n="Account">員工請假審核</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="HR_ToDoItems_Work.html" class="menu-link">
-                                    <div data-i18n="Account">員工加班審核</div>
-                                </a>
-                            </li>
+                            
 
                         </ul>
                     </li>
@@ -472,7 +473,7 @@
                         <div class="card m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
 
-                                <div class="row py-3 ">
+                                <div class="row mx-4 my-5">
                                     <div class="mb-3 col-md-2">
                                         <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                         <input class="form-control fs-5" v-model="leaveproxy.employeeName" id="Employeename" disabled />
@@ -493,7 +494,7 @@
 
 
                                 </div>
-                                <div class="row">
+                                <div class="row mx-4">
                                     <div class="mb-3 col-md-3">
 
                                         <label for="Starttimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假開始時間</label>
@@ -530,7 +531,7 @@
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.auditOpnion" rows="6" col="6"></textarea>
                                         </div>
                                     </div>
-                                    <div class="row my-2" role="alert">
+                                    <div class="row my-2 mt-5" role="alert">
                                         <div class="mb-3 col-md-12">
                                             <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
 
