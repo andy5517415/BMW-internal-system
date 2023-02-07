@@ -443,112 +443,112 @@
 
                     <!-- 選擇製造的款式 -->
                     <div id="app" class="container-xxl flex-grow-1 container-p-y">
+                        <div class="container-xxl flex-grow-1 container-p-y">
+                            <h4 class="fw-bold py-4 mb-4 ms-4"> 生產線選擇</h4>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="nav-align-top mb-4">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link active"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#M4"
+                                                        aria-controls="M4"
+                                                        aria-selected="true">
+                                                    M4 Competition
+                                                </button>
 
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <h6 class="text-muted">Basic</h6>
-                                <div class="nav-align-top mb-4">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
-                                            <button type="button"
-                                                    class="nav-link active"
-                                                    role="tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#M4"
-                                                    aria-controls="M4"
-                                                    aria-selected="true">
-                                                M4 Competition
-                                            </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#X7"
+                                                        aria-controls="X7"
+                                                        aria-selected="false">
+                                                    X7 xDrive40i
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#navs-top-messages"
+                                                        aria-controls="navs-top-messages"
+                                                        aria-selected="false">
+                                                    iX xDrive40
+                                                </button>
+                                            </li>
+                                        </ul>
 
-                                        </li>
-                                        <li class="nav-item">
-                                            <button type="button"
-                                                    class="nav-link"
-                                                    role="tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#X7"
-                                                    aria-controls="X7"
-                                                    aria-selected="false">
-                                                X7 xDrive40i
-                                            </button>
-                                        </li>
-                                        <li class="nav-item">
-                                            <button type="button"
-                                                    class="nav-link"
-                                                    role="tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#navs-top-messages"
-                                                    aria-controls="navs-top-messages"
-                                                    aria-selected="false">
-                                                iX xDrive40
-                                            </button>
-                                        </li>
-                                    </ul>
-
-                                    <div class="tab-content">
-                                        <!-- 520i Sport -->
-                                        <div class="tab-pane fade show active" id="M4" role="tabpanel">
-                                            <template v-for="process in ProcessList">
-                                                <template v-for="car in CarModel">
-                                                    <div class="card  m-2 ">
-                                                        <div class="row card-body" v-if="car.optionalId == 1">
-                                                            <label id="carmodel" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                            <label id="processname" for="" class="col-3 fs-4 ">生產: {{process.processName}}</label>
-                                                            <div class="col-4 d-md-flex justify-content-md-end">
-                                                                <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                        <div class="tab-content">
+                                            <!-- 520i Sport -->
+                                            <div class="tab-pane fade show active" id="M4" role="tabpanel">
+                                                <template v-for="process in ProcessList">
+                                                    <template v-for="car in CarModel">
+                                                        <div class="card  m-2 ">
+                                                            <div class="row card-body" v-if="car.optionalId == 1">
+                                                                <label id="carmodel" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                                                <label id="processname" for="" class="col-3 fs-4 ">生產: {{process.processName}}</label>
+                                                                <div class="col-4 d-md-flex justify-content-md-end">
+                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </template>
                                                 </template>
-                                            </template>
-                                        </div>
-                                        <!--X7 xDrive40i-->
-                                        <div class="tab-pane fade" id="X7" role="tabpanel">
-                                            <template v-for="process in ProcessList">
-                                                <template v-for="car in CarModel">
-                                                    <div class="card  m-2 ">
-                                                        <div class="row card-body" v-if="car.optionalId == 2">
-                                                            <label id="carmodel-2" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                            <label id="processname-2" for="" class="col-3 fs-4">生產: {{process.processName}}</label>
-                                                            <div class="col-4 d-md-flex justify-content-md-end">
-                                                                <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                            </div>
+                                            <!--X7 xDrive40i-->
+                                            <div class="tab-pane fade" id="X7" role="tabpanel">
+                                                <template v-for="process in ProcessList">
+                                                    <template v-for="car in CarModel">
+                                                        <div class="card  m-2 ">
+                                                            <div class="row card-body" v-if="car.optionalId == 2">
+                                                                <label id="carmodel-2" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                                                <label id="processname-2" for="" class="col-3 fs-4">生產: {{process.processName}}</label>
+                                                                <div class="col-4 d-md-flex justify-content-md-end">
+                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </template>
                                                 </template>
-                                            </template>
-                                        </div>
-                                        <!-- iX xDrive40 -->
-                                        <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
-                                            <template v-for="process in ProcessList">
-                                                <template v-for="car in CarModel">
-                                                    <div class="card m-2 ">
-                                                        <div class="row card-body" v-if="car.optionalId == 3">
-                                                            <label id="carmodel-3" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                            <label id="processname-3" class="col-3 fs-4">生產: {{process.processName}}</label>
-                                                            <div class="col-4 d-md-flex justify-content-md-end">
-                                                                <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                            </div>
+                                            <!-- iX xDrive40 -->
+                                            <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
+                                                <template v-for="process in ProcessList">
+                                                    <template v-for="car in CarModel">
+                                                        <div class="card m-2 ">
+                                                            <div class="row card-body" v-if="car.optionalId == 3">
+                                                                <label id="carmodel-3" class="col-4 fs-4">型號: {{car.optionalName}}</label>
+                                                                <label id="processname-3" class="col-3 fs-4">生產: {{process.processName}}</label>
+                                                                <div class="col-4 d-md-flex justify-content-md-end">
+                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </template>
                                                 </template>
-                                            </template>
-                                        </div>
+                                            </div>
 
+
+
+                                        </div>
 
 
                                     </div>
-
-
                                 </div>
+                                <!-- Content wrapper -->
+
                             </div>
-                            <!-- Content wrapper -->
+                            <!-- / Layout page -->
 
                         </div>
-                        <!-- / Layout page -->
-
                     </div>
-                </div>
                 <!-- Overlay -->
                 <div class="layout-overlay layout-menu-toggle"></div>
 
