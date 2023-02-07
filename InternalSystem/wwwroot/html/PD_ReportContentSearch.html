@@ -568,11 +568,12 @@
             if (this.Search.EndDate != null) {
               axios.get('https://localhost:44319/api/ProductionContexts/ContextsListSearch/start' + this.Search.StarDate + '/end' + this.Search.EndDate + '?empName=' + this.Search.EmployeeName + '&empNumber=' + this.Search.EmployeeNumber)
                 .then(response => this.contxtList = response.data)
+
               console.log('a')
             } else if (this.Search.EndDate == null) {
               axios.get('https://localhost:44319/api/ProductionContexts/ContextsList?empNumber=' + this.Search.EmployeeNumber + '&empName=' + this.Search.EmployeeName + '&starDate=' + this.Search.StarDate)
                 .then(response => this.contxtList = response.data)
-              console.log('b')
+                console.log('https://localhost:44319/api/ProductionContexts/ContextsList?empNumber=' + this.Search.EmployeeNumber + '&empName=' + this.Search.EmployeeName + '&starDate=' + this.Search.StarDate)
             }
 
           },

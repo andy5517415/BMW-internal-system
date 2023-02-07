@@ -445,17 +445,29 @@
                     </div>
                       <div class="row my-2 mb-4 justify-content-center card-body ">
                           <div class="mb-3 mb-3 col-md-2">
-                              <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">訂單編號</label>
-                              <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-4">員工姓名</label>
+                              <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">訂單編號</label>
+                              <label for="orderType" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-3">車款類型</label>
+                              <label for="orderStadus" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-3">狀態</label>
                               <label for="StarDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">開始日期</label>
                               <label for="EndDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 mt-4">結束日期</label>
 
-                              
+
                           </div>
                           <div class="mb-3 col-md-3 d-flex flex-column">
-                              <input class="form-control fs-5 mb-4" type="text"  id="EmployeeNumber" v-model="Search.orderNumber"/>
-                              <input class="form-control fs-5" type="text"  id="Employeename" />
-                              <input class="form-control fs-5 my-4" type="date"  id="StarDate" />
+                              <input class="form-control fs-5 mb-4" type="text"  id="orderNumber" v-model="Search.orderNumber"/>
+                              <select id="orderType" class="form-control fs-5" v-model="Search.orderType">
+                                  <option :value="" disabled>請選擇類型</option>
+                                  <option >M4 Competition</option>
+                                  <option >X7 xDrive40i</option>
+                                  <option >iX xDrive40 旗艦版</option>
+                              </select>
+                              <select id="orderStadus" class="form-control fs-5 my-4" v-model="Search.orderStadus">
+                                  <option :value="" disabled>請選擇狀態</option>
+                                  <option >未完成</option>
+                                  <option >已完成</option>
+                              </select>
+                              <!--<input class="form-control fs-5" type="text"  id="orderType" />-->
+                              <input class="form-control fs-5 my-3" type="date"  id="StarDate" />
                               <input class="form-control fs-5 mt-1" type="date"  id="EndDate" />
                           </div>
                       </div>
@@ -516,7 +528,7 @@
                                               <th class="fs-4 text-white fw-bold">結束時間</th>
                                               <th class="fs-4 text-white fw-bold">總時(hr)</th>
                                               <th class="fs-4 text-white fw-bold">狀態</th>
-                                              <th class="fs-4 text-white fw-bold">修改</th>
+
                                       </thead>
                                       <tbody class="table-border-bottom-0" v-for=" (p,key) in title.proess">
                                           <tr>
@@ -537,15 +549,7 @@
                                                   <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.statusName}}</strong></span>
 
                                               </td>
-                                              <td>
-                                                  <div class="dropdown">
-
-                                                      <div class="">
-                                                          <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button" ><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5">檢閱</strong></a>
-
-                                                      </div>
-                                                  </div>
-                                              </td>
+                                            
                                           </tr>
 
                                   </table>
@@ -598,7 +602,7 @@
                     item: {},
                     dd: [],
                     accordionOne: [],
-                    Search: {}
+                    Search: { "orderNumber": "", "orderType": "", "orderStadus": "" }
                 }
             },
             mounted() {
@@ -619,40 +623,47 @@
                                 this.accordionOne.push(x.orderNumber)
                             })
                         }
-                        this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
-                        //this.dd.sort(function (a, b) {
-                        //    return a.orderId - b.orderId;
-                        //})
-                        console.log(this.dd);
-                    })
 
+                    })
+                setTimeout(() => {
+                    //console.log(this.dd)
+                    this.dd.sort(function (a, b) {
+                        return a.orderId - b.orderId;
+
+                    });
+                }, 200)
             },
             methods: {
 
                 SearchEnter: function () {
-                    console.log('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber)
-                    axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber).
-                        then(response => {
-                            this.item = response.data
-                            console.log(this.item)
-                            this.dd = [];
-                            for (var i = 0; i < this.item.length; i++) {
-                                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                    then(response => {
-                                        this.dd.push(response.data);
-                                        //console.log(response.data)
-                                    })
-                                this.item.forEach((x, index) => {
-                                    this.accordionOne.push(x.orderNumber)
-                                })
-                            }
-                            this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
-                            //this.dd.sort(function (a, b) {
-                            //    return a.orderId - b.orderId;
-                            //})
 
-                        })
+                    if (this.Search.orderStadus != "" && this.Search.orderType != "" ) {
+                        axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
+                            then(response => {
+                                this.item = response.data
+                                console.log(this.item)
+                                this.dd = [];
+                                for (var i = 0; i < this.item.length; i++) {
+                                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId + '&stad=' + this.Search.orderStadus).
+                                        then(response => {
+                                            this.dd.push(response.data);
+                                            //console.log(response.data)
+                                        })
+                                }
+
+                            })
+                        setTimeout(() => {
+                            //console.log(this.dd)
+                            this.dd.sort(function (a, b) {
+                                return a.orderId - b.orderId;
+
+                            });
+                        }, 200)
+                    } else {
+                        alert('請選擇車款');
+                    }
+
                 }
             }
 
@@ -663,34 +674,6 @@
 
 
 
-                    //axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-                    //    then(async function (response) {
-                    //        this.item = response.data
-                    //        for (var i = 0; i < this.item.length; i++) {
-                    //            await x(i);
-                    //            //await console.log(this.dd)
-                    //            //console.log(j)
-                    //            this.item[i].Total = this.dd.total;
-                    //            this.item[i].StartDay = this.dd.starDate;
-                    //            this.item[i].EndDay = this.dd.endDate;
-                    //            this.item[i].proess = this.dd.proess;
-                    //            console.log(this.item)
-
-                    //        }
-                    //        //this.item.forEach((x, index) => {
-                    //        //    this.accordionOne.push(x.orderNumber)
-                    //        //})
-                    //    });
-
-                    //async function x(i) {
-                    //    await axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                    //        then(await function (response) {
-                    //            this.dd = response.data;
-                    //            //console.log(this.dd);
-                    //            //this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess, orderid: response.data.orderId });
-
-
-                    //        })
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

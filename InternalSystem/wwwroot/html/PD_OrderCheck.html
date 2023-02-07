@@ -605,7 +605,7 @@
                                   <div class="mb-3 col-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Areas">廠區</label>
                                       <select id="Areas" class="  form-select color-dropdown " v-model="processesAreaList.areaId" >
-                                          <option disabled >請選擇產區</option>
+                                          <option :value="請選擇產區" disabled >請選擇產區</option>
                                           <option v-for="Area in Areas" :value="Area.areaId">{{Area.areaName}}</option>
 
                                       </select>
