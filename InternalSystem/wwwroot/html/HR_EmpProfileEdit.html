@@ -1033,8 +1033,7 @@
                 },
                 searchbtn: function () {
 
-                    if (this.employeeNumber != null && this.employeeName != null) {
-                        axios.get('/api/PersonnelProfileDetails/Complex/' + this.employeeNumber + '/' + this.employeeName)
+                        axios.get('/api/PersonnelProfileDetails/Complex/?number=' + this.employeeNumber + '&name=' + this.employeeName)
                             .then(response => {
                                 this.employeelist = response.data;
                                 if (this.employeelist.length == 0) {
@@ -1049,47 +1048,8 @@
                                 }
                             })
                             .catch(err => console.log(err))
-                    }
-                    else if (this.employeeNumber != null && this.employeeName == null) {
-                        axios.get('/api/PersonnelProfileDetails/Number/' + this.employeeNumber)
-                            .then(response => {
-                                this.employeelist = response.data;
-                                if (this.employeelist.length == 0) {
-                                    this.text = "工號查詢:查無此人";
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                    window.location = "/html/HR_EmpProfileEdit.html"
-                                } else {
-                                    this.text = "查詢成功";
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                }
-                            })
-                            .catch(err => console.log(err))
-                    }
-
-                    else if (this.employeeNumber == null && this.employeeName != null) {
-                        axios.get('/api/PersonnelProfileDetails/na/' + this.employeeName)
-                            .then(response => {
-                                this.employeelist = response.data;
-                                if (this.employeelist.length == 0) {
-                                    this.text = "名稱查詢:查無此人";
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                    window.location = "/html/HR_EmpProfileEdit.html"
-                                } else {
-                                    this.text = "查詢成功";
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                }
-                            })
-                            .catch(err => console.log(err))
-                    }
-                    else {
-                        this.text = "查無此人";
-                        $("#toastErr").fadeIn("fast");
-                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                    };
+                    
+                
                     //axios.get('/api/PersonnelProfileDetails/userid/' + this.employeeNumber)
                     //    .then(response => this.employeelist = response.data)
                     //    .catch(error => alert('查無此項'))

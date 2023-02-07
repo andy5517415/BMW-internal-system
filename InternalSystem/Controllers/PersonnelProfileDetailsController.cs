@@ -476,7 +476,7 @@ namespace InternalSystem.Controllers
 
         //人事部門尋找員工資料修改(複合查詢)
         //api/PersonnelProfileDetails/Complex/2023001
-        [HttpGet("Complex/{number}/{name}")]
+        [HttpGet("Complex")]
         public async Task<ActionResult<dynamic>> SearchGetPersonnelProfileDetailComplex(string number ,string name)
         {
 
@@ -521,7 +521,14 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
-
+            if (!string.IsNullOrWhiteSpace(number))
+            {
+                SearchProfileDetail = SearchProfileDetail.Where(a => a.EmployeeNumber == number);
+            }
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                SearchProfileDetail = SearchProfileDetail.Where(a => a.EmployeeName == name);
+            }
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
 
