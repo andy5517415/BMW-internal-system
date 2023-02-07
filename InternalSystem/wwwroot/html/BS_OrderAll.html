@@ -455,7 +455,7 @@
                                                     class="form-select color-dropdown"
                                                     v-model="sl.car"
                                                     @change="filter">
-                                                <option selected value="0">請選擇車款</option>
+                                                <option selected value="0">全部</option>
                                                 <option value="1">M4 Competition</option>
                                                 <option value="2">X7 xDrive40i</option>
                                                 <option value="3">iX xDrive40 旗艦版</option>
@@ -467,7 +467,7 @@
                                                     class="form-select color-dropdown"
                                                     v-model="sl.area"
                                                     @change="filter">
-                                                <option selected value="0">請選擇代理商區域</option>
+                                                <option selected value="0">全部</option>
                                                 <option value="北區">北區</option>
                                                 <option value="中區">中區</option>
                                                 <option value="南區">南區</option>
@@ -478,14 +478,13 @@
                                     <!--<button @click="filter" type="button" class="">查詢
                                         </button>-->
 
+                                    <!--chart.js-->
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <!-- 統計圖畫在這裡 -->
-                                            <canvas id="chartCanvasArea"></canvas>
+                                            <canvas id="chartCanvasType"></canvas>
                                         </div>
                                         <div class="col-sm-6">
-                                            <!-- 統計圖畫在這裡 -->
-                                            <canvas id="chartCanvasType"></canvas>
+                                            <canvas id="chartCanvasArea"></canvas>
                                         </div>
                                     </div>
 
@@ -496,8 +495,8 @@
                                         <p class="text-center col-2 fs-4 fw-blod">修改訂單時間</p>
                                         <p class="text-center col-1 fs-4 fw-blod">代理商</p>
                                         <p class="text-center col-1 fs-4 fw-blod">接單狀態</p>
-                                        <p class="text-center col-1 fs-4 fw-blod">製程</p>
-                                        <p class="text-center col-2 fs-4 fw-blod">廠區</p>
+                                        <p class="text-center col-1 fs-4 fw-blod">廠區</p>
+                                        <p class="text-center col-2 fs-4 fw-blod">製程</p>
                                     </div>
                                 </div>
                                 <!--/ Basic Bootstrap Table -->
@@ -631,11 +630,15 @@
                 axios.get('/api/BusinessOrders/GetOrderAll')
                     .then(g => {
                         console.log(g.data);
+                        g.data.forEach((x, idx) => {
+                            this.accordionOne.push(g.data[idx].orderNumber);
+                            if (x.ppname == "製程C-性能測試" && x.ppstate == "已完成") {
+                                x.pparea ="";
+                                x.ppname ="該筆訂單已生產完畢";
+                            }
+                        });
                         this.order = g.data;
                         this.filtered = g.data;
-                        this.order.forEach((x, idx) => {
-                            this.accordionOne.push(g.data[idx].orderNumber);
-                        });
                         console.log(this.accordionOne);
                         this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
 
@@ -665,10 +668,10 @@
 
         $(document).ready(function () {
             //區域
-            var canvasAreaCountList = [vvue.statistic.area.north, vvue.statistic.area.middle, vvue.statistic.area.south];
-            var canvasAreaNameList = ["北區", "中區", "南區"];
-            var ctxArea = document.getElementById("chartCanvasArea");
-            var pieChartArea = new Chart(ctxArea, {
+            let canvasAreaCountList = [vvue.statistic.area.north, vvue.statistic.area.middle, vvue.statistic.area.south];
+            let canvasAreaNameList = ["北區", "中區", "南區"];
+            let ctxArea = document.getElementById("chartCanvasArea");
+            let pieChartArea = new Chart(ctxArea, {
                 type: "pie",
                 data: {
                     labels: canvasAreaNameList,
@@ -688,10 +691,10 @@
             })
 
             //車款
-            var canvasTypeCountList = [vvue.statistic.type.M4, vvue.statistic.type.X7, vvue.statistic.type.iX];
-            var canvasTypeNameList = ["M4 Competition", "X7 xDrive40i", "iX xDrive40 旗艦版"];
-            var ctxType = document.getElementById("chartCanvasType");
-            var pieChartType = new Chart(ctxType, {
+            let canvasTypeCountList = [vvue.statistic.type.M4, vvue.statistic.type.X7, vvue.statistic.type.iX];
+            let canvasTypeNameList = ["M4 Competition", "X7 xDrive40i", "iX xDrive40 旗艦版"];
+            let ctxType = document.getElementById("chartCanvasType");
+            let pieChartType = new Chart(ctxType, {
                 type: "pie",
                 data: {
                     labels: canvasTypeNameList,

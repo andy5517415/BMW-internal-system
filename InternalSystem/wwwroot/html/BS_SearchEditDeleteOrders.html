@@ -470,7 +470,7 @@
                             <div class="card-body">
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-6 py-3">
-                                        <label for="ordernum" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                        <label @click="getordhidden" for="ordernum" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
                                         <p>{{charcnt}}/13</p>
                                         <input type="text"
                                                class="form-control fs-5"
@@ -817,7 +817,12 @@
                     bodput: [],
 
                     olddetail: {},
-                    oldoplId: []
+                    oldoplId: [],
+                    ordernumhidden: {
+                        n: 0,
+                        num:[]
+                    }
+
                 }
             },
             computed: {
@@ -915,6 +920,7 @@
                     console.log(this.orderdetail);
 
                     if (confirm("確認是否要修改訂單?") == true) {
+                        //找該訂單細項第一筆OdId+8
                         axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
                             .then(p => {
                                 this.odid = p.data;
@@ -963,6 +969,10 @@
                     this.carsunroofone = this.carsunroof[0];
                     this.carmediaone = this.carmedia[0];
                     this.agentone = this.agent[0];
+                },
+                getordhidden() {
+                    this.ordernum = this.ordernumhidden.num[this.ordernumhidden.n];
+                    this.ordernumhidden.n > this.ordernumhidden.num.length-1 ? this.ordernumhidden.n=0 : this.ordernumhidden.n++;
                 }
             },
             mounted() {
@@ -977,6 +987,7 @@
                     axios.get('/api/BusinessOptionals/info/9').then(g => this.carmedia = g.data),
                     axios.get('/api/BusinessOptionals/agent').then(g => this.agent = g.data)
 
+                axios.get('/api/BusinessOrders/hidden').then(g => this.ordernumhidden.num = g.data);
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
                 //console.log(this.limit.DepID);
             }

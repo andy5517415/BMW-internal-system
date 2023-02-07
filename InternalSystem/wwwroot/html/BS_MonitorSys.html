@@ -62,6 +62,8 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+
 
 </head>
 
@@ -481,326 +483,426 @@
                                     待指派
 
 
+                                    <!--chart.js-->
+                                    <div class="row my-5">
+                                        <div class="col-sm-4">
+                                            <canvas id="chartM4"></canvas>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <canvas id="chartX7"></canvas>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <canvas id="chartiX"></canvas>
+                                        </div>
+                                    </div>
 
-                                    
-
-
-
-                                        <!-- 頁籤 -->
-                                        <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
-                                            <li class="nav-item">
-                                                <button @click="btnpageclick" type="button"
-                                                        class="nav-link active"
-                                                        role="tab"
-                                                        data-bs-toggle="tab"
-                                                        data-bs-target="#navs-pills-justified-home"
-                                                        aria-controls="navs-pills-justified-home"
-                                                        aria-selected="true">
-                                                    <i class="">M4 Competition</i>
-                                                    <span v-if="cntm4>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntm4}}</span>
-                                                </button>
-                                            </li>
-                                            <li class="nav-item">
-                                                <button @click="btnpageclick" type="button"
-                                                        class="nav-link"
-                                                        role="tab"
-                                                        data-bs-toggle="tab"
-                                                        data-bs-target="#navs-pills-justified-profile"
-                                                        aria-controls="navs-pills-justified-profile"
-                                                        aria-selected="false">
-                                                    <i class="">X7 xDrive40i</i>
-                                                    <span v-if="cntx7>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntx7}}</span>
-                                                </button>
-                                            </li>
-                                            <li class="nav-item">
-                                                <button @click="btnpageclick" type="button"
-                                                        class="nav-link"
-                                                        role="tab"
-                                                        data-bs-toggle="tab"
-                                                        data-bs-target="#navs-pills-justified-messages"
-                                                        aria-controls="navs-pills-justified-messages"
-                                                        aria-selected="false">
-                                                    <i class="">iX xDrive40 旗艦版</i>
-                                                    <span v-if="cntix>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntix}}</span>
-                                                </button>
-                                            </li>
-                                        </ul>
+                                    <!-- 頁籤 -->
+                                    <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+                                        <li class="nav-item">
+                                            <button @click="btnpageclick" type="button"
+                                                    class="nav-link active"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-pills-justified-home"
+                                                    aria-controls="navs-pills-justified-home"
+                                                    aria-selected="true">
+                                                <i class="">M4 Competition</i>
+                                                <span v-if="cntm4>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntm4}}</span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button @click="btnpageclick" type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-pills-justified-profile"
+                                                    aria-controls="navs-pills-justified-profile"
+                                                    aria-selected="false">
+                                                <i class="">X7 xDrive40i</i>
+                                                <span v-if="cntx7>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntx7}}</span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button @click="btnpageclick" type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-pills-justified-messages"
+                                                    aria-controls="navs-pills-justified-messages"
+                                                    aria-selected="false">
+                                                <i class="">iX xDrive40 旗艦版</i>
+                                                <span v-if="cntix>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntix}}</span>
+                                            </button>
+                                        </li>
+                                    </ul>
 
 
 
 
 
 
-                                        <!--錯誤訊息-->
-                                        <div v-if="seen">
-                                            <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : 監控</label>
-                                            <textarea class="form-control fs-5"
-                                                      id="exampleFormControlTextarea1"
-                                                      rows="5"
-                                                      readonly
-                                                      v-model="description">
+
+
+
+                                    <!--錯誤訊息-->
+                                    <div v-if="seen">
+                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : 監控</label>
+                                        <textarea class="form-control fs-5"
+                                                  id="exampleFormControlTextarea1"
+                                                  rows="5"
+                                                  readonly
+                                                  v-model="description">
                                             </textarea>
+                                    </div>
+
+
+
+                                    <div class="tab-content" style="box-shadow: 0px 0px 0px;">
+
+
+
+
+                                        <!-- M4 -->
+                                        <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+
+
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A01
+                                                        <span v-if="M4A01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B01
+                                                        <span v-if="M4B01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C01
+                                                        <span v-if="M4C01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A02
+                                                        <span v-if="M4A02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B02
+                                                        <span v-if="M4B02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C02
+                                                        <span v-if="M4C02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
+
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A03
+                                                        <span v-if="M4A03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4A03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B03
+                                                        <span v-if="M4B03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4B03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C03
+                                                        <span v-if="M4C03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="M4C03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
                                         </div>
 
 
 
-                                        <div class="tab-content" style="box-shadow: 0px 0px 0px;">
 
 
-
-
-                                            <!-- M4 -->
-                                            <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A01
-                                                            <span v-if="M4A01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B01
-                                                            <span v-if="M4B01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C01
-                                                            <span v-if="M4C01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C01=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C01=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C01=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                        <!-- X7 -->
+                                        <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A01
+                                                        <span v-if="X7A01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
-
-
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B01
+                                                        <span v-if="X7B01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
-
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A02
-                                                            <span v-if="M4A02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B02
-                                                            <span v-if="M4B02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C02
-                                                            <span v-if="M4C02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C02=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C02=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C02=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C01
+                                                        <span v-if="X7C01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
+                                            </div>
 
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
                                                 </div>
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A03
-                                                            <span v-if="M4A03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4A03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B03
-                                                            <span v-if="M4B03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4B03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C03
-                                                            <span v-if="M4C03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C03=='待處理'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C03=='處理中'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="M4C03=='異常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
                                                 </div>
-
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='跑車- M4 Competition'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
                                                 </div>
                                             </div>
 
@@ -808,537 +910,448 @@
 
 
 
-                                            <!-- X7 -->
-                                            <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A01
-                                                            <span v-if="X7A01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B01
-                                                            <span v-if="X7B01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C01
-                                                            <span v-if="X7C01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C01=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C01=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C01=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A02
+                                                        <span v-if="X7A02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
-
-
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B02
+                                                        <span v-if="X7B02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
-
-
-
-
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A02
-                                                            <span v-if="X7A02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B02
-                                                            <span v-if="X7B02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C02
-                                                            <span v-if="X7C02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C02
+                                                        <span v-if="X7C02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C02=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C02=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C02=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
+                                            </div>
 
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
                                                 </div>
-
-
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A03
-                                                            <span v-if="X7A03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7A03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B03
-                                                            <span v-if="X7B03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7B03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C03
-                                                            <span v-if="X7C03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="X7C03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
                                                 </div>
-
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
                                                 </div>
-
                                             </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-                                            <!-- iX -->
-                                            <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A01
-                                                            <span v-if="iXA01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B01
-                                                            <span v-if="iXB01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C01
-                                                            <span v-if="iXC01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A03
+                                                        <span v-if="X7A03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7A03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B03
+                                                        <span v-if="X7B03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7B03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C03
+                                                        <span v-if="X7C03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C03=='待處理'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C03=='處理中'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="X7C03=='異常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
                                                 </div>
 
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A02
-                                                            <span v-if="iXA02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B02
-                                                            <span v-if="iXB02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C02
-                                                            <span v-if="iXC02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-
-                                                </div>
-
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row justify-content-md-center mb-0" style="height: 48px;">
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            A03
-                                                            <span v-if="iXA03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXA03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            B03
-                                                            <span v-if="iXB03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXB03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-4 d-flex justify-content-center">
-                                                        <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                            C03
-                                                            <span v-if="iXC03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                                                -
-                                                            </span>
-                                                            <span v-else-if="iXC03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                                                -
-                                                            </span>
-                                                            <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                                                -
-                                                            </span>
-                                                        </button>
-                                                    </div>
-
-
-                                                </div>
-
-                                                <div class="row my-5 mt-0">
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                            <span v-else>&nbsp;</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                    <div class="col-4 text-center">
-                                                        <template v-for="(o,key) in getstatus">
-                                                            <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
-                                                        </template>
-                                                    </div>
-                                                </div>
 
                                             </div>
 
-
-
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='休旅車-X7 xDrive40i'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
 
                                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <!-- iX -->
+                                        <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A01
+                                                        <span v-if="iXA01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B01
+                                                        <span v-if="iXB01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C01
+                                                        <span v-if="iXC01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC01=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC01=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC01=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==1&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
+
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A02
+                                                        <span v-if="iXA02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B02
+                                                        <span v-if="iXB02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C02
+                                                        <span v-if="iXC02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC02=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC02=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC02=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==2&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
+
+                                            <div class="row justify-content-md-center mb-0" style="height: 48px;">
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        A03
+                                                        <span v-if="iXA03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXA03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        B03
+                                                        <span v-if="iXB03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXB03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4 d-flex justify-content-center">
+                                                    <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
+                                                        C03
+                                                        <span v-if="iXC03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC03=='待處理'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC03=='處理中'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
+                                                            -
+                                                        </span>
+                                                        <span v-else-if="iXC03=='異常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
+                                                            -
+                                                        </span>
+                                                        <span v-else data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
+                                                            -
+                                                        </span>
+                                                    </button>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row my-5 mt-0">
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==1&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                        <span v-else>&nbsp;</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==2&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <template v-for="(o,key) in getstatus">
+                                                        <span v-if="o.processId==3&&o.areaId==3&&o.optionalName=='電動車-iX xDrive40 旗艦版'" class="fw-bold mx-2 fs-5" style="text-decoration: underline 2pt rgb(102, 110, 232);">訂單編號 : {{o.orderNumber}}</span>
+                                                    </template>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                    </div>
 
                                 </div>
                                 <!-- /pills -->
@@ -1451,9 +1464,12 @@
                     seen: false,
 
                     getstatus: {},
-                    ordernumshow: false,
-
-                    abnormalcnt: {}
+                    abnormalcnt: {},
+                    pie: {
+                        M4: { a: 0, b: 0, c: 0, d: 0 ,e:0},
+                        X7: { a: 0, b: 0, c: 0, d: 0 ,e:0},
+                        iX: { a: 0, b: 0, c: 0, d: 0 ,e:0}
+                    }
 
                 }
             },
@@ -1543,6 +1559,61 @@
                         console.log(this.getstatus);
                     });
 
+                axios.get('/api/MonitoringProcessAreaStatus').then(g => {
+                    g.data.forEach(x => {
+                        if (x.carType =="M4 Competition") {
+                            if (x.status=="正常") {
+                                this.pie.M4.a++;
+                            }
+                            else if (x.status == "待處理") {
+                                this.pie.M4.b++;
+                            }
+                            else if (x.status == "處理中") {
+                                this.pie.M4.c++;
+                            }
+                            else if (x.status == "異常") {
+                                this.pie.M4.d++;
+                            }
+                            else {
+                                this.pie.M4.e++;
+                            }
+                        }
+                        else if (x.carType == "X7 xDrive40i") {
+                            if (x.status == "正常") {
+                                this.pie.X7.a++;
+                            }
+                            else if (x.status == "待處理") {
+                                this.pie.X7.b++;
+                            }
+                            else if (x.status == "處理中") {
+                                this.pie.X7.c++;
+                            }
+                            else if (x.status == "異常") {
+                                this.pie.X7.d++;
+                            }
+                            else {
+                                this.pie.X7.e++;
+                            }
+                        }
+                        else {
+                            if (x.status == "正常") {
+                                this.pie.iX.a++;
+                            }
+                            else if (x.status == "待處理") {
+                                this.pie.iX.b++;
+                            }
+                            else if (x.status == "處理中") {
+                                this.pie.iX.c++;
+                            }
+                            else if (x.status == "異常") {
+                                this.pie.iX.d++;
+                            }
+                            else {
+                                this.pie.iX.e++;
+                            }
+                        }
+                    });
+                });
 
                 this.description = JSON.parse(sessionStorage.getItem("sessiondesc"));
                 //console.log(this.description);
@@ -1639,6 +1710,75 @@
             }
         }).mount('#divmonitor');
 
+        $(function () {
+            //M4
+            let M4cnt = [vvue.pie.M4.a, vvue.pie.M4.b, vvue.pie.M4.c, vvue.pie.M4.d, vvue.pie.M4.e];
+            let M4name = ["正常", "待處理", "處理中", "異常", "待指派"];
+            let M4ctx = document.getElementById("chartM4");
+            let pieChartM4 = new Chart(M4ctx, {
+                type: "pie",
+                data: {
+                    labels: M4name,
+                    datasets: [
+                        {
+                            data: M4cnt,
+                            backgroundColor: ["#5cb85c", "#f0ad4e", "#5bc0de", "#d9534f","#7c8184"]
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'M4'
+                    }
+                }
+            })
+
+            //X7
+            let X7cnt = [vvue.pie.X7.a, vvue.pie.X7.b, vvue.pie.X7.c, vvue.pie.X7.d, vvue.pie.M4.e];
+            let X7name = ["正常", "待處理", "處理中", "異常", "待指派"];
+            let X7ctx = document.getElementById("chartX7");
+            let pieChartX7 = new Chart(X7ctx, {
+                type: "pie",
+                data: {
+                    labels: X7name,
+                    datasets: [
+                        {
+                            data: X7cnt,
+                            backgroundColor: ["#5cb85c", "#f0ad4e", "#5bc0de", "#d9534f", "#7c8184"]
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'X7'
+                    }
+                }
+            })
+            //iX
+            let iXcnt = [vvue.pie.iX.a, vvue.pie.iX.b, vvue.pie.iX.c, vvue.pie.iX.d, vvue.pie.M4.e];
+            let iXname = ["正常", "待處理", "處理中", "異常", "待指派"];
+            let iXctx = document.getElementById("chartiX");
+            let pieChartiX = new Chart(iXctx, {
+                type: "pie",
+                data: {
+                    labels: iXname,
+                    datasets: [
+                        {
+                            data: iXcnt,
+                            backgroundColor: ["#5cb85c", "#f0ad4e", "#5bc0de", "#d9534f", "#7c8184"]
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'iX'
+                    }
+                }
+            })
+        })
 
     </script>
     <!-- session -->

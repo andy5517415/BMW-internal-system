@@ -54,6 +54,18 @@ namespace InternalSystem.Controllers
         }
 
 
+        //隱藏性欄位取得全部訂單編號
+        // GET: api/BusinessOrders/hidden
+        [HttpGet("hidden")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> HiddenGetOrderAll(string ordernum)
+        {
+            var q = from od in _context.BusinessOrders
+                    orderby od.OrderId descending
+                    select od.OrderNumber;
+            return await q.ToListAsync();
+        }
+
+
         //訂單查詢分流
         // GET: api/BusinessOrders/getorder/i0320230105003/1
         [HttpGet("getorder/{ordernum}/{category}")]
@@ -189,10 +201,10 @@ namespace InternalSystem.Controllers
                 }
                 else if (item.ppname == "製程C-性能測試")
                 {
-                    if (oid!=item.OrderId)
+                    if (oid != item.OrderId)
                     {
                         lt.Add(item);
-                        oid =item.OrderId;
+                        oid = item.OrderId;
                     }
                 }
                 else if (item.ppname == "製程B-噴漆/內裝")
