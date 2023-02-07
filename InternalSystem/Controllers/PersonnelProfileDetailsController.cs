@@ -481,7 +481,6 @@ namespace InternalSystem.Controllers
         {
 
             var SearchProfileDetail = from o in _context.PersonnelProfileDetails
-                                      where o.EmployeeNumber == number && o.EmployeeName == name
                                       join c in _context.PersonnelCityLists on o.CityId equals c.CityId
                                       join p in _context.PersonnelPositions on o.PositionId equals p.PositionId
                                       join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
@@ -528,6 +527,10 @@ namespace InternalSystem.Controllers
             if (!string.IsNullOrWhiteSpace(name))
             {
                 SearchProfileDetail = SearchProfileDetail.Where(a => a.EmployeeName == name);
+            }
+            if(string.IsNullOrWhiteSpace(number)&& string.IsNullOrWhiteSpace(name))
+            {
+                return null;
             }
             return await SearchProfileDetail.FirstOrDefaultAsync();
         }
