@@ -550,6 +550,7 @@
                                     .then(response => {
                                         //★成功
                                         this.text = response.data;
+                                        console.log(this.text);
                                         $("#toastSuc").fadeIn("fast");
                                         setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                     })
