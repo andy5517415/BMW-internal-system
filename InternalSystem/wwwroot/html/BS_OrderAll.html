@@ -62,6 +62,8 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"></script>
+    
 
 </head>
 
@@ -371,28 +373,28 @@
 
                 <nav class="container" id="navInf">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                         id="layout-navbar">
-
+                        id="layout-navbar" style="height: 80px;">
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
                             <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
                                 😊您好
-                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
                                 📋工號：
-                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
                                 💻部門：
                                 <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                             </div>
                             <!-- /問好 -->
-
+                
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-
+                
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                                       data-bs-toggle="dropdown">
+                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="../assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
+                                            <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -401,55 +403,28 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="../assets/img/avatars/1.png"
-                                                                 class="w-px-40 h-auto rounded-circle" />
+                                                            <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="fw-semibold d-block">John Doe</span>
-                                                        <small class="text-muted">Admin</small>
+                                                        <span class="fw-semibold d-block fs-5">{{navInf.Name}}</span>
+                                                        <small class="text-muted fs-6">{{navInf.PositionName}}</small>
                                                     </div>
                                                 </div>
                                             </a>
                                         </li>
+                
                                         <li>
-                                            <div class="dropdown-divider"></div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-user me-2"></i>
-                                                <span class="align-middle">My Profile</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-cog me-2"></i>
-                                                <span class="align-middle">Settings</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <span class="d-flex align-items-center align-middle">
-                                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                    <span class="flex-grow-1 align-middle">Billing</span>
-                                                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <div class="dropdown-divider"></div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="auth-login-basic.html">
+                                            <a class="dropdown-item" href="#" @click="DoLogOut">
                                                 <i class="bx bx-power-off me-2"></i>
-                                                <span class="align-middle">Log Out</span>
+                                                <span class="align-middle">登出</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <!--/ User -->
                             </ul>
-
+                
                         </div>
                     </nav>
                     <!-- / Navbar -->
@@ -459,7 +434,7 @@
 
 
 
-                <div id="divorderall" v-cloak>
+                <div id="divorderall">
 
 
                     <!-- / Navbar -->
@@ -477,15 +452,16 @@
                                 <div class="text-nowrap">
 
 
-                                    <!-- 尚未完成篩選條件 -->
-                                    <!--<div class="row">
+                                     <!--尚未完成篩選條件--> 
+                                    <div class="row">
                                         <div class="col-6">
                                             <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
                                                     v-model="sl.car"
+                                                    @change="filter"
                                                     >
-                                                <option selected disabled value="999">請選擇車款</option>
+                                                <option selected value="0">請選擇車款</option>
                                                 <option value="1">M4 Competition</option>
                                                 <option value="2">X7 xDrive40i</option>
                                                 <option value="3">iX xDrive40 旗艦版</option>
@@ -496,8 +472,9 @@
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
                                                     v-model="sl.area"
+                                                    @change="filter"
                                                     >
-                                                <option selected disabled value="999">請選擇代理商區域</option>
+                                                <option selected value="0">請選擇代理商區域</option>
                                                 <option value="北區">北區</option>
                                                 <option value="中區">中區</option>
                                                 <option value="南區">南區</option>
@@ -505,35 +482,20 @@
                                         </div>
                                     </div>
 
-                                    <button @click="filter" type="button" class="">查詢
+                                    <!--<button @click="filter" type="button" class="">查詢
                                     </button>-->
 
 
-                                    <table class="table table-striped table-hover">
-                                        <thead class="bg-black">
-                                            <tr>
-                                                <th class="fs-4 text-white fw-bold">訂單編號</th>
-                                                <th class="fs-4 text-white fw-bold">下訂車款</th>
-                                                <th class="fs-4 text-white fw-bold">建立訂單時間</th>
-                                                <th class="fs-4 text-white fw-bold">修改訂單時間</th>
-                                                <th class="fs-4 text-white fw-bold">代理商區域</th>
-                                                <th class="fs-4 text-white fw-bold">接單狀態</th>
-                                                <th class="fs-4 text-white fw-bold">製程</th>
-                                                <th class="fs-4 text-white fw-bold">廠區</th>
-                                            </tr>
-                                        </thead>
-                                        <!--<tbody class="table-border-bottom-0">
-            <tr v-for="(o,key) in order">
-                <td><strong>{{o.orderNumber}}</strong></td>
-                <td>{{o.optionalName}}</td>
-                <td>{{o.orderdatetime.substring(0,16).replace('T', ' ')}}</td>
-                <td>{{(o.editdatetime==null)? 'N/A' : o.editdatetime.substring(0,16).replace('T', ' ')}}</td>
-                <td>{{o.area}}</td>
-                <td>{{o.isAccepted==1 ? '是':'否'}}</td>
-            </tr>
-
-        </tbody>-->
-                                    </table>
+                                    <div class="row">
+                                                <p class="text-center col-2 fs-4 fw-blod">訂單編號</p>
+                                                <p class="text-center col-1 fs-4 fw-blod">下訂車款</p>
+                                                <p class="text-center col-2 fs-4 fw-blod">建立訂單時間</p>
+                                                <p class="text-center col-2 fs-4 fw-blod">修改訂單時間</p>
+                                                <p class="text-center col-1 fs-4 fw-blod">代理商</p>
+                                                <p class="text-center col-1 fs-4 fw-blod">接單狀態</p>
+                                                <p class="text-center col-1 fs-4 fw-blod">製程</p>
+                                                <p class="text-center col-2 fs-4 fw-blod">廠區</p>                                        
+                                    </div>
                                 </div>
                                 <!--/ Basic Bootstrap Table -->
 
@@ -551,14 +513,14 @@
                                                     :data-bs-target="'#'+accordionOne[key]"
                                                     aria-expanded="true"
                                                     aria-controls="accordionOne">
-                                                <strong class=" col-2 fs-6 text-center my-1">#{{key+1}}/&nbsp;&nbsp;{{o.orderNumber}}</strong>
-                                                <strong class=" col-2 fs-6 text-center my-1">{{o.detail[0].optional.optionalName.substring(4)}}</strong>
-                                                <strong class=" col-2 fs-6 text-center my-1">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
-                                                <strong class=" col-2 fs-6 text-center my-1">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
-                                                <strong class=" col-2 fs-6 text-center my-1">{{o.areaName}}</strong>
-                                                <strong class=" col-2 fs-6 text-center my-1">{{o.isAccepted==1 ? '是':'否'}}</strong>
-                                                <!--<strong class=" col-1 fs-5 text-center my-1">製程</strong>
-                                                <strong class=" col-1 fs-5 text-center my-1">廠區</strong>-->
+                                                <strong class="col-2 fs-6 text-center my-1">#{{key+1}}/&nbsp;&nbsp;{{o.orderNumber}}</strong>
+                                                <strong class="col-1 fs-6 text-center my-1">{{o.detail[0].optionalName.substring(4)}}</strong>
+                                                <strong class="col-2 fs-6 text-center my-1">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
+                                                <strong class="col-2 fs-6 text-center my-1">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
+                                                <strong class="col-1 fs-6 text-center my-1">{{o.areaName}}</strong>
+                                                <strong class="col-1 fs-6 text-center my-1">{{o.isAccepted==1 ? '是':'否'}}</strong>
+                                                <strong class="col-1 fs-5 text-center my-1">{{(o.pparea=='N/A'||o.pparea==null)?'尚未指派':o.pparea}}</strong>
+                                                <strong class="col-2 fs-5 text-center my-1">{{(o.ppname=='N/A'||o.ppname==null)?'尚未指派':o.ppname}}</strong>
                                             </button>
                                         </h2>
 
@@ -567,59 +529,17 @@
                                              >
                                             <div class="accordion-body">
                                                 <p>訂單編號:{{o.orderNumber}}</p>
-                                                <p>車款:{{o.detail[0].optional.optionalName.substring(4)}}</p>
-                                                <p>車漆顏色:{{o.detail[1].optional.optionalName}}</p>
-                                                <p>內裝材質:{{o.detail[2].optional.optionalName}}</p>
-                                                <p>輪圈款式:{{o.detail[3].optional.optionalName}}</p>
-                                                <p>飾板   : {{o.detail[4].optional.optionalName}}   </p>
-                                                <p>頭燈款式:{{o.detail[5].optional.optionalName}}</p>
-                                                <p>中央鞍座:{{o.detail[6].optional.optionalName}}</p>
-                                                <p>天窗:   {{o.detail[7].optional.optionalName}}</p>
-                                                <p>多媒體: {{o.detail[8].optional.optionalName}}</p>
+                                                <p>車款:{{o.detail[0].optionalName.substring(4)}}</p>
+                                                <p>車漆顏色:{{o.detail[1].optionalName}}</p>
+                                                <p>內裝材質:{{o.detail[2].optionalName}}</p>
+                                                <p>輪圈款式:{{o.detail[3].optionalName}}</p>
+                                                <p>飾板   : {{o.detail[4].optionalName}}   </p>
+                                                <p>頭燈款式:{{o.detail[5].optionalName}}</p>
+                                                <p>中央鞍座:{{o.detail[6].optionalName}}</p>
+                                                <p>天窗:   {{o.detail[7].optionalName}}</p>
+                                                <p>多媒體: {{o.detail[8].optionalName}}</p>
                                                 <p>價格: {{o.price}}</p>
 
-                                                <!--<table class="table table-striped table-hover">
-        <thead class="bg-black">
-            <tr>
-                <hr>
-                <th class="fs-4 text-white fw-bold">製程</th>
-                <th class="fs-4 text-white fw-bold">開始時間</th>
-                <th class="fs-4 text-white fw-bold">結束時間</th>
-                <th class="fs-4 text-white fw-bold">總時(hr)</th>
-                <th class="fs-4 text-white fw-bold">狀態</th>
-                <th class="fs-4 text-white fw-bold">修改</th>
-        </thead>
-        <tbody class="table-border-bottom-0">
-            <tr>
-                <td>
-                    <i class="fab fa-angular fa-lg text-danger fs-5"></i>
-                    <strong class="fs-5">製程A</strong>
-                </td>
-                <td>
-                    <span class="label-primary me-1 fs-5"><strong class="fs-5">2023-01-01</strong> </span>
-                </td>
-                <td>
-                    <span class="label-primary me-1 fs-5"><strong class="fs-5">2023-01-10</strong> </span>
-                </td>
-                <td>
-                    <span class="label-primary me-1 fs-5"><strong class="fs-5">200</strong></span>
-                </td>
-                <td>
-                    <span class="label-primary me-1 fs-5"><strong class="fs-5">已完成</strong></span>
-
-                </td>
-                <td>
-                    <div class="dropdown">
-
-                        <div class="">
-                            <a class="dropdown-item" href="HR_ToDoItems_Work.html" type="button"><i class="bx bx-edit-alt me-2"></i> <strong class="fs-5">檢閱</strong></a>
-
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-    </table>-->
                                             </div>
                                         </div>
                                     </div>
@@ -670,52 +590,36 @@
 
 
     <script>
-
-
-
         var vvue = Vue.createApp({
-
             data() {
                 return {
                     limit: {},
                     order: {},
                     accordionOne: [],
                     filtered: {},
-                    sl: { car: 999, area: 999 },
-                    leftjoin: []
+                    sl: { car: 0, area: 0 }
                 }
             },
             computed: {
-
-
             },
             methods: {
                 filter() {
                     this.filtered = {};
-
-
-
-
-
-                    //this.filtered = this.order.filter(function (item) {
-                    //    return item.detail[0].optional.optionalId == this.sl.car;                  
-                    //});
-                    //console.log(this.sl.car);
-                    //if (sl.area.toString().indexOf('區')>0) {
-                    //    var b = e.target.value.toString();
-                    //}
-                    //else if (e.target.value.toString().indexOf('區') < 0){
-                    //    var a = e.target.value.toString();
-                    //}
-                    //else {
-                    //this.filtered = this.order;
-                    //}
-
-                    //this.order.forEach((x,idx) => {
-                    //    if (x.detail[0].optional.optionalName == e.target.value.toString()) {
-                    //     filt=   
-                    //    }
-                    //})
+                    console.log(this.sl.car);
+                    this.filtered = this.order.filter((item) => {
+                        if (this.sl.car != 0 && this.sl.area == 0) {
+                            return item.detail[0].optionalId == this.sl.car;
+                        }
+                        else if (this.sl.car == 0 && this.sl.area != 0) {
+                            return item.areaName == this.sl.area;
+                        }
+                        else if (this.sl.car != 0 && this.sl.area != 0) {
+                            return item.detail[0].optionalId == this.sl.car && item.areaName == this.sl.area;
+                        }
+                        else {
+                            return this.filtered;
+                        }
+                    });
                 }
             },
             mounted() {
@@ -729,20 +633,6 @@
                         });
                         console.log(this.accordionOne);
                     });
-
-                //axios.get('/api/BusinessOrders/GetOrderAllSql').then(g => {
-                //    console.log('-----------');
-                //    console.log(g.data);
-                //    //    this.leftjoin[0].ordernum = g.data[0].orderNumber;
-                //    //this.leftjoin[0].areaname = g.data[0].areaNameProcess;
-                //    //this.leftjoin[0].processname = g.data[0].processName;
-                //    //g.data.forEach((x, idx) => {
-                //    //})
-                //    //console.log(this.leftjoin);
-                //})
-
-
-
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }
         }).mount('#divorderall');

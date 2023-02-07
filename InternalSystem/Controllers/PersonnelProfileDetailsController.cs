@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternalSystem.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace InternalSystem.Controllers
 {
@@ -42,6 +43,75 @@ namespace InternalSystem.Controllers
             return personnelProfileDetail;
         }
 
+        //員工資料查看
+        // GET: api/PersonnelProfileDetails/Personnel
+        [HttpGet("Personnel")]
+        public async Task<ActionResult<dynamic>> GetPersonnelProfile(int? depid,int? position , int? rank,bool? dutystatus, int page)
+        {
+            var personnelProfileDetail = from p in _context.PersonnelProfileDetails
+                                         join dep in _context.PersonnelDepartmentLists on p.DepartmentId equals dep.DepartmentId
+                                         join r in _context.PersonnelRanks on p.RankId equals r.RankId
+                                         join ps in _context.PersonnelPositions on p.PositionId equals ps.PositionId
+                                         select new
+                                         {
+                                             p.EmployeeName,
+                                             p.EmployeeNumber,
+                                             p.DepartmentId,
+                                             p.DutyStatus,
+                                             dep.DepName,
+                                             p.PositionId,
+                                             p.RankId,
+                                             r.Rank,
+                                             ps.PositionName
+                                         };
+
+            if (personnelProfileDetail == null)
+            {
+                return NotFound();
+            }
+            if(depid != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.DepartmentId == depid); }
+            if(position != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.PositionId == position); }
+            if(rank != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.RankId == rank); }
+            if(dutystatus != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.DutyStatus == dutystatus); }
+            var query = personnelProfileDetail.Skip((page - 1) * 10).Take(10);
+
+            return await query.ToListAsync();
+        }
+
+
+        //員工資料查看頁面
+        // GET: api/PersonnelProfileDetails/PersonnelPage
+        [HttpGet("PersonnelPage")]
+        public int  GetPersonnelProfilePage(int? depid, int? position, int? rank, bool? dutystatus)
+        {
+            var personnelProfileDetail = from p in _context.PersonnelProfileDetails
+                                         join dep in _context.PersonnelDepartmentLists on p.DepartmentId equals dep.DepartmentId
+                                         join r in _context.PersonnelRanks on p.RankId equals r.RankId
+                                         join ps in _context.PersonnelPositions on p.PositionId equals ps.PositionId
+                                         select new
+                                         {
+                                             p.EmployeeName,
+                                             p.EmployeeNumber,
+                                             p.DepartmentId,
+                                             p.DutyStatus,
+                                             dep.DepName,
+                                             p.PositionId,
+                                             p.RankId,
+                                             r.Rank,
+                                             ps.PositionName
+                                         };
+
+            if (personnelProfileDetail == null)
+            {
+                return 0;
+            }
+            if (depid != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.DepartmentId == depid); }
+            if (position != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.PositionId == position); }
+            if (rank != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.RankId == rank); }
+            if (dutystatus != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.DutyStatus == dutystatus); }
+            var total  = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelProfileDetail.Count()) / 10)); 
+            return total;
+        }
         //// GET: api/PersonnelProfileDetails/oderby/findnew
         //[HttpGet("oderby/findnew")]
         //public ActionResult ProfileDetail()

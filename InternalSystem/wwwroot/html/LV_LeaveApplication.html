@@ -375,30 +375,29 @@
                 <!-- Navbar -->
 
                 <nav class="container" id="navInf">
-                    
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                         id="layout-navbar">
-
+                        id="layout-navbar" style="height: 80px;">
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
-                <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
-                  😊您好
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
-                📋工號：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
-                💻部門：
-                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
-                </div>
-                <!-- /問好 -->
-
+                            <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
+                                😊您好
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                📋工號：
+                                <span class="fw-bold mx-2 fs-2"
+                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                💻部門：
+                                <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
+                            </div>
+                            <!-- /問好 -->
+                
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-
+                
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                                       data-bs-toggle="dropdown">
+                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                            <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -407,55 +406,28 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="../assets/img/avatars/1.png" alt
-                                                                 class="w-px-40 h-auto rounded-circle" />
+                                                            <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="fw-semibold d-block">John Doe</span>
-                                                        <small class="text-muted">Admin</small>
+                                                        <span class="fw-semibold d-block fs-5">{{navInf.Name}}</span>
+                                                        <small class="text-muted fs-6">{{navInf.PositionName}}</small>
                                                     </div>
                                                 </div>
                                             </a>
                                         </li>
+                
                                         <li>
-                                            <div class="dropdown-divider"></div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-user me-2"></i>
-                                                <span class="align-middle">My Profile</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-cog me-2"></i>
-                                                <span class="align-middle">Settings</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <span class="d-flex align-items-center align-middle">
-                                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                    <span class="flex-grow-1 align-middle">Billing</span>
-                                                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <div class="dropdown-divider"></div>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="auth-login-basic.html">
+                                            <a class="dropdown-item" href="#" @click="DoLogOut">
                                                 <i class="bx bx-power-off me-2"></i>
-                                                <span class="align-middle">Log Out</span>
+                                                <span class="align-middle">登出</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <!--/ User -->
                             </ul>
-
+                
                         </div>
                     </nav>
                     <!-- / Navbar -->
@@ -541,102 +513,143 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card m-4 my-5 shadow card-body">
-                                <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
-                                <div class="row p-3 mx-5 rounded-3 ">
-                                    <div class="mb-3 col-md-2">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
-                                        <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
-                                    </div>
-                                    <div class="mb-3 col-md-2">
-                                        <div style="height: 43px;"></div>
-                                        <input class="form-control fs-5" type="time" v-model="application.startTime" id="html5-date-input" />
-                                    </div>
+                        <div class="card m-4 my-5 shadow card-body">
+                            <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
+                            <div class="row p-3 mx-5 rounded-3 ">
+                                <div class="mb-3 col-md-2">
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
+                                    <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div style="height: 43px;"></div>
+                                    <input class="form-control fs-5" type="time" v-model="application.startTime" id="html5-date-input" />
+                                </div>
 
-                                    <div class="mb-3 col-md-2">
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
-                                        <input class="form-control fs-5" type="date" v-model="application.endDate" id="Endtimeforvacation" />
-                                    </div>
-                                    <div class="mb-3 col-md-2">
-                                        <div style="height: 43px;"></div>
-                                        <input class="form-control fs-5" type="time" v-model="application.endTime" id="html5-time-input" />
-                                    </div>
+                                <div class="mb-3 col-md-2">
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
+                                    <input class="form-control fs-5" type="date" v-model="application.endDate" id="Endtimeforvacation" />
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div style="height: 43px;"></div>
+                                    <input class="form-control fs-5" type="time" v-model="application.endTime" id="html5-time-input" />
+                                </div>
 
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
-                                            <select id="Rank" class="select2 form-select" v-model="application.leaveType">
-                                                <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
+                                <div class="row my-2">
+                                    <div class="col-md-2">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
+                                        <select id="Rank" class="select2 form-select" v-model="application.leaveType">
+                                            <option v-for="leave in leavetype" :value="leave.leaveTypeId">{{leave.type}}</option>
 
-                                            </select>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2" v-if="employeelist.positionId<7">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
+                                        <select id="proxy" class="select2 form-select" v-model="application.proxy">
+                                            <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2" v-if="employeelist.positionId<7">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
+                                        <select id="proxy" class="select2 form-select" v-model="application.auditManerger">
+                                            <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                        <textarea class="form-control fs-5" id="Vacationreason" v-model="application.reason" rows="6"
+                                                  col="6"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row my-2" style="display:none">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
+                                        <textarea class="form-control fs-5" id="Vacationreason" v-model="application.statusId" rows="6"
+                                                  col="6"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row my-2" role="alert">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
+
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                    <img :src="application.photo"
+                                         alt="請上傳圖片"
+                                         class="d-block rounded"
+                                         height="100"
+                                         width="100"
+                                         id="uploadedAvatar" />
+                                    <div class="button-wrapper">
+                                        <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
+                                            上傳照片
+                                            <input type="file"
+                                                   id="upload"
+                                                   class="account-file-input"
+                                                   hidden
+                                                   accept="image/png, image/jpeg"
+                                                   @change="uploadphoto" />
+                                        </label>
+
+                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                            <i class="bx bx-reset d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                        </button>
+
+                                        <p class="text-muted mb-0">病假請附上診斷證明或處方籤</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ★Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border border-5">
+                                        <div class="modal-header mb-3">
+                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                &nbsp請假資料確認
+                                            </p>
                                         </div>
-                                        <div class="col-md-2" v-if="employeelist.positionId<7">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">代理人</label>
-                                            <select id="proxy" class="select2 form-select" v-model="application.proxy">
-                                                <option v-for="item in proxy" :value="item.employeeId">{{item.employeeName}}</option>
-
-                                            </select>
+                                        <div class="row justify-content-center">
+                                            <hr class="col-10">
                                         </div>
-                                        <div class="col-md-2" v-if="employeelist.positionId<7">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="proxy">審核主管</label>
-                                            <select id="proxy" class="select2 form-select" v-model="application.auditManerger">
-                                                <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}}</option>
-                                        
-                                            </select>
+                                        <div class="modal-body text-start mt-0">
+                                            <p class="fs-5">✏️請假開始時間：{{application.startDate}} {{application.startTime}}</p>
+                                            <p class="fs-5">✏️請假結束時間：{{application.endDate}} {{application.endTime}}</p>
+                                            <p class="fs-5" v-if="application.leaveType==1">✏️請假假別：事假</p>
+                                            <p class="fs-5" v-if="application.leaveType==2">✏️請假假別：病假</p>
+                                            <p class="fs-5" v-if="application.leaveType==3">✏️請假假別：特假</p>
+                                            <p class="fs-5" v-if="application.leaveType==4">✏️請假假別：生理假</p>
+                                            <p class="fs-5" v-if="application.leaveType==5">✏️請假假別：喪假</p>
+                                            <p class="fs-5" v-if="application.leaveType==6">✏️請假假別：婚假</p>
+                                            <p class="fs-5" v-if="application.leaveType==7">✏️請假假別：育嬰假</p>
+                                            <p class="fs-5" v-if="application.leaveType==8">✏️請假假別：產假</p>
+                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認申請?</p>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
-                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="application.reason" rows="6"
-                                                      col="6"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2" style="display:none">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
-                                            <textarea class="form-control fs-5" id="Vacationreason" v-model="application.statusId" rows="6"
-                                                      col="6"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2" role="alert">
-                                        <div class="mb-3 col-md-12">
-                                            <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
-
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                        <img :src="application.photo"
-                                             alt="請上傳圖片"
-                                             class="d-block rounded"
-                                             height="100"
-                                             width="100"
-                                             id="uploadedAvatar" />
-                                        <div class="button-wrapper">
-                                            <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
-                                                上傳照片
-                                                <input type="file"
-                                                       id="upload"
-                                                       class="account-file-input"
-                                                       hidden
-                                                       accept="image/png, image/jpeg"
-                                                       @change="uploadphoto" />
-                                            </label>
-
-                                            <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
-                                                <i class="bx bx-reset d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block" @click="photoreset">Reset</span>
-                                            </button>
-
-                                            <p class="text-muted mb-0">病假請附上診斷證明或處方籤</p>
+                                        <div class="modal-footer">
+                                            <!-- 存檔按鈕 -->
+                                            <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 ">送出</button>
+                                            <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 "data-bs-dismiss="modal">取消</button>
+                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="my-3 d-md-flex justify-content-md-end">
-                                    <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 " >送出</button>
-                                    <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
-                                </div>
+                            </div>
+                            <!-- 確認視窗按鈕 -->
+                            <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    送出申請
+                                </button>
+                                <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
+                                <!--<button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">重打</button>-->
+                            </div>
+                            <!--<div class="my-3 d-md-flex justify-content-md-end">
+                                <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 ">送出</button>
+                                <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
+                            </div>-->
                             </form>
                         </div>
                     </div>
@@ -700,72 +713,67 @@
                     //alert('OK');
                     //一般員工請假
                     if (this.employeedata.PositionId < 7) {
-                        if (confirm('是否送出請假資料?') == true) {
+                        if (this.application.leaveType != null &&
+                            this.application.proxy != null && this.application.auditManerger != null
+                            && this.application.reason != null
+                        ) {
+                            // 判斷是否日期時間是否填入
+                            if (this.application.startDate != null && this.application.endDate != null &&
+                                this.application.startTime != null && this.application.endTime != null) {
+                                axios.post('/api/PersonnelLeaveForms', this.application)
+                                    .then(response => {
+                                        console.log(response.data)
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                            if (this.application.leaveType != null &&
-                                this.application.proxy != null && this.application.auditManerger != null
-                                && this.application.reason != null
-                            ) {
-                                // 判斷是否日期時間是否填入
-                                if (this.application.startDate != null && this.application.endDate != null &&
-                                    this.application.startTime != null && this.application.endTime != null) {
-                                    axios.post('/api/PersonnelLeaveForms', this.application)
-                                        .then(response => {
-                                            console.log(response.data)
-                                            //★成功
-                                            this.text = response.data;
-                                            $("#toastSuc").fadeIn("fast");
-                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-
-                                            //失敗
-                                            this.text = response.data;
-                                            $("#toastErr").fadeIn("fast");
-                                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                            if (response.data == "申請成功") {
-                                                window.location = "/html/PS_ToDoItems.html";
-                                            }
-                                        }).catch(err => alert(err))
-                                }
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                        if (response.data == "申請成功") {
+                                            window.location = "/html/PS_ToDoItems.html";
+                                        }
+                                    }).catch(err => alert(err))
                             }
-                            else {
-                                this.text = '請確實填寫請假資料!';
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                            }
+                        }
+                        else {
+                            this.text = '請確實填寫請假資料!';
+                            $("#toastErr").fadeIn("fast");
+                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         }
                     }
 
                     //主管請假
                     if (this.employeedata.PositionId >= 7) {
-                        if (confirm('是否送出請假資料?') == true) {
-                            if (this.application.leaveType != null) {
-                                // 判斷是否日期時間是否填入
-                                if (this.application.startDate != null && this.application.endDate != null &&
-                                    this.application.startTime != null && this.application.endTime != null) {
-                                    axios.post('/api/PersonnelLeaveForms/manager', this.application)
-                                        .then(response => {
-                                            console.log(response.data)
-                                            //★成功
-                                            this.text = response.data;
-                                            $("#toastSuc").fadeIn("fast");
-                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                        if (this.application.leaveType != null) {
+                            // 判斷是否日期時間是否填入
+                            if (this.application.startDate != null && this.application.endDate != null &&
+                                this.application.startTime != null && this.application.endTime != null) {
+                                axios.post('/api/PersonnelLeaveForms/manager', this.application)
+                                    .then(response => {
+                                        console.log(response.data)
+                                        //★成功
+                                        this.text = response.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                            //失敗
-                                            this.text = response.data;
-                                            $("#toastErr").fadeIn("fast");
-                                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                            if (response.data == "申請成功") {
-                                                window.location = "/html/PS_ToDoItems.html";
-                                            }
-                                        }).catch(err => alert(err))
-                                    //window.location = "/html/LV_LeaveApplication.html"
-                                }
+                                        //失敗
+                                        this.text = response.data;
+                                        $("#toastErr").fadeIn("fast");
+                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                        if (response.data == "申請成功") {
+                                            window.location = "/html/PS_ToDoItems.html";
+                                        }
+                                    }).catch(err => alert(err))
+                                //window.location = "/html/LV_LeaveApplication.html"
                             }
-                            else {
-                                this.text = '請確實填寫請假資料!';
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                            }
+                        }
+                        else {
+                            this.text = '請確實填寫請假資料!';
+                            $("#toastErr").fadeIn("fast");
+                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
                         }
                     }
                 },
