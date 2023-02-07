@@ -179,6 +179,11 @@
                                       <div data-i18n="Account">新建員工資料</div>
                                   </a>
                               </li>
+                            <li class="menu-item  active">
+                                <a href="HR_EmpProfileSearch.html" class="menu-link">
+                                    <div data-i18n="Account">員工資料查詢</div>
+                                </a>
+                            </li>
                               <li class="menu-item">
                                   <a href="HR_EmpProfileEdit.html" class="menu-link">
                                       <div data-i18n="Account">員工資料修改</div>
@@ -194,21 +199,12 @@
                                       <div data-i18n="Account">加班資料查詢/修改</div>
                                   </a>
                               </li>
-                              <li class="menu-item active">
+                              <li class="menu-item">
                                   <a href="HR_EmpProfileAttendSearch.html" class="menu-link">
                                       <div data-i18n="Account">員工出勤查詢</div>
                                   </a>
                               </li>
-                              <li class="menu-item">
-                                  <a href="HR_ToDoItems_Leave.html" class="menu-link">
-                                      <div data-i18n="Account">員工請假審核</div>
-                                  </a>
-                              </li>
-                              <li class="menu-item">
-                                  <a href="HR_ToDoItems_Work.html" class="menu-link">
-                                      <div data-i18n="Account">員工加班審核</div>
-                                  </a>
-                              </li>
+                              
 
                           </ul>
                       </li>
@@ -620,7 +616,7 @@
                     return {
                         text: "",
                         empNumber: {},
-                        employeedata: { "depId": "", "dutyStatus": "","positionId":"","rankId":""},
+                        employeedata: { "depId": "", "dutyStatus": "", "positionId": "", "rankId": "" },
                         emplist: {},
                         positionlist: {},
                         ranklist: {},
@@ -634,8 +630,8 @@
                     search: function () {
 
 
-                        axios.get('/api/PersonnelProfileDetails/Personnel/?depId=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId+ '&dutystatus=' + this.employeedata.dutyStatus
-                        + '&page=' + 1)
+                        axios.get('/api/PersonnelProfileDetails/Personnel/?depId=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId + '&dutystatus=' + this.employeedata.dutyStatus
+                            + '&page=' + 1)
                             .then(response => {
                                 this.emplist = response.data;
                                 this.nowpage = 1;
@@ -664,8 +660,8 @@
                         //            if (this.emplist.length == 0) { alert('複合查詢:查無此項') }
                         //        }).catch(err => { console.log(err); alert('查無此項') })
 
-                        axios.get('/api/PersonnelProfileDetails/PersonnelPage/?depid=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId+ '&dutystatus=' + this.employeedata.dutyStatus
-                            )
+                        axios.get('/api/PersonnelProfileDetails/PersonnelPage/?depid=' + this.employeedata.depId + '&position=' + this.employeedata.positionId + '&rank=' + this.employeedata.rankId + '&dutystatus=' + this.employeedata.dutyStatus
+                        )
                             .then(response => {
                                 this.page = response.data;
                                 console.log(this.page)
