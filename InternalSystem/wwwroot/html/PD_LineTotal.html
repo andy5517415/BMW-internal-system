@@ -469,12 +469,12 @@
          <!-- 選擇生產的工作位置報工-->
               <div class="container-xxl flex-grow-1 container-p-y">
                   <div class="card mb-4 m-4 ">
-                    <div class="alert alert-primary text-center mt-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
-                      報工查詢
+                    <div class="alert alert-primary text-center mt-5 fs-2 fw-bold col-3 mx-auto" style="width: 300px;" role="alert">
+                      製程總工時查詢
                     </div>
                       <div class="row my-2 mb-4 justify-content-center card-body ">
                           <div class="mb-3 mb-3 col-md-2">
-                              <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">員工編號</label>
+                              <label for="EmployeeNumber" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">訂單編號</label>
                               <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-4">員工姓名</label>
                               <label for="StarDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">開始日期</label>
                               <label for="EndDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 mt-4">結束日期</label>
@@ -482,14 +482,14 @@
                               
                           </div>
                           <div class="mb-3 col-md-3 d-flex flex-column">
-                              <input class="form-control fs-5 mb-4" type="text"  id="EmployeeNumber" />
+                              <input class="form-control fs-5 mb-4" type="text"  id="EmployeeNumber" v-model="Search.orderNumber"/>
                               <input class="form-control fs-5" type="text"  id="Employeename" />
                               <input class="form-control fs-5 my-4" type="date"  id="StarDate" />
                               <input class="form-control fs-5 mt-1" type="date"  id="EndDate" />
                           </div>
                       </div>
                       <div class="mb-5 d-flex justify-content-center">
-                        <button type="button"  class="btn btn-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                        <button type="button"  class="btn btn-primary fs-4 fw-bold border-3 me-3 " v-on:click="SearchEnter(Search)">查詢</button>
                         <button type="reset"  class="btn btn-secondary fs-4 fw-bold border-3 me-3">清除</button>
                       </div>
                   </div>
@@ -526,7 +526,7 @@
                                   <strong for="" class=" col-2 fs-5 text-center my-1">{{title.orderNumber}}</strong>
                                   <strong for="" class=" col-2 fs-5 text-center my-1">{{title.optionalName.slice(4)}}</strong>
                                   <strong for="" class=" col-2 fs-5 text-center my-1">{{title.starDate}}</strong>
-                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.endDate}}</strong>
+                                  <strong for="" class=" col-2 fs-5 text-center my-1">{{title.endDate.substring(0,10)}}</strong>
                                   <strong for="" class=" col-2 fs-5 text-center my-1">{{title.total}}</strong>
                                   <strong for="" class=" col-1 fs-5 text-center my-1">{{title.sta}}</strong>
                               </button>
@@ -557,7 +557,7 @@
                                                   <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.starDate}}</strong> </span>
                                               </td>
                                               <td>
-                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.endDate}}</strong> </span>
+                                                  <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.endDate == null? "N/A":p.endDate}}</strong> </span>
                                               </td>
                                               <td>
                                                   <span class="label-primary me-1 fs-5"><strong class="fs-5">{{p.tot[key]}}</strong></span>
@@ -626,7 +626,8 @@
                 return {
                     item: {},
                     dd: [],
-                    accordionOne: []
+                    accordionOne: [],
+                    Search: {}
                 }
             },
             mounted() {
@@ -656,6 +657,31 @@
             },
             methods: {
 
+                SearchEnter: function () {
+                    console.log('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber)
+                    axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber).
+                        then(response => {
+                            this.item = response.data
+                            console.log(this.item)
+                            this.dd = [];
+                            for (var i = 0; i < this.item.length; i++) {
+                                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                                    then(response => {
+                                        this.dd.push(response.data);
+                                        //console.log(response.data)
+                                    })
+                                this.item.forEach((x, index) => {
+                                    this.accordionOne.push(x.orderNumber)
+                                })
+                            }
+                            this.dd.sort((a, b) => a.orderId.localeCompare(b.orderId));
+                            //this.dd.sort(function (a, b) {
+                            //    return a.orderId - b.orderId;
+                            //})
+
+                        })
+                }
             }
         }
         Vue.createApp(app).mount('#app');
@@ -664,34 +690,34 @@
 
 
 
-                                                                     //axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-                                                                                //                    then(async function (response) {
-                                                                                //                        this.item = response.data
-                                                                                //                        for (var i = 0; i < this.item.length; i++) {
-                                                                                //                            await x(i);
-                                                                                //                            //await console.log(this.dd)
-                                                                                //                            //console.log(j)
-                                                                                //                            this.item[i].Total = this.dd.total;
-                                                                                //                            this.item[i].StartDay = this.dd.starDate;
-                                                                                //                            this.item[i].EndDay = this.dd.endDate;
-                                                                                //                            this.item[i].proess = this.dd.proess;
-                                                                                //                            console.log(this.item)
+        //axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+        //    then(async function (response) {
+        //        this.item = response.data
+        //        for (var i = 0; i < this.item.length; i++) {
+        //            await x(i);
+        //            //await console.log(this.dd)
+        //            //console.log(j)
+        //            this.item[i].Total = this.dd.total;
+        //            this.item[i].StartDay = this.dd.starDate;
+        //            this.item[i].EndDay = this.dd.endDate;
+        //            this.item[i].proess = this.dd.proess;
+        //            console.log(this.item)
 
-                                                                                //                        }
-                                                                                //                        //this.item.forEach((x, index) => {
-                                                                                //                        //    this.accordionOne.push(x.orderNumber)
-                                                                                //                        //})
-                                                                                //                    });
+        //        }
+        //        //this.item.forEach((x, index) => {
+        //        //    this.accordionOne.push(x.orderNumber)
+        //        //})
+        //    });
 
-                                                                                //        async function x(i) {
-                                                                                //            await axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                                                                //                then(await function (response) {
-                                                                                //                    this.dd = response.data;
-                                                                                //                    //console.log(this.dd);
-                                                                                //                    //this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess, orderid: response.data.orderId });
+        //async function x(i) {
+        //    await axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+        //        then(await function (response) {
+        //            this.dd = response.data;
+        //            //console.log(this.dd);
+        //            //this.dd.push({ Total: response.data.total, StartDay: response.data.starDate, EndDay: response.data.endDate, proess: response.data.proess, orderid: response.data.orderId });
 
 
-                                                                                //                })
+        //        })
     </script>
       <!-- session -->
     <script src="../assets/js/LoginSession.js"></script>

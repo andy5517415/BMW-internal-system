@@ -212,7 +212,7 @@ namespace InternalSystem.Controllers
         //訂單的總時間
         // GET: api/ProductionContexts/ListTotal
         [HttpGet("ListTotal")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionContextsListTotal()
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionContextsListTotal(string orderNumber)
         {
 
 
@@ -229,6 +229,10 @@ namespace InternalSystem.Controllers
                             OptionalName = BOP.OptionalName,
                             
                         };
+            if (!string.IsNullOrWhiteSpace(orderNumber))
+            {
+                query = query.Where(a => a.OrderNumber.Contains(orderNumber));
+            }
 
             return await query.ToListAsync();
         }
@@ -374,7 +378,8 @@ namespace InternalSystem.Controllers
                         join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
                         join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
                         where BOP.CategoryId == 1  && BO.IsAccepted == true && BO.OrderId == id
-                        select new
+                        orderby BO.OrderId ascending
+                            select new
                         {
                             OrderId = BO.OrderId,
                             BO.OrderNumber,
@@ -382,7 +387,7 @@ namespace InternalSystem.Controllers
                             OptionalName = BOP.OptionalName,
                             Total,
                             StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
-                            EndDate = "",
+                            EndDate = "N/A",
                             Sta = "未完成",
                             proess
 
@@ -396,6 +401,7 @@ namespace InternalSystem.Controllers
                             join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
                             join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
                             where BOP.CategoryId == 1 && BO.IsAccepted == true && BO.OrderId == id
+                            orderby BO.OrderId ascending
                             select new
                             {
                                 OrderId = BO.OrderId,
