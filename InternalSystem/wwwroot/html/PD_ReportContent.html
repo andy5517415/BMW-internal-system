@@ -378,27 +378,27 @@
 
                 <nav class="container" id="navInf">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                        id="layout-navbar" style="height: 80px;">
+                         id="layout-navbar" style="height: 80px;">
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
                             <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
                                 😊您好
                                 <span class="fw-bold mx-2 fs-2"
-                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                      style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
                                 📋工號：
                                 <span class="fw-bold mx-2 fs-2"
-                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                      style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
                                 💻部門：
                                 <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                             </div>
                             <!-- /問好 -->
-                
+
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-                
+
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -407,7 +407,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -418,7 +418,7 @@
                                                 </div>
                                             </a>
                                         </li>
-                
+
                                         <li>
                                             <a class="dropdown-item" href="#" @click="DoLogOut">
                                                 <i class="bx bx-power-off me-2"></i>
@@ -429,7 +429,7 @@
                                 </li>
                                 <!--/ User -->
                             </ul>
-                
+
                         </div>
                     </nav>
                     <!-- / Navbar -->
@@ -440,11 +440,11 @@
                 <div class="content-wrapper">
 
                     <!-- 選擇生產的工作位置報工-->
-                    <div class="container-xxl flex-grow-1 container-p-y" >
+                    <div class="container-xxl flex-grow-1 container-p-y">
                         <div id="app">
                             <!-- 我是成功的吐司 -->
                             <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                                aria-live="assertive" aria-atomic="true" id="toastSuc">
+                                 aria-live="assertive" aria-atomic="true" id="toastSuc">
                                 <div class="toast-header">
                                     <i class="bx bx bxs-bell bx-tada me-2"></i>
                                     <div class="me-auto fw-bold fs-3">通知</div>
@@ -457,7 +457,7 @@
                             </div>
                             <!-- 錯誤的吐司 -->
                             <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                                aria-live="assertive" aria-atomic="true" id="toastErr">
+                                 aria-live="assertive" aria-atomic="true" id="toastErr">
                                 <div class="toast-header">
                                     <i class="bx bx bxs-bell bx-tada me-2"></i>
                                     <div class="me-auto fw-bold fs-3">通知</div>
@@ -472,7 +472,7 @@
                                 <div class="row card-body">
                                     <div class="row my-2">
                                         <div class="col-3">
-                                            <label for="optionalName" class="fs-5">型號: {{ProcessList.optionalName}}</label>
+                                            <label for="optionalName" class="fs-5" v-on:click="show">型號: {{ProcessList.optionalName}}</label>
                                             <input id="optionalName" type="hidden" class="fs-4" v-model="ProcessList.orderId" name="optionalName" />
                                         </div>
                                         <div class="col-3">
@@ -490,7 +490,7 @@
 
                                     </div>
 
-                                    <div class="row my-2 mb-4" >
+                                    <div class="row my-2 mb-4">
                                         <div class="col-3">
                                             <label for="empname" class="fs-5">姓名: {{employee.Name}}</label>
                                             <input id="empname" class="fs-5" type="hidden" name="empname" v-model="employee.EmpID" />
@@ -499,7 +499,7 @@
                                         <label for="" class="col-3 fs-5">部門: {{employee.Depment}}</label>
                                         <label for="" class="col-1 fs-5">報工日期: </label>
                                         <div class="col-md-3">
-                                            <input class="form-control fs-5" v-model="Context.date" type="date"  id="html5-time-input" />
+                                            <input class="form-control fs-5" v-model="Context.date" type="date" id="html5-time-input" />
                                         </div>
                                     </div>
 
@@ -513,18 +513,45 @@
                                         <input class="form-control fs-5" v-model="Context.endTime" type="time" id="endTime" />
                                     </div>
 
-                                    <label for="html5-time-input" class="col-2 fs-5 my-2">共:8 hr</label>
-
                                     <div class="my-2">
                                         <label for="exampleFormControlTextarea1" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control fs-5" id="exampleFormControlTextarea1" v-model="employee.contxt"  rows="8"></textarea>
+                                        <textarea class="form-control fs-5" id="exampleFormControlTextarea1" v-model="employee.contxt" rows="8"></textarea>
                                     </div>
 
-                                    <div class="col-form-label d-flex justify-content-end">
-                                        <button type="button" class="mx-2 col-1 btn btn-primary" v-on:click="Enter()">確認</button>
-                                        <button type="button" class="mx-2 col-1 btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                   
+                                    <!-- ★Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border border-5">
+                                                <div class="modal-header mb-3">
+                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                        &nbsp新增報工
+                                                    </p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <hr class="col-10">
+                                                </div>
+                                                <div class="modal-body text-start mt-0">
+                                                    <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認新增報工?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close" v-on:click="Enter">
+                                                        確認
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
+                                    <!-- 確認按鈕 -->
+                                    <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                        <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            存檔
+                                        </button>
+                                        <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
+                                        <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3" v-on:click="Back">返回</button>
+                                    </div>
                                 </div>
 
                             </div>
@@ -536,6 +563,9 @@
                     <!-- / Layout page -->
                 </div>
 
+
+
+                
                 <!-- Overlay -->
                 <div class="layout-overlay layout-menu-toggle"></div>
             </div>
@@ -585,91 +615,55 @@
                             this.Context.orderId = this.ProcessList.orderId
                             this.Context.employeeId = this.employee.EmpID
                             console.log(this.Context)
-                            if (confirm('確定送出?')) {
-                                if (this.Context.date == null) {
-                                    this.text = '請選擇日期';
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                } else if (this.Context.startTime == null) {
-                                    this.text = '請選擇開始時間';
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                            if (this.Context.date == null) {
+                                this.text = '請選擇日期';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                } else if (this.Context.endTime == null) {
-                                    this.text = '請選擇結束時間';
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                            } else if (this.Context.startTime == null) {
+                                this.text = '請選擇開始時間';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                } else if (this.Context.context == undefined) {
-                                    this.text = '請輸入報工內容';
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                            } else if (this.Context.endTime == null) {
+                                this.text = '請選擇結束時間';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                } else {
-                                    axios.post('https://localhost:44319/api/ProductionContexts', this.Context)
-                                        .then(x => {
-                                            this.text = x.data;
-                                            $("#toastSuc").fadeIn("fast");
-                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                            if (x.data == "成功") {
-                                                window.location = 'index.html';
-                                            }
-                                        })
-                                }
+                            } else if (this.Context.context == undefined) {
+                                this.text = '請輸入報工內容';
+                                $("#toastErr").fadeIn("fast");
+                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
+                            } else {
+                                axios.post('https://localhost:44319/api/ProductionContexts', this.Context)
+                                    .then(x => {
+                                        this.text = x.data;
+                                        $("#toastSuc").fadeIn("fast");
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                        if (x.data == "成功") {
+                                            setTimeout(() => { window.location = 'index.html'; } , 1000);
+                                           
+                                        }
+                                    })
                             }
 
+                        },
+                        Back: function () {
+                            window.location = 'PD_LineSelect.html';
+                        },
+                        show: function () {
+                            this.Context.date = "2023-02-10";
+                            this.Context.startTime = "08:00";
+                            this.Context.endTime = "17:00";
+                            this.employee.contxt = "曲軸安裝"
                         }
                     }
                 }
                 Vue.createApp(app).mount('#app');
 
 
-                                        //var app = new Vue({
-                                        //    el: "#app",
-                                        //    data: {
-                                        //        ProcessList: {},
-                                        //        Context: {},
-                                        //        emplyee: { contxt: "" }
-                                        //    },
-                                        //    mounted:
-                                        //        function () {
-                                        //            $.ajax({
-                                        //                type: "get",
-                                        //                url: "https://localhost:44319/api/ProductionContexts/Contexts",
-                                        //                success: (e) => {
-                                        //                    this.Context = e[0];
-                                        //                }
-                                        //            })
-                                        //        }
-                                        //    ,
-                                        //    methods: {
-                                        //        Enter: function () {
-
-                                        //            this.Context.processId = this.ProcessList.processId;
-                                        //            this.Context.employeeId = this.emplyee.id
-                                        //            this.Context.context = this.emplyee.contxt
-                                        //            this.Context.orderId = this.ProcessList.orderId
-                                        //            console.log(this.Context)
-
-                                        //            $.ajax({
-                                        //                type: "post",
-                                        //                url: "https://localhost:44319/api/ProductionContexts",
-                                        //                contentType: "application/json",
-                                        //                data: JSON.stringify(this.Context),
-                                        //                success: function () {
-                                        //                    window.location = "index.html"
-                                        //                }
-                                        //            })
-                                        //        }
-                                        //    }
-                                        //})
-
-
-
-                                        //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
-                                        //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
             </script>
             <!-- vue -->
             <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

@@ -61,7 +61,7 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
-            var query = personnelAttendanceTime.Skip((page - 1) * 10).Take(10);
+            var query = personnelAttendanceTime.Skip((page - 1) * 15).Take(15);
             return await query.ToListAsync();
         }
 
@@ -85,7 +85,7 @@ namespace InternalSystem.Controllers
             {
                 return 0;
             }
-            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelAttendanceTime.Count())/10));
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelAttendanceTime.Count())/15));
 
             return total;
         }
@@ -188,7 +188,7 @@ namespace InternalSystem.Controllers
             if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
             if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
 
-            var query = personnelAttendanceTime.Skip((page-1) * 10).Take(10);
+            var query = personnelAttendanceTime.Skip((page-1) * 15).Take(15);
             var totalpage = query.Count();
             return await query.ToListAsync();
         }
@@ -218,8 +218,8 @@ namespace InternalSystem.Controllers
             if (dep != null) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.DepartmentId == dep); }
             if (!string.IsNullOrWhiteSpace(name)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeName.Contains(name)); }
             if (!string.IsNullOrWhiteSpace(number)) { personnelAttendanceTime = personnelAttendanceTime.Where(a => a.EmployeeNumber.Contains(number)); }
-            var query = personnelAttendanceTime.Skip(page * 10).Take(10);
-            var totalpage = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelAttendanceTime.Count())/ 10));
+            var query = personnelAttendanceTime.Skip(page * 15).Take(15);
+            var totalpage = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelAttendanceTime.Count())/ 15));
             
             return totalpage;
         }

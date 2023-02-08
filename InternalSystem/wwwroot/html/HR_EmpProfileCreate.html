@@ -389,7 +389,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -398,7 +398,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -464,17 +464,30 @@
                         <div class="row">
                             <div class="col-md-12">
 
-                                <div class="card mb-5 mx-4 card-body">
-
+                                <div class="card mb-5 mx-4">
+                                    <!-- 卡片標題 -->
+                                    <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                        <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="" class="ms-4 mt-3"
+                                                style="width: 55px;">
+                                        </div>
+                                        <div class="col-6 my-2 mb-3">
+                                            <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">新建員工資料表單</h2>
+                                        </div>
+                                    </div>
+                                    <div class="my-4">&nbsp;</div>
+                                    <div class="card-body border border-5 rounded mx-4 mb-4" style="position: relative;">
                                     <!-- Account -->
-                                    <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工照片</p>
+                                    <!-- 篩選樣板 -->
+                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                        員工照片</p>
                                         
-                                        <div class=" d-flex align-items-start align-items-sm-center gap-4 mx-5 mb-3">
+                                        <div class=" d-flex align-items-start align-items-sm-center gap-4 mx-5">
                                             <img src="../assets/img/Defaultimg.jfif"
                                                  alt="user-avatar"
                                                  class="d-block rounded"
-                                                 height="250"
-                                                 width="150"
+                                                 height="200"
+                                                 width="100"
                                                  id="uploadedAvatar"
                                                  style="object-fit:contain"/>
                                             <div class="button-wrapper">
@@ -498,12 +511,13 @@
                                             </div>
                                         </div>
                                 </div>
-                                <div class="card my-5 mx-4 card-body">
+                                <hr class="col-11 mx-auto border-5">
+                                <div class="card-body">
                                     <!-- 員工名稱 -->
                                         <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;" @click="use">&nbsp 員工基本資料</p>
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工基本資料</p>
 
-                                            <div class="row mx-5">
+                                            <div class="row mx-4">
                                                 <div class="mb-4 col-md-4">
                                                     <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                                     <input v-model="employeelist.employeeName" class="form-control fs-5"
@@ -533,7 +547,7 @@
                                                     </select>
                                                 </div>
                                                 <!-- 身分證字號 -->
-                                                <div class="mb-3 col-md-4">
+                                                <div class="col-md-4">
                                                     <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
                                                     <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
                                                     <div class="input-group input-group-merge">
@@ -547,7 +561,7 @@
                                                     
                                                 </div>
                                                 <!-- 國籍 -->
-                                                <div class="mb-3 col-md-4">
+                                                <div class="col-md-4">
                                                     <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Country">國籍</label>
                                                     <select v-model="employeelist.country" id="Country" class="select2 form-select">
                                                         <option value="" disabled>請選擇國籍</option>
@@ -559,17 +573,18 @@
                                                     </select>
                                                 </div>
                                                 <!-- 生日 -->
-                                                <div class="mb-3 col-md-4">
+                                                <div class="col-md-4">
                                                     <label for="birthday" class="col-md-2 form-label">生日</label>
                                                     <div class="col-md-12">
                                                         <input v-model="employeelist.birthday" @change="passwdset" class="form-control fs-5" type="date" id="birthday" />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <div class="card m-4 my-5 card-body">
-                                        <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工照片</p>
-                                            <div class="row mx-5">
+                                </div>
+                                <div class="card-body">
+                                    <hr class="mb-5">
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工照片</p>
+                                            <div class="row mx-4">
 
                                                 <!-- 電子信箱 -->
                                                 <div class="mb-4 col-md-6">
@@ -648,7 +663,7 @@
                                                            @change="emergencycontact" />
                                                 </div>
                                                 <!-- 緊急聯絡人電話 -->
-                                                <div class="mb-3 col-md-4">
+                                                <div class="col-md-4">
                                                     <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="EmergencyNumber">緊急聯絡人電話</label>
                                                     <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{epnt}}/10</p>
                                                     <div class="input-group input-group-merge">
@@ -658,10 +673,12 @@
                                                     
                                                 </div>
                                             </div>
-                                        </div>
-                                    <div class="card m-4 my-5 card-body">
-                                        <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 在職資料</p>
-                                            <div class="row mx-5">
+                                    </div>
+                                    <div class="card-body">
+                                        <hr class="mb-5">
+                                        <p class="alert alert-warning text-black fs-2 fw-bold mb-5">在職資料</p>
+
+                                            <div class="row mx-4">
                                                 <!-- 員工工號 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="residence" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工工號</label>
@@ -703,17 +720,18 @@
                                              
 
                                                 <!-- 入職日 -->
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="Entrydate" class="col-md-4 form-label">入職日</label>
+                                                <div class="mb=col-md-6">
+                                                    <label for="Entrydate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">入職日</label>
 
                                                     <input v-model="employeelist.entryDate" class="form-control fs-5" type="date" id="Entrydate" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card m-4 my-5 card-body">
-                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
+                                        <div class="card-body">
+                                            <hr class="mb-5">
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工帳號密碼設置</p>
                                             
-                                            <div class="row mx-5">
+                                            <div class="row mx-4">
                                                 <!--帳號設置-->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="usernumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">帳號設定</label>
@@ -730,9 +748,9 @@
                                                            autofocus @change="password" disabled />
                                                 </div>
                                             </div>
-                                        
+                                            <hr class="mb-5 mt-4">
                                             <!--員工備註-->
-                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工備註</p>
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工備註</p>
                                             
                                             <div class="mb-3 col mx-5">
                                                 <label for="Note" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註欄</label>

@@ -394,7 +394,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -403,7 +403,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -464,10 +464,21 @@
                     </div>
 
                     <div v-if="limit.DepID==3" id="confirm" class="container-xxl flex-grow-1 container-p-y">
+                        <span class="fs-4">業務系統 / </span><span class=" fw-bold fs-2">訂單查詢.修改.刪除</span>
                         <div class="card mb-4 m-4">
-                            <h2 class="card-header">訂單查詢/修改/刪除</h2>
-                            <h5 class="card-header">車輛資訊</h5>
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2666/2666505.png" alt="" class="ms-4 mt-3"
+                                        style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">訂單查詢/修改/刪除訂單</h2>
+                                </div>
+                            </div>
+ 
                             <div class="card-body">
+<<<<<<< HEAD
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <div class="col-md-6 py-3">
                                         <label @click="getordhidden" for="ordernum" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
@@ -479,10 +490,30 @@
                                                v-model="ordernum"
                                                ref="reffocus" />
                                         <p>{{ordernumhidden.n}}/{{ordernumhidden.num.length}}</p>
+=======
+                                <div class="my-2">&nbsp;</div>
+                                <div class="row gx-3 gy-2 align-items-center border border-5 rounded mx-4 inputCard2">
+                                    <!-- 篩選樣板 -->
+                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: 135px;left: 70px;">
+                                        篩選條件</p>
+                                    <div class="my-2">&nbsp;</div>
+
+                                    <div class="col-md-2 mb-4 ms-4">
+                                        <label @click="getordhidden" for="ordernum" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                        <span class="ms-2">{{charcnt}}/13</span>
+                                    </div>
+                                    <div class="col mb-4 me-4">
+                                        <input type="text" class="form-control fs-5" id="ordernum" placeholder="共13碼" v-model="ordernum" ref="reffocus" />
+>>>>>>> bf3f72cdb23bd920f2b7ad19ed048b03c48e5b75
                                     </div>
                                         <p v-if="describeseen" class="fs-5">此訂單已接單無法進行修改或刪除</p>
-                                    <hr />
+                                   
+                                </div>
 
+                                <hr class="my-5 mb-4" />
+                                
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-4">車輛資訊</p>
+                                <div class="row gx-4 gy-2 align-items-center mx-4">
                                     <!--車款  -->
                                     <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
@@ -691,7 +722,7 @@
                                                readonly
                                                v-model="carmediaone.price" />
                                     </div>
-                                    <div class="col-md-3 py-2">
+                                    <div class="col-md-12 py-2">
                                         <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">小計</label>
                                         <input type="text"
                                                class="form-control fs-5"
@@ -699,9 +730,13 @@
                                                readonly
                                                v-model="cnt" />
                                     </div>
-                                    <hr />
+                                </div>
+                                    <hr class="my-5 mb-4"/>
                                     <!--代理商地區-->
-                                    <div  class="col-md-3 py-2">
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-4">代理商資訊</p>
+                            
+                                <div class="row gx-4 gy-2 align-items-center mx-4">
+                                    <div  class="col-md-3 py-2 mb-4">
                                         <label @click="oneclick" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
                                         <select id="area"
                                                 class="form-select color-dropdown"
@@ -715,9 +750,68 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <button @click="btnquery" class="btn btn-primary d-block">查詢</button>
-                                    <button v-if="btnseen" @click="btneditok" class="btn btn-primary d-block">修改</button>
-                                    <button v-if="btnseen" @click="btndelete" class="btn btn-primary d-block">刪除</button>                                    
+
+                                    <!-- ★Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border border-5">
+                                                <div class="modal-header mb-3">
+                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                        style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                        &nbsp💡提示訊息
+                                                    </p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <hr class="col-10 border border-2">
+                                                    <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
+                                                </div>
+                                                <div class="modal-body text-start mt-0">
+                                                    <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確認要修改訂單?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal"
+                                                        aria-label="Close" @click="btneditok">
+                                                        確認
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ★Modal -->
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border border-5">
+                                                <div class="modal-header mb-3">
+                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                        style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                        &nbsp💡提示訊息
+                                                    </p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <hr class="col-10 border border-2">
+                                                    <img src="../assets/img/myicon/erro.png" alt="" style="width: 200px;">
+                                                </div>
+                                                <div class="modal-body text-start mt-0">
+                                                    <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確認要刪除訂單?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal"
+                                                        aria-label="Close" @click="btndelete">
+                                                        確認
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button @click="btnquery" class="btn btn-primary fs-4 fw-bold">查詢</button>
+                                    <button v-if="btnseen" class="btn btn-outline-info d-block fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
+                                    <button v-if="btnseen"  class="btn btn-outline-danger d-block fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal2">刪除</button>                                    
                                 </div>
                             </div>
 
@@ -821,7 +915,7 @@
                     oldoplId: [],
                     ordernumhidden: {
                         n: 0,
-                        num:[]
+                        num: []
                     }
 
                 }
@@ -907,6 +1001,7 @@
                     }
                 },
                 btneditok() {
+
                     //將新的選配放入陣列儲存
                     this.orderdetail = [];
                     this.orderdetail.push((this.cartypeone.optionalId == null) ? '' : this.cartypeone.optionalId);
@@ -921,6 +1016,7 @@
                     console.log(this.orderdetail);
 
                     if (confirm("確認是否要修改訂單?") == true) {
+
                         //找該訂單細項第一筆OdId+8
                         axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
                             .then(p => {
@@ -938,11 +1034,12 @@
                                 axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}`, this.bodput)
                                     .then(p => {
                                         console.log(p);
-                                        window.location = "BS_OrderAll.html";//promise
                                         //成功
                                         this.text = "訂單修改成功!";
                                         $("#toastSuc").fadeIn("fast");
                                         setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                        window.location = "BS_OrderAll.html";//promise
+
                                     });
                             });
                     }
@@ -973,7 +1070,7 @@
                 },
                 getordhidden() {
                     this.ordernum = this.ordernumhidden.num[this.ordernumhidden.n];
-                    this.ordernumhidden.n > this.ordernumhidden.num.length-1 ? this.ordernumhidden.n=0 : this.ordernumhidden.n++;
+                    this.ordernumhidden.n > this.ordernumhidden.num.length - 1 ? this.ordernumhidden.n = 0 : this.ordernumhidden.n++;
                 }
             },
             mounted() {

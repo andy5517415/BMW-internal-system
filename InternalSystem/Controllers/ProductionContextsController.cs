@@ -7,6 +7,7 @@ using InternalSystem.Models;
 using System.Timers;
 using System;
 using System.Collections;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace InternalSystem.Controllers
 {
@@ -24,7 +25,7 @@ namespace InternalSystem.Controllers
         //報工內容清單(普通表單及複合式查詢)
         //GET: api/ProductionContexts/ContextsList
         [HttpGet("ContextsList")]
-        public async Task<ActionResult<dynamic>> GetContextsList(string empNumber , string empName , string starDate )
+        public async Task<ActionResult<dynamic>> GetContextsList(string empNumber, string empName, string starDate)
         {
 
             var query = from PC in this._context.ProductionContexts
@@ -42,7 +43,7 @@ namespace InternalSystem.Controllers
                             PD.DepName,
                             BO.OrderNumber
                         };
-           
+
             if (!string.IsNullOrWhiteSpace(empNumber))
             {
                 query = query.Where(a => a.EmployeeNumber.Contains(empNumber));
@@ -55,7 +56,7 @@ namespace InternalSystem.Controllers
             {
                 query = query.Where(a => a.Date.Contains(starDate));
             }
-           
+
 
             return await query.ToListAsync();
         }
@@ -63,7 +64,7 @@ namespace InternalSystem.Controllers
         //報工內容清單(日期複合式查詢)
         //GET: api/ProductionContexts/ContextsListSearch/start2023-01-01/end2023-02-01
         [HttpGet("ContextsListSearch/start{startDate}/end{endDate}")]
-        public async Task<ActionResult<dynamic>> GetContextDatesList(string empNumber, string empName, string startDate ,string endDate)
+        public async Task<ActionResult<dynamic>> GetContextDatesList(string empNumber, string empName, string startDate, string endDate)
         {
             var std = DateTime.Parse(startDate);
             var end = DateTime.Parse(endDate);
@@ -100,7 +101,7 @@ namespace InternalSystem.Controllers
         //報工內容檢查/修改
         //GET: api/ProductionContexts/ContextsCheck/25/1/2022-01-01
         [HttpGet("ContextsCheck/{orderid}/{empid}/{date}")]
-        public async Task<ActionResult<dynamic>> GetContextsCheck(int orderid , int empid , string date)
+        public async Task<ActionResult<dynamic>> GetContextsCheck(int orderid, int empid, string date)
         {
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
@@ -145,18 +146,18 @@ namespace InternalSystem.Controllers
         {
             var query = from PC in this._context.ProductionContexts
                         join PPD in this._context.PersonnelProfileDetails on PC.EmployeeId equals PPD.EmployeeId
-                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId                      
+                        join PPL in this._context.ProductionProcessLists on PC.OrderId equals PPL.OrderId
                         select new
                         {
                             OrderId = PC.OrderId,
-                            EmployeeId  = PC.EmployeeId,
+                            EmployeeId = PC.EmployeeId,
                             EmployeeName = PPD.EmployeeName,
                             Date = PC.Date.ToString(),
                             //StartTime = PC.StartTime.ToString(),
                             //EndTime = PC.EndTime.ToString(),
                             Context = PC.Context
                         };
-                       
+
 
 
             return await query.ToListAsync();
@@ -165,32 +166,92 @@ namespace InternalSystem.Controllers
         //訂單的總時間
         // GET: api/ProductionContexts/test
         [HttpGet("test")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionContextstest()
+        public dynamic GetProductionContextstest()
         {
-            List<dynamic> apple = new List<dynamic>();
+            var orderList = (from BO in this._context.BusinessOrders
+                             join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                             join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                             join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                             where BOP.CategoryId == 1 && BO.IsAccepted == true
+                             select new
+                             {
+                                 OrderId = BO.OrderId,
+                             }).ToList();
 
-            var process = (from PPL in this._context.ProductionProcessLists
-                          join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
-                          join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
-                          join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
-                          join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
-                          join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
-                          join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-                          where BOP.CategoryId == 1 
-                          select new
-                          {
-                              OrderId = PPL.OrderId,
-                              ProcessName = PP.ProcessName,
-                              StarDate = PPL.StarDate.ToString(),
-                              EndDate = PPL.EndDate.ToString(),
-                              BO.OrderNumber,
-                              OptionalId = BOP.OptionalId,
-                              OptionalName = BOP.OptionalName,
-                              StatusId = PPSN.StatusId,
-                              StatusName = PPSN.StatusName,
-                          }).ToList();
+            List<dynamic> ANS = new List<dynamic>();
 
-            
+
+            foreach (var item in orderList)
+            {
+                var process = (from PPL in this._context.ProductionProcessLists
+                               join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                               join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                               join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                               join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                               join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                               join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                               where BOP.CategoryId == 1 && PPL.OrderId == item.OrderId
+                               select new
+                               {
+                                   OrderId = PPL.OrderId,
+                                   ProcessName = PP.ProcessName,
+                                   StarDate = PPL.StarDate.ToString(),
+                                   EndDate = PPL.EndDate.ToString(),
+                                   BO.OrderNumber,
+                                   OptionalId = BOP.OptionalId,
+                                   OptionalName = BOP.OptionalName,
+                                   StatusId = PPSN.StatusId,
+                                   StatusName = PPSN.StatusName,
+                               }).ToList();
+                ANS.Add(process);
+
+            }
+
+            var process2 = (from PPL in this._context.ProductionProcessLists
+                            join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                            join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                            join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                            join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                            join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                            join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                            where BOP.CategoryId == 1
+                            select new
+                            {
+                                OrderId = PPL.OrderId,
+                                ProcessName = PP.ProcessName,
+                                StarDate = PPL.StarDate.ToString(),
+                                EndDate = PPL.EndDate.ToString(),
+                                BO.OrderNumber,
+                                OptionalId = BOP.OptionalId,
+                                OptionalName = BOP.OptionalName,
+                                StatusId = PPSN.StatusId,
+                                StatusName = PPSN.StatusName,
+                            }).ToList();
+
+            //var query = from BO in this._context.BusinessOrders
+            //                join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+            //                join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+            //                join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+            //                where BOP.CategoryId == 1 && BO.IsAccepted == true 
+            //                select new
+            //                {
+            //                    OrderId = BO.OrderId,
+            //                    BO.OrderNumber,
+            //                    OptionalId = BOP.OptionalId,
+            //                    OptionalName = BOP.OptionalName,
+            //                    ANS
+            //                };
+
+            return process2;
+
+        }
+
+        //訂單的總時間
+        // GET: api/ProductionContexts/ListTotal
+        [HttpGet("ListTotal")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionContextsListTotal(string orderNumber, string orderType)
+        {
+
 
             var query = from BO in this._context.BusinessOrders
                         join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
@@ -203,35 +264,15 @@ namespace InternalSystem.Controllers
                             BO.OrderNumber,
                             OptionalId = BOP.OptionalId,
                             OptionalName = BOP.OptionalName,
-                            process
-                        };
 
-            return await query.ToListAsync();
-        }
-
-        //訂單的總時間
-        // GET: api/ProductionContexts/ListTotal
-        [HttpGet("ListTotal")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionContextsListTotal(string orderNumber)
-        {
-
-
-            var query = from BO in this._context.BusinessOrders
-                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
-                        join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
-                        join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-                        where BOP.CategoryId == 1 && BO.IsAccepted == true 
-                        select new
-                        {
-                            OrderId = BO.OrderId,
-                            BO.OrderNumber,
-                            OptionalId = BOP.OptionalId,
-                            OptionalName = BOP.OptionalName,
-                            
                         };
             if (!string.IsNullOrWhiteSpace(orderNumber))
             {
                 query = query.Where(a => a.OrderNumber.Contains(orderNumber));
+            }
+            if (!string.IsNullOrWhiteSpace(orderType))
+            {
+                query = query.Where(a => a.OptionalName.Contains(orderType));
             }
 
             return await query.ToListAsync();
@@ -241,13 +282,13 @@ namespace InternalSystem.Controllers
         //訂單的總時間
         // GET: api/ProductionContexts/Total?id=25
         [HttpGet("Total")]
-        public async Task<ActionResult<dynamic>> GetProductionContextsTotal(int id)
+        public async Task<ActionResult<dynamic>> GetProductionContextsTotal(int id, string stad)
         {
-          
+
 
             //抓取 製程A總時
             var proessesA = from o in _context.ProductionContexts
-                            where  o.ProcessId == 1 && o.OrderId == id
+                            where o.ProcessId == 1 && o.OrderId == id
                             select o;
 
             double Atotal = 0;
@@ -255,7 +296,7 @@ namespace InternalSystem.Controllers
             {
 
                 TimeSpan a = Convert.ToDateTime(pro.EndTime).Subtract(Convert.ToDateTime(pro.StartTime));
-                
+
                 if (a.TotalMinutes >= 570)
                 {
                     Atotal += a.TotalMinutes - 90;
@@ -263,21 +304,22 @@ namespace InternalSystem.Controllers
                 else if (a.TotalMinutes >= 300)
                 {
                     Atotal += a.TotalMinutes - 60;
-                }else  
+                }
+                else
                 {
                     Atotal += a.TotalMinutes;
                 }
 
             }
 
-                Atotal = Atotal / 60;
-            
+            Atotal = Atotal / 60;
 
-            
+
+
 
             //抓取 製程B 總時
             var proessesB = from o in _context.ProductionContexts
-                            where  o.ProcessId == 2 && o.OrderId == id
+                            where o.ProcessId == 2 && o.OrderId == id
                             select o;
 
             double Btotal = 0;
@@ -285,7 +327,7 @@ namespace InternalSystem.Controllers
             {
 
                 TimeSpan b = Convert.ToDateTime(proB.EndTime).Subtract(Convert.ToDateTime(proB.StartTime));
-                
+
                 if (b.TotalMinutes >= 570)
                 {
                     Btotal += b.TotalMinutes - 90;
@@ -304,7 +346,7 @@ namespace InternalSystem.Controllers
 
             //抓取 製程C 總時
             var proessesC = from o in _context.ProductionContexts
-                            where  o.ProcessId == 3 && o.OrderId == id
+                            where o.ProcessId == 3 && o.OrderId == id
                             select o;
 
             double Ctotal = 0;
@@ -331,70 +373,76 @@ namespace InternalSystem.Controllers
             double Total = Atotal + Btotal + Ctotal;
 
             List<double> tot = new List<double>();
-          
+
             tot.Add(Atotal);
             tot.Add(Btotal);
             tot.Add(Ctotal);
 
             // 訂單內製程每個製程及製程總時
             var proess = (from PPL in this._context.ProductionProcessLists
-                        join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
-                        join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
-                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
-                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
-                        join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
-                        join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-                        where BOP.CategoryId == 1 && PPL.OrderId == id
-                        select new
-                        {
-                            OrderId = PPL.OrderId,
-                            ProcessName = PP.ProcessName,
-                            StarDate = PPL.StarDate.ToString(),
-                            EndDate = PPL.EndDate.ToString(),
-                            BO.OrderNumber,
-                            OptionalId = BOP.OptionalId,
-                            OptionalName = BOP.OptionalName,
-                            StatusId = PPSN.StatusId,
-                            StatusName = PPSN.StatusName,
-                            tot
-                            //Atotal = (float)Math.Round(Atotal, 1),
-                            //Btotal = (float)Math.Round(Btotal, 1),
-                            //Ctotal = (float)Math.Round(Ctotal, 1),
-                        }).ToList();
+                          join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                          join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                          join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                          join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                          join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                          join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                          where BOP.CategoryId == 1 && PPL.OrderId == id
+                          select new
+                          {
+                              OrderId = PPL.OrderId,
+                              ProcessName = PP.ProcessName,
+                              StarDate = PPL.StarDate.ToString(),
+                              EndDate = PPL.EndDate.ToString(),
+                              BO.OrderNumber,
+                              OptionalId = BOP.OptionalId,
+                              OptionalName = BOP.OptionalName,
+                              StatusId = PPSN.StatusId,
+                              StatusName = PPSN.StatusName,
+                              tot
+                              //Atotal = (float)Math.Round(Atotal, 1),
+                              //Btotal = (float)Math.Round(Btotal, 1),
+                              //Ctotal = (float)Math.Round(Ctotal, 1),
+                          }).ToList();
 
             // 抓訂單的開始日期及結束日期
             var startDate = (from o in this._context.ProductionProcessLists
-                            where o.ProcessId == 1 && o.OrderId == id && (o.StatusId == 2 || o.StatusId == 3)
-                            select o).FirstOrDefault();
+                             where o.ProcessId == 1 && o.OrderId == id && (o.StatusId == 2 || o.StatusId == 3)
+                             select o).FirstOrDefault();
             var endDate = (from o in this._context.ProductionProcessLists
-                            where o.ProcessId == 3 && o.OrderId == id && o.StatusId == 3
-                           select o).FirstOrDefault();            
+                           where o.ProcessId == 3 && o.OrderId == id && o.StatusId == 3
+                           select o).FirstOrDefault();
 
 
             if (endDate == null)
             {
-                var query = from BO in this._context.BusinessOrders 
-                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
-                        join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
-                        join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-                        where BOP.CategoryId == 1  && BO.IsAccepted == true && BO.OrderId == id
-                        orderby BO.OrderId ascending
+                var query = from BO in this._context.BusinessOrders
+                            join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                            join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                            join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                            where BOP.CategoryId == 1 && BO.IsAccepted == true && BO.OrderId == id
+                            orderby BO.OrderId ascending
                             select new
-                        {
-                            OrderId = BO.OrderId,
-                            BO.OrderNumber,
-                            OptionalId = BOP.OptionalId,
-                            OptionalName = BOP.OptionalName,
-                            Total,
-                            StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
-                            EndDate = "N/A",
-                            Sta = "未完成",
-                            proess
+                            {
+                                OrderId = BO.OrderId,
+                                BO.OrderNumber,
+                                OptionalId = BOP.OptionalId,
+                                OptionalName = BOP.OptionalName,
+                                Total,
+                                StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
+                                EndDate = "N/A",
+                                Sta = "未完成",
+                                proess
 
-                        };
+                            };
+
+                if (!string.IsNullOrEmpty(stad))
+                {
+                    query = query.Where(a => a.Sta.Contains(stad));
+                }
+
                 return await query.FirstOrDefaultAsync();
             }
-            else 
+            else
             {
                 var query = from BO in this._context.BusinessOrders
                             join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
@@ -414,64 +462,29 @@ namespace InternalSystem.Controllers
                                 Sta = "已完成",
                                 proess
                             };
+
+                if (!string.IsNullOrEmpty(stad))
+                {
+                    query = query.Where(a => a.Sta.Contains(stad));
+                }
+
                 return await query.FirstOrDefaultAsync();
             }
-            
+
 
         }
 
 
-        //每個製程的總時間
-        // GET: api/ProductionContexts/ProcessesTotal
-        [HttpGet("ProcessesTotal")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetProductionContextsProcessesTotal()
+        //訂單的總時間
+        // GET: api/ProductionContexts/TotalSelect?id=25
+        [HttpGet("TotalSelect")]
+        public async Task<ActionResult<dynamic>> GetProductionContextsTotalSelect(int id, string stad , string startDay)
         {
-            //var bb = (from o in _context.ProductionContexts
-            //         where o.OrderId == 25
-            //         select o).Count();
-
-            //List<double> TA = new List<double> ();
-            //List<> QQ = new ();
-            //for (int i = 1; i <= bb; i++)
-            //{
-            //    var query = from PPL in this._context.ProductionProcessLists
-            //                join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
-            //                join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
-            //                join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
-            //                join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
-            //                join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-            //                where BOP.CategoryId == 1 && PPL.OrderId == 25 && PPL.ProcessId == i
-            //                select new
-            //                {
-            //                    OrderId = PPL.OrderId,
-            //                    ProcessName = PP.ProcessName,
-            //                    StarDate = PPL.StarDate.ToString(),
-            //                    EndDate = PPL.EndDate.ToString(),
-            //                    BO.OrderNumber,
-            //                    OptionalId = BOP.OptionalId,
-            //                    OptionalName = BOP.OptionalName,
-            //                    TA
-            //                    //Atotal = (float)Math.Round(Atotal,1),
-            //                    //Btotal = (float)Math.Round(Btotal, 1),
-            //                    //Ctotal = (float)Math.Round(Ctotal, 1)
-            //                };
-
-            //    double total = 0;
-            //    var aa = from o in _context.ProductionContexts
-            //                    where o.OrderId == 25 && o.ProcessId == i
-            //                    select o;
-            //    foreach (var item in aa)
-            //    {
-            //        TimeSpan a = Convert.ToDateTime(item.EndTime).Subtract(Convert.ToDateTime(item.StartTime));
-            //        total += a.TotalMinutes;
-            //    }
-            //    TA.Add(total);
-            //}
 
 
             //抓取 製程A總時
             var proessesA = from o in _context.ProductionContexts
-                            where o.OrderId == 1 && o.ProcessId == 1 
+                            where o.ProcessId == 1 && o.OrderId == id
                             select o;
 
             double Atotal = 0;
@@ -479,20 +492,30 @@ namespace InternalSystem.Controllers
             {
 
                 TimeSpan a = Convert.ToDateTime(pro.EndTime).Subtract(Convert.ToDateTime(pro.StartTime));
-                if (a.TotalMinutes >= 570 )
+
+                if (a.TotalMinutes >= 570)
                 {
-                     Atotal += a.TotalMinutes-90;
-                } else if (a.TotalMinutes >= 300)
+                    Atotal += a.TotalMinutes - 90;
+                }
+                else if (a.TotalMinutes >= 300)
                 {
-                    Atotal += a.TotalMinutes-60;
+                    Atotal += a.TotalMinutes - 60;
+                }
+                else
+                {
+                    Atotal += a.TotalMinutes;
                 }
 
             }
+
             Atotal = Atotal / 60;
+
+
+
 
             //抓取 製程B 總時
             var proessesB = from o in _context.ProductionContexts
-                            where o.OrderId == 1 && o.ProcessId == 2
+                            where o.ProcessId == 2 && o.OrderId == id
                             select o;
 
             double Btotal = 0;
@@ -509,14 +532,17 @@ namespace InternalSystem.Controllers
                 {
                     Btotal += b.TotalMinutes - 60;
                 }
-
+                else
+                {
+                    Btotal += b.TotalMinutes;
+                }
 
             }
             Btotal = Btotal / 60;
 
             //抓取 製程C 總時
             var proessesC = from o in _context.ProductionContexts
-                            where o.OrderId == 1 && o.ProcessId == 3
+                            where o.ProcessId == 3 && o.OrderId == id
                             select o;
 
             double Ctotal = 0;
@@ -524,7 +550,6 @@ namespace InternalSystem.Controllers
             {
 
                 TimeSpan c = Convert.ToDateTime(proC.EndTime).Subtract(Convert.ToDateTime(proC.StartTime));
-
                 if (c.TotalMinutes >= 570)
                 {
                     Ctotal += c.TotalMinutes - 90;
@@ -533,40 +558,125 @@ namespace InternalSystem.Controllers
                 {
                     Ctotal += c.TotalMinutes - 60;
                 }
+                else
+                {
+                    Ctotal += c.TotalMinutes;
+                }
 
             }
             Ctotal = Ctotal / 60;
 
             double Total = Atotal + Btotal + Ctotal;
 
-            var query = from PPL in this._context.ProductionProcessLists
-                        join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
-                        join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
-                        join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
-                        join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
-                        join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
-                        join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
-                        where BOP.CategoryId == 1 && PPL.OrderId == 1
-                        select new
-                        {
-                            OrderId = PPL.OrderId,
-                            ProcessName = PP.ProcessName,
-                            StarDate = PPL.StarDate.ToString(),
-                            EndDate = PPL.EndDate.ToString(),
-                            BO.OrderNumber,
-                            OptionalId = BOP.OptionalId,
-                            OptionalName = BOP.OptionalName,
-                            StatusId =PPSN.StatusId,
-                            StatusName = PPSN.StatusName,
-                           
-                            Atotal = (float)Math.Round(Atotal, 1),
-                            Btotal = (float)Math.Round(Btotal, 1),
-                            Ctotal = (float)Math.Round(Ctotal, 1),
-                            Total = (float)Math.Round(Total, 1)    
-                        };
+            List<double> tot = new List<double>();
 
-            return await query.ToListAsync();
+            tot.Add(Atotal);
+            tot.Add(Btotal);
+            tot.Add(Ctotal);
+
+            // 訂單內製程每個製程及製程總時
+            var proess = (from PPL in this._context.ProductionProcessLists
+                          join PP in this._context.ProductionProcesses on PPL.ProcessId equals PP.ProcessId
+                          join PPSN in this._context.ProductionProcessStatusNames on PPL.StatusId equals PPSN.StatusId
+                          join BO in this._context.BusinessOrders on PPL.OrderId equals BO.OrderId
+                          join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                          join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                          join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                          where BOP.CategoryId == 1 && PPL.OrderId == id
+                          select new
+                          {
+                              OrderId = PPL.OrderId,
+                              ProcessName = PP.ProcessName,
+                              StarDate = PPL.StarDate.ToString(),
+                              EndDate = PPL.EndDate.ToString(),
+                              BO.OrderNumber,
+                              OptionalId = BOP.OptionalId,
+                              OptionalName = BOP.OptionalName,
+                              StatusId = PPSN.StatusId,
+                              StatusName = PPSN.StatusName,
+                              tot
+                              //Atotal = (float)Math.Round(Atotal, 1),
+                              //Btotal = (float)Math.Round(Btotal, 1),
+                              //Ctotal = (float)Math.Round(Ctotal, 1),
+                          }).ToList();
+
+            // 抓訂單的開始日期及結束日期
+            var startDate = (from o in this._context.ProductionProcessLists
+                             where o.ProcessId == 1 && o.OrderId == id && (o.StatusId == 2 || o.StatusId == 3)
+                             select o).FirstOrDefault();
+            var endDate = (from o in this._context.ProductionProcessLists
+                           where o.ProcessId == 3 && o.OrderId == id && o.StatusId == 3
+                           select o).FirstOrDefault();
+
+            //var std = DateTime.Parse(startDay);
+            //var end = DateTime.Parse(endDay);
+            if (endDate == null)
+            {
+                var query = from BO in this._context.BusinessOrders
+                            join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                            join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                            join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                            where BOP.CategoryId == 1 && BO.IsAccepted == true && BO.OrderId == id && startDay == startDate.StarDate.ToString("yyyy-MM-dd")
+                            orderby BO.OrderId ascending
+                            select new
+                            {
+                                OrderId = BO.OrderId,
+                                BO.OrderNumber,
+                                OptionalId = BOP.OptionalId,
+                                OptionalName = BOP.OptionalName,
+                                Total,
+                                StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
+                                EndDate = "N/A",
+                                Sta = "未完成",
+                                proess
+
+                            };
+
+                if (!string.IsNullOrEmpty(stad))
+                {
+                    query = query.Where(a => a.Sta.Contains(stad));
+                }
+
+                return await query.FirstOrDefaultAsync();
+            }
+            else
+            {
+                var query = from BO in this._context.BusinessOrders
+                            join BOD in this._context.BusinessOrderDetails on BO.OrderId equals BOD.OrderId
+                            join BOP in this._context.BusinessOptionals on BOD.OptionalId equals BOP.OptionalId
+                            join BC in this._context.BusinessCategories on BOP.CategoryId equals BC.CategoryId
+                            where BOP.CategoryId == 1 && BO.IsAccepted == true && BO.OrderId == id && startDay == startDate.StarDate.ToString("yyyy-MM-dd")
+                            orderby BO.OrderId ascending
+                            select new
+                            {
+                                OrderId = BO.OrderId,
+                                BO.OrderNumber,
+                                OptionalId = BOP.OptionalId,
+                                OptionalName = BOP.OptionalName,
+                                Total,
+                                StarDate = startDate.StarDate.ToString("yyyy-MM-dd"),
+                                EndDate = endDate.EndDate,
+                                Sta = "已完成",
+                                proess
+                            };
+
+                if (!string.IsNullOrEmpty(stad))
+                {
+                    query = query.Where(a => a.Sta.Contains(stad));
+                }
+                //if (!string.IsNullOrEmpty(startDay))
+                //{
+                //    query = query.Where(a => DateTime.Parse(a.StarDate) <= std);
+                //}
+               
+
+                return await query.FirstOrDefaultAsync();
+            }
+
+
         }
+
+
 
         // GET: api/ProductionContexts
         [HttpGet]
@@ -589,7 +699,7 @@ namespace InternalSystem.Controllers
             return productionContext;
         }
 
-      
+
 
         // PUT: api/ProductionContexts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -625,17 +735,17 @@ namespace InternalSystem.Controllers
         // POST: api/ProductionContexts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public string  PostProductionContext(ProductionContext productionContext)
+        public string PostProductionContext(ProductionContext productionContext)
         {
             //結束時間不能大於開始時間
             TimeSpan endtime = Convert.ToDateTime(productionContext.EndTime).Subtract(Convert.ToDateTime(productionContext.StartTime));
             double tt = endtime.TotalMinutes;
-            if (tt>0)
+            if (tt > 0)
             {
                 _context.ProductionContexts.Add(productionContext);
                 try
                 {
-                     _context.SaveChangesAsync();
+                    _context.SaveChangesAsync();
                 }
                 catch (DbUpdateException)
                 {

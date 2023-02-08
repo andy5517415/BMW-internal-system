@@ -397,7 +397,7 @@
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <div class="avatar avatar-online">
+                            <div class="avatar">
                               <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </a>
@@ -406,7 +406,7 @@
                               <a class="dropdown-item" href="#">
                                 <div class="d-flex">
                                   <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar ">
                                       <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                   </div>
@@ -499,7 +499,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="carName.optionalName"/>
+                                             v-model="carName.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label for="colored" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車漆顏色</label>
@@ -509,7 +509,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="carcolor.optionalName"/>
+                                             v-model="carcolor.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="textured">內裝材質</label>
@@ -519,8 +519,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="cartexture.optionalName"
-                                             />
+                                             v-model="cartexture.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="wheeled">輪圈款式</label>
@@ -529,8 +528,8 @@
                                              id="wheeled"
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
-                                             disabled 
-                                             v-model ="carwheel.optionalName"/>
+                                             disabled
+                                             v-model="carwheel.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="plaqued">飾板</label>
@@ -540,7 +539,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model="carplaque.optionalName"/>
+                                             v-model="carplaque.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="lighted">頭燈款式</label>
@@ -550,7 +549,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model="carlight.optionalName"/>
+                                             v-model="carlight.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="saddleed">中央鞍座</label>
@@ -560,7 +559,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="carsaddle.optionalName"/>
+                                             v-model="carsaddle.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="sunroofed">天窗</label>
@@ -570,7 +569,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="carsunroof.optionalName"/>
+                                             v-model="carsunroof.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
@@ -580,7 +579,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="carmedia.optionalName"/>
+                                             v-model="carmedia.optionalName" />
                                   </div>
                                   <div class="col-md-6">
                                       <label for="subtotaled" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">小計</label>
@@ -590,28 +589,66 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="carmoney"/>
+                                             v-model="carmoney" />
                                   </div>
 
 
-                                  
+
                                   <hr>
 
                                   <div class="mb-3 col-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="processName">生產</label>
-                                      <input id="processName" type="text" :value="item.processName" class="form-control fs-5" name="processName" disabled/>
+                                      <input id="processName" type="text" :value="item.processName" class="form-control fs-5" name="processName" disabled />
                                   </div>
 
                                   <div class="mb-3 col-6">
                                       <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Areas">廠區</label>
-                                      <select id="Areas" class="  form-select color-dropdown " v-model="processesAreaList.areaId" >
-                                          <option disabled >請選擇產區</option>
-                                          <option v-for="Area in Areas" :value="Area.areaId">{{Area.areaName}}</option>
+                                      <select id="Areas" class="  form-select color-dropdown " v-model="processesAreaList.areaId">
+                                          <option :value="請選擇產區" disabled>請選擇產區</option>
+                                          <option v-for="Area in Areas" :value="Area.areaId" >{{Area.areaName}}</option>
 
                                       </select>
                                   </div>
 
-                                  <button id="btncreate" v-on:click="Enter()" class="btn btn-primary d-block">送出</button>
+                                  <!-- ★Modal -->
+                                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content border border-5">
+                                              <div class="modal-header mb-3">
+                                                  <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                      &nbsp新增報工
+                                                  </p>
+
+                                              </div>
+
+                                              <div class="row justify-content-center">
+                                                  <hr class="col-10">
+                                              </div>
+                                              <div class="modal-body text-start mt-0" >
+                                                  <p class="fs-5">✏️訂單號碼：{{item.orderNumber}}</p>
+                                                  <p class="fs-5">✏️製成：{{item.processName}}</p>
+                                                  <p class="fs-5">✏️廠區：{{'A0'+processesAreaList.areaId}}</p>
+                                                  <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5 ">⚠️確認廠區?</p>
+
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close" v-on:click="Enter">
+                                                      確認
+                                                  </button>
+                                                  <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                  <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!-- 確認按鈕 -->
+                                  <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                      <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                          送出
+                                      </button>
+                                      <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
+                                      <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3" v-on:click="Back">返回</button>
+                                  </div>
 
 
                               </div>
@@ -675,343 +712,203 @@
     
     <script>
 
-      const app = {
-        data() {
-          return {
-            text: "",
-            item: {},
-            carName: {},
-            carcolor: {},
-            cartexture: {},
-            carwheel: {},
-            carplaque: {},
-            carlight: {},
-            carsaddle: {},
-            carsunroof: {},
-            carmedia: {},
-            processes: {},
-            Areas: {},
-            processesAreaList: {},
-            BSO: { isAccepted: 1 },
-            monitor: {}
-          }
-        },
-        mounted() {
-          this.item = JSON.parse(sessionStorage.getItem("order"))
-          this.processesAreaList.orderId = this.item.orderId
-          this.processesAreaList.processId = this.item.processId
+        const app = {
+            data() {
+                return {
+                    text: "",
+                    item: {},
+                    carName: {},
+                    carcolor: {},
+                    cartexture: {},
+                    carwheel: {},
+                    carplaque: {},
+                    carlight: {},
+                    carsaddle: {},
+                    carsunroof: {},
+                    carmedia: {},
+                    processes: {},
+                    Areas: {},
+                    processesAreaList: {},
+                    BSO: { isAccepted: 1 },
+                    monitor: {}
+                }
+            },
+            mounted() {
+                this.item = JSON.parse(sessionStorage.getItem("order"))
+                this.processesAreaList.orderId = this.item.orderId
+                this.processesAreaList.processId = this.item.processId
 
-          //日期格式
-          let today = new Date()
-          let yyyy = today.getFullYear()
-          let mm = today.getMonth() + 1
-          let dd = today.getDate()
-          if (mm < 10) {
-            mm = "0" + mm.toString()
-          }
-          if (dd < 10) {
-            dd = "0" + dd.toString()
-          }
-          this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
-          this.processesAreaList.statusId = 2
+                //日期格式
+                let today = new Date()
+                let yyyy = today.getFullYear()
+                let mm = today.getMonth() + 1
+                let dd = today.getDate()
+                if (mm < 10) {
+                    mm = "0" + mm.toString()
+                }
+                if (dd < 10) {
+                    dd = "0" + dd.toString()
+                }
+                this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
+                this.processesAreaList.statusId = 2
 
 
-          if (this.item.processId != 1) {
-            //業務訂單內容
-            axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessorBack/' + this.item.orderId)
-              .then(response => {
-                this.carName = response.data[0]
-                this.carcolor = response.data[1]
-                this.cartexture = response.data[2]
-                this.carwheel = response.data[3]
-                this.carplaque = response.data[4]
-                this.carlight = response.data[5]
-                this.carsaddle = response.data[6]
-                this.carsunroof = response.data[7]
-                this.carmedia = response.data[8]
-              })
-            //廠區單
-            axios.get('https://localhost:44319/api/ProductionAreas')
-              .then(response => this.Areas = response.data)
-
-          } else if (this.item.processId = 1) {
-            //業務訂單內容
-            axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/' + this.item.orderId)
-              .then(response => {
-                this.carName = response.data[0]
-                this.carcolor = response.data[1]
-                this.cartexture = response.data[2]
-                this.carwheel = response.data[3]
-                this.carplaque = response.data[4]
-                this.carlight = response.data[5]
-                this.carsaddle = response.data[6]
-                this.carsunroof = response.data[7]
-                this.carmedia = response.data[8]
-              })
-
-            //整張訂單(要put使用)
-            axios.get('https://localhost:44319/api/BusinessOrders/' + this.item.orderId)
-              .then(response => {
-                this.BSO = response.data
-                this.BSO.isAccepted = true
-              })
-
-            //製程單
-            axios.get('https://localhost:44319/api/ProductionProcesses')
-              .then(response => this.processes = response.data)
-            //廠區單
-            axios.get('https://localhost:44319/api/ProductionAreas')
-              .then(response => this.Areas = response.data)
-          }
-
-        },
-        computed: {
-          carmoney() {
-            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
-              parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
-              parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
-              parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
-              parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
-              parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
-              parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
-              parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
-              parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
-          }
-        },
-        methods: {
-          Enter: function () {
-            //回傳到生產製程表
-            console.log(this.processesAreaList)
-            console.log(this.BSO)
-
-            if (this.processesAreaList.processId != 1) {
-
-              if (confirm('確定送出?')) {
-                //先檢查該廠區是否已有訂單生產中
-                axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/${this.processesAreaList.processId}/${this.carName.optionalName.toString().substring(4)}`)
-                  .then(g => {
-                    if (g.data.status != '待指派') {
-                      //失敗
-                      this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
-                      $("#toastErr").fadeIn("fast");
-                      setTimeout(() => $("#toastErr").fadeOut(), 2000);
-
-                    }
-                    else {
-                      axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processesAreaList.orderId, this.processesAreaList)
-                        .then(x => console.log(x))
-
-                      //指派廠區後將監控狀態從待指派改為正常
-                      var rr = g.data.monitorId;
-                      //console.log(rr)
-                      axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
-                        //console.log(g.data);
-                        this.monitor = g.data;
-                        this.monitor.status = '正常';
-                        console.log(this.monitor)
-                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
-                          console.log(p);
-                          this.text = '成功';
-                          $("#toastSuc").fadeIn("fast");
-                          setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                          window.location = "PD_ToDoItems.html"
+                if (this.item.processId != 1) {
+                    //業務訂單內容
+                    axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessorBack/' + this.item.orderId)
+                        .then(response => {
+                            this.carName = response.data[0]
+                            this.carcolor = response.data[1]
+                            this.cartexture = response.data[2]
+                            this.carwheel = response.data[3]
+                            this.carplaque = response.data[4]
+                            this.carlight = response.data[5]
+                            this.carsaddle = response.data[6]
+                            this.carsunroof = response.data[7]
+                            this.carmedia = response.data[8]
                         })
-                      })
-                    }
-                  })
+                    //廠區單
+                    axios.get('https://localhost:44319/api/ProductionAreas')
+                        .then(response => this.Areas = response.data)
 
-              }
-
-            } else if (this.processesAreaList.processId == 1) {
-
-              if (confirm('確定送出?')) {
-                //先檢查該廠區是否已有訂單生產中
-                axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/1/${this.carName.optionalName.toString().substring(4)}`)
-                  .then(g => {
-                    if (g.data.status != '待指派') {
-                      //失敗
-                      this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
-                      $("#toastErr").fadeIn("fast");
-                      setTimeout(() => $("#toastErr").fadeOut(), 2000);
-
-                    }
-                    else {
-                      axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
-                        .then(x => console.log(x))
-                      axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
-                        .then(x => console.log(x))
-                      console.log('b');
-
-                      //指派廠區後將監控狀態從待指派改為正常
-                      var rr = g.data.monitorId;
-                      //console.log(rr)
-                      axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
-                        //console.log(g.data);
-                        this.monitor = g.data;
-                        this.monitor.status = '正常';
-                        console.log(this.monitor)
-                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
-                          console.log(p);
-                          this.text = '成功';
-                          $("#toastSuc").fadeIn("fast");
-                          setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                          window.location = "PD_ToDoItems.html"
+                } else if (this.item.processId = 1) {
+                    //業務訂單內容
+                    axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/' + this.item.orderId)
+                        .then(response => {
+                            this.carName = response.data[0]
+                            this.carcolor = response.data[1]
+                            this.cartexture = response.data[2]
+                            this.carwheel = response.data[3]
+                            this.carplaque = response.data[4]
+                            this.carlight = response.data[5]
+                            this.carsaddle = response.data[6]
+                            this.carsunroof = response.data[7]
+                            this.carmedia = response.data[8]
                         })
-                      })
+
+                    //整張訂單(要put使用)
+                    axios.get('https://localhost:44319/api/BusinessOrders/' + this.item.orderId)
+                        .then(response => {
+                            this.BSO = response.data
+                            this.BSO.isAccepted = true
+                        })
+
+                    //製程單
+                    axios.get('https://localhost:44319/api/ProductionProcesses')
+                        .then(response => this.processes = response.data)
+                    //廠區單
+                    axios.get('https://localhost:44319/api/ProductionAreas')
+                        .then(response => this.Areas = response.data)
+                }
+
+            },
+            computed: {
+                carmoney() {
+                    return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
+                        parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
+                        parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
+                        parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
+                        parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
+                        parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
+                        parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
+                        parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
+                        parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
+                }
+            },
+            methods: {
+                Enter: function () {
+                    //回傳到生產製程表
+                    console.log(this.processesAreaList)
+                    console.log(this.BSO)
+
+                    if (this.processesAreaList.processId != 1) {
+
+
+                        //先檢查該廠區是否已有訂單生產中
+                        axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/${this.processesAreaList.processId}/${this.carName.optionalName.toString().substring(4)}`)
+                            .then(g => {
+                                if (g.data.status != '待指派') {
+                                    //失敗
+                                    this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 1000);
+
+                                }
+                                else {
+                                    axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processesAreaList.orderId, this.processesAreaList)
+                                        .then(x => console.log(x))
+
+                                    //指派廠區後將監控狀態從待指派改為正常
+                                    var rr = g.data.monitorId;
+                                    //console.log(rr)
+                                    axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                        //console.log(g.data);
+                                        this.monitor = g.data;
+                                        this.monitor.status = '正常';
+                                        console.log(this.monitor)
+                                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                            console.log(p);
+                                            this.text = '成功';
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => window.location = "PD_ToDoItems.html", 1000);
+                                            
+                                        })
+                                    })
+                                }
+                            })
+
+
+
+                    } else if (this.processesAreaList.processId == 1) {
+
+
+                        //先檢查該廠區是否已有訂單生產中
+                        axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/1/${this.carName.optionalName.toString().substring(4)}`)
+                            .then(g => {
+                                if (g.data.status != '待指派') {
+                                    //失敗
+                                    this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 1000);
+
+                                }
+                                else {
+                                    axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
+                                        .then(x => console.log(x))
+                                    axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
+                                        .then(x => console.log(x))
+                                    console.log('b');
+
+                                    //指派廠區後將監控狀態從待指派改為正常
+                                    var rr = g.data.monitorId;
+                                    //console.log(rr)
+                                    axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                        //console.log(g.data);
+                                        this.monitor = g.data;
+                                        this.monitor.status = '正常';
+                                        console.log(this.monitor)
+                                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                            console.log(p);
+                                            this.text = '成功';
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => window.location = "PD_ToDoItems.html", 1000);
+                                            
+                                        })
+                                    })
+                                }
+                            })
+
+
                     }
-                  })
-              }
+
+                }
+
 
             }
-
-          }
         }
-      }
-      Vue.createApp(app).mount('#app');
+        Vue.createApp(app).mount('#app');
 
-                        //var app = new Vue({
-                        //    el: "#app",
-                        //    data: {
-                        //        item: {},
-                        //        carName: {},
-                        //        carcolor: {},
-                        //        cartexture: {},
-                        //        carwheel: {},
-                        //        carplaque: {},
-                        //        carlight: {},
-                        //        carsaddle: {},
-                        //        carsunroof: {},
-                        //        carmedia: {},
-                        //        processes: {},
-                        //        Areas: {},
-                        //        processesAreaList: {},
-                        //        BSO: { isAccepted: 1 }
-
-                        //    },
-                        //    mounted: function (e) {
-                        //        this.item = JSON.parse(sessionStorage.getItem("order"))
-                        //        this.processesAreaList.orderId = this.item.orderId
-
-                        //        //日期格式
-                        //        let today = new Date()
-                        //        let yyyy = today.getFullYear()
-                        //        let mm = today.getMonth() + 1
-                        //        let dd = today.getDate()
-                        //        if (mm < 10) {
-                        //            mm = "0" + mm.toString()
-                        //        }
-                        //        if (dd < 10) {
-                        //            dd = "0" + dd.toString()
-                        //        }
-
-                        //        this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
-                        //        this.processesAreaList.statusId = 2
-                        //        $.ajax({
-                        //            type: "get",
-                        //            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
-                        //            success: function (e) {
-                        //                app.carName = e[0]
-                        //                app.carcolor = e[1]
-                        //                app.cartexture = e[2]
-                        //                app.carwheel = e[3]
-                        //                app.carplaque = e[4]
-                        //                app.carlight = e[5]
-                        //                app.carsaddle = e[6]
-                        //                app.carsunroof = e[7]
-                        //                app.carmedia = e[8]
-
-                        //            }
-                        //        })
-
-                        //        $.ajax({
-                        //            type: "get",
-                        //            url: "https://localhost:44319/api/BusinessOrders/" + this.item.orderId,
-                        //            success: function (f) {
-                        //                app.BSO = f
-                        //                app.BSO.isAccepted = true
-
-                        //            }
-                        //        })
-                        //    },
-                        //    computed: {
-                        //        carmoney() {
-                        //            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
-                        //                parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
-                        //                parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
-                        //                parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
-                        //                parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
-                        //                parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
-                        //                parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
-                        //                parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
-                        //                parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
-                        //        }
-                        //    },
-                        //    methods: {
-                        //        Enter: () => {
-
-                        //            $.ajax({
-                        //                type: "post",
-                        //                url: "https://localhost:44319/api/ProductionProcessLists",
-                        //                contentType: "application/json",
-                        //                data: JSON.stringify(app.processesAreaList),
-                        //                success: function () {
-                        //                    console.log(JSON.stringify(app.processesAreaList))
-                        //                    alert('製程ok');
-                        //                    window.location = "PD_ToDoItems.html"
-
-                        //                },
-                        //                error: function () {
-                        //                    console.log(JSON.stringify(app.processesAreaList))
-                        //                    alert('製程失敗')
-                        //                }
-
-                        //            })
-
-
-
-
-                        //            $.ajax({
-                        //                type: "put",
-                        //                url: "https://localhost:44319/api/BusinessOrders/" + app.item.orderId,
-                        //                contentType: "application/json",
-                        //                data: JSON.stringify(app.BSO),
-                        //                success: function () {
-                        //                    console.log(JSON.stringify(app.BSO))
-                        //                    alert('訂單ok');
-                        //                },
-                        //                error: function () {
-                        //                    console.log(JSON.stringify(app.BSO))
-                        //                    alert('訂單失敗')
-                        //                }
-                        //            })
-
-
-
-                        //        }
-                        //    }
-                        //})
-
-
-                        //// 製程單
-                        //$.ajax({
-                        //    type: "get",
-                        //    url: "https://localhost:44319/api/ProductionProcesses",
-                        //    success: function (e) {
-                        //        app.processes = e
-                        //        //console.log(e)
-                        //    }
-                        //})
-
-                        //// 廠區單
-                        //$.ajax({
-                        //    type: "get",
-                        //    url: "https://localhost:44319/api/ProductionAreas",
-                        //    success: function (e) {
-                        //        app.Areas = e
-                        //        //console.log(e)
-                        //    }
-                        //})
-
+   
     </script>
 
       <!-- session -->

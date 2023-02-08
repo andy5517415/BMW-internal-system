@@ -388,7 +388,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -397,7 +397,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -438,12 +438,31 @@
                     <div v-if="limit.DepID==3" class="content-wrapper">
                         <!-- Content -->
                         <div class="container-xxl flex-grow-1 container-p-y">
-                            <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">業務系統 /</span> 訂單總覽</h4>
-                            <div class="card mb-4 m-4 card-body">
+
+                            <span class="fs-4">業務系統 / </span><span class=" fw-bold fs-2">訂單總覽</span>
+                            <div class="card mb-4 m-4">
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3"
+                                            style="width: 55px;">
+                                    </div>
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">業務訂單總覽</h2>
+                                    </div>
+                                </div>
+                                <div class="card-body">
                                 <div class="text-nowrap">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
+
+                                    <div class="my-1">&nbsp;</div>
+                                    <!--尚未完成篩選條件-->
+                                    <div class="row border border-5 rounded mb-5 mx-4 inputCard2" style="position: relative;">
+                                        <!-- 篩選樣板 -->
+                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">篩選條件</p>
+                                        <div class="my-2">&nbsp;</div>
+
+                                        <div class="col-6 ms-4">
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
                                                     v-model="sl.car"
@@ -454,8 +473,8 @@
                                                 <option value="3">iX xDrive40 旗艦版</option>
                                             </select>
                                         </div>
-                                        <div class="col-6">
-                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="cartype">代理商區域篩選</label>
+                                        <div class="col mb-4">
+                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">代理商區域篩選</label>
                                             <select id="cartype"
                                                     class="form-select color-dropdown"
                                                     v-model="sl.area"
@@ -468,15 +487,19 @@
                                         </div>
                                     </div>
                                     <!--chart.js-->
-                                    <div class="row">
+                                    <div class="row border border-5 rounded mx-4 mb-4" style="position: relative;">
+                                        <!-- 篩選樣板 -->
+                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                            統計圖</p>
+                                        <div class="my-2">&nbsp;</div>
+
                                         <div class="col-sm-6">
                                             <canvas id="chartCanvasType"></canvas>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 mb-4">
                                             <canvas id="chartCanvasArea"></canvas>
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <p class="text-center col-2 fs-4 fw-blod">訂單編號</p>
                                         <p class="text-center col-1 fs-4 fw-blod">下訂車款</p>
@@ -494,35 +517,64 @@
 
 
                             </div>
+                        </div>
+
+                        <div class="card mb-4 m-4">
+                        
+                            <div class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
+                                    style="padding-top: 25px;width: 220px;">訂單編號</span>
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
+                                    style="padding-top: 25px;width: 100px;">下訂車款</span>
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center  "
+                                    style="padding-top: 25px;width: 140px;">建立訂單時間</span>
+                                
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
+                                    style="padding-top: 25px;width: 40px;">&nbsp;</span>
+
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center  "
+                                    style="padding-top: 25px;width: 150px;">修改訂單時間</span>
+                                
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center  "
+                                    style="padding-top: 25px;width: 120px;">代理商</span>
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
+                                    style="padding-top: 25px;width: 100px;">接單狀態</span>
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
+                                    style="padding-top: 25px;">廠區</span>
+                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
+                                    style="padding-top: 25px;width: 140px;">製程</span>
+                            
+                            </div>
+
                             <!-- / Content -->
-                            <template v-for="(o,key) in filtered">
-                                <div class="accordion mt-3" id="accordionExample">
-                                    <div class="card accordion-item mb-4 m-4 active">
+                            <div v-for="(o,key) in filtered">
+                                <div class="mt-3" id="accordionExample">
+                                    <div class="card accordion-item mb-4 mx-4 active">
                                         <h2 class="accordion-header" id="headingOne">
                                             <input type="text" hidden>
                                             <button type="button"
-                                                    class="accordion-button collapsed"
+                                                    class="accordion-button collapsed inputCard2"
                                                     data-bs-toggle="collapse"
                                                     :data-bs-target="'#'+accordionOne[key]"
                                                     aria-expanded="true"
-                                                    aria-controls="accordionOne">
+                                                    aria-controls="accordionOne"
+                                                    style="height: 80px;"
+                                                    >
                                                 <strong class="col-2 fs-6 text-center my-1">#{{key+1}}/&nbsp;&nbsp;{{o.orderNumber}}</strong>
-                                                <strong class="col-1 fs-6 text-center my-1">{{o.detail[0].optionalName.substring(4)}}</strong>
-                                                <strong class="col-2 fs-6 text-center my-1">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
-                                                <strong class="col-2 fs-6 text-center my-1">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
-                                                <strong class="col-1 fs-6 text-center my-1">{{o.areaName}}</strong>
-                                                <strong class="col-1 fs-6 text-center my-1">{{o.isAccepted==1 ? '是':'否'}}</strong>
-                                                <strong class="col-1 fs-5 text-center my-1">{{(o.pparea=='N/A'||o.pparea==null)?'尚未指派':o.pparea}}</strong>
-                                                <strong class="col-2 fs-5 text-center my-1">{{(o.ppname=='N/A'||o.ppname==null)?'尚未指派':o.ppname}}</strong>
-                                                <!--<strong class="col-2 fs-5 text-center my-1">{{o.editDatetime==null?o.editDatetime:o.orderDateTime}}</strong>
-                                                <strong class="col-2 fs-5 text-center my-1">{{}}</strong>-->
+                                                <strong class="col-1 fs-6 text-center my-1 " style="width: 100px;">{{o.detail[0].optionalName.substring(4)}}</strong>
+                                                <strong class="col-2 fs-6 text-center my-1 ">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
+                                                <strong class="col-2 fs-6 text-center my-1 ">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
+                                                <strong class="col-1 fs-6 text-center my-1 " style="width: 100px;">{{o.areaName}}</strong>
+                                                <strong class="col-1 fs-6 text-center my-1 " style="width: 100px;">{{o.isAccepted==1 ? '是':'否'}}</strong>
+                                                <strong class="col-1 fs-5 text-center my-1 ">{{(o.pparea=='N/A'||o.pparea==null)?'尚未指派':o.pparea}}</strong>
+                                                <strong class="col-2 fs-5 text-center my-1 " style="width: 140px;">{{(o.ppname=='N/A'||o.ppname==null)?'尚未指派':o.ppname}}</strong>
                                             </button>
                                         </h2>
 
                                         <div :id="accordionOne[key]"
                                              class="accordion-collapse collapse">
                                             <div class="accordion-body">
-                                                <p>訂單編號:{{o.orderNumber}}</p>
+                                                <p class="mt-4">訂單編號:{{o.orderNumber}}</p>
                                                 <p>車款:{{o.detail[0].optionalName.substring(4)}}</p>
                                                 <p>車漆顏色:{{o.detail[1].optionalName}}</p>
                                                 <p>內裝材質:{{o.detail[2].optionalName}}</p>
@@ -539,7 +591,8 @@
                                     </div>
 
                                 </div>
-                            </template>
+                            </div>
+
                             <!-- Footer -->
                             <!-- / Footer -->
 

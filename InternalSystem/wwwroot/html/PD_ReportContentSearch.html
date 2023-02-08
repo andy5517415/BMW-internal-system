@@ -395,7 +395,7 @@
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <div class="avatar avatar-online">
+                            <div class="avatar ">
                               <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </a>
@@ -404,7 +404,7 @@
                               <a class="dropdown-item" href="#">
                                 <div class="d-flex">
                                   <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar ">
                                       <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                   </div>
@@ -568,11 +568,12 @@
             if (this.Search.EndDate != null) {
               axios.get('https://localhost:44319/api/ProductionContexts/ContextsListSearch/start' + this.Search.StarDate + '/end' + this.Search.EndDate + '?empName=' + this.Search.EmployeeName + '&empNumber=' + this.Search.EmployeeNumber)
                 .then(response => this.contxtList = response.data)
+
               console.log('a')
             } else if (this.Search.EndDate == null) {
               axios.get('https://localhost:44319/api/ProductionContexts/ContextsList?empNumber=' + this.Search.EmployeeNumber + '&empName=' + this.Search.EmployeeName + '&starDate=' + this.Search.StarDate)
                 .then(response => this.contxtList = response.data)
-              console.log('b')
+              console.log('https://localhost:44319/api/ProductionContexts/ContextsList?empNumber=' + this.Search.EmployeeNumber + '&empName=' + this.Search.EmployeeName + '&starDate=' + this.Search.StarDate)
             }
 
           },

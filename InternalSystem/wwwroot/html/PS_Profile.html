@@ -389,7 +389,7 @@
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <div class="avatar avatar-online">
+                            <div class="avatar ">
                               <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </a>
@@ -398,7 +398,7 @@
                               <a class="dropdown-item" href="#">
                                 <div class="d-flex">
                                   <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar ">
                                       <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                   </div>
@@ -464,11 +464,25 @@
                             <div class="col-md-12">
 
                                 <div class="card m-4 my-5">
-                                    <!-- Account -->
-                                    <div class="card-body">
-                                      <p class="fs-2 mb-4 mt-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工照片</p>
+                                  <!-- 卡片標題 -->
+                                  <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                      <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                    </div>
+                                    <div class="col-6 my-2 mb-3">
+                                      <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">員工個人資料</h2>
+                                    </div>
+                                  </div>
 
-                                      <div class="d-flex align-items-start align-items-sm-center gap-4 mx-5">
+                                  <div class="my-4">&nbsp;</div>
+                                    <!-- Account -->
+                                    <div class="card-body border border-5 rounded mx-4" style="position: relative;">
+
+                                      <!-- 篩選樣板 -->
+                                      <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                        員工照片</p>
+
+                                      <div class="d-flex align-items-start align-items-sm-center gap-4 mx-4 mt-2">
                                           <img :src="employeelist.photo"
                                                alt="user-avatar"
                                                class="d-block rounded"
@@ -476,7 +490,7 @@
                                                width="150"
                                                id="uploadedAvatar" 
                                                style="object-fit:contain"/>
-                                          <div class="button-wrapper">
+                                          <div>
                                               <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
                                                   上傳大頭照
                                                   <i class="bx bx-upload d-block d-sm-none"></i>
@@ -488,9 +502,9 @@
                                                          @change="uploadphoto" />
                                               </label>
 
-                                              <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                              <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4" style="display:none">
                                                   <i class="bx bx-reset d-block d-sm-none"></i>
-                                                  <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                                  <span class="d-none d-sm-block"></span>
                                               </button>
 
                                               <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
@@ -498,20 +512,22 @@
                                       </div>
                                     </div>
 
-                                    <hr class="col-11 mx-auto border-5 bor">
+                                    <hr class="col-11 mx-auto border-5">
 
                                     <!-- 員工名稱 -->
                                     <div class="card-body">
                                         <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                          <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工基本資料</p>
-                                            <div class="row mx-5">
+                                          <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工基本資料</p>
+
+                                            <div class="row mx-4">
                                                 <div class="mb-4 col-md-4">
                                                     <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                                     <input v-model="employeelist.employeeName" class="form-control fs-5 fs-5"
                                                            type="text"
                                                            id="EmployeeName"
                                                            name="EmployeeName"
-                                                           autofocus />
+                                                           autofocus
+                                                            @change="empname"/>
                                                 </div>
                                                 <!-- 傳遞參數ID -->
                                                 <!--<div style="display: none">-->
@@ -541,12 +557,14 @@
                                                 <!-- 身分證字號 -->
                                                 <div class="mb-3 col-md-4">
                                                     <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
+                                                    <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
                                                     <div class="input-group input-group-merge">
                                                         <input v-model="employeelist.identiyId" type="text"
                                                                id="IdentityNumber"
                                                                name="IdentityNumber"
                                                                class="form-control fs-5"
-                                                               placeholder="" />
+                                                               placeholder=""
+                                                               @change="Identit" />
                                                     </div>
                                                 </div>
                                                 <!-- 國籍 -->
@@ -569,12 +587,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                          </div>
-                                        </div>
-                                        <div class="card m-4 my-5">
-                                          <div class="card-body">
-                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 聯絡資料</p>
-                                            <div class="row mx-5">
+                                            <hr class="my-5">
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">聯絡資料</p>
+                                            <div class="row mx-4">
 
                                                 <!-- 電子信箱 -->
                                                 <div class="mb-4 col-md-6">
@@ -583,19 +598,22 @@
                                                            type="text"
                                                            id="email"
                                                            name="email"
-                                                           placeholder="@example.com" />
+                                                           placeholder="@example.com" 
+                                                            @change="mail"/>
                                                 </div>
 
                                                 <!-- 行動電話 -->
                                                 <div class="mb-4 col-md-6">
                                                     <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="phoneNumber">行動電話</label>
+                                                    <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{pnt}}/10</p>
                                                     <div class="input-group input-group-merge">
                                                         <span class="input-group-text">TW (+886)</span>
                                                         <input v-model="employeelist.phoneNumber" type="text"
                                                                id="phoneNumber"
                                                                name="phoneNumber"
                                                                class="form-control fs-5"
-                                                               placeholder="09123456789" />
+                                                               placeholder="09123456789"
+                                                                @change="phoneNumber"/>
                                                     </div>
                                                 </div>
                                                 <!--縣市-->
@@ -612,7 +630,8 @@
                                                     <input v-model="employeelist.address" class="form-control fs-5"
                                                            type="text"
                                                            id="address"
-                                                           name="address" />
+                                                           name="address" 
+                                                            @change="address" />
                                                 </div>
                                                 <!-- 家用電話 -->
                                                 <div class="mb-4 col-md-6">
@@ -622,7 +641,8 @@
                                                                id="Number"
                                                                name="Number"
                                                                class="form-control fs-5"
-                                                               placeholder="" />
+                                                               placeholder=""
+                                                               @change="homenumber"/>
                                                     </div>
                                                 </div>
                                                 <!-- 緊急聯絡人 -->
@@ -632,7 +652,8 @@
                                                            type="text"
                                                            id="Emergency"
                                                            name="Emergency"
-                                                           autofocus />
+                                                           autofocus 
+                                                            @change="emergen"/>
                                                 </div>
                                                 <!-- 緊急聯絡人關係選擇 -->
                                                 <div class="mb-4 col-md-6">
@@ -641,22 +662,23 @@
                                                            type="text"
                                                            id="EmergencyContact"
                                                            name="EmergencyContact"
-                                                           autofocus />
+                                                           autofocus
+                                                             @change="emergencycontact"/>
                                                 </div>
                                                 <!-- 緊急聯絡人電話 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="EmergencyNumber">緊急聯絡人電話</label>
+                                                    <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{epnt}}/10</p>
                                                     <div class="input-group input-group-merge">
-                                                        <input v-model="employeelist.emergencyNumber" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control fs-5" placeholder="" />
+                                                        <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control fs-5" placeholder="" />
                                                     </div>
                                                 </div>
                                             </div>
-                                          </div>
-                                        </div>
-                                        <div class="card m-4 my-5">
-                                          <div class="card-body">
-                                            <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 在職資料</p>
-                                            <div class="row mx-5">
+
+                                            <hr class="my-5">
+
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">在職資料</p>
+                                            <div class="row mx-4">
                                                 <!-- 員工工號 -->
                                                 <div class="mb-3 col-md-6">
                                                     <label for="residence" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工工號</label>
@@ -710,12 +732,9 @@
                                                     <input v-model="employeelist.entryDate" class="form-control fs-5" type="date" id="Entrydate" disabled/>
                                                 </div>
                                             </div>
-                                          </div>
-                                        </div>
-                                        <div class="card m-4 my-5">
-                                            <div class="card-body">
-                                                <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
-                                                <div class="row mx-5">
+                                            <hr class="my-5">
+                                              <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工帳號密碼設置</p>
+                                                <div class="row mx-4">
                                                     <!--帳號設置-->
                                                     <div class="mb-3 col-md-6">
                                                         <label for="usernumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">帳號設定</label>
@@ -731,32 +750,35 @@
                                                                autofocus />
                                                     </div>
                                                 </div>
+
                                                 <!-- ★Modal -->
                                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content border border-5">
-                                                            <div class="modal-header mb-3">
-                                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                                    &nbsp修改資料
-                                                                </p>
-                                                            </div>
-                                                            <div class="row justify-content-center">
-                                                                <hr class="col-10">
-                                                            </div>
-                                                            <div class="modal-body text-start mt-0">
-                                                                <!--<p class="fs-5">✏️員工名稱：{{employeelist.employeeName}}</p>
-                                                                <p class="fs-5">✏️員工工號：{{employeelist.employeeNumber}}</p>-->
-                                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認修改資料?</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <!-- 存檔按鈕 -->
-                                                                <button type="button" v-on:click="createbtn" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 " data-bs-dismiss="modal">確定</button>
-                                                                <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">取消</button>
-                                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                                                            </div>
-                                                        </div>
+                                                  <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border border-5">
+                                                      <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                          &nbsp💡個人資料修改
+                                                        </p>
+                                                      </div>
+                                                      <div class="row justify-content-center">
+                                                        <hr class="col-10 border border-2">
+                                                        <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
+                                                      </div>
+                                                      <div class="modal-body text-start mt-0">
+                                                        <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確定要修改個人資料?</p>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal" aria-label="Close"
+                                                          @click="createbtn">
+                                                          確認
+                                                        </button>
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                      </div>
                                                     </div>
+                                                  </div>
                                                 </div>
+
                                                 <!-- 確認視窗按鈕 -->
                                                 <div class="mt-2 py-5 d-md-flex justify-content-md-end">
                                                     <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -770,8 +792,8 @@
                                                     <button type="button" v-on:click="createbtn" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 ">存檔</button>
                                                     <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3">取消</button>
                                                 </div>-->
-                                            </div>
-                                        </div>
+
+
                                         </form>
                                     </div>
                                     <!-- /Account -->
@@ -825,6 +847,152 @@
               }
             },
             methods: {
+              Identit() {
+                let reg = /^[A-Z][1,2]\d{8}$/;
+                logic = reg.test(this.employeelist.identiyId)
+                //console.log(logic);
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "身份證字號格式有誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.identiyId = "";
+                }
+              },
+              phoneNumber() {
+                let phn = /^09\d{8}$/;
+                logic = phn.test(this.employeelist.phoneNumber)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "行動電話格式有誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.phoneNumber = "";
+                }
+              },
+              emerphone() {
+                let ephn = /^09\d{8}$/;
+                logic = ephn.test(this.employeelist.emergencyNumber)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "行動電話格式有誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.emergencyNumber = "";
+                }
+              },
+              empname() {
+                let empname = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                logic = empname.test(this.employeelist.employeeName)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "名稱不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.employeeName = "";
+                }
+              },
+              mail() {
+                let email = /^[a-zA-Z0-9@.]+$/;
+                logic = email.test(this.employeelist.email)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "信箱不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.email = "";
+                }
+              },
+              address() {
+
+                let address = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/;
+                logic = address.test(this.employeelist.address)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "地址不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.address = "";
+                }
+              },
+              homenumber() {
+                let homenumber = /^0\d{1,2}-?\d{6,8}$/;
+                logic = homenumber.test(this.employeelist.homePhone)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "家用電話格式錯誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.homePhone = "";
+                }
+              },
+              emergen() {
+                let emergen = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                logic = emergen.test(this.employeelist.emergencyPerson)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "緊急聯絡人不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.emergencyPerson = "";
+                }
+              },
+              empnumber() {
+                let empnumber = /^[0-9]+$/;
+                logic = empnumber.test(this.employeelist.employeeNumber)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "工號請輸入純數字";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.employeeNumber = "";
+                }
+              },
+              emergencycontact() {
+                let emergencycontact = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                logic = emergencycontact.test(this.employeelist.emergencyRelation)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "緊急連絡人關係請請輸入英文數字，不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.emergencyRelation = "";
+                }
+              },
+              usernum() {
+                let usernum = /^[0-9]+$/;
+                logic = usernum.test(this.employeelist.acount)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "帳號請輸入純數字";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.acount = "";
+                }
+              },
+              password() {
+                let password = /^[a-zA-Z0-9@.]+$/;
+                logic = password.test(this.employeelist.password)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "密碼請輸入英文數字，部分特殊字元不可用";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                  this.employeelist.password = "";
+                }
+              },
               createbtn: function () {
 
                 axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
@@ -832,6 +1000,8 @@
                   this.text = "資料已修改";
                   $("#toastSuc").fadeIn("fast");
                   setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                  setTimeout(() => { window.location = "/html/index.html", 1000 })
                 }).catch(error => {
                   this.text = "錯誤";
                   $("#toastErr").fadeIn("fast");
@@ -875,6 +1045,20 @@
                   };
                   reader.readAsDataURL(file)
                 }
+              }
+
+            },
+            computed:
+            {
+              cnt() {
+                return (this.employeelist.identiyId == null) ? 0 : this.employeelist.identiyId.toString().length
+              },
+              pnt() {
+                return (this.employeelist.phoneNumber == null) ? 0 : this.employeelist.phoneNumber.toString().length
+              },
+              epnt() {
+                return (this.employeelist.emergencyNumber == null) ? 0 : this.employeelist.emergencyNumber.toString().length
+
               }
 
             },

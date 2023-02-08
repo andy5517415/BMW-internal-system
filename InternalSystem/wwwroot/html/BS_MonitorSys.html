@@ -395,7 +395,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -404,7 +404,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -1466,9 +1466,9 @@
                     getstatus: {},
                     abnormalcnt: {},
                     pie: {
-                        M4: { a: 0, b: 0, c: 0, d: 0 ,e:0},
-                        X7: { a: 0, b: 0, c: 0, d: 0 ,e:0},
-                        iX: { a: 0, b: 0, c: 0, d: 0 ,e:0}
+                        M4: { a: 0, b: 0, c: 0, d: 0, e: 0 },
+                        X7: { a: 0, b: 0, c: 0, d: 0, e: 0 },
+                        iX: { a: 0, b: 0, c: 0, d: 0, e: 0 }
                     }
 
                 }
@@ -1561,8 +1561,8 @@
 
                 axios.get('/api/MonitoringProcessAreaStatus').then(g => {
                     g.data.forEach(x => {
-                        if (x.carType =="M4 Competition") {
-                            if (x.status=="正常") {
+                        if (x.carType == "M4 Competition") {
+                            if (x.status == "正常") {
                                 this.pie.M4.a++;
                             }
                             else if (x.status == "待處理") {
@@ -1722,7 +1722,7 @@
                     datasets: [
                         {
                             data: M4cnt,
-                            backgroundColor: ["#5cb85c", "#f0ad4e", "#5bc0de", "#d9534f","#7c8184"]
+                            backgroundColor: ["#5cb85c", "#f0ad4e", "#5bc0de", "#d9534f", "#7c8184"]
                         }
                     ]
                 },

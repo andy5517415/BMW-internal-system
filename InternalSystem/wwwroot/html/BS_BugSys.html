@@ -393,7 +393,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -402,7 +402,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -506,6 +506,7 @@
 
 
 
+
                                         <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : </label>
                                         <textarea class="form-control fs-5"
                                                   id="exampleFormControlTextarea1"
@@ -515,14 +516,13 @@
 
 
 
-
-                                        <!--  -->
                                         <!-- ★Modal -->
                                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content border border-5">
                                                     <div class="modal-header mb-3">
                                                         <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+
                                                             &nbsp選擇故障排除狀態
                                                         </p>
                                                     </div>
@@ -622,7 +622,6 @@
             methods: {
                 btnstate(event) {
                     if (this.selcone != 999 && this.description != '') {
-                        if (confirm("是否要送出訊息?") == true) {
                             var stateName = event.target.innerText
                             console.log(stateName);
                             axios.put(`/api/MonitoringProcessAreaStatus/putstatus?areaid=${this.selcone.areaId}&processId=${this.selcone.processId}&cartype=${this.selcone.optionalName}&stateName=${stateName}&des=${this.description}`)
@@ -641,7 +640,7 @@
                                         setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                     };
                                 })
-                        }
+                        
                     }
                     else if (this.selcone == 999) {
                         //失敗

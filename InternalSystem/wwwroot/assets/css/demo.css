@@ -255,3 +255,9 @@ button:hover {
   transform:translate(0px,-5px);
   transition: 0.3s;
 }
+.bg-Mysuccess{
+  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+}
+.bg-info{
+  background-image: linear-gradient(to top, #a0baec 0%, #e3edff 100%);
+}
