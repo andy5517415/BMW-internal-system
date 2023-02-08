@@ -73,7 +73,7 @@ namespace InternalSystem.Controllers
             if(position != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.PositionId == position); }
             if(rank != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.RankId == rank); }
             if(dutystatus != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.DutyStatus == dutystatus); }
-            var query = personnelProfileDetail.Skip((page - 1) * 10).Take(10);
+            var query = personnelProfileDetail.Skip((page - 1) * 15).Take(15);
 
             return await query.ToListAsync();
         }
@@ -109,7 +109,7 @@ namespace InternalSystem.Controllers
             if (position != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.PositionId == position); }
             if (rank != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.RankId == rank); }
             if (dutystatus != null) { personnelProfileDetail = personnelProfileDetail.Where(a => a.DutyStatus == dutystatus); }
-            var total  = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelProfileDetail.Count()) / 10)); 
+            var total  = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelProfileDetail.Count()) / 15)); 
             return total;
         }
         //// GET: api/PersonnelProfileDetails/oderby/findnew
