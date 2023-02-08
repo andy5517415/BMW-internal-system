@@ -608,20 +608,55 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- ★Modal 刪除-->
+                                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border border-5">
+                                            <div class="modal-header mb-3">
+                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                    &nbsp請假資料刪除確認
+                                                </p>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <hr class="col-10">
+                                            </div>
+                                            <div class="modal-body text-start mt-0">
+                                                <p class="fs-5">✏️請假開始時間：{{leaveExit.startDate}} {{leaveExit.startTime}}</p>
+                                                <p class="fs-5">✏️請假結束時間：{{leaveExit.endDate}} {{leaveExit.endTime}}</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==1">✏️請假假別：事假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==2">✏️請假假別：病假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==3">✏️請假假別：特假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==4">✏️請假假別：生理假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==5">✏️請假假別：喪假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==6">✏️請假假別：婚假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==7">✏️請假假別：育嬰假</p>
+                                                <p class="fs-5" v-if="leaveExit.leaveType==8">✏️請假假別：產假</p>
+                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認刪除本次申請?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- 存檔按鈕 -->
+                                                <button type="button" @click="nobtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 ">送出</button>
+                                                <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
+                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- 確認視窗按鈕 -->
                                 <div class="mt-2 py-5 d-md-flex justify-content-md-end">
                                     <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         送出申請
                                     </button>
+                                    <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal2">刪除</button>
                                     <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
                                     <!--<button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">重打</button>-->
                                 </div>
-                                <!--<div class="mt-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3" @click="okbtn">更改提交</button>
+                                <div class="mt-2 d-md-flex justify-content-md-end">
+                                    <!--<button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3" @click="okbtn">更改提交</button>-->
 
-        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 fs-4 fw-bold border-3 me-3" @click="nobtn">刪除</button>
 
-    </div>-->
+                                </div>
 </div>
                         </form>
                         <!-- 三個進度卡 -->
@@ -635,9 +670,9 @@
                                             <h4 class="card-title text-white text-center m-3">送交簽核</h4>
                                         </div>
                                         <div class="card-body text-black text-center">
-                                            <span class="card-text fs-4">王鴻杰</span>
+                                            <span class="card-text fs-4">{{leaveExit.employeeName}}</span>
                                             <span class="badge bg-label-info fs-5">送簽</span>
-                                            <P class="fs-5 mb-0 mt-2">2023-01-04</P>
+                                            <P class="fs-5 mb-0 mt-2">{{leaveExit.applicationDate}}</P>
                                         </div>
                                     </div>
                                 </div>
@@ -755,6 +790,7 @@
                                             $("#toastSuc").fadeIn("fast");
                                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                             setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+
                                         }
 
                                         //失敗
@@ -771,6 +807,7 @@
                                 this.text = '請假項目請確實填寫';
                                 $("#toastSuc").fadeIn("fast");
                                 setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
                             };
                         }
 
@@ -780,21 +817,21 @@
 
 
                     nobtn: function () {
-                        if (confirm('刪除本次請假申請?') == true) {
                             axios.delete('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId)
                                 .then(response => {
                                     //★成功
                                     this.text = response.data;
                                     $("#toastSuc").fadeIn("fast");
                                     setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
-                                    //失敗
-                                    this.text = response.data;
-                                    $("#toastErr").fadeIn("fast");
-                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);;
-                                    window.location = "/html/PS_ToDoItems.html";
+                                    ////失敗
+                                    //this.text = response.data;
+                                    //$("#toastErr").fadeIn("fast");
+                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);;
+                                    //window.location = "/html/PS_ToDoItems.html";
                                 })
-                        }
+                        
                     },
                     uploadphoto(event) {
                         console.log('ok')

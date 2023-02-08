@@ -564,7 +564,7 @@
                             this.text = '已送出審閱訊息';
                             $("#toastSuc").fadeIn("fast");
                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                            window.location = "/html/PS_ToDoItems.html";
+                            setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
                         })
 
                     }

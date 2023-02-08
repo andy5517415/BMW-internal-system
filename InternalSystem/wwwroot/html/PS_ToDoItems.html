@@ -477,7 +477,7 @@
                                     <!-- ★設權限 -->
                                     <ul class="nav nav-pills mb-3 nav-fill active" role="tablist" >
                                         <li class="nav-item " v-if="employeelist.positionId<7">
-                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt!=0">{{cnt}}</span>
+                                            <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning" v-if="cnt>0">{{cnt}}</span>
                                             <button type="button"
                                                     class="btn-primary fw-bold border-3 my-5"
                                                     role="tab"
@@ -918,9 +918,9 @@
                 wkover: {},
                 leavereturn: {},
                 NotyetOver: {},
-                cnt: {},
-                mnt: {},
-                wmt: {}
+                cnt: 0,
+                mnt: 0,
+                wmt: 0
               }
             },
             methods: {
@@ -940,7 +940,12 @@
               buycheckbtn: function (e) {
                 sessionStorage.setItem("see", JSON.stringify(e))
               }
-            },
+              },
+              computed() {
+        
+
+              },
+
             mounted() {
               this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
 
@@ -962,7 +967,7 @@
                     axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
                       .then(response => {
                         this.buyapp = response.data;
-                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                       /* this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;*/
                       })
                   }
 
@@ -972,14 +977,14 @@
                       + this.employeelist.departmentId)
                       .then(response => {
                         this.leaveproxy = response.data;
-                        this.mnt = this.leaveproxy.length
+                        //this.mnt = this.leaveproxy.length
                         //console.log(this.mnt)
                       })
                     axios.get('/api/PersonnelOvertimeForms/manager/over/'
                       + this.employeelist.departmentId)
                       .then(response => {
                         this.wkover = response.data;
-                        this.wmt = this.wkover.length
+                        //this.wmt = this.wkover.length
                         console.log(this.wmt)
                       })
 
@@ -1000,7 +1005,10 @@
                   }
 
                 })
-
+                setTimeout(() => {
+                    this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                    this.mnt = this.leaveproxy.length;
+                    this.wmt = this.wkover.length;},2000)
 
             }
           }
