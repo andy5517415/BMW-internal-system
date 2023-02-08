@@ -454,7 +454,7 @@
                                          id="employeeName"
                                          name="employeeName"
                                          v-model="myobject.employeeName"
-                                         autofocus />
+                                         disabled />
                               </div>
                               <!-- 部門選擇 -->
                               <div class="mb-3 col-md-6">
@@ -464,13 +464,13 @@
                                          id="department"
                                          name="department"
                                          v-model="myobject.department"
-                                         autofocus />
+                                         disabled />
                               </div>
                               <!-- 申請日期 -->
                               <div class="mb-3 col-md-6">
                                   <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
                                   <div class="col-md-12">
-                                      <input class="form-control fs-5" type="text" id="ApplicationDate" v-model="myobject.date" />
+                                      <input class="form-control fs-5" type="text" id="ApplicationDate" v-model="myobject.date" disabled/>
                                   </div>
                               </div>
                               <!-- 採購單號 -->
@@ -481,7 +481,7 @@
                                          id="PurchaseID"
                                          name="PurchaseID"
                                          v-model="myobject.purchaseId"
-                                         autofocus />
+                                         disabled />
                               </div>
                               <!-- 備註 -->
                               <div class="mb-3 col-md-12">
@@ -491,7 +491,7 @@
                                          id="Comment"
                                          name="Comment"
                                          v-model="myobject.comment"
-                                         placeholder="" />
+                                         disabled />
                               </div>
                               <!-- 狀態 -->
                               <div class="mb-3 col-md-6">
@@ -501,7 +501,7 @@
                                          id="Statue"
                                          name="Statue"
                                          v-model="myobject.totalapp"
-                                         placeholder="" />
+                                         disabled />
                               </div>
                               <!-- 未通過原因 -->
                               <div class="mb-3 col-md-6">
@@ -511,7 +511,7 @@
                                          id="Statue"
                                          name="Statue"
                                          v-model="myobject.rejectReason"
-                                         placeholder="" />
+                                         disabled />
                               </div>
                               <!-- 採購清單 -->
                               <div class="card">
