@@ -24,7 +24,7 @@ namespace InternalSystem.Controllers
         //異常清單(全部+複合式查詢訂單及異常等級)
         // GET: api/ProductionProcessLists/GetBugList
         [HttpGet("GetBugList")]
-        public async Task<ActionResult<dynamic>> GetBugList(string orderNumber, string date)
+        public async Task<ActionResult<dynamic>> GetBugList(string orderNumber, string date,string title)
         {
             var BugList = from PBC in this._context.ProductionBugContexts
                           join PPL in this._context.ProductionProcessLists on PBC.ProcessId equals PPL.ProcessId
@@ -58,6 +58,14 @@ namespace InternalSystem.Controllers
             if (!string.IsNullOrWhiteSpace(orderNumber))
             {
                 BugList = BugList.Where(a => a.OrderNumber.Contains(orderNumber));
+            }
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                BugList = BugList.Where(a => a.Title.Contains(title));
+            }
+            if (!string.IsNullOrWhiteSpace(date))
+            {
+                BugList = BugList.Where(a => a.Date.Contains(date));
             }
             
             return await BugList.FirstOrDefaultAsync();

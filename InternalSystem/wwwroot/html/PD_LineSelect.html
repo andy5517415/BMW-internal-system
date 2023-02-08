@@ -596,7 +596,10 @@
                                         console.log(this.monitor)
                                         axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
                                             console.log(p);
-                                            window.location = "PD_LineSelect.html"
+                                            setTimeout(() => {
+                                                $("#toastSuc").fadeOut();
+                                                window.location = "PD_LineSelect.html";
+                                            }, 1000);
                                         })
                                     })
                                 })
@@ -637,14 +640,17 @@
                                             console.log(this.monitor)
                                             axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
                                                 console.log(p);
-                                                window.location = "PD_LineSelect.html"
+                                                this.text = '成功送出';
+                                                $("#toastSuc").fadeIn("fast");
+                                                setTimeout(() => {
+                                                    $("#toastSuc").fadeOut();
+                                                    window.location = "PD_LineSelect.html";
+                                                }, 1000);
                                             })
                                         })
                                     })
                             }
-                            this.text = '成功送出';
-                            $("#toastSuc").fadeIn("fast");
-                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
                             //window.location = "PD_MakeClass.html"
                         }
 
@@ -657,48 +663,48 @@
 
 
 
-            //var app = new Vue({
-            //    el: "#app",
-            //    data: {
-            //        process: {},
-            //        car: {},
-            //        PDProcessList: {}
-            //    }, mounted: function () {
-            //        this.process = JSON.parse(sessionStorage.getItem("data"));
-            //        this.car = JSON.parse(sessionStorage.getItem("data2"));
-            //        $.ajax({
-            //            type: "get",
-            //            url: "https://localhost:44319/api/ProductionProcessLists/Processor/" + this.process.processId + "/ " + this.car.optionalId,
-            //            success: (e) => {
+                    //var app = new Vue({
+                    //    el: "#app",
+                    //    data: {
+                    //        process: {},
+                    //        car: {},
+                    //        PDProcessList: {}
+                    //    }, mounted: function () {
+                    //        this.process = JSON.parse(sessionStorage.getItem("data"));
+                    //        this.car = JSON.parse(sessionStorage.getItem("data2"));
+                    //        $.ajax({
+                    //            type: "get",
+                    //            url: "https://localhost:44319/api/ProductionProcessLists/Processor/" + this.process.processId + "/ " + this.car.optionalId,
+                    //            success: (e) => {
 
-            //                for (var i = 0; i < e.length; i++) {
-            //                    if (e[i].optionalId == 1) {
-            //                        e[i].optionalName = e[i].optionalName.slice(3);
-            //                    }
-            //                    if (e[i].optionalId == 2) {
-            //                        e[i].optionalName = e[i].optionalName.slice(4);
-            //                    }
-            //                    if (e[i].optionalId == 3) {
-            //                        e[i].optionalName = e[i].optionalName.slice(4, 15);
-            //                    }
-            //                }
-
-
-            //                app.PDProcessList = e
-            //                console.log(app.PDProcessList);
-            //            }
-
-            //        })
-
-            //    },
-            //    methods: {
-            //        Enter: function (e) {
-            //            sessionStorage.setItem("data", JSON.stringify(e));
-            //        }
-            //    }
+                    //                for (var i = 0; i < e.length; i++) {
+                    //                    if (e[i].optionalId == 1) {
+                    //                        e[i].optionalName = e[i].optionalName.slice(3);
+                    //                    }
+                    //                    if (e[i].optionalId == 2) {
+                    //                        e[i].optionalName = e[i].optionalName.slice(4);
+                    //                    }
+                    //                    if (e[i].optionalId == 3) {
+                    //                        e[i].optionalName = e[i].optionalName.slice(4, 15);
+                    //                    }
+                    //                }
 
 
-            //})
+                    //                app.PDProcessList = e
+                    //                console.log(app.PDProcessList);
+                    //            }
+
+                    //        })
+
+                    //    },
+                    //    methods: {
+                    //        Enter: function (e) {
+                    //            sessionStorage.setItem("data", JSON.stringify(e));
+                    //        }
+                    //    }
+
+
+                    //})
 
 
 

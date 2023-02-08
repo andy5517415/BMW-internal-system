@@ -624,10 +624,10 @@
                                               <div class="row justify-content-center">
                                                   <hr class="col-10">
                                               </div>
-                                              <div class="modal-body text-start mt-0">
+                                              <div class="modal-body text-start mt-0" >
                                                   <p class="fs-5">✏️訂單號碼：{{item.orderNumber}}</p>
                                                   <p class="fs-5">✏️製成：{{item.processName}}</p>
-                                                  <p class="fs-5">✏️廠區：</p>
+                                                  <p class="fs-5">✏️廠區：{{'A0'+processesAreaList.areaId}}</p>
                                                   <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5 ">⚠️確認廠區?</p>
 
                                               </div>
@@ -823,234 +823,92 @@
 
                     if (this.processesAreaList.processId != 1) {
 
-                        if (confirm('確定送出?')) {
-                            //先檢查該廠區是否已有訂單生產中
-                            axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/${this.processesAreaList.processId}/${this.carName.optionalName.toString().substring(4)}`)
-                                .then(g => {
-                                    if (g.data.status != '待指派') {
-                                        //失敗
-                                        this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
-                                        $("#toastErr").fadeIn("fast");
-                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                    }
-                                    else {
-                                        axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processesAreaList.orderId, this.processesAreaList)
-                                            .then(x => console.log(x))
+                        //先檢查該廠區是否已有訂單生產中
+                        axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/${this.processesAreaList.processId}/${this.carName.optionalName.toString().substring(4)}`)
+                            .then(g => {
+                                if (g.data.status != '待指派') {
+                                    //失敗
+                                    this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 1000);
 
-                                        //指派廠區後將監控狀態從待指派改為正常
-                                        var rr = g.data.monitorId;
-                                        //console.log(rr)
-                                        axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
-                                            //console.log(g.data);
-                                            this.monitor = g.data;
-                                            this.monitor.status = '正常';
-                                            console.log(this.monitor)
-                                            axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
-                                                console.log(p);
-                                                this.text = '成功';
-                                                $("#toastSuc").fadeIn("fast");
-                                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                                window.location = "PD_ToDoItems.html"
-                                            })
+                                }
+                                else {
+                                    axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processesAreaList.orderId, this.processesAreaList)
+                                        .then(x => console.log(x))
+
+                                    //指派廠區後將監控狀態從待指派改為正常
+                                    var rr = g.data.monitorId;
+                                    //console.log(rr)
+                                    axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                        //console.log(g.data);
+                                        this.monitor = g.data;
+                                        this.monitor.status = '正常';
+                                        console.log(this.monitor)
+                                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                            console.log(p);
+                                            this.text = '成功';
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => window.location = "PD_ToDoItems.html", 1000);
+                                            
                                         })
-                                    }
-                                })
+                                    })
+                                }
+                            })
 
-                        }
+
 
                     } else if (this.processesAreaList.processId == 1) {
 
-                        if (confirm('確定送出?')) {
-                            //先檢查該廠區是否已有訂單生產中
-                            axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/1/${this.carName.optionalName.toString().substring(4)}`)
-                                .then(g => {
-                                    if (g.data.status != '待指派') {
-                                        //失敗
-                                        this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
-                                        $("#toastErr").fadeIn("fast");
-                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                    }
-                                    else {
-                                        axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
-                                            .then(x => console.log(x))
-                                        axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
-                                            .then(x => console.log(x))
-                                        console.log('b');
+                        //先檢查該廠區是否已有訂單生產中
+                        axios.get(`/api/MonitoringProcessAreaStatus/${this.processesAreaList.areaId}/1/${this.carName.optionalName.toString().substring(4)}`)
+                            .then(g => {
+                                if (g.data.status != '待指派') {
+                                    //失敗
+                                    this.text = '該廠區已有訂單生產中，請選擇其他廠區!';
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 1000);
 
-                                        //指派廠區後將監控狀態從待指派改為正常
-                                        var rr = g.data.monitorId;
-                                        //console.log(rr)
-                                        axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
-                                            //console.log(g.data);
-                                            this.monitor = g.data;
-                                            this.monitor.status = '正常';
-                                            console.log(this.monitor)
-                                            axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
-                                                console.log(p);
-                                                this.text = '成功';
-                                                $("#toastSuc").fadeIn("fast");
-                                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                                window.location = "PD_ToDoItems.html"
-                                            })
+                                }
+                                else {
+                                    axios.post('https://localhost:44319/api/ProductionProcessLists', this.processesAreaList)
+                                        .then(x => console.log(x))
+                                    axios.put('https://localhost:44319/api/BusinessOrders/' + this.item.orderId, this.BSO)
+                                        .then(x => console.log(x))
+                                    console.log('b');
+
+                                    //指派廠區後將監控狀態從待指派改為正常
+                                    var rr = g.data.monitorId;
+                                    //console.log(rr)
+                                    axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                        //console.log(g.data);
+                                        this.monitor = g.data;
+                                        this.monitor.status = '正常';
+                                        console.log(this.monitor)
+                                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                            console.log(p);
+                                            this.text = '成功';
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => window.location = "PD_ToDoItems.html", 1000);
+                                            
                                         })
-                                    }
-                                })
-                        }
+                                    })
+                                }
+                            })
+
 
                     }
 
                 }
-                
+
 
             }
         }
         Vue.createApp(app).mount('#app');
 
-                            //var app = new Vue({
-                            //    el: "#app",
-                            //    data: {
-                            //        item: {},
-                            //        carName: {},
-                            //        carcolor: {},
-                            //        cartexture: {},
-                            //        carwheel: {},
-                            //        carplaque: {},
-                            //        carlight: {},
-                            //        carsaddle: {},
-                            //        carsunroof: {},
-                            //        carmedia: {},
-                            //        processes: {},
-                            //        Areas: {},
-                            //        processesAreaList: {},
-                            //        BSO: { isAccepted: 1 }
-
-                            //    },
-                            //    mounted: function (e) {
-                            //        this.item = JSON.parse(sessionStorage.getItem("order"))
-                            //        this.processesAreaList.orderId = this.item.orderId
-
-                            //        //日期格式
-                            //        let today = new Date()
-                            //        let yyyy = today.getFullYear()
-                            //        let mm = today.getMonth() + 1
-                            //        let dd = today.getDate()
-                            //        if (mm < 10) {
-                            //            mm = "0" + mm.toString()
-                            //        }
-                            //        if (dd < 10) {
-                            //            dd = "0" + dd.toString()
-                            //        }
-
-                            //        this.processesAreaList.starDate = `${yyyy}-${mm}-${dd}`
-                            //        this.processesAreaList.statusId = 2
-                            //        $.ajax({
-                            //            type: "get",
-                            //            url: "https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor/" + this.item.orderId,
-                            //            success: function (e) {
-                            //                app.carName = e[0]
-                            //                app.carcolor = e[1]
-                            //                app.cartexture = e[2]
-                            //                app.carwheel = e[3]
-                            //                app.carplaque = e[4]
-                            //                app.carlight = e[5]
-                            //                app.carsaddle = e[6]
-                            //                app.carsunroof = e[7]
-                            //                app.carmedia = e[8]
-
-                            //            }
-                            //        })
-
-                            //        $.ajax({
-                            //            type: "get",
-                            //            url: "https://localhost:44319/api/BusinessOrders/" + this.item.orderId,
-                            //            success: function (f) {
-                            //                app.BSO = f
-                            //                app.BSO.isAccepted = true
-
-                            //            }
-                            //        })
-                            //    },
-                            //    computed: {
-                            //        carmoney() {
-                            //            return parseInt((this.carName.price == null) ? 0 : this.carName.price, 10) +
-                            //                parseInt((this.carcolor.price == null) ? 0 : this.carcolor.price, 10) +
-                            //                parseInt((this.cartexture.price == null) ? 0 : this.cartexture.price, 10) +
-                            //                parseInt((this.carwheel.price == null) ? 0 : this.carwheel.price, 10) +
-                            //                parseInt((this.carplaque.price == null) ? 0 : this.carplaque.price, 10) +
-                            //                parseInt((this.carlight.price == null) ? 0 : this.carlight.price, 10) +
-                            //                parseInt((this.carsaddle.price == null) ? 0 : this.carsaddle.price, 10) +
-                            //                parseInt((this.carsunroof.price == null) ? 0 : this.carsunroof.price, 10) +
-                            //                parseInt((this.carmedia.price == null) ? 0 : this.carmedia.price, 10);
-                            //        }
-                            //    },
-                            //    methods: {
-                            //        Enter: () => {
-
-                            //            $.ajax({
-                            //                type: "post",
-                            //                url: "https://localhost:44319/api/ProductionProcessLists",
-                            //                contentType: "application/json",
-                            //                data: JSON.stringify(app.processesAreaList),
-                            //                success: function () {
-                            //                    console.log(JSON.stringify(app.processesAreaList))
-                            //                    alert('製程ok');
-                            //                    window.location = "PD_ToDoItems.html"
-
-                            //                },
-                            //                error: function () {
-                            //                    console.log(JSON.stringify(app.processesAreaList))
-                            //                    alert('製程失敗')
-                            //                }
-
-                            //            })
-
-
-
-
-                            //            $.ajax({
-                            //                type: "put",
-                            //                url: "https://localhost:44319/api/BusinessOrders/" + app.item.orderId,
-                            //                contentType: "application/json",
-                            //                data: JSON.stringify(app.BSO),
-                            //                success: function () {
-                            //                    console.log(JSON.stringify(app.BSO))
-                            //                    alert('訂單ok');
-                            //                },
-                            //                error: function () {
-                            //                    console.log(JSON.stringify(app.BSO))
-                            //                    alert('訂單失敗')
-                            //                }
-                            //            })
-
-
-
-                            //        }
-                            //    }
-                            //})
-
-
-                            //// 製程單
-                            //$.ajax({
-                            //    type: "get",
-                            //    url: "https://localhost:44319/api/ProductionProcesses",
-                            //    success: function (e) {
-                            //        app.processes = e
-                            //        //console.log(e)
-                            //    }
-                            //})
-
-                            //// 廠區單
-                            //$.ajax({
-                            //    type: "get",
-                            //    url: "https://localhost:44319/api/ProductionAreas",
-                            //    success: function (e) {
-                            //        app.Areas = e
-                            //        //console.log(e)
-                            //    }
-                            //})
-
+   
     </script>
 
       <!-- session -->

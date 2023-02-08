@@ -499,28 +499,28 @@
                                         <label for="" class="col-3 fs-5">部門: {{Context.depName}}</label>
                                         <label for="" class="col-1 fs-5">報工日期: </label>
                                         <div class="col-md-3">
-                                            <input class="form-control fs-5" v-model="Context.date" type="date"  id="html5-time-input" disabled/>
+                                            <input class="form-control fs-5" v-model="putContext.date" type="date"  id="day" disabled/>
                                         </div>
                                     </div>
 
                                     <label for="startTime" class="col-2 fs-5 my-2">工作時間</label>
                                     <div class="col-md-3">
-                                        <input class="form-control fs-5" v-model="Context.startTime" type="time" id="startTime" disabled/>
+                                        <input class="form-control fs-5" v-model="putContext.startTime" type="time" id="startTime" disabled/>
                                     </div>
 
                                     <label for="endTime" class="col-1 fs-5 my-2 text-center">到</label>
                                     <div class="col-md-3">
-                                        <input class="form-control fs-5" v-model="Context.endTime" type="time" id="endTime" disabled/>
+                                        <input class="form-control fs-5" v-model="putContext.endTime" type="time" id="endTime" disabled/>
                                     </div>
 
                                     <div class="my-2">
                                         <label for="context" class="form-label fs-5 my-2">內容</label>
-                                        <textarea class="form-control fs-5" id="context" v-model="Context.context"  rows="8" disabled></textarea>
+                                        <textarea class="form-control fs-5" id="context" v-model="putContext.context"  rows="8" disabled></textarea>
                                     </div>
 
                                     <div class="col-form-label d-flex justify-content-end">
-                                        <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit()" v-if="this.Context.employeeId == this.navInf.EmpID">編輯</button>
-                                        <button id="enter" type="button" class="mx-2 col-1 btn btn-primary" v-on:click="Enter()" v-if="this.Context.employeeId == this.navInf.EmpID" disabled>更新</button>
+                                        <button id="edit" type="button" class="mx-2 col-1 btn btn-outline-success" v-on:click="Edit" v-if="this.Context.employeeId == this.navInf.EmpID">編輯</button>
+                                        <button id="enter" type="button" class="mx-2 col-1 btn btn-primary" v-on:click="Enter(putContext)" v-if="this.Context.employeeId == this.navInf.EmpID" disabled>更新</button>
                                         <button type="button" class="mx-2 col-1 btn btn-secondary fs-4 fw-bold border-3 me-3" v-on:click="Back">返回</button>
                                     </div>
 
@@ -567,7 +567,8 @@
                         return {
                             text: "",
                             Context: {},
-                            navInf: {}
+                            navInf: {},
+                            putContext: {}
                         }
                     },
                     mounted() {
@@ -578,20 +579,23 @@
                             .then(response => {
                                 this.Context = response.data;
                                 this.Context.optionalName = this.Context.optionalName.slice(4);
+                                this.putContext = response.data
                             })
-                        //if (this.Context.employeeId == this.navInf.EmpID) {
-                        //    $('#edit').hide();
-                        //}
+                        
+
 
                     },
                     methods: {
                         Enter: function () {
-                            axios.put('https://localhost:44319/api/ProductionContexts/as/' + this.Context.orderId + '/' + this.Context.employeeId + '/' + this.Context.date, this.Context)
+
+                            axios.put('https://localhost:44319/api/ProductionContexts/as/' + this.Context.orderId + '/' + this.Context.employeeId + '/' + this.Context.date, this.putContext)
                                 .then(x => console.log(x))
                             this.text = '更新完成';
                             $("#toastSuc").fadeIn("fast");
-                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                            window.location = 'PD_ReportContentSearch.html';
+                            setTimeout(() => {
+                                $("#toastSuc").fadeOut();
+                                window.location = 'PD_ReportContentSearch.html';
+                            }, 1000);
                         },
                         Edit: function () {
                             $('#startTime').removeAttr('disabled')
@@ -599,6 +603,7 @@
                             $('#endTime').removeAttr('disabled')
                             $('#edit').attr('disabled', 'true')
                             $('#enter').removeAttr('disabled')
+                            //$('#day').removeAttr('disabled')
                         },
                         Back: function () {
                             window.location = 'PD_ReportContentSearch.html';
@@ -608,50 +613,6 @@
                 Vue.createApp(app).mount('#app');
 
 
-                //var app = new Vue({
-                //    el: "#app",
-                //    data: {
-                //        ProcessList: {},
-                //        Context: {},
-                //        emplyee: { contxt: "" }
-                //    },
-                //    mounted:
-                //        function () {
-                //            $.ajax({
-                //                type: "get",
-                //                url: "https://localhost:44319/api/ProductionContexts/Contexts",
-                //                success: (e) => {
-                //                    this.Context = e[0];
-                //                }
-                //            })
-                //        }
-                //    ,
-                //    methods: {
-                //        Enter: function () {
-
-                //            this.Context.processId = this.ProcessList.processId;
-                //            this.Context.employeeId = this.emplyee.id
-                //            this.Context.context = this.emplyee.contxt
-                //            this.Context.orderId = this.ProcessList.orderId
-                //            console.log(this.Context)
-
-                //            $.ajax({
-                //                type: "post",
-                //                url: "https://localhost:44319/api/ProductionContexts",
-                //                contentType: "application/json",
-                //                data: JSON.stringify(this.Context),
-                //                success: function () {
-                //                    window.location = "index.html"
-                //                }
-                //            })
-                //        }
-                //    }
-                //})
-
-
-
-                //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
-                //app.ProcessList = JSON.parse(sessionStorage.getItem("data"));
             </script>
             <!-- vue -->
             <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

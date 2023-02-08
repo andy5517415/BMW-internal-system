@@ -1,5 +1,4 @@
 ﻿using System;
-using InternalSystem.Dotos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -17,6 +16,7 @@ namespace InternalSystem.Models
             : base(options)
         {
         }
+
         public virtual DbSet<BusinessArea> BusinessAreas { get; set; }
         public virtual DbSet<BusinessCategory> BusinessCategories { get; set; }
         public virtual DbSet<BusinessOptional> BusinessOptionals { get; set; }
@@ -47,11 +47,19 @@ namespace InternalSystem.Models
         public virtual DbSet<ProductionProcessList> ProductionProcessLists { get; set; }
         public virtual DbSet<ProductionProcessStatusName> ProductionProcessStatusNames { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MSIT44;Integrated Security=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
-                        
+
             modelBuilder.Entity<BusinessArea>(entity =>
             {
                 entity.HasKey(e => e.AreaId)
@@ -114,6 +122,8 @@ namespace InternalSystem.Models
                     .HasName("PK__Business__C3905BCF88F045D7");
 
                 entity.ToTable("BusinessOrder");
+
+                entity.Property(e => e.DeadlineDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.EditDatetime).HasColumnType("datetime");
 

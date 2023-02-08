@@ -472,7 +472,7 @@
                                 <div class="row card-body">
                                     <div class="row my-2">
                                         <div class="col-3">
-                                            <label for="optionalName" class="fs-5">型號: {{ProcessList.optionalName}}</label>
+                                            <label for="optionalName" class="fs-5" v-on:click="show">型號: {{ProcessList.optionalName}}</label>
                                             <input id="optionalName" type="hidden" class="fs-4" v-model="ProcessList.orderId" name="optionalName" />
                                         </div>
                                         <div class="col-3">
@@ -512,8 +512,6 @@
                                     <div class="col-md-3">
                                         <input class="form-control fs-5" v-model="Context.endTime" type="time" id="endTime" />
                                     </div>
-
-                                    <label for="html5-time-input" class="col-2 fs-5 my-2">共:8 hr</label>
 
                                     <div class="my-2">
                                         <label for="exampleFormControlTextarea1" class="form-label fs-5 my-2">內容</label>
@@ -654,6 +652,12 @@
                         },
                         Back: function () {
                             window.location = 'PD_LineSelect.html';
+                        },
+                        show: function () {
+                            this.Context.date = "2023-02-10";
+                            this.Context.startTime = "08:00";
+                            this.Context.endTime = "17:00";
+                            this.employee.contxt = "曲軸安裝"
                         }
                     }
                 }

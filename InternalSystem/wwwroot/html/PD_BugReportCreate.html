@@ -470,7 +470,7 @@
                                 <div class="row card-body">
 
                                     <div class="mb-3 col-6">
-                                        <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單號碼 </label>
+                                        <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" v-on:click="show">訂單號碼 </label>
                                         <select id="type" v-model="Bugtext.orderId" @change="ted(Bugtext.orderId)" class="form-select color-dropdown ">
                                             <option disabled selected>選擇訂單號碼</option>
                                             <option v-for="Order in Order" :value="Order.orderId">{{Order.orderNumber}}</option>
@@ -623,7 +623,8 @@
                             text: "",
                             Order: {},
                             PressList: {},
-                            Bugtext: {}
+                            Bugtext: {},
+                            
                         }
                     },
                     mounted() {
@@ -681,8 +682,10 @@
                                             //成功
                                             this.text = "建立完成";
                                             $("#toastSuc").fadeIn("fast");
-                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                            window.location = "index.html"
+                                            setTimeout(() => {
+                                                $("#toastSuc").fadeOut();
+                                                window.location = "index.html";
+                                            }, 1000);
                                         })
                                 }
                             }
@@ -705,6 +708,16 @@
                                 };
                                 reader.readAsDataURL(file)
                             }
+
+                        },
+                        show: function () {
+                            this.Bugtext.date = "2023-02-10";
+                            this.Bugtext.startTime = "15:00";
+                            this.Bugtext.endTime = "16:30";
+                            this.Bugtext.title = "車底受損";
+                            this.Bugtext.rank = "A級:重大異常(停工)";
+                            this.Bugtext.context = "板手放置位不好掉落導致車底受損";
+                            this.Bugtext.dispose = "宣導工具安放位置"
 
                         }
                     }
