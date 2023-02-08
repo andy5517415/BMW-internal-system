@@ -462,9 +462,21 @@
                         </div>
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 請假資料申請</h4>
 
-                        <div class="card my-5 m-4 card-body shadow">
+                        <div class="card my-5 m-4  shadow">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3"
+                                        style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">請假申請表單</h2>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 過往請假紀錄一覽</p>
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-4">過往請假紀錄一覽</p>
 
                                 <div class="row p-3 mx-5">
                                     <div class="mb-3 col-md-2 mb-4">
@@ -508,9 +520,8 @@
                                         <input class="form-control fs-5" v-model="menstrualleave.leaveOver" id="remaindervacation" disabled />
                                     </div>
                                 </div>
-                            </div>
-                        <div class="card m-4 my-5 shadow card-body">
-                            <p class="fs-2 mb-4 fw-bold ms-4 mt-5" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp; 請假資料申請</p>
+                            <hr>
+                            <p class="alert alert-warning text-black fs-2 fw-bold mb-4">請假資料申請</p>
                             <div class="row p-3 mx-5 rounded-3 ">
                                 <div class="mb-3 col-md-2">
                                     <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
@@ -581,7 +592,7 @@
                                          width="100"
                                          id="uploadedAvatar" v-if="application.photo!=null"/>
                                     <div class="button-wrapper">
-                                        <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
+                                        <label for="upload" class="btn btn-primary fs-4 fw-bold me-3 mb-4 fw-bold" tabindex="0">
                                             上傳照片
                                             <input type="file"
                                                    id="upload"
@@ -647,6 +658,7 @@
                                 <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3 me-3 mb-4 fs-4 border-3 ">取消</button>
                             </div>-->
                             </form>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -725,7 +737,7 @@
                                             this.text = response.data;
                                             $("#toastSuc").fadeIn("fast");
                                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                            setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                            setTimeout(() => { window.location = "/html/index.html" }, 1000);;
                                         }
                                         else {
                                             //失敗
@@ -759,7 +771,7 @@
                                             this.text = response.data;
                                             $("#toastSuc").fadeIn("fast");
                                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                            setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                            setTimeout(() => { window.location = "/html/index.html" }, 1000);
 
                                         }
 

@@ -757,11 +757,11 @@
                 console.log(this.MeetRsInfo.endTime);
                 console.log(this.MeetRsInfo);
 
-                axios.post("https://localhost:44319/api/MeetingReserves/" + this.MeetRsInfo.depId + "/" + this.MeetRsInfo.date + "/" + this.MeetRsInfo.startTime + "-" + this.MeetRsInfo.endTime, this.MeetRsInfo
+                axios.post("https://localhost:44319/api/MeetingReserves/" + this.MeetRsInfo.depId + "/" + this.MeetRsInfo.meetPlaceId + "/" + this.MeetRsInfo.date + "/" + this.MeetRsInfo.startTime + "-" + this.MeetRsInfo.endTime, this.MeetRsInfo
                 )
                   .then(res => {
                     if (res.data == "預約成功!") {
-                      this.text = res.data
+                      this.tet = res.data
                       $("#toastSuc").fadeIn("fast");
                       setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                     }

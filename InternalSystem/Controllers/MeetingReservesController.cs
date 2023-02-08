@@ -25,11 +25,31 @@ namespace InternalSystem.Controllers
         }
 
         // GET: api/MeetingReserves
-        [HttpGet("")]
-        public object GetMeetingReserves1(string d,string s,string e)
+        [HttpGet("RM/{placeId}")]
+        
+        public object GetMeetingReserves3(int placeId)
         {
-            return 5;
+            var timeZone = from a in _context.MeetingReserves
+                           where a.MeetPlaceId == placeId
+                           select new
+                           {
+                               startTime = a.StartTime,
+                               endTime = a.EndTime,
+
+                           };
+            var timeZone2 = timeZone.ToArray();
+
+            int[] startTime = new int[timeZone2.Length];
+            int[] endTime = new int[timeZone2.Length];
+            for (int i = 0; i < startTime.Length; i++)
+            {
+                startTime[i] = Convert.ToInt32(timeZone2[i].startTime.Substring(0, 2) + timeZone2[i].startTime.Substring(3, 2));
+                endTime[i] = Convert.ToInt32(timeZone2[i].endTime.Substring(0, 2) + timeZone2[i].endTime.Substring(3, 2));
+            }
+            return startTime;
         }
+        
+
 
         //查預約會議室
         // GET: api/MeetingReserves/1/20230101/20230106
@@ -103,7 +123,7 @@ namespace InternalSystem.Controllers
                 return await meetingReserve.ToListAsync();
             }
 
-        }
+        }   
 
         //查預約會議室
         // GET: api/MeetingReserves/1/20230101/20230106
@@ -146,10 +166,10 @@ namespace InternalSystem.Controllers
 
         }
 
-        // POST: api/MeetingReserves/2/2023-01-05/15:00-16:00
-        [HttpPost("{DepId}/{date}/{s}-{e}")]
+        // POST: api/MeetingReserves/2/1/2023-01-05/15:00-16:00
+        [HttpPost("{DepId}/{placeId}/{date}/{s}-{e}")]
 
-        public ActionResult PostMeetingReserves(int DepId, string date, string s,string e,[FromBody] MeetingReserve form)
+        public ActionResult PostMeetingReserves(int DepId, int placeId, string date, string s,string e,[FromBody] MeetingReserve form)
         {
             TimeSpan hm = Convert.ToDateTime(e).Subtract(Convert.ToDateTime(s)); //兩個相減
             double hoursCount = hm.TotalMinutes;  //所有的分鐘
@@ -162,6 +182,7 @@ namespace InternalSystem.Controllers
             int state = 0;
 
             var timeZone = from a in _context.MeetingReserves
+                           where a.MeetPlaceId == placeId
                            select new
                            {
                                startTime = a.StartTime,
@@ -216,7 +237,6 @@ namespace InternalSystem.Controllers
                     {
                         return Content("選擇時段已有人預約!");
                     }
-                    return Content("是同一天!");
                 }
                 else
                 {

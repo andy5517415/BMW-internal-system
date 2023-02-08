@@ -515,7 +515,7 @@
                                 <div class="card-body">
                                     <!-- 員工名稱 -->
                                         <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工基本資料</p>
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5" @click="use">員工基本資料</p>
 
                                             <div class="row mx-4">
                                                 <div class="mb-4 col-md-4">
@@ -1061,7 +1061,8 @@
                         .then(response => {
                             this.text = response.data;
                             $("#toastSuc").fadeIn("fast");
-                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            setTimeout(() => $("#toastSuc").fadeOut(), 1000);
+                            setTimeout(() => { window.location ="/html/index.html" }, 1000);
                         })
                         .catch(err => {
                             if (err.response.status == 500 || err.response.status == 415)
@@ -1109,8 +1110,6 @@
                         this.employeelist.positionId = 3,
                         this.employeelist.rankId = 1,
                         this.employeelist.departmentId = 2,
-                        this.employeelist.employeeNumber = "2023020",
-                        this.employeelist.acount = "2023020",
                         this.employeelist.password = "890812",
                         this.employeelist.dutyStatus = false,
                         this.employeelist.entryDate = "2023-02-15",

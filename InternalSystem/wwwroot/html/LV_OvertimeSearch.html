@@ -461,7 +461,18 @@
                         </div>
                         <h4 class="fw-bold py-4 mb-4 ms-4">> 加班資料申請</h4>
 
-                        <div class="card mb-4 m-4 card-body">
+                        <div class="card mb-4 m-4">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">加班申請表單</h2>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="row my-4 mx-4">
                                     <div class="mb-3 col-md-2">
@@ -538,7 +549,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <!-- 存檔按鈕 -->
-                                                    <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 "> 送出</button>
+                                                    <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3 fw-bold"> 確認</button>
                                                     <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
                                                     <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                                 </div>
@@ -546,13 +557,13 @@
                                         </div>
                                     </div>
                                     <!-- 確認視窗按鈕 -->
-                                    <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                    <div class="mt-2 d-md-flex justify-content-md-end">
                                         <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             送出申請
                                         </button>
-     
                                     </div>
 </form>
+                        </div>
                         </div>
                     </div>
                 </div>
