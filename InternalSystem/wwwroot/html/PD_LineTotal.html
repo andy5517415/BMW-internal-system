@@ -472,7 +472,7 @@
                                 <div class="mb-3 mb-3 col-md-2">
                                     <label for="orderNumber" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">訂單編號</label>
                                     <label for="orderType" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-3">車款類型</label>
-                                    <label for="orderStadus" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-3">狀態</label>
+                                    <!--<label for="orderStadus" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 my-3">狀態</label>-->
                                     <!--<label for="StarDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5">開始日期</label>
                     <label for="EndDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-5 mt-4">結束日期</label>-->
 
@@ -486,11 +486,11 @@
                                         <option>X7 xDrive40i</option>
                                         <option>iX xDrive40 旗艦版</option>
                                     </select>
-                                    <select id="orderStadus" class="form-control fs-5 my-4" v-model="Search.orderStadus">
+                                    <!--<select id="orderStadus" class="form-control fs-5 my-4" v-model="Search.orderStadus">
                                         <option :value="" disabled>請選擇狀態</option>
                                         <option>未完成</option>
                                         <option>已完成</option>
-                                    </select>
+                                    </select>-->
                                     <!--<input class="form-control fs-5" type="text"  id="orderType" />-->
                                     <!--<input class="form-control fs-5 my-3" type="date"  id="StarDate" />
                     <input class="form-control fs-5 mt-1" type="date"  id="EndDate" />-->
@@ -663,7 +663,7 @@
 
                 SearchEnter: function () {
 
-                    if (this.Search.orderStadus != "" && this.Search.orderType != "") {
+                    if (this.Search.orderStadus != "" || this.Search.orderType != "") {
                         axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
                             then(response => {
                                 this.item = response.data
@@ -671,7 +671,7 @@
                                 this.dd = [];
                                 for (var i = 0; i < this.item.length; i++) {
                                     //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId + '&stad=' + this.Search.orderStadus).
+                                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId ).
                                         then(response => {
                                             this.dd.push(response.data);
                                             //console.log(response.data)
