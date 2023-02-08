@@ -623,7 +623,7 @@
                         axios.post('/api/PersonnelOvertimeForms', this.workoverlist)
                             .then(response => {
                                 //★成功
-                                if (response.date == "申請成功") {
+                                if (response.data == "申請成功") {
                                     this.text = response.data;
                                     $("#toastSuc").fadeIn("fast");
                                     setTimeout(() => $("#toastSuc").fadeOut(), 2000);
