@@ -708,9 +708,9 @@ namespace InternalSystem.Controllers
         {
             var application = DateTime.Now.ToString("yyyy-MM-dd");
             var proxydate = DateTime.Now;
-            var update = (from a in _context.PersonnelLeaveForms
-                          where a.LeaveId == personnelLeaveForm.LeaveId
-                          select a).SingleOrDefault();
+            var update = (from pl in _context.PersonnelLeaveForms
+                          where pl.LeaveId == personnelLeaveForm.LeaveId
+                          select pl).SingleOrDefault();
 
 
             //判斷該員工是否有剩餘假可使用
@@ -732,6 +732,8 @@ namespace InternalSystem.Controllers
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
+
+            //判斷請假區間是否有經過假日
             var d = 0;
             DateTime a = personnelLeaveForm.StartDate;
             DayOfWeek dayOfWeek;
@@ -843,9 +845,9 @@ namespace InternalSystem.Controllers
                          select lo
                          ).FirstOrDefault();
 
-            var update = (from a in _context.PersonnelLeaveForms
-                          where a.LeaveId == personnelLeaveForm.LeaveId
-                          select a).SingleOrDefault();
+            var update = (from pl in _context.PersonnelLeaveForms
+                          where pl.LeaveId == personnelLeaveForm.LeaveId
+                          select pl).SingleOrDefault();
 
         
             //時間全為轉分鐘
@@ -860,6 +862,8 @@ namespace InternalSystem.Controllers
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
+
+            //判斷請假區間是否有經過假日
             var d = 0;
             DateTime a = personnelLeaveForm.StartDate;
             DayOfWeek dayOfWeek;
@@ -1177,6 +1181,8 @@ namespace InternalSystem.Controllers
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
+
+            //判斷請假區間是否有經過假日
             var d = 0;
             DateTime a = personnelLeaveForm.StartDate;
             DayOfWeek dayOfWeek;
