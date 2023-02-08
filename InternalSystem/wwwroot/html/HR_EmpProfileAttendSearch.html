@@ -468,8 +468,7 @@
                           <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 出缺勤查詢</h4>
                           <div class="card mb-5 m-4 card-body inputCard2">
                               <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="border border-5">
-                                <div class="mx-4 d-flex col-10">
+                                <div class="mx-4 d-flex">
                                     <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">查詢月份</label>
                                     <div class="col ms-2">
                                         <input class="form-control fs-5 myinput" type="month" v-model="employeedata.date" id="html5-month-input" />
@@ -483,7 +482,7 @@
                                     
                                     </div>
                                 </div>
-                                <div class="mx-4 my-4 d-flex col-10">
+                                <div class="mx-4 my-4 d-flex justify-content-center">
                                     <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">員工名稱</label>
                                     <div class="col ms-2">
                                         <input class="form-control fs-5 myinput" v-model="employeedata.empName" id="Employeename" />
@@ -494,12 +493,12 @@
                                         <input class="form-control fs-5 myinput" v-model="employeedata.empNumber" id="Employeenameid" />
                                     </div>                         
                                 </div>
-                                <div class="col-2">
+                                <div class="col d-flex justify-content-center my-5 mb-2">
                                     <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " @click="search">查詢</button>
                                     <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
                                 </div>
                                 
-                            </div>
+
 
                                 
                               </form>
