@@ -438,6 +438,7 @@
                     <div v-if="limit.DepID==3" class="content-wrapper">
                         <!-- Content -->
                         <div class="container-xxl flex-grow-1 container-p-y">
+
                             <span class="fs-4">業務系統 / </span><span class=" fw-bold fs-2">訂單總覽</span>
                             <div class="card mb-4 m-4">
                                 <!-- 卡片標題 -->
@@ -485,10 +486,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!--<button @click="filter" type="button" class="">查詢
-                                        </button>-->
-
                                     <!--chart.js-->
                                     <div class="row border border-5 rounded mx-4 mb-4" style="position: relative;">
                                         <!-- 篩選樣板 -->
@@ -502,6 +499,18 @@
                                         <div class="col-sm-6 mb-4">
                                             <canvas id="chartCanvasArea"></canvas>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <p class="text-center col-2 fs-4 fw-blod">訂單編號</p>
+                                        <p class="text-center col-1 fs-4 fw-blod">下訂車款</p>
+                                        <p class="text-center col-2 fs-4 fw-blod">建立訂單時間</p>
+                                        <p class="text-center col-2 fs-4 fw-blod">修改訂單時間</p>
+                                        <p class="text-center col-1 fs-4 fw-blod">代理商</p>
+                                        <p class="text-center col-1 fs-4 fw-blod">接單狀態</p>
+                                        <p class="text-center col-1 fs-4 fw-blod">廠區</p>
+                                        <p class="text-center col-2 fs-4 fw-blod">製程</p>
+                                        <!--<p class="text-center col-1 fs-4 fw-blod">已接單時長</p>
+                                        <p class="text-center col-1 fs-4 fw-blod">剩餘時間</p>-->
                                     </div>
                                 </div>
                                 <!--/ Basic Bootstrap Table -->
@@ -638,6 +647,10 @@
                     statistic: {
                         area: {},
                         type: {}
+                    },
+                    dt: {
+                        eta: [],
+                        elapsed:[]
                     }
                 }
             },
@@ -664,15 +677,25 @@
                 }
             },
             mounted() {
+                var dt = new Date();
+                //new Date().getTime("2022-02-08T16:00") / 1000;
                 axios.get('/api/BusinessOrders/GetOrderAll')
                     .then(g => {
                         console.log(g.data);
                         g.data.forEach((x, idx) => {
                             this.accordionOne.push(g.data[idx].orderNumber);
                             if (x.ppname == "製程C-性能測試" && x.ppstate == "已完成") {
-                                x.pparea = "";
-                                x.ppname = "該筆訂單已生產完畢";
-                            }
+                                x.pparea ="";
+                                x.ppname ="該筆訂單已生產完畢";
+                            }                   
+
+
+                            //console.log(x.deadlineDateTime);
+                            //console.log(dt.getTime(x.deadlineDateTime.substring) / 1000);
+                            //console.log(dt.getTime());
+
+                            //this.dt.eta.push(dt.getTime(x.deadlineDateTime.substring(0, 18)) - dt.getTime());
+                            //this.dt.elapsed.push((new Date().getTime() - new Date().getTime(x))/86400000);
                         });
                         this.order = g.data;
                         this.filtered = g.data;
@@ -699,6 +722,7 @@
                             return item.detail[0].optionalName == '電動車-iX xDrive40 旗艦版';
                         }).length;
                     });
+                this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }
         }).mount('#divorderall');
 

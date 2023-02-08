@@ -478,6 +478,19 @@
                             </div>
  
                             <div class="card-body">
+<<<<<<< HEAD
+                                <div class="row gx-3 gy-2 align-items-center">
+                                    <div class="col-md-6 py-3">
+                                        <label @click="getordhidden" for="ordernum" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                        <p>{{charcnt}}/13</p>
+                                        <input type="text"
+                                               class="form-control fs-5"
+                                               id="ordernum"
+                                               placeholder="共13碼"
+                                               v-model="ordernum"
+                                               ref="reffocus" />
+                                        <p>{{ordernumhidden.n}}/{{ordernumhidden.num.length}}</p>
+=======
                                 <div class="my-2">&nbsp;</div>
                                 <div class="row gx-3 gy-2 align-items-center border border-5 rounded mx-4 inputCard2">
                                     <!-- 篩選樣板 -->
@@ -491,6 +504,7 @@
                                     </div>
                                     <div class="col mb-4 me-4">
                                         <input type="text" class="form-control fs-5" id="ordernum" placeholder="共13碼" v-model="ordernum" ref="reffocus" />
+>>>>>>> bf3f72cdb23bd920f2b7ad19ed048b03c48e5b75
                                     </div>
                                         <p v-if="describeseen" class="fs-5">此訂單已接單無法進行修改或刪除</p>
                                    
