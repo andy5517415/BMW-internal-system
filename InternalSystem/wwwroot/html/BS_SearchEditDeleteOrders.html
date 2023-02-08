@@ -487,10 +487,11 @@
 
                                     <div class="col-md-2 mb-4 ms-4">
                                         <label @click="getordhidden" for="ordernum" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">訂單編號</label>
-                                        <span class="ms-2">{{charcnt}}/13</span>
                                     </div>
                                     <div class="col mb-4 me-4">
+                                        <span class="ms-2">{{ordernumhidden.n}}/{{ordernumhidden.num.length}}</span>
                                         <input type="text" class="form-control fs-5" id="ordernum" placeholder="共13碼" v-model="ordernum" ref="reffocus" />
+                                        <span class="ms-2">{{charcnt}}/13</span>
                                     </div>
                                         <p v-if="describeseen" class="fs-5">此訂單已接單無法進行修改或刪除</p>
                                    
@@ -506,8 +507,7 @@
                                         <select id="cartype"
                                                 class="form-select color-dropdown"
                                                 v-model="cartypeone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled :value="999">請選擇車款</option>
                                             <option v-for="one in cartype"
                                                     :value="one">
@@ -516,7 +516,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">價格</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -529,8 +529,7 @@
                                         <select id="carcolor"
                                                 class="form-select"
                                                 v-model="carcolorone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇車漆顏色</option>
                                             <option v-for="one in carcolor"
                                                     :value="one">
@@ -539,7 +538,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -547,13 +546,12 @@
                                                v-model="carcolorone.price" />
                                     </div>
                                     <!--內裝材質  -->
-                                    <div  class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="texture">內裝材質</label>
                                         <select class="form-select placement-dropdown"
                                                 id="texture"
                                                 v-model="cartextureone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇內裝材質</option>
                                             <option v-for="one in cartexture"
                                                     :value="one">
@@ -562,7 +560,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -570,13 +568,12 @@
                                                v-model="cartextureone.price" />
                                     </div>
                                     <!--輪圈款式  -->
-                                    <div  class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="wheel">輪圈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="wheel"
                                                 v-model="carwheelone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇輪圈款式</option>
                                             <option v-for="one in carwheel"
                                                     v-bind:value="one">
@@ -585,7 +582,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -593,13 +590,12 @@
                                                v-model="carwheelone.price" />
                                     </div>
                                     <!--飾板  -->
-                                    <div  class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="plaque">飾板</label>
                                         <select class="form-select placement-dropdown"
                                                 id="plaque"
                                                 v-model="carplaqueone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇飾板款式</option>
                                             <option v-for="one in carplaque"
                                                     :value="one">
@@ -608,7 +604,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -616,13 +612,12 @@
                                                v-model="carplaqueone.price" />
                                     </div>
                                     <!--頭燈款式  -->
-                                    <div  class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="light">頭燈款式</label>
                                         <select class="form-select placement-dropdown"
                                                 id="light"
                                                 v-model="carlightone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇頭燈款式</option>
                                             <option v-for="one in carlight"
                                                     :value="one">
@@ -631,7 +626,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -639,13 +634,12 @@
                                                v-model="carlightone.price" />
                                     </div>
                                     <!--中央鞍座  -->
-                                    <div  class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="saddle">中央鞍座</label>
                                         <select class="form-select placement-dropdown"
                                                 id="saddle"
                                                 v-model="carsaddleone"
-                                                :disabled="isdisable"                                                
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇中央鞍座款式</option>
                                             <option v-for="one in carsaddle"
                                                     :value="one">
@@ -654,7 +648,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -667,8 +661,7 @@
                                         <select class="form-select placement-dropdown"
                                                 id="sunroof"
                                                 v-model="carsunroofone"
-                                                :disabled="isdisable"
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇天窗款式</option>
                                             <option v-for="one in carsunroof"
                                                     :value="one">
@@ -677,7 +670,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
@@ -685,30 +678,28 @@
                                                v-model="carsunroofone.price" />
                                     </div>
                                     <!--多媒體  -->
-                                    <div  class="col-md-3">
+                                    <div class="col-md-3">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="media">多媒體</label>
                                         <select class="form-select placement-dropdown"
                                                 id="media"
                                                 v-model="carmediaone"
-                                                :disabled="isdisable"                                               
-                                                >
+                                                :disabled="isdisable">
                                             <option disabled value="999">請選擇多媒體車機款式</option>
                                             <option v-for="one in carmedia"
-                                                    :value="one"
-                                                    >
+                                                    :value="one">
                                                 {{one.optionalId}}/{{one.optionalName}}
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選配價格</label>
+                                        <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" style="visibility:hidden">&nbsp;</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id=""
                                                readonly
                                                v-model="carmediaone.price" />
                                     </div>
-                                    <div class="col-md-12 py-2">
+                                    <div class="col-md-6 py-2">
                                         <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">小計</label>
                                         <input type="text"
                                                class="form-control fs-5"
@@ -719,86 +710,92 @@
                                 </div>
                                     <hr class="my-5 mb-4"/>
                                     <!--代理商地區-->
-                                <p class="alert alert-warning text-black fs-2 fw-bold mb-4">代理商資訊</p>
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-4">代理商及預計交付時間選擇</p>
                             
-                                <div class="row gx-4 gy-2 align-items-center mx-4">
-                                    <div  class="col-md-3 py-2 mb-4">
-                                        <label @click="oneclick" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
-                                        <select id="area"
-                                                class="form-select color-dropdown"
-                                                v-model="agentone"
-                                                :disabled="isdisable"
-                                                >
-                                            <option disabled value="999">請選擇代理商地區</option>
-                                            <option v-for="one in agent"
-                                                    :value="one">
-                                                0{{one.areaId}}/{{one.areaName}}
-                                            </option>
-                                        </select>
-                                    </div>
+                                    <div class="row gx-4 gy-2 align-items-center mx-4">
+                                        <div class="col-md-3 py-2 mb-4">
+                                            <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
+                                            <select id="area"
+                                                    class="form-select color-dropdown"
+                                                    v-model="agentone"
+                                                    :disabled="isdisable">
+                                                <option disabled value="999">請選擇代理商地區</option>
+                                                <option v-for="one in agent"
+                                                        :value="one">
+                                                    0{{one.areaId}}/{{one.areaName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 py-2 mb-4">
+                                            <label @click="oneclick" for="deadline" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">預計交付時間</label>
+                                            <input type="datetime-local"
+                                                   class="form-control fs-5"
+                                                   id="deadline"
+                                                   v-model="deadline" />
+                                        </div>
 
-                                    <!-- ★Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content border border-5">
-                                                <div class="modal-header mb-3">
-                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel"
-                                                        style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                        &nbsp💡提示訊息
-                                                    </p>
-                                                </div>
-                                                <div class="row justify-content-center">
-                                                    <hr class="col-10 border border-2">
-                                                    <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
-                                                </div>
-                                                <div class="modal-body text-start mt-0">
-                                                    <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確認要修改訂單?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal"
-                                                        aria-label="Close" @click="btneditok">
-                                                        確認
-                                                    </button>
-                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
-                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                        <!-- ★Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border border-5">
+                                                    <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                           style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                            &nbsp💡提示訊息
+                                                        </p>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <hr class="col-10 border border-2">
+                                                        <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
+                                                    </div>
+                                                    <div class="modal-body text-start mt-0">
+                                                        <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確認要修改訂單?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal"
+                                                                aria-label="Close" @click="btneditok">
+                                                            確認
+                                                        </button>
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- ★Modal -->
-                                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content border border-5">
-                                                <div class="modal-header mb-3">
-                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel"
-                                                        style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                        &nbsp💡提示訊息
-                                                    </p>
-                                                </div>
-                                                <div class="row justify-content-center">
-                                                    <hr class="col-10 border border-2">
-                                                    <img src="../assets/img/myicon/erro.png" alt="" style="width: 200px;">
-                                                </div>
-                                                <div class="modal-body text-start mt-0">
-                                                    <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確認要刪除訂單?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal"
-                                                        aria-label="Close" @click="btndelete">
-                                                        確認
-                                                    </button>
-                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
-                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                        <!-- ★Modal -->
+                                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border border-5">
+                                                    <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                           style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                            &nbsp💡提示訊息
+                                                        </p>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <hr class="col-10 border border-2">
+                                                        <img src="../assets/img/myicon/erro.png" alt="" style="width: 200px;">
+                                                    </div>
+                                                    <div class="modal-body text-start mt-0">
+                                                        <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確認要刪除訂單?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal"
+                                                                aria-label="Close" @click="btndelete">
+                                                            確認
+                                                        </button>
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <button @click="btnquery" class="btn btn-primary fs-4 fw-bold">查詢</button>
-                                    <button v-if="btnseen" class="btn btn-outline-info d-block fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
-                                    <button v-if="btnseen"  class="btn btn-outline-danger d-block fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal2">刪除</button>                                    
-                                </div>
+                                        <button @click="btnquery" class="btn btn-primary fs-4 fw-bold">查詢</button>
+                                        <button v-if="btnseen" class="btn btn-outline-info d-block fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
+                                        <button v-if="btnseen" class="btn btn-outline-danger d-block fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal2">刪除</button>
+                                    </div>
                             </div>
 
                         </div>
@@ -902,7 +899,8 @@
                     ordernumhidden: {
                         n: 0,
                         num: []
-                    }
+                    },
+                    deadline: ''
 
                 }
             },
@@ -1043,7 +1041,7 @@
                     }
                 },
                 oneclick() {
-                    this.cartypeone = this.cartype[0];
+                    this.cartypeone = this.cartype[1];
                     this.carcolorone = this.carcolor[0];
                     this.cartextureone = this.cartexture[0];
                     this.carwheelone = this.carwheel[0];
@@ -1052,7 +1050,11 @@
                     this.carsaddleone = this.carsaddle[0];
                     this.carsunroofone = this.carsunroof[0];
                     this.carmediaone = this.carmedia[0];
-                    this.agentone = this.agent[0];
+                    this.agentone = this.agent[1];
+                    let dt = new Date();
+                    dt.setDate(dt.getDate() + 60);
+                    console.log(dt.toISOString().substring(0, 16));
+                    this.deadline = dt.toISOString().substring(0, 16);
                 },
                 getordhidden() {
                     this.ordernum = this.ordernumhidden.num[this.ordernumhidden.n];
