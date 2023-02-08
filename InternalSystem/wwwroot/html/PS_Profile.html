@@ -389,7 +389,7 @@
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <div class="avatar avatar-online">
+                            <div class="avatar ">
                               <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </a>
@@ -398,7 +398,7 @@
                               <a class="dropdown-item" href="#">
                                 <div class="d-flex">
                                   <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar ">
                                       <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                   </div>
@@ -835,162 +835,162 @@
                 employeedata: {}
               }
             },
-              methods: {
-                  Identit() {
-                      let reg = /^[A-Z][1,2]\d{8}$/;
-                      logic = reg.test(this.employeelist.identiyId)
-                      //console.log(logic);
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "身份證字號格式有誤";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+            methods: {
+              Identit() {
+                let reg = /^[A-Z][1,2]\d{8}$/;
+                logic = reg.test(this.employeelist.identiyId)
+                //console.log(logic);
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "身份證字號格式有誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.identiyId = "";
-                      }
-                  },
-                  phoneNumber() {
-                      let phn = /^09\d{8}$/;
-                      logic = phn.test(this.employeelist.phoneNumber)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "行動電話格式有誤";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.identiyId = "";
+                }
+              },
+              phoneNumber() {
+                let phn = /^09\d{8}$/;
+                logic = phn.test(this.employeelist.phoneNumber)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "行動電話格式有誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.phoneNumber = "";
-                      }
-                  },
-                  emerphone() {
-                      let ephn = /^09\d{8}$/;
-                      logic = ephn.test(this.employeelist.emergencyNumber)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "行動電話格式有誤";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.phoneNumber = "";
+                }
+              },
+              emerphone() {
+                let ephn = /^09\d{8}$/;
+                logic = ephn.test(this.employeelist.emergencyNumber)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "行動電話格式有誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.emergencyNumber = "";
-                      }
-                  },
-                  empname() {
-                      let empname = /^[\u4e00-\u9fa5a-zA-Z]+$/;
-                      logic = empname.test(this.employeelist.employeeName)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "名稱不可有特殊字元";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.emergencyNumber = "";
+                }
+              },
+              empname() {
+                let empname = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                logic = empname.test(this.employeelist.employeeName)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "名稱不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.employeeName = "";
-                      }
-                  },
-                  mail() {
-                      let email = /^[a-zA-Z0-9@.]+$/;
-                      logic = email.test(this.employeelist.email)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "信箱不可有特殊字元";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.employeeName = "";
+                }
+              },
+              mail() {
+                let email = /^[a-zA-Z0-9@.]+$/;
+                logic = email.test(this.employeelist.email)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "信箱不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.email = "";
-                      }
-                  },
-                  address() {
+                  this.employeelist.email = "";
+                }
+              },
+              address() {
 
-                      let address = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/;
-                      logic = address.test(this.employeelist.address)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "地址不可有特殊字元";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                let address = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/;
+                logic = address.test(this.employeelist.address)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "地址不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.address = "";
-                      }
-                  },
-                  homenumber() {
-                      let homenumber = /^0\d{1,2}-?\d{6,8}$/;
-                      logic = homenumber.test(this.employeelist.homePhone)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "家用電話格式錯誤";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.address = "";
+                }
+              },
+              homenumber() {
+                let homenumber = /^0\d{1,2}-?\d{6,8}$/;
+                logic = homenumber.test(this.employeelist.homePhone)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "家用電話格式錯誤";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.homePhone = "";
-                      }
-                  },
-                  emergen() {
-                      let emergen = /^[\u4e00-\u9fa5a-zA-Z]+$/;
-                      logic = emergen.test(this.employeelist.emergencyPerson)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "緊急聯絡人不可有特殊字元";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.homePhone = "";
+                }
+              },
+              emergen() {
+                let emergen = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                logic = emergen.test(this.employeelist.emergencyPerson)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "緊急聯絡人不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.emergencyPerson = "";
-                      }
-                  },
-                  empnumber() {
-                      let empnumber = /^[0-9]+$/;
-                      logic = empnumber.test(this.employeelist.employeeNumber)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "工號請輸入純數字";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.emergencyPerson = "";
+                }
+              },
+              empnumber() {
+                let empnumber = /^[0-9]+$/;
+                logic = empnumber.test(this.employeelist.employeeNumber)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "工號請輸入純數字";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.employeeNumber = "";
-                      }
-                  },
-                  emergencycontact() {
-                      let emergencycontact = /^[\u4e00-\u9fa5a-zA-Z]+$/;
-                      logic = emergencycontact.test(this.employeelist.emergencyRelation)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "緊急連絡人關係請請輸入英文數字，不可有特殊字元";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.employeeNumber = "";
+                }
+              },
+              emergencycontact() {
+                let emergencycontact = /^[\u4e00-\u9fa5a-zA-Z]+$/;
+                logic = emergencycontact.test(this.employeelist.emergencyRelation)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "緊急連絡人關係請請輸入英文數字，不可有特殊字元";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.emergencyRelation = "";
-                      }
-                  },
-                  usernum() {
-                      let usernum = /^[0-9]+$/;
-                      logic = usernum.test(this.employeelist.acount)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "帳號請輸入純數字";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.emergencyRelation = "";
+                }
+              },
+              usernum() {
+                let usernum = /^[0-9]+$/;
+                logic = usernum.test(this.employeelist.acount)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "帳號請輸入純數字";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.acount = "";
-                      }
-                  },
-                  password() {
-                      let password = /^[a-zA-Z0-9@.]+$/;
-                      logic = password.test(this.employeelist.password)
-                      if (logic == true) { console.log('OK') }
-                      else {
-                          this.text = "密碼請輸入英文數字，部分特殊字元不可用";
-                          $("#toastErr").fadeIn("fast");
-                          setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                  this.employeelist.acount = "";
+                }
+              },
+              password() {
+                let password = /^[a-zA-Z0-9@.]+$/;
+                logic = password.test(this.employeelist.password)
+                if (logic == true) { console.log('OK') }
+                else {
+                  this.text = "密碼請輸入英文數字，部分特殊字元不可用";
+                  $("#toastErr").fadeIn("fast");
+                  setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                          this.employeelist.password = "";
-                      }
-                  },
+                  this.employeelist.password = "";
+                }
+              },
               createbtn: function () {
 
                 axios.put("/api/PersonnelProfileDetails/na/" + this.employeelist.employeeId, this.employeelist
                 ).then((res) => {
                   this.text = "資料已修改";
                   $("#toastSuc").fadeIn("fast");
-                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                  setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                    setTimeout(() => { window.location ="/html/index.html",1000 })
+                  setTimeout(() => { window.location = "/html/index.html", 1000 })
                 }).catch(error => {
                   this.text = "錯誤";
                   $("#toastErr").fadeIn("fast");
@@ -1036,21 +1036,21 @@
                 }
               }
 
+            },
+            computed:
+            {
+              cnt() {
+                return (this.employeelist.identiyId == null) ? 0 : this.employeelist.identiyId.toString().length
               },
-              computed:
-              {
-                  cnt() {
-                      return (this.employeelist.identiyId == null) ? 0 : this.employeelist.identiyId.toString().length
-                  },
-                  pnt() {
-                      return (this.employeelist.phoneNumber == null) ? 0 : this.employeelist.phoneNumber.toString().length
-                  },
-                  epnt() {
-                      return (this.employeelist.emergencyNumber == null) ? 0 : this.employeelist.emergencyNumber.toString().length
-
-                  }
-
+              pnt() {
+                return (this.employeelist.phoneNumber == null) ? 0 : this.employeelist.phoneNumber.toString().length
               },
+              epnt() {
+                return (this.employeelist.emergencyNumber == null) ? 0 : this.employeelist.emergencyNumber.toString().length
+
+              }
+
+            },
             mounted() {
               this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
               console.log(this.employeedata)

@@ -395,7 +395,7 @@
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <div class="avatar avatar-online">
+                            <div class="avatar ">
                               <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </a>
@@ -404,7 +404,7 @@
                               <a class="dropdown-item" href="#">
                                 <div class="d-flex">
                                   <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
+                                    <div class="avatar ">
                                       <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                   </div>
@@ -596,79 +596,79 @@
 
     <script>
 
-        const app = {
-            data() {
-                return {
-                    item: {},
-                    dd: [],
-                    accordionOne: [],
-                    Search: { "orderNumber": "", "orderType": "", "orderStadus": "" }
-                }
-            },
-            mounted() {
+      const app = {
+        data() {
+          return {
+            item: {},
+            dd: [],
+            accordionOne: [],
+            Search: { "orderNumber": "", "orderType": "", "orderStadus": "" }
+          }
+        },
+        mounted() {
 
 
-                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-                    then(response => {
-                        this.item = response.data
+          axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+            then(response => {
+              this.item = response.data
 
-                        for (var i = 0; i < this.item.length; i++) {
-                            //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                then(response => {
-                                    this.dd.push(response.data);
-                                    //console.log(response.data)
-                                })
-                            this.item.forEach((x, index) => {
-                                this.accordionOne.push(x.orderNumber)
-                            })
-                        }
+              for (var i = 0; i < this.item.length; i++) {
+                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                  then(response => {
+                    this.dd.push(response.data);
+                    //console.log(response.data)
+                  })
+                this.item.forEach((x, index) => {
+                  this.accordionOne.push(x.orderNumber)
+                })
+              }
 
-                    })
-                setTimeout(() => {
-                    //console.log(this.dd)
-                    this.dd.sort(function (a, b) {
-                        return a.orderId - b.orderId;
+            })
+          setTimeout(() => {
+            //console.log(this.dd)
+            this.dd.sort(function (a, b) {
+              return a.orderId - b.orderId;
 
-                    });
-                }, 200)
-            },
-            methods: {
+            });
+          }, 200)
+        },
+        methods: {
 
-                SearchEnter: function () {
+          SearchEnter: function () {
 
-                    if (this.Search.orderStadus != "" && this.Search.orderType != "" ) {
-                        axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
-                            then(response => {
-                                this.item = response.data
-                                console.log(this.item)
-                                this.dd = [];
-                                for (var i = 0; i < this.item.length; i++) {
-                                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId + '&stad=' + this.Search.orderStadus).
-                                        then(response => {
-                                            this.dd.push(response.data);
-                                            //console.log(response.data)
-                                        })
-                                }
+            if (this.Search.orderStadus != "" && this.Search.orderType != "") {
+              axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
+                then(response => {
+                  this.item = response.data
+                  console.log(this.item)
+                  this.dd = [];
+                  for (var i = 0; i < this.item.length; i++) {
+                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId + '&stad=' + this.Search.orderStadus).
+                      then(response => {
+                        this.dd.push(response.data);
+                        //console.log(response.data)
+                      })
+                  }
 
-                            })
-                        setTimeout(() => {
-                            //console.log(this.dd)
-                            this.dd.sort(function (a, b) {
-                                return a.orderId - b.orderId;
+                })
+              setTimeout(() => {
+                //console.log(this.dd)
+                this.dd.sort(function (a, b) {
+                  return a.orderId - b.orderId;
 
-                            });
-                        }, 200)
-                    } else {
-                        alert('請選擇車款');
-                    }
-
-                }
+                });
+              }, 200)
+            } else {
+              alert('請選擇車款');
             }
 
+          }
         }
-        Vue.createApp(app).mount('#app');
+
+      }
+      Vue.createApp(app).mount('#app');
 
 
 

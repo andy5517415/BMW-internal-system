@@ -393,7 +393,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -402,7 +402,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -739,41 +739,41 @@
 
                     okbtn: function () {
 
-                            if (this.leaveExit.leaveType != null &&
-                                this.leaveExit.proxy != null && this.leaveExit.auditManerger != null
-                                && this.leaveExit.reason != null
-                            ) {
+                        if (this.leaveExit.leaveType != null &&
+                            this.leaveExit.proxy != null && this.leaveExit.auditManerger != null
+                            && this.leaveExit.reason != null
+                        ) {
 
-                                // 判斷是否日期時間是否填入
-                                if (this.leaveExit.startDate != null && this.leaveExit.endDate != null &&
-                                    this.leaveExit.startTime != null && this.leaveExit.endTime != null) {
-                                    axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
-                                        .then(response => {
-                                            //★成功
-                                            if (response.data == "已重新提交申請") {
-                                                this.text = response.data;
-                                                $("#toastSuc").fadeIn("fast");
-                                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                                setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
-                                            }
+                            // 判斷是否日期時間是否填入
+                            if (this.leaveExit.startDate != null && this.leaveExit.endDate != null &&
+                                this.leaveExit.startTime != null && this.leaveExit.endTime != null) {
+                                axios.put('/api/PersonnelLeaveForms/put/' + this.leaveExit.leaveId, this.leaveExit)
+                                    .then(response => {
+                                        //★成功
+                                        if (response.data == "已重新提交申請") {
+                                            this.text = response.data;
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                            setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                        }
 
-                                                //失敗
-                                            else {
-                                                this.text = response.data;
-                                                $("#toastErr").fadeIn("fast");
-                                                setTimeout(() => $("#toastErr").fadeOut(), 2000);;
-                                            }
-                                          
-                                          
-                                        })
-                                }
-                                else {
-                                    this.text = '請假項目請確實填寫';
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                };
+                                        //失敗
+                                        else {
+                                            this.text = response.data;
+                                            $("#toastErr").fadeIn("fast");
+                                            setTimeout(() => $("#toastErr").fadeOut(), 2000);;
+                                        }
+
+
+                                    })
                             }
-                        
+                            else {
+                                this.text = '請假項目請確實填寫';
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            };
+                        }
+
                     },
                     //console.log(this.leaveproxy.statusId)   //ok
 
