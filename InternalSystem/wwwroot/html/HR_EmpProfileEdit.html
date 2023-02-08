@@ -1024,10 +1024,15 @@
                         this.text = "資料已修改";
                         $("#toastSuc").fadeIn("fast");
                         setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+
+                        setTimeout(() => { window.location = "/html/HR_EmpProfileEdit.html" }, 1000);
                     }).catch(err => {
                         this.text = err;
                         $("#toastErr").fadeIn("fast");
                         setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                        setTimeout(() => { window.location = "/html/HR_EmpProfileEdit.html" }, 1000);
+
                     });
                     //axios.put("https://localhost:44319/api/PersonnelLeaveOvers/" + this.employeelist.employeeId, this.leavelist)
                     //window.location = "HR_EmpProfileEdit.html";
@@ -1043,6 +1048,8 @@
                                     this.text = "複合查詢:查無此項";
                                     $("#toastErr").fadeIn("fast");
                                     setTimeout(() => $("#toastErr").fadeOut(), 2000);
+
+                                    
                                 } else {
                                     this.text = "查詢成功";
                                     $("#toastSuc").fadeIn("fast");
