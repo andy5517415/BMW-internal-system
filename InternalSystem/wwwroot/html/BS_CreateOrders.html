@@ -433,7 +433,32 @@
 
 
                 <div id="divinfo">
-
+                    <!-- 我是成功的吐司 -->
+                    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastSuc">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ✔&nbsp;{{text}}
+                        </div>
+                    </div>
+                    <!-- 錯誤的吐司 -->
+                    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                        aria-live="assertive" aria-atomic="true" id="toastErr">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ❌&nbsp;{{text}}
+                        </div>
+                    </div>
 
                     <!-- / Navbar -->
                     <!-- Content wrapper -->
@@ -441,15 +466,22 @@
                         <!-- Content -->
                         <!-- 車輛資訊 -->
                         <div v-if="formfill" class="container-xxl flex-grow-1 container-p-y">
-                            <span class="text-muted fw-light fs-3">個人資料 / </span><span class=" fw-bold fs-1">新建訂單</span>
-                            <div class="card mb-4 m-4 card-body">
-         
-                                <div class="border border-5 rounded-2 mt-5" style="position: relative;">
-
-                                    <p class="fs-2 mb-5 mt-5 fw-bold ms-4 bg-white" style="position: absolute;top: -75px;">&nbsp 車輛資訊</p>
-
-                                    <div class="my-4">&nbsp; </div>
-                                    <div class="row gx-3 gy-2 mx-5 align-items-center">
+                            <!-- 麵包屑 -->
+                            <span class="fs-4">業務系統 / </span><span class=" fw-bold fs-2">新建訂單</span>
+                            <div class="card mb-4 m-4">
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2666/2666505.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                    </div>
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold" style="padding-top: 25px;">業務系統訂單</h2>
+                                    </div>
+                                </div>
+                            <div class="card-body">
+                                <!-- alert -->
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-5">車輛資訊</p>
+                                    <div class="row gx-3 gy-2 mx-4 align-items-center">
                                         <div class="row py-1">
                                             <div class="col-4">
                                                 <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="cartype">車款</label>
@@ -793,7 +825,7 @@
 
 
 
-                                        <div class="col-4 ms-1">
+                                        <div class="col-12 ms-1">
                                             <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">小計</label>
                                             <input type="text"
                                                    class="form-control mb-3 fs-5"
@@ -807,14 +839,13 @@
 
 
                                     </div>
-                                </div>
+
                                 
 
                                 <!-- 代理商 -->
-                                <hr />
-                                <div class="card-body">
-                                    <p class="fs-2 mb-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 代理商選擇</p>
-                                    <div class="row gx-3 gy-2 align-items-center mx-4">
+                                <hr class="my-5"/>
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">代理商選擇</p>
+                                    <div class="row gx-5 gy-2 align-items-center mx-4">
                                         <div class="col-md-4">
                                             <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
                                             <select id="area"
@@ -844,10 +875,10 @@
                                                    v-model="agentone.phone" />
                                         </div>
 
-                                        <button @click="btnconfirmclick" class="mt-5 col-4 btn btn-primary d-block mx-auto fs-4 fw-bold">✔&nbsp;下一步，確認訂單</button>
+                                        <button @click="btnconfirmclick" class="mt-4 mb-2 col-4 btn btn-primary d-block mx-auto fs-4 fw-bold">✔&nbsp;下一步，確認訂單</button>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
 
 
@@ -857,25 +888,20 @@
                         <!-- 訂單確認 -->
                         <div v-if="formconfirm" class="container-xxl flex-grow-1 container-p-y">
                             <div class="card mb-4 m-4">
-                                <h2 class="card-header">請確認您的訂單是否正確!</h2>
-                                <!--<div class="card-body">
-                                    <div class="row gx-3 gy-2 align-items-center">
-                                        <div class="col-md-6">
-                                            <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
-                                            <input type="text"
-                                                   class="form-control mb-3 fs-5"
-                                                   id=""
-                                                   readonly
-                                                   v-model="orderid" />
-                                        </div>
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-Mysuccess" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="" class="ms-4 mt-3" style="width: 55px;">
                                     </div>
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold" style="padding-top: 25px;">請確認訂單是否正確</h2>
+                                    </div>
+                                </div>
 
-                                </div>-->
-                                <hr>
-                                <h5 class="card-header">車輛資訊</h5>
-                                
+                               
                                 <div class="card-body">
-                                    <div class="row gx-3 gy-2 align-items-center">
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">車輛資訊</p>
+                                    <div class="row gx-3 gy-2 mx-4 align-items-center">
                                         <div class="col-md-6">
                                             <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
                                             <input type="text"
@@ -962,12 +988,11 @@
                                     </div>
                                 </div>
 
-
-                                <hr />
-
                                 <div class="card-body">
-                                    <div class="row gx-3 gy-2 align-items-center">
-                                        <div class="col-md-6">
+                                    <hr class="mb-5" />
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">代理商選擇</p>
+                                    <div class="row gx-5 gy-2 mx-4 align-items-center">
+                                        <div class="col-md-4">
                                             <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="">代理商地區</label>
                                             <input type="text"
                                                    class="form-control mb-3 fs-5"
@@ -975,7 +1000,7 @@
                                                    readonly
                                                    v-model="agentone.areaName" />
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理商地址</label>
                                             <input type="text"
                                                    class="form-control mb-3 fs-5"
@@ -983,7 +1008,7 @@
                                                    readonly
                                                    v-model="agentone.address" />
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理商電話</label>
                                             <input type="text"
                                                    class="form-control mb-3 fs-5"
@@ -992,67 +1017,46 @@
                                                    v-model="agentone.phone" />
                                         </div>
 
-                                        <div class="row">
                                             <div class="col-6">
-                                                <button @click="btnCreatePreviousClick" class="btn btn-primary d-block">上一步，返回</button>
+                                                <button @click="btnCreatePreviousClick" class="btn btn-secondary fs-4 fw-bold">上一步，返回</button>
                                             </div>
-                                            <div class="col-6">
-                                                <!--<button @click="btnCreateNextClick" class="btn btn-primary d-block">下一步，建立訂單</button>-->
-                                                <!-- ★已預約彈跳視窗鈕-->
+                                            <div class="col-6 d-flex justify-content-end">
                                                 <button type="button"
-                                                        class="btn btn-primary d-block"
+                                                        class="btn btn-primary fs-4 fw-bold"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal">
                                                     下一步，建立訂單
                                                 </button>
 
                                                 <!-- ★Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
+                                                        <div class="modal-content border border-5">
                                                             <div class="modal-header mb-3">
-                                                                <!--<h5 class="modal-title" id="exampleModalLabel"
-                                                                    style="border-left: 8pt solid #666EE8;border-radius: 2px;">
-                                                                    &nbspA01會議室
-                                                                </h5>-->
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                                    style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                                    &nbsp💡提示訊息
+                                                                </p>
                                                             </div>
                                                             <div class="row justify-content-center">
-                                                                <!--<hr class="col-10">-->
+                                                                <hr class="col-10 border border-2">
+                                                                <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
                                                             </div>
-                                                            <!--<div class="modal-body text-start mt-0">
-                                                                <p>📋部門：設計部</p>
-                                                                <p>📋已預約時間：8:00-8:30</p>
-                                                                <p>📋部門登記人員：李文勝</p>
-                                                            </div>-->
-                                                            <h3 class="justify-content-center">是否確定要建立訂單?</h3>
+                                                            <div class="modal-body text-start mt-0">
+                                                                <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確定要建立訂單?</p>
+                                                            </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                                <button type="button" @click="btnCreateNextClick" class="btn btn-primary">確定</button>
+                                                                <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal" aria-label="Close"
+                                                                    @click="btnCreateNextClick" >
+                                                                    確認
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
-
-
-
-                                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                                                    <div class="toast-header">
-                                                        <!--<img src="..." class="rounded me-2" alt="...">-->
-                                                        <strong class="me-auto">Bootstrap</strong>
-                                                        <small>11 mins ago</small>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="toast-body">
-                                                        Hello, world! This is a toast message.
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
 
                                     </div>
 
@@ -1223,7 +1227,9 @@
                         //console.log(this.typeenglish);
                     }
                     else {
-                        alert('有未選選項!');
+                        this.text = "有未選選項!";
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
                     }
 
                 },
@@ -1245,9 +1251,12 @@
                         .then(p => {
                             //console.log(p);
                             console.log(p.data);
-                            alert(p.data);
+                            this.text = p.data;
+                            $("#toastSuc").fadeIn("fast");
+                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                             //alert('訂單新建成功!');
-                            window.location = "BS_OrderAll.html";//promise
+                            setTimeout(() => window.location = "BS_OrderAll.html", 2000);
+
                         });
                 },
                 uploadphoto(event) {
@@ -1274,7 +1283,9 @@
                             console.log(this.putphoto.photo);
                             axios.put('/api/BusinessOptionals/', this.putphoto).then(p => console.log(p))
                         })
-                    alert('成功');
+                    this.text = "成功";
+                    $("#toastSuc").fadeIn("fast");
+                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                 },
                 showphoto(e) {
                     //console.log(e.target.innerHTML.toString());
