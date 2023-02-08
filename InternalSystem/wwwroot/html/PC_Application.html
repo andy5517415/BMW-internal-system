@@ -763,10 +763,17 @@
                                 axios.post("https://localhost:44319/api/PCApplications/", this.item)
                                     .then(response => {
                                         //成功
-                                        this.text = "資料已新建";
-                                        $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                         //console.log(response.data);
+                                        if (response.data == "申請完成") {
+                                            this.text = response.data;
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                            //console.log(response.data);
+                                        } else {
+                                            this.text = response.data
+                                            $("#toastErr").fadeIn("fast");
+                                            setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                        }
                                     }).catch(err => {
                                         this.text = err;
                                         $("#toastErr").fadeIn("fast");

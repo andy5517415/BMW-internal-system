@@ -574,6 +574,7 @@ namespace InternalSystem.Controllers
         [HttpPost]
         public ActionResult PostPcApplication([FromBody] PcApplication pcApplication)
         {
+            if (pcApplication.Total != 0) { 
             PcApplication insert = new PcApplication {
                 PurchaseId = pcApplication.PurchaseId,
                 EmployeeId = pcApplication.EmployeeId,
@@ -592,7 +593,10 @@ namespace InternalSystem.Controllers
             };
             _context.PcApplications.Add(insert);
             _context.SaveChanges();
-            return Content("主資料新建ok");
+            return Content("申請完成");
+            }else {
+                return Content("請輸入至少一個品項");
+            }
         }
 
         //// POST: api/PCApplications
