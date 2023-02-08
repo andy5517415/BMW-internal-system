@@ -391,7 +391,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -400,7 +400,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -616,7 +616,6 @@
 
                     this.workoverlist.employeeId = this.employeelist.employeeId//OK
                     console.log(this.workoverlist)//OK
-                    //測試能否點選後狀態變TURE =>OK
                     // 判斷是否日期時間是否填入
                     if (this.workoverlist.employeeId != null && this.workoverlist.startDate != null && this.workoverlist.startTime != null &&
                         this.workoverlist.endDate != null && this.workoverlist.endTime != null && this.workoverlist.areaId != null &&
@@ -624,15 +623,18 @@
                         axios.post('/api/PersonnelOvertimeForms', this.workoverlist)
                             .then(response => {
                                 //★成功
-                                this.text = response.data;
-                                $("#toastSuc").fadeIn("fast");
-                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-
+                                if (response.date == "申請成功") {
+                                    this.text = response.data;
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    setTimeout(() => { window.location = "/html/LV_OvertimeSearch.html" }, 1000);
+                                }
                                 //失敗
-                                this.text = response.data;
-                                $("#toastErr").fadeIn("fast");
-                                setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                window.location = "/html/LV_OvertimeSearch.html";
+                                else {
+                                    this.text = response.data;
+                                    $("#toastErr").fadeIn("fast");
+                                    setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                }
                             })
                             .catch(err => console.log(err))
                     }

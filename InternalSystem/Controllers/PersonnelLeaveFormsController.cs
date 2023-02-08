@@ -32,7 +32,7 @@ namespace InternalSystem.Controllers
             return await _context.PersonnelLeaveForms.ToListAsync();
         }
 
-        //用員工ID尋找(Session帶入員工ID) 個人查詢
+        //用員工ID尋找(Session帶入員工ID) 個人查詢 請假頁面
         // GET: api/PersonnelLeaveForms/profile/5/{y}-{m}
         [HttpGet("profile/{id}/{y}-{m}/{page}")]
         public async Task<ActionResult<dynamic>> GetPersonnelLeave(int id ,int y , int m,int page)
@@ -73,12 +73,12 @@ namespace InternalSystem.Controllers
             {
                 return NotFound();
             }
-            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+            var query = personnelLeaveForm.Skip((page - 1) * 15).Take(15);
 
             return await query.ToListAsync();
         }
 
-        //用員工ID尋找(Session帶入員工ID) 個人查詢 頁面
+        //用員工ID尋找(Session帶入員工ID) 個人查詢 請假 頁面
         // GET: api/PersonnelLeaveForms/profile/5/{y}-{m}
         [HttpGet("profilePage/{id}/{y}-{m}")]
         public int GetPersonnelLeavePage(int id, int y, int m,int page)
@@ -119,9 +119,9 @@ namespace InternalSystem.Controllers
             {
                 return 0;
             }
-            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+            var query = personnelLeaveForm.Skip((page - 1) * 15).Take(15);
 
-            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelLeaveForm.Count()) / 10));
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelLeaveForm.Count()) / 15));
             return total;
         }
         //用名稱尋找  人事部查詢
@@ -211,7 +211,8 @@ namespace InternalSystem.Controllers
         //    return await personnelLeaveForm.ToListAsync();
         //}
 
-        //複合查詢(部門  員工名稱) 人事部查詢
+        
+        //請假複合查詢(部門  員工名稱) 人事部查詢
         // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
         [HttpGet("Complex/{y}-{m}")]
         public async Task<ActionResult<dynamic>> GetLeaveComplex(string name, int? depId, int y, int m, int page)
@@ -254,12 +255,12 @@ namespace InternalSystem.Controllers
             if (depId!=null)
             { personnelLeaveForm = personnelLeaveForm.Where(a => a.DepartmentId == depId); }
 
-            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+            var query = personnelLeaveForm.Skip((page - 1) * 15).Take(15);
             return await query.ToListAsync();
         }
 
 
-
+        //人事查詢請假
         //複合查詢頁面
         // GET: api/PersonnelLeaveForms/Complex/1/2/{y}-{m}
         [HttpGet("ComplexPage/{y}-{m}")]
@@ -302,9 +303,9 @@ namespace InternalSystem.Controllers
             { personnelLeaveForm = personnelLeaveForm.Where(a => a.EmployeeName.Contains(name)); }
             if (depId != null)
             { personnelLeaveForm = personnelLeaveForm.Where(a => a.DepartmentId == depId); }
-            var query = personnelLeaveForm.Skip((page - 1) * 10).Take(10);
+            var query = personnelLeaveForm.Skip((page - 1) * 15).Take(15);
 
-            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelLeaveForm.Count() )/ 10));
+            var total = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(personnelLeaveForm.Count() )/ 15));
             return total;
         }
         //GET被指定代理人之申請

@@ -388,7 +388,7 @@
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatar ">
                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -397,7 +397,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar avatar-online">
+                                                        <div class="avatar ">
                                                             <img :src="navInf.Photo" class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -633,8 +633,8 @@
                         g.data.forEach((x, idx) => {
                             this.accordionOne.push(g.data[idx].orderNumber);
                             if (x.ppname == "製程C-性能測試" && x.ppstate == "已完成") {
-                                x.pparea ="";
-                                x.ppname ="該筆訂單已生產完畢";
+                                x.pparea = "";
+                                x.ppname = "該筆訂單已生產完畢";
                             }
                         });
                         this.order = g.data;
