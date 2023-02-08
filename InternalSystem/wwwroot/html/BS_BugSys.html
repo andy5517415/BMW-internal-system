@@ -441,7 +441,7 @@
                     <div id="divbugsys" class="container-xxl flex-grow-1 container-p-y">
                         <!-- 我是成功的吐司 -->
                         <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                             aria-live="assertive" aria-atomic="true" id="toastSuc">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -454,7 +454,7 @@
                         </div>
                         <!-- 錯誤的吐司 -->
                         <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                             aria-live="assertive" aria-atomic="true" id="toastErr">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -469,19 +469,10 @@
                             <h2 class="card-header">產線報錯系統</h2>
                             <!-- <h5 class="card-header">車輛資訊</h5> -->
                             <div class="card-body">
-
-
-
                                 <!-- pills -->
-
                                 <div class="row justify-content-md-center">
                                     <div class="col-2"></div>
                                     <div class="col-8">
-                                        <!--<div class="modal-header">
-                                              <h5 class="modal-title" id="exampleModalLabel4">員工通報錯誤專區</h5>
-                                          </div>-->
-
-
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
                                         <select id="ordid" class="form-select color-dropdown" v-model="selcone">
                                             <option value="999" selected disabled>請選擇訂單</option>
@@ -491,32 +482,27 @@
                                             </option>
                                         </select>
 
-                                                                  
+
                                         <label for="cartype" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="cartype"
                                                readonly
-                                               :value="selcone.optionalName"
-                                               />
+                                               :value="selcone.optionalName" />
 
                                         <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="area"
                                                readonly
-                                               :value="selcone.areaId"
-                                               />
+                                               :value="selcone.areaId" />
 
                                         <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">製程</label>
                                         <input type="text"
-                                               class="form-control fs-5"
+                                               class="form-control fs-5 mb-5"
                                                id="process"
                                                readonly
-                                               :value="selcone.processId"
-                                               />
-
-                                        <br /><br />
+                                               :value="selcone.processId" />
 
 
 
@@ -525,52 +511,59 @@
                                                   id="exampleFormControlTextarea1"
                                                   rows="10"
                                                   v-model="description">
-                                  </textarea>
+                                        </textarea>
 
 
-                                        <br /><br />
-                                        <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選擇下方按鈕送出</p>
-                                        <div class="row my-5">
-                                            <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-success fw-bold">正常</button>
+
+
+                                        <!--  -->
+                                        <!-- ★Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border border-5">
+                                                    <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                            &nbsp選擇故障排除狀態
+                                                        </p>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <!-- 存檔按鈕 -->
+                                                        <div class="row my-5 mx-3">
+                                                            <div class="col-3">
+                                                                <button @click="btnstate" type="button" class="btn btn-success fw-bold py-3">正常</button>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <button @click="btnstate" type="button" class="btn btn-warning fw-bold py-3">待處理</button>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <button @click="btnstate" type="button" class="btn btn-info fw-bold py-3">處理中</button>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <button @click="btnstate" type="button" class="btn btn-danger fw-bold py-3">異常</button>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-secondary fw-bold my-3 py-3" data-bs-dismiss="modal">取消</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-warning fw-bold">待處理</button>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-info fw-bold">處理中</button>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-danger fw-bold">異常</button>
-                                            </div>
-                                            <br><br><br>
+                                        </div>
+                                        <!-- 確認視窗按鈕 -->
+                                        <div class="mt-2 py-5 text-center justify-content-md-end">
+                                            <button type="button" class="btn btn-primary fs-4 fw-bold text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                送出
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-2"></div>
                                 </div>
-
-
                                 <!-- /pills -->
-
-
-
                             </div>
-
                         </div>
-                        
-
-
-
                         <!-- / Content -->
                         <!-- Footer -->
                         <!-- / Footer -->
                         <!-- <div class="content-backdrop fade"></div> -->
-                        <!-- 修改訂單 -->
-
-
                     </div>
-
-
                     <!-- / Content -->
                     <!-- Footer -->
                     <!-- / Footer -->

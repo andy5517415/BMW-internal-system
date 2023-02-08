@@ -452,10 +452,6 @@
 
                                 <div class="card-body">
                                     <div class="row gx-3 gy-2 align-items-center">
-
-
-
-
                                         <!--<iframe width="560"
                                             height="315"
                                             src="https://www.youtube.com/embed/vhIt7buzd1s?controls=0">
@@ -515,10 +511,6 @@
 
 
 
-
-
-
-
                                         <div class="row py-1">
                                             <div class="col-4">
                                                 <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="carcolor">車漆顏色</label>
@@ -548,9 +540,7 @@
                                                          style="height: 100%; width: 100%; object-fit: contain "
                                                          alt="color" />
                                                 </div>
-
                                             </div>
-
                                         </div>
 
 
@@ -656,11 +646,7 @@
                                                          alt="plaque" />
                                                 </div>
                                             </div>
-
                                         </div>
-
-
-
 
 
 
@@ -770,7 +756,6 @@
                                                          alt="sunroof" />
                                                 </div>
                                             </div>
-
                                         </div>
 
 
@@ -806,7 +791,6 @@
                                                          alt="media" />
                                                 </div>
                                             </div>
-
                                         </div>
 
 
@@ -860,6 +844,14 @@
                                                    id=""
                                                    readonly
                                                    v-model="agentone.phone" />
+                                        </div>
+                                        <!--預計交付時間-->
+                                        <div class="col-md-6">
+                                            <label for="deadline" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">預計交付時間</label>
+                                            <input type="datetime-local"
+                                                   class="form-control fs-5"
+                                                   id="deadline"
+                                                   v-model="deadline" />
                                         </div>
 
                                         <button @click="btnconfirmclick" class="btn btn-primary d-block">下一步，確認訂單</button>
@@ -1009,6 +1001,14 @@
                                                    readonly
                                                    v-model="agentone.phone" />
                                         </div>
+                                        <div class="col-md-6">
+                                            <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">預計交付時間</label>
+                                            <input type="datetime-local"
+                                                   class="form-control fs-5"
+                                                   id=""
+                                                   readonly
+                                                   v-model="deadline" />
+                                        </div>
 
                                         <div class="row">
                                             <div class="col-6">
@@ -1031,19 +1031,19 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header mb-3">
                                                                 <!--<h5 class="modal-title" id="exampleModalLabel"
-                                                                    style="border-left: 8pt solid #666EE8;border-radius: 2px;">
-                                                                    &nbspA01會議室
-                                                                </h5>-->
+                                style="border-left: 8pt solid #666EE8;border-radius: 2px;">
+                                &nbspA01會議室
+                            </h5>-->
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="row justify-content-center">
                                                                 <!--<hr class="col-10">-->
                                                             </div>
                                                             <!--<div class="modal-body text-start mt-0">
-                                                                <p>📋部門：設計部</p>
-                                                                <p>📋已預約時間：8:00-8:30</p>
-                                                                <p>📋部門登記人員：李文勝</p>
-                                                            </div>-->
+                            <p>📋部門：設計部</p>
+                            <p>📋已預約時間：8:00-8:30</p>
+                            <p>📋部門登記人員：李文勝</p>
+                        </div>-->
                                                             <h3 class="justify-content-center">是否確定要建立訂單?</h3>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
@@ -1071,9 +1071,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                             <!-- / Content -->
@@ -1172,9 +1170,6 @@
                     carmediaone: 999,
                     agentone: 999,
                     typeenglish: '',
-                    //orderpost: {
-                    //    businessOrderDetails: []
-                    //},
 
                     bods: [],
 
@@ -1193,7 +1188,8 @@
                         sunroof: false,
                         media: false
                     },
-                    uploadimg: ''
+                    uploadimg: '',
+                    deadline:''
                 }
             },
             computed: {
@@ -1213,58 +1209,43 @@
             methods: {
                 btnconfirmclick() {
                     this.orderdetail = [];
-                    this.orderdetail.push((this.cartypeone    /*.optionalId*/ == 999) ? '' : this.cartypeone.optionalId);
-                    this.orderdetail.push((this.carcolorone   /*.optionalId*/ == 999) ? '' : this.carcolorone.optionalId);
-                    this.orderdetail.push((this.cartextureone /*.optionalId*/ == 999) ? '' : this.cartextureone.optionalId);
-                    this.orderdetail.push((this.carwheelone   /*.optionalId*/ == 999) ? '' : this.carwheelone.optionalId);
-                    this.orderdetail.push((this.carplaqueone  /*.optionalId*/ == 999) ? '' : this.carplaqueone.optionalId);
-                    this.orderdetail.push((this.carlightone   /*.optionalId*/ == 999) ? '' : this.carlightone.optionalId);
-                    this.orderdetail.push((this.carsaddleone  /*.optionalId*/ == 999) ? '' : this.carsaddleone.optionalId);
-                    this.orderdetail.push((this.carsunroofone /*.optionalId*/ == 999) ? '' : this.carsunroofone.optionalId);
-                    this.orderdetail.push((this.carmediaone   /*.optionalId*/ == 999) ? '' : this.carmediaone.optionalId);
+                    this.orderdetail.push((this.cartypeone     == 999) ? '' : this.cartypeone.optionalId);
+                    this.orderdetail.push((this.carcolorone    == 999) ? '' : this.carcolorone.optionalId);
+                    this.orderdetail.push((this.cartextureone  == 999) ? '' : this.cartextureone.optionalId);
+                    this.orderdetail.push((this.carwheelone    == 999) ? '' : this.carwheelone.optionalId);
+                    this.orderdetail.push((this.carplaqueone   == 999) ? '' : this.carplaqueone.optionalId);
+                    this.orderdetail.push((this.carlightone    == 999) ? '' : this.carlightone.optionalId);
+                    this.orderdetail.push((this.carsaddleone   == 999) ? '' : this.carsaddleone.optionalId);
+                    this.orderdetail.push((this.carsunroofone  == 999) ? '' : this.carsunroofone.optionalId);
+                    this.orderdetail.push((this.carmediaone    == 999) ? '' : this.carmediaone.optionalId);
                     console.log(this.orderdetail);
-                    //this.agentone=(this.agentone == 999) ? '' : this.agentone;
-                    //console.log(this.agentone);
 
                     var empcnt = 0;
                     this.orderdetail.forEach(x => {
                         if (x == '') { empcnt++ };
                     });
                     if (this.agentone == 999) { empcnt++ };
-
-                    //console.log(empcnt);
                     if (empcnt == 0) {
                         this.formfill = !this.formfill
                         this.formconfirm = !this.formconfirm
-                        //console.log(this.cartypeone.optionalName);
                         this.typeenglish = this.cartypeone.optionalName.substring(4, 5);
-                        //console.log(this.typeenglish);
                     }
                     else {
                         alert('有未選選項!');
                     }
-
                 },
                 btnCreatePreviousClick() {
                     this.formfill = !this.formfill
                     this.formconfirm = !this.formconfirm
                 },
                 btnCreateNextClick() {
-                    //this.orderpost.orderNumber = this.orderid;
-                    //this.orderpost.AreaId = this.agentone.areaId;
-                    //this.orderpost.Price = this.cnt;
-                    //this.orderpost.EmployeeId = 5;
-                    //this.orderpost.IsAccepted = false;
-                    //console.log('orderpost')
                     this.bods = [];
                     this.orderdetail.forEach(x => this.bods.push({ 'optionalId': x }));
                     console.log(this.bods);
-                    axios.post(`/api/BusinessOrders/withoutloop?type=${this.typeenglish}&areaid=${this.agentone.areaId}`, this.bods)
+                    axios.post(`/api/BusinessOrders/withoutloop?type=${this.typeenglish}&areaid=${this.agentone.areaId}&deadline=${this.deadline}`, this.bods)
                         .then(p => {
-                            //console.log(p);
                             console.log(p.data);
                             alert(p.data);
-                            //alert('訂單新建成功!');
                             window.location = "BS_OrderAll.html";//promise
                         });
                 },
@@ -1280,8 +1261,6 @@
                         };
                         reader.readAsDataURL(file)
                     }
-
-
                 },
                 savephoto() {
                     axios.get('/api/BusinessOptionals/')
@@ -1345,6 +1324,10 @@
                     this.carsunroofone = this.carsunroof[0];
                     this.carmediaone = this.carmedia[0];
                     this.agentone = this.agent[0];
+                    let dt = new Date(); 
+                    let timeStamp = dt.setDate(dt.getDate() + 30);
+                    console.log(dt.toISOString().substring(0,16));
+                    this.deadline = dt.toISOString().substring(0, 16);
                 }
             },
             mounted() {
@@ -1358,7 +1341,6 @@
                     axios.get('/api/BusinessOptionals/info/8').then(g => { this.carsunroof = g.data }),
                     axios.get('/api/BusinessOptionals/info/9').then(g => { this.carmedia = g.data }),
                     axios.get('/api/BusinessOptionals/agent').then(g => { this.agent = g.data })
-
 
                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }
