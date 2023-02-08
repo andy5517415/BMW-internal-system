@@ -819,9 +819,10 @@
                             self.text = "✔&nbsp刪除成功"
                             $("#toastDel").fadeIn("fast");
                             setTimeout(() => $("#toastDel").fadeOut(), 2000);
+                            this.DoMeetSearch();
                         })
                         .catch((error) => { alert('連線錯誤' + error); })
-                    this.DoMeetSearch();
+
                 },
                 DoSearchRecord: function (index) {
                     var self = this;
