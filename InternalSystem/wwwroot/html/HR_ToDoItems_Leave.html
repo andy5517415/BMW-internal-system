@@ -497,7 +497,7 @@
                                         <input class="form-control fs-5" v-model="leaveproxy.startTime" id="StartTime" disabled />
 
                                     </div>
-                                    
+
                                     <div class="mb-3 col-md-3">
 
                                         <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假結束時間</label>
@@ -542,13 +542,67 @@
                                              @mouseover="mouseover" />
                                     </div>
                                 </div>
-                                <!-- 按鈕 -->
-                                <div class="mt-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" @click="okbtn" >同意</button>
-
-                                    <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3 fs-4 fw-bold"  @click="nobtn">不同意</button>
+                                <!-- ★Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border border-5">
+                                            <div class="modal-header mb-3">
+                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                    &nbsp請假資料確認
+                                                </p>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <hr class="col-10">
+                                            </div>
+                                            <div class="modal-body text-start mt-0">
+                                                <p class="fs-5">✏️請假申請人：{{leaveproxy.employeeName}} </p>
+                                                <p class="fs-5">✏️請假開始時間：{{leaveproxy.startDate}} {{leaveproxy.startTime}}</p>
+                                                <p class="fs-5">✏️請假結束時間：{{leaveproxy.endDate}} {{leaveproxy.endTime}}</p>
+                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">✏️確認同意?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- 存檔按鈕 -->
+                                                <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3">確認</button>
+                                                <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
+                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                        </div>
+                                <!-- ★Modal 拒絕-->
+                                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border border-5">
+                                            <div class="modal-header mb-3">
+                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                    &nbsp請假資料確認
+                                                </p>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <hr class="col-10">
+                                            </div>
+                                            <div class="modal-body text-start mt-0">
+                                                <p class="fs-5">✏️請假申請人：{{leaveproxy.employeeName}} </p>
+                                                <p class="fs-5">✏️請假開始時間：{{leaveproxy.startDate}} {{leaveproxy.startTime}}</p>
+                                                <p class="fs-5">✏️請假結束時間：{{leaveproxy.endDate}} {{leaveproxy.endTime}}</p>
+                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">✏️確認拒絕?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- 存檔按鈕 -->
+                                                <button type="button" @click="nobtn" class="btn btn-primary me-3 mb-4 fs-4 border-3">確認</button>
+                                                <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
+                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 確認視窗按鈕 -->
+                                <div class="mt-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">同意</button>
+
+                                    <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3 fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal2">不同意</button>
+                                </div>
+</div>
                         </form>
                         <!-- 三個進度卡 -->
                         <br>
@@ -663,7 +717,6 @@
                     okbtn: function () {
                         //console.log(this.leaveproxy.statusId)   //ok
                         if (this.manager.PositionId < 7) {
-                            if (confirm('請確認是否同意') == true) {
                                 //日期格式
                                 let today = new Date()
                                 let y = today.getFullYear()
@@ -690,10 +743,9 @@
                                         setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
                                     })
-                            }
+                            
                         }
                         if (this.manager.PositionId == 7) {
-                            if (confirm('請確認是否同意') == true) {
 
 
                                 axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
@@ -713,14 +765,13 @@
                                     })
                                     .catch(err => { console.log(err) })
                             }
-                        }
+                        
 
                     },
 
                     nobtn: function () {
 
                         if (this.manager.PositionId < 7) {
-                            if (confirm('請確認是否拒絕') == true) {
                                 //this.leaveproxy.statusId = 3;
                                 //this.leaveproxy.proxyAudit = false;
                                 axios.put('/api/PersonnelLeaveForms/proxy/refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
@@ -737,10 +788,9 @@
                                         setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
                                     })
-                            }
+                            
                         }
                         if (this.manager.PositionId == 7) {
-                            if (confirm('請確認是否不同意') == true) {
                                 axios.put('/api/PersonnelLeaveForms/manager/Refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
                                     .then(response => {
                                         //★成功
@@ -757,7 +807,7 @@
 
                                     })
                             }
-                        }
+                        
                     },
                     mouseover() {
 

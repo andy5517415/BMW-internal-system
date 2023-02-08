@@ -581,7 +581,7 @@
                                                             <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認編輯資料?</p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close"
+                                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" 
                                                                 @click="leaveedit">
                                                                 確認
                                                             </button>
@@ -667,11 +667,14 @@
                             axios.put('/api/PersonnelLeaveForms/PutDep/' + this.leavedata.leaveId, this.leavedata)
                                 .then(response => {
                                     //★成功
+                                    console.log(response.data)
                                     this.text = response.data;
                                     if (this.text == "修改成功") {
                                         $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                        window.location = "/html/HR_EmpLeaveSearch.html";
+                                        setTimeout(() => $("#toastSuc").fadeOut(), 1500);
+                                        setTimeout(() => { window.location = "/html/HR_EmpLeaveSearch.html" } , 1000);
+
+                                        
                                     }
 
 
@@ -683,7 +686,7 @@
                                         || this.text == "剩餘時數不足") {
                                         this.text = response.data;
                                         $("#toastErr").fadeIn("fast");
-                                        setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                        setTimeout(() => $("#toastErr").fadeOut(), 1500);
                                     }
                                 })
                                 .catch(err => console.log(err))

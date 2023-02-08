@@ -999,7 +999,6 @@
                     this.orderdetail.push((this.carmediaone.optionalId == null) ? '' : this.carmediaone.optionalId);
                     console.log(this.orderdetail);
 
-                    if (confirm("確認是否要修改訂單?") == true) {
 
                         //找該訂單細項第一筆OdId+8
                         axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
@@ -1026,10 +1025,9 @@
 
                                     });
                             });
-                    }
+                    
                 },
                 btndelete() {
-                    if (confirm(`是否要刪除訂單? 編號 : ${this.ordernum}`) == true) {
                         axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
                             .then(d => {
                                 this.text = d.data
@@ -1038,7 +1036,7 @@
                                 //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
                                 window.location = "BS_OrderAll.html";//promise
                             })
-                    }
+                    
                 },
                 oneclick() {
                     this.cartypeone = this.cartype[1];
