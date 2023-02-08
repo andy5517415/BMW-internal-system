@@ -814,7 +814,7 @@
 
 
 
-                                        <div class="col-12 ms-1">
+                                        <div class="col-4 ms-1">
                                             <label for="" class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold">小計</label>
                                             <input type="text"
                                                    class="form-control mb-3 fs-5"
@@ -833,8 +833,8 @@
 
                                 <!-- 代理商 -->
                                 <hr class="my-5"/>
-                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">代理商選擇</p>
-                                    <div class="row gx-5 gy-2 align-items-center mx-4">
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">代理商及預計交付時間選擇</p>
+                                    <div class="row align-items-center mx-4">
                                         <div class="col-md-4">
                                             <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="area">代理商地區</label>
                                             <select id="area"
@@ -856,7 +856,7 @@
                                                    v-model="agentone.address" />
                                         </div>
                                         <div class="col-md-4">
-                                            <label @click="oneclick" for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理商電話</label>
+                                            <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">代理商電話</label>
                                             <input type="text"
                                                    class="form-control mb-3 fs-5"
                                                    id=""
@@ -864,15 +864,14 @@
                                                    v-model="agentone.phone" />
                                         </div>
                                         <!--預計交付時間-->
-                                        <div class="col-md-6">
-                                            <label for="deadline" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">預計交付時間</label>
+                                        <div class="col-md-4">
+                                            <label @click="oneclick" for="deadline" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">預計交付時間</label>
                                             <input type="datetime-local"
                                                    class="form-control fs-5"
                                                    id="deadline"
                                                    v-model="deadline" />
                                         </div>
-
-                                        <button @click="btnconfirmclick" class="mt-4 mb-2 col-4 btn btn-primary d-block mx-auto fs-4 fw-bold">✔&nbsp;下一步，確認訂單</button>
+                                        <button @click="btnconfirmclick" class="mt-4 col-4 btn btn-primary mx-auto fs-4 fw-bold">✔&nbsp;下一步，確認訂單</button>
                                     </div>
 
                                 </div>
@@ -1013,7 +1012,7 @@
                                                    readonly
                                                    v-model="agentone.phone" />
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">預計交付時間</label>
                                             <input type="datetime-local"
                                                    class="form-control fs-5"
@@ -1021,51 +1020,52 @@
                                                    readonly
                                                    v-model="deadline" />
                                         </div>
+                                    </div>
+                                    <div class="row my-4 justify-content-evenly">
+                                        <div class="col-4 mb-0 text-center">
+                                            <button @click="btnCreatePreviousClick" class="btn btn-secondary fs-4 fw-bold">上一步，返回</button>
+                                        </div>
+                                        <div class="col-4 mb-0 text-center">
+                                            <button type="button"
+                                                    class="btn btn-primary fs-4 fw-bold"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal">
+                                                下一步，建立訂單
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                            <div class="col-6">
-                                                <button @click="btnCreatePreviousClick" class="btn btn-secondary fs-4 fw-bold">上一步，返回</button>
-                                            </div>
-                                            <div class="col-6 d-flex justify-content-end">
-                                                <button type="button"
-                                                        class="btn btn-primary fs-4 fw-bold"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal">
-                                                    下一步，建立訂單
-                                                </button>
+                                        <!-- ★Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border border-5">
+                                                    <div class="modal-header mb-3">
 
-                                                <!-- ★Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content border border-5">
-                                                            <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                                            style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                            &nbsp💡提示訊息
+                                                        </p>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <hr class="col-10 border border-2">
+                                                        <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
+                                                    </div>
+                                                    <div class="modal-body text-start mt-0">
+                                                        <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確定要建立訂單?</p>
+                                                    </div>
 
-                                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel"
-                                                                    style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                                    &nbsp💡提示訊息
-                                                                </p>
-                                                            </div>
-                                                            <div class="row justify-content-center">
-                                                                <hr class="col-10 border border-2">
-                                                                <img src="../assets/img/myicon/question mark.png" alt="" style="width: 200px;">
-                                                            </div>
-                                                            <div class="modal-body text-start mt-0">
-                                                                <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto">確定要建立訂單?</p>
-                                                            </div>
-
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal" aria-label="Close"
-                                                                    @click="btnCreateNextClick" >
-                                                                    確認
-                                                                </button>
-                                                                <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
-                                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                                                            </div>
-                                                        </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary fs-4 fw-bold me-2" data-bs-dismiss="modal" aria-label="Close"
+                                                            @click="btnCreateNextClick" >
+                                                            確認
+                                                        </button>
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                    </div>
                                 </div>
                             </div>
                             <!-- / Content -->
@@ -1245,7 +1245,7 @@
                             $("#toastSuc").fadeIn("fast");
                             setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                             //alert('訂單新建成功!');
-                            setTimeout(() => window.location = "BS_OrderAll.html", 2000);
+                            setTimeout(() => window.location.reload(), 2000);
                         });
                 },
                 uploadphoto(event) {
@@ -1326,7 +1326,7 @@
                     this.carmediaone = this.carmedia[0];
                     this.agentone = this.agent[0];
                     let dt = new Date(); 
-                    let timeStamp = dt.setDate(dt.getDate() + 30);
+                    dt.setDate(dt.getDate() + 30);
                     console.log(dt.toISOString().substring(0,16));
                     this.deadline = dt.toISOString().substring(0, 16);
                 }

@@ -458,7 +458,7 @@
                             
                             <h2 class="card-header">產線監控系統</h2>
                             <!-- <h5 class="card-header">車輛資訊</h5> -->
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <!-- 顏色示意表 -->
                                 <div class="row">
                                     <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
@@ -485,14 +485,14 @@
 
                                     <!--chart.js-->
                                     <div class="row my-5">
-                                        <div class="col-sm-4">
-                                            <canvas id="chartM4"></canvas>
+                                        <div class="col-sm-4" >
+                                            <canvas id="chartM4" width="100" height="100"></canvas>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <canvas id="chartX7"></canvas>
+                                        <div class="col-sm-4" >
+                                            <canvas id="chartX7" width="100" height="100"></canvas>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <canvas id="chartiX"></canvas>
+                                        <div class="col-sm-4" >
+                                            <canvas id="chartiX" width="100" height="100"></canvas>
                                         </div>
                                     </div>
 
@@ -569,7 +569,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A01
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區1]
                                                         <span v-if="M4A01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -590,7 +590,7 @@
 
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B01
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區1]
                                                         <span v-if="M4B01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -611,7 +611,7 @@
 
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C01
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區1]
                                                         <span v-if="M4C01=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -655,7 +655,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A02
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區2]
                                                         <span v-if="M4A02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -675,7 +675,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B02
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區2]
                                                         <span v-if="M4B02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -695,7 +695,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C02
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區2]
                                                         <span v-if="M4C02=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -737,7 +737,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A03
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區3]
                                                         <span v-if="M4A03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -757,7 +757,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B03
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區3]
                                                         <span v-if="M4B03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -777,7 +777,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C03
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區3]
                                                         <span v-if="M4C03=='正常'" data-m4="m4" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -826,7 +826,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A01
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區1]
                                                         <span v-if="X7A01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -846,7 +846,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B01
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區1]
                                                         <span v-if="X7B01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -866,7 +866,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C01
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區1]
                                                         <span v-if="X7C01=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -913,7 +913,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A02
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區2]
                                                         <span v-if="X7A02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -933,7 +933,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B02
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區2]
                                                         <span v-if="X7B02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -953,7 +953,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C02
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區2]
                                                         <span v-if="X7C02=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -997,7 +997,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A03
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區3]
                                                         <span v-if="X7A03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1017,7 +1017,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B03
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區3]
                                                         <span v-if="X7B03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1037,7 +1037,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C03
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區3]
                                                         <span v-if="X7C03=='正常'" data-x7="x7" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1099,7 +1099,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A01
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區1]
                                                         <span v-if="iXA01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1119,7 +1119,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B01
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區1]
                                                         <span v-if="iXB01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1139,7 +1139,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C01
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區1]
                                                         <span v-if="iXC01=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1181,7 +1181,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A02
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區2]
                                                         <span v-if="iXA02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1201,7 +1201,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B02
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區2]
                                                         <span v-if="iXB02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1221,7 +1221,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C02
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區2]
                                                         <span v-if="iXC02=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1265,7 +1265,7 @@
                                             <div class="row justify-content-md-center mb-0" style="height: 48px;">
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        A03
+                                                        製程A-零件組裝&nbsp;&nbsp;[廠區3]
                                                         <span v-if="iXA03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1285,7 +1285,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        B03
+                                                        製程B-噴漆內裝&nbsp;&nbsp;[廠區3]
                                                         <span v-if="iXB03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1305,7 +1305,7 @@
                                                 </div>
                                                 <div class="col-sm-4 d-flex justify-content-center">
                                                     <button @click="statebtnclick" type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3">
-                                                        C03
+                                                        製程C-性能測試&nbsp;&nbsp;[廠區3]
                                                         <span v-if="iXC03=='正常'" data-ix="ix" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
                                                             -
                                                         </span>
@@ -1729,7 +1729,14 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'M4'
+                        text: 'M4',
+                        fontSize: 20
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontSize: 15
+                        }
                     }
                 }
             })
@@ -1752,7 +1759,14 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'X7'
+                        text: 'X7',
+                        fontSize: 20
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontSize: 15
+                        }
                     }
                 }
             })
@@ -1774,7 +1788,14 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'iX'
+                        text: 'iX',
+                        fontSize: 20
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontSize: 15
+                        }
                     }
                 }
             })

@@ -199,7 +199,7 @@
                                     <div data-i18n="Account" class="fs-5">員工出勤查詢</div>
                                 </a>
                             </li>
-                            
+
 
                         </ul>
                     </li>
@@ -445,339 +445,331 @@
                                 <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
                                     <div class="col-1 my-2 mb-3" style="width: 70px;">
                                         <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3"
-                                            style="width: 55px;">
+                                             style="width: 55px;">
                                     </div>
                                     <div class="col-6 my-2 mb-3">
                                         <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">業務訂單總覽</h2>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                <div class="text-nowrap">
+                                    <div class="text-nowrap">
 
-                                    <div class="my-1">&nbsp;</div>
-                                    <!--尚未完成篩選條件-->
-                                    <div class="row border border-5 rounded mb-5 mx-4 inputCard2" style="position: relative;">
-                                        <!-- 篩選樣板 -->
-                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">篩選條件</p>
-                                        <div class="my-2">&nbsp;</div>
+                                        <div class="my-1">&nbsp;</div>
+                                        <!--尚未完成篩選條件-->
+                                        <div class="row border border-5 rounded mb-5 mx-4 inputCard2" style="position: relative;">
+                                            <!-- 篩選樣板 -->
+                                            <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">篩選條件</p>
+                                            <div class="my-2">&nbsp;</div>
 
-                                        <div class="col-6 ms-4">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
-                                            <select id="cartype"
-                                                    class="form-select color-dropdown"
-                                                    v-model="sl.car"
-                                                    @change="filter">
-                                                <option selected value="0">全部</option>
-                                                <option value="1">M4 Competition</option>
-                                                <option value="2">X7 xDrive40i</option>
-                                                <option value="3">iX xDrive40 旗艦版</option>
-                                            </select>
+                                            <div class="col-6 ms-4">
+                                                <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">車款篩選</label>
+                                                <select id="cartype"
+                                                        class="form-select color-dropdown"
+                                                        v-model="sl.car"
+                                                        @change="filter">
+                                                    <option selected value="0">全部</option>
+                                                    <option value="1">M4 Competition</option>
+                                                    <option value="2">X7 xDrive40i</option>
+                                                    <option value="3">iX xDrive40 旗艦版</option>
+                                                </select>
+                                            </div>
+                                            <div class="col mb-4">
+                                                <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">代理商區域篩選</label>
+                                                <select id="cartype"
+                                                        class="form-select color-dropdown"
+                                                        v-model="sl.area"
+                                                        @change="filter">
+                                                    <option selected value="0">全部</option>
+                                                    <option value="北區">北區</option>
+                                                    <option value="中區">中區</option>
+                                                    <option value="南區">南區</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col mb-4">
-                                            <label class="badge rounded-pill bg-primary fs-4 mb-1 fw-bold" for="cartype">代理商區域篩選</label>
-                                            <select id="cartype"
-                                                    class="form-select color-dropdown"
-                                                    v-model="sl.area"
-                                                    @change="filter">
-                                                <option selected value="0">全部</option>
-                                                <option value="北區">北區</option>
-                                                <option value="中區">中區</option>
-                                                <option value="南區">南區</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--chart.js-->
-                                    <div class="row border border-5 rounded mx-4 mb-4" style="position: relative;">
-                                        <!-- 篩選樣板 -->
-                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
-                                            統計圖</p>
-                                        <div class="my-2">&nbsp;</div>
+                                        <!--chart.js-->
+                                        <div class="row border border-5 rounded mx-4 mb-4" style="position: relative;">
+                                            <!-- 篩選樣板 -->
+                                            <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                                統計圖
+                                            </p>
+                                            <div class="my-2">&nbsp;</div>
 
-                                        <div class="col-sm-6">
-                                            <canvas id="chartCanvasType"></canvas>
-                                        </div>
-                                        <div class="col-sm-6 mb-4">
-                                            <canvas id="chartCanvasArea"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <p class="text-center col-2 fs-4 fw-blod">訂單編號</p>
-                                        <p class="text-center col-1 fs-4 fw-blod">下訂車款</p>
-                                        <p class="text-center col-2 fs-4 fw-blod">建立訂單時間</p>
-                                        <p class="text-center col-2 fs-4 fw-blod">修改訂單時間</p>
-                                        <p class="text-center col-1 fs-4 fw-blod">代理商</p>
-                                        <p class="text-center col-1 fs-4 fw-blod">接單狀態</p>
-                                        <p class="text-center col-1 fs-4 fw-blod">廠區</p>
-                                        <p class="text-center col-2 fs-4 fw-blod">製程</p>
-                                        <!--<p class="text-center col-1 fs-4 fw-blod">已接單時長</p>
-                                        <p class="text-center col-1 fs-4 fw-blod">剩餘時間</p>-->
-                                    </div>
-                                </div>
-                                <!--/ Basic Bootstrap Table -->
-
-
-                            </div>
-                        </div>
-
-                        <div class="card mb-4 m-4">
-                        
-                            <div class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
-                                    style="padding-top: 25px;width: 220px;">訂單編號</span>
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
-                                    style="padding-top: 25px;width: 100px;">下訂車款</span>
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center  "
-                                    style="padding-top: 25px;width: 140px;">建立訂單時間</span>
-                                
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
-                                    style="padding-top: 25px;width: 40px;">&nbsp;</span>
-
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center  "
-                                    style="padding-top: 25px;width: 150px;">修改訂單時間</span>
-                                
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center  "
-                                    style="padding-top: 25px;width: 120px;">代理商</span>
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
-                                    style="padding-top: 25px;width: 100px;">接單狀態</span>
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
-                                    style="padding-top: 25px;">廠區</span>
-                                <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center "
-                                    style="padding-top: 25px;width: 140px;">製程</span>
-                            
-                            </div>
-
-                            <!-- / Content -->
-                            <div v-for="(o,key) in filtered">
-                                <div class="mt-3" id="accordionExample">
-                                    <div class="card accordion-item mb-4 mx-4 active">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <input type="text" hidden>
-                                            <button type="button"
-                                                    class="accordion-button collapsed inputCard2"
-                                                    data-bs-toggle="collapse"
-                                                    :data-bs-target="'#'+accordionOne[key]"
-                                                    aria-expanded="true"
-                                                    aria-controls="accordionOne"
-                                                    style="height: 80px;"
-                                                    >
-                                                <strong class="col-2 fs-6 text-center my-1">#{{key+1}}/&nbsp;&nbsp;{{o.orderNumber}}</strong>
-                                                <strong class="col-1 fs-6 text-center my-1 " style="width: 100px;">{{o.detail[0].optionalName.substring(4)}}</strong>
-                                                <strong class="col-2 fs-6 text-center my-1 ">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
-                                                <strong class="col-2 fs-6 text-center my-1 ">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
-                                                <strong class="col-1 fs-6 text-center my-1 " style="width: 100px;">{{o.areaName}}</strong>
-                                                <strong class="col-1 fs-6 text-center my-1 " style="width: 100px;">{{o.isAccepted==1 ? '是':'否'}}</strong>
-                                                <strong class="col-1 fs-5 text-center my-1 ">{{(o.pparea=='N/A'||o.pparea==null)?'尚未指派':o.pparea}}</strong>
-                                                <strong class="col-2 fs-5 text-center my-1 " style="width: 140px;">{{(o.ppname=='N/A'||o.ppname==null)?'尚未指派':o.ppname}}</strong>
-                                            </button>
-                                        </h2>
-
-                                        <div :id="accordionOne[key]"
-                                             class="accordion-collapse collapse">
-                                            <div class="accordion-body">
-                                                <p class="mt-4">訂單編號:{{o.orderNumber}}</p>
-                                                <p>車款:{{o.detail[0].optionalName.substring(4)}}</p>
-                                                <p>車漆顏色:{{o.detail[1].optionalName}}</p>
-                                                <p>內裝材質:{{o.detail[2].optionalName}}</p>
-                                                <p>輪圈款式:{{o.detail[3].optionalName}}</p>
-                                                <p>飾板   : {{o.detail[4].optionalName}}   </p>
-                                                <p>頭燈款式:{{o.detail[5].optionalName}}</p>
-                                                <p>中央鞍座:{{o.detail[6].optionalName}}</p>
-                                                <p>天窗:   {{o.detail[7].optionalName}}</p>
-                                                <p>多媒體: {{o.detail[8].optionalName}}</p>
-                                                <p>價格: {{o.price}}</p>
-
+                                            <div class="col-sm-6" width="100px" height="100px">
+                                                <canvas id="chartCanvasType"></canvas>
+                                            </div>
+                                            <div class="col-sm-6 mb-4" width="100px" height="100px">
+                                                <canvas id="chartCanvasArea"></canvas>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--/ Basic Bootstrap Table -->
+
 
                                 </div>
                             </div>
 
-                            <!-- Footer -->
-                            <!-- / Footer -->
+                            <div class="card mb-4 m-4">
+                                <div class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
+                                    <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" >訂單編號</span>
+                                    <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" >車款</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >建單時間</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >修單時間</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >代理商區域</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >接單狀態</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >當前廠區</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >當前製程</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >已用時長</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >剩餘時間</span>
+                                </div>
 
-                            <div class="content-backdrop fade"></div>
+                                <!-- / Content -->
+                                <div v-for="(o,key) in filtered">
+                                    <div class="mt-3" id="accordionExample">
+                                        <div class="card accordion-item mb-4 mx-1 active">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <input type="text" hidden>
+                                                <button type="button"
+                                                        class="accordion-button collapsed inputCard2"
+                                                        data-bs-toggle="collapse"
+                                                        :data-bs-target="'#'+accordionOne[key]"
+                                                        aria-expanded="true"
+                                                        aria-controls="accordionOne"
+                                                        style="height: 80px;">
+                                                    <strong class="col-2 fs-6 text-center my-1 ">#{{key+1}}/&nbsp;&nbsp;{{o.orderNumber}}</strong>
+                                                    <strong class="col-2 fs-6 text-center my-1 ">{{o.detail[0].optionalName.substring(4)}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{o.orderDateTime.substring(0,16).replace('T', ' ')}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{(o.editDatetime==null)? 'N/A' : o.editDatetime.substring(0,16).replace('T', ' ')}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{o.areaName}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{o.isAccepted==1 ? '是':'否'}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{(o.pparea=='N/A'||o.pparea==null)?'尚未指派':o.pparea.substring(2)}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{(o.ppname=='N/A'||o.ppname==null)?'尚未指派':o.ppname}}</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{dt.elapsed[key]}}天</strong>
+                                                    <strong class="col-1 fs-6 text-center my-1 ">{{dt.eta[key]}}</strong>
+                                                </button>
+                                            </h2>
+
+                                            <div :id="accordionOne[key]"
+                                                 class="accordion-collapse collapse">
+                                                <div class="accordion-body">
+                                                    <p class="mt-4">訂單編號:{{o.orderNumber}}</p>
+                                                    <p>車款:{{o.detail[0].optionalName.substring(4)}}</p>
+                                                    <p>車漆顏色:{{o.detail[1].optionalName}}</p>
+                                                    <p>內裝材質:{{o.detail[2].optionalName}}</p>
+                                                    <p>輪圈款式:{{o.detail[3].optionalName}}</p>
+                                                    <p>飾板   : {{o.detail[4].optionalName}}   </p>
+                                                    <p>頭燈款式:{{o.detail[5].optionalName}}</p>
+                                                    <p>中央鞍座:{{o.detail[6].optionalName}}</p>
+                                                    <p>天窗:   {{o.detail[7].optionalName}}</p>
+                                                    <p>多媒體: {{o.detail[8].optionalName}}</p>
+                                                    <p>價格: {{o.price}}</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Footer -->
+                                <!-- / Footer -->
+
+                                <div class="content-backdrop fade"></div>
+                            </div>
+                            <!-- Content wrapper -->
                         </div>
-                        <!-- Content wrapper -->
+
+
+                        <!-- / Layout page -->
+                        <p v-if="limit.DepID!=3" class="fw-bold mx-2 fs-2" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
+                        <!-- Overlay -->
+                        <div class="layout-overlay layout-menu-toggle"></div>
                     </div>
 
-
-                    <!-- / Layout page -->
-                    <p v-if="limit.DepID!=3" class="fw-bold mx-2 fs-2" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
-                    <!-- Overlay -->
-                    <div class="layout-overlay layout-menu-toggle"></div>
                 </div>
-
             </div>
+
         </div>
+        </div>
+        <!-- / Layout wrapper -->
+        <!-- Core JS -->
+        <!-- build:js assets/vendor/js/core.js -->
+        <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+        <script src="../assets/vendor/libs/popper/popper.js"></script>
+        <script src="../assets/vendor/js/bootstrap.js"></script>
+        <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    </div>
+        <script src="../assets/vendor/js/menu.js"></script>
+        <!-- endbuild -->
+        <!-- Vendors JS -->
+        <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
-    <!-- / Layout wrapper -->
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <!-- Main JS -->
+        <script src="../assets/js/main.js"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-    <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+        <!-- Page JS -->
+        <script src="../assets/js/dashboards-analytics.js"></script>
 
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-    <script>
-        var vvue = Vue.createApp({
-            data() {
-                return {
-                    limit: {},
-                    order: {},
-                    accordionOne: [],
-                    filtered: {},
-                    sl: { car: 0, area: 0 },
-                    statistic: {
-                        area: {},
-                        type: {}
-                    },
-                    dt: {
-                        eta: [],
-                        elapsed:[]
+        <script>
+            var vvue = Vue.createApp({
+                data() {
+                    return {
+                        limit: {},
+                        order: {},
+                        accordionOne: [],
+                        filtered: {},
+                        sl: { car: 0, area: 0 },
+                        statistic: {
+                            area: {},
+                            type: {}
+                        },
+                        dt: {
+                            eta: [],
+                            elapsed: []
+                        }
                     }
-                }
-            },
-            computed: {
-            },
-            methods: {
-                filter() {
-                    this.filtered = {};
-                    console.log(this.sl.car);
-                    this.filtered = this.order.filter((item) => {
-                        if (this.sl.car != 0 && this.sl.area == 0) {
-                            return item.detail[0].optionalId == this.sl.car;
-                        }
-                        else if (this.sl.car == 0 && this.sl.area != 0) {
-                            return item.areaName == this.sl.area;
-                        }
-                        else if (this.sl.car != 0 && this.sl.area != 0) {
-                            return item.detail[0].optionalId == this.sl.car && item.areaName == this.sl.area;
-                        }
-                        else {
-                            return this.filtered;
-                        }
-                    });
-                }
-            },
-            mounted() {
-                var dt = new Date();
-                //new Date().getTime("2022-02-08T16:00") / 1000;
-                axios.get('/api/BusinessOrders/GetOrderAll')
-                    .then(g => {
-                        console.log(g.data);
-                        g.data.forEach((x, idx) => {
-                            this.accordionOne.push(g.data[idx].orderNumber);
-                            if (x.ppname == "製程C-性能測試" && x.ppstate == "已完成") {
-                                x.pparea ="";
-                                x.ppname ="該筆訂單已生產完畢";
-                            }                   
-
-
-                            //console.log(x.deadlineDateTime);
-                            //console.log(dt.getTime(x.deadlineDateTime.substring) / 1000);
-                            //console.log(dt.getTime());
-
-                            //this.dt.eta.push(dt.getTime(x.deadlineDateTime.substring(0, 18)) - dt.getTime());
-                            //this.dt.elapsed.push((new Date().getTime() - new Date().getTime(x))/86400000);
+                },
+                computed: {
+                },
+                methods: {
+                    filter() {
+                        this.filtered = {};
+                        console.log(this.sl.car);
+                        this.filtered = this.order.filter((item) => {
+                            if (this.sl.car != 0 && this.sl.area == 0) {
+                                return item.detail[0].optionalId == this.sl.car;
+                            }
+                            else if (this.sl.car == 0 && this.sl.area != 0) {
+                                return item.areaName == this.sl.area;
+                            }
+                            else if (this.sl.car != 0 && this.sl.area != 0) {
+                                return item.detail[0].optionalId == this.sl.car && item.areaName == this.sl.area;
+                            }
+                            else {
+                                return this.filtered;
+                            }
                         });
-                        this.order = g.data;
-                        this.filtered = g.data;
-                        console.log(this.accordionOne);
-                        this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
-
-                        this.statistic.area.north = this.order.filter((item) => {
-                            return item.areaName == '北區';
-                        }).length;
-                        this.statistic.area.middle = this.order.filter((item) => {
-                            return item.areaName == '中區';
-                        }).length;
-                        this.statistic.area.south = this.order.filter((item) => {
-                            return item.areaName == '南區';
-                        }).length;
-
-                        this.statistic.type.M4 = this.order.filter((item) => {
-                            return item.detail[0].optionalName == '跑車- M4 Competition';
-                        }).length;
-                        this.statistic.type.X7 = this.order.filter((item) => {
-                            return item.detail[0].optionalName == '休旅車-X7 xDrive40i';
-                        }).length;
-                        this.statistic.type.iX = this.order.filter((item) => {
-                            return item.detail[0].optionalName == '電動車-iX xDrive40 旗艦版';
-                        }).length;
-                    });
-                this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
-            }
-        }).mount('#divorderall');
-
-
-        $(document).ready(function () {
-            //區域
-            let canvasAreaCountList = [vvue.statistic.area.north, vvue.statistic.area.middle, vvue.statistic.area.south];
-            let canvasAreaNameList = ["北區", "中區", "南區"];
-            let ctxArea = document.getElementById("chartCanvasArea");
-            let pieChartArea = new Chart(ctxArea, {
-                type: "pie",
-                data: {
-                    labels: canvasAreaNameList,
-                    datasets: [
-                        {
-                            data: canvasAreaCountList,
-                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"]
-                        }
-                    ]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Area'
                     }
-                }
-            })
-
-            //車款
-            let canvasTypeCountList = [vvue.statistic.type.M4, vvue.statistic.type.X7, vvue.statistic.type.iX];
-            let canvasTypeNameList = ["M4 Competition", "X7 xDrive40i", "iX xDrive40 旗艦版"];
-            let ctxType = document.getElementById("chartCanvasType");
-            let pieChartType = new Chart(ctxType, {
-                type: "pie",
-                data: {
-                    labels: canvasTypeNameList,
-                    datasets: [
-                        {
-                            data: canvasTypeCountList,
-                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"]
-                        }
-                    ]
                 },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Type'
-                    }
+                mounted() {
+                    axios.get('/api/BusinessOrders/GetOrderAll')
+                        .then(g => {
+                            console.log(g.data);
+                            g.data.forEach((x, idx) => {
+                                this.accordionOne.push(g.data[idx].orderNumber);
+                                if (x.ppname == "製程C-性能測試" && x.ppstate == "已完成") {
+                                    x.pparea = "";
+                                    x.ppname = "生產完畢";
+                                }
+                                let elapseddays = (new Date()-new Date(x.orderDateTime)) / 86400000;
+                                elapseddays = Math.round(elapseddays * 10) / 10;  //四捨五入至小數點下1位
+                                //console.log(elapseddays);
+
+                                let etadays = (new Date(x.deadlineDateTime) - new Date()) / 86400000;
+                                etadays =Math.round(etadays*10)/10;  //四捨五入至小數點下1位
+                                //console.log(etadays);
+
+                                this.dt.elapsed.push(elapseddays < 0 ? "N/A" : elapseddays);
+                                this.dt.eta.push(etadays < 0 ? "N/A" : etadays + '天');
+                            });
+                            this.order = g.data;
+                            this.filtered = g.data;
+                            console.log(this.accordionOne);
+                            this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+
+                            this.statistic.area.north = this.order.filter((item) => {
+                                return item.areaName == '北區';
+                            }).length;
+                            this.statistic.area.middle = this.order.filter((item) => {
+                                return item.areaName == '中區';
+                            }).length;
+                            this.statistic.area.south = this.order.filter((item) => {
+                                return item.areaName == '南區';
+                            }).length;
+
+                            this.statistic.type.M4 = this.order.filter((item) => {
+                                return item.detail[0].optionalName == '跑車- M4 Competition';
+                            }).length;
+                            this.statistic.type.X7 = this.order.filter((item) => {
+                                return item.detail[0].optionalName == '休旅車-X7 xDrive40i';
+                            }).length;
+                            this.statistic.type.iX = this.order.filter((item) => {
+                                return item.detail[0].optionalName == '電動車-iX xDrive40 旗艦版';
+                            }).length;
+                        });
+                    this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
                 }
+            }).mount('#divorderall');
+
+
+            $(document).ready(function () {
+                //區域
+                let canvasAreaCountList = [vvue.statistic.area.north, vvue.statistic.area.middle, vvue.statistic.area.south];
+                let canvasAreaNameList = ["北區", "中區", "南區"];
+                let ctxArea = document.getElementById("chartCanvasArea");
+                let pieChartArea = new Chart(ctxArea, {
+                    type: "pie",
+                    data: {
+                        labels: canvasAreaNameList,
+                        datasets: [
+                            {
+                                data: canvasAreaCountList,
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"]
+                            }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: '代理商區域',
+                            fontSize: 20
+                        },
+                        legend: {
+                            labels: {
+                                fontColor: 'black',
+                                fontSize: 15
+                            }
+                        }
+                    }
+                })
+
+                //車款
+                let canvasTypeCountList = [vvue.statistic.type.M4, vvue.statistic.type.X7, vvue.statistic.type.iX];
+                let canvasTypeNameList = ["M4 Competition", "X7 xDrive40i", "iX xDrive40 旗艦版"];
+                let ctxType = document.getElementById("chartCanvasType");
+                let pieChartType = new Chart(ctxType, {
+                    type: "pie",
+                    data: {
+                        labels: canvasTypeNameList,
+                        datasets: [
+                            {
+                                data: canvasTypeCountList,
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"]
+                            }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: '車款分布',
+                            fontSize: 20
+                        },
+                        legend: {
+                            labels: {
+                                fontColor: 'black',
+                                fontSize: 15
+                            }
+                        }
+                    }
+                })
             })
-        })
-    </script>
+        </script>
 
 
-    <!-- session -->
-    <script src="../assets/js/LoginSession.js"></script>
+        <!-- session -->
+        <script src="../assets/js/LoginSession.js"></script>
+        <script src="https://unpkg.com/spacingjs" defer></script>
 </body>
 </html>

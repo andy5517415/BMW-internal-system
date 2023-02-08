@@ -526,23 +526,31 @@
                                                             &nbsp選擇故障排除狀態
                                                         </p>
                                                     </div>
-                                                    <div class="text-center">
-                                                        <!-- 存檔按鈕 -->
-                                                        <div class="row my-5 mx-3">
-                                                            <div class="col-3">
-                                                                <button @click="btnstate" type="button" class="btn btn-success fw-bold py-3">正常</button>
+
+                                                    <div class="modal-body text-start ">
+                                                        <p class="fs-5">✏️訂單號碼：{{selcone.orderNumber}}</p>
+                                                        <p class="fs-5">✏️車款：{{selcone. optionalName}}</p>
+                                                        <p class="fs-5">✏️事件描述：{{description}}</p>
+                                                        <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認提交?</p>
+
+                                                        <div class="text-center">
+                                                            <!-- 存檔按鈕 -->
+                                                            <div class="row my-5 mx-3">
+                                                                <div class="col-3">
+                                                                    <button @click="btnstate" type="button" class="btn btn-success fw-bold py-3">正常</button>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <button @click="btnstate" type="button" class="btn btn-warning fw-bold py-3">待處理</button>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <button @click="btnstate" type="button" class="btn btn-info fw-bold py-3">處理中</button>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <button @click="btnstate" type="button" class="btn btn-danger fw-bold py-3">異常</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-3">
-                                                                <button @click="btnstate" type="button" class="btn btn-warning fw-bold py-3">待處理</button>
-                                                            </div>
-                                                            <div class="col-3">
-                                                                <button @click="btnstate" type="button" class="btn btn-info fw-bold py-3">處理中</button>
-                                                            </div>
-                                                            <div class="col-3">
-                                                                <button @click="btnstate" type="button" class="btn btn-danger fw-bold py-3">異常</button>
-                                                            </div>
+                                                            <button type="button" class="btn btn-secondary fw-bold my-3 py-3" data-bs-dismiss="modal">取消</button>
                                                         </div>
-                                                        <button type="button" class="btn btn-secondary fw-bold my-3 py-3" data-bs-dismiss="modal">取消</button>
                                                     </div>
                                                 </div>
                                             </div>
