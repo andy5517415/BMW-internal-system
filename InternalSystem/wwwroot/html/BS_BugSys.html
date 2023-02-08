@@ -478,8 +478,8 @@
                                     <div class="col-2"></div>
                                     <div class="col-8">
                                         <!--<div class="modal-header">
-                                              <h5 class="modal-title" id="exampleModalLabel4">員工通報錯誤專區</h5>
-                                          </div>-->
+          <h5 class="modal-title" id="exampleModalLabel4">員工通報錯誤專區</h5>
+      </div>-->
 
 
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
@@ -491,30 +491,27 @@
                                             </option>
                                         </select>
 
-                                                                  
+
                                         <label for="cartype" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="cartype"
                                                readonly
-                                               :value="selcone.optionalName"
-                                               />
+                                               :value="selcone.optionalName" />
 
                                         <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="area"
                                                readonly
-                                               :value="selcone.areaId"
-                                               />
+                                               :value="selcone.areaId" />
 
                                         <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">製程</label>
                                         <input type="text"
                                                class="form-control fs-5"
                                                id="process"
                                                readonly
-                                               :value="selcone.processId"
-                                               />
+                                               :value="selcone.processId" />
 
                                         <br /><br />
 
@@ -528,20 +525,52 @@
                                   </textarea>
 
 
+                                        <!-- ★Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border border-5">
+                                                    <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                            &nbsp報錯資料確認
+                                                        </p>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <hr class="col-10">
+                                                    </div>
+                                                    <div class="modal-body text-start mt-0">
+                                                       
+                                                        <p class="fs-5">✏️訂單號碼：{{selcone.orderNumber}}</p>
+                                                        <p class="fs-5">✏️車款：{{selcone. optionalName}}</p>
+                                                        <p class="fs-5">✏️事件描述：{{description}}</p>
+
+                                                        <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認提交?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <!-- 存檔按鈕 -->
+                                                        <button type="button" @click="btnstate" class="btn btn-primary me-3 mb-4 fs-4 border-3 ">送出</button>
+                                                        <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
+                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 確認視窗按鈕 -->
+                                  
+
                                         <br /><br />
                                         <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">選擇下方按鈕送出</p>
                                         <div class="row my-5">
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-success fw-bold">正常</button>
+                                                <button @click="btnstate" type="button" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">正常</button>
                                             </div>
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-warning fw-bold">待處理</button>
+                                                <button @click="btnstate" type="button" class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">待處理</button>
                                             </div>
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-info fw-bold">處理中</button>
+                                                <button @click="btnstate" type="button" class="btn btn-info fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">處理中</button>
                                             </div>
                                             <div class="col-3 d-flex justify-content-evenly">
-                                                <button @click="btnstate" type="button" class="btn btn-danger fw-bold">異常</button>
+                                                <button @click="btnstate" type="button" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">異常</button>
                                             </div>
                                             <br><br><br>
                                         </div>
@@ -629,7 +658,6 @@
             methods: {
                 btnstate(event) {
                     if (this.selcone != 999 && this.description != '') {
-                        if (confirm("是否要送出訊息?") == true) {
                             var stateName = event.target.innerText
                             console.log(stateName);
                             axios.put(`/api/MonitoringProcessAreaStatus/putstatus?areaid=${this.selcone.areaId}&processId=${this.selcone.processId}&cartype=${this.selcone.optionalName}&stateName=${stateName}&des=${this.description}`)
@@ -648,7 +676,7 @@
                                         setTimeout(() => $("#toastErr").fadeOut(), 2000);
                                     };
                                 })
-                        }
+                        
                     }
                     else if (this.selcone == 999) {
                         //失敗
