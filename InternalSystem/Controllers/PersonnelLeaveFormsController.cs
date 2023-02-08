@@ -732,20 +732,31 @@ namespace InternalSystem.Controllers
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
+            var d = 0;
+            DateTime a = personnelLeaveForm.StartDate;
+            DayOfWeek dayOfWeek;
+            for (int i = 1; i <= dayCount; i++)
+            {
+                dayOfWeek = a.DayOfWeek;
+                if (dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Saturday) { d++; }
+                a = a.AddDays(1);
+
+            }
+
 
             if (dayTohour > 0 || (dayTohour == 0 && hoursCount > 0))
             {
                 if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour -(d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour - (d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && eh <= 720)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour - (d * 8);
                 }
                 //判斷請假是否跨休息時間
                 else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
@@ -819,7 +830,7 @@ namespace InternalSystem.Controllers
 
 
         }
-
+        
         //部門更改員工請假申請資料
         // PUT: api/PersonnelLeaveForms/proxy/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -849,7 +860,16 @@ namespace InternalSystem.Controllers
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
-            
+            var d = 0;
+            DateTime a = personnelLeaveForm.StartDate;
+            DayOfWeek dayOfWeek;
+            for (int i = 1; i <= dayCount; i++)
+            {
+                dayOfWeek = a.DayOfWeek;
+                if (dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Saturday) { d++; }
+                a = a.AddDays(1);
+
+            }
 
             var application = DateTime.Now.ToString("yyyy-MM-dd");
             
@@ -857,15 +877,15 @@ namespace InternalSystem.Controllers
             {
                 if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour - (d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour - (d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && eh <= 720)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour - (d * 8);
                 }
                 //判斷請假是否跨休息時間
                 else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
@@ -1012,21 +1032,33 @@ namespace InternalSystem.Controllers
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
 
+
+            var d = 0;
+            DateTime a = personnelLeaveForm.StartDate;
+            DayOfWeek dayOfWeek ;
+            for (int i = 1; i <= dayCount; i++)
+            {
+                dayOfWeek = a.DayOfWeek;
+                if (dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Saturday) { d++; }
+                a = a.AddDays(1);
+
+            }
+
             var application = DateTime.Now.ToString("yyyy-MM-dd");
 
             if (dayTohour > 0 || (dayTohour == 0 && hoursCount >0))
             {
                 if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour - (d*8);
                 }
                 else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour - (d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && eh <= 720)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour - (d * 8);
                 }
                 //判斷請假是否跨休息時間
                 else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
@@ -1080,28 +1112,38 @@ namespace InternalSystem.Controllers
                     return Content("剩餘時數不足");
                 }
             }
-            else {
-                PersonnelLeaveForm insert = new PersonnelLeaveForm
+            else
+            {
+                if (sd != DayOfWeek.Saturday &&
+                    sd != DayOfWeek.Sunday && ed != DayOfWeek.Saturday && ed != DayOfWeek.Sunday)
                 {
-                    EmployeeId = personnelLeaveForm.EmployeeId,
-                    ApplicationDate = application,
-                    StatusId = 1,
-                    LeaveType = personnelLeaveForm.LeaveType,
-                    StartDate = personnelLeaveForm.StartDate,
-                    EndDate = personnelLeaveForm.EndDate,
-                    StartTime = personnelLeaveForm.StartTime,
-                    EndTime = personnelLeaveForm.EndTime,
-                    Proxy = personnelLeaveForm.Proxy,
-                    AuditManerger = personnelLeaveForm.AuditManerger,
-                    TotalTime = personnelLeaveForm.TotalTime,
-                    Reason = personnelLeaveForm.Reason,
-                    Photo = personnelLeaveForm.Photo
+                    PersonnelLeaveForm insert = new PersonnelLeaveForm
+                    {
+                        EmployeeId = personnelLeaveForm.EmployeeId,
+                        ApplicationDate = application,
+                        StatusId = 1,
+                        LeaveType = personnelLeaveForm.LeaveType,
+                        StartDate = personnelLeaveForm.StartDate,
+                        EndDate = personnelLeaveForm.EndDate,
+                        StartTime = personnelLeaveForm.StartTime,
+                        EndTime = personnelLeaveForm.EndTime,
+                        Proxy = personnelLeaveForm.Proxy,
+                        AuditManerger = personnelLeaveForm.AuditManerger,
+                        TotalTime = personnelLeaveForm.TotalTime,
+                        Reason = personnelLeaveForm.Reason,
+                        Photo = personnelLeaveForm.Photo
 
 
-                };
-                _context.PersonnelLeaveForms.Add(insert);
-                _context.SaveChanges();
-                return Content("申請成功");
+                    };
+                    _context.PersonnelLeaveForms.Add(insert);
+                    _context.SaveChanges();
+                    return Content("申請成功");
+                }
+
+                else
+                {
+                    return Content("請假開始時間或結束時間不可選於假日");
+                }
             }
 
 
@@ -1129,29 +1171,41 @@ namespace InternalSystem.Controllers
             //日期差距判斷
             TimeSpan ts = personnelLeaveForm.EndDate.Subtract(personnelLeaveForm.StartDate);
             TimeSpan hm = Convert.ToDateTime(personnelLeaveForm.EndTime).Subtract(Convert.ToDateTime(personnelLeaveForm.StartTime));
+            DayOfWeek sd = personnelLeaveForm.StartDate.DayOfWeek;
+            DayOfWeek ed = personnelLeaveForm.EndDate.DayOfWeek;
             double dayCount = ts.TotalDays;
             double hourCount = ts.TotalHours;
             double dayTohour = dayCount * 8;
             double hoursCount = hm.TotalMinutes;
+            var d = 0;
+            DateTime a = personnelLeaveForm.StartDate;
+            DayOfWeek dayOfWeek;
+            for (int i = 1; i <= dayCount; i++)
+            {
+                dayOfWeek = a.DayOfWeek;
+                if (dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Saturday) { d++; }
+                a = a.AddDays(1);
+
+            }
 
             if (dayTohour > 0 || (dayTohour == 0 && hoursCount > 0))
             {
                 if (dayTohour > 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour - (d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && ((sh < 720 && eh <= 720 || eh == 780 && em != 0) || eh > 780))
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60)) + dayTohour - (d * 8);
                 }
                 else if (dayTohour > 0 && sh > eh && eh <= 720)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) + 1) + dayTohour - (d * 8);
                 }
                 //判斷請假是否跨休息時間
                 else if (dayTohour == 0 && sh < 720 && (eh == 780 && em != 0) || sh < 720 && eh > 780)
                 {
-                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour;
+                    personnelLeaveForm.TotalTime = ((((eh + em) - (sh + sm)) / 60) - 1) + dayTohour ;
                 }
                 else
                 {
@@ -1199,24 +1253,31 @@ namespace InternalSystem.Controllers
 
             else
             {
-                PersonnelLeaveForm insert = new PersonnelLeaveForm
+                if (sd != DayOfWeek.Saturday &&
+                 sd != DayOfWeek.Sunday && ed != DayOfWeek.Saturday && ed != DayOfWeek.Sunday)
                 {
-                    EmployeeId = personnelLeaveForm.EmployeeId,
-                    ApplicationDate = application,
-                    StatusId = 6,
-                    LeaveType = personnelLeaveForm.LeaveType,
-                    StartDate = personnelLeaveForm.StartDate,
-                    EndDate = personnelLeaveForm.EndDate,
-                    StartTime = personnelLeaveForm.StartTime,
-                    EndTime = personnelLeaveForm.EndTime,
-                    TotalTime = personnelLeaveForm.TotalTime,
-                    Reason = personnelLeaveForm.Reason
 
-                };
-                _context.PersonnelLeaveForms.Add(insert);
-                _context.SaveChanges();
-                return Content("申請成功");
+                    PersonnelLeaveForm insert = new PersonnelLeaveForm
+                    {
+                        EmployeeId = personnelLeaveForm.EmployeeId,
+                        ApplicationDate = application,
+                        StatusId = 6,
+                        LeaveType = personnelLeaveForm.LeaveType,
+                        StartDate = personnelLeaveForm.StartDate,
+                        EndDate = personnelLeaveForm.EndDate,
+                        StartTime = personnelLeaveForm.StartTime,
+                        EndTime = personnelLeaveForm.EndTime,
+                        TotalTime = personnelLeaveForm.TotalTime,
+                        Reason = personnelLeaveForm.Reason
 
+                    };
+                    _context.PersonnelLeaveForms.Add(insert);
+                    _context.SaveChanges();
+                    return Content("申請成功");
+                }
+                else {
+                    return Content("請假開始時間或結束時間不可選於假日");
+                }
             }
         }
         //public async Task<ActionResult<PersonnelLeaveForm>> PostPersonnelLeaveForm(PersonnelLeaveForm personnelLeaveForm)

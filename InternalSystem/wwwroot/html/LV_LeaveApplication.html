@@ -579,7 +579,7 @@
                                          class="d-block rounded"
                                          height="100"
                                          width="100"
-                                         id="uploadedAvatar" />
+                                         id="uploadedAvatar" v-if="application.photo!=null"/>
                                     <div class="button-wrapper">
                                         <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4 fs-5 fw-bold mybtn" tabindex="0">
                                             上傳照片
@@ -799,6 +799,12 @@
                 }
             },
             mounted() {
+
+                var i = 0;
+                for (a = 0; a < 7; a++) {
+                    i++;
+                }
+                console.log(i)
                 this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
                 axios.get('/api/PersonnelProfileDetails/uid/' + this.employeedata.EmpID)
                     .then(response => {
