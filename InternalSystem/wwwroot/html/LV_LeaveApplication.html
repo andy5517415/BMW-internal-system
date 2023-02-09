@@ -521,10 +521,10 @@
                                     </div>
                                 </div>
                             <hr>
-                            <p class="alert alert-warning text-black fs-2 fw-bold mb-4">請假資料申請</p>
+                            <p class="alert alert-warning text-black fs-2 fw-bold mb-4" >請假資料申請</p>
                             <div class="row p-3 mx-5 rounded-3 ">
                                 <div class="mb-3 col-md-2">
-                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" @click="appleavest">開始日期</label>
                                     <input class="form-control fs-5" type="date" v-model="application.startDate" id="Endtimeforvacation" />
                                 </div>
                                 <div class="mb-3 col-md-2">
@@ -533,7 +533,7 @@
                                 </div>
 
                                 <div class="mb-3 col-md-2">
-                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
+                                    <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"  @click="appleaveed">結束日期</label>
                                     <input class="form-control fs-5" type="date" v-model="application.endDate" id="Endtimeforvacation" />
                                 </div>
                                 <div class="mb-3 col-md-2">
@@ -717,6 +717,25 @@
                 }
             },
             methods: {
+                appleavest: function () {
+                    this.application.startDate = "2023-02-10";
+                    this.application.startTime = "08:00";
+                    this.application.endDate = "2023-02-28";
+                    this.application.endTime = "17:00";
+                    this.application.leaveType = 3;
+                    this.application.reason = "出國玩";
+                },
+                appleaveed: function () {
+                    this.application.startDate = "2023-02-10";
+                    this.application.startTime = "08:00";
+                    this.application.endDate = "2023-02-20";
+                    this.application.leaveType = 3;
+                    this.application.reason = "出國玩";
+
+                },
+                photoreset: function () {
+                    this.application.photo = null;
+                },
                 okbtn: function () {
                     //alert('OK');
                     //一般員工請假

@@ -431,11 +431,11 @@
                 <div class="content-wrapper">
                     <!-- Content -->
 
-                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                        
+                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+
                         <!-- 我是成功的吐司 -->
                         <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                             aria-live="assertive" aria-atomic="true" id="toastSuc">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -448,7 +448,7 @@
                         </div>
                         <!-- 錯誤的吐司 -->
                         <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                             aria-live="assertive" aria-atomic="true" id="toastErr">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -459,131 +459,133 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                        <h4 class="fw-bold py-4 mb-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 新建員工資料</h4>
+                        <div v-if="limit.DepID==1">
+                            <h4 class="fw-bold py-4 mb-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 新建員工資料</h4>
 
-                        <div class="row">
-                            <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
 
-                                <div class="card mb-5 mx-4">
-                                    <!-- 卡片標題 -->
-                                    <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
-                                        <div class="col-1 my-2 mb-3" style="width: 70px;">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="" class="ms-4 mt-3"
-                                                style="width: 55px;">
-                                        </div>
-                                        <div class="col-6 my-2 mb-3">
-                                            <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">新建員工資料表單</h2>
-                                        </div>
-                                    </div>
-                                    <div class="my-4">&nbsp;</div>
-                                    <div class="card-body border border-5 rounded mx-4 mb-4" style="position: relative;">
-                                    <!-- Account -->
-                                    <!-- 篩選樣板 -->
-                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
-                                        員工照片</p>
-                                        
-                                        <div class=" d-flex align-items-start align-items-sm-center gap-4 mx-5">
-                                            <img src="../assets/img/Defaultimg.jfif"
-                                                 alt="user-avatar"
-                                                 class="d-block rounded"
-                                                 height="200"
-                                                 width="100"
-                                                 id="uploadedAvatar"
-                                                 style="object-fit:contain"/>
-                                            <div class="button-wrapper">
-                                                <label for="upload" class="btn btn-primary fw-bold border-3 me-3 mb-4 mybtn fs-5"  tabindex="0">
-                                                    上傳大頭照
-                                                    <i class="bx bx-upload d-block d-sm-none"></i>
-                                                    <input type="file"
-                                                           id="upload"
-                                                           class="account-file-input"
-                                                           hidden
-                                                           accept="image/png, image/jpeg" 
-                                                            @change="uploadphoto"/>
-                                                </label>
-
-                                                <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
-                                                    <i class="bx bx-reset d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block" @click="photoreset">Reset</span>
-                                                </button>
-
-                                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                    <div class="card mb-5 mx-4">
+                                        <!-- 卡片標題 -->
+                                        <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                            <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="" class="ms-4 mt-3"
+                                                     style="width: 55px;">
+                                            </div>
+                                            <div class="col-6 my-2 mb-3">
+                                                <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">新建員工資料表單</h2>
                                             </div>
                                         </div>
-                                </div>
-                                <hr class="col-11 mx-auto border-5">
-                                <div class="card-body">
-                                    <!-- 員工名稱 -->
-                                        <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5" @click="use">員工基本資料</p>
+                                        <div class="my-4">&nbsp;</div>
+                                        <div class="card-body border border-5 rounded mx-4 mb-4" style="position: relative;">
+                                            <!-- Account -->
+                                            <!-- 篩選樣板 -->
+                                            <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                                員工照片
+                                            </p>
 
-                                            <div class="row mx-4">
-                                                <div class="mb-4 col-md-4">
-                                                    <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
-                                                    <input v-model="employeelist.employeeName" class="form-control fs-5"
-                                                           type="text"
-                                                           id="EmployeeName"
-                                                           name="EmployeeName"
-                                                           autofocus
-                                                           @change="empname" />
-                                                </div>
-                                                <!-- 性別 -->
-                                                <div class="mb-3 col-md-4">
-                                                    <label for="Sex" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">性別</label>
-                                                    <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
-                                                        <option>選擇性別</option>
-                                                        <option value="男性">男</option>
-                                                        <option value="女性">女</option>
-                                                    </select>
-                                                </div>
-                                                <!-- 婚姻狀態 -->
-                                                <div class="mb-3 col-md-4">
-                                                    <label for="Maritalstatus" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">婚姻狀態</label>
-                                                    <select v-model="employeelist.isMarried" id="Maritalstatus" class="select1 form-select">
-                                                        <option value="" disabled>選擇狀態</option>
-                                                        <option :value="true">已婚</option>
-                                                        <option :value="false">未婚</option>
+                                            <div class=" d-flex align-items-start align-items-sm-center gap-4 mx-5">
+                                                <img src="../assets/img/Defaultimg.jfif"
+                                                     alt="user-avatar"
+                                                     class="d-block rounded"
+                                                     height="200"
+                                                     width="100"
+                                                     id="uploadedAvatar"
+                                                     style="object-fit:contain" />
+                                                <div class="button-wrapper">
+                                                    <label for="upload" class="btn btn-primary fw-bold border-3 me-3 mb-4 mybtn fs-5" tabindex="0">
+                                                        上傳大頭照
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input type="file"
+                                                               id="upload"
+                                                               class="account-file-input"
+                                                               hidden
+                                                               accept="image/png, image/jpeg"
+                                                               @change="uploadphoto" />
+                                                    </label>
 
-                                                    </select>
-                                                </div>
-                                                <!-- 身分證字號 -->
-                                                <div class="col-md-4">
-                                                    <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
-                                                    <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
-                                                    <div class="input-group input-group-merge">
-                                                        <input v-model="employeelist.identiyId" type="text"
-                                                               id="IdentityNumber"
-                                                               name="IdentityNumber"
-                                                               class="form-control fs-5"
-                                                               @change="Identit"
-                                                               placeholder="" />
-                                                    </div>
-                                                    
-                                                </div>
-                                                <!-- 國籍 -->
-                                                <div class="col-md-4">
-                                                    <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Country">國籍</label>
-                                                    <select v-model="employeelist.country" id="Country" class="select2 form-select">
-                                                        <option value="" disabled>請選擇國籍</option>
-                                                        <option value="台灣">台灣</option>
-                                                        <option value="大陸">大陸</option>
-                                                        <option value="日本">日本</option>
-                                                        <option value="美國">美國</option>
-                                                        <option value="德國">德國</option>
-                                                    </select>
-                                                </div>
-                                                <!-- 生日 -->
-                                                <div class="col-md-4">
-                                                    <label for="birthday" class="col-md-2 form-label">生日</label>
-                                                    <div class="col-md-12">
-                                                        <input v-model="employeelist.birthday" @change="passwdset" class="form-control fs-5" type="date" id="birthday" />
-                                                    </div>
+                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                                        <i class="bx bx-reset d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                                    </button>
+
+                                                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                                                 </div>
                                             </div>
-                                </div>
-                                <div class="card-body">
-                                    <hr class="mb-5">
-                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工照片</p>
+                                        </div>
+                                        <hr class="col-11 mx-auto border-5">
+                                        <div class="card-body">
+                                            <!-- 員工名稱 -->
+                                            <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                                <p class="alert alert-warning text-black fs-2 fw-bold mb-5" @click="use">員工基本資料</p>
+
+                                                <div class="row mx-4">
+                                                    <div class="mb-4 col-md-4">
+                                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
+                                                        <input v-model="employeelist.employeeName" class="form-control fs-5"
+                                                               type="text"
+                                                               id="EmployeeName"
+                                                               name="EmployeeName"
+                                                               autofocus
+                                                               @change="empname" />
+                                                    </div>
+                                                    <!-- 性別 -->
+                                                    <div class="mb-3 col-md-4">
+                                                        <label for="Sex" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">性別</label>
+                                                        <select v-model="employeelist.sex" @change="sexleave" id="Sex" class="select1 form-select">
+                                                            <option>選擇性別</option>
+                                                            <option value="男性">男</option>
+                                                            <option value="女性">女</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- 婚姻狀態 -->
+                                                    <div class="mb-3 col-md-4">
+                                                        <label for="Maritalstatus" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">婚姻狀態</label>
+                                                        <select v-model="employeelist.isMarried" id="Maritalstatus" class="select1 form-select">
+                                                            <option value="" disabled>選擇狀態</option>
+                                                            <option :value="true">已婚</option>
+                                                            <option :value="false">未婚</option>
+
+                                                        </select>
+                                                    </div>
+                                                    <!-- 身分證字號 -->
+                                                    <div class="col-md-4">
+                                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="IdentityNumber">身分證字號</label>
+                                                        <p class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold ms-5">{{cnt}}/10</p>
+                                                        <div class="input-group input-group-merge">
+                                                            <input v-model="employeelist.identiyId" type="text"
+                                                                   id="IdentityNumber"
+                                                                   name="IdentityNumber"
+                                                                   class="form-control fs-5"
+                                                                   @change="Identit"
+                                                                   placeholder="" />
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- 國籍 -->
+                                                    <div class="col-md-4">
+                                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Country">國籍</label>
+                                                        <select v-model="employeelist.country" id="Country" class="select2 form-select">
+                                                            <option value="" disabled>請選擇國籍</option>
+                                                            <option value="台灣">台灣</option>
+                                                            <option value="大陸">大陸</option>
+                                                            <option value="日本">日本</option>
+                                                            <option value="美國">美國</option>
+                                                            <option value="德國">德國</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- 生日 -->
+                                                    <div class="col-md-4">
+                                                        <label for="birthday" class="col-md-2 form-label">生日</label>
+                                                        <div class="col-md-12">
+                                                            <input v-model="employeelist.birthday" @change="passwdset" class="form-control fs-5" type="date" id="birthday" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <hr class="mb-5">
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工照片</p>
                                             <div class="row mx-4">
 
                                                 <!-- 電子信箱 -->
@@ -610,7 +612,7 @@
                                                                placeholder="0912345678"
                                                                @change="phoneNumber" />
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <!--縣市-->
                                                 <div class="mb-3 col-md-6">
@@ -670,13 +672,13 @@
                                                         <span class="input-group-text"></span>
                                                         <input v-model="employeelist.emergencyNumber" @change="emerphone" type="text" id="EmergencyNumber" name="EmergencyNumber" class="form-control fs-5" placeholder="" />
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <hr class="mb-5">
-                                        <p class="alert alert-warning text-black fs-2 fw-bold mb-5">在職資料</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <hr class="mb-5">
+                                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">在職資料</p>
 
                                             <div class="row mx-4">
                                                 <!-- 員工工號 -->
@@ -717,7 +719,7 @@
                                                     </select>
                                                 </div>
 
-                                             
+
 
                                                 <!-- 入職日 -->
                                                 <div class="mb=col-md-6">
@@ -730,7 +732,7 @@
                                         <div class="card-body">
                                             <hr class="mb-5">
                                             <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工帳號密碼設置</p>
-                                            
+
                                             <div class="row mx-4">
                                                 <!--帳號設置-->
                                                 <div class="mb-3 col-md-6">
@@ -751,7 +753,7 @@
                                             <hr class="mb-5 mt-4">
                                             <!--員工備註-->
                                             <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工備註</p>
-                                            
+
                                             <div class="mb-3 col mx-5">
                                                 <label for="Note" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註欄</label>
                                                 <textarea class="form-control fs-5" id="Note" v-model="employeelist.note" rows="6" col="6" @change="note"></textarea>
@@ -778,7 +780,7 @@
                                                                 確認
                                                             </button>
                                                             <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
-                                                             <!--<button type="button" class="btn btn-primary">Save changes</button>--> 
+                                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -791,25 +793,29 @@
                                                 <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
                                                 <button type="reset" class="btn btn-secondary fs-4 fw-bold border-3 me-3">重打</button>
                                             </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                     <!-- /Account -->
                                 </div>
 
 
-                                <!-- Footer -->
-                                <!-- / Footer -->
+                                    <!-- Footer -->
+                                    <!-- / Footer -->
 
-                                <div class="content-backdrop fade"></div>
+                                    <div class="content-backdrop fade"></div>
+                                </div>
+                                <!-- Content wrapper -->
                             </div>
-                            <!-- Content wrapper -->
+                                    <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
+                                        <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
+                                    </div>
+                            <!-- / Layout page -->
                         </div>
-                        <!-- / Layout page -->
-                    </div>
 
-                    <!-- Overlay -->
-                    <div class="layout-overlay layout-menu-toggle"></div>
-                </div>
+                        <!-- Overlay -->
+                        <div class="layout-overlay layout-menu-toggle"></div>
+                    </div>
                 <!-- / Layout wrapper -->
             </div>
         </div>
@@ -846,7 +852,8 @@
                     ranklist: {},
                     citylist: {},
                     empleavelist: {},
-                    empid: { "employeeId": "" }
+                    empid: { "employeeId": "" },
+                    limit: {}
                 }
             },
             methods: {
@@ -1161,6 +1168,7 @@
                         //console.log(response.data);
                         //console.log(this.empid);
                     }).catch(err => console.log(err));
+                this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
 
             }
         }

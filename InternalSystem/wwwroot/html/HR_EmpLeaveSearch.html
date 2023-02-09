@@ -366,23 +366,23 @@
 
                 <nav class="container" id="navInf">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                        id="layout-navbar" style="height: 80px;">
+                         id="layout-navbar" style="height: 80px;">
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
                             <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
                                 😊您好
                                 <span class="fw-bold mx-2 fs-2"
-                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                      style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
                                 📋工號：
                                 <span class="fw-bold mx-2 fs-2"
-                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                      style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
                                 💻部門：
                                 <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                             </div>
                             <!-- /問好 -->
-                
+
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-                
+
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -406,7 +406,7 @@
                                                 </div>
                                             </a>
                                         </li>
-                
+
                                         <li>
                                             <a class="dropdown-item" href="#" @click="DoLogOut">
                                                 <i class="bx bx-power-off me-2"></i>
@@ -417,7 +417,7 @@
                                 </li>
                                 <!--/ User -->
                             </ul>
-                
+
                         </div>
                     </nav>
                     <!-- / Navbar -->
@@ -427,11 +427,11 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
-                        
+                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
+
                         <!-- 我是成功的吐司 -->
                         <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                             aria-live="assertive" aria-atomic="true" id="toastSuc">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -444,7 +444,7 @@
                         </div>
                         <!-- 錯誤的吐司 -->
                         <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                             aria-live="assertive" aria-atomic="true" id="toastErr">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -455,47 +455,51 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                        <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料查詢/修改</h4>
-                        <div class="card mb-5 m-4 card-body inputCard2">
-                            <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="my-4 d-flex">
-                                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                        style="width: 70px;">部門</label>
-                                    
-                                    <div class="col ms-2">
-                                        <select id="department" class="select2 form-select fs-5 myinput" v-model="search.departmentId">
-                                            <option value="" disabled>請選擇部門</option>
-                                            <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
-                                        </select>
+
+
+                        <div v-if="limit.DepID==1">
+                            <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料查詢/修改</h4>
+                            <div class="card mb-5 m-4 card-body inputCard2">
+                                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                    <div class="my-4 d-flex">
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                               style="width: 70px;">部門</label>
+
+                                        <div class="col ms-2">
+                                            <select id="department" class="select2 form-select fs-5 myinput" v-model="search.departmentId">
+                                                <option value="" disabled>請選擇部門</option>
+                                                <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
+                                            </select>
+                                        </div>
+                                        <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                               style="width: 140px;">年、月份</label>
+
+                                        <div class="col ms-2">
+                                            <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
+                                        </div>
+
+
+                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                               style="width: 120px;">員工名稱</label>
+
+                                        <div class="col ms-2">
+                                            <input class="form-control fs-5 myinput" v-model="search.employeeName" id="Employeename" />
+                                        </div>
+
+                                        <div class="col ms-5">
+                                            <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
+                                        </div>
+
                                     </div>
-                                    <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                        style="width: 140px;">年、月份</label>
 
-                                    <div class="col ms-2">
-                                        <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
-                                    </div>
-
-
-                                    <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                        style="width: 120px;">員工名稱</label>
-
-                                    <div class="col ms-2">
-                                        <input class="form-control fs-5 myinput" v-model="search.employeeName" id="Employeename" />
-                                    </div>
-
-                                    <div class="col ms-5">
-                                        <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
-                                    </div>
-
-                                </div>
-                                
-                            </form>
-                        </div>
-                            <div class="card mt-5 m-4 card-body">
-                            <!-- Basic Bootstrap Table -->
-                            <div class="alert alert-primary text-center my-4 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
-                                請假資料
+                                </form>
                             </div>
+
+                            <div class="card mt-5 m-4 card-body">
+                                <!-- Basic Bootstrap Table -->
+                                <div class="alert alert-primary text-center my-4 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                                    請假資料
+                                </div>
                                 <table class="table table-striped table-hover">
                                     <thead class="bg-black">
                                         <tr>
@@ -520,33 +524,37 @@
 
                                                 <a class="item" href="HR_EmpLeaveEdit.html" @click="ToEditbtn(item)"><i class="bx bx-edit-alt"></i> 修改</a>
                                                 <!-- <a class="item" href="javascript:void(0);"
-                                                      ><i class="bx bx-trash me-1"></i> Delete</a
-                                                    > -->
+                              ><i class="bx bx-trash me-1"></i> Delete</a
+                            > -->
 
-                            </td>
-                            </tr>
+                                            </td>
+                                        </tr>
 
-                            </tbody>
-                            </table>
-                            <nav aria-label="Page navigation example" class="justify-content-center d-flex">
-                                <ul class="pagination">
-                                    <!--<li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>-->
-                                    <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                    <ul class="pagination">
+                                        <!--<li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>-->
+                                        <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
 
-                                    <!--<li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>-->
-                                </ul>
-                                <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
-                            </nav>
+                                        <!--<li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>-->
+                                    </ul>
+                                </nav>
+                                <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
+                            </div>
+                            <!--/ Basic Bootstrap Table -->
                         </div>
-                        <!--/ Basic Bootstrap Table -->
+                <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
+                    <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
+                </div>
                     </div>
                     <!-- / Content -->
                     <!-- Footer -->
@@ -554,6 +562,7 @@
 
                     <div class="content-backdrop fade"></div>
                 </div>
+
                 <!-- Content wrapper -->
             </div>
             <!-- / Layout page -->
@@ -594,7 +603,8 @@
                     departmentlist: {},
                     search: { /*"employeeName":"","departmentId": ""*/ },
                     page: 0,
-                    nowpage: {}
+                    nowpage: {},
+                    limit: {}
                 }
             },
             methods: {
@@ -682,7 +692,7 @@
                     .then(response => {
                         this.departmentlist = response.data;
                     })
-
+                 this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }
 
         }

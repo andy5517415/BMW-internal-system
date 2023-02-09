@@ -436,12 +436,12 @@
 
                   <!-- / Navbar -->
                   <!-- Content wrapper -->
-                  <div class="content-wrapper">
-                      <!-- Content -->
-                      <div class="container-xxl flex-grow-1 container-p-y" id="app" v-cloak>
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y" id="app" v-cloak>
                         <!-- 我是成功的吐司 -->
                         <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                             aria-live="assertive" aria-atomic="true" id="toastSuc">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -454,7 +454,7 @@
                         </div>
                         <!-- 錯誤的吐司 -->
                         <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                             aria-live="assertive" aria-atomic="true" id="toastErr">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -465,118 +465,124 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                          <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 員工查詢</h4>
-                          <div class="card mb-5 m-4 card-body inputCard2">
-                              <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                  <div class="mx-4 d-flex">
-                                      <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">部門</label>
-                                      <div class="col-1">
-                                          <select class="select1 form-select myinput" v-model="employeedata.depId" id="department">
-                                              <option v-for="item in departmentlist" :value="item.departmentId"> {{item.depName}}</option>
-                                          </select>
 
-                                      </div>
-                                      <label for="position" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職位</label>
-                                      <div class="col-2">
-                                          <select class="select1 form-select myinput" id="position" v-model="employeedata.positionId">
-                                              <option v-for="p in positionlist" :value="p.positionId"> {{p.positionName}}</option>
-                                          </select>
-                                      </div>
-                                      <label for="rank" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職等</label>
-                                      <div class="col-1">
-                                          <select class="select1 form-select myinput" id="rank" v-model="employeedata.rankId">
-                                              <option v-for="r in ranklist" :value="r.rankId">{{r.rank}}</option>
-                                          </select>
-                                      </div>
-                                      <label for="onduty" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">在職狀態</label>
-                                      <div class="col-1">
-                                          <select class="select1 form-select myinput" id="onduty" v-model="employeedata.dutyStatus">
-                                              <option value=true> 在職</option>
-                                              <option value=false> 離職</option>
-                                          </select>
-                                      </div>
-                                      <div class="col">
-                                          <button type="button" @click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
-                                      </div>
-                                      <div class="col">
-                                          <button type="button" @click="reset" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">清除</button>
-                                      </div>
-                                  </div>
+                        <div v-if="limit.DepID==1">
+                            <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 員工查詢</h4>
+                            <div class="card mb-5 m-4 card-body inputCard2">
+                                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                    <div class="mx-4 d-flex">
+                                        <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">部門</label>
+                                        <div class="col-1">
+                                            <select class="select1 form-select myinput" v-model="employeedata.depId" id="department">
+                                                <option v-for="item in departmentlist" :value="item.departmentId"> {{item.depName}}</option>
+                                            </select>
 
-                              
-                                </div>
+                                        </div>
+                                        <label for="position" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職位</label>
+                                        <div class="col-2">
+                                            <select class="select1 form-select myinput" id="position" v-model="employeedata.positionId">
+                                                <option v-for="p in positionlist" :value="p.positionId"> {{p.positionName}}</option>
+                                            </select>
+                                        </div>
+                                        <label for="rank" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職等</label>
+                                        <div class="col-1">
+                                            <select class="select1 form-select myinput" id="rank" v-model="employeedata.rankId">
+                                                <option v-for="r in ranklist" :value="r.rankId">{{r.rank}}</option>
+                                            </select>
+                                        </div>
+                                        <label for="onduty" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">在職狀態</label>
+                                        <div class="col-1">
+                                            <select class="select1 form-select myinput" id="onduty" v-model="employeedata.dutyStatus">
+                                                <option value=true> 在職</option>
+                                                <option value=false> 離職</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" @click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" @click="reset" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">清除</button>
+                                        </div>
+                                    </div>
 
-                             
-                              </form>
+
+                            </div>
+
+
+                            </form>
                             <div class="card mb-4 m-4 card-body">
-                              <!-- Basic Bootstrap Table -->
-                            <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
-                                員工資料
+                                <!-- Basic Bootstrap Table -->
+                                <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                                    員工資料
+                                </div>
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-striped table-hover">
+                                        <thead class="bg-black">
+                                            <tr>
+                                                <th class="fs-4 text-white fw-bold">部門</th>
+                                                <th class="fs-4 text-white fw-bold">員工名稱</th>
+                                                <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                <th class="fs-4 text-white fw-bold">職位</th>
+                                                <th class="fs-4 text-white fw-bold">職等</th>
+                                                <th class="fs-4 text-white fw-bold">在職狀態</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                            <tr v-for="item in emplist">
+                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.depName}}</strong></td>
+                                                <td class="fs-5 fw-bold">{{item.employeeName}}</td>
+
+                                                <td>
+
+                                                    <strong class="fs-5 fw-bold"><span class="label-primary">{{item.employeeNumber}}</span></strong>
+                                                </td>
+                                                <td>
+                                                    <strong class="fs-5 fw-bold"><span class="label-primary">{{item.positionName}}</span></strong>
+
+                                                </td>
+                                                <td>
+                                                    <strong class="fs-5 fw-bold"><span class="label-primary">{{item.rank}}</span></strong>
+
+                                                </td>
+                                                <td>
+                                                    <strong class="fs-5 fw-bold"><span class="label-primary">{{item.dutyStatus?"在職":"離職"}}</span></strong>
+
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                        <ul class="pagination">
+                                            <!--<li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>-->
+                                            <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                            <!--<li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>-->
+                                        </ul>
+                                    </nav>
+                                    <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
+                                </div>
                             </div>
-                              <div class="table-responsive text-nowrap">
-                                  <table class="table table-striped table-hover">
-                                      <thead class="bg-black">
-                                          <tr>
-                                              <th class="fs-4 text-white fw-bold">部門</th>
-                                              <th class="fs-4 text-white fw-bold">員工名稱</th>
-                                              <th class="fs-4 text-white fw-bold">員工編號</th>
-                                              <th class="fs-4 text-white fw-bold">職位</th>
-                                              <th class="fs-4 text-white fw-bold">職等</th>
-                                              <th class="fs-4 text-white fw-bold">在職狀態</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody class="table-border-bottom-0">
-                                          <tr v-for="item in emplist">
-                                              <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.depName}}</strong></td>
-                                              <td class="fs-5 fw-bold">{{item.employeeName}}</td>
+                            <!--/ Basic Bootstrap Table -->
+                        </div>
+                    <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
+                        <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
+                    </div>
+                    </div>
+                    <!-- / Content -->
+                    <!-- Footer -->
+                    <!-- / Footer -->
 
-                                              <td>
-
-                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.employeeNumber}}</span></strong>
-                                              </td>
-                                              <td>
-                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.positionName}}</span></strong>
-
-                                              </td>
-                                              <td>
-                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.rank}}</span></strong>
-
-                                              </td>
-                                              <td>
-                                                  <strong class="fs-5 fw-bold"><span class="label-primary">{{item.dutyStatus?"在職":"離職"}}</span></strong>
-
-                                              </td>
-                                          </tr>
-
-                                      </tbody>
-                                  </table>
-                                  <nav aria-label="Page navigation example" class="justify-content-center d-flex">
-                                      <ul class="pagination">
-                                          <!--<li class="page-item">
-                                              <a class="page-link" href="#" aria-label="Previous">
-                                                  <span aria-hidden="true">&laquo;</span>
-                                              </a>
-                                          </li>-->
-                                          <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
-
-                                          <!--<li class="page-item">
-                                              <a class="page-link" href="#" aria-label="Next">
-                                                  <span aria-hidden="true">&raquo;</span>
-                                              </a>
-                                          </li>-->
-                                      </ul>
-                                  </nav>
-                                      <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
-                              </div>
-                            </div>
-                              <!--/ Basic Bootstrap Table -->
-                          </div>
-                          <!-- / Content -->
-                          <!-- Footer -->
-                          <!-- / Footer -->
-
-                          <div class="content-backdrop fade"></div>
-                      </div>
+                    <div class="content-backdrop fade"></div>
+                </div>
                       <!-- Content wrapper -->
                   </div>
                   <!-- / Layout page -->
@@ -622,7 +628,8 @@
                         ranklist: {},
                         departmentlist: {},
                         page: 0,
-                        nowpage: {}
+                        nowpage: {},
+                        limit: {}
                     }
 
                 },
@@ -747,6 +754,8 @@
                         .then(response => this.positionlist = response.data)
                     axios.get('/api/PersonnelRanks')
                         .then(response => this.ranklist = response.data)
+                    this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+
                 }
             }
 

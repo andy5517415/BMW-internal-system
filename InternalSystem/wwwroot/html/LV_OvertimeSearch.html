@@ -495,10 +495,10 @@
 
                                 <div class="row mx-4 mb-4">
                                     <div class="mb-3 col-md-3">
-                                        <label for="html5-date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始時間</label>
+                                        <label for="html5-date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" @click="overst">開始時間</label>
                                         <input class="mb-4 form-control fs-5" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
 
-                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束時間</label>
+                                        <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" @click="overet">結束時間</label>
                                         <input class="form-control fs-5" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
                                     </div>
                                     <div class="mb-3 col-md-3">
@@ -621,7 +621,18 @@
                 }
             },
             methods: {
-
+                overst: function () {
+                    this.workoverlist.startDate = "2023-02-10";
+                    this.workoverlist.startTime = "17:00";
+                    this.workoverlist.endDate = "2023-02-10";
+                    this.workoverlist.endTime = "16:00";
+                },
+                overet: function () {
+                    this.workoverlist.startDate = "2023-02-10";
+                    this.workoverlist.startTime = "17:00";
+                    this.workoverlist.endDate = "2023-02-10";
+                    this.workoverlist.endTime = "22:00";
+                },
                 okbtn: function () {
 
 
