@@ -559,6 +559,8 @@
                                                             <th class="fs-4 text-white fw-bold">員工部門</th>
                                                             <th class="fs-4 text-white fw-bold">&nbsp;</th>
                                                             <th class="fs-4 text-white fw-bold">狀態</th>
+                                                            <th class="fs-4 text-white fw-bold">&nbsp;</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-border-bottom-0" v-for="(leaveExit,key) in leavereturn">
@@ -970,8 +972,12 @@
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/proxyAudit/'
                       + this.employeelist.departmentId + '/' + this.employeelist.positionId
-                      + '/' + this.employeelist.employeeId)
-                      .then(response => this.leaveproxy = response.data)
+                        + '/' + this.employeelist.employeeId)
+                        .then(response => {
+                            this.leaveproxy = response.data;
+                            this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                        })
+
                   }
 
                   //一般員工GET被退件之採購申請
@@ -1006,7 +1012,7 @@
                     axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
                       .then(response => {
                         this.leavereturn = response.data;
-                        //this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                         //console.log(this.cnt)
                       })
                   }
@@ -1017,13 +1023,13 @@
                   }
 
 
+                    console.log(this.leaveproxy)
                 })
                   setTimeout(() => {
                       this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                       this.mnt = this.leaveproxy.length;
                       this.wmt = this.wkover.length;
                   }, 300)
-                console.log(this.cnt)
             }
           }
 
