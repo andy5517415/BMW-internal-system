@@ -972,6 +972,7 @@
                                     this.carsunroof.forEach((x, idx) => { if (x.optionalId == this.oldoplId[7]) { this.carsunroofone = this.carsunroof[idx] } });
                                     this.carmedia.forEach((x, idx) => { if (x.optionalId == this.oldoplId[8]) { this.carmediaone = this.carmedia[idx] } });
                                     this.agent.forEach((x, idx) => { if (x.areaId == ag) { this.agentone = this.agent[idx]; } });
+                                    this.deadline = g.data[0].deadline;
                                 });
                             }
                         })
@@ -999,7 +1000,6 @@
                     this.orderdetail.push((this.carmediaone.optionalId == null) ? '' : this.carmediaone.optionalId);
                     console.log(this.orderdetail);
 
-
                         //找該訂單細項第一筆OdId+8
                         axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
                             .then(p => {
@@ -1025,7 +1025,6 @@
 
                                     });
                             });
-                    
                 },
                 btndelete() {
                         axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
@@ -1034,9 +1033,9 @@
                                 $("#toastSuc").fadeIn("fast");
                                 setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
-                                window.location = "BS_OrderAll.html";//promise
+                                setTimeout(() => window.location = "BS_OrderAll.html", 1000);
                             })
-                    
+
                 },
                 oneclick() {
                     this.cartypeone = this.cartype[1];

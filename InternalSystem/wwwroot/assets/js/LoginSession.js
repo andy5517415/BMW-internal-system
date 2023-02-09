@@ -62,7 +62,7 @@ const navInf = {
     var cnt = 0;
 
     function checkstatus() {
-      //console.log(cnt++);
+      console.log(cnt++);
       aft = 0;
       axios.get('/api/MonitoringProcessAreaStatus/').then(g => {
         this.abnormalcnt = g.data;
@@ -91,8 +91,12 @@ const navInf = {
         }
 
       })
-    }
-    setInterval(checkstatus, 3000);
+      }
+
+
+      if (DepID==2) {
+        setInterval(checkstatus, 3000);
+      }
     //end of 監控
   }
 }
