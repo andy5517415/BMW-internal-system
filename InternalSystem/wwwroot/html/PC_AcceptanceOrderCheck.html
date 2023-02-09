@@ -428,164 +428,215 @@
 
         <!-- / Navbar -->
         <!-- 表單開始 -->
-        <div class="content-wrapper" id="app">
-            <!-- 訂單確認 -->
-            <div>
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card mb-4 m-4">
-                        <h2 class="card-header">採購訂單內容</h2>
-                        <div class="card-body">
-                            <div class="row gx-3 gy-2 align-items-center">
-                                <div class="col-md-6">
-                                    <label for="purchaseId" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
-                                    <input type="text"
-                                           class="form-control fs-5"
-                                           id="purchaseId"
-                                           placeholder=""
-                                           aria-describedby="defaultFormControlHelp"
-                                           v-model="myobject.purchaseId"
-                                           disabled />
-                                </div>
-                            </div>
+                <div class="content-wrapper" id="app">
+                    <!-- 我是成功的吐司 -->
+                    <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                         aria-live="assertive" aria-atomic="true" id="toastSuc">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
-                        <hr>
-                        <h5 class="card-header">申請人資訊</h5>
-                        <div class="card-body">
-                            <div class="row gx-3 gy-2 align-items-center">
-                                <div class="col-md-6">
-                                    <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請人</label>
-                                    <input type="text"
-                                           class="form-control fs-5"
-                                           id="employeeName"
-                                           placeholder=""
-                                           aria-describedby="defaultFormControlHelp"
-                                           disabled
-                                           v-model="myobject.employeeName" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
-                                    <input type="text"
-                                           class="form-control fs-5"
-                                           id="department"
-                                           placeholder=""
-                                           aria-describedby="defaultFormControlHelp"
-                                           disabled
-                                           v-model="myobject.department" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="applicationdate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
-                                    <input type="text"
-                                           class="form-control fs-5"
-                                           id="applicationdate"
-                                           placeholder=""
-                                           aria-describedby="defaultFormControlHelp"
-                                           disabled
-                                           v-model="myobject.date" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
-                                    <input type="text"
-                                           class="form-control fs-5"
-                                           id="comment"
-                                           placeholder=""
-                                           aria-describedby="defaultFormControlHelp"
-                                           disabled
-                                           v-model="myobject.comment" />
-                                </div>
-                                <!-- 分隔線 -->
-                                <hr>
-                                <h5>採購細項</h5>
-                                <!--採購清單-->
-                                <div class="card">
-                                    <h5 class="card-header">採購項目</h5>
-                                    <div class="card-body">
-                                        <div class="table-responsive text-nowrap">
-                                            <table class="table table-bordered">
-                                                <thead class="bg-black">
-                                                    <tr>
-                                                        <th class="fs-4 text-white fw-bold">項次</th>
-                                                        <th class="fs-4 text-white fw-bold">品名</th>
-                                                        <th class="fs-4 text-white fw-bold">數量</th>
-                                                        <th class="fs-4 text-white fw-bold">單位</th>
-                                                        <th class="fs-4 text-white fw-bold">單價</th>
-                                                        <th class="fs-4 text-white fw-bold">小計</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="(a,index) in list">
-                                                        <!--第一項物品-->
-                                                        <!--項次-->
-                                                        <td>
-                                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
-                                                        </td>
-                                                        <!--物品名稱-->
-                                                        <td>{{a.goods}}</td>
-                                                        <!--物品數量-->
-                                                        <td>
-                                                            <div>
-                                                                <p>{{a.quantiy}}</p>
-                                                            </div>
-                                                        </td>
-                                                        <!--單位-->
-                                                        <td><span class="badge bg-label-primary me-1">隻</span></td>
-                                                        <!--單價-->
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <p>{{a.unitPrice}}元</p>
-                                                            </div>
-                                                        </td>
-                                                        <!--小計-->
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <div>{{a.subtotal}}元</div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <!-- 總價 -->
-                                            <div>
-                                                <div class="d-flex flex-row-reverse bd-highlight">
-                                                    <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
-                                                </div>
-                                                <div class="table-responsive text-nowrap"></div>
-                                            </div>
-
+                        <div class="toast-body fs-4 fw-bold">
+                            ✔&nbsp;{{text}}
+                        </div>
+                    </div>
+                    <!-- 錯誤的吐司 -->
+                    <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
+                         aria-live="assertive" aria-atomic="true" id="toastErr">
+                        <div class="toast-header">
+                            <i class="bx bx bxs-bell bx-tada me-2"></i>
+                            <div class="me-auto fw-bold fs-3">通知</div>
+                            <small></small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body fs-4 fw-bold">
+                            ❌&nbsp;{{text}}
+                        </div>
+                    </div>
+                    <!-- 訂單確認 -->
+                    <div>
+                        <div class="container-xxl flex-grow-1 container-p-y">
+                            <div class="card mb-4 m-4">
+                                <h2 class="card-header">採購訂單內容</h2>
+                                <div class="card-body">
+                                    <div class="row gx-3 gy-2 align-items-center">
+                                        <div class="col-md-6">
+                                            <label for="purchaseId" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
+                                            <input type="text"
+                                                   class="form-control fs-5"
+                                                   id="purchaseId"
+                                                   placeholder=""
+                                                   aria-describedby="defaultFormControlHelp"
+                                                   v-model="myobject.purchaseId"
+                                                   disabled />
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                </div>
-                                <div class="row">
-                                    <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        駁回
-                                    </button>
-                                    <!--<button class="col-md-6 btn btn-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>-->
-                                    <button class="col-md-6 btn btn-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
-                                                <div class="alert alert-danger fs-4 fw-bold col-12 mx-auto text-center">
-                                                    確定要將此訂單退貨嗎?
-                                                </div>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body alert fs-4 fw-bold col-12 mx-auto text-center">
-                                                請輸入原因：
-                                                <input v-model="rejectreason.content">
-                                            </div>
-                                            <br>
-                                            <!--<p class="fs-6 text-center">⚠️注意，取消後訂單將被取消!</p>-->
-                                            <p class="fs-6 text-center">⚠️注意，取消後物品將直接退回!</p>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
-                                                <button type="button" class="btn btn-primary border-3" v-on:click="Cancel">確定</button>
-                                            </div>
+                                <hr>
+                                <h5 class="card-header">申請人資訊</h5>
+                                <div class="card-body">
+                                    <div class="row gx-3 gy-2 align-items-center">
+                                        <div class="col-md-6">
+                                            <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請人</label>
+                                            <input type="text"
+                                                   class="form-control fs-5"
+                                                   id="employeeName"
+                                                   placeholder=""
+                                                   aria-describedby="defaultFormControlHelp"
+                                                   disabled
+                                                   v-model="myobject.employeeName" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
+                                            <input type="text"
+                                                   class="form-control fs-5"
+                                                   id="department"
+                                                   placeholder=""
+                                                   aria-describedby="defaultFormControlHelp"
+                                                   disabled
+                                                   v-model="myobject.department" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="applicationdate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
+                                            <input type="text"
+                                                   class="form-control fs-5"
+                                                   id="applicationdate"
+                                                   placeholder=""
+                                                   aria-describedby="defaultFormControlHelp"
+                                                   disabled
+                                                   v-model="myobject.date" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
+                                            <input type="text"
+                                                   class="form-control fs-5"
+                                                   id="comment"
+                                                   placeholder=""
+                                                   aria-describedby="defaultFormControlHelp"
+                                                   disabled
+                                                   v-model="myobject.comment" />
+                                        </div>
+                                        <!-- 分隔線 -->
+                                        <hr>
+                                        <h5>採購細項</h5>
+                                        <!--採購清單-->
+                                        <div class="card">
+                                            <h5 class="card-header">採購項目</h5>
+                                            <div class="card-body">
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table table-bordered">
+                                                        <thead class="bg-black">
+                                                            <tr>
+                                                                <th class="fs-4 text-white fw-bold">項次</th>
+                                                                <th class="fs-4 text-white fw-bold">品名</th>
+                                                                <th class="fs-4 text-white fw-bold">數量</th>
+                                                                <th class="fs-4 text-white fw-bold">單位</th>
+                                                                <th class="fs-4 text-white fw-bold">單價</th>
+                                                                <th class="fs-4 text-white fw-bold">小計</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(a,index) in list">
+                                                                <!--第一項物品-->
+                                                                <!--項次-->
+                                                                <td>
+                                                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
+                                                                </td>
+                                                                <!--物品名稱-->
+                                                                <td>{{a.goods}}</td>
+                                                                <!--物品數量-->
+                                                                <td>
+                                                                    <div>
+                                                                        <p>{{a.quantiy}}</p>
+                                                                    </div>
+                                                                </td>
+                                                                <!--單位-->
+                                                                <td><span class="badge bg-label-primary me-1">隻</span></td>
+                                                                <!--單價-->
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <p>{{a.unitPrice}}元</p>
+                                                                    </div>
+                                                                </td>
+                                                                <!--小計-->
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <div>{{a.subtotal}}元</div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <!-- 總價 -->
+                                                    <div>
+                                                        <div class="d-flex flex-row-reverse bd-highlight">
+                                                            <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
+                                                        </div>
+                                                        <div class="table-responsive text-nowrap"></div>
+                                                    </div>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div class="row">
+                                            <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#reject">
+                                                駁回
+                                            </button>
+                                            <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#pass">
+                                                核准
+                                            </button>
+                                            <!--<button class="col-md-6 btn btn-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>-->
+                                            <!--<button class="col-md-6 btn btn-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>-->
+                                        </div>
+                                        <!-- 駁回內容 -->
+                                        <div class="modal fade" id="reject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
+                                                        <div class="alert alert-danger fs-4 fw-bold col-12 mx-auto text-center">
+                                                            確定要將此訂單退貨嗎?
+                                                        </div>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body alert fs-4 fw-bold col-12 mx-auto text-center">
+                                                        請輸入原因：
+                                                        <input v-model="rejectreason.content">
+                                                    </div>
+                                                    <br>
+                                                    <!--<p class="fs-6 text-center">⚠️注意，取消後訂單將被取消!</p>-->
+                                                    <p class="fs-6 text-center">⚠️注意，取消後物品將直接退回!</p>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
+                                                        <button type="button" class="btn btn-primary border-3" v-on:click="Cancel">確定</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 通過內容 -->
+                                        <div class="modal fade" id="pass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
+                                                        <div class="alert alert-success fs-4 fw-bold col-12 mx-auto text-center">
+                                                            確認要通過此項申請嗎?
+                                                        </div>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <br>
+                                                    <p class="fs-6 text-center">⚠️注意，貨物即將驗收通過!</p>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
+                                                        <button type="button" class="btn btn-primary border-3" v-on:click="Confirm">確定</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -593,8 +644,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
     <!-- 表單結束 -->
     <!-- Overlay -->
@@ -631,7 +680,8 @@
                     list: {},
                     myobject: {},
                     todoitem: {},
-                    rejectreason: { "content": "" }
+                    rejectreason: { "content": "" },
+                    text:""
                 }
             },
             methods: {
@@ -640,25 +690,22 @@
                     this.todoitem.acceptanceStatus = true;
                     /*this.todoitem.total = 500;*/
                     //console.log(this.todoitem.orderId);
-                    if (confirm("確定要核准驗收嗎?") == true) {
-                        axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
-                            .then(a => console.log(a));
-                        window.location = "PC_Acceptance.html";
-                    }
-
+                    axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
+                        this.text = '驗收成功';
+                        $("#toastSuc").fadeIn("fast");
+                        setTimeout(() => window.location = "PC_Acceptance.html", 1000);
+                    })
                 },
-
+                //駁回按鈕
                 Cancel: function () {
                     this.todoitem.acceptanceRejectStatus = true;
                     this.todoitem.rejectReason = this.rejectreason.content;
-                    if (confirm("確定要退貨嗎?") == true) {
-                        //console.log("ok");
-                        axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem)
-                            .then(a => console.log(a));
-                        window.location = "PC_Acceptance.html";
-                    }
+                    axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
+                        this.text = '已送至退貨流程';
+                        $("#toastSuc").fadeIn("fast");
+                        setTimeout(() => window.location = "PC_Acceptance.html", 1000);
+                    })
                 }
-
             },
             mounted() {
                 this.myobject = JSON.parse(sessionStorage.getItem('order'))

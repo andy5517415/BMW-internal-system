@@ -502,12 +502,41 @@
                                     </div>
                                 </div>
                                 <div class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{overlist.totalTime}}&nbsp 小時</div>
-                                
+
+
+                                <!-- ★Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border border-5">
+                                            <div class="modal-header mb-3">
+                                                <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                    &nbsp加班審閱資料確認
+                                                </p>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <hr class="col-10">
+                                            </div>
+                                            <div class="modal-body text-start mt-0">
+                                                <p class="fs-5">✏️加班申請人：{{overlist.employeeName}} </p>
+                                                <p class="fs-5">✏️請假開始時間：{{overlist.startDate}} {{overlist.startTime}}</p>
+                                                <p class="fs-5">✏️總時間時間：{{overlist.endDate}} {{overlist.endTime}}</p>
+                                                <p class="fs-5">✏️總時間時間：{{overlist.totalTime}}</p>
+                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">✏️確認審閱?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- 存檔按鈕 -->
+                                                <button type="button" @click="okbtn" class="btn btn-primary me-3 mb-4 fs-4 border-3" >確認</button>
+                                                <button type="button" class="btn btn-secondary me-3 mb-4  fs-4 fw-bold border-3 " data-bs-dismiss="modal">取消</button>
+                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="my-2 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " @click="okbtn">審閱</button>
+                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 border-3 fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">審閱</button>
                                 </div>
-                        </div>
+</div>
 
                         </form>
                     </div>
@@ -558,7 +587,6 @@
             },
             methods: {
                 okbtn: function () {
-                    if (confirm('確認審閱嗎?') == true) {
                         axios.put('/api/PersonnelOvertimeForms/' + this.overlist.startWorkId, this.overlist).then(a => {
                             //★成功
                             this.text = '已送出審閱訊息';
@@ -567,7 +595,7 @@
                             setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
                         })
 
-                    }
+                    
                 }
             },
             mounted() {
