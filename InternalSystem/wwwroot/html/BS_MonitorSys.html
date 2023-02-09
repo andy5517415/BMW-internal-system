@@ -546,7 +546,7 @@
 
                                     <!--錯誤訊息-->
                                     <div v-if="seen">
-                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : 監控</label>
+                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">異常狀態描述 : </label>
                                         <textarea class="form-control fs-5"
                                                   id="exampleFormControlTextarea1"
                                                   rows="5"
@@ -1479,10 +1479,9 @@
             methods: {
                 statebtnclick(e) {
                     var cartype;
-                    var areaId = e.target.innerHTML.toString().substring(3, 4);
-                    var processId = e.target.innerHTML.toString().substring(1, 2);
+                    var areaId = e.target.innerHTML.toString().trim().substring(23,24);
+                    var processId = e.target.innerHTML.toString().trim().substring(2, 3);
                     var pid;
-
                     (e.target.innerHTML.toString().indexOf("m4") > 0) ? cartype = 'M4 Competition' : (e.target.innerHTML.toString().indexOf("x7") > 0) ? cartype = 'X7 xDrive40i' : cartype = 'iX xDrive40 旗艦版'
                     console.log(cartype);
                     if (e.target.innerHTML.toString().indexOf("success") > 0 || e.target.innerHTML.toString().indexOf("secondary") > 0) {
@@ -1733,6 +1732,7 @@
                         fontSize: 20
                     },
                     legend: {
+                        display: false,
                         labels: {
                             fontColor: 'black',
                             fontSize: 15
@@ -1792,6 +1792,7 @@
                         fontSize: 20
                     },
                     legend: {
+                        display: false,
                         labels: {
                             fontColor: 'black',
                             fontSize: 15

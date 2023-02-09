@@ -509,7 +509,7 @@
                             </div>
 
                             <div class="card mb-4 m-4">
-                                <div class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
+                                <div id="accordall" class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
                                     <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" >訂單編號</span>
                                     <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" >車款</span>
                                     <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >建單時間</span>
@@ -663,7 +663,7 @@
                                     x.pparea = "";
                                     x.ppname = "生產完畢";
                                 }
-                                let elapseddays = (new Date()-new Date(x.orderDateTime)) / 86400000;
+                                let elapseddays = (new Date() - new Date(x.editDatetime == null ? x.orderDateTime : x.editDatetime)) / 86400000;
                                 elapseddays = Math.round(elapseddays * 10) / 10;  //四捨五入至小數點下1位
                                 //console.log(elapseddays);
 

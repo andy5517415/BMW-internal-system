@@ -48,7 +48,8 @@ namespace InternalSystem.Controllers
                         Price = opl.Price,
                         OptionalName = opl.OptionalName,
                         AreaId = ord.AreaId,
-                        isAccepted = ord.IsAccepted
+                        isAccepted = ord.IsAccepted,
+                        deadline=ord.DeadlineDateTime
                     };
             return await q.ToListAsync();
         }

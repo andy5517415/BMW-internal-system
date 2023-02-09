@@ -1217,6 +1217,7 @@
                     var empcnt = 0;
                     this.orderdetail.forEach(x => {
                         if (x == '') { empcnt++ };
+                        if (this.deadline == '') { empcnt++ };
                     });
                     if (this.agentone == 999) { empcnt++ };
                     if (empcnt == 0) {

@@ -261,3 +261,8 @@ button:hover {
 .bg-info{
   background-image: linear-gradient(to top, #a0baec 0%, #e3edff 100%);
 }
+#accordall {
+    position: sticky;
+    top: 0;
+    z-index:5
+}
