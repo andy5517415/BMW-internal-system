@@ -526,7 +526,7 @@
                                             <textarea class="form-control fs-5" id="Vacationreason" v-model="leaveproxy.auditOpnion" rows="6" col="6"></textarea>
                                         </div>
                                     </div>
-                                    <div class="row my-2 mt-5" role="alert">
+                                    <div class="row my-2 mt-5" role="alert"  v-if="leaveproxy.photo!=null">
                                         <div class="mb-3 col-md-12">
                                             <label for="leaveprove" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假證明</label>
 
@@ -539,7 +539,8 @@
                                              height="300"
                                              width="300"
                                              id="uploadedAvatar"
-                                             @mouseover="mouseover" />
+                                             @mouseover="mouseover"
+                                             v-if="leaveproxy.photo!=null"/>
                                     </div>
                                 </div>
                                 <!-- ★Modal -->

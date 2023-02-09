@@ -918,9 +918,9 @@
                 wkover: {},
                 leavereturn: {},
                 NotyetOver: {},
-                cnt: 0,
-                mnt: 0,
-                wmt: 0
+                  cnt: {},
+                  mnt: {},
+                  wmt: {}
               }
             },
             methods: {
@@ -943,7 +943,7 @@
               },
               computed() {
         
-
+              
               },
 
             mounted() {
@@ -967,7 +967,7 @@
                     axios.get('/api/PersonnelLeaveForms/pcappcication/' + this.employeelist.employeeId)
                       .then(response => {
                         this.buyapp = response.data;
-                       /* this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;*/
+                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                       })
                   }
 
@@ -977,7 +977,7 @@
                       + this.employeelist.departmentId)
                       .then(response => {
                         this.leaveproxy = response.data;
-                        //this.mnt = this.leaveproxy.length
+                        this.mnt = this.leaveproxy.length
                         //console.log(this.mnt)
                       })
                     axios.get('/api/PersonnelOvertimeForms/manager/over/'
@@ -994,7 +994,7 @@
                     axios.get('/api/PersonnelLeaveForms/retrun/' + this.employeelist.departmentId + '/' + this.employeelist.employeeId)
                       .then(response => {
                         this.leavereturn = response.data;
-                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                        //this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                         //console.log(this.cnt)
                       })
                   }
@@ -1004,12 +1004,14 @@
                       .then(response => this.NotyetOver = response.data)
                   }
 
-                })
-                setTimeout(() => {
-                    this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
-                    this.mnt = this.leaveproxy.length;
-                    this.wmt = this.wkover.length;},300)
 
+                })
+                  setTimeout(() => {
+                      this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                      this.mnt = this.leaveproxy.length;
+                      this.wmt = this.wkover.length;
+                  }, 300)
+                console.log(this.cnt)
             }
           }
 
