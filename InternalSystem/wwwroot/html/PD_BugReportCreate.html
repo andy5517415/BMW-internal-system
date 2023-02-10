@@ -590,7 +590,7 @@
                                             <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
                                                 <div style="height: 500px; width: 800px;">
                                                     <img :src="Bugtext.photo" alt="圖片檔" class=" rounded"
-                                                        style="height: 100%; width: 100%; object-fit: scale-down; " id="uploadedAvatar" />
+                                                        style="height: 100%; width: 100%; object-fit: scale-down; " id="uploadedAvatar" v-if="Bugtext.photo==null"/>
                                                 </div>
                                 
                                 
@@ -650,7 +650,7 @@
                             text: "",
                             Order: {},
                             PressList: {},
-                            Bugtext: {},
+                            Bugtext: {"photo":""},
 
                         }
                     },
