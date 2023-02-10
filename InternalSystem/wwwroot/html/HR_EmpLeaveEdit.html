@@ -599,9 +599,6 @@
                         </div>
 
                         </form>
-                        <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
-                            <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
-                        </div>
                     </div>
                     <!-- / Content -->
                     <!-- Footer -->
@@ -660,7 +657,7 @@
             },
             methods: {
                 leaveedit: function () {
-                    if (this.leavedata.leaveType != null 
+                    if (this.leavedata.leaveType != null
                     ) {
 
                         // 判斷是否日期時間是否填入
@@ -675,9 +672,9 @@
                                     if (this.text == "修改成功") {
                                         $("#toastSuc").fadeIn("fast");
                                         setTimeout(() => $("#toastSuc").fadeOut(), 1500);
-                                        setTimeout(() => { window.location = "/html/HR_EmpLeaveSearch.html" } , 1000);
+                                        setTimeout(() => { window.location = "/html/HR_EmpLeaveSearch.html" }, 1000);
 
-                                        
+
                                     }
 
 

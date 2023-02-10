@@ -461,7 +461,15 @@
                     <div>
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <div class="card mb-4 m-4">
-                                <h2 class="card-header">採購訂單內容</h2>
+                              <!-- 卡片標題 -->
+                              <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                  <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                  <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">採購訂單內容</h2>
+                                </div>
+                              </div>
                                 <div class="card-body">
                                     <div class="row gx-3 gy-2 align-items-center">
                                         <div class="col-md-6">
@@ -476,10 +484,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <h5 class="card-header">申請人資訊</h5>
+                                <hr class="col-11 mx-auto">
                                 <div class="card-body">
-                                    <div class="row gx-3 gy-2 align-items-center">
+                                  <p class="alert alert-warning text-black fs-2 fw-bold mb-4">申請人資訊</p>
+                                    <div class="row gx-3 gy-2 align-items-center mx-4">
                                         <div class="col-md-6">
                                             <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請人</label>
                                             <input type="text"
@@ -521,13 +529,11 @@
                                                    v-model="myobject.comment" />
                                         </div>
                                         <!-- 分隔線 -->
-                                        <hr>
-                                        <h5>採購細項</h5>
+                                        <hr class="my-5 mb-5">
+                                    </div>
                                         <!--採購清單-->
-                                        <div class="card">
-                                            <h5 class="card-header">採購項目</h5>
-                                            <div class="card-body">
-                                                <div class="table-responsive text-nowrap">
+                                        <p class="alert alert-warning text-black fs-2 fw-bold mb-4">採購項目</p>
+                                                <div class="table-responsive text-nowrap mx-4">
                                                     <table class="table table-bordered">
                                                         <thead class="bg-black">
                                                             <tr>
@@ -543,30 +549,24 @@
                                                             <tr v-for="(a,index) in list">
                                                                 <!--第一項物品-->
                                                                 <!--項次-->
-                                                                <td>
-                                                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
+                                                                <td class="text-center">
+                                                                    <i class="fab fa-angular fa-lg text-dangerd fs-5"></i> <strong>{{index+1}}</strong>
                                                                 </td>
                                                                 <!--物品名稱-->
-                                                                <td>{{a.goods}}</td>
+                                                                <td class="fs-5">{{a.goods}}</td>
                                                                 <!--物品數量-->
-                                                                <td>
-                                                                    <div>
-                                                                        <p>{{a.quantiy}}</p>
-                                                                    </div>
+                                                                <td class="fs-5">
+                                                                    <p>{{a.quantiy}}</p>
                                                                 </td>
                                                                 <!--單位-->
-                                                                <td><span class="badge bg-label-primary me-1">隻</span></td>
+                                                                <td><span class="badge bg-label-primary me-1 fs-5">隻</span></td>
                                                                 <!--單價-->
-                                                                <td>
-                                                                    <div class="dropdown">
-                                                                        <p>{{a.unitPrice}}元</p>
-                                                                    </div>
+                                                                <td class="fs-5">
+                                                                    <p>{{a.unitPrice}}元</p>
                                                                 </td>
                                                                 <!--小計-->
-                                                                <td>
-                                                                    <div class="dropdown">
-                                                                        <div>{{a.subtotal}}元</div>
-                                                                    </div>
+                                                                <td class="fs-5">
+                                                                    <p>{{a.subtotal}}元</p>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -574,23 +574,22 @@
                                                     <!-- 總價 -->
                                                     <div>
                                                         <div class="d-flex flex-row-reverse bd-highlight">
-                                                            <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
+                                                            <div class="p-2 bd-highlight fs-4">總價：{{totalprice}}元</div>
                                                         </div>
                                                         <div class="table-responsive text-nowrap"></div>
                                                     </div>
 
                                                 </div>
-                                            </div>
                                         </div>
                                         <div>
                                         </div>
 
                                         <!--按鈕-->
-                                        <div class="row">
-                                            <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#reject">
+                                        <div class="d-flex justify-content-center mb-4">
+                                            <button type="button" class="col-md-3 btn btn-secondary d-block me-4 fw-bold fs-4" data-bs-toggle="modal" data-bs-target="#reject">
                                                 駁回
                                             </button>
-                                            <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#pass">
+                                            <button type="button" class="col-md-3 btn btn-primary d-block fw-bold fs-4" data-bs-toggle="modal" data-bs-target="#pass">
                                                 核准
                                             </button>
                                             <!--<button class="col-md-6 btn btn-primary d-block" id="btncancel" v-on:click="show">駁回</button>-->
@@ -692,27 +691,28 @@
         },
         methods: {
           // 按下確認按鈕，送出審核成功
-            Confirm: function () {
-                this.todoitem.applicationStatus = true;
-                this.todoitem.deliveryStatus = true;
-                //console.log(this.todoitem.orderId);
-                axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
-                this.text = '審核成功';
-                $("#toastSuc").fadeIn("fast");
-                setTimeout(() => window.location = "PC_ToDoItems.html", 1000);
+          Confirm: function () {
+            this.todoitem.applicationStatus = true;
+            this.todoitem.deliveryStatus = true;
+            //console.log(this.todoitem.orderId);
+            axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
+              this.text = '審核成功';
+              $("#toastSuc").fadeIn("fast");
+              setTimeout(() => window.location = "PC_ToDoItems.html", 1000);
             })
           },
 
           // 按下駁回按鈕
-            Cancel: function () {
-                this.todoitem.applicationRejectStatus = true;
-                this.todoitem.rejectReason = this.rejectreason.content;
-                axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
-                    this.text = '申請單已經駁回';
-                    $("#toastSuc").fadeIn("fast");
-                    setTimeout(() => window.location = "PC_ToDoItems.html", 1000);
-                }
-            )}
+          Cancel: function () {
+            this.todoitem.applicationRejectStatus = true;
+            this.todoitem.rejectReason = this.rejectreason.content;
+            axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
+              this.text = '申請單已經駁回';
+              $("#toastSuc").fadeIn("fast");
+              setTimeout(() => window.location = "PC_ToDoItems.html", 1000);
+            }
+            )
+          }
         },
         mounted() {
           this.myobject = JSON.parse(sessionStorage.getItem('order'))

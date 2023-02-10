@@ -463,10 +463,19 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                <h4 class="fw-bold py-4 mb-4 ms-4">> 加班審核狀態</h4>
                 
-    
-                <div class="card mb-4 m-4 card-body">
+                <div class="card m-4 my-4">
+                  <!-- 卡片標題 -->
+                  <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                      <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                    </div>
+                    <div class="col-6 my-2 mb-3">
+                      <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">加班審核狀態</h2>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
                     <form id="formAccountSettings" method="POST" onsubmit="return false">
                         
                         <div class="row py-3 ">
@@ -504,22 +513,23 @@
                                 <strong class="form-control fs-5" v-if="detail.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
                                 <strong class="form-control fs-5" v-if="detail.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                             </div>
-
-                              <div class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{detail.totalTime}}&nbsp 小時</div>
-                              
-                            <div class="mb-3 col-md-3">
+                           <div class="col-3">&nbsp;</div>
+                            <div class="mt-4 col-md-3">
                                 <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班廠區</label>
                                 <input class="form-control fs-5" v-model="detail.areaName" id="Totalvacation" disabled />
                             </div>
-                            <div class="mb-3 col-md-3">
+                            <div class="mt-4 col-md-3">
                                 <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班製程</label>
                                 <input class="form-control fs-5" v-model="detail.processName" id="Totalvacation" disabled />
                             </div>
+
+                            <div class="fw-bold mx-auto fs-2 my-4">總加班時間: <span class="text-primary">{{detail.totalTime}}</span> &nbsp 小時</div>
                         </div>
                     </form>
                     </div>
                     
                 </div>
+              </div>
             <!-- / Content -->
 
             <!-- Footer -->

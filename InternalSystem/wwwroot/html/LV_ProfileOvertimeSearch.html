@@ -510,11 +510,11 @@
                                             </td>
                                             <td>
 
-                                                <span class="label-primary me-1" v-if="item.auditStatus==false">待審核</span>
-                                                <span class="label-primary me-1" v-if="item.auditStatus==true">同意</span>
+                                                <div class="badge rounded bg-label-primary me-1 fs-5 fw-bold" v-if="item.auditStatus==false">待審核</div>
+                                                <div class="badge rounded bg-label-success me-1 fs-5 fw-bold" v-if="item.auditStatus==true">同意</div>
                                             </td>
                                             <td>
-                                                <a href="LV_ProfileOvertimeSearchPage.html" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 " type="button" @click="lookbtn(item)">檢視詳情</a>
+                                                <a href="LV_ProfileOvertimeSearchPage.html" class="btn btn-primary me-3 fs-5 fw-bold border-3 " type="button" @click="lookbtn(item)">檢視詳情</a>
                                             </td>
                                         </tr>
 

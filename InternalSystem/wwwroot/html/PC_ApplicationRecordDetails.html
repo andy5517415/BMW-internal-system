@@ -433,19 +433,23 @@
 
                   <div class="container-xxl flex-grow-1 container-p-y" id="app" >
                   <!-- 頁面中間上面輸出 -->
-                  <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購紀錄細項</h4>
-
+                 
                   <div class="row" >
                   <div class="col-md-12" >
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                      <li class="nav-item mb-4 mx-4">
-                          <a class="nav-link active " href="javascript:void(0);"><i class="bx bx-user me-1"></i>採購紀錄</a>
-                      </li>
-                  </ul>
-                  <div class="card mb-4 m-4 mx-4">
+                  
+                <div class="card mb-4 m-4">
+                    <!-- 卡片標題 -->
+                    <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                        <div class="col-1 my-2 mb-3" style="width: 70px;">
+                            <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                        </div>
+                        <div class="col-6 my-2 mb-3">
+                            <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">採購紀錄細項</h2>
+                        </div>
+                    </div>
                       <!-- 員工名稱 -->
                       <div class="card-body">
-                          <form id="formAccountSettings" method="POST" onsubmit="return false" />
+                          <form id="formAccountSettings" method="POST" onsubmit="return false">
                           <div class="row">
                               <div class="mb-3 col-md-6">
                                   <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
@@ -468,7 +472,7 @@
                               </div>
                               <!-- 申請日期 -->
                               <div class="mb-3 col-md-6">
-                                  <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
+                                  <label for="ApplicationDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
                                   <div class="col-md-12">
                                       <input class="form-control fs-5" type="text" id="ApplicationDate" v-model="myobject.date" disabled/>
                                   </div>
@@ -513,10 +517,9 @@
                                          v-model="myobject.rejectReason"
                                          disabled />
                               </div>
+                              <hr class="my-4">
                               <!-- 採購清單 -->
-                              <div class="card">
-                                  <h5 class="card-header">採購項目</h5>
-                                  <div class="card-body">
+                            <p class="alert alert-warning text-black fs-2 fw-bold mb-4">採購項目</p>
                                       <div class="table-responsive text-nowrap">
                                           <table class="table table-bordered">
                                               <thead class="bg-black">
@@ -533,30 +536,24 @@
                                                   <tr v-for="(a,index) in list">
                                                       <!-- 第一項物品 -->
                                                       <!-- 項次 -->
-                                                      <td>
-                                                          <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
+                                                      <td class="fs-5">
+                                                        {{index+1}}
                                                       </td>
                                                       <!-- 物品名稱 -->
-                                                      <td>{{a.goods}}</td>
+                                                      <td class="fs-5">{{a.goods}}</td>
                                                       <!-- 物品數量 -->
-                                                      <td>
-                                                          <div>
-                                                              <p>{{a.quantiy}}</p>
-                                                          </div>
+                                                      <td class="fs-5">
+                                                        {{a.quantiy}}
                                                       </td>
                                                       <!-- 單位 -->
-                                                      <td><span class="badge bg-label-primary me-1">{{a.unit}}</span></td>
+                                                      <td class="fs-5"><span class="badge bg-label-primary me-1">{{a.unit}}</span></td>
                                                       <!-- 單價 -->
-                                                      <td>
-                                                          <div class="dropdown">
-                                                              <p>{{a.unitPrice}}元</p>
-                                                          </div>
+                                                      <td class="fs-5">
+                                                        <p>{{a.unitPrice}}元</p>
                                                       </td>
                                                       <!-- 小計 -->
-                                                      <td>
-                                                          <div class="dropdown">
-                                                              <div>{{a.subtotal}}元</div>
-                                                          </div>
+                                                      <td class="fs-5">
+                                                        <p>{{a.subtotal}}</p>
                                                       </td>
                                                   </tr>
                                               </tbody>
@@ -564,7 +561,7 @@
                                           <!-- 總價 -->
                                           <div>
                                               <div class="d-flex flex-row-reverse bd-highlight">
-                                                  <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
+                                                  <div class="p-2 bd-highlight fs-4">總價：{{totalprice}}元</div>
                                               </div>
                                               <div class="table-responsive text-nowrap"></div>
                                           </div>

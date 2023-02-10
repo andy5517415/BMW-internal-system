@@ -475,10 +475,13 @@
                             <span class="fs-5 fw-bold">{{order.employeeName}}</span>
                           </td>
                           <td>
+                            <span class="fs-5 fw-bold">{{order.total}}</span>
+                          </td>
+                          <td>
                             <span class="fs-5 fw-bold">{{order.applicationStatus}}</span>
                           </td>
                           <td>
-                            <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-primary 2">安排</a>
+                            <a href="./PC_OrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-primary fw-bold fs-5">安排</a>
                           </td>
                         </tr>
               

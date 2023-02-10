@@ -461,10 +461,18 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                        <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料審核</h4>
 
-
-                        <div class="card m-4 card-body">
+                        <div class="card m-4">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">個人待辦事項</h2>
+                                </div>
+                            </div>
+                            <div class="card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
 
                                 <div class="row py-3 ">
@@ -509,15 +517,11 @@
                                         <div style="height: 43px;"></div>
                                         <input class="form-control fs-5" type="time" id="html5-time-input" v-model="leaveExit.endTime" />
                                     </div>
-                                    <div class="mb-3 col-md-2">
-                                        <div style="height: 43px;"></div>
-                                        <p class="fs-4">共 小時</p>
-                                    </div>
 
                                 </div>
 
 
-                                <div class="row ">
+                                <div class="row mt-3">
                                     <div class="col-md-2">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="Rank">假別</label>
                                         <select id="Rank" class="select2 form-select" v-model="leaveExit.leaveType">
@@ -531,14 +535,15 @@
                                             <option v-for="item in proxy" :value="item.employeeId"> {{item.employeeName}}</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-2">
+                                        <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="manager"
+                                            v-model="leaveExit.manerger">審核主管</label>
+                                        <select id="manager" class="select2 form-select">
+                                            <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}} </option>
+                                        </select>
+                                    </div>
                                 </div>
-
-                                <div class="col-md-2">
-                                    <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="manager" v-model="leaveExit.manerger">審核主管</label>
-                                    <select id="manager" class="select2 form-select">
-                                        <option v-for="item in manager" :value="item.employeeId">{{item.employeeName}} </option>
-                                    </select>
-                                </div>
+                                <br>
                                 <div class="row mt-3">
                                     <div class="mb-3 col-md-12">
                                         <label for="Vacationreason" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">請假事由</label>
@@ -632,7 +637,7 @@
                                                 <p class="fs-5" v-if="leaveExit.leaveType==6">✏️請假假別：婚假</p>
                                                 <p class="fs-5" v-if="leaveExit.leaveType==7">✏️請假假別：育嬰假</p>
                                                 <p class="fs-5" v-if="leaveExit.leaveType==8">✏️請假假別：產假</p>
-                                                <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認刪除本次申請?</p>
+                                                <p class="alert alert-danger fs-4 fw-bold col-6 text-center mx-auto mt-5">⚠️確認刪除本次申請?</p>
                                             </div>
                                             <div class="modal-footer">
                                                 <!-- 存檔按鈕 -->
@@ -662,7 +667,7 @@
                         <!-- 三個進度卡 -->
                         <br>
                         <div class="rounded bg-white m-4" style="border-width:10px;border-style:dashed;border-color:#99CCFF;padding:5px;">
-                            <div class="alert alert-primary fs-4 text-center col-3 my-4 fw-bold mx-auto">簽核狀態</div>
+                            <div class="alert alert-warning text-black fs-2 text-center col-3 my-4 fw-bold mx-auto">簽核狀態</div>
                             <div class="row d-flex justify-content-center p-4">
                                 <div class="col-md-2 me-2">
                                     <div class="card border border-3 border-primary lvrv " style="width: 12rem;">
@@ -719,6 +724,7 @@
                         <!-- / Footer -->
 
                         <div class="content-backdrop fade"></div>
+                    </div>
                     </div>
                     <!-- Content wrapper -->
                 </div>
@@ -817,21 +823,21 @@
 
 
                     nobtn: function () {
-                            axios.delete('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId)
-                                .then(response => {
-                                    //★成功
-                                    this.text = response.data;
-                                    $("#toastSuc").fadeIn("fast");
-                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                    setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                        axios.delete('/api/PersonnelLeaveForms/' + this.leaveExit.leaveId)
+                            .then(response => {
+                                //★成功
+                                this.text = response.data;
+                                $("#toastSuc").fadeIn("fast");
+                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
-                                    ////失敗
-                                    //this.text = response.data;
-                                    //$("#toastErr").fadeIn("fast");
-                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);;
-                                    //window.location = "/html/PS_ToDoItems.html";
-                                })
-                        
+                                ////失敗
+                                //this.text = response.data;
+                                //$("#toastErr").fadeIn("fast");
+                                //setTimeout(() => $("#toastErr").fadeOut(), 2000);;
+                                //window.location = "/html/PS_ToDoItems.html";
+                            })
+
                     },
                     uploadphoto(event) {
                         console.log('ok')
