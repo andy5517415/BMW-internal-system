@@ -179,11 +179,11 @@
                                       <div data-i18n="Account" class="fs-5">新建員工資料</div>
                                   </a>
                               </li>
-                            <li class="menu-item">
-                                <a href="HR_EmpProfileSearch.html" class="menu-link">
-                                    <div data-i18n="Account" class="fs-5">員工資料查詢</div>
-                                </a>
-                            </li>
+                              <li class="menu-item">
+                                  <a href="HR_EmpProfileSearch.html" class="menu-link">
+                                      <div data-i18n="Account" class="fs-5">員工資料查詢</div>
+                                  </a>
+                              </li>
                               <li class="menu-item">
                                   <a href="HR_EmpProfileEdit.html" class="menu-link">
                                       <div data-i18n="Account" class="fs-5">員工資料修改</div>
@@ -204,7 +204,7 @@
                                       <div data-i18n="Account" class="fs-5">員工出勤查詢</div>
                                   </a>
                               </li>
-                              
+
 
                           </ul>
                       </li>
@@ -232,10 +232,10 @@
                                   </a>
                               </li>
                               <li class="menu-item">
-                                <a href="BS_OrderAll.html" class="menu-link">
-                                  <div data-i18n="Account" class="fs-5">訂單一覽</div>
-                                </a>
-                            </li>
+                                  <a href="BS_OrderAll.html" class="menu-link">
+                                      <div data-i18n="Account" class="fs-5">訂單一覽</div>
+                                  </a>
+                              </li>
                           </ul>
                       </li>
 
@@ -271,11 +271,11 @@
                                       <div data-i18n="Account" class="fs-5">報工查詢</div>
                                   </a>
                               </li>
-                                <li class="menu-item">
-                                    <a href="PD_LineTotal.html" class="menu-link">
-                                        <div data-i18n="Account" class="fs-5">製程總工時</div>
-                                    </a>
-                                </li>
+                              <li class="menu-item">
+                                  <a href="PD_LineTotal.html" class="menu-link">
+                                      <div data-i18n="Account" class="fs-5">製程總工時</div>
+                                  </a>
+                              </li>
                           </ul>
                       </li>
 
@@ -285,7 +285,7 @@
                               <div data-i18n="Account Settings" class="fs-4 fw-bold">產線狀況監控</div>
                           </a>
                           <ul class="menu-sub">
-                               
+
                               <li class="menu-item">
                                   <a href="BS_BugSys.html" class="menu-link">
                                       <div data-i18n="Account" class="fs-5">報錯系統</div>
@@ -299,6 +299,7 @@
                           </ul>
                       </li>
 
+                      <!-- 採購系統 -->
                       <!-- 採購系統 -->
                       <li class="menu-header small text-uppercase">
                           <span class="menu-header-text fs-5 fw-bold">採購系統</span>
@@ -315,6 +316,11 @@
                                   </a>
                               </li>
                               <li class="menu-item">
+                                  <a href="PC_Acceptance.html" class="menu-link">
+                                      <div data-i18n="Account" class="fs-5">採購驗收區</div>
+                                  </a>
+                              </li>
+                              <li class="menu-item">
                                   <a href="PC_Application.html" class="menu-link">
                                       <div data-i18n="Account" class="fs-5">採購申請表</div>
                                   </a>
@@ -324,11 +330,11 @@
                                       <div data-i18n="Account" class="fs-5">採購紀錄查詢</div>
                                   </a>
                               </li>
-                              <li class="menu-item">
-                                  <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                                      <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
-                                  </a>
-                              </li>
+                              <!--<li class="menu-item">
+                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
+                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
+                </a>
+            </li>-->
                               <li class="menu-item">
                                   <a href="PC_ItemSearch.html" class="menu-link">
                                       <div data-i18n="Account" class="fs-5">物品資料查詢</div>
@@ -357,7 +363,7 @@
                                       <div data-i18n="Account" class="fs-5">查詢租借紀錄/<br>建立會議記錄表</div>
                                   </a>
                               </li>
-                              
+
                               <li class="menu-item">
                                   <a href="MT_MeetRecordSearch.html" class="menu-link">
                                       <div data-i18n="Account" class="fs-5">會議記錄表查詢</div>
@@ -366,8 +372,8 @@
                           </ul>
                       </li>
 
-                      
-                      
+
+
                   </ul>
               </aside>
               <!-- /Menu -->
@@ -436,159 +442,176 @@
 
                   <!-- / Navbar -->
                   <!-- Content wrapper -->
-                  <div class="content-wrapper">
-                      <!-- Content -->
-                      <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
                         <span class="fs-4">產線管理 / </span><span class=" fw-bold fs-2">待辦事項</span>
 
-                          <div id="app" class="container-xxl flex-grow-1 container-p-y">
+                        <div id="app" class="container-xxl flex-grow-1 container-p-y">
+                            <div v-if="limit.DepID==2 && limit.PositionId==7">
 
-                            <div class="card mb-4 m-4 mt-0">
-                                <!-- 卡片標題 -->
-                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
-                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
-                                        <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                <div class="card mb-4 m-4 mt-0">
+                                    <!-- 卡片標題 -->
+                                    <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                        <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                            <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                        </div>
+                                        <div class="col-6 my-2 mb-3">
+                                            <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">生產部待辦事項</h2>
+                                        </div>
                                     </div>
-                                    <div class="col-6 my-2 mb-3">
-                                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">生產部待辦事項</h2>
+                                    <div class="card-body" style="background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);">
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="nav-align-top mb-4">
+                                                    <ul class="nav nav-tabs" role="tablist">
+                                                        <li class="nav-item">
+                                                            <button type="button"
+                                                                    class="nav-link active"
+                                                                    role="tab"
+                                                                    data-bs-toggle="tab"
+                                                                    data-bs-target="#newtodo"
+                                                                    aria-controls="newtodo"
+                                                                    aria-selected="true">
+                                                                生產中
+                                                            </button>
+
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <button type="button"
+                                                                    class="nav-link"
+                                                                    role="tab"
+                                                                    data-bs-toggle="tab"
+                                                                    data-bs-target="#zz"
+                                                                    aria-controls="zz"
+                                                                    aria-selected="false">
+                                                                新訂單
+                                                            </button>
+                                                        </li>
+
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade show active" id="newtodo" role="tabpanel">
+                                                            <!-- 生產中表格 -->
+                                                            <p class="fs-4">📝<span class="fs-4" style="text-decoration:underline #666EE8 5px;">共{{count1}}筆</span></p>
+
+                                                            <div class="table-responsive text-nowrap">
+                                                                <table class="table table-striped table-hover">
+                                                                    <thead class="bg-black">
+                                                                        <tr>
+                                                                            <th class="fs-4 text-white fw-bold">訂單編號</th>
+                                                                            <th class="fs-4 text-white fw-bold">型號</th>
+                                                                            <th class="fs-4 text-white fw-bold">製程</th>
+                                                                            <th class="fs-4 text-white fw-bold">狀態</th>
+                                                                            <th class="fs-4 text-white fw-bold">工作指派</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="table-border-bottom-0" id="newtodo" v-for="(order,key) in OrderList">
+                                                                        <tr>
+                                                                            </td>
+                                                                            <td class="fs-5 fw-bold">{{order.orderNumber}}</td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{order.optionalName}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{order.processName}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{order.isAccepted}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="LV_ProfileOvertimeSearchPage.html"
+                                                                                   class="btn btn-primary fw-bold fs-5" type="button"
+                                                                                   @click="Enter(order)">安排</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <!-- 生產中表格 -->
+                                                        </div>
+                                                        <div class="tab-pane fade " id="zz" role="tabpanel">
+                                                            <!-- 新訂單表格 -->
+                                                            <p class="fs-4">📝<span class="fs-4" style="text-decoration:underline #666EE8 5px;">共{{count2}}筆</span></p>
+
+                                                            <div class="table-responsive text-nowrap">
+                                                                <table class="table table-striped table-hover">
+                                                                    <thead class="bg-black">
+                                                                        <tr>
+                                                                            <th class="fs-4 text-white fw-bold">訂單編號</th>
+                                                                            <th class="fs-4 text-white fw-bold">型號</th>
+                                                                            <th class="fs-4 text-white fw-bold">製程</th>
+                                                                            <th class="fs-4 text-white fw-bold">狀態</th>
+                                                                            <th class="fs-4 text-white fw-bold">工作指派</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="table-border-bottom-0" id="zz" v-for="(Process,key) in ProcessList">
+                                                                        <tr>
+                                                                            </td>
+                                                                            <td class="fs-5 fw-bold">{{Process.orderNumber}}</td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{Process.optionalName}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{Process.processName}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{Process.isAccepted}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="LV_ProfileOvertimeSearchPage.html" class="btn btn-primary fw-bold fs-5" type="button"
+                                                                                   @click="Enter(Process)">安排</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <!-- 新訂單表格 -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- Content wrapper -->
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card-body" style="background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);"><br>
+                                <!-- / Layout page -->
 
-                              <div class="row">
-                                  <div class="col-xl-12">
-                                      <div class="nav-align-top mb-4">
-                                          <ul class="nav nav-tabs" role="tablist">
-                                              <li class="nav-item">
-                                                  <button type="button"
-                                                          class="nav-link active"
-                                                          role="tab"
-                                                          data-bs-toggle="tab"
-                                                          data-bs-target="#newtodo"
-                                                          aria-controls="newtodo"
-                                                          aria-selected="true">
-                                                      生產中
-                                                  </button>
+                            </div>
 
-                                              </li>
-                                              <li class="nav-item">
-                                                  <button type="button"
-                                                          class="nav-link"
-                                                          role="tab"
-                                                          data-bs-toggle="tab"
-                                                          data-bs-target="#zz"
-                                                          aria-controls="zz"
-                                                          aria-selected="false">
-                                                      新訂單
-                                                  </button>
-                                              </li>
+                            <!-- Basic Bootstrap Table -->
+                            <!-- <div class="card"> -->
+                            <!-- </div> -->
+                            <!-- / Content -->
+                            <!-- Footer -->
+                            <!-- / Footer -->
 
-                                          </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="newtodo" role="tabpanel">
-            <!-- 生產中表格 -->
-            <p class="fs-4">📝<span class="fs-4" style="text-decoration:underline #666EE8 5px;">共{{count1}}筆</span></p>
 
-            <div class="table-responsive text-nowrap">
-                <table class="table table-striped table-hover">
-                    <thead class="bg-black">
-                        <tr>
-                            <th class="fs-4 text-white fw-bold">訂單編號</th>
-                            <th class="fs-4 text-white fw-bold">型號</th>
-                            <th class="fs-4 text-white fw-bold">製程</th>
-                            <th class="fs-4 text-white fw-bold">狀態</th>
-                            <th class="fs-4 text-white fw-bold">工作指派</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0" id="newtodo" v-for="(order,key) in OrderList">
-                        <tr>
-                            </td>
-                            <td class="fs-5 fw-bold">{{order.orderNumber}}</td>
-                            <td>
-                                <span class="fs-5 fw-bold">{{order.optionalName}}</span>
-                            </td>
-                            <td>
-                                <span class="fs-5 fw-bold">{{order.processName}}</span>
-                            </td>
-                            <td>
-                                <span class="fs-5 fw-bold">{{order.isAccepted}}</span>
-                            </td>
-                            <td>
-                                <a href="LV_ProfileOvertimeSearchPage.html"
-                                    class="btn btn-primary fw-bold fs-5" type="button"
-                                    @click="Enter(order)">安排</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- 生產中表格 -->
-        </div>
-        <div class="tab-pane fade " id="zz" role="tabpanel">
-            <!-- 新訂單表格 -->
-            <p class="fs-4">📝<span class="fs-4" style="text-decoration:underline #666EE8 5px;">共{{count2}}筆</span></p>
-            
-            <div class="table-responsive text-nowrap">
-                <table class="table table-striped table-hover">
-                    <thead class="bg-black">
-                        <tr>
-                            <th class="fs-4 text-white fw-bold">訂單編號</th>
-                            <th class="fs-4 text-white fw-bold">型號</th>
-                            <th class="fs-4 text-white fw-bold">製程</th>
-                            <th class="fs-4 text-white fw-bold">狀態</th>
-                            <th class="fs-4 text-white fw-bold">工作指派</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0" id="zz" v-for="(Process,key) in ProcessList">
-                        <tr>
-                            </td>
-                            <td class="fs-5 fw-bold">{{Process.orderNumber}}</td>
-                            <td>
-                                <span class="fs-5 fw-bold">{{Process.optionalName}}</span>
-                            </td>
-                            <td>
-                                <span class="fs-5 fw-bold">{{Process.processName}}</span>
-                            </td>
-                            <td>
-                                <span class="fs-5 fw-bold">{{Process.isAccepted}}</span>
-                            </td>
-                            <td>
-                                <a href="LV_ProfileOvertimeSearchPage.html" class="btn btn-primary fw-bold fs-5" type="button"
-                                    @click="Enter(Process)">安排</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- 新訂單表格 -->
-        </div>
-    </div>
-                                      </div>
-                                  </div>
-                                  <!-- Content wrapper -->
+                            <div v-else class="mt-5">
+                                <div class="d-flex justify-content-center my-4 mt-0">
+                                    <h2 class="mx-2 fw-bold" style="font-size: 50px;">非生產部門主管無法查看</h2>
+                                </div>
 
-                              </div>
+                                <div class="d-flex justify-content-center">
+                                    <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                         class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                         data-app-light-img="illustrations/page-misc-error-light.png" />
+                                </div>
                             </div>
                         </div>
-                              <!-- / Layout page -->
+                    
+                    </div>
 
-                          </div>
-
-                          <!-- Basic Bootstrap Table -->
-                          <!-- <div class="card"> -->
-
-                         
-
-                          <!-- </div> -->
-                          <!-- / Content -->
-                          <!-- Footer -->
-                          <!-- / Footer -->
-
-                          
-                      </div>
-
-                          <!-- Content wrapper -->
-                      </div>
+                    <!--<div class="d-flex justify-content-center mt-4 mb-4">
+        <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+    </div>-->
+                </div>
+                    <!-- Content wrapper -->
+                </div>
                   <!-- / Layout page -->
               </div>
 
@@ -624,7 +647,8 @@
                         OrderList: {},
                         ProcessList: {},
                         count1: 0,
-                        count2: 0
+                        count2: 0,
+                        limit: {}
                     }
                 },
                 methods: {
@@ -633,6 +657,8 @@
                     }
                 },
                 mounted() {
+                    this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+                    console.log(this.limit)
                     //新訂單
                     axios.get('https://localhost:44319/api/ProductionProcessLists/BusinessOrderProcessor')
                         .then(response => {

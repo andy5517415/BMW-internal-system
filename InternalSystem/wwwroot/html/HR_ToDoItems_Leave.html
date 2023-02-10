@@ -293,7 +293,7 @@
                         </ul>
                     </li>
 
-                    <!-- 採購系統 -->
+                       <!-- 採購系統 -->
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text fs-5 fw-bold">採購系統</span>
                     </li>
@@ -309,6 +309,11 @@
                                 </a>
                             </li>
                             <li class="menu-item">
+                                <a href="PC_Acceptance.html" class="menu-link">
+                                    <div data-i18n="Account" class="fs-5">採購驗收區</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
                                 <a href="PC_Application.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">採購申請表</div>
                                 </a>
@@ -318,11 +323,11 @@
                                     <div data-i18n="Account" class="fs-5">採購紀錄查詢</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
-                                </a>
-                            </li>
+                            <!--<li class="menu-item">
+                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
+                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
+                </a>
+            </li>-->
                             <li class="menu-item">
                                 <a href="PC_ItemSearch.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">物品資料查詢</div>
@@ -718,97 +723,97 @@
                     okbtn: function () {
                         //console.log(this.leaveproxy.statusId)   //ok
                         if (this.manager.PositionId < 7) {
-                                //日期格式
-                                let today = new Date()
-                                let y = today.getFullYear()
-                                let mm = today.getMonth() + 1
-                                let dd = today.getDate()
-                                if (mm < 10) {
-                                    mm = "0" + mm.toString()
-                                }
-                                if (dd < 10) {
-                                    dd = "0" + dd.toString()
-                                }
+                            //日期格式
+                            let today = new Date()
+                            let y = today.getFullYear()
+                            let mm = today.getMonth() + 1
+                            let dd = today.getDate()
+                            if (mm < 10) {
+                                mm = "0" + mm.toString()
+                            }
+                            if (dd < 10) {
+                                dd = "0" + dd.toString()
+                            }
 
-                                axios.put('/api/PersonnelLeaveForms/proxy/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                    .then(response => {
-                                        //★成功
-                                        this.text = response.data;
-                                        $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            axios.put('/api/PersonnelLeaveForms/proxy/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                .then(response => {
+                                    //★成功
+                                    this.text = response.data;
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                        ////失敗
-                                        //this.text = response.data;
-                                        //$("#toastErr").fadeIn("fast");
-                                        //setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                        setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                    ////失敗
+                                    //this.text = response.data;
+                                    //$("#toastErr").fadeIn("fast");
+                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
-                                    })
-                            
+                                })
+
                         }
                         if (this.manager.PositionId == 7) {
 
 
-                                axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
-                                    .then(response => {
-                                        //★成功
-                                        this.text = response.data;
-                                        $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            axios.put('/api/PersonnelLeaveForms/manager/auditleave/', this.leaveproxy)
+                                .then(response => {
+                                    //★成功
+                                    this.text = response.data;
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                        ////失敗
-                                        //this.text = response.data;
-                                        //$("#toastErr").fadeIn("fast");
-                                        //setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    ////失敗
+                                    //this.text = response.data;
+                                    //$("#toastErr").fadeIn("fast");
+                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);
 
-                                        setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                    setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
-                                    })
-                                    .catch(err => { console.log(err) })
-                            }
-                        
+                                })
+                                .catch(err => { console.log(err) })
+                        }
+
 
                     },
 
                     nobtn: function () {
 
                         if (this.manager.PositionId < 7) {
-                                //this.leaveproxy.statusId = 3;
-                                //this.leaveproxy.proxyAudit = false;
-                                axios.put('/api/PersonnelLeaveForms/proxy/refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                    .then(response => {
-                                        //★成功
-                                        this.text = response.data;
-                                        $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            //this.leaveproxy.statusId = 3;
+                            //this.leaveproxy.proxyAudit = false;
+                            axios.put('/api/PersonnelLeaveForms/proxy/refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                .then(response => {
+                                    //★成功
+                                    this.text = response.data;
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                        //失敗
-                                        //this.text = response.data;
-                                        //$("#toastErr").fadeIn("fast");
-                                        //setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                        setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                    //失敗
+                                    //this.text = response.data;
+                                    //$("#toastErr").fadeIn("fast");
+                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
-                                    })
-                            
+                                })
+
                         }
                         if (this.manager.PositionId == 7) {
-                                axios.put('/api/PersonnelLeaveForms/manager/Refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
-                                    .then(response => {
-                                        //★成功
-                                        this.text = response.data;
-                                        $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            axios.put('/api/PersonnelLeaveForms/manager/Refuse/' + this.leaveproxy.leaveId, this.leaveproxy)
+                                .then(response => {
+                                    //★成功
+                                    this.text = response.data;
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
 
-                                        ////失敗
-                                        //this.text = response.data;
-                                        //$("#toastErr").fadeIn("fast");
-                                        //setTimeout(() => $("#toastErr").fadeOut(), 2000);
-                                        //window.location = "/html/PS_ToDoItems.html";
-                                        setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
+                                    ////失敗
+                                    //this.text = response.data;
+                                    //$("#toastErr").fadeIn("fast");
+                                    //setTimeout(() => $("#toastErr").fadeOut(), 2000);
+                                    //window.location = "/html/PS_ToDoItems.html";
+                                    setTimeout(() => { window.location = "/html/PS_ToDoItems.html" }, 1000);
 
-                                    })
-                            }
-                        
+                                })
+                        }
+
                     },
                     mouseover() {
 

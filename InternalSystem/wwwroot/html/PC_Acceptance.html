@@ -456,43 +456,60 @@
                   </div>
                 
                   <div class="card-body" id="app">
-                    <!-- 表格 -->
-                            <div class="table-responsive text-nowrap">
+                      <!-- 表格 -->
+                      <div v-if="limit.DepID==4">
+                          <div class="table-responsive text-nowrap">
                               <table class="table table-striped table-hover">
-                                <thead class="bg-black">
-                                  <tr>
-                                    <th class="fs-4 text-white fw-bold">訂單編號</th>
-                                    <th class="fs-4 text-white fw-bold">部門</th>
-                                    <th class="fs-4 text-white fw-bold">申請人</th>
-                                    <th class="fs-4 text-white fw-bold">金額</th>
-                                    <th class="fs-4 text-white fw-bold">配送狀態</th>
-                                    <th class="fs-4 text-white fw-bold">驗收</th>
-                                  </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0" v-for="order in OrderList">
+                                  <thead class="bg-black">
+                                      <tr>
+                                          <th class="fs-4 text-white fw-bold">訂單編號</th>
+                                          <th class="fs-4 text-white fw-bold">部門</th>
+                                          <th class="fs-4 text-white fw-bold">申請人</th>
+                                          <th class="fs-4 text-white fw-bold">金額</th>
+                                          <th class="fs-4 text-white fw-bold">配送狀態</th>
+                                          <th class="fs-4 text-white fw-bold">驗收</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody class="table-border-bottom-0" v-for="order in OrderList">
 
-                                  <tr>
-                                    <td><strong class="fs-5 fw-bold">{{order.purchaseId}}</strong></td>
-                                    <td class="fs-5 fw-bold">{{order.department}}</td>
-                                    <td>
-                                      <span class="fs-5 fw-bold">{{order.employeeName}}</span>
-                                    </td>
-                                    <td>
-                                      <span class="fs-5 fw-bold">{{order.total}}</span>
-                                    </td>
-                                    <td>
-                                      <span class="fs-5 fw-bold">{{order.deliveryStatus}}</span>
-                                    </td>
-                                    <td>
-                                      <a href="PC_AcceptanceOrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-primary fw-bold fs-5">驗收</a>
-                                    </td>
-                                  </tr>
-                            
-                            
-                            
-                                </tbody>
+                                      <tr>
+                                          <td><strong class="fs-5 fw-bold">{{order.purchaseId}}</strong></td>
+                                          <td class="fs-5 fw-bold">{{order.department}}</td>
+                                          <td>
+                                              <span class="fs-5 fw-bold">{{order.employeeName}}</span>
+                                          </td>
+                                          <td>
+                                              <span class="fs-5 fw-bold">{{order.total}}</span>
+                                          </td>
+                                          <td>
+                                              <span class="fs-5 fw-bold">{{order.deliveryStatus}}</span>
+                                          </td>
+                                          <td>
+                                              <a href="PC_AcceptanceOrderCheck.html" type="button" v-on:click="Enter(order)" class="btn btn-primary fw-bold fs-5">驗收</a>
+                                          </td>
+                                      </tr>
+
+
+
+                                  </tbody>
                               </table>
-                            </div>
+                          </div>
+                      </div>
+                      <div v-else class="mt-2">
+                          <div class="d-flex justify-content-center my-4 mt-0">
+                              <h2 class="mx-2 fw-bold" style="font-size: 50px;">非採購部門無法查看</h2>
+                          </div>
+
+                          <div class="d-flex justify-content-center">
+                              <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                   class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                   data-app-light-img="illustrations/page-misc-error-light.png" />
+                          </div>
+
+                          <!--<div class="d-flex justify-content-center mt-4 mb-4">
+            <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+        </div>-->
+                      </div>
                   </div>
                 </div>
                 <!-- 新卡 -->
@@ -538,7 +555,8 @@
       const app = {
         data() {
           return {
-            OrderList: {}
+              OrderList: {},
+              limit: {}
           }
         },
         methods: {
@@ -548,17 +566,18 @@
         },
         mounted() {
           axios.get("/api/PCApplications/acceptance")
-            .then(response => {
-              this.OrderList = response.data;
-              for (var i = 0; i < this.OrderList.length; i++) {
-                if (this.OrderList[i].deliveryStatus == true) {
-                  this.OrderList[i].deliveryStatus = "配送完成"
-                }
-                if (this.OrderList[i].deliveryStatus == false) {
-                  this.OrderList[i].deliveryStatus = "配送中"
-                }
-              }
-            });
+              .then(response => {
+                  this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+                  this.OrderList = response.data;
+                  for (var i = 0; i < this.OrderList.length; i++) {
+                      if (this.OrderList[i].deliveryStatus == true) {
+                          this.OrderList[i].deliveryStatus = "配送完成"
+                      }
+                      if (this.OrderList[i].deliveryStatus == false) {
+                          this.OrderList[i].deliveryStatus = "配送中"
+                      }
+                  }
+              });
         }
       }
       Vue.createApp(app).mount('#app')

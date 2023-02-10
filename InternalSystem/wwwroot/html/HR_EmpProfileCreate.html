@@ -289,7 +289,7 @@
                         </ul>
                     </li>
 
-                    <!-- 採購系統 -->
+                       <!-- 採購系統 -->
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text fs-5 fw-bold">採購系統</span>
                     </li>
@@ -305,6 +305,11 @@
                                 </a>
                             </li>
                             <li class="menu-item">
+                                <a href="PC_Acceptance.html" class="menu-link">
+                                    <div data-i18n="Account" class="fs-5">採購驗收區</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
                                 <a href="PC_Application.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">採購申請表</div>
                                 </a>
@@ -314,11 +319,11 @@
                                     <div data-i18n="Account" class="fs-5">採購紀錄查詢</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
-                                </a>
-                            </li>
+                            <!--<li class="menu-item">
+                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
+                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
+                </a>
+            </li>-->
                             <li class="menu-item">
                                 <a href="PC_ItemSearch.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">物品資料查詢</div>
@@ -807,9 +812,9 @@
                                 </div>
                                 <!-- Content wrapper -->
                             </div>
-                            <div v-if="limit.DepID!=1" class="mt-2">
+                            <div v-else class="mt-2">
                                 <div class="d-flex justify-content-center my-4 mt-0">
-                                    <h2 class="mx-2 fw-bold" style="font-size: 50px;">非業務部門無法查看</h2>
+                                    <h2 class="mx-2 fw-bold" style="font-size: 50px;">非人事部門無法查看</h2>
                                 </div>
                                 
                                 <div class="d-flex justify-content-center">
@@ -818,9 +823,9 @@
                                         data-app-light-img="illustrations/page-misc-error-light.png" />
                                 </div>
                                 
-                                <div class="d-flex justify-content-center mt-4 mb-4">
+                                <!--<div class="d-flex justify-content-center mt-4 mb-4">
                                     <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
-                                </div>
+                                </div>-->
                             </div>
                             <!-- / Layout page -->
                         </div>

@@ -519,10 +519,10 @@
                                               <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
                                               <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
                                               <td>
-                                                  <span class="label-primary">{{item.date}}</span>
+                                                  <span class="label-primary fs-5 fw-bold ">{{item.date}}</span>
                                               </td>
                                               <td>
-                                                  <span class="label-primary">{{item.attendTime}}</span>
+                                                  <span class="label-primary  fs-5 fw-bold ">{{item.attendTime}}</span>
                                               </td>
                                               <!-- <td>
 
@@ -535,21 +535,21 @@
                               </div>
                               <nav aria-label="Page navigation example" class="justify-content-center d-flex">
                                   <ul class="pagination">
-                                      <li class="page-item">
+                                      <!--<li class="page-item">
                                           <a class="page-link" href="#" aria-label="Previous">
                                               <span aria-hidden="true">&laquo;</span>
                                           </a>
-                                      </li>
+                                      </li>-->
                                       <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
 
-                                      <li class="page-item">
+                                      <!--<li class="page-item">
                                           <a class="page-link" href="#" aria-label="Next">
                                               <span aria-hidden="true">&raquo;</span>
                                           </a>
-                                      </li>
+                                      </li>-->
                                   </ul>
-                                  <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                               </nav>
+                                  <span v-if="page!=0" class="fs-5  fw-bold  justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
 
                           <!--/ Basic Bootstrap Table -->
                             </div>

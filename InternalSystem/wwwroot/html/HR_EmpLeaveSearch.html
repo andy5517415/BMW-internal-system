@@ -292,7 +292,7 @@
                         </ul>
                     </li>
 
-                    <!-- 採購系統 -->
+                       <!-- 採購系統 -->
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text fs-5 fw-bold">採購系統</span>
                     </li>
@@ -308,6 +308,11 @@
                                 </a>
                             </li>
                             <li class="menu-item">
+                                <a href="PC_Acceptance.html" class="menu-link">
+                                    <div data-i18n="Account" class="fs-5">採購驗收區</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
                                 <a href="PC_Application.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">採購申請表</div>
                                 </a>
@@ -317,11 +322,11 @@
                                     <div data-i18n="Account" class="fs-5">採購紀錄查詢</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
-                                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
-                                </a>
-                            </li>
+                            <!--<li class="menu-item">
+                <a href="PC_ApplicationRecordDetails.html" class="menu-link">
+                    <div data-i18n="Account" class="fs-5">採購紀錄細項</div>
+                </a>
+            </li>-->
                             <li class="menu-item">
                                 <a href="PC_ItemSearch.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">物品資料查詢</div>
@@ -469,115 +474,129 @@
                                         <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">員工請假資料查詢</h2>
                                     </div>
                                 </div>
-                            
+
                                 <div class="card-body">
-                                <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                    <br>
-                                    <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
-                                        <!-- 篩選樣板 -->
-                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
-                                            style="position: absolute;top: -25px;left: 20px;">
-                                            查詢條件</p>
-                                    
-                                    <div class="col d-flex mt-5 mb-5 mx-4">
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                               style="width: 70px;">部門</label>
+                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <br>
+                                        <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                            <!-- 篩選樣板 -->
+                                            <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                               style="position: absolute;top: -25px;left: 20px;">
+                                                查詢條件
+                                            </p>
 
-                                        <div class="col ms-2">
-                                            <select id="department" class="select2 form-select fs-5 myinput" v-model="search.departmentId">
-                                                <option value="" disabled>請選擇部門</option>
-                                                <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
-                                            </select>
+                                            <div class="col d-flex mt-5 mb-5 mx-4">
+                                                <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                                       style="width: 70px;">部門</label>
+
+                                                <div class="col ms-2">
+                                                    <select id="department" class="select2 form-select fs-5 myinput" v-model="search.departmentId">
+                                                        <option value="" disabled>請選擇部門</option>
+                                                        <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
+                                                    </select>
+                                                </div>
+                                                <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                                       style="width: 140px;">年、月份</label>
+
+                                                <div class="col ms-2">
+                                                    <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
+                                                </div>
+
+
+                                                <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
+                                                       style="width: 120px;">員工名稱</label>
+
+                                                <div class="col ms-2">
+                                                    <input class="form-control fs-5 myinput" v-model="search.employeeName" id="Employeename" />
+                                                </div>
+
+                                                <div class="col ms-5">
+                                                    <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
+                                                </div>
+
+                                            </div>
                                         </div>
-                                        <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                               style="width: 140px;">年、月份</label>
-
-                                        <div class="col ms-2">
-                                            <input class="form-control fs-5 myinput" type="month" v-model="search.date" id="html5-month-input" />
-                                        </div>
-
-
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4"
-                                               style="width: 120px;">員工名稱</label>
-
-                                        <div class="col ms-2">
-                                            <input class="form-control fs-5 myinput" v-model="search.employeeName" id="Employeename" />
-                                        </div>
-
-                                        <div class="col ms-5">
-                                            <button type="button" @click="okbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
-                                        </div>
-
+                                        <br>
+                                    </form>
+                                    <!-- Basic Bootstrap Table -->
+                                    <div class="alert alert-warning text-black text-center my-4 mt-2 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                                        請假資料
                                     </div>
+                                    <table class="table table-striped table-hover">
+                                        <thead class="bg-black">
+                                            <tr>
+                                                <th class="fs-4 text-white fw-bold">員工名稱</th>
+                                                <th class="fs-4 text-white fw-bold">員工編號</th>
+                                                <th class="fs-4 text-white fw-bold">請假起始時間</th>
+                                                <th class="fs-4 text-white fw-bold">請假結束時間</th>
+                                                <th class="fs-4 text-white fw-bold">修改</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0" v-for="item in employeelist">
+                                            <tr>
+                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
+                                                <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
+                                                <td>
+                                                    <span class="label-primary me-1">{{item.startDate}}-{{item.startTime}}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="label-primary me-1">{{item.endDate}}-{{item.endTime}}</span>
+                                                </td>
+                                                <td>
+
+                                                    <a class="item" href="HR_EmpLeaveEdit.html" @click="ToEditbtn(item)"><i class="bx bx-edit-alt"></i> 修改</a>
+                                                    <!-- <a class="item" href="javascript:void(0);"
+                                  ><i class="bx bx-trash me-1"></i> Delete</a
+                                > -->
+
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                                        <ul class="pagination">
+                                            <!--<li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>-->
+                                            <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+
+                                            <!--<li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>-->
+                                        </ul>
+                                    </nav>
+                                    <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
                                 </div>
-                                <br>
-                                </form>
-                                <!-- Basic Bootstrap Table -->
-                                <div class="alert alert-warning text-black text-center my-4 mt-2 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
-                                    請假資料
-                                </div>
-                                <table class="table table-striped table-hover">
-                                    <thead class="bg-black">
-                                        <tr>
-                                            <th class="fs-4 text-white fw-bold">員工名稱</th>
-                                            <th class="fs-4 text-white fw-bold">員工編號</th>
-                                            <th class="fs-4 text-white fw-bold">請假起始時間</th>
-                                            <th class="fs-4 text-white fw-bold">請假結束時間</th>
-                                            <th class="fs-4 text-white fw-bold">修改</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-border-bottom-0" v-for="item in employeelist">
-                                        <tr>
-                                            <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
-                                            <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
-                                            <td>
-                                                <span class="label-primary me-1">{{item.startDate}}-{{item.startTime}}</span>
-                                            </td>
-                                            <td>
-                                                <span class="label-primary me-1">{{item.endDate}}-{{item.endTime}}</span>
-                                            </td>
-                                            <td>
-
-                                                <a class="item" href="HR_EmpLeaveEdit.html" @click="ToEditbtn(item)"><i class="bx bx-edit-alt"></i> 修改</a>
-                                                <!-- <a class="item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            > -->
-
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
-                                    <ul class="pagination">
-                                        <!--<li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>-->
-                                        <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
-
-                                        <!--<li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>-->
-                                    </ul>
-                                </nav>
-                                <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
+                                <!--/ Basic Bootstrap Table -->
                             </div>
-                            <!--/ Basic Bootstrap Table -->
-                        </div>
-                <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
-                    <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
-                </div>
-                    </div>
-                    <!-- / Content -->
-                    <!-- Footer -->
-                    <!-- / Footer -->
 
-                    <div class="content-backdrop fade"></div>
-                </div>
+                        </div>
+                        <div v-if="limit.DepID!=1" class="mt-2">
+                            <div class="d-flex justify-content-center my-4 mt-0">
+                                <h2 class="mx-2 fw-bold" style="font-size: 50px;">非人事部門無法查看</h2>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                     class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                     data-app-light-img="illustrations/page-misc-error-light.png" />
+                            </div>
+
+                            <!--<div class="d-flex justify-content-center mt-4 mb-4">
+            <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+        </div>-->
+                        </div>
+                        <!-- / Content -->
+                        <!-- Footer -->
+                        <!-- / Footer -->
+
+                        <div class="content-backdrop fade"></div>
+                    </div>
 
                 <!-- Content wrapper -->
             </div>

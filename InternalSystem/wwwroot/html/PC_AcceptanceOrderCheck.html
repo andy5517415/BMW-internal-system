@@ -465,7 +465,7 @@
                                         <div class="col-md-6">
                                             <label for="purchaseId" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">訂單編號</label>
                                             <input type="text"
-                                                   class="form-control fs-5"
+                                                   class="form-control fs-4 fw-bold"
                                                    id="purchaseId"
                                                    placeholder=""
                                                    aria-describedby="defaultFormControlHelp"
@@ -481,7 +481,7 @@
                                         <div class="col-md-6">
                                             <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請人</label>
                                             <input type="text"
-                                                   class="form-control fs-5"
+                                                   class="form-control fs-4 fw-bold"
                                                    id="employeeName"
                                                    placeholder=""
                                                    aria-describedby="defaultFormControlHelp"
@@ -491,7 +491,7 @@
                                         <div class="col-md-6">
                                             <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
                                             <input type="text"
-                                                   class="form-control fs-5"
+                                                   class="form-control fs-4 fw-bold"
                                                    id="department"
                                                    placeholder=""
                                                    aria-describedby="defaultFormControlHelp"
@@ -501,7 +501,7 @@
                                         <div class="col-md-6">
                                             <label for="applicationdate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
                                             <input type="text"
-                                                   class="form-control fs-5"
+                                                   class="form-control fs-5 fw-bold"
                                                    id="applicationdate"
                                                    placeholder=""
                                                    aria-describedby="defaultFormControlHelp"
@@ -529,12 +529,12 @@
                                                     <table class="table table-bordered">
                                                         <thead class="bg-black">
                                                             <tr>
-                                                                <th class="fs-4 text-white fw-bold">項次</th>
-                                                                <th class="fs-4 text-white fw-bold">品名</th>
-                                                                <th class="fs-4 text-white fw-bold">數量</th>
-                                                                <th class="fs-4 text-white fw-bold">單位</th>
-                                                                <th class="fs-4 text-white fw-bold">單價</th>
-                                                                <th class="fs-4 text-white fw-bold">小計</th>
+                                                                <th class="fs-3 text-white fw-bold">項次</th>
+                                                                <th class="fs-3 text-white fw-bold">品名</th>
+                                                                <th class="fs-3 text-white fw-bold">數量</th>
+                                                                <th class="fs-3 text-white fw-bold">單位</th>
+                                                                <th class="fs-3 text-white fw-bold">單價</th>
+                                                                <th class="fs-3 text-white fw-bold">小計</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -542,28 +542,28 @@
                                                                 <!--第一項物品-->
                                                                 <!--項次-->
                                                                 <td>
-                                                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{index+1}}</strong>
+                                                                    <i class="fab fa-angular fa-lg text-danger me-3 "></i> <strong class="fs-4 fw-bold ">{{index+1}}</strong>
                                                                 </td>
                                                                 <!--物品名稱-->
-                                                                <td>{{a.goods}}</td>
+                                                                <td class="fs-4 fw-bold ">{{a.goods}}</td>
                                                                 <!--物品數量-->
                                                                 <td>
                                                                     <div>
-                                                                        <p>{{a.quantiy}}</p>
+                                                                        <p class="fs-4 fw-bold my-1">{{a.quantiy}}</p>
                                                                     </div>
                                                                 </td>
                                                                 <!--單位-->
-                                                                <td><span class="badge bg-label-primary me-1">隻</span></td>
+                                                                <td><span class="badge bg-label-primary me-1 fs-4 fw-bold">隻</span></td>
                                                                 <!--單價-->
                                                                 <td>
                                                                     <div class="dropdown">
-                                                                        <p>{{a.unitPrice}}元</p>
+                                                                        <p class="fs-5 fw-bold my-1">{{a.unitPrice}}元</p>
                                                                     </div>
                                                                 </td>
                                                                 <!--小計-->
                                                                 <td>
                                                                     <div class="dropdown">
-                                                                        <div>{{a.subtotal}}元</div>
+                                                                        <div class="fs-5 fw-bold my-1">{{a.subtotal}}元</div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -572,7 +572,7 @@
                                                     <!-- 總價 -->
                                                     <div>
                                                         <div class="d-flex flex-row-reverse bd-highlight">
-                                                            <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
+                                                            <div class="p-2 bd-highlight fs-3 fw-bold">總價：{{totalprice}}元</div>
                                                         </div>
                                                         <div class="table-responsive text-nowrap"></div>
                                                     </div>
@@ -583,10 +583,10 @@
                                         <div>
                                         </div>
                                         <div class="row">
-                                            <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#reject">
+                                            <button type="button" class="col-md-6 btn btn-primary d-block fs-4 fw-bold " data-bs-toggle="modal" data-bs-target="#reject">
                                                 駁回
                                             </button>
-                                            <button type="button" class="col-md-6 btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#pass">
+                                            <button type="button" class="col-md-6 btn btn-primary d-block fs-4 fw-bold " data-bs-toggle="modal" data-bs-target="#pass">
                                                 核准
                                             </button>
                                             <!--<button class="col-md-6 btn btn-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>-->
@@ -609,10 +609,10 @@
                                                     </div>
                                                     <br>
                                                     <!--<p class="fs-6 text-center">⚠️注意，取消後訂單將被取消!</p>-->
-                                                    <p class="fs-6 text-center">⚠️注意，取消後物品將直接退回!</p>
+                                                    <p class="fs-6 text-center fs-4 fw-bold ">⚠️注意，取消後物品將直接退回!</p>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
-                                                        <button type="button" class="btn btn-primary border-3" v-on:click="Cancel">確定</button>
+                                                        <button type="button" class="btn btn-primary border-3 fs-4 fw-bold " v-on:click="Cancel">確定</button>
                                                     </div>
 
                                                 </div>
@@ -630,10 +630,10 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <br>
-                                                    <p class="fs-6 text-center">⚠️注意，貨物即將驗收通過!</p>
+                                                    <p class="fs-6 text-center fs-4 fw-bold ">⚠️注意，貨物即將驗收通過!</p>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
-                                                        <button type="button" class="btn btn-primary border-3" v-on:click="Confirm">確定</button>
+                                                        <button type="button" class="btn btn-primary border-3 fs-4 fw-bold " v-on:click="Confirm">確定</button>
                                                     </div>
                                                 </div>
                                             </div>

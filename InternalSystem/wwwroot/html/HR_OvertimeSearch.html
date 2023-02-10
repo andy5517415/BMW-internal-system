@@ -468,51 +468,52 @@
                             <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
                             <!-- 加班資料查詢/修改 -->
                             <div class="card mb-4 m-4">
-                              <!-- 卡片標題 -->
-                              <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
-                                <div class="col-1 my-2 mb-3" style="width: 70px;">
-                                  <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
-                                </div>
-                                <div class="col-6 my-2 mb-3">
-                                  <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">個人請假資料查詢</h2>
-                                </div>
-                              </div>
-                              <div class="card-body">
-                                <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                  <br>
-                                  <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
-                                    <!-- 篩選樣板 -->
-                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
-                                      查詢條件</p>
-                                  
-                                    <div class="col d-flex mt-5 mb-5 mx-4">
-                                        <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4 myinput" style="width: 70px;">部門</label>
-                                        <div class="col ms-2">
-                                            <select id="department" class="select2 form-select fs-5 myinput" v-model="employeelist.depId">
-                                                <option value="">選擇部門</option>
-                                                <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
-                                            </select>
-                                        </div>
-
-                                        <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">加班月份</label>
-                                        <div class="col ms-2">
-                                            <input class="form-control fs-5 myinput" type="month" id="html5-month-input" v-model="employeelist.month" />
-                                        </div>
-                                        <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工名稱</label>
-                                        <div class="col ms-2">
-                                            <input class="form-control fs-5 myinput" id="Employeename" v-model="employeelist.name" />
-                                        </div>
-
-                                        <div class="col ms-5">
-                                            <button type="button" v-on:click="search" class="btn btn-outline-primary fs-4 fw-bold border-3 ">查詢</button>
-                                        </div>
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
                                     </div>
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">個人請假資料查詢</h2>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <br>
+                                        <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                            <!-- 篩選樣板 -->
+                                            <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                                查詢條件
+                                            </p>
 
-                                </form>
-                            </div>
+                                            <div class="col d-flex mt-5 mb-5 mx-4">
+                                                <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4 myinput" style="width: 70px;">部門</label>
+                                                <div class="col ms-2">
+                                                    <select id="department" class="select2 form-select fs-5 myinput" v-model="employeelist.depId">
+                                                        <option value="">選擇部門</option>
+                                                        <option v-for="item in departmentlist" :value="item.departmentId">{{item.depName}}</option>
+                                                    </select>
+                                                </div>
 
-                            <br>
-                            <!-- Basic Bootstrap Table -->
+                                                <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">加班月份</label>
+                                                <div class="col ms-2">
+                                                    <input class="form-control fs-5 myinput" type="month" id="html5-month-input" v-model="employeelist.month" />
+                                                </div>
+                                                <label for="EmployeeName" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">員工名稱</label>
+                                                <div class="col ms-2">
+                                                    <input class="form-control fs-5 myinput" id="Employeename" v-model="employeelist.name" />
+                                                </div>
+
+                                                <div class="col ms-5">
+                                                    <button type="button" v-on:click="search" class="btn btn-outline-primary fs-4 fw-bold border-3 ">查詢</button>
+                                                </div>
+                                            </div>
+
+                                    </form>
+                                </div>
+
+                                <br>
+                                <!-- Basic Bootstrap Table -->
                                 <div id="workdata">
                                     <div class="alert alert-warning text-black text-center mb-4 fs-2 fw-bold col-3 mx-auto" style="width: 250px;" role="alert">
                                         員工加班資料
@@ -575,9 +576,22 @@
                             <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
                         </div>
                         <!--/ Basic Bootstrap Table -->
-                    <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
-                        <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
+
                     </div>
+                    <div v-if="limit.DepID!=1" class="mt-2">
+                        <div class="d-flex justify-content-center my-4 mt-0">
+                            <h2 class="mx-2 fw-bold" style="font-size: 50px;">非人事部門無法查看</h2>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                 class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                 data-app-light-img="illustrations/page-misc-error-light.png" />
+                        </div>
+
+                        <!--<div class="d-flex justify-content-center mt-4 mb-4">
+            <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+        </div>-->
                     </div>
                     <!-- / Content -->
                     <div class="content-backdrop fade"></div>
