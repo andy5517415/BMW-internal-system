@@ -503,6 +503,7 @@
                                             <th class="fs-4 text-white fw-bold">請假起始時間</th>
                                             <th class="fs-4 text-white fw-bold">請假結束時間</th>
                                             <th class="fs-4 text-white fw-bold">狀態</th>
+                                            <th class="fs-4 text-white fw-bold">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0" v-for="item in leavelist">
@@ -532,21 +533,21 @@
                             
                             <nav aria-label="Page navigation example" class="justify-content-center d-flex">
                                 <ul class="pagination">
-                                    <li class="page-item">
+                                    <!--<li class="page-item">
                                         <a class="page-link" href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
-                                    </li>
+                                    </li>-->
                                     <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
 
-                                    <li class="page-item">
+                                    <!--<li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
-                                    </li>
+                                    </li>-->
                                 </ul>
-                                <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                             </nav>
+                                <span v-if="page!=0" class="fs-5 justify-content-center d-flex" >第{{nowpage}}頁/共{{page}}頁</span>
 
                         <!--/ Basic Bootstrap Table -->
                         </div>

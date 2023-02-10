@@ -908,7 +908,7 @@ namespace InternalSystem.Controllers
 
 
 
-            if (update.StatusId < 5)
+            if (update.StatusId < 4 )
             {
                 if (personnelLeaveForm.LeaveType <= 4)
                 {

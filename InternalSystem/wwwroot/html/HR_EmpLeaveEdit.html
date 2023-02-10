@@ -197,7 +197,7 @@
                                     <div data-i18n="Account" class="fs-5">員工出勤查詢</div>
                                 </a>
                             </li>
-                            
+
 
                         </ul>
                     </li>
@@ -226,7 +226,7 @@
                             </li>
                             <li class="menu-item">
                                 <a href="BS_OrderAll.html" class="menu-link">
-                                  <div data-i18n="Account" class="fs-5">訂單一覽</div>
+                                    <div data-i18n="Account" class="fs-5">訂單一覽</div>
                                 </a>
                             </li>
                         </ul>
@@ -278,7 +278,7 @@
                             <div data-i18n="Account Settings" class="fs-4 fw-bold">產線狀況監控</div>
                         </a>
                         <ul class="menu-sub">
-                             
+
                             <li class="menu-item">
                                 <a href="BS_BugSys.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">報錯系統</div>
@@ -346,13 +346,13 @@
                                 </a>
                             </li>
 
-                            
+
                             <li class="menu-item">
                                 <a href="MT_MeetReserveSearch.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">查詢租借紀錄/<br>建立會議記錄表</div>
                                 </a>
                             </li>
-                            
+
                             <li class="menu-item">
                                 <a href="MT_MeetRecordSearch.html" class="menu-link">
                                     <div data-i18n="Account" class="fs-5">會議記錄表查詢</div>
@@ -361,8 +361,8 @@
                         </ul>
                     </li>
 
-                    
-                    
+
+
                 </ul>
             </aside>
             <!-- /Menu -->
@@ -372,23 +372,23 @@
 
                 <nav class="container" id="navInf">
                     <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                        id="layout-navbar" style="height: 80px;">
+                         id="layout-navbar" style="height: 80px;">
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <!-- 問好 -->
                             <div v-bind:title="message" class="navbar-nav align-items-center fs-4 mx-auto">
                                 😊您好
                                 <span class="fw-bold mx-2 fs-2"
-                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
+                                      style="text-decoration: underline 4pt #666EE8;">{{navInf.Name}}</span>&nbsp;&nbsp;
                                 📋工號：
                                 <span class="fw-bold mx-2 fs-2"
-                                    style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
+                                      style="text-decoration: underline 4pt #666EE8;">{{navInf.EmpNumber}}</span>&nbsp;&nbsp;
                                 💻部門：
                                 <span class="fw-bold mx-2 fs-2" style="text-decoration: underline 4pt #666EE8;">{{navInf.Dep}}</span>
                             </div>
                             <!-- /問好 -->
-                
+
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-                
+
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -412,7 +412,7 @@
                                                 </div>
                                             </a>
                                         </li>
-                
+
                                         <li>
                                             <a class="dropdown-item" href="#" @click="DoLogOut">
                                                 <i class="bx bx-power-off me-2"></i>
@@ -423,7 +423,7 @@
                                 </li>
                                 <!--/ User -->
                             </ul>
-                
+
                         </div>
                     </nav>
                     <!-- / Navbar -->
@@ -434,10 +434,10 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                                        <div class="container-xxl flex-grow-1 container-p-y" id="app">
+                    <div class="container-xxl flex-grow-1 container-p-y" id="app">
                         <!-- 我是成功的吐司 -->
                         <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastSuc">
+                             aria-live="assertive" aria-atomic="true" id="toastSuc">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -450,7 +450,7 @@
                         </div>
                         <!-- 錯誤的吐司 -->
                         <div class="bs-toast toast fade show bg-danger mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
-                            aria-live="assertive" aria-atomic="true" id="toastErr">
+                             aria-live="assertive" aria-atomic="true" id="toastErr">
                             <div class="toast-header">
                                 <i class="bx bx bxs-bell bx-tada me-2"></i>
                                 <div class="me-auto fw-bold fs-3">通知</div>
@@ -461,143 +461,147 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                        
-                        <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料修改</h4>
-                        <div class="card mb-4 m-4 card-body">
-                            <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
-                                請假資訊
-                            </div>
-                            <div class="row py-3 ">
-                                <div class="mb-3 col-md-2">
-                                    <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">員工名稱</label>
-                                    <input class="form-control fs-5" v-model="leavedata.employeeName" id="Employeename" disabled />
-                                </div>
-                                <div class="mb-3 col-md-2">
-                                    <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">員工編號</label>
-                                    <input class="form-control fs-5" v-model="leavedata.employeeNumber" id="Employeenameid" disabled />
-                                </div>
-
-                                <div class="mb-3 col-md-2">
-                                    <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">部門</label>
-                                    <input class="form-control fs-5" v-model="leavedata.depName" id="department" disabled />
-                                </div>
-                                <div class="mb-3 col-md-2">
-                                    <label for="paidvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">可用特休</label>
-                                    <input class="form-control fs-5" v-model="leaveOver3.quantity" id="paidvacation" disabled />
-                                </div>
-                                <div class="mb-3 col-md-2">
-                                    <label for="usedpaidvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">已用特休</label>
-                                    <input class="form-control fs-5" v-model="leaveOver3.used" id="usedpaidvacation" disabled />
-                                </div>
-                                <div class="mb-3 col-md-2">
-                                    <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">剩餘特休</label>
-                                    <input class="form-control fs-5" v-model="leaveOver3.leaveOver" id="remaindervacation" disabled />
+                        <div v-if="limit.DepID==1">
+                            <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 請假資料修改</h4>
+                            <div class="card mb-4 m-4 card-body">
+                                <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                                    請假資訊
                                 </div>
                                 <div class="row py-3 ">
-
-                                    <div class="mb-3 col-2">
-                                        <label for="StartDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假開始日期</label>
-                                        <input class="form-control fs-5" v-model="leavedata.startDate" id="StartDate" disabled />
+                                    <div class="mb-3 col-md-2">
+                                        <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">員工名稱</label>
+                                        <input class="form-control fs-5" v-model="leavedata.employeeName" id="Employeename" disabled />
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">員工編號</label>
+                                        <input class="form-control fs-5" v-model="leavedata.employeeNumber" id="Employeenameid" disabled />
                                     </div>
 
-                                    <div class="mb-3 col-2">
-                                        <label for="StartTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5" style="visibility: hidden;">開始時間</label>
-                                        <input class="form-control fs-5" v-model="leavedata.startTime" id="StartTime" disabled />
+                                    <div class="mb-3 col-md-2">
+                                        <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">部門</label>
+                                        <input class="form-control fs-5" v-model="leavedata.depName" id="department" disabled />
                                     </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label for="paidvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">可用特休</label>
+                                        <input class="form-control fs-5" v-model="leaveOver3.quantity" id="paidvacation" disabled />
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label for="usedpaidvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">已用特休</label>
+                                        <input class="form-control fs-5" v-model="leaveOver3.used" id="usedpaidvacation" disabled />
+                                    </div>
+                                    <div class="mb-3 col-md-2">
+                                        <label for="remaindervacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">剩餘特休</label>
+                                        <input class="form-control fs-5" v-model="leaveOver3.leaveOver" id="remaindervacation" disabled />
+                                    </div>
+                                    <div class="row py-3 ">
 
-                                    <div class="mb-3 col-2">
-                                        <label for="EndDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假結束時間</label>
-                                        <input class="form-control fs-5" v-model="leavedata.endDate" id="EndDate" disabled />
-                                    </div>
+                                        <div class="mb-3 col-2">
+                                            <label for="StartDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假開始日期</label>
+                                            <input class="form-control fs-5" v-model="leavedata.startDate" id="StartDate" disabled />
+                                        </div>
 
-                                    <div class="mb-3 col-2">
-                                        <label for="EndTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5" style="visibility: hidden;">結束時間</label>
-                                        <input class="form-control fs-5" v-model="leavedata.endTime" id="EndTime" disabled />
-                                    </div>
-                                    <div class="mb-3 col-2">
-                                        <label for="leaveType" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">假別</label>
-                                        <input class="form-control fs-5"   v-model="leavedata.type" id="leaveType" disabled />
-                                    </div>
-                                    <div class="mb-3 col-2">
-                                        <label for="AuditStatus" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">審核狀態</label>
-                                        <input class="form-control fs-5" v-model="leavedata.auditStatus" id="AuditStatus" disabled />
+                                        <div class="mb-3 col-2">
+                                            <label for="StartTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5" style="visibility: hidden;">開始時間</label>
+                                            <input class="form-control fs-5" v-model="leavedata.startTime" id="StartTime" disabled />
+                                        </div>
+
+                                        <div class="mb-3 col-2">
+                                            <label for="EndDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假結束時間</label>
+                                            <input class="form-control fs-5" v-model="leavedata.endDate" id="EndDate" disabled />
+                                        </div>
+
+                                        <div class="mb-3 col-2">
+                                            <label for="EndTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5" style="visibility: hidden;">結束時間</label>
+                                            <input class="form-control fs-5" v-model="leavedata.endTime" id="EndTime" disabled />
+                                        </div>
+                                        <div class="mb-3 col-2">
+                                            <label for="leaveType" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">假別</label>
+                                            <input class="form-control fs-5" v-model="leavedata.type" id="leaveType" disabled />
+                                        </div>
+                                        <div class="mb-3 col-2">
+                                            <label for="AuditStatus" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">審核狀態</label>
+                                            <input class="form-control fs-5" v-model="leavedata.auditStatus" id="AuditStatus" disabled />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card mb-4 m-4 card-body">
-                            <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
-                                    員工請假資料修改
-                                </div>
-                                <div class="row">
-                                    <div class="row col-10 justify-content-center mx-5">
-                                        <div class="mb-3 col-md-5">
-                                            <label for="Starttimeforvacation" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假開始時間</label>
-                                            <input class="form-control fs-5" type="date" v-model="leavedata.startDate" id="Starttimeforvacation" />
-                                        </div>
-
-                                        <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control fs-5" type="time" v-model="leavedata.startTime" id="Endtimeforvacation" />
-                                        </div>
+                            <div class="card mb-4 m-4 card-body">
+                                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                    <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                                        員工請假資料修改
                                     </div>
-
-                                    <div class="row col-10 justify-content-center mx-5">
-                                        <div class="mb-3 col-md-5">
-                                            <label for="Endtimeforvacation" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假結束時間</label>
-                                            <input class="form-control fs-5" type="date" v-model="leavedata.endDate" id="Endtimeforvacation" />
-                                        </div>
-
-                                        <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control fs-5" type="time" v-model="leavedata.endTime" id="Endtimeforvacation" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mx-auto my-4">
-                                        <label for="Endtimeforvacation" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">總請假時間</label>
-                                        <input class="form-control fs-5" v-model="leavedata.totalTime" id="Totalvacation" disabled />
-                                    </div>
-                                    <div class="col-md-3 mx-auto my-4">
-                                        <label class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5"for="Rank">假別</label>
-                                        <select id="Rank" v-model="leavedata.leaveType"  class="select2 form-select">
-                                            <option v-for="item in leavetype":value="item.leaveTypeId">{{item.type}}</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                            <!-- ★Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content border border-5">
-                                                        <div class="modal-header mb-3">
-                                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel"
-                                                                style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                                &nbsp💡提示訊息
-                                                            </p>
-                                                        </div>
-                                                        <div class="row justify-content-center">
-                                                            <hr class="col-10">
-                                                        </div>
-                                                        <div class="modal-body text-start mt-0">
-                                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認編輯資料?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" 
-                                                                @click="leaveedit">
-                                                                確認
-                                                            </button>
-                                                            <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
-                                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="row">
+                                        <div class="row col-10 justify-content-center mx-5">
+                                            <div class="mb-3 col-md-5">
+                                                <label for="Starttimeforvacation" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假開始時間</label>
+                                                <input class="form-control fs-5" type="date" v-model="leavedata.startDate" id="Starttimeforvacation" />
                                             </div>
-                                <div class="my-4 d-md-flex justify-content-md-end">
-                                    <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
-                                    <a href="/html/HR_EmpLeaveSearch.html"class="btn btn-secondary fs-4 fw-bold border-3 me-3">返回</a>
-</div>
+
+                                            <div class="mb-3 col-md-5 mt-auto">
+                                                <input class="form-control fs-5" type="time" v-model="leavedata.startTime" id="Endtimeforvacation" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-10 justify-content-center mx-5">
+                                            <div class="mb-3 col-md-5">
+                                                <label for="Endtimeforvacation" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">請假結束時間</label>
+                                                <input class="form-control fs-5" type="date" v-model="leavedata.endDate" id="Endtimeforvacation" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-5 mt-auto">
+                                                <input class="form-control fs-5" type="time" v-model="leavedata.endTime" id="Endtimeforvacation" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mx-auto my-4">
+                                            <label for="Endtimeforvacation" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">總請假時間</label>
+                                            <input class="form-control fs-5" v-model="leavedata.totalTime" id="Totalvacation" disabled />
+                                        </div>
+                                        <div class="col-md-3 mx-auto my-4">
+                                            <label class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5" for="Rank">假別</label>
+                                            <select id="Rank" v-model="leavedata.leaveType" class="select2 form-select">
+                                                <option v-for="item in leavetype" :value="item.leaveTypeId">{{item.type}}</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                            </div>
+                            <!-- ★Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border border-5">
+                                        <div class="modal-header mb-3">
+                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel"
+                                               style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                &nbsp💡提示訊息
+                                            </p>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <hr class="col-10">
+                                        </div>
+                                        <div class="modal-body text-start mt-0">
+                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto">⚠️確認編輯資料?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal"
+                                                    @click="leaveedit">
+                                                確認
+                                            </button>
+                                            <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-4 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
+                                <a href="/html/HR_EmpLeaveSearch.html" class="btn btn-secondary fs-4 fw-bold border-3 me-3">返回</a>
+                            </div>
                         </div>
 
                         </form>
+                        <div v-if="limit.DepID!=1" class="justify-content-center d-flex">
+                            <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非人事部門無法查看</p>
+                        </div>
                     </div>
                     <!-- / Content -->
                     <!-- Footer -->
@@ -650,14 +654,13 @@
                     leaveOver2: {},
                     leaveOver3: {},
                     leaveOver4: {},
-                    leavetype: {}
+                    leavetype: {},
+                    limit: {}
                 }
             },
             methods: {
                 leaveedit: function () {
-                    if (this.leavedata.leaveType != null &&
-                        this.leavedata.proxy != null && this.leavedata.auditManerger != null
-                        && this.leavedata.reason != null
+                    if (this.leavedata.leaveType != null 
                     ) {
 
                         // 判斷是否日期時間是否填入
@@ -707,6 +710,7 @@
                     .then(response => this.leaveOver4 = response.data).catch(err => console.log(err))//生理
                 axios.get('/api/PersonnelLeaveTypes')
                     .then(response => this.leavetype = response.data)
+                this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
             }
         }
 
