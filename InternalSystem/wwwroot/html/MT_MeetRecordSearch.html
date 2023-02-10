@@ -437,29 +437,50 @@
                         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">會議室 /</span> 查詢會議紀錄表</h4>
 
                         <!-- HTML5 Inputs -->
-                        <div class="card mb-5 m-4 card-body inputCard2">
-                            <div class="my-4 d-flex">
-                                <!-- 選擇部門 -->
-                                <label for="meetDepeart_select" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">選擇部門</label>
-                                <div class="col-2 ms-2">
-                                    <select v-model="MeetSearch.DepId" class="form-select myinput fs-5" id="meetDepeart_select" aria-label="Default select example">
-                                        <option value="" disabled>選擇部門</option>
-                                        <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
-                                    </select>
+                        <div class="card mb-4 m-4">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
                                 </div>
-
-                                <div class="col ms-5">
-                                    <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">確定</button>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">修改員工資料</h2>
                                 </div>
                             </div>
-                        </div>
+                        
+                        <div class="card-body"><br>
+                            <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                <!-- 篩選樣板 -->
+                                <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                    style="position: absolute;top: -25px;left: 20px;">
+                                    查詢條件</p>
+                            
+                                <div class="col d-flex mt-5 mb-5 mx-4">
+                                    <!-- 選擇部門 -->
+                                    <label for="meetDepeart_select" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">選擇部門</label>
+                                    <div class="col-2 ms-2">
+                                        <select v-model="MeetSearch.DepId" class="form-select myinput fs-5" id="meetDepeart_select" aria-label="Default select example">
+                                            <option value="" disabled>選擇部門</option>
+                                            <option v-for="dep in Dep" :value="dep.departmentId">{{dep.depName}}</option>
+                                        </select>
+                                    </div>
 
+                                    <div class="col ms-5">
+                                        <button @click="DoMeetSearch" type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">確定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <br>
                         <!-- ★會議室租借紀錄 -->
-                        <div class="card m-4 mb-0" v-if="MeetInf.isValue" >
-                            <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
-                            <div class="table-responsive p-5 text-nowrap">
+                        <div class="" v-if="MeetInf.isValue" >
+                            <div class="alert alert-warning text-black text-center mt-4 my-4 fs-2 fw-bold col-3 mx-auto" style="width: 280px;"
+                                role="alert">
+                                會議室租借紀錄
+                            </div>
+
+                            <div class="table-responsive  text-nowrap">
                                 <table class="table table-hover table-striped">
-                                    <thead class="table-primary">
+                                    <thead class="bg-dark">
                                         <tr>
                                             <th class="fs-4 text-white fw-bold">會議室</th>
                                             <th class="fs-4 text-white fw-bold">日期</th>
@@ -475,18 +496,18 @@
                                         <!-- ★一列 -->
                                         <tr v-for="(MeetSearchInf,index) in MeetInf">
                                             <td><span v-model="MeetInf"
-                                                    class="badge bg-primary me-1 fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
+                                                    class="badge bg-label-primary me-1 fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
                                             <td v-model="MeetInf"><span
-                                                    class="badge bg-primary me-1 fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
+                                                    class="badge bg-label-primary me-1 fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
                         
                                             <!-- 取消按鈕 -->
                                             <td v-model="MeetInf">
-                                                <button v-if="MeetInf.isValue" @click="DoSearchRecord(index)" type="button" class="btn btn-outline-primary p-1 fs-6"
-                                                    data-bs-toggle="modal" style="font-size: 6px;height: 30px;">
+                                                <button v-if="MeetInf.isValue" @click="DoSearchRecord(index)" type="button" class="btn btn-primary p-1 fs-4 fw-bold"
+                                                    data-bs-toggle="modal">
                                                     查看會議記錄
                                                 </button>
                                             </td>
@@ -495,10 +516,22 @@
                                 </table>
                             </div>
                         </div>
-
+                    </div>
+                </div>
+                        <br>
                         <div class="card shadow m-4 mb-0" v-for="MR in MeetRcInf" >
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3273/3273589.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">會議記錄表</h2>
+                                </div>
+                            </div>
+
                             <!-- 會議出勤狀況 -->
-                                <p class="fs-3 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議出勤狀況</p>
+                                <p class="fs-2 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議出勤狀況</p>
                                 <div class="card-body row justify-content-center">
                                     <div class="col-6 col-md-3 my-2 ms-1">
                                         <label for="meetRc_president" class="form-label fs-5">會議主席</label>
@@ -535,36 +568,37 @@
                                 </div>
 
                                 <!-- 後續行動
-                                <p class="fs-3 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 後續行動</p>
+                                <p class="fs-2 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 後續行動</p>
                                 <div class="card-body row justify-content-center">
 
                                     <label for="meetRc_absent" class="form-label fs-5">負責人/事項/截止日</label>
                                     <div class="col-11 mx-5">
                                         <textarea  :value="MR.principal" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
-                                    </div> -->
+                                    </div>
                                 
                                     
-                                    <hr class="col-11 mx-auto mt-3">
-                                </div>
+                                <hr class="col-11 mx-auto mt-3">
+                                </div> -->
                                 <!-- 議程 -->
-                                <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 議程</p>
+                                <p class="fs-2 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 議程</p>
                                 <div class="card-body row">
                                     <div class="col-11 mx-5">
                                         <textarea  :value="MR.agenda" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 </div>
                                 <!-- 會議記錄 -->
-                                <p class="fs-3 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議記錄</p>
-                                <div class="card-body row">
+                                <p class="fs-2 mt-5 fw-bold mx-2 ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議記錄</p>
+                                <div class="card-body row mb-4">
                                     <div class="col-11 mx-5">
                                         <textarea  :value="MR.record" class="form-control fs-5" id="meetRc_member" rows="5" disabled></textarea>
                                     </div>
                                 </div>
+
                                 <!-- 送出按鈕 -->
-                                <div class="my-5 d-flex justify-content-center">
+                                <!-- <div class="my-5 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-outline-info me-2">編輯</button>
                                     <button type="submit" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">完全儲存</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
