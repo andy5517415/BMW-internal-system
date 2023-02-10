@@ -445,7 +445,7 @@
 
                     <!-- 選擇生產的工作位置報工-->
                     <div id="app">
-                        <div v-if="limit.DepID>4">
+                        <div v-if="limit.DepID==2 && limit.PositionId>=4">
                             <!-- 我是成功的吐司 -->
                             <div class="bs-toast toast fade show bg-success mx-auto toast-placement-ex mt-3 me-3 top-0 end-0 " role="alert"
                                  aria-live="assertive" aria-atomic="true" id="toastSuc">

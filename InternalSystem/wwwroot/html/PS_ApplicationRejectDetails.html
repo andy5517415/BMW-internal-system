@@ -466,7 +466,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
-                                <input class="form-control fs-5"
+                                <input class="form-control fs-4 fw-bold"
                                        type="text"
                                        id="employeeName"
                                        name="employeeName"
@@ -476,7 +476,7 @@
                             <!-- 部門選擇 -->
                             <div class="mb-3 col-md-6">
                                 <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
-                                <input class="form-control fs-5"
+                                <input class="form-control fs-4 fw-bold"
                                        type="text"
                                        id="department"
                                        name="department"
@@ -487,13 +487,13 @@
                             <div class="mb-3 col-md-6">
                                 <label for="ApplicationDate" class="col-md-2 col-form-label">申請日期</label>
                                 <div class="col-md-12">
-                                    <input class="form-control fs-5" type="text" id="ApplicationDate" v-model="myobject.date" disabled />
+                                    <input class="form-control fs-4 fw-bold" type="text" id="ApplicationDate" v-model="myobject.date" disabled />
                                 </div>
                             </div>
                             <!-- 採購單號 -->
                             <div class="mb-3 col-md-6">
                                 <label for="PurchaseID" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">採購單號</label>
-                                <input class="form-control fs-5"
+                                <input class="form-control fs-4 fw-bold"
                                        type="text"
                                        id="PurchaseID"
                                        name="PurchaseID"
@@ -503,7 +503,7 @@
                             <!-- 備註 -->
                             <div class="mb-3 col-md-6">
                                 <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
-                                <input class="form-control fs-5"
+                                <input class="form-control fs-4 fw-bold"
                                        type="text"
                                        id="Comment"
                                        name="Comment"
@@ -513,7 +513,7 @@
                             <!-- 審核結果 -->
                             <div class="mb-3 col-md-6">
                                 <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請結果</label>
-                                <input class="form-control fs-5"
+                                <input class="form-control fs-4 fw-bold"
                                        type="text"
                                        id="Comment"
                                        name="Comment"
@@ -528,12 +528,12 @@
                                         <table class="table table-bordered">
                                             <thead class="bg-black">
                                                 <tr>
-                                                    <th class="fs-4 text-white fw-bold">項次</th>
-                                                    <th class="fs-4 text-white fw-bold">品名</th>
-                                                    <th class="fs-4 text-white fw-bold">數量</th>
-                                                    <th class="fs-4 text-white fw-bold">單位</th>
-                                                    <th class="fs-4 text-white fw-bold">單價</th>
-                                                    <th class="fs-4 text-white fw-bold">小計</th>
+                                                    <th class="fs-3 text-white fw-bold">項次</th>
+                                                    <th class="fs-3 text-white fw-bold">品名</th>
+                                                    <th class="fs-3 text-white fw-bold">數量</th>
+                                                    <th class="fs-3 text-white fw-bold">單位</th>
+                                                    <th class="fs-3 text-white fw-bold">單價</th>
+                                                    <th class="fs-3 text-white fw-bold">小計</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -541,28 +541,28 @@
                                                     <!-- 第一項物品 -->
                                                     <!-- 項次 -->
                                                     <td>
-                                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{a.purchaseId}}</strong>
+                                                        <i class="fab fa-angular fa-lg text-danger me-3 "></i> <strong class="fs-5 fw-bold">{{a.purchaseId}}</strong>
                                                     </td>
                                                     <!-- 物品名稱 -->
-                                                    <td>{{a.goods}}</td>
+                                                    <td class="fs-5 fw-bold">{{a.goods}}</td>
                                                     <!-- 物品數量 -->
                                                     <td>
                                                         <div>
-                                                            <p>{{a.quantiy}}</p>
+                                                            <p class="fs-5 fw-bold my-1">{{a.quantiy}}</p>
                                                         </div>
                                                     </td>
                                                     <!-- 單位 -->
-                                                    <td><span class="badge bg-label-primary me-1">{{a.unit}}</span></td>
+                                                    <td><span class="badge bg-label-primary me-1 fs-5 fw-bold my-1">{{a.unit}}</span></td>
                                                     <!-- 單價 -->
                                                     <td>
                                                         <div class="dropdown">
-                                                            <p>{{a.unitPrice}}元</p>
+                                                            <p class="fs-5 fw-bold my-1">{{a.unitPrice}}元</p>
                                                         </div>
                                                     </td>
                                                     <!-- 小計 -->
                                                     <td>
                                                         <div class="dropdown">
-                                                            <div>{{a.subtotal}}元</div>
+                                                            <div class="fs-5 fw-bold my-1">{{a.subtotal}}元</div>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -571,15 +571,42 @@
                                         <!-- 總價 -->
                                         <div>
                                             <div class="d-flex flex-row-reverse bd-highlight">
-                                                <div class="p-2 bd-highlight">總價：{{totalprice}}元</div>
+                                                <div class="p-2 bd-highlight fs-5 fw-bold my-1">總價：{{totalprice}}元</div>
                                             </div>
                                             <div class="table-responsive text-nowrap"></div>
                                         </div>
+                                        <!-- ★Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border border-5">
+                                                    <div class="modal-header mb-3">
+                                                        <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                            &nbsp新增員工資料
+                                                        </p>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <hr class="col-10">
+                                                    </div>
+                                                    <div class="modal-body text-start mt-0">
+                                                        <p class="fs-4  fw-bold">✏️採購單號：{{myobject.purchaseId}}</p>
+                                                        <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認刪除申請?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" @click="delbtn">確認</button>
+                                                     
+                                                        <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- 按鈕 -->
-                                        <div class="mt-2 d-md-flex justify-content-md-end">
-
-                                            <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3" @click="delbtn">刪除</button>
-
+                                        <div class="mt-2 py-5 d-md-flex justify-content-md-end">
+                                            <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                刪除申請
+                                            </button>
+                                            <!--<button type="button" v-on:click="createbtn" class="btn btn-primary fs-4 fw-bold border-3 me-3 ">存檔</button>-->
+                                           
                                         </div>
                                     </div>
                                 </div>

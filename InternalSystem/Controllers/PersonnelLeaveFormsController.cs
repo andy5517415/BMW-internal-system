@@ -318,7 +318,7 @@ namespace InternalSystem.Controllers
                                      join l in _context.PersonnelLeaveAuditStatuses on pl.StatusId equals l.StatusId
                                      join d in _context.PersonnelDepartmentLists on o.DepartmentId equals d.DepartmentId
                                      join lt in _context.PersonnelLeaveTypes on pl.LeaveType equals lt.LeaveTypeId
-                                     where o.DepartmentId == depId && o.PositionId == position && pl.Proxy == Id
+                                     where o.DepartmentId == depId && o.PositionId <= position && o.PositionId<7 && pl.Proxy == Id
                                      && pl.StatusId == 1
                                      orderby pl.LeaveId descending
                                      select new

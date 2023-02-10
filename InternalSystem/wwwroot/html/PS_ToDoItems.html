@@ -643,7 +643,7 @@
                                                                 
                                                             </td>
                                                             <td>
-                                                                <span class="label-primary me-1 fs-5" v-if="buy.applicationRejectStatus ==  false"><strong class="fs-5">退件</strong></span>
+                                                                <span class="label-primary me-1 fs-5" v-if="buy.applicationRejectStatus ==true"><strong class="fs-5">退件</strong></span>
 
                                                             </td>
                                                             <td>
@@ -1031,7 +1031,7 @@
                 this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
                 this.mnt = this.leaveproxy.length;
                 this.wmt = this.wkover.length;
-              }, 300)
+              }, 400)
             }
           }
 
