@@ -461,33 +461,50 @@
                         </div>
                         <div v-if="limit.DepID==1">
                             <h4 class="fw-bold py-4 mb-4 ms-4">> 修改員工資料</h4>
-                            <div class="card mb-5 m-4 card-body inputCard2">
+                            <div class="card mb-4 m-4">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">個人請假資料查詢</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
                                 <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                    <br>
+                                    <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                        <!-- 篩選樣板 -->
+                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                            style="position: absolute;top: -25px;left: 20px;">
+                                            查詢條件</p>
+                                    
+                                        <div class="col d-flex mt-5 mb-5 mx-4">
+                                            <label for="EmployeeName" class="me-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
+                                            <div class="col">
+                                                <input v-model="employeeNumber" class="form-control fs-5 myinput" id="EmployeeNumber" />
+                                            </div>
 
-                                    <div class="my-4 d-flex ms-4">
-                                        <label for="EmployeeName" class="me-2 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工編號</label>
-                                        <div class="col">
-                                            <input v-model="employeeNumber" class="form-control fs-5 myinput" id="EmployeeNumber" />
-                                        </div>
+                                            <label for="EmployeeName" class="ms-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工名稱</label>
 
-                                        <label for="EmployeeName" class="ms-4 badge rounded-pill bg-primary fs-4 mb-1 fw-bold mylLable">員工名稱</label>
+                                            <div class="col ms-2">
+                                                <input v-model="employeeName" class="form-control fs-5 myinput" id="Employeename" />
+                                            </div>
 
-                                        <div class="col ms-2">
-                                            <input v-model="employeeName" class="form-control fs-5 myinput" id="Employeename" />
-                                        </div>
-
-                                        <div class="col ms-5">
-                                            <button type="button" v-on:click="searchbtn" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                                            <div class="col ms-5">
+                                                <button type="button" v-on:click="searchbtn" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 ">查詢</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
 
-                            <div class="card card-body mb-5 mx-4">
-
+                                
                                 <!-- Account -->
-                                <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">
-                                    &nbsp
+                                <hr class="my-4">
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-4">
+                                    
                                     員工照片
                                 </p>
                                 <div class="d-flex align-items-start align-items-sm-center gap-4  mx-5 mb-3">
@@ -517,12 +534,12 @@
                                         <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 10mb</p>
                                     </div>
                                 </div>
-                            </div>
+
                             <!-- 員工名稱 -->
-                            <div class="card card-body mb-5 mx-4">
                                 <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                    <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">
-                                        &nbsp
+                                    <hr class="my-4">
+                                    <p class="alert alert-warning text-black fs-2 fw-bold mb-5">
+                                        
                                         員工基本資料
                                     </p>
                                     <div class="row mx-5">
@@ -595,9 +612,8 @@
                                             </div>
                                         </div>
                                     </div>
-                            </div>
-                            <div class="card card-body mb-5 mx-4">
-                                <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp聯絡資料</p>
+                                <hr class="my-4">
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-5">聯絡資料</p>
                                 <div class="row mx-5">
 
                                     <!-- 電子信箱 -->
@@ -686,10 +702,9 @@
 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card card-body mb-5 mx-4">
-                                <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">
-                                    &nbsp
+                                <hr class="my-4">
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-5">
+                                    
                                     在職資料
                                 </p>
                                 <div class="row mx-5">
@@ -754,9 +769,8 @@
                                         <input v-model="employeelist.terminationdate" class="form-control fs-5" type="date" id="Terminationdate" />
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card card-body mb-5 mx-4">
-                                <!--<p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工帳號密碼設置</p>
+                        <hr class="my-4">
+                                <!--<p class="alert alert-warning text-black fs-2 fw-bold mb-5">&nbsp 員工帳號密碼設置</p>
                         <div class="row mx-5">-->
                                 <!--帳號設置-->
                                 <!--<div class="mb-3 col-md-6">
@@ -776,7 +790,7 @@
                             </div>
                         </div>-->
                                 <!--員工備註-->
-                                <p class="fs-2 mb-5 mt-4 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp 員工備註</p>
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-5">員工備註</p>
 
                                 <div class="mb-3 col mx-5">
                                     <label for="Note" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註欄</label>

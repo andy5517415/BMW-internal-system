@@ -467,11 +467,25 @@
                         <div v-if="limit.DepID==1">
                             <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料查詢</h4>
                             <!-- 加班資料查詢/修改 -->
-                            <div class="card m-4 my-4 card-body inputCard2">
+                            <div class="card mb-4 m-4">
+                              <!-- 卡片標題 -->
+                              <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                  <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                  <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">個人請假資料查詢</h2>
+                                </div>
+                              </div>
+                              <div class="card-body">
                                 <form id="formAccountSettings" method="POST" onsubmit="return false">
-
-                                    <div class="my-4 d-flex">
-
+                                  <br>
+                                  <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                    <!-- 篩選樣板 -->
+                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2" style="position: absolute;top: -25px;left: 20px;">
+                                      查詢條件</p>
+                                  
+                                    <div class="col d-flex mt-5 mb-5 mx-4">
                                         <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4 myinput" style="width: 70px;">部門</label>
                                         <div class="col ms-2">
                                             <select id="department" class="select2 form-select fs-5 myinput" v-model="employeelist.depId">
@@ -497,11 +511,10 @@
                                 </form>
                             </div>
 
-
+                            <br>
                             <!-- Basic Bootstrap Table -->
-                            <div class="card m-4 card-body">
                                 <div id="workdata">
-                                    <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 250px;" role="alert">
+                                    <div class="alert alert-warning text-black text-center mb-4 fs-2 fw-bold col-3 mx-auto" style="width: 250px;" role="alert">
                                         員工加班資料
                                     </div>
                                     <div class="table-responsive text-nowrap">
@@ -608,13 +621,13 @@
       const app = {
         data() {
           return {
-              text: "",
-              employeelist: { "name": "", "depId": "" },
-              overtimelist: {},
-              departmentlist: {},
-              page: 0,
-              nowpage: {},
-              limit: {}
+            text: "",
+            employeelist: { "name": "", "depId": "" },
+            overtimelist: {},
+            departmentlist: {},
+            page: 0,
+            nowpage: {},
+            limit: {}
           }
         },
         methods: {
@@ -685,8 +698,8 @@
         mounted() {
 
           axios.get('/api/PersonnelDepartmentLists')
-                .then(response => this.departmentlist = response.data)
-            this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+            .then(response => this.departmentlist = response.data)
+          this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
 
         }
 

@@ -436,11 +436,21 @@
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-
-                    <!-- 選擇製造的款式 -->
                     <div id="app" class="container-xxl flex-grow-1 container-p-y">
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <h4 class="fw-bold py-4 mb-4 ms-4"> 生產線選擇</h4>
+                        <!-- 選擇製造的款式 -->
+                        <div class="card mb-4 m-4">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">生產部待辦事項</h2>
+                                </div>
+                            </div>
+                            <div class="card-body" style="background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);"><br>
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="nav-align-top mb-4">
@@ -486,12 +496,12 @@
                                             <div class="tab-pane fade show active" id="M4" role="tabpanel">
                                                 <template v-for="process in ProcessList">
                                                     <template v-for="car in CarModel">
-                                                        <div class="card  m-2 ">
+                                                        <div class="card m-2 bg-info text-black fw-bold">
                                                             <div class="row card-body" v-if="car.optionalId == 1">
-                                                                <label id="carmodel" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                                <label id="processname" for="" class="col-3 fs-4 ">生產: {{process.processName}}</label>
-                                                                <div class="col-4 d-md-flex justify-content-md-end">
-                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                                <label id="carmodel" class="col-4 fs-4 mt-1">型號: {{car.optionalName}}</label>
+                                                                <label id="processname" for="" class="col-4 fs-4 mt-1 ">生產: {{process.processName}}</label>
+                                                                <div class="col d-md-flex justify-content-md-end">
+                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark border-3 fs-5 fw-bold" v-on:click="Enter(process,car)">進入</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -502,12 +512,12 @@
                                             <div class="tab-pane fade" id="X7" role="tabpanel">
                                                 <template v-for="process in ProcessList">
                                                     <template v-for="car in CarModel">
-                                                        <div class="card  m-2 ">
+                                                        <div class="card  m-2 bg-info text-black fw-bold">
                                                             <div class="row card-body" v-if="car.optionalId == 2">
-                                                                <label id="carmodel-2" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                                <label id="processname-2" for="" class="col-3 fs-4">生產: {{process.processName}}</label>
-                                                                <div class="col-4 d-md-flex justify-content-md-end">
-                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                                <label id="carmodel-2" class="col-4 fs-4 mt-1">型號: {{car.optionalName}}</label>
+                                                                <label id="processname-2" for="" class="col-4 fs-4 mt-1">生產: {{process.processName}}</label>
+                                                                <div class="col d-md-flex justify-content-md-end">
+                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark border-3 fs-5 fw-bold" v-on:click="Enter(process,car)">進入</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -518,12 +528,12 @@
                                             <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
                                                 <template v-for="process in ProcessList">
                                                     <template v-for="car in CarModel">
-                                                        <div class="card m-2 ">
+                                                        <div class="card m-2 bg-info text-black fw-bold">
                                                             <div class="row card-body" v-if="car.optionalId == 3">
-                                                                <label id="carmodel-3" class="col-4 fs-4">型號: {{car.optionalName}}</label>
-                                                                <label id="processname-3" class="col-3 fs-4">生產: {{process.processName}}</label>
-                                                                <div class="col-4 d-md-flex justify-content-md-end">
-                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark" v-on:click="Enter(process,car)">進入</a>
+                                                                <label id="carmodel-3" class="col-4 fs-4 mt-1">型號: {{car.optionalName}}</label>
+                                                                <label id="processname-3" class="col-4 fs-4 mt-1">生產: {{process.processName}}</label>
+                                                                <div class="col d-md-flex justify-content-md-end">
+                                                                    <a href="./PD_LineSelect.html" type="button" class="btn btn-outline-dark border-3 fs-5 fw-bold" v-on:click="Enter(process,car)">進入</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -544,6 +554,7 @@
                             <!-- / Layout page -->
 
                         </div>
+                    </div>
                     </div>
                 <!-- Overlay -->
                 <div class="layout-overlay layout-menu-toggle"></div>

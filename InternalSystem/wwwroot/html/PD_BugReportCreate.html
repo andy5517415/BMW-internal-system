@@ -467,113 +467,139 @@
                             </div>
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <div class="card mb-3 m-4">
-                                <div class="row card-body">
-
-                                    <div class="mb-3 col-6">
-                                        <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" v-on:click="show">訂單號碼 </label>
-                                        <select id="type" v-model="Bugtext.orderId" @change="ted(Bugtext.orderId)" class="form-select color-dropdown ">
-                                            <option disabled selected>選擇訂單號碼</option>
-                                            <option v-for="Order in Order" :value="Order.orderId">{{Order.orderNumber}}</option>
-                                        </select>
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
                                     </div>
-
-                                    <div class="mb-3 col-6">
-                                        <label for="optionalName" class=" badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">型號 </label>
-                                        <input class="form-control fs-5" type="text" v-model="PressList.optionalName" id="optionalName" disabled />
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">異常單建立</h2>
                                     </div>
-
-                                    <div class="mb-3 col-6">
-                                        <label for="processName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">生產 </label>
-                                        <input id="processName" class="form-control fs-5" type="text" v-model="PressList.processName" disabled />
-                                    </div>
-
-                                    <div class="mb-3 col-6">
-                                        <label for="areaName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區 </label>
-                                        <input id="areaName" class="form-control fs-5" type="text" v-model="PressList.areaName" disabled />
-                                    </div>
-
-                                    <div class="mb-3 col-3 mt-5">
-                                        <label for="Date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">日期</label>
-                                        <input class="form-control fs-5" type="date" v-model="Bugtext.date" id="Date-input" />
-                                    </div>
-
-
-                                    <div class="mb-3 col-3 mt-5">
-                                        <label for="startTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始時間</label>
-                                        <input class="form-control fs-5" type="time" v-model="Bugtext.startTime" id="startTime" />
-                                    </div>
-
-                                    <div class="mb-3 col-3 mt-5">
-                                        <label for="endTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束時間</label>
-                                        <input class="form-control fs-5" type="time" v-model="Bugtext.endTime" id="endTime" />
-                                    </div>
-
-                                    <div class="col-md-4 mt-5">
-                                        <label for="title" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">異常標題</label>
-                                        <input class="form-control fs-5" type="text" v-model="Bugtext.title" id="title" />
-                                    </div>
-
-                                    <div class="col-md-2 mt-5">
-                                        <label for="rank" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">異常等級</label>
-                                        <select id="rank" v-model="Bugtext.rank" class=" form-select color-dropdown ">
-                                            <option disabled selected :value="999">請選擇異常等級</option>
-                                            <option>A級:重大異常(停工)</option>
-                                            <option>B級:生產延遲</option>
-                                            <option>C級:當下立即排除</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="my-5">
-                                        <label for="bugtxt" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">內容</label>
-                                        <textarea class="form-control fs-5" v-model="Bugtext.context" id="bugtxt" rows="8"></textarea>
-                                    </div>
-
-                                    <div class="my-2">
-                                        <label for="dispose" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">處理對策</label>
-                                        <textarea class="form-control fs-5" v-model="Bugtext.dispose" id="dispose" rows="8"></textarea>
-                                    </div>
-
-                                    <div class="button-wrapper d-flex justify-content-end">
-
-                                        <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
-                                            上傳異常狀況照片
-                                            <i class="bx bx-upload d-block d-sm-none"></i>
-                                            <input type="file"
-                                                   id="upload"
-                                                   class="account-file-input"
-                                                   hidden
-                                                   accept="image/png, image/jpeg"
-                                                   @change="uploadphoto" />
-                                        </label>
-
-                                        <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
-                                            <i class="bx bx-reset d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block" @click="photoreset">Reset</span>
-                                        </button>
-
-
-                                    </div>
-                                    <div class="rounded-1 border border-1" style="">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
-                                            <div style="height: 500px; width: 800px;">
-                                                <img :src="Bugtext.photo"
-                                                     alt="圖片檔"
-                                                     class=" rounded"
-                                                     style="height: 100%; width: 100%; object-fit: scale-down; "
-                                                     id="uploadedAvatar" />
-                                            </div>
-
-
+                                </div>
+                                <br>
+                                <div class="card-body">
+                                <div class="my-4 mx-4 border border-5 rounded" style="position: relative;">
+                                    <!-- 篩選樣板 -->
+                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                        style="position: absolute;top: -25px;left: 20px;">
+                                        訂單資訊</p>
+                                    <div class="row mt-5 mb-5 mx-4">
+                                        <div class="mb-3 col-6">
+                                            <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"
+                                                v-on:click="show">訂單號碼
+                                            </label>
+                                            <select id="type" v-model="Bugtext.orderId" @change="ted(Bugtext.orderId)"
+                                                class="form-select color-dropdown fs-5 ">
+                                                <option disabled selected>選擇訂單號碼</option>
+                                                <option v-for="Order in Order" :value="Order.orderId">{{Order.orderNumber}}</option>
+                                            </select>
+                                        </div>
+                                
+                                        <div class="mb-3 col-6">
+                                            <label for="optionalName" class=" badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">型號 </label>
+                                            <input class="form-control fs-5" type="text" v-model="PressList.optionalName" id="optionalName" disabled />
+                                        </div>
+                                
+                                        <div class="mb-3 col-6">
+                                            <label for="processName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">生產 </label>
+                                            <input id="processName" class="form-control fs-5" type="text" v-model="PressList.processName" disabled />
+                                        </div>
+                                
+                                        <div class="mb-3 col-6">
+                                            <label for="areaName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區 </label>
+                                            <input id="areaName" class="form-control fs-5" type="text" v-model="PressList.areaName" disabled />
                                         </div>
                                     </div>
-
-
-                                    <div class="col-form-label d-flex justify-content-end">
-                                        <button type="button" v-on:click="Enter()" class="mx-2 col-1 btn btn-primary">確認</button>
-                                        <button type="button" v-on:click="Cancel()" class="mx-2 col-1 btn btn-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                </div>
+                                <br>
+                                <!-- 這邊擺row -->
+                                <div class="my-5 mb-4 mx-4 border border-5 rounded" style="position: relative;">
+                                    <!-- 篩選樣板 -->
+                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                        style="position: absolute;top: -25px;left: 20px;">
+                                        日期時間</p>
+                                    <div class="row mb-5 mx-4">
+                                        <div class="mb-3 col-3 mt-5">
+                                            <label for="Date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">日期</label>
+                                            <input class="form-control fs-5" type="date" v-model="Bugtext.date" id="Date-input" />
+                                        </div>
+                                
+                                
+                                        <div class="mb-3 col-3 mt-5">
+                                            <label for="startTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始時間</label>
+                                            <input class="form-control fs-5" type="time" v-model="Bugtext.startTime" id="startTime" />
+                                        </div>
+                                
+                                        <div class="mb-3 col-3 mt-5">
+                                            <label for="endTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束時間</label>
+                                            <input class="form-control fs-5" type="time" v-model="Bugtext.endTime" id="endTime" />
+                                        </div>
                                     </div>
-
-
+                                </div>
+                                <div class="mb-1">&nbsp;</div>
+                                <!-- 異常狀況 -->
+                                <div class="alert alert-warning text-gray mt-4 fs-2 fw-bold mx-auto"
+                                    role="alert">
+                                    異常狀況
+                                </div>
+                                    <div class="row mb-5 mx-4">
+                                        <div class="col-md-4 mt-4">
+                                            <label for="title" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">異常標題</label>
+                                            <input class="form-control fs-5" type="text" v-model="Bugtext.title" id="title" />
+                                        </div>
+                                
+                                        <div class="col-md-2 mt-4">
+                                            <label for="rank" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">異常等級</label>
+                                            <select id="rank" v-model="Bugtext.rank" class=" form-select color-dropdown fs-5 ">
+                                                <option disabled selected :value="999">請選擇異常等級</option>
+                                                <option>A級:重大異常(停工)</option>
+                                                <option>B級:生產延遲</option>
+                                                <option>C級:當下立即排除</option>
+                                            </select>
+                                        </div>
+                                
+                                        <div class="my-5">
+                                            <label for="bugtxt" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">內容</label>
+                                            <textarea class="form-control fs-5" v-model="Bugtext.context" id="bugtxt" rows="8"></textarea>
+                                        </div>
+                                
+                                        <div class="my-2">
+                                            <label for="dispose" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">處理對策</label>
+                                            <textarea class="form-control fs-5" v-model="Bugtext.dispose" id="dispose" rows="8"></textarea>
+                                        </div>
+                                
+                                        <!-- 結束 -->
+                                        <div class="button-wrapper d-flex justify-content-end">
+                                
+                                            <label for="upload" class="btn btn-primary fs-5 fw-bold border-3 me-3 mb-4 mybtn" tabindex="0">
+                                                上傳異常狀況照片
+                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg"
+                                                    @change="uploadphoto" />
+                                            </label>
+                                
+                                            <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 account-image-reset mb-4">
+                                                <i class="bx bx-reset d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block" @click="photoreset">Reset</span>
+                                            </button>
+                                
+                                
+                                        </div>
+                                        <div class="rounded-1 border border-1" style="">
+                                            <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
+                                                <div style="height: 500px; width: 800px;">
+                                                    <img :src="Bugtext.photo" alt="圖片檔" class=" rounded"
+                                                        style="height: 100%; width: 100%; object-fit: scale-down; " id="uploadedAvatar" />
+                                                </div>
+                                
+                                
+                                            </div>
+                                        </div>
+                                
+                                    <div class="col-form-label d-flex justify-content-end mt-4">
+                                        <button type="button" v-on:click="Enter()" class="mx-2 btn btn-primary fs-4 fw-bold border-3 ms-5">確認</button>
+                                        <button type="button" v-on:click="Cancel()" class="mx-2 btn btn-secondary fs-4 fw-bold border-3">取消</button>
+                                    </div>
 
                                 </div>
 
@@ -624,7 +650,7 @@
                             Order: {},
                             PressList: {},
                             Bugtext: {},
-                            
+
                         }
                     },
                     mounted() {

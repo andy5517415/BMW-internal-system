@@ -1079,8 +1079,20 @@
 
 
 
-                    <div v-if="limit.DepID!=3" class="justify-content-center d-flex">
-                        <p class="fw-bold mx-2 fs-1" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
+                    <div v-if="limit.DepID!=3" class="mt-5">
+                        <div class="d-flex justify-content-center my-4 mt-0">
+                            <h2 class="mx-2 fw-bold" style="font-size: 50px;">非業務部門無法查看</h2>
+                        </div>
+                    
+                        <div class="d-flex justify-content-center">
+                            <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                data-app-light-img="illustrations/page-misc-error-light.png" />
+                        </div>
+                    
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+                        </div>
                     </div>
 
 

@@ -468,51 +468,66 @@
 
                         <div v-if="limit.DepID==1">
                             <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 員工查詢</h4>
-                            <div class="card mb-5 m-4 card-body inputCard2">
+                            <div class="card mb-4 m-4">
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                    </div>
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">個人請假資料查詢</h2>
+                                    </div>
+                                </div>
+                            
+                                <div class="card-body">
                                 <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                    <div class="mx-4 d-flex">
-                                        <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">部門</label>
-                                        <div class="col-1">
-                                            <select class="select1 form-select myinput" v-model="employeedata.depId" id="department">
-                                                <option v-for="item in departmentlist" :value="item.departmentId"> {{item.depName}}</option>
-                                            </select>
+                                    <br>
+                                    <div class="my-4 mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                        <!-- 篩選樣板 -->
+                                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                            style="position: absolute;top: -25px;left: 20px;">
+                                            查詢條件</p>
+                                    
+                                    <div class="col d-flex mt-5 mx-4">
+                                            <label for="department" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">部門</label>
+                                            <div class="col ms-2">
+                                                <select class="select1 form-select myinput" v-model="employeedata.depId" id="department">
+                                                    <option v-for="item in departmentlist" :value="item.departmentId"> {{item.depName}}</option>
+                                                </select>
 
-                                        </div>
-                                        <label for="position" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職位</label>
-                                        <div class="col-2">
-                                            <select class="select1 form-select myinput" id="position" v-model="employeedata.positionId">
-                                                <option v-for="p in positionlist" :value="p.positionId"> {{p.positionName}}</option>
-                                            </select>
-                                        </div>
-                                        <label for="rank" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職等</label>
-                                        <div class="col-1">
-                                            <select class="select1 form-select myinput" id="rank" v-model="employeedata.rankId">
-                                                <option v-for="r in ranklist" :value="r.rankId">{{r.rank}}</option>
-                                            </select>
-                                        </div>
-                                        <label for="onduty" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">在職狀態</label>
-                                        <div class="col-1">
-                                            <select class="select1 form-select myinput" id="onduty" v-model="employeedata.dutyStatus">
-                                                <option value=true> 在職</option>
-                                                <option value=false> 離職</option>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <button type="button" @click="search" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">查詢</button>
-                                        </div>
-                                        <div class="col">
-                                            <button type="button" @click="reset" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3 ms-4">清除</button>
+                                            </div>
+                                            <label for="position" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職位</label>
+                                            <div class="col ms-2">
+                                                <select class="select1 form-select myinput" id="position" v-model="employeedata.positionId">
+                                                    <option v-for="p in positionlist" :value="p.positionId"> {{p.positionName}}</option>
+                                                </select>
+                                            </div>
+                                            <label for="rank" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">職等</label>
+                                            <div class="col ms-2">
+                                                <select class="select1 form-select myinput" id="rank" v-model="employeedata.rankId">
+                                                    <option v-for="r in ranklist" :value="r.rankId">{{r.rank}}</option>
+                                                </select>
+                                            </div>
+                                            <label for="onduty" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable ms-4">在職狀態</label>
+                                            <div class="col ms-2">
+                                                <select class="select1 form-select myinput" id="onduty" v-model="employeedata.dutyStatus">
+                                                    <option value=true> 在職</option>
+                                                    <option value=false> 離職</option>
+                                                </select>
+                                            </div>
+                                    </div>
+                                    
+                                    
+                                        <div class="d-flex justify-content-center my-4">
+                                            <button type="button" @click="search" class="btn btn-primary me-3 fs-4 fw-bold border-3 ms-2">查詢</button>
+
+
+                                            <button type="button" @click="reset" class="btn btn-secondary me-3 fs-4 fw-bold border-3 ms-2">清除</button>
                                         </div>
                                     </div>
-
-
-                            </div>
-
-
                             </form>
-                            <div class="card mb-4 m-4 card-body">
                                 <!-- Basic Bootstrap Table -->
-                                <div class="alert alert-primary text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
+                                <div class="alert alert-warning text-black text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 200px;" role="alert">
                                     員工資料
                                 </div>
                                 <div class="table-responsive text-nowrap">

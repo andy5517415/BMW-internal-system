@@ -812,7 +812,21 @@
 
 
 
-                    <p v-if="limit.DepID!=3 " class="fw-bold mx-2 fs-1 justify-content-center d-flex" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
+                    <div v-if="limit.DepID!=3" class="mt-5">
+                        <div class="d-flex justify-content-center my-4 mt-0">
+                            <h2 class="mx-2 fw-bold" style="font-size: 50px;">非業務部門無法查看</h2>
+                        </div>
+                    
+                        <div class="d-flex justify-content-center">
+                            <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                data-app-light-img="illustrations/page-misc-error-light.png" />
+                        </div>
+                    
+                        <div class="d-flex justify-content-center mt-4 mb-4">
+                            <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+                        </div>
+                    </div>
 
                     <!-- / Content -->
                     <!-- Footer -->
@@ -1002,41 +1016,41 @@
                     this.orderdetail.push((this.carmediaone.optionalId == null) ? '' : this.carmediaone.optionalId);
                     console.log(this.orderdetail);
 
-                        //找該訂單細項第一筆OdId+8
-                        axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
-                            .then(p => {
-                                this.odid = p.data;
-                                this.bodput = [];
-                                this.orderdetail.forEach((x, key) => {
-                                    this.bodput.push(
-                                        {
-                                            'odId': this.odid + key,
-                                            'orderId': this.orderid,
-                                            'optionalId': x
-                                        })
-                                });
-                                console.log(this.bodput);
-                                axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}`, this.bodput)
-                                    .then(p => {
-                                        console.log(p);
-                                        //成功
-                                        this.text = "訂單修改成功!";
-                                        $("#toastSuc").fadeIn("fast");
-                                        setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                        window.location = "BS_OrderAll.html";//promise
-
-                                    });
+                    //找該訂單細項第一筆OdId+8
+                    axios.get(`/api/BusinessOrderDetails/fatherandson/${this.orderid}`)
+                        .then(p => {
+                            this.odid = p.data;
+                            this.bodput = [];
+                            this.orderdetail.forEach((x, key) => {
+                                this.bodput.push(
+                                    {
+                                        'odId': this.odid + key,
+                                        'orderId': this.orderid,
+                                        'optionalId': x
+                                    })
                             });
+                            console.log(this.bodput);
+                            axios.put(`/api/BusinessOrders/withoutloop?ordnum=${this.ordernum}&areaid=${this.agentone.areaId}`, this.bodput)
+                                .then(p => {
+                                    console.log(p);
+                                    //成功
+                                    this.text = "訂單修改成功!";
+                                    $("#toastSuc").fadeIn("fast");
+                                    setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                                    window.location = "BS_OrderAll.html";//promise
+
+                                });
+                        });
                 },
                 btndelete() {
-                        axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
-                            .then(d => {
-                                this.text = d.data
-                                $("#toastSuc").fadeIn("fast");
-                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-                                //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
-                                setTimeout(() => window.location = "BS_OrderAll.html", 1000);
-                            })
+                    axios.delete('/api/BusinessOrderDetails/order/' + this.ordernum)
+                        .then(d => {
+                            this.text = d.data
+                            $("#toastSuc").fadeIn("fast");
+                            setTimeout(() => $("#toastSuc").fadeOut(), 2000);
+                            //alert(`訂單刪除成功! 編號 : ${this.ordernum}`);
+                            setTimeout(() => window.location = "BS_OrderAll.html", 1000);
+                        })
 
                 },
                 oneclick() {

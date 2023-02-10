@@ -437,10 +437,26 @@
                         <h4 class="fw-bold py-3 mx-4"><span class="text-muted fw-light">會議室 /</span> 查詢預約紀錄</h4>
 
                         <!-- ★查詢預約紀錄 -->
-                            <div class="card mb-5 m-4 card-body inputCard2">
-                                <!-- ⁥!!! -->
-                                <!-- 查詢日期區間 -->
-                                <div class="my-4 d-flex">
+                            <div class="card mb-4 m-4">
+                                <!-- 卡片標題 -->
+                                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                        <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                    </div>
+                                    <div class="col-6 my-2 mb-3">
+                                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">修改員工資料</h2>
+                                    </div>
+                                </div>
+                            
+                            <div class="card-body"><br>
+                                
+                                <div class="my-4 d-flex mx-4 border border-5 rounded inputCard2" style="position: relative;">
+                                    <!-- 篩選樣板 -->
+                                    <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                                        style="position: absolute;top: -25px;left: 20px;">
+                                        查詢條件</p>
+                                
+                                <div class="col d-flex mt-5 mb-5 mx-4">
                                     <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable"
                                         style="width: 160px;">查詢日期區間</label>
                                     <div class="col ms-2">
@@ -468,12 +484,14 @@
                                     </div>
                                 </div>
                             </div>
-
-                        
+                        <br>
                         <!-- ★會議室租借紀錄 -->
-                        <div class="card shadow m-4 mb-0" v-if="MeetInf.isValue">
-                            <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議室租借紀錄</p>
-                            <div class="table-responsive p-5 text-nowrap">
+                        <div class="mt-2" v-if="MeetInf.isValue">
+                            <div class="alert alert-warning text-gray text-center my-4 mb-5 fs-2 fw-bold col-3 mx-auto" style="width: 260px;"
+                                role="alert">
+                                會議室租借紀錄
+                            </div>
+                            <div class="table-responsive text-nowrap">
                                 <table class="table table-hover">
                                     <thead class="bg-black">
                                         <tr>
@@ -491,12 +509,12 @@
                                     <tbody class="table-border-bottom-0">
                                         <!-- ★一列 -->
                                         <tr v-for="(MeetSearchInf,index) in MeetInf">
-                                            <td><span v-model="MeetInf" class="badge bg-primary fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
+                                            <td><span v-model="MeetInf" class="badge bg-label-primary fs-5 fw-semibold">{{MeetSearchInf.meetPlace}}</span></td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.date}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.dependent}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.meetType}}</td>
                                             <td v-model="MeetInf" class="fs-5">{{MeetSearchInf.employeeName}}</td>
-                                            <td v-model="MeetInf"><span class="badge bg-primary fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
+                                            <td v-model="MeetInf"><span class="badge bg-label-primary fs-5">{{MeetSearchInf.startTime}}－{{MeetSearchInf.endTime}}</span></td>
 
                                             <!-- 取消按鈕 -->
                                             <td v-model="MeetInf" v-if="MeetInf[index].isBookIdN">
@@ -546,7 +564,7 @@
                                             </td>
                                             <!-- 建立會議記錄 -->
                                             <td v-model="MeetInf" v-if="MeetInf[index].isBookIdN">
-                                                <button @click="DoSearchRecord(index)" type="button" class="btn btn-outline-primary p-1 fs-4 fw-bold">
+                                                <button @click="DoSearchRecord(index)" type="button" class="btn btn-primary p-1 fs-4 fw-bold">
                                                     建立
                                                 </button>
                                             </td>
@@ -558,11 +576,20 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="card shadow m-4 mb-0" v-if="MeetInf.isRecord">
+                        <div class="card m-4 mb-0" v-if="MeetInf.isRecord">
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">建立會議紀錄</h2>
+                                </div>
+                            </div>
                             <!-- 會議出勤狀況 -->
-                            <p class="card-header fs-2 mx-auto mt-3 fw-bold" style="text-decoration: underline 4pt #666EE8;">會議紀錄</p>
-
                             <p class="fs-3 mt-5 fw-bold ms-5" style="border-left: 10pt solid #666EE8;border-radius: 5px;">&nbsp 會議出勤狀況</p>
 
                             <div class="card-body row justify-content-center">
