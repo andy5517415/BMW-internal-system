@@ -661,6 +661,12 @@
                 this.overlist = JSON.parse(sessionStorage.getItem("overdata"))
                 axios.get('/api/PersonnelDepartmentLists')
                     .then(response => this.departmentlist = response.data)
+                axios.get('/api/ProductionAreas')
+                    .then(response => this.area = response.data)
+                axios.get('/api/ProductionProcesses')
+                    .then(response => this.process = response.data)
+                axios.get('/api/PersonnelOvertimeForms/productProcessList')
+                    .then(response => this.product = response.data)
 
             }
 
