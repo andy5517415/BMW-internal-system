@@ -462,9 +462,11 @@
                                 ❌&nbsp;{{text}}
                             </div>
                         </div>
-                <h4 class="fw-bold py-3 mb-4EK"><span class="text-muted fw-light">個人資料 /</span> 待辦事項</h4>
+                        <!-- 麵包屑 -->
+                        <span class="fs-4">個人資料 / </span><span class=" fw-bold fs-2">待辦事項</span>
+
                     <div class="container-xxl flex-grow-1 container-p-y">
-                      <div class="card mb-4 m-4">
+                      <div class="card mt-0 m-4">
                         <!-- 卡片標題 -->
                         <div class="d-flex bg-info mb-5" style="border-radius: 8px 8px 0px 0px;">
                           <div class="col-1 my-2 mb-3" style="width: 70px;">
@@ -922,9 +924,9 @@
                 wkover: {},
                 leavereturn: {},
                 NotyetOver: {},
-                  cnt: {},
-                  mnt: {},
-                  wmt: {}
+                cnt: {},
+                mnt: {},
+                wmt: {}
               }
             },
             methods: {
@@ -943,22 +945,22 @@
               },
               buycheckbtn: function (e) {
                 sessionStorage.setItem("see", JSON.stringify(e))
-                },
-                auditleave: function () {
-                    $('#auditleave').show();
-                    $('#over').hide();
-
-                },
-                over: function () {
-                    $('#over').show();
-                    $('#auditleave').hide();
-
-                }
               },
-              computed() {
-        
-              
+              auditleave: function () {
+                $('#auditleave').show();
+                $('#over').hide();
+
               },
+              over: function () {
+                $('#over').show();
+                $('#auditleave').hide();
+
+              }
+            },
+            computed() {
+
+
+            },
 
             mounted() {
               this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));
@@ -972,11 +974,11 @@
                   if (this.employeelist.positionId < 7) {
                     axios.get('/api/PersonnelLeaveForms/proxyAudit/'
                       + this.employeelist.departmentId + '/' + this.employeelist.positionId
-                        + '/' + this.employeelist.employeeId)
-                        .then(response => {
-                            this.leaveproxy = response.data;
-                            this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
-                        })
+                      + '/' + this.employeelist.employeeId)
+                      .then(response => {
+                        this.leaveproxy = response.data;
+                        this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                      })
 
                   }
 
@@ -1023,13 +1025,13 @@
                   }
 
 
-                    console.log(this.leaveproxy)
+                  console.log(this.leaveproxy)
                 })
-                  setTimeout(() => {
-                      this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
-                      this.mnt = this.leaveproxy.length;
-                      this.wmt = this.wkover.length;
-                  }, 300)
+              setTimeout(() => {
+                this.cnt = this.leavereturn.length + this.leaveproxy.length + this.buyapp.length;
+                this.mnt = this.leaveproxy.length;
+                this.wmt = this.wkover.length;
+              }, 300)
             }
           }
 

@@ -498,15 +498,33 @@
                             </div>
                         </div>
         <!-- 頁面中間上面輸出 -->
-        <h4 class="fw-bold py-3 mb-4 mx-4"><span class="text-muted fw-light"></span>採購部門申請表</h4>
+        <span class="fs-4">採購系統 / </span><span class=" fw-bold fs-2">採購申請表</span>
 
-        <div class="row col-md-12">
+        <div class="col-md-12">
             <!--本頁內容 -->
-            <div class="card mb-4 m-4 mx-4">
+            <div class="card mb-4 m-4">
+                <!-- 卡片標題 -->
+                <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                    <div class="col-1 my-2 mb-3" style="width: 70px;">
+                        <img src="../assets/img/myicon/order.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                    </div>
+                    <div class="col-6 my-2 mb-3">
+                        <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">採購申請表</h2>
+                    </div>
+                </div>
+            
                 <!-- 員工名稱 -->
                 <div class="card-body">
                     <form id="formAccountSettings" method="POST" onsubmit="return false">
-                        <div class="row mt-4">
+                    <br>
+                    <div class="my-4 mx-4 border border-5 rounded" style="position: relative;">
+                        <!-- 篩選樣板 -->
+                        <p class="badge rounded-pill bg-secondary fs-3 mb-1 fw-bold col-2"
+                            style="position: absolute;top: -25px;left: 20px;">
+                            採購申請</p>
+                            
+                        <div class="row mt-4 mx-4">
+                            <div class="mt-1">&nbsp;</div>
                             <div class="mb-3 col-md-6">
                                 <label for="firstName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
                                 <input class="form-control fs-5" type="text" id="firstName" name="firstName" readonly
@@ -539,11 +557,11 @@
                                     placeholder="" />
                             </div>
                         </div>
+                    </div>
                             <!-- 採購清單 -->
                             <!--部門專用-->
-                            <div class="my-2"></div>
-                            <p class="fs-2 my-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp
-                                採購部門專用項目</p>
+                            <div class="my-2">&nbsp;</div>
+                                <p class="alert alert-warning text-black fs-2 fw-bold mb-5">部門專用項目</p>
                                 <div class="border border-5 shadow rounded  mx-5">
                                 <table class="table table-striped table-hover">
                                     <thead class="bg-black">
@@ -614,10 +632,9 @@
                                     </tbody>
                                 </table>
                                 </div>
-                            <div class="my-4"></div>
+                            <div class="my-4">&nbsp;</div>
                             <!--通用-->
-                            <p class="fs-2 my-5 fw-bold ms-2" style="border-left: 15pt solid #666EE8;border-radius: 5px;">&nbsp
-                                採購通用項目</p>
+                            <p class="alert alert-warning text-black fs-2 fw-bold mb-5">採購通用項目</p>
                             <!-- 表格 -->
                             <div class="border border-5 shadow rounded  mx-5">
                                 <table class="table table-striped table-hover">

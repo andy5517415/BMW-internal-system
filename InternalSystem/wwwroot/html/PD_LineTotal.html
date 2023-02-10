@@ -466,17 +466,18 @@
                     </div>
                     <!-- 選擇生產的工作位置報工-->
                     <div class="container-xxl flex-grow-1 container-p-y">
+                      <span class="fs-4">產線管理 / </span><span class=" fw-bold fs-2">製程總工時</span>
                         <div class="card mb-4 m-4 ">
                             <!-- 卡片標題 -->
                             <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
                                 <div class="col-1 my-2 mb-3" style="width: 70px;">
                                     <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
                                 </div>
-                                <div class="col-6 my-2 mb-3">
+                                <div class="col-3 my-2 mb-3">
                                     <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">製程總工時查詢</h2>
                                 </div>
-                                <div class="col-6 my-4">
-                                    <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:clicl="statistics">
+                                <div class="col my-4 d-flex justify-content-start">
+                                    <button type="button" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:clicl="statistics">
                                         統計表
                                     </button>
                                 </div>
@@ -506,7 +507,7 @@
                                     </div>
 
                                     <div class="col ms-5">
-                                        <button type="button" class="btn btn-primary fs-4 fw-bold border-3 me-3 "
+                                        <button type="button" class="btn btn-outline-primary fs-4 fw-bold border-3 me-3 "
                                                 v-on:click="SearchEnter(Search)">
                                             查詢
                                         </button>
@@ -653,126 +654,126 @@
 
     <script>
 
-        const app = {
-            data() {
-                return {
-                    item: {},
-                    dd: [],
-                    accordionOne: [],
-                    Search: { "orderNumber": "", "orderType": "", "orderStadus": "" },
-                    text: ""
-                }
-            },
-            mounted() {
+      const app = {
+        data() {
+          return {
+            item: {},
+            dd: [],
+            accordionOne: [],
+            Search: { "orderNumber": "", "orderType": "", "orderStadus": "" },
+            text: ""
+          }
+        },
+        mounted() {
 
 
-                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-                    then(response => {
-                        this.item = response.data
+          axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+            then(response => {
+              this.item = response.data
 
-                        for (var i = 0; i < this.item.length; i++) {
-                            //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                then(response => {
-                                    this.dd.push(response.data);
-                                    //console.log(response.data)
-                                })
-                            this.item.forEach((x, index) => {
-                                this.accordionOne.push(x.orderNumber)
-                            })
-                        }
+              for (var i = 0; i < this.item.length; i++) {
+                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                  then(response => {
+                    this.dd.push(response.data);
+                    //console.log(response.data)
+                  })
+                this.item.forEach((x, index) => {
+                  this.accordionOne.push(x.orderNumber)
+                })
+              }
 
-                    })
-                setTimeout(() => {
-                    //console.log(this.dd)
-                    this.dd.sort(function (a, b) {
-                        return a.orderId - b.orderId;
-                    });
-                }, 200)
-                setTimeout(() => {
-                    console.log(this.dd.length)
-                    //統計圖
-                    let cityPopulationList = [this.dd.length, 10, 20, 15, 17];
-                    let cityPopulationList2030 = [22, 20, 41, 23, 25];
+            })
+          setTimeout(() => {
+            //console.log(this.dd)
+            this.dd.sort(function (a, b) {
+              return a.orderId - b.orderId;
+            });
+          }, 200)
+          setTimeout(() => {
+            console.log(this.dd.length)
+            //統計圖
+            let cityPopulationList = [this.dd.length, 10, 20, 15, 17];
+            let cityPopulationList2030 = [22, 20, 41, 23, 25];
 
-                    let cityNameList = ["Tokyo", "Delhi", "Shanghai", "Sao Paulo", "New York"];
+            let cityNameList = ["Tokyo", "Delhi", "Shanghai", "Sao Paulo", "New York"];
 
-                    // Lab 練習的程式寫在這裡
+            // Lab 練習的程式寫在這裡
 
-                    let ctx = document.getElementById("apple");
-                    let populationChart = new Chart(ctx, {
-                        type: "bar",
-                        data: {
-                            labels: cityNameList,  // X 軸項目清單
-                            datasets: [
-                                {
-                                    label: "population",
-                                    data: cityPopulationList,
-                                    // 著色:
-                                    backgroundColor: "rgba(14,72,100,0.2)",
-                                    borderColor: "rgba(14,72,100,1.0)",
-                                    borderWidth: 1
-                                },
-                                {
-                                    label: "2030 population",
-                                    data: cityPopulationList2030,
-                                    // 著色:
-                                    backgroundColor: "rgba(255,99,132,0.2)",
-                                    borderColor: "rgba(255,99,132,1.0)",
-                                    borderWidth: 1
-                                }
-                            ]
-                        }
-                    })
-                }, 300)
-
-
+            let ctx = document.getElementById("apple");
+            let populationChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: cityNameList,  // X 軸項目清單
+                datasets: [
+                  {
+                    label: "population",
+                    data: cityPopulationList,
+                    // 著色:
+                    backgroundColor: "rgba(14,72,100,0.2)",
+                    borderColor: "rgba(14,72,100,1.0)",
+                    borderWidth: 1
+                  },
+                  {
+                    label: "2030 population",
+                    data: cityPopulationList2030,
+                    // 著色:
+                    backgroundColor: "rgba(255,99,132,0.2)",
+                    borderColor: "rgba(255,99,132,1.0)",
+                    borderWidth: 1
+                  }
+                ]
+              }
+            })
+          }, 300)
 
 
 
-            },
-            methods: {
 
-                SearchEnter: function () {
 
-                    if (this.Search.orderStadus != "" || this.Search.orderType != "") {
-                        axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
-                            then(response => {
-                                this.item = response.data
-                                this.dd = [];
-                                for (var i = 0; i < this.item.length; i++) {
-                                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                                        then(response => {
-                                            this.dd.push(response.data);
-                                            //console.log(response.data)
-                                        })
-                                }
+        },
+        methods: {
 
-                            })
-                        setTimeout(() => {
-                            //console.log(this.dd)
-                            this.dd.sort(function (a, b) {
-                                return a.orderId - b.orderId;
+          SearchEnter: function () {
 
-                            });
-                        }, 200)
-                    }
-                    else {
-                        this.text = '請選擇車款!';
-                        $("#toastErr").fadeIn("fast");
-                        setTimeout(() => $("#toastErr").fadeOut(), 1000);
-                    }
+            if (this.Search.orderStadus != "" || this.Search.orderType != "") {
+              axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
+                then(response => {
+                  this.item = response.data
+                  this.dd = [];
+                  for (var i = 0; i < this.item.length; i++) {
+                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                      then(response => {
+                        this.dd.push(response.data);
+                        //console.log(response.data)
+                      })
+                  }
 
-                },
-                statistics: function () {
+                })
+              setTimeout(() => {
+                //console.log(this.dd)
+                this.dd.sort(function (a, b) {
+                  return a.orderId - b.orderId;
 
-                }
-
+                });
+              }, 200)
+            }
+            else {
+              this.text = '請選擇車款!';
+              $("#toastErr").fadeIn("fast");
+              setTimeout(() => $("#toastErr").fadeOut(), 1000);
             }
 
+          },
+          statistics: function () {
+
+          }
+
         }
-        Vue.createApp(app).mount('#app');
+
+      }
+      Vue.createApp(app).mount('#app');
 
 
 
