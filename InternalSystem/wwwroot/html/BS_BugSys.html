@@ -466,55 +466,51 @@
                             </div>
                         </div>
                         <div class="card mb-4 m-4">
-                            <h2 class="card-header">產線報錯系統</h2>
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="../assets/img/myicon/eye.png" alt="" class="ms-4 mt-3" style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">產線報錯系統</h2>
+                                </div>
+                            </div>
+                        
                             <!-- <h5 class="card-header">車輛資訊</h5> -->
-                            <div class="card-body">
+                            <div class="card-body mx-4 row">
                                 <!-- pills -->
-                                <div class="row justify-content-md-center">
-                                    <div class="col-2"></div>
-                                    <div class="col-8">
+                                    <div class="col-6">
                                         <label class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" for="ordid">訂單號碼</label>
-                                        <select @change="setmodal" id="ordid" class="form-select color-dropdown" v-model="selcone">
+                                        <select @change="setmodal" id="ordid" class="form-select color-dropdown mb-4" v-model="selcone">
                                             <option value="999" selected disabled>請選擇訂單</option>
                                             <option v-for="one in bugsysorder"
                                                     :value="one">
                                                 {{one.orderNumber}} 車款 : {{one.optionalName}}
                                             </option>
                                         </select>
+                                    </div>
+                                        <div class="col-6"></div>
+                                        
+                                        <div class="col-4">
+                                            <label for="cartype" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
+                                            <input type="text" class="form-control fs-5 mb-2" id="cartype" readonly :value="selcone.optionalName" />
+                                        </div>
 
+                                        <div class="col-4">
+                                            <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區</label>
+                                            <input type="text" class="form-control fs-5 mb-2" id="area" readonly :value="selcone.areaId" />
+                                        </div>
 
-                                        <label for="cartype" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">車款</label>
-                                        <input type="text"
-                                               class="form-control fs-5"
-                                               id="cartype"
-                                               readonly
-                                               :value="selcone.optionalName" />
-
-                                        <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">廠區</label>
-                                        <input type="text"
-                                               class="form-control fs-5"
-                                               id="area"
-                                               readonly
-                                               :value="selcone.areaId" />
-
-                                        <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">製程</label>
-                                        <input type="text"
-                                               class="form-control fs-5 mb-5"
-                                               id="process"
-                                               readonly
-                                               :value="selcone.processId" />
-
-
-
-
-                                        <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : </label>
-                                        <textarea @change="setmodal" class="form-control fs-5"
-                                                  id="exampleFormControlTextarea1"
-                                                  rows="10"
-                                                  v-model="description">
-                                        </textarea>
-
-
+                                        <div class="col-4">
+                                            <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">製程</label>
+                                            <input type="text" class="form-control fs-5 mb-5 mb-2" id="process" readonly :value="selcone.processId" />
+                                        </div>
+                                        
+                                        <div class="col">
+                                            <label for="exampleFormControlTextarea1" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">事件描述 : </label>
+                                            <textarea @change="setmodal" class="form-control fs-5" id="exampleFormControlTextarea1" rows="10" v-model="description">
+                                                                                    </textarea>
+                                        </div>
 
                                         <!-- ★Modal -->
                                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -561,7 +557,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2"></div>
-                                </div>
+
                                 <!-- /pills -->
                             </div>
                         </div>
@@ -630,7 +626,7 @@
             methods: {
                 btnstate(event) {
                     /*if (this.selcone != 999 && this.description.trim() != '') {*/
-                        this.stateName = event.target.innerText;                        
+                    this.stateName = event.target.innerText;
                     /*}
                     else if (this.selcone == 999) {
                         //失敗
@@ -645,7 +641,7 @@
                         setTimeout(() => $("#toastErr").fadeOut(), 2000);
                     }*/
                 },
-                submit() {            
+                submit() {
                     axios.put(`/api/MonitoringProcessAreaStatus/putstatus?areaid=${this.selcone.areaId}&processId=${this.selcone.processId}&cartype=${this.selcone.optionalName}&stateName=${this.stateName}&des=${this.description}`)
                         .then(g => {
                             if (g.data == 'commit') {
@@ -654,7 +650,7 @@
                                 $("#toastSuc").fadeIn("fast");
                                 setTimeout(() => $("#toastSuc").fadeOut(), 2000);
                                 sessionStorage.setItem("sessiondesc", JSON.stringify(this.description));
-                                setTimeout(() => window.location = "BS_MonitorSys.html", 2000);                                
+                                setTimeout(() => window.location = "BS_MonitorSys.html", 2000);
                             } else {
                                 //失敗
                                 this.text = "有部分選項未填寫!"
@@ -665,7 +661,7 @@
                 },
                 setmodal() {
                     //訂單要選&描述要寫(空白不行)才會秀按鈕
-                    this.btnmodal = this.selcone != 999 && this.description.trim()!= "";
+                    this.btnmodal = this.selcone != 999 && this.description.trim() != "";
                 }
             },
             mounted() {

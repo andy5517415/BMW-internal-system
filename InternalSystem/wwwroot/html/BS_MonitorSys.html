@@ -455,33 +455,45 @@
 
 
                         <div class="card mb-4 m-4">
-                            
-                            <h2 class="card-header">產線監控系統</h2>
+                            <!-- 卡片標題 -->
+                            <div class="d-flex bg-info" style="border-radius: 8px 8px 0px 0px;">
+                                <div class="col-1 my-2 mb-3" style="width: 70px;">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/1713/1713139.png" alt="" class="ms-4 mt-3"
+                                        style="width: 55px;">
+                                </div>
+                                <div class="col-6 my-2 mb-3">
+                                    <h2 class="card-header fw-bold text-black" style="padding-top: 25px;">產線監控系統</h2>
+                                </div>
+                            </div>
                             <!-- <h5 class="card-header">車輛資訊</h5> -->
-                            <div class="card-body text-center">
+                            <div class="card-body">
                                 <!-- 顏色示意表 -->
                                 <div class="row">
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success">
-                                        -
-                                    </span>
-                                    正常
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning">
-                                        -
-                                    </span>
-                                    待處理
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info">
-                                        -
-                                    </span>
-                                    處理中
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">
-                                        -
-                                    </span>
-                                    異常
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary">
-                                        -
-                                    </span>
-                                    待指派
-
+                                    <div class="d-flex">
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-success fs-1">
+                                            -
+                                        </span>
+                                        <p class="fs-3 fw-bold me-2">正常</p>
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-warning fs-2">
+                                            -
+                                        </span>
+                                        <p class="fs-3 fw-bold me-2">待處理</p>
+                        
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-info fs-2">
+                                            -
+                                        </span>
+                                        <p class="fs-3 fw-bold me-2">處理中</p>
+                        
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger fs-2">
+                                            -
+                                        </span>
+                                        <p class="fs-3 fw-bold me-2">異常</p>
+                        
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-secondary fs-2">
+                                            -
+                                        </span>
+                                        <p class="fs-3 fw-bold me-2">待指派</p>
+                                    </div>
 
                                     <!--chart.js-->
                                     <div class="row my-5">
@@ -497,7 +509,7 @@
                                     </div>
 
                                     <!-- 頁籤 -->
-                                    <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+                                    <ul class="nav nav-pills mb-4 nav-fill" role="tablist">
                                         <li class="nav-item">
                                             <button @click="btnpageclick" type="button"
                                                     class="nav-link active"
@@ -534,6 +546,7 @@
                                                 <span v-if="cntix>0" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{cntix}}</span>
                                             </button>
                                         </li>
+                                        <br><br><br>
                                     </ul>
 
 
@@ -557,7 +570,12 @@
 
 
 
-                                    <div class="tab-content" style="box-shadow: 0px 0px 0px;">
+                                    <div class="tab-content border border-5 border-warning" style="box-shadow: 0px 0px 0px;position: relative;">
+                                        <br><br>
+                                        <!-- 篩選樣板 -->
+                                        <p class="badge rounded-pill alert alert-warning text-black fs-3 mb-1 fw-bold col-2"
+                                            style="position: absolute;top: -25px;left: 20px;">
+                                            製程目前情形</p>
 
 
 
@@ -1479,7 +1497,7 @@
             methods: {
                 statebtnclick(e) {
                     var cartype;
-                    var areaId = e.target.innerHTML.toString().trim().substring(23,24);
+                    var areaId = e.target.innerHTML.toString().trim().substring(23, 24);
                     var processId = e.target.innerHTML.toString().trim().substring(2, 3);
                     var pid;
                     (e.target.innerHTML.toString().indexOf("m4") > 0) ? cartype = 'M4 Competition' : (e.target.innerHTML.toString().indexOf("x7") > 0) ? cartype = 'X7 xDrive40i' : cartype = 'iX xDrive40 旗艦版'

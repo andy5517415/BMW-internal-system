@@ -509,12 +509,12 @@
                             </div>
 
                             <div class="card mb-4 m-4">
-                                <div id="accordall" class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
-                                    <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" >訂單編號</span>
-                                    <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" >車款</span>
+                                <div class="d-flex bg-dark" style="border-radius: 10px 10px 0px 0px;">
+                                    <span class="card-header fw-bold col-2 fs-4 fw-bold text-white text-center" style="width: 200px;">訂單編號</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" style="width: 150px;">車款</span>
                                     <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >建單時間</span>
                                     <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >修單時間</span>
-                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >代理商區域</span>
+                                    <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" style="width: 120px;">代理商區域</span>
                                     <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >接單狀態</span>
                                     <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >當前廠區</span>
                                     <span class="card-header fw-bold col-1 fs-4 fw-bold text-white text-center" >當前製程</span>
@@ -580,10 +580,24 @@
 
 
                         <!-- / Layout page -->
+                        <div v-if="limit.DepID!=3" class="mt-5">
+                            <div class="d-flex justify-content-center my-4 mt-0">
+                                <h2 class="mx-2 fw-bold" style="font-size: 50px;">非業務部門無法查看</h2>
+                            </div>
+                            
+                            <div class="d-flex justify-content-center">
+                                <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500"
+                                    class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
+                                    data-app-light-img="illustrations/page-misc-error-light.png" />
+                            </div>
+                            
+                            <div class="d-flex justify-content-center mt-4 mb-4">
+                                <a href="Login_LogOut.html" class="btn btn-primary mx-auto fs-4 fw-bold">登出</a>
+                            </div>
+                        </div>
                         <!-- Overlay -->
                         <div class="layout-overlay layout-menu-toggle"></div>
                     </div>
-                        <p v-if="limit.DepID!=3" class="fw-bold mx-2 fs-1 justify-content-center d-flex" style="text-decoration: 4pt #666EE8;">非業務部門無法查看</p>
 
                 </div>
             </div>
@@ -663,12 +677,12 @@
                                     x.pparea = "";
                                     x.ppname = "生產完畢";
                                 }
-                                let elapseddays = (new Date() - new Date(x.editDatetime == null ? x.orderDateTime : x.editDatetime)) / 86400000;
+                                let elapseddays = (new Date() - new Date(x.orderDateTime)) / 86400000;
                                 elapseddays = Math.round(elapseddays * 10) / 10;  //四捨五入至小數點下1位
                                 //console.log(elapseddays);
 
                                 let etadays = (new Date(x.deadlineDateTime) - new Date()) / 86400000;
-                                etadays =Math.round(etadays*10)/10;  //四捨五入至小數點下1位
+                                etadays = Math.round(etadays * 10) / 10;  //四捨五入至小數點下1位
                                 //console.log(etadays);
 
                                 this.dt.elapsed.push(elapseddays < 0 ? "N/A" : elapseddays);
