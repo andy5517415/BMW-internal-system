@@ -597,7 +597,7 @@
                                                             <label for="數量"
                                                                 class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold"></label>
                                                             <input @change="addorder(b) ; getprice()" type="text"
-                                                                class="form-control fs-5" id="inputunit" placeholder="請輸入數量"
+                                                                class="form-control fs-5 fw-blod" id="inputunit" placeholder="請輸入數量"
                                                                 v-model="b.quantiy">
                                                             <!--<input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">-->
                                                         </div>
@@ -610,7 +610,7 @@
                                                 <!-- 單價 -->
                                                 <td class="fs-5 text-center">
                                                     <div class="dropdown">
-                                                        <span id="Unit_price">
+                                                        <span id="Unit_price"  class="fs-5 fw-bold my-1">
                                                             {{b.unitPrice}}元
                                                             <!--<input disabled v-model="b.unitPrice">-->
         
@@ -621,7 +621,7 @@
                                                 <td class="fs-5 text-center">
                                                     <div class="dropdown">
                                                         <div>
-                                                            <p id="total">{{b.quantiy*b.unitPrice || 0}}元</p>
+                                                            <p id="total" class="fs-5 fw-bold my-1">{{b.quantiy*b.unitPrice || 0}}元</p>
                                                             <!--<input disabled v-model="b.subTotal">-->
         
                                                         </div>
