@@ -478,7 +478,8 @@ namespace InternalSystem.Controllers
                                          ap.DeliveryStatus,
                                          ap.ApplicationStatus,
                                          ap.ApplicationRejectStatus,
-                                         
+                                         ap.RejectReason
+
                                      };
 
             if (personnelLeaveForm == null)
