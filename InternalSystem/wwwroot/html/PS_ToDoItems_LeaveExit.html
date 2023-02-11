@@ -562,7 +562,8 @@
                                          height="300"
                                          width="300"
                                          id="uploadedAvatar"
-                                         @mouseover="mouseover" />
+                                         @mouseover="mouseover"
+                                         v-if="leaveExit.photo!=null"/>
                                     <div class="button-wrapper">
                                         <label for="upload" class="btn btn-primary fs-4 fw-bold border-3 me-3 mb-4" tabindex="0">
                                             <span class="d-none d-sm-block">上傳照片</span>
@@ -778,7 +779,7 @@
                         manager: {},
                         total: {},
                         leavetype: {},
-                        leaveExit: {}
+                        leaveExit: {"photo":""}
                     }
                 },
                 methods: {
