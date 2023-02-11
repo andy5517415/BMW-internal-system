@@ -661,7 +661,6 @@
                                                 <!-- 物品名稱 -->
                                                 <td class="fs-5 fw-blod text-center  ">
                                                     <strong>{{b.goods}}</strong>
-                                                    <!--<input disabled  v-model="b.goods">-->
                                                 </td>
                                                 <!-- 物品數量 -->
                                                 <td class="fs-5 text-center">
@@ -673,7 +672,6 @@
                                                             <input @change="addorder(b) ; getprice()" type="text"
                                                                 class="form-control fs-5 "  id="inputunit" placeholder="請輸入數量"
                                                                 v-model="b.quantiy">
-                                                            <!--<input @change="getprice" type="text" class="form-control fs-5" id="inputunit" placeholder="請輸入數量" v-else v-model="b.quantiy">-->
                                                         </div>
                                                     </ul>
                                                 </td>
@@ -686,8 +684,6 @@
                                                     <div class="dropdown fw-bold">
                                                         <span id="Unit_price">
                                                             {{b.unitPrice}}元
-                                                            <!--<input disabled v-model="b.unitPrice">-->
-        
                                                         </span>
                                                     </div>
                                                 </td>
@@ -696,8 +692,6 @@
                                                     <div class="dropdown">
                                                         <div>
                                                             <p id="total " class="fw-bold my-1">{{b.quantiy*b.unitPrice || 0}}元</p>
-                                                            <!--<input disabled v-model="b.subTotal">-->
-        
                                                         </div>
                                                     </div>
                                                 </td>
@@ -880,9 +874,6 @@
                             this.item.purchaseId = parseInt(this.autopurchaseid);
                             this.item.employeeId = this.employeedata.EmpID;
                             this.item.department = this.employeedata.Depment;
-                            //this.item.comment = "";
-                            //this.item.applicationrejectreason = "";
-                            //this.item.deliveryrejectreason = "";
                             this.item.total = 0;
                             //預設物品審核狀態
                             this.item.applicationStatus = false;
@@ -892,10 +883,7 @@
                             this.item.acceptanceStatus = false;
                             this.item.acceptanceRejectStatus = false;
 
-
                             //console.log(this.item.purchaseId);
-
-
                             //預設單價+小計為0
                             //this.product.quantiy = 0;
                             //this.product.subtotal = 0;
@@ -905,15 +893,6 @@
                                 .then(response => {
                                     this.product = response.data;
                                     //console.log(this.product);
-
-                                    for (var i = 0; i < this.product.length; i++) {
-                                        //this.PcOrderDetails[i] = this.product[i];
-                                        //this.product[i].quantiy = 0;
-                                        //this.PcOrderDetails[i].subtotal = 0;
-                                        //this.item.PcOrderDetails = this.PcOrderDetails[i].quantiy;
-                                        //this.item.PcOrderDetails = this.PcOrderDetails[i].subtotal;
-                                    };
-                                    //console.log(this.product)
                                     this.item.PcOrderDetails = this.text;
                                     //console.log(this.item);
                                 })

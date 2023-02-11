@@ -532,8 +532,6 @@
                                                   <tbody>
                                                       <template v-for="item in OrderList">
                                                           <tr>
-
-                                                              <!-- 第一項物品 -->
                                                               <!-- 查詢 -->
                                                               <td>
                                                                   <a href="./PC_ApplicationRecordDetails.html" type="button" v-on:click="Enter(item)" class="btn btn-primary fs-5 fw-bold">查看</a>
@@ -567,10 +565,7 @@
                                                   </tbody>
                                               </table>
                                           </div>
-
-
                           </div>
-
                   </div>
               </div>
           </div>
@@ -638,7 +633,7 @@
                               ////}
                               if (this.OrderList[i].acceptanceStatus == false && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
                                 this.OrderList[i].totalapp = "驗收中"
-                                this.OrderList[i].color = "badge bg-label-info text-dark";
+                                  this.OrderList[i].color = "badge bg-label-warning";
                               }
                               if (this.OrderList[i].acceptanceStatus == true && this.OrderList[i].applicationStatus == true && this.OrderList[i].deliveryStatus == true && this.OrderList[i].applicationRejectStatus == false && this.OrderList[i].deliveryRejectStatus == false && this.OrderList[i].acceptanceRejectStatus == false) {
                                 this.OrderList[i].totalapp = "驗收完成"
