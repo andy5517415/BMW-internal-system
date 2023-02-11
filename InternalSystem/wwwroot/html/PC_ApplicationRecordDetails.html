@@ -453,7 +453,7 @@
                           <div class="row">
                               <div class="mb-3 col-md-6">
                                   <label for="employeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
-                                  <input class="form-control fs-5"
+                                  <input class="form-control fs-5 fw-bold"
                                          type="text"
                                          id="employeeName"
                                          name="employeeName"
@@ -463,7 +463,7 @@
                               <!-- 部門選擇 -->
                               <div class="mb-3 col-md-6">
                                   <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
-                                  <input class="form-control fs-5"
+                                  <input class="form-control fs-5 fw-bold"
                                          type="text"
                                          id="department"
                                          name="department"
@@ -474,13 +474,13 @@
                               <div class="mb-3 col-md-6">
                                   <label for="ApplicationDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">申請日期</label>
                                   <div class="col-md-12">
-                                      <input class="form-control fs-5" type="text" id="ApplicationDate" v-model="myobject.date" disabled/>
+                                      <input class="form-control fs-5 fw-bold" type="text" id="ApplicationDate" v-model="myobject.date" disabled/>
                                   </div>
                               </div>
                               <!-- 採購單號 -->
                               <div class="mb-3 col-md-6">
                                   <label for="PurchaseID" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">採購單號</label>
-                                  <input class="form-control fs-5"
+                                  <input class="form-control fs-5 fw-bold"
                                          type="text"
                                          id="PurchaseID"
                                          name="PurchaseID"
@@ -490,7 +490,7 @@
                               <!-- 備註 -->
                               <div class="mb-3 col-md-12">
                                   <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">備註</label>
-                                  <input class="form-control fs-5"
+                                  <input class="form-control fs-5 fw-bold"
                                          type="text"
                                          id="Comment"
                                          name="Comment"
@@ -500,7 +500,7 @@
                               <!-- 狀態 -->
                               <div class="mb-3 col-md-6">
                                   <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">狀態</label>
-                                  <input class="form-control fs-5"
+                                  <input class="form-control fs-5 fw-bold"
                                          type="text"
                                          id="Statue"
                                          name="Statue"
@@ -510,7 +510,7 @@
                               <!-- 未通過原因 -->
                               <div class="mb-3 col-md-6">
                                   <label for="Comment" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">未通過原因</label>
-                                  <input class="form-control fs-5"
+                                  <input class="form-control fs-5 fw-bold"
                                          type="text"
                                          id="Statue"
                                          name="Statue"
@@ -536,32 +536,32 @@
                                                   <tr v-for="(a,index) in list">
                                                       <!-- 第一項物品 -->
                                                       <!-- 項次 -->
-                                                      <td class="fs-5">
+                                                      <td class="fs-5 fw-bold">
                                                         {{index+1}}
                                                       </td>
                                                       <!-- 物品名稱 -->
-                                                      <td class="fs-5">{{a.goods}}</td>
+                                                      <td class="fs-5 fw-bold">{{a.goods}}</td>
                                                       <!-- 物品數量 -->
-                                                      <td class="fs-5">
+                                                      <td class="fs-5 fw-bold">
                                                         {{a.quantiy}}
                                                       </td>
                                                       <!-- 單位 -->
-                                                      <td class="fs-5"><span class="badge bg-label-primary me-1">{{a.unit}}</span></td>
+                                                      <td class="fs-5 fw-bold"><span class="badge bg-label-primary me-1 fw-bold ">{{a.unit}}</span></td>
                                                       <!-- 單價 -->
-                                                      <td class="fs-5">
-                                                        <p>{{a.unitPrice}}元</p>
+                                                      <td >
+                                                        <p class="fs-5 fw-bold my-1">{{a.unitPrice}}元</p>
                                                       </td>
                                                       <!-- 小計 -->
-                                                      <td class="fs-5">
-                                                        <p>{{a.subtotal}}</p>
-                                                      </td>
+                                                      <td >
+                                                          <p class="fs-5 fw-bold my-1">{{a.subtotal}}元</p>
+                                                      </td>元
                                                   </tr>
                                               </tbody>
                                           </table>
                                           <!-- 總價 -->
                                           <div>
                                               <div class="d-flex flex-row-reverse bd-highlight">
-                                                  <div class="p-2 bd-highlight fs-4">總價：{{totalprice}}元</div>
+                                                  <div class="p-2 bd-highlight fs-4 fw-bold ">總價：{{totalprice}}元</div>
                                               </div>
                                               <div class="table-responsive text-nowrap"></div>
                                           </div>
