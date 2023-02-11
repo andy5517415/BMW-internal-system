@@ -537,10 +537,10 @@
                                                 <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
                                                 <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
                                                 <td>
-                                                    <span class="label-primary me-1">{{item.startDate}}-{{item.startTime}}</span>
+                                                    <span class="label-primary me-1 fw-bold">{{item.startDate}}-{{item.startTime}}</span>
                                                 </td>
                                                 <td>
-                                                    <span class="label-primary me-1">{{item.endDate}}-{{item.endTime}}</span>
+                                                    <span class="label-primary me-1 fw-bold">{{item.endDate}}-{{item.endTime}}</span>
                                                 </td>
                                                 <td>
 
@@ -561,7 +561,7 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>-->
-                                            <li class="page-item" v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
+                                            <li class="page-item " v-for="(item,key) in page"><button class="page-link" @click="find(item)">{{key+1}}</button></li>
 
                                             <!--<li class="page-item">
                             <a class="page-link" href="#" aria-label="Next">
@@ -570,7 +570,7 @@
                         </li>-->
                                         </ul>
                                     </nav>
-                                    <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
+                                    <span v-if="page!=0" class="fs-5 fw-bold justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
                                 </div>
                                 <!--/ Basic Bootstrap Table -->
                             </div>

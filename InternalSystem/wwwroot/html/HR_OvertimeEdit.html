@@ -471,68 +471,68 @@
                         <h4 class="fw-bold py-4 ms-4"><span class="text-muted fw-light">人事管理 /</span> 加班資料修改</h4>
 
                         <div class="card mb-4 m-4 card-body">
-                            <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                            <div class="alert alert-primary text-center mt-2 fs-3 fw-bold col-2 mx-auto" role="alert">
                                 加班資訊
                             </div>
                             <div class="row py-3 ">
                                 <div class="mb-3 col-md-2">
                                     <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
-                                    <input class="form-control fs-5" v-model="overlist.employeeName" id="Employeename" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.employeeName" id="Employeename" disabled />
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
-                                    <input class="form-control fs-5" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.employeeNumber" id="Employeenameid" disabled />
                                     <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班廠區</label>
-                                    <input class="form-control fs-5" v-model="overlist.areaName" id="department" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.areaName" id="department" disabled />
                                 </div>
 
                                 <div class="mb-3 col-md-2">
                                     <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">部門</label>
-                                    <input class="form-control fs-5" v-model="overlist.depName" id="department" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.depName" id="department" disabled />
                                     <label for="department" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班製程</label>
-                                    <input class="form-control fs-5" v-model="overlist.processName" id="department" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.processName" id="department" disabled />
                                 </div>
 
                                 <div class="mb-3 col-md-3">
 
                                     <label for="StartDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班開始時間</label>
-                                    <input class="form-control fs-5" v-model="overlist.startDate" id="Starttimeforvacation" disabled />
-                                    <input class="form-control fs-5" v-model="overlist.startTime" id="Starttimeforvacation" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.startDate" id="Starttimeforvacation" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.startTime" id="Starttimeforvacation" disabled />
                                 </div>
                                 <div class="mb-3 col-md-3">
 
                                     <label for="EndDate" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班結束時間</label>
-                                    <input class="form-control fs-5" v-model="overlist.endDate" id="Endtimeforvacation" disabled />
-                                    <input class="form-control fs-5" v-model="overlist.endTime" id="Endtimeforvacation" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.endDate" id="Endtimeforvacation" disabled />
+                                    <input class="form-control fs-5 fw-bold" v-model="overlist.endTime" id="Endtimeforvacation" disabled />
 
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4 m-4 card-body">
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                <div class="alert alert-primary text-center mt-2 fs-5 fw-bold col-2 mx-auto" role="alert">
+                                <div class="alert alert-primary text-center mt-2 fs-3 fw-bold col-2 mx-auto" role="alert">
                                     加班資料修改
                                 </div>
                                 <div class="row">
                                     <div class="row col-10 justify-content-center mx-5">
                                         <div class="mb-3 col-md-5">
                                             <label for="StartTime" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">加班開始時間</label>
-                                            <input class="form-control fs-5" type="date" v-model="overlist.startDate" id="StartDate" />
+                                            <input class="form-control fs-5 fw-bold" type="date" v-model="overlist.startDate" id="StartDate" />
                                         </div>
 
                                         <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control fs-5" type="time" v-model="overlist.startTime" id="EndTime" />
+                                            <input class="form-control fs-5 fw-bold" type="time" v-model="overlist.startTime" id="EndTime" />
                                         </div>
                                     </div>
 
                                     <div class="row col-10 justify-content-center mx-5">
                                         <div class="mb-3 col-md-5">
                                             <label for="EndTime" class="col-md-5 col-badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold fs-5">加班結束時間</label>
-                                            <input class="form-control fs-5" type="date" v-model="overlist.endDate" id="Endtimeforvacation" />
+                                            <input class="form-control fs-5 fw-bold" type="date" v-model="overlist.endDate" id="Endtimeforvacation" />
                                         </div>
 
                                         <div class="mb-3 col-md-5 mt-auto">
-                                            <input class="form-control fs-5" type="time" v-model="overlist.endTime" id="Endtimeforvacation" />
+                                            <input class="form-control fs-5 fw-bold" type="time" v-model="overlist.endTime" id="Endtimeforvacation" />
                                         </div>
                                     </div>
                                     <label for="Endtimeforvacation" class="fw-bold alert alert-info mx-auto fs-2 mt-4 col-3">總加班時間:{{overlist.totalTime}}&nbsp 小時</label>

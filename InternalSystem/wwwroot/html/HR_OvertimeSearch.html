@@ -534,10 +534,10 @@
                                                     <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
                                                     <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
                                                     <td>
-                                                        <span class="label-primary">{{item.startDate}} - {{item.startTime}}</span>
+                                                        <span class="label-primary fw-bold">{{item.startDate}} - {{item.startTime}}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="label-primary">{{item.endDate}} - {{item.endTime}}</span>
+                                                        <span class="label-primary fw-bold">{{item.endDate}} - {{item.endTime}}</span>
                                                     </td>
 
                                                     <td>
@@ -573,7 +573,7 @@
                     </li>-->
                                 </ul>
                             </nav>
-                            <span v-if="page!=0" class="fs-5 justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
+                            <span v-if="page!=0" class="fs-5 fw-bold justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
                         </div>
                         <!--/ Basic Bootstrap Table -->
 
