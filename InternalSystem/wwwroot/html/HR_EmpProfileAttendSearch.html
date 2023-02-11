@@ -516,7 +516,7 @@
                                             </div>
                                             <div class="col d-flex justify-content-center my-4">
                                                 <button type="button" class="btn btn-primary me-3 fs-4 fw-bold border-3 " @click="search">查詢</button>
-                                                <button type="reset" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3">取消</button>
+                                                <button type="button" class="btn btn-outline-secondary fs-4 fw-bold border-3 me-3" @click="reset">取消</button>
                                             </div>
 
 
@@ -532,26 +532,26 @@
                                     <table class="table table-striped table-hover">
                                         <thead class="bg-black">
                                             <tr>
-                                                <th class="fs-4 text-white fw-bold">員工名稱</th>
-                                                <th class="fs-4 text-white fw-bold">員工編號</th>
-                                                <th class="fs-4 text-white fw-bold">打卡日期</th>
-                                                <th class="fs-4 text-white fw-bold">打卡時間</th>
-                                                <th class="fs-4 text-white fw-bold">出勤狀態</th>
+                                                <th class="fs-3 text-white fw-bold">員工名稱</th>
+                                                <th class="fs-3 text-white fw-bold">員工編號</th>
+                                                <th class="fs-3 text-white fw-bold">打卡日期</th>
+                                                <th class="fs-3 text-white fw-bold">打卡時間</th>
+                                                <th class="fs-3 text-white fw-bold">出勤狀態</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
-                                            <tr v-for="item in attendencelist">
-                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
-                                                <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
+                                            <tr v-for="(item,key) in attendencelist">
+                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-4 fw-bold">{{item.employeeName}}</strong></td></td>
+                                                <td class="fs-4 fw-bold">{{item.employeeNumber}}</td>
                                                 <td>
-                                                    <span class="label-primary">{{item.date}}</span>
+                                                    <span class="fs-5 fw-bold label-primary">{{item.date}}</span>
                                                 </td>
                                                 <td>
-                                                    <span class="label-primary">{{item.attendTime}}</span>
+                                                    <span class="fs-5 fw-bold label-primary">{{item.attendTime}}</span>
                                                 </td>
                                                 <td>
 
-                                                    <span class="label-primary">出勤</span>
+                                                    <span class="fs-5 fw-bold label-primary">出勤</span>
                                                 </td>
                                             </tr>
 
@@ -564,8 +564,8 @@
 
 
                                         </ul>
-                                        <span v-if="page!=0" class="fs-5">第{{nowpage}}頁/共{{page}}頁</span>
                                     </nav>
+                                    <span v-if="page!=0" class="fs-5 fw-bold justify-content-center d-flex">第{{nowpage}}頁/共{{page}}頁</span>
                                 </div>
 
                             </div>
@@ -718,6 +718,8 @@
                         //}
 
                     },
+                    reset: function () { this.employeedata.empName = ""; this.employeedata.empNumber = ""; this.employeedata.depId =""},
+
                     find: function (e) {
 
                         axios.get('/api/PersonnelAttendanceTimes/Complex/' + this.employeedata.date + '?name=' + this.employeedata.empName + '&number=' + this.employeedata.empNumber

@@ -525,26 +525,26 @@
                                     <table class="table table-striped table-hover">
                                         <thead class="bg-black">
                                             <tr>
-                                                <th class="fs-4 text-white fw-bold">員工名稱</th>
-                                                <th class="fs-4 text-white fw-bold">員工編號</th>
-                                                <th class="fs-4 text-white fw-bold">請假起始時間</th>
-                                                <th class="fs-4 text-white fw-bold">請假結束時間</th>
-                                                <th class="fs-4 text-white fw-bold">修改</th>
+                                                <th class="fs-3 text-white fw-bold">員工名稱</th>
+                                                <th class="fs-3 text-white fw-bold">員工編號</th>
+                                                <th class="fs-3 text-white fw-bold">請假起始時間</th>
+                                                <th class="fs-3 text-white fw-bold">請假結束時間</th>
+                                                <th class="fs-3 text-white fw-bold">修改</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0" v-for="item in employeelist">
                                             <tr>
-                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-5 fw-bold">{{item.employeeName}}</strong></td></td>
-                                                <td class="fs-5 fw-bold">{{item.employeeNumber}}</td>
+                                                <td><i class="fab fa-angular fa-lg text-danger"></i> <strong class="fs-4 fw-bold">{{item.employeeName}}</strong></td></td>
+                                                <td class="fs-4 fw-bold">{{item.employeeNumber}}</td>
                                                 <td>
-                                                    <span class="label-primary me-1 fw-bold">{{item.startDate}}-{{item.startTime}}</span>
+                                                    <span class="fs-5 label-primary me-1 fw-bold">{{item.startDate}}-{{item.startTime}}</span>
                                                 </td>
                                                 <td>
-                                                    <span class="label-primary me-1 fw-bold">{{item.endDate}}-{{item.endTime}}</span>
+                                                    <span class="fs-5 label-primary me-1 fw-bold">{{item.endDate}}-{{item.endTime}}</span>
                                                 </td>
                                                 <td>
 
-                                                    <a class="item" href="HR_EmpLeaveEdit.html" @click="ToEditbtn(item)"><i class="bx bx-edit-alt"></i> 修改</a>
+                                                    <a class="item fs-5 fw-bold" href="HR_EmpLeaveEdit.html" @click="ToEditbtn(item)"><i class="bx bx-edit-alt"></i> 修改</a>
                                                     <!-- <a class="item" href="javascript:void(0);"
                                   ><i class="bx bx-trash me-1"></i> Delete</a
                                 > -->

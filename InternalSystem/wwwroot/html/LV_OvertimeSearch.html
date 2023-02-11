@@ -482,42 +482,42 @@
                                 <div class="row my-4 mx-4">
                                     <div class="mb-3 col-md-2">
                                         <label for="EmployeeName" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工名稱</label>
-                                        <input v-model="employeelist.employeeName" class="form-control fs-5" id="Employeename" disabled />
+                                        <input v-model="employeelist.employeeName" class="form-control fs-5 fw-bold " id="Employeename" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="EmployeeNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
-                                        <input v-model="employeelist.employeeNumber" class="form-control fs-5" id="EmployeeNumber" disabled />
+                                        <input v-model="employeelist.employeeNumber" class="form-control fs-5 fw-bold " id="EmployeeNumber" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
                                         <label for="Employeeid" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
-                                        <input v-model="employeelist.employeeId" class="form-control fs-5" id="Employeeid" disabled />
+                                        <input v-model="employeelist.employeeId" class="form-control fs-5 fw-bold " id="Employeeid" disabled />
                                     </div>
                                     <div class="mb-3 col-md-2" style="display:none">
                                         <label for="Status" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">員工編號</label>
-                                        <input v-model="workoverlist.auditStatus" class="form-control fs-5" id="Status" disabled />
+                                        <input v-model="workoverlist.auditStatus" class="form-control fs-5 fw-bold " id="Status" disabled />
                                     </div>
                                 </div>
 
                                 <div class="row mx-4 mb-4">
                                     <div class="mb-3 col-md-3">
                                         <label for="html5-date-input" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" @click="overst">開始時間</label>
-                                        <input class="mb-4 form-control fs-5" type="date" v-model="workoverlist.startDate" id="html5-date-input" />
+                                        <input class="mb-4 form-control fs-5 fw-bold " type="date" v-model="workoverlist.startDate" id="html5-date-input" />
 
                                         <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold" @click="overet">結束時間</label>
-                                        <input class="form-control fs-5" type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
+                                        <input class="form-control fs-5 fw-bold " type="date" v-model="workoverlist.endDate" id="Endtimeforvacation" />
                                     </div>
                                     <div class="mb-3 col-md-3">
                                         <div style="height: 43px;"></div>
-                                        <input class="mb-4 form-control fs-5" type="time" v-model="workoverlist.startTime" id="html5-date-input" />
+                                        <input class="mb-4 form-control fs-5 fw-bold " type="time" v-model="workoverlist.startTime" id="html5-date-input" />
                                         <div style="height: 43px;"></div>
-                                        <input class="form-control fs-5" type="time" v-model="workoverlist.endTime" id="html5-time-input" />
+                                        <input class="form-control fs-5 fw-bold " type="time" v-model="workoverlist.endTime" id="html5-time-input" />
                                     </div>
                                 </div>
 
                                 <div class="row mb-4 mx-4">
                                     <div class="mb-3 col-md-3">
                                         <label for="orderNumber" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班訂單/製程/廠區</label>
-                                        <select v-model="product.orderId" @change="overReason(product.orderId)" id="orderNumber" class="select1 form-select">
+                                        <select v-model="product.orderId" @change="overReason(product.orderId)" id="orderNumber" class="select1 form-select fs-5 fw-bold ">
                                             <option value="請選擇訂單" disabled>請選擇訂單</option>
                                             <option v-for="item in product" :value="item.areaId">{{item.orderNumber}}</option>
                                         </select>
@@ -525,12 +525,12 @@
 
                                     <div class="mb-3 col-md-3">
                                         <label for="area" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班廠區</label>
-                                        <input class="form-control fs-5" v-model="overprocess.areaName" id="area" disabled />
+                                        <input class="form-control fs-5 fw-bold " v-model="overprocess.areaName" id="area" disabled />
                                     </div>
 
                                     <div class="mb-3 col-md-3">
                                         <label for="process" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班製程</label>
-                                        <input class="form-control fs-5" v-model="overprocess.processName" id="process" disabled />
+                                        <input class="form-control fs-5 fw-bold " v-model="overprocess.processName" id="process" disabled />
                                     </div>
 
                                     <!-- ★Modal -->
@@ -546,10 +546,10 @@
                                                     <hr class="col-10">
                                                 </div>
                                                 <div class="modal-body text-start mt-0">
-                                                    <p class="fs-5">✏️加班開始時間：{{workoverlist.startDate}} - {{workoverlist.startTime}}</p>
-                                                    <p class="fs-5">✏️加班結束時間：{{workoverlist.endDate}} - {{workoverlist.endTime}}</p>
-                                                    <p class="fs-5">✏️加班廠區：{{overprocess.areaName}}</p>
-                                                    <p class="fs-5">✏️加班製程：{{overprocess.processName}}</p>
+                                                    <p class="fs-5 fw-bold ">✏️加班開始時間：{{workoverlist.startDate}} - {{workoverlist.startTime}}</p>
+                                                    <p class="fs-5 fw-bold ">✏️加班結束時間：{{workoverlist.endDate}} - {{workoverlist.endTime}}</p>
+                                                    <p class="fs-5 fw-bold ">✏️加班廠區：{{overprocess.areaName}}</p>
+                                                    <p class="fs-5 fw-bold ">✏️加班製程：{{overprocess.processName}}</p>
                                                     <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認申請?</p>
                                                 </div>
                                                 <div class="modal-footer">

@@ -513,7 +513,7 @@
                                 <strong class="form-control fs-5 fw-bold" v-if="detail.auditStatus ==false" id="Totalvacation" readonly>待審核</strong>
                                 <strong class="form-control fs-5 fw-bold" v-if="detail.auditStatus ==true" id="Totalvacation" readonly>同意</strong>
                             </div>
-                           <div class="col-3">&nbsp;</div>
+                            <div class="col-3">&nbsp;</div>
                             <div class="mt-4 col-md-3">
                                 <label for="Endtimeforvacation" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">加班廠區</label>
                                 <input class="form-control fs-5 fw-bold" v-model="detail.areaName" id="Totalvacation" disabled />
@@ -524,6 +524,10 @@
                             </div>
 
                             <div class="fw-bold mx-auto fs-2 my-4">總加班時間: <span class="text-primary fw-bold">{{detail.totalTime}}</span> &nbsp 小時</div>
+                            <div class="my-4 d-md-flex justify-content-md-end">
+
+                                <a href="/html/LV_ProfileOvertimeSearch.html" class="btn btn-secondary fs-4 fw-bold border-3 me-3">返回</a>
+                            </div>
                         </div>
                     </form>
                     </div>

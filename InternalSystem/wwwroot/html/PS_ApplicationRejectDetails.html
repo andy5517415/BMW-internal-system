@@ -660,24 +660,23 @@
                             },
                             methods: {
                                 delbtn: function () {
-                                    if (confirm('是否刪除本次申請?') == true) {
                                         axios.delete('/api/PersonnelLeaveForms/buyrej/' + this.myobject.orderId)
                                             .then(response => {
                                                 //console.log(response.status);
                                                 //★成功
                                                 this.text = response.data;
                                                 $("#toastSuc").fadeIn("fast");
-                                                setTimeout(() => $("#toastSuc").fadeOut(), 2000);
-
-                                                //失敗
-                                                this.text = response.data;
-                                                $("#toastErr").fadeIn("fast");
-                                                setTimeout(() => $("#toastErr").fadeOut(), 2000);;
+                                                setTimeout(() => $("#toastSuc").fadeOut(), 1500);
+                                                setTimeout(() => { window.location ="/html/PS_ToDoItems.html" }, 1000);
+                                                ////失敗
+                                                //this.text = response.data;
+                                                //$("#toastErr").fadeIn("fast");
+                                                //setTimeout(() => $("#toastErr").fadeOut(), 2000);;
                                             })
                                             .catch(err => console.log(err))
                                     }
 
-                                }
+                                
                             },
                             mounted() {
                                 this.myobject = JSON.parse(sessionStorage.getItem('see'))
