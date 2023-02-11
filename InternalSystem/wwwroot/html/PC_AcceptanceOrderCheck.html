@@ -589,15 +589,12 @@
                                             <button type="button" class="col-md-6 btn btn-primary d-block fs-4 fw-bold " data-bs-toggle="modal" data-bs-target="#pass">
                                                 核准
                                             </button>
-                                            <!--<button class="col-md-6 btn btn-primary d-block" id="btncancel" v-on:click="Cancel">退貨</button>-->
-                                            <!--<button class="col-md-6 btn btn-primary d-block" id="btncreate" v-on:click="Confirm">核准</button>-->
                                         </div>
                                         <!-- 駁回內容 -->
                                         <div class="modal fade" id="reject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
                                                         <div class="alert alert-danger fs-4 fw-bold col-12 mx-auto text-center">
                                                             確定要將此訂單退貨嗎?
                                                         </div>
@@ -608,7 +605,6 @@
                                                         <input v-model="rejectreason.content">
                                                     </div>
                                                     <br>
-                                                    <!--<p class="fs-6 text-center">⚠️注意，取消後訂單將被取消!</p>-->
                                                     <p class="fs-6 text-center fs-4 fw-bold ">⚠️注意，取消後物品將直接退回!</p>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary fs-4 fw-bold border-3 me-3 border-3" data-bs-dismiss="modal">返回</button>
@@ -623,7 +619,6 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <!--<h5 class="modal-title" id="exampleModalLabel">確認要駁回此項申請嗎?</h5>-->
                                                         <div class="alert alert-success fs-4 fw-bold col-12 mx-auto text-center">
                                                             確認要通過此項申請嗎?
                                                         </div>
@@ -688,7 +683,6 @@
                 // 按下確認按鈕，送出驗收成功
                 Confirm: function () {
                     this.todoitem.acceptanceStatus = true;
-                    /*this.todoitem.total = 500;*/
                     //console.log(this.todoitem.orderId);
                     axios.put('/api/PCApplications/' + this.todoitem.orderId, this.todoitem).then(a => {
                         this.text = '驗收成功';
@@ -717,7 +711,6 @@
                         for (var i = 0; i < this.list.length; i++) {
                             k += response.data[i].subtotal;
                         }
-                        //this.list.orderlist = i;
                         this.totalprice = k;
                         //console.log(this.totalprice);
                         //console.log(this.list.orderlist);
