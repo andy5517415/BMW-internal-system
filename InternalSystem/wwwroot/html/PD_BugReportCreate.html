@@ -600,7 +600,7 @@
                                                 <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-xxl-center">
                                                     <div style="height: 500px; width: 800px;">
                                                         <img :src="Bugtext.photo" alt="圖片檔" class=" rounded"
-                                                             style="height: 100%; width: 100%; object-fit: scale-down; " id="uploadedAvatar" v-if="Bugtext.photo==null" />
+                                                             style="height: 100%; width: 100%; object-fit: scale-down; " id="uploadedAvatar" v-if="Bugtext.photo!=null" />
                                                     </div>
 
 
@@ -672,7 +672,7 @@
                             text: "",
                             Order: {},
                             PressList: {},
-                            Bugtext: {"photo":""},
+                            Bugtext: {},
                             limit: {}
                         }
                     },
@@ -682,6 +682,9 @@
                             .then(response => this.Order = response.data);
                     },
                     methods: {
+                        photoreset: function () {
+                            this.Bugtext.photo = null;
+                        },
                         ted(e) {
                             axios.get('https://localhost:44319/api/ProductionProcessLists/bugListCreate/' + e)
                                 .then(response => this.PressList = response.data);
@@ -770,6 +773,7 @@
                             this.Bugtext.dispose = "宣導工具安放位置"
 
                         }
+                   
                     }
                 }
                 Vue.createApp(app).mount("#app")
