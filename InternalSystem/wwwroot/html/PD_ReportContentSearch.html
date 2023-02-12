@@ -466,7 +466,7 @@
                       <div class="col mt-5 mb-4 mx-4">
 
                     <div class="my-4 mx-5 d-flex">
-                      <label for="StarDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">開始日期</label>
+                      <label for="StarDate" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable" @click="sdate">開始日期</label>
                       <div class="col ms-2">
                         <input class="form-control fs-5 myinput" type="date" v-model="Search.StarDate" id="StarDate" />
                       </div>
@@ -587,7 +587,11 @@
           axios.get('https://localhost:44319/api/ProductionContexts/ContextsList')
             .then(response => this.contxtList = response.data)
         },
-        methods: {
+          methods: {
+              sdate: function () {
+                  this.Search.StarDate = "2022-12-19";
+                  this.Search.EndDate = "2023-02-12";
+              },
           Enter: function (e) {
 
             sessionStorage.setItem("data", JSON.stringify(e))
