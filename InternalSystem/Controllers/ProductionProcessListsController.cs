@@ -387,7 +387,8 @@ namespace InternalSystem.Controllers
                            OrderNumber = BO.OrderNumber,
                            OptionalId = BOT.OptionalId,
                            OptionalName = BOT.OptionalName,
-                           Price = BOT.Price
+                           Price = BOT.Price,
+                           DeadlineDateTime = BO.DeadlineDateTime
                        };
             if (List == null)
             {

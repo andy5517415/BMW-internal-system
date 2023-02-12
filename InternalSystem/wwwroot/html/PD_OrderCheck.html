@@ -491,7 +491,7 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model="BSO.deadlineDateTime" />
+                                             v-model="item.deadlineDateTime" />
                                   </div>
                               </div>
 
@@ -801,7 +801,7 @@
                             this.BSO = response.data
                             this.BSO.isAccepted = true
                             //console.log(typeof(this.BOS.deadlineDateTime));
-                            this.BSO.deadlineDateTime = this.BSO.deadlineDateTime.slice(0,10);
+                            this.item.deadlineDateTime = this.BSO.deadlineDateTime.slice(0,10);
                         })
                     
                     //製程單
