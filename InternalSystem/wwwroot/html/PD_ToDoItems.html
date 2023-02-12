@@ -504,6 +504,7 @@
                                                                             <th class="fs-4 text-white fw-bold">訂單編號</th>
                                                                             <th class="fs-4 text-white fw-bold">型號</th>
                                                                             <th class="fs-4 text-white fw-bold">製程</th>
+                                                                            <th class="fs-4 text-white fw-bold">出貨日</th>
                                                                             <th class="fs-4 text-white fw-bold">狀態</th>
                                                                             <th class="fs-4 text-white fw-bold">工作指派</th>
                                                                         </tr>
@@ -517,6 +518,9 @@
                                                                             </td>
                                                                             <td>
                                                                                 <span class="fs-5 fw-bold">{{order.processName}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{order.deadlineDateTime}}</span>
                                                                             </td>
                                                                             <td>
                                                                                 <span class="fs-5 fw-bold">{{order.isAccepted}}</span>
@@ -543,6 +547,7 @@
                                                                             <th class="fs-4 text-white fw-bold">訂單編號</th>
                                                                             <th class="fs-4 text-white fw-bold">型號</th>
                                                                             <th class="fs-4 text-white fw-bold">製程</th>
+                                                                            <th class="fs-4 text-white fw-bold">出貨日</th>
                                                                             <th class="fs-4 text-white fw-bold">狀態</th>
                                                                             <th class="fs-4 text-white fw-bold">工作指派</th>
                                                                         </tr>
@@ -556,6 +561,9 @@
                                                                             </td>
                                                                             <td>
                                                                                 <span class="fs-5 fw-bold">{{Process.processName}}</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="fs-5 fw-bold">{{Process.deadlineDateTime}}</span>
                                                                             </td>
                                                                             <td>
                                                                                 <span class="fs-5 fw-bold">{{Process.isAccepted}}</span>
@@ -670,18 +678,23 @@
                                     this.ProcessList[i].isAccepted = "待處理";
                                     this.ProcessList[i].processId = 1;
                                     this.ProcessList[i].processName = "A製程";
+                                    this.ProcessList[i].deadlineDateTime = this.ProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                                 if (this.ProcessList[i].optionalId == 2) {
                                     this.ProcessList[i].optionalName = this.ProcessList[i].optionalName.slice(4);
                                     this.ProcessList[i].isAccepted = "待處理";
                                     this.ProcessList[i].processId = 1;
                                     this.ProcessList[i].processName = "A製程";
+                                    this.ProcessList[i].deadlineDateTime = this.ProcessList[i].deadlineDateTime.slice(0, 10);
+
                                 }
                                 if (this.ProcessList[i].optionalId == 3) {
                                     this.ProcessList[i].optionalName = this.ProcessList[i].optionalName.slice(4, 15);
                                     this.ProcessList[i].isAccepted = "待處理";
                                     this.ProcessList[i].processId = 1;
                                     this.ProcessList[i].processName = "A製程";
+                                    this.ProcessList[i].deadlineDateTime = this.ProcessList[i].deadlineDateTime.slice(0, 10);
+
                                 }
                             }
                         })
@@ -695,14 +708,17 @@
                                 if (this.OrderList[i].optionalId == 1) {
                                     this.OrderList[i].optionalName = this.OrderList[i].optionalName.slice(3);
                                     this.OrderList[i].isAccepted = "待處理"
+                                    this.OrderList[i].deadlineDateTime = this.ProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                                 if (this.OrderList[i].optionalId == 2) {
                                     this.OrderList[i].optionalName = this.OrderList[i].optionalName.slice(4);
                                     this.OrderList[i].isAccepted = "待處理"
+                                    this.OrderList[i].deadlineDateTime = this.ProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                                 if (this.OrderList[i].optionalId == 3) {
                                     this.OrderList[i].optionalName = this.OrderList[i].optionalName.slice(4, 15);
                                     this.OrderList[i].isAccepted = "待處理"
+                                    this.OrderList[i].deadlineDateTime = this.ProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                             }
                         })
