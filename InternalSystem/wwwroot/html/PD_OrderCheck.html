@@ -481,8 +481,17 @@
                                              placeholder=""
                                              aria-describedby="defaultFormControlHelp"
                                              disabled
-                                             v-model ="item.orderNumber"
-                                             />
+                                             v-model="item.orderNumber" />
+                                  </div>
+                                  <div class="col-md-6">
+                                      <label for="deadlineDateTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">交貨日</label>
+                                      <input type="text"
+                                             class="form-control fs-5"
+                                             id="deadlineDateTime"
+                                             placeholder=""
+                                             aria-describedby="defaultFormControlHelp"
+                                             disabled
+                                             v-model="BSO.deadlineDateTime" />
                                   </div>
                               </div>
 
@@ -791,8 +800,10 @@
                         .then(response => {
                             this.BSO = response.data
                             this.BSO.isAccepted = true
+                            //console.log(typeof(this.BOS.deadlineDateTime));
+                            this.BSO.deadlineDateTime = this.BSO.deadlineDateTime.slice(0,10);
                         })
-
+                    
                     //製程單
                     axios.get('https://localhost:44319/api/ProductionProcesses')
                         .then(response => this.processes = response.data)

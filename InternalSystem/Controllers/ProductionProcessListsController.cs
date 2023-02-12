@@ -306,7 +306,8 @@ namespace InternalSystem.Controllers
                            OrderNumber = BO.OrderNumber,
                            OptionalId = BOT.OptionalId,
                            OptionalName = BOT.OptionalName,
-                           IsAccepted = BO.IsAccepted
+                           IsAccepted = BO.IsAccepted,
+                           DeadlineDateTime = BO.DeadlineDateTime
                        };
 
             return await List.ToListAsync();
@@ -332,7 +333,8 @@ namespace InternalSystem.Controllers
                            OrderNumber = BO.OrderNumber,
                            OptionalId = BOT.OptionalId,
                            OptionalName = BOT.OptionalName,
-                           StatusId = PPL.StatusId
+                           StatusId = PPL.StatusId,
+                           DeadlineDateTime = BO.DeadlineDateTime
                        };
 
             return await List.ToListAsync();
