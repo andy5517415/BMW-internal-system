@@ -475,9 +475,10 @@
                     
                             <div class="card mb-4 m-4 " v-for="processList in PDProcessList">
                                 <div class="row card-body">
-                                    <label id="optionalName" for="" class="col-4 fs-4">型號: {{processList.optionalName}}</label>
-                                    <label id="orderNumber" for="" class="col-4 fs-4">訂單號碼: {{processList.orderNumber}}</label>
-                                    <label for="" class="col-4 fs-4 ">開始生產日期: {{processList.starDate}}</label>
+                                    <label id="optionalName" for="" class="col-3 fs-4">型號: {{processList.optionalName}}</label>
+                                    <label id="orderNumber" for="" class="col-3 fs-4">訂單號碼: {{processList.orderNumber}}</label>
+                                    <label for="" class="col-3 fs-4 ">開始生產日期: {{processList.starDate}}</label>
+                                    <label for="" class="col-3 fs-4 ">出貨日期: {{processList.deadlineDateTime}}</label>
                                     <div class="row">
                                         <label id="processName" for="" class="col-3 fs-4 my-3">生產: {{processList.processName}}</label>
                                         <label id="areaName" for="" class="col-2 text-center rounded fs-4 my-3 fw-bold bg-label-primary">廠區: {{processList.areaName}}</label>
@@ -578,12 +579,15 @@
                             for (var i = 0; i < this.PDProcessList.length; i++) {
                                 if (this.PDProcessList[i].optionalId == 1) {
                                     this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4);
+                                    this.PDProcessList[i].deadlineDateTime = this.PDProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                                 if (this.PDProcessList[i].optionalId == 2) {
                                     this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4);
+                                    this.PDProcessList[i].deadlineDateTime = this.PDProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                                 if (this.PDProcessList[i].optionalId == 3) {
                                     this.PDProcessList[i].optionalName = this.PDProcessList[i].optionalName.slice(4);
+                                    this.PDProcessList[i].deadlineDateTime = this.PDProcessList[i].deadlineDateTime.slice(0, 10);
                                 }
                             }
                         })

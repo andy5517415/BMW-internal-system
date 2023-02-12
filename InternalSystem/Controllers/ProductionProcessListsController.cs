@@ -283,6 +283,7 @@ namespace InternalSystem.Controllers
                            OptionalName = BOT.OptionalName,
                            StatusId = PPL.StatusId,
                            StatusName = PPSN.StatusName,
+                           DeadlineDateTime = BO.DeadlineDateTime
 
                        };
 
