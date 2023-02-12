@@ -484,7 +484,7 @@
                                     <div class="col d-flex mt-5 mb-4 mx-4">
                                         <label for="html5-month-input" class="badge rounded-pill bg-primary fs-4 fw-bold mylLable">請假月份</label>
                                         <div class="col-3 ms-2">
-                                            <input class="form-control fs-5 myinput" type="month" v-model="leavesearch.month" id="html5-month-input" />
+                                            <input class="form-control fs-5 myinput" type="month" v-model="leavesearch.month" id="html5-month-input" @click="date"/>
                                         </div>
                                         <div class="col ms-5">
                                             <button type="button" @click="searchbtn" class="btn btn-outline-primary me-3 fs-4 fw-bold border-3">查詢</button>
@@ -606,6 +606,9 @@
                 }
             },
             methods: {
+                date: function () {
+                    this.leavesearch.month ="2023-02"
+                },
                 searchbtn: function () {
 
                     this.employeedata = JSON.parse(sessionStorage.getItem("LoginInf"));

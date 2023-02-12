@@ -796,6 +796,10 @@ namespace InternalSystem.Controllers
                         update.TotalTime = personnelLeaveForm.TotalTime;
                         update.Reason = personnelLeaveForm.Reason;
                         update.Photo = personnelLeaveForm.Photo;
+                        update.ManagerAuditDate = null;
+                        update.ManagerAudit = null;
+                        update.ProxyAudit = null;
+                        update.ProxyAuditDate = null;
                         _context.SaveChanges();
                     }
                     return Content("已重新提交申請");
@@ -825,6 +829,10 @@ namespace InternalSystem.Controllers
                     update.AuditManerger = personnelLeaveForm.AuditManerger;
                     update.TotalTime = personnelLeaveForm.TotalTime;
                     update.Reason = personnelLeaveForm.Reason;
+                    update.ManagerAuditDate = null;
+                    update.ManagerAudit = null;
+                    update.ProxyAudit = null;
+                    update.ProxyAuditDate = null;
                     _context.SaveChanges();
                 }
                 return Content("已重新提交申請");

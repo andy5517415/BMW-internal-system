@@ -505,7 +505,7 @@
 
                                     <div class="mb-3 col-md-2">
                                         <label for="StartTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">開始日期</label>
-                                        <input class="form-control fs-5 fw-bold mb-2" type="date" id="StartTime" v-model="leaveExit.startDate" />
+                                        <input class="form-control fs-5 fw-bold mb-2" type="date" id="StartTime" v-model="leaveExit.startDate" @click="sdate"/>
 
                                     </div>
                                     <div class="mb-3 col-md-2">
@@ -515,7 +515,7 @@
                                     </div>
                                     <div class="mb-3 col-md-2">
                                         <label for="EndTime" class="badge rounded-pill bg-label-primary fs-4 mb-1 fw-bold">結束日期</label>
-                                        <input class="form-control fs-5 fw-bold mb-2" type="date" id="Endtimeforvacation" v-model="leaveExit.endDate" />
+                                        <input class="form-control fs-5 fw-bold mb-2" type="date" id="Endtimeforvacation" v-model="leaveExit.endDate"/>
 
                                     </div>
                                     <div class="mb-3 col-md-2">
@@ -783,7 +783,11 @@
                     }
                 },
                 methods: {
-
+                    sdate: function () {
+                        this.leaveExit.startDate = "2023-02-27";
+                        this.leaveExit.endDate = "2023-02-27";
+                    },
+                   
                     okbtn: function () {
 
                         if (this.leaveExit.leaveType != null &&
