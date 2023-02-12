@@ -472,31 +472,7 @@
                                     ❌&nbsp;{{text}}
                                 </div>
                             </div>
-                            <!-- ★Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content border border-5">
-                                        <div class="modal-header mb-3">
-                                            <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
-                                                &nbsp製程完成確認
-                                            </p>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <hr class="col-10">
-                                        </div>
-                                        <div class="modal-body text-start mt-0">
-                                            <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認製程完成?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary fs-4 fw-bold" data-bs-dismiss="modal" aria-label="Close" v-on:click="Finish(processList)">
-                                                確認報工
-                                            </button>
-                                            <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
-                                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    
                             <div class="card mb-4 m-4 " v-for="processList in PDProcessList">
                                 <div class="row card-body">
                                     <label id="optionalName" for="" class="col-4 fs-4">型號: {{processList.optionalName}}</label>
@@ -506,9 +482,33 @@
                                         <label id="processName" for="" class="col-3 fs-4 my-3">生產: {{processList.processName}}</label>
                                         <label id="areaName" for="" class="col-2 text-center rounded fs-4 my-3 fw-bold bg-label-primary">廠區: {{processList.areaName}}</label>
                                     </div>
-
+                                    <!-- ★Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border border-5">
+                                                <div class="modal-header mb-3">
+                                                    <p class="modal-title fs-2 fw-bold" id="ModalLabel" style="border-left: 10pt solid #666EE8;border-radius: 4px;">
+                                                        &nbsp製程完成確認
+                                                    </p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <hr class="col-10">
+                                                </div>
+                                                <div class="modal-body text-start mt-0">
+                                                    <p class="alert alert-danger fs-4 fw-bold col-5 text-center mx-auto mt-5">⚠️確認製程完成?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary fs-4 fw-bold" v-on:click="Finish(processList)">
+                                                        確認報工
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary fs-4 fw-bold" data-bs-dismiss="modal">關閉</button>
+                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-11 d-md-flex justify-content-md-end">
-                                        <button type="button" class="btn btn-outline-dark" 
+                                        <button type="button" class="btn btn-outline-dark"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                 v-if="limit.PositionId>=4">
                                             製程完成
@@ -606,7 +606,6 @@
                         }
 
                         if (f.processId == 3) {
-                            if (confirm('確定送出?'))
                                 //put 原表狀態改成3
                                 this.processput.orderId = f.orderId
                             this.processput.processId = f.processId
@@ -640,7 +639,6 @@
                                 })
 
                         } else {
-                            if (confirm('確定送出?')) {
                                 //post 新建第二製程
                                 this.Processpost.orderId = f.orderId
                                 this.Processpost.processId = f.processId + 1
@@ -684,7 +682,7 @@
                                             })
                                         })
                                     })
-                            }
+                            
 
                             //window.location = "PD_MakeClass.html"
                         }
