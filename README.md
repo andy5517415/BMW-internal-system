@@ -1,5 +1,5 @@
 # InternalSystem
-BMW內部系統
+BMW內部系統 https://bmwinternalsystem.azurewebsites.net/Login.html
 
 負責項目：登入器、會議室系統、前端美化管控
 主題為車廠的製造公司，目的是為了給公司員工做使用，打造一個完善的後台管理系統，能讓工作的作業流程更加完善，控管不必要的資金流出，能更精準統計每位員工的產值。
