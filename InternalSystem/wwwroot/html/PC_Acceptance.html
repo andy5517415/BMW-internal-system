@@ -24,7 +24,7 @@
     <meta charset="utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>BMW 內部系統</title>
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 
@@ -551,8 +551,8 @@
       const app = {
         data() {
           return {
-              OrderList: {},
-              limit: {}
+            OrderList: {},
+            limit: {}
           }
         },
         methods: {
@@ -562,18 +562,18 @@
         },
         mounted() {
           axios.get("/api/PCApplications/acceptance")
-              .then(response => {
-                  this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
-                  this.OrderList = response.data;
-                  for (var i = 0; i < this.OrderList.length; i++) {
-                      if (this.OrderList[i].deliveryStatus == true) {
-                          this.OrderList[i].deliveryStatus = "配送完成"
-                      }
-                      if (this.OrderList[i].deliveryStatus == false) {
-                          this.OrderList[i].deliveryStatus = "配送中"
-                      }
-                  }
-              });
+            .then(response => {
+              this.limit = JSON.parse(sessionStorage.getItem("LoginInf"));
+              this.OrderList = response.data;
+              for (var i = 0; i < this.OrderList.length; i++) {
+                if (this.OrderList[i].deliveryStatus == true) {
+                  this.OrderList[i].deliveryStatus = "配送完成"
+                }
+                if (this.OrderList[i].deliveryStatus == false) {
+                  this.OrderList[i].deliveryStatus = "配送中"
+                }
+              }
+            });
         }
       }
       Vue.createApp(app).mount('#app')

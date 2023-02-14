@@ -25,7 +25,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>BMW 內部系統</title>
 
     <meta name="description" content="" />
 
@@ -660,126 +660,126 @@
 
     <script>
 
-      const app = {
-        data() {
-          return {
-            item: {},
-            dd: [],
-            accordionOne: [],
-            Search: { "orderNumber": "", "orderType": "", "orderStadus": "" },
-            text: ""
-          }
-        },
-        mounted() {
+        const app = {
+            data() {
+                return {
+                    item: {},
+                    dd: [],
+                    accordionOne: [],
+                    Search: { "orderNumber": "", "orderType": "", "orderStadus": "" },
+                    text: ""
+                }
+            },
+            mounted() {
 
 
-          axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
-            then(response => {
-              this.item = response.data
+                axios.get('https://localhost:44319/api/ProductionContexts/ListTotal').
+                    then(response => {
+                        this.item = response.data
 
-              for (var i = 0; i < this.item.length; i++) {
-                //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                  then(response => {
-                    this.dd.push(response.data);
-                    //console.log(response.data)
-                  })
-                this.item.forEach((x, index) => {
-                  this.accordionOne.push(x.orderNumber)
-                })
-              }
+                        for (var i = 0; i < this.item.length; i++) {
+                            //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                            axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                                then(response => {
+                                    this.dd.push(response.data);
+                                    //console.log(response.data)
+                                })
+                            this.item.forEach((x, index) => {
+                                this.accordionOne.push(x.orderNumber)
+                            })
+                        }
 
-            })
-          setTimeout(() => {
-            //console.log(this.dd)
-            this.dd.sort(function (a, b) {
-              return a.orderId - b.orderId;
-            });
-          }, 200)
-          setTimeout(() => {
-            console.log(this.dd.length)
-            //統計圖
-            let cityPopulationList = [this.dd.length, 10, 20, 15, 17];
-            let cityPopulationList2030 = [22, 20, 41, 23, 25];
+                    })
+                setTimeout(() => {
+                    //console.log(this.dd)
+                    this.dd.sort(function (a, b) {
+                        return a.orderId - b.orderId;
+                    });
+                }, 200)
+                setTimeout(() => {
+                    console.log(this.dd.length)
+                    //統計圖
+                    let cityPopulationList = [this.dd.length, 10, 20, 15, 17];
+                    let cityPopulationList2030 = [22, 20, 41, 23, 25];
 
-            let cityNameList = ["Tokyo", "Delhi", "Shanghai", "Sao Paulo", "New York"];
+                    let cityNameList = ["Tokyo", "Delhi", "Shanghai", "Sao Paulo", "New York"];
 
-            // Lab 練習的程式寫在這裡
+                    // Lab 練習的程式寫在這裡
 
-            let ctx = document.getElementById("apple");
-            let populationChart = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: cityNameList,  // X 軸項目清單
-                datasets: [
-                  {
-                    label: "population",
-                    data: cityPopulationList,
-                    // 著色:
-                    backgroundColor: "rgba(14,72,100,0.2)",
-                    borderColor: "rgba(14,72,100,1.0)",
-                    borderWidth: 1
-                  },
-                  {
-                    label: "2030 population",
-                    data: cityPopulationList2030,
-                    // 著色:
-                    backgroundColor: "rgba(255,99,132,0.2)",
-                    borderColor: "rgba(255,99,132,1.0)",
-                    borderWidth: 1
-                  }
-                ]
-              }
-            })
-          }, 300)
-
-
+                    let ctx = document.getElementById("apple");
+                    let populationChart = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: cityNameList,  // X 軸項目清單
+                            datasets: [
+                                {
+                                    label: "population",
+                                    data: cityPopulationList,
+                                    // 著色:
+                                    backgroundColor: "rgba(14,72,100,0.2)",
+                                    borderColor: "rgba(14,72,100,1.0)",
+                                    borderWidth: 1
+                                },
+                                {
+                                    label: "2030 population",
+                                    data: cityPopulationList2030,
+                                    // 著色:
+                                    backgroundColor: "rgba(255,99,132,0.2)",
+                                    borderColor: "rgba(255,99,132,1.0)",
+                                    borderWidth: 1
+                                }
+                            ]
+                        }
+                    })
+                }, 300)
 
 
 
-        },
-        methods: {
 
-          SearchEnter: function () {
 
-            if (this.Search.orderStadus != "" || this.Search.orderType != "") {
-              axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
-                then(response => {
-                  this.item = response.data
-                  this.dd = [];
-                  for (var i = 0; i < this.item.length; i++) {
-                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
-                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
-                      then(response => {
-                        this.dd.push(response.data);
-                        //console.log(response.data)
-                      })
-                  }
+            },
+            methods: {
 
-                })
-              setTimeout(() => {
-                //console.log(this.dd)
-                this.dd.sort(function (a, b) {
-                  return a.orderId - b.orderId;
+                SearchEnter: function () {
 
-                });
-              }, 200)
+                    if (this.Search.orderStadus != "" || this.Search.orderType != "") {
+                        axios.get('https://localhost:44319/api/ProductionContexts/ListTotal?orderNumber=' + this.Search.orderNumber + '&orderType=' + this.Search.orderType).
+                            then(response => {
+                                this.item = response.data
+                                this.dd = [];
+                                for (var i = 0; i < this.item.length; i++) {
+                                    //console.log('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId)
+                                    axios.get('https://localhost:44319/api/ProductionContexts/Total?id=' + this.item[i].orderId).
+                                        then(response => {
+                                            this.dd.push(response.data);
+                                            //console.log(response.data)
+                                        })
+                                }
+
+                            })
+                        setTimeout(() => {
+                            //console.log(this.dd)
+                            this.dd.sort(function (a, b) {
+                                return a.orderId - b.orderId;
+
+                            });
+                        }, 200)
+                    }
+                    else {
+                        this.text = '請選擇車款!';
+                        $("#toastErr").fadeIn("fast");
+                        setTimeout(() => $("#toastErr").fadeOut(), 1000);
+                    }
+
+                },
+                statistics: function () {
+
+                }
+
             }
-            else {
-              this.text = '請選擇車款!';
-              $("#toastErr").fadeIn("fast");
-              setTimeout(() => $("#toastErr").fadeOut(), 1000);
-            }
-
-          },
-          statistics: function () {
-
-          }
 
         }
-
-      }
-      Vue.createApp(app).mount('#app');
+        Vue.createApp(app).mount('#app');
 
 
 

@@ -23,7 +23,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>BMW 內部系統</title>
 
     <meta name="description" content="" />
 
@@ -610,8 +610,8 @@
                         }
 
                         if (f.processId == 3) {
-                                //put 原表狀態改成3
-                                this.processput.orderId = f.orderId
+                            //put 原表狀態改成3
+                            this.processput.orderId = f.orderId
                             this.processput.processId = f.processId
                             this.processput.areaId = f.areaId
                             this.processput.starDate = f.starDate
@@ -643,50 +643,50 @@
                                 })
 
                         } else {
-                                //post 新建第二製程
-                                this.Processpost.orderId = f.orderId
-                                this.Processpost.processId = f.processId + 1
-                                this.Processpost.areaId = null
-                                this.Processpost.starDate = f.starDate
-                                this.Processpost.endDate = null
-                                this.Processpost.statusId = 1
-                                axios.post('https://localhost:44319/api/ProductionProcessLists', this.Processpost)
+                            //post 新建第二製程
+                            this.Processpost.orderId = f.orderId
+                            this.Processpost.processId = f.processId + 1
+                            this.Processpost.areaId = null
+                            this.Processpost.starDate = f.starDate
+                            this.Processpost.endDate = null
+                            this.Processpost.statusId = 1
+                            axios.post('https://localhost:44319/api/ProductionProcessLists', this.Processpost)
 
 
-                                //put 原表狀態改成3
-                                this.processput.orderId = f.orderId
-                                this.processput.processId = f.processId
-                                this.processput.areaId = f.areaId
-                                this.processput.starDate = f.starDate
-                                this.processput.endDate = `${yyyy}-${mm}-${dd}`
-                                this.processput.statusId = 3
-                                axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processput.orderId, this.processput)
-                                    .then(y => console.log(y))
+                            //put 原表狀態改成3
+                            this.processput.orderId = f.orderId
+                            this.processput.processId = f.processId
+                            this.processput.areaId = f.areaId
+                            this.processput.starDate = f.starDate
+                            this.processput.endDate = `${yyyy}-${mm}-${dd}`
+                            this.processput.statusId = 3
+                            axios.put('https://localhost:44319/api/ProductionProcessLists/' + this.processput.orderId, this.processput)
+                                .then(y => console.log(y))
 
-                                //put 更改監控狀態
-                                console.log(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
-                                axios.get(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
-                                    .then(g => {
-                                        //指派廠區後將監控狀態從待指派改為正常
-                                        var rr = g.data.monitorId;
-                                        //console.log(rr)
-                                        axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
-                                            //console.log(g.data);
-                                            this.monitor = g.data;
-                                            this.monitor.status = '待指派';
-                                            console.log(this.monitor)
-                                            axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
-                                                console.log(p);
-                                                this.text = '成功送出';
-                                                $("#toastSuc").fadeIn("fast");
-                                                setTimeout(() => {
-                                                    $("#toastSuc").fadeOut();
-                                                    window.location = "PD_LineSelect.html";
-                                                }, 1000);
-                                            })
+                            //put 更改監控狀態
+                            console.log(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
+                            axios.get(`/api/MonitoringProcessAreaStatus/${this.processput.areaId}/${this.processput.processId}/${this.car.optionalName}`)
+                                .then(g => {
+                                    //指派廠區後將監控狀態從待指派改為正常
+                                    var rr = g.data.monitorId;
+                                    //console.log(rr)
+                                    axios.get('/api/MonitoringProcessAreaStatus/' + rr).then(g => {
+                                        //console.log(g.data);
+                                        this.monitor = g.data;
+                                        this.monitor.status = '待指派';
+                                        console.log(this.monitor)
+                                        axios.put('/api/MonitoringProcessAreaStatus/' + rr, this.monitor).then(p => {
+                                            console.log(p);
+                                            this.text = '成功送出';
+                                            $("#toastSuc").fadeIn("fast");
+                                            setTimeout(() => {
+                                                $("#toastSuc").fadeOut();
+                                                window.location = "PD_LineSelect.html";
+                                            }, 1000);
                                         })
                                     })
-                            
+                                })
+
 
                             //window.location = "PD_MakeClass.html"
                         }
